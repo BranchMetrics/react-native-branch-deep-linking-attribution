@@ -76,8 +76,12 @@ Add the openURL and continueUserActivity functions
 
 #### Add the branch_key to your plist
 
-Add a String entry branch_key with your branch key to your plist (as described [here](https://dev.branch.io/recipes/add_the_sdk/ios/#add-your-branch-key))
+Add a String entry branch_key with your branch key to your plist (as described [here](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project))
 
-#### Configure for Universal Links (optional but strongly recommended)
+#### Register a URI Scheme for Direct Deep Linking (Optional but Recommended)
 
-Please follow the [instructions](https://dev.branch.io/recipes/add_the_sdk/ios/#configure-for-universal-links)
+Please follow these instructions [here](https://dev.branch.io/references/ios_sdk/#register-a-uri-scheme-direct-deep-linking-optional-but-recommended)
+
+#### Configure for Universal Links
+
+Please follow the [instructions](https://dev.branch.io/references/ios_sdk/#support-universal-linking-ios-9)
