@@ -33,8 +33,8 @@ pod install
 
 #### Modifications to your React Native XCode Project
 
-- Drag and Drop /node_modules/react-native-branch/Pods/Pods.xcodeproj into the Libraries folder of your project in XCode (as described [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
-- Drag and Drop the Pod's libBranch.a into your project's target's "Linked Frameworks and Libraries" section
+- Drag and Drop /node_modules/react-native-branch/Pods/Pods.xcodeproj into the Libraries folder of your project in XCode (as described in Step 1 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
+- Drag and Drop the Pods.xcodeproj's Products's libBranch.a into your project's target's "Linked Frameworks and Libraries" section (as described in Step 2 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
 
 
 
