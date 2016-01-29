@@ -20,6 +20,7 @@ branch.logout();
 ## Installation
 
 ```sh
+npm install rnpm -g
 npm install --save react-native-branch
 rnpm link react-native-branch
 cd node_modules/react-native-branch
