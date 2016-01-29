@@ -21,9 +21,19 @@ static NSDictionary* initSessionWithLaunchOptionsResult;
 RCT_EXPORT_MODULE();
 
 //Called by AppDelegate.m -- stores initSession result in static variables and raises initSessionFinished event that's captured by the RNBranch instance to emit it to React Native
-+ (void)initSessionWithLaunchOptionsFinished:(NSDictionary*)params withError:(NSError*)error {
-  initSessionWithLaunchOptionsResult = @{@"params": params ? params : [NSNull null], @"error": error ? error : [NSNull null]};
-  [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult]; //Forward to RNBranch instance
++ (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
+    [[Branch getInstance] initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        initSessionWithLaunchOptionsResult = @{@"params": params ? params : [NSNull null], @"error": error ? error : [NSNull null]};
+        [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult]; //Forward to RNBranch instance
+    }];
+}
+
++ (BOOL)handleDeepLink:(NSURL *)url {
+    return [[Branch getInstance] handleDeepLink:url];
+}
+
++ (BOOL)continueUserActivity:(NSUserActivity *)userActivity {
+    return [[Branch getInstance] continueUserActivity:userActivity];
 }
 
 - (id)init {
