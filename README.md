@@ -9,7 +9,7 @@ Android support to come shortly.
 var branch = require('react-native-branch');
 
 //Receives the initSession's result as soon as it becomes available
-branch.getInitSessionResultPatiently({params, error} => { });
+branch.getInitSessionResultPatiently(({params, error}) => { });
 
 branch.setDebug();
 branch.getLatestReferringParams((params) => { });
