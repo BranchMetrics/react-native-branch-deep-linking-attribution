@@ -6,7 +6,7 @@ Native Wrapper around Branch Metrics native SDKs
 ```js
 var branch = require('react-native-branch');
 
-//Returns the initSession's result as soon as it becomes available
+//Receives the initSession's result as soon as it becomes available
 branch.getInitSessionResultPatiently({params, error} => { });
 
 branch.setDebug();
