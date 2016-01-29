@@ -62,4 +62,4 @@ class Branch {
   };
 }
 
-export default new Branch();
+module.exports = new Branch();
