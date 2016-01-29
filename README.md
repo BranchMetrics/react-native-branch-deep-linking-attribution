@@ -84,4 +84,4 @@ Please follow these instructions [here](https://dev.branch.io/references/ios_sdk
 
 #### Configure for Universal Links
 
-Please follow the [instructions](https://dev.branch.io/references/ios_sdk/#support-universal-linking-ios-9)
+Please follow these instructions [here](https://dev.branch.io/references/ios_sdk/#support-universal-linking-ios-9)
