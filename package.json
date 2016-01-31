@@ -1,6 +1,6 @@
 {
   "name": "react-native-branch",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Native Wrapper around Branch Metrics native SDKs",
   "main": "index.js",
   "scripts": {
@@ -17,5 +17,13 @@
     "link"
   ],
   "author": "Kevin Stumpf",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DispatcherInc/react-native-branch.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DispatcherInc/react-native-branch/issues"
+  },
+  "homepage": "https://github.com/DispatcherInc/react-native-branch#readme"
 }
