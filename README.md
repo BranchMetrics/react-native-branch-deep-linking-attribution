@@ -62,6 +62,7 @@ dependencies {
 ```java
 // file: android/app/src/main/java/com/xxx/MainActivity.java
 
+import android.content.Intent; // <-- import
 import com.dispatcher.rnbranch.*; // <-- import
 
 public class MainActivity extends ReactActivity {
@@ -123,14 +124,14 @@ Please follow [these instructions](https://dev.branch.io/getting-started/univers
 
 ### iOS
 
-#### Modifications to your React Native XCode Project
+#### Step 1 - Modifications to your React Native XCode Project
 
 - Drag and Drop /node_modules/react-native-branch/Pods/Pods.xcodeproj into the Libraries folder of your project in XCode (as described in Step 1 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
 - Drag and Drop the Pods.xcodeproj's Products's libBranch.a into your project's target's "Linked Frameworks and Libraries" section (as described in Step 2 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
 
 
 
-#### Modifications to AppDelegate.m
+#### Step 2 - Modifications to AppDelegate.m
 
 Import RNBranch.h at the top
 
@@ -166,14 +167,14 @@ Add the openURL and continueUserActivity functions
 }
 ```
 
-#### Add the branch_key to your plist
+#### Step 3 - Add the branch_key to your plist
 
 Add a String entry branch_key with your branch key to your plist (as described [here](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project))
 
-#### Register a URI Scheme for Direct Deep Linking (Optional but Recommended)
+#### Step 4 - Register a URI Scheme for Direct Deep Linking (Optional but Recommended)
 
 Please follow these instructions [here](https://dev.branch.io/references/ios_sdk/#register-a-uri-scheme-direct-deep-linking-optional-but-recommended)
 
-#### Configure for Universal Links
+#### Step 5 - Configure for Universal Linking
 
 Please follow these instructions [here](https://dev.branch.io/references/ios_sdk/#support-universal-linking-ios-9)
