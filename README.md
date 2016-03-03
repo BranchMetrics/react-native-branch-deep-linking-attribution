@@ -110,6 +110,7 @@ Please follow [these instructions](https://dev.branch.io/getting-started/sdk-int
 
 Notes:
 - The "intent-filter" element needs to be added to the activity node, whose android:name is "com.yourAppName.MainActivity". This node is in the "application" node.
+- If you already have an intent-filter tag, this has to be added as an additional one.
 - Make sure to replace "yourApp" with the scheme you specified in the Branch dashboard.
 
 #### Step 5 - Enable Auto Session Management
