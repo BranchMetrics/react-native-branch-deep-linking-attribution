@@ -42,6 +42,8 @@ pod install #Only required for iOS
 ...
 
 include ':react-native-branch', ':app'
+
+// The relative path to the react-native-branch directory tends to often be prefixed with one too many "../"s
 project(':react-native-branch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-branch/android')
 ```
 
