@@ -1,7 +1,7 @@
 # react-native-branch
-Native Wrapper around Branch Metrics native SDKs. Tested with React Native 0.18.1 and branch 0.11.14. 
+Native Wrapper around Branch Metrics native SDKs. Tested with React Native 0.21.0. 
 
-Android support to come shortly.
+Supports iOS and Android.
 
 ## Usage
 
