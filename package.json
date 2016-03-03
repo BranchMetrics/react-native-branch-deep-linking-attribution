@@ -1,6 +1,6 @@
 {
   "name": "react-native-branch",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Native Wrapper around Branch Metrics native SDKs",
   "main": "index.js",
   "scripts": {
