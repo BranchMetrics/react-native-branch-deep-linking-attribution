@@ -34,6 +34,7 @@ pod install #Only required for iOS
 #### Step 0 - Verify Library Linking
 
 *Sometimes rnpm link creates incorrect relative paths, leading to compilation errors*
+
 *Ensure that the following files look as described and all linked paths are correct*
 
 ```gradle
