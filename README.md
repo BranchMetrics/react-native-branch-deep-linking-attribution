@@ -26,8 +26,97 @@ npm install rnpm -g
 npm install --save react-native-branch
 rnpm link react-native-branch
 cd node_modules/react-native-branch
-pod install
+pod install #Only required for iOS
 ```
+
+### Android
+
+#### Step 0 - Verify Library Linking
+
+*Sometimes rnpm link creates incorrect relative paths, leading to compilation errors*
+*Ensure that the following files look as described and all linked paths are correct*
+
+```gradle
+// file: android/settings.gradle
+...
+
+include ':react-native-branch', ':app'
+project(':react-native-branch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-branch/android')
+```
+
+```gradle
+// file: android/app/build.gradle
+...
+
+dependencies {
+    ...
+    compile project(':react-native-branch')
+}
+```
+
+#### Step 1 - Initialize the RNBranchModule
+
+```java
+// file: android/app/src/main/java/com/xxx/MainActivity.java
+
+import com.dispatcher.rnbranch.*; // <-- import
+
+public class MainActivity extends ReactActivity {
+    // ...
+
+    @Override
+    protected List<ReactPackage> getPackages() {
+        return Arrays.<ReactPackage>asList(
+            new MainReactPackage(),
+            new RNBranchPackage() // <-- add this line, if not already there
+        );
+    }
+    
+    // Add onStart
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        RNBranchModule.initSession(this.getIntent().getData(), this);
+    }
+    
+    // Add onNewIntent
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
+    }
+    
+    // ...  
+} 
+```
+
+#### Step 2 - Configure Manifest
+
+Please follow [these instructions] (https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#configure-manifest)
+
+#### Step 3 - Register for Google Play Install Referrer
+
+Please follow [these instructions](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#register-for-google-play-install-referrer)
+
+Note: The "receiver" element needs to be added to the "application" node in AndroidManifest.xml
+
+#### Step 4 - Register a URI scheme
+
+Please follow [these instructions](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#register-a-uri-scheme)
+
+Notes:
+- The "intent-filter" element needs to be added to the activity node, whose android:name is "com.yourAppName.MainActivity". This node is in the "application" node.
+- Make sure to replace "yourApp" with the scheme you specified in the Branch dashboard.
+
+#### Step 5 - Enable Auto Session Management
+
+Please follow [these instructions](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#enable-auto-session-management)
+
+Note: Just add the "android:name" attribute to your "application" node in your AndroidManifest.xml
+
+#### Step 6 - Enable App Links for Android M and above (Optional but Recommended)
+
+Please follow [these instructions](https://dev.branch.io/getting-started/universal-app-links/guide/android/)
 
 ### iOS
 
