@@ -16,6 +16,12 @@ branch.getLatestReferringParams((params) => { });
 branch.getFirstReferringParams((params) => { });
 branch.setIdentity("Your User's ID");
 branch.userCompletedAction("Purchased Item", {item: 123});
+
+var shareOptions = {messageHeader: "Check this out!", messageBody: "Check this cool thing out: "};
+var branchUniversalObject = {canonicalIdentifier: "RNBranchSharedObjectId", contentTitle: "Cool Content!", contentDescription: "Cool Content Description", contentImageUrl: ""};
+var linkProperties = {feature: 'share', channel: 'RNApp'};
+branch.showShareSheet(shareOptions, branchUniversalObject, linkProperties, ({channel, completed, error}) => {});
+
 branch.logout();
 ```
 
