@@ -10,6 +10,9 @@
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
 #import <Branch/Branch.h>
+#import "BranchLinkProperties.h"
+#import "BranchUniversalObject.h"
+
 
 @implementation RNBranch
 
@@ -90,6 +93,33 @@ RCT_EXPORT_METHOD(userCompletedAction:(NSString *)event withState:(NSDictionary 
 {
   Branch *branch = [Branch getInstance];
   [branch userCompletedAction:event withState:appState];
+}
+
+RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap withBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap withLinkProperties:(NSDictionary *)linkPropertiesMap withCallback:(RCTResponseSenderBlock)callback)
+{
+  dispatch_async(dispatch_get_main_queue(), ^(void){
+    BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:[branchUniversalObjectMap objectForKey:@"canonicalIdentifier"]];
+    branchUniversalObject.title = [branchUniversalObjectMap objectForKey:@"contentTitle"];
+    branchUniversalObject.contentDescription = [branchUniversalObjectMap objectForKey:@"contentDescription"];
+    branchUniversalObject.imageUrl = [branchUniversalObjectMap objectForKey:@"contentImageUrl"];
+
+    BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
+    linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
+    linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];  
+
+    [branchUniversalObject showShareSheetWithLinkProperties:linkProperties
+                                             andShareText:[shareOptionsMap objectForKey:@"messageBody"]
+                                             fromViewController:nil
+                                              completion:^(NSString *activityType, BOOL completed){
+      NSDictionary *result = @{
+        @"channel" : activityType ? activityType : [NSNull null],
+        @"completed" : [NSNumber numberWithBool:completed],
+        @"error" : [NSNull null]
+      };
+
+      callback(@[result]);                                      
+    }];
+  });
 }
 
 @end

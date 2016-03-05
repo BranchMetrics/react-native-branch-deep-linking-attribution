@@ -1,6 +1,7 @@
 var { NativeModules, NativeAppEventEmitter, DeviceEventEmitter, Platform } = require('react-native');
 
 var rnBranch = NativeModules.RNBranch;
+var _ = require('lodash');
 
 // According to the React Native docs from 0.21, NativeAppEventEmitter is used for native iOS modules to emit events. DeviceEventEmitter is used for native Android modules.
 // Both are technically supported on Android -- but I chose to follow the suggested route by the documentation to minimize the risk of this code breaking with a future release
@@ -65,6 +66,15 @@ class Branch {
 
   userCompletedAction = (event, state = {}) => {
     rnBranch.userCompletedAction(event, state);
+  };
+
+  showShareSheet = (shareOptions = {}, branchUniversalObject = {}, linkProperties = {}, callback) => {
+    callback = callback || (() => {});
+    _.defaults(shareOptions, {messageHeader: "Check this out!", messageBody: "Check this cool thing out: "});
+    _.defaults(branchUniversalObject, {canonicalIdentifier: "RNBranchSharedObjectId", contentTitle: "Cool Content!", contentDescription: "Cool Content Description", contentImageUrl: ""});
+    _.defaults(linkProperties, {feature: 'share', channel: 'RNApp'});
+
+    rnBranch.showShareSheet(shareOptions, branchUniversalObject, linkProperties, ({channel, completed, error}) => callback({channel, completed, error}));
   };
 }
 

@@ -13,8 +13,9 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.*;
 
-import io.branch.referral.Branch;
-import io.branch.referral.BranchError;
+import io.branch.referral.*;
+import io.branch.referral.util.*;
+import io.branch.indexing.BranchUniversalObject;
 
 import org.json.*;
 import java.util.*;
@@ -127,6 +128,75 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   public void userCompletedAction(String event, ReadableMap appState) throws JSONException {    
     Branch branch = Branch.getInstance();
     branch.userCompletedAction(event, convertMapToJson(appState));
+  }
+
+  @ReactMethod
+  public void showShareSheet(ReadableMap shareOptionsMap, ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, Callback cb) {  
+    Context context = getReactApplicationContext();
+    ShareSheetStyle shareSheetStyle = new ShareSheetStyle(context, shareOptionsMap.getString("messageHeader"), shareOptionsMap.getString("messageBody"))
+                .setCopyUrlStyle(context.getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
+                .setMoreOptionStyle(context.getResources().getDrawable(android.R.drawable.ic_menu_search), "Show more")
+                .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
+                .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
+                .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
+                .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK);
+
+    BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
+            // The identifier is what Branch will use to de-dupe the content across many different Universal Objects
+            .setCanonicalIdentifier(branchUniversalObjectMap.getString("canonicalIdentifier"))
+            // This is where you define the open graph structure and how the object will appear on Facebook or in a deepview
+            .setTitle(branchUniversalObjectMap.getString("contentTitle"))
+            .setContentDescription(branchUniversalObjectMap.getString("contentDescription"))
+            .setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
+
+    LinkProperties linkProperties = new LinkProperties()
+               .setChannel(linkPropertiesMap.getString("channel"))
+               .setFeature(linkPropertiesMap.getString("feature"));
+
+    branchUniversalObject.showShareSheet(getCurrentActivity(), 
+                                      linkProperties,
+                                      shareSheetStyle,
+                                       new Branch.BranchLinkShareListener() {
+        private Callback mCallback = null;
+
+        @Override
+        public void onShareLinkDialogLaunched() {          
+        }
+        @Override
+        public void onShareLinkDialogDismissed() {
+          if(mCallback == null) {
+            return;
+          }
+          
+          WritableMap map = new WritableNativeMap();
+          map.putString("channel", null);
+          map.putBoolean("completed", false);
+          map.putString("error", null);          
+          mCallback.invoke(map);
+          mCallback = null;
+        }
+        @Override
+        public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {          
+          if(mCallback == null) {
+            return;
+          }
+
+          WritableMap map = new WritableNativeMap();
+          map.putString("channel", sharedChannel);
+          map.putBoolean("completed", true);
+          map.putString("error", (error != null ? error.getMessage() : null));         
+          mCallback.invoke(map);
+          mCallback = null;
+        }
+        @Override
+        public void onChannelSelected(String channelName) {
+        }
+
+        private Branch.BranchLinkShareListener init(Callback callback) {
+          mCallback = callback;
+          return this;
+        }
+    }.init(cb));
   }
 
   public void sendRNEvent(String eventName, @Nullable WritableMap params) {
@@ -247,5 +317,5 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }
     }
     return array;
-    }
   }
+}
