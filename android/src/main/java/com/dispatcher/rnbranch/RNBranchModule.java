@@ -149,6 +149,16 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             .setContentDescription(branchUniversalObjectMap.getString("contentDescription"))
             .setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
 
+    if(branchUniversalObjectMap.hasKey("metadata")) {
+      ReadableMap metadataMap = branchUniversalObjectMap.getMap("metadata");
+      ReadableMapKeySetIterator iterator = metadataMap.keySetIterator();
+      while (iterator.hasNextKey()) {
+        String metadataKey = iterator.nextKey();
+        Object metadataObject = getReadableMapObjectForKey(metadataMap, metadataKey);
+        branchUniversalObject.addContentMetadata(metadataKey, metadataObject.toString());
+      }      
+    }
+
     LinkProperties linkProperties = new LinkProperties()
                .setChannel(linkPropertiesMap.getString("channel"))
                .setFeature(linkPropertiesMap.getString("feature"));
@@ -203,6 +213,21 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     getReactApplicationContext()
         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
         .emit(eventName, params);
+  }
+
+  private static Object getReadableMapObjectForKey(ReadableMap readableMap, String key) {
+    switch(readableMap.getType(key)) {
+      case Null:
+        return "Null";        
+      case Boolean:
+        return readableMap.getBoolean(key);        
+      case Number:
+        return readableMap.getDouble(key);
+      case String:
+        return readableMap.getString(key);
+      default:
+        return "Unsupported Type";
+    }
   }
 
   private static JSONObject convertMapToJson(ReadableMap readableMap) throws JSONException {

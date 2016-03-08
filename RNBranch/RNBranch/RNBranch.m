@@ -103,6 +103,15 @@ RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap withBranchUnive
     branchUniversalObject.contentDescription = [branchUniversalObjectMap objectForKey:@"contentDescription"];
     branchUniversalObject.imageUrl = [branchUniversalObjectMap objectForKey:@"contentImageUrl"];
 
+    NSDictionary* metaData = [branchUniversalObjectMap objectForKey:@"metadata"];
+    if(metaData) {
+      NSEnumerator *enumerator = [metaData keyEnumerator];
+      id metaDataKey;
+      while((metaDataKey = [enumerator nextObject])) {
+        [branchUniversalObject addMetadataKey:metaDataKey value:[metaData objectForKey:metaDataKey]];
+      }
+    }
+
     BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
     linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
     linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];  
