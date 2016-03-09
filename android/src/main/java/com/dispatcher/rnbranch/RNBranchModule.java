@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.os.Handler;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.*;
@@ -131,82 +132,106 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void showShareSheet(ReadableMap shareOptionsMap, ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, Callback cb) {  
+  public void showShareSheet(ReadableMap shareOptionsMap, ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, Callback cb) {      
     Context context = getReactApplicationContext();
-    ShareSheetStyle shareSheetStyle = new ShareSheetStyle(context, shareOptionsMap.getString("messageHeader"), shareOptionsMap.getString("messageBody"))
-                .setCopyUrlStyle(context.getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
-                .setMoreOptionStyle(context.getResources().getDrawable(android.R.drawable.ic_menu_search), "Show more")
+
+    Handler mainHandler = new Handler(context.getMainLooper());
+
+    Runnable myRunnable = new Runnable() {
+      Callback mCb;
+      Context mContext;
+      ReadableMap shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap;
+
+      private Runnable init(ReadableMap _shareOptionsMap, ReadableMap _branchUniversalObjectMap, ReadableMap _linkPropertiesMap, Callback cb, Context context) {
+        mCb = cb;
+        mContext = context;
+        shareOptionsMap = _shareOptionsMap;
+        branchUniversalObjectMap = _branchUniversalObjectMap;
+        linkPropertiesMap = _linkPropertiesMap;
+
+        return this;
+      }
+
+      @Override 
+      public void run() {
+        ShareSheetStyle shareSheetStyle = new ShareSheetStyle(mContext, shareOptionsMap.getString("messageHeader"), shareOptionsMap.getString("messageBody"))
+                .setCopyUrlStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
+                .setMoreOptionStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_search), "Show more")
                 .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
                 .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
                 .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
                 .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK);
 
-    BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
-            // The identifier is what Branch will use to de-dupe the content across many different Universal Objects
-            .setCanonicalIdentifier(branchUniversalObjectMap.getString("canonicalIdentifier"))
-            // This is where you define the open graph structure and how the object will appear on Facebook or in a deepview
-            .setTitle(branchUniversalObjectMap.getString("contentTitle"))
-            .setContentDescription(branchUniversalObjectMap.getString("contentDescription"))
-            .setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
+        BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
+                // The identifier is what Branch will use to de-dupe the content across many different Universal Objects
+                .setCanonicalIdentifier(branchUniversalObjectMap.getString("canonicalIdentifier"))
+                // This is where you define the open graph structure and how the object will appear on Facebook or in a deepview
+                .setTitle(branchUniversalObjectMap.getString("contentTitle"))
+                .setContentDescription(branchUniversalObjectMap.getString("contentDescription"))
+                .setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
 
-    if(branchUniversalObjectMap.hasKey("metadata")) {
-      ReadableMap metadataMap = branchUniversalObjectMap.getMap("metadata");
-      ReadableMapKeySetIterator iterator = metadataMap.keySetIterator();
-      while (iterator.hasNextKey()) {
-        String metadataKey = iterator.nextKey();
-        Object metadataObject = getReadableMapObjectForKey(metadataMap, metadataKey);
-        branchUniversalObject.addContentMetadata(metadataKey, metadataObject.toString());
-      }      
-    }
-
-    LinkProperties linkProperties = new LinkProperties()
-               .setChannel(linkPropertiesMap.getString("channel"))
-               .setFeature(linkPropertiesMap.getString("feature"));
-
-    branchUniversalObject.showShareSheet(getCurrentActivity(), 
-                                      linkProperties,
-                                      shareSheetStyle,
-                                       new Branch.BranchLinkShareListener() {
-        private Callback mCallback = null;
-
-        @Override
-        public void onShareLinkDialogLaunched() {          
-        }
-        @Override
-        public void onShareLinkDialogDismissed() {
-          if(mCallback == null) {
-            return;
-          }
-          
-          WritableMap map = new WritableNativeMap();
-          map.putString("channel", null);
-          map.putBoolean("completed", false);
-          map.putString("error", null);          
-          mCallback.invoke(map);
-          mCallback = null;
-        }
-        @Override
-        public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {          
-          if(mCallback == null) {
-            return;
-          }
-
-          WritableMap map = new WritableNativeMap();
-          map.putString("channel", sharedChannel);
-          map.putBoolean("completed", true);
-          map.putString("error", (error != null ? error.getMessage() : null));         
-          mCallback.invoke(map);
-          mCallback = null;
-        }
-        @Override
-        public void onChannelSelected(String channelName) {
+        if(branchUniversalObjectMap.hasKey("metadata")) {
+          ReadableMap metadataMap = branchUniversalObjectMap.getMap("metadata");
+          ReadableMapKeySetIterator iterator = metadataMap.keySetIterator();
+          while (iterator.hasNextKey()) {
+            String metadataKey = iterator.nextKey();
+            Object metadataObject = getReadableMapObjectForKey(metadataMap, metadataKey);
+            branchUniversalObject.addContentMetadata(metadataKey, metadataObject.toString());
+          }      
         }
 
-        private Branch.BranchLinkShareListener init(Callback callback) {
-          mCallback = callback;
-          return this;
-        }
-    }.init(cb));
+        LinkProperties linkProperties = new LinkProperties()
+                   .setChannel(linkPropertiesMap.getString("channel"))
+                   .setFeature(linkPropertiesMap.getString("feature"));
+
+        branchUniversalObject.showShareSheet(getCurrentActivity(), 
+                                          linkProperties,
+                                          shareSheetStyle,
+                                           new Branch.BranchLinkShareListener() {
+            private Callback mCallback = null;
+
+            @Override
+            public void onShareLinkDialogLaunched() {          
+            }
+            @Override
+            public void onShareLinkDialogDismissed() {
+              if(mCallback == null) {
+                return;
+              }
+              
+              WritableMap map = new WritableNativeMap();
+              map.putString("channel", null);
+              map.putBoolean("completed", false);
+              map.putString("error", null);          
+              mCallback.invoke(map);
+              mCallback = null;
+            }
+            @Override
+            public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {          
+              if(mCallback == null) {
+                return;
+              }
+
+              WritableMap map = new WritableNativeMap();
+              map.putString("channel", sharedChannel);
+              map.putBoolean("completed", true);
+              map.putString("error", (error != null ? error.getMessage() : null));         
+              mCallback.invoke(map);
+              mCallback = null;
+            }
+            @Override
+            public void onChannelSelected(String channelName) {
+            }
+
+            private Branch.BranchLinkShareListener init(Callback callback) {
+              mCallback = callback;
+              return this;
+            }
+        }.init(mCb));
+      } 
+    }.init(shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap, cb, context);
+
+    mainHandler.post(myRunnable);
   }
 
   public void sendRNEvent(String eventName, @Nullable WritableMap params) {
