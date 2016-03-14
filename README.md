@@ -63,11 +63,15 @@ dependencies {
 
 Please see our main [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
 
-#### Other Resources
-
 - Enable [Universal & App Links](https://dev.branch.io/getting-started/universal-app-links) — traditional URI scheme links are no longer supported in many situations on iOS 9.2+, and are a less than ideal solution on new versions of Android. To get full functionality from your Branch links on iOS devices, **you should enable Universal Links as soon as possible.**
-- Learn how to [create Branch links](https://dev.branch.io/getting-started/creating-links-in-apps/overview/) in your app.
+- Learn how to [create Branch links](https://dev.branch.io/getting-started/creating-links-in-apps/) in your app.
 - Set up [deep link routing](https://dev.branch.io/getting-started/deep-link-routing/)
+
+## Additional Resources
+
+- [SDK Integration guide](https://dev.branch.io/recipes/add_the_sdk/react/) *Start Here*
+- [Testing](https://dev.branch.io/getting-started/integration-testing/guide/react/)
+- [Support portal, FAQ](http://support.branch.io/)
 
 ## Usage
 
