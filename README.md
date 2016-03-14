@@ -1,7 +1,73 @@
-# branch-react-native-sdk
-Native Wrapper around Branch Metrics native SDKs. Tested with React Native 0.21.0. 
+# Branch Metrics React Native SDK Reference
+
+This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK.
+
+Tested with React Native 0.21.0. 
 
 Supports iOS and Android.
+
+> #### Limited Functionality!
+> 
+> The React Native SDK currently implements a subset of Branch features. We plan to add further functionality soon, and would gladly accept pull requests!
+>
+> **Wish List:**
+> 
+> - [ ] Implement a `getShortUrl` method (`getShortUrlWithLinkProperties` in iOS and `generateShortUrl` in Android native SDKs).
+> - [ ] Allow defining [link control parameters](https://dev.branch.io/getting-started/configuring-links/guide/#link-control-parameters) (`addControlParam` in iOS and `addControlParameter` in Android native SDKs).
+> - [ ] Support full set of [link analytics labels](https://dev.branch.io/getting-started/configuring-links/guide/#analytics-labels) and [BranchUniversalObject parameters](https://dev.branch.io/getting-started/branch-universal-object/guide/ios/#parameters).
+
+## Installation
+
+The SDK is available as a package on NPM. To get it, use these commands:
+
+```sh
+npm install rnpm -g
+npm install --save branch-react-native-sdk
+rnpm link branch-react-native-sdk
+cd node_modules/branch-react-native-sdk
+pod install #Only required for iOS
+```
+
+### Android
+
+Sometimes `rnpm` link creates incorrect relative paths, leading to compilation errors. Ensure that the following files look as described and all linked paths are correct:
+
+```gradle
+// file: android/settings.gradle
+...
+
+include ':branch-react-native-sdk', ':app'
+
+// The relative path to the branch-react-native-sdk directory tends to often be prefixed with one too many "../"s
+project(':branch-react-native-sdk').projectDir = new File(rootProject.projectDir, '../node_modules/branch-react-native-sdk/android')
+```
+
+```gradle
+// file: android/app/build.gradle
+...
+
+dependencies {
+    ...
+    compile project(':branch-react-native-sdk')
+}
+```
+
+### iOS
+
+1. Navigate into the SDK package directory: `cd node_modules/branch-react-native-sdk`.
+1. Use CocoaPods to install dependencies: `pod install`.
+1. Drag **/node_modules/react-native-branch/Pods/Pods.xcodeproj** into the **Libraries** folder of your Xcode project. ![](https://dev.branch.io/img/pages/getting-started/sdk-integration-guide/pod-import.png)
+1. In Xcode, drag the `libBranch.a` Product from **Pods.xcodeproj** into your the **Link Binary with Libraries** section of Build Phases for your project’s target. ![](https://dev.branch.io/img/pages/getting-started/sdk-integration-guide/link-pod-binary.png)
+
+## Next Steps
+
+Please see our main [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
+
+#### Other Resources
+
+- Enable [Universal & App Links](https://dev.branch.io/getting-started/universal-app-links) — traditional URI scheme links are no longer supported in many situations on iOS 9.2+, and are a less than ideal solution on new versions of Android. To get full functionality from your Branch links on iOS devices, **you should enable Universal Links as soon as possible.**
+- Learn how to [create Branch links](https://dev.branch.io/getting-started/creating-links-in-apps/overview/) in your app.
+- Set up [deep link routing](https://dev.branch.io/getting-started/deep-link-routing/)
 
 ## Usage
 
@@ -24,164 +90,3 @@ branch.showShareSheet(shareOptions, branchUniversalObject, linkProperties, ({cha
 
 branch.logout();
 ```
-
-## Installation
-
-```sh
-npm install rnpm -g
-npm install --save branch-react-native-sdk
-rnpm link branch-react-native-sdk
-cd node_modules/branch-react-native-sdk
-pod install #Only required for iOS
-```
-
-### Android
-
-#### Step 0 - Verify Library Linking
-
-*Sometimes rnpm link creates incorrect relative paths, leading to compilation errors*
-
-*Ensure that the following files look as described and all linked paths are correct*
-
-```gradle
-// file: android/settings.gradle
-...
-
-include ':branch-react-native-sdk', ':app'
-
-// The relative path to the branch-react-native-sdk directory tends to often be prefixed with one too many "../"s
-project(':branch-react-native-sdk').projectDir = new File(rootProject.projectDir, '../node_modules/branch-react-native-sdk/android')
-```
-
-```gradle
-// file: android/app/build.gradle
-...
-
-dependencies {
-    ...
-    compile project(':branch-react-native-sdk')
-}
-```
-
-#### Step 1 - Initialize the RNBranchModule
-
-```java
-// file: android/app/src/main/java/com/xxx/MainActivity.java
-
-import android.content.Intent; // <-- import
-import com.dispatcher.rnbranch.*; // <-- import
-
-public class MainActivity extends ReactActivity {
-    // ...
-
-    @Override
-    protected List<ReactPackage> getPackages() {
-        return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-            new RNBranchPackage() // <-- add this line, if not already there
-        );
-    }
-    
-    // Add onStart
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        RNBranchModule.initSession(this.getIntent().getData(), this);
-    }
-    
-    // Add onNewIntent
-    @Override
-    public void onNewIntent(Intent intent) {
-        this.setIntent(intent);
-    }
-    
-    // ...  
-} 
-```
-
-#### Step 2 - Configure Manifest
-
-Please follow [these instructions] (https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#configure-manifest)
-
-#### Step 3 - Register for Google Play Install Referrer
-
-Please follow [these instructions](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#register-for-google-play-install-referrer)
-
-Note: The "receiver" element needs to be added to the "application" node in AndroidManifest.xml
-
-#### Step 4 - Register a URI scheme
-
-Please follow [these instructions](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#register-a-uri-scheme)
-
-Notes:
-- The "intent-filter" element needs to be added to the activity node, whose android:name is "com.yourAppName.MainActivity". This node is in the "application" node.
-- If you already have an intent-filter tag, this has to be added as an additional one.
-- Make sure to replace "yourApp" with the scheme you specified in the Branch dashboard.
-
-#### Step 5 - Enable Auto Session Management
-
-Please follow [these instructions](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#enable-auto-session-management)
-
-Note: Just add the "android:name" attribute to your "application" node in your AndroidManifest.xml
-
-#### Step 6 - Enable App Links for Android M and above (Optional but Recommended)
-
-Please follow [these instructions](https://dev.branch.io/getting-started/universal-app-links/guide/android/)
-
-### iOS
-
-#### Step 1 - Modifications to your React Native XCode Project
-
-- Drag and Drop /node_modules/branch-react-native-sdk/Pods/Pods.xcodeproj into the Libraries folder of your project in XCode (as described in Step 1 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
-- Drag and Drop the Pods.xcodeproj's Products's libBranch.a into your project's target's "Linked Frameworks and Libraries" section (as described in Step 2 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
-
-
-
-#### Step 2 - Modifications to AppDelegate.m
-
-Import RNBranch.h at the top
-
-```objective-c
-#import "RNBranch.h"
-```
-
-
-Initialize the Branch Session in didFinishLaunchingWithOptions
-
-```objective-c
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
-  
-  NSURL *jsCodeLocation;
-  ///
-}
-```
-
-Add the openURL and continueUserActivity functions
-
-```objective-c
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-  if (![RNBranch handleDeepLink:url]) {
-    // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
-  }
-  return YES;
-}
-
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
-  return [RNBranch continueUserActivity:userActivity];
-}
-```
-
-#### Step 3 - Add the branch_key to your plist
-
-Add a String entry branch_key with your branch key to your plist (as described [here](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project))
-
-#### Step 4 - Register a URI Scheme for Direct Deep Linking (Optional but Recommended)
-
-Please follow these instructions [here](https://dev.branch.io/references/ios_sdk/#register-a-uri-scheme-direct-deep-linking-optional-but-recommended)
-
-#### Step 5 - Configure for Universal Linking
-
-Please follow these instructions [here](https://dev.branch.io/references/ios_sdk/#support-universal-linking-ios-9)
