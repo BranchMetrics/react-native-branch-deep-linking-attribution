@@ -1,4 +1,4 @@
-# react-native-branch
+# branch-react-native-sdk
 Native Wrapper around Branch Metrics native SDKs. Tested with React Native 0.21.0. 
 
 Supports iOS and Android.
@@ -6,7 +6,7 @@ Supports iOS and Android.
 ## Usage
 
 ```js
-var branch = require('react-native-branch');
+var branch = require('branch-react-native-sdk');
 
 //Receives the initSession's result as soon as it becomes available
 branch.getInitSessionResultPatiently(({params, error}) => { });
@@ -29,9 +29,9 @@ branch.logout();
 
 ```sh
 npm install rnpm -g
-npm install --save react-native-branch
-rnpm link react-native-branch
-cd node_modules/react-native-branch
+npm install --save branch-react-native-sdk
+rnpm link branch-react-native-sdk
+cd node_modules/branch-react-native-sdk
 pod install #Only required for iOS
 ```
 
@@ -47,10 +47,10 @@ pod install #Only required for iOS
 // file: android/settings.gradle
 ...
 
-include ':react-native-branch', ':app'
+include ':branch-react-native-sdk', ':app'
 
-// The relative path to the react-native-branch directory tends to often be prefixed with one too many "../"s
-project(':react-native-branch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-branch/android')
+// The relative path to the branch-react-native-sdk directory tends to often be prefixed with one too many "../"s
+project(':branch-react-native-sdk').projectDir = new File(rootProject.projectDir, '../node_modules/branch-react-native-sdk/android')
 ```
 
 ```gradle
@@ -59,7 +59,7 @@ project(':react-native-branch').projectDir = new File(rootProject.projectDir, '.
 
 dependencies {
     ...
-    compile project(':react-native-branch')
+    compile project(':branch-react-native-sdk')
 }
 ```
 
@@ -133,7 +133,7 @@ Please follow [these instructions](https://dev.branch.io/getting-started/univers
 
 #### Step 1 - Modifications to your React Native XCode Project
 
-- Drag and Drop /node_modules/react-native-branch/Pods/Pods.xcodeproj into the Libraries folder of your project in XCode (as described in Step 1 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
+- Drag and Drop /node_modules/branch-react-native-sdk/Pods/Pods.xcodeproj into the Libraries folder of your project in XCode (as described in Step 1 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
 - Drag and Drop the Pods.xcodeproj's Products's libBranch.a into your project's target's "Linked Frameworks and Libraries" section (as described in Step 2 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
 
 

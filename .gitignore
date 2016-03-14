@@ -32,5 +32,11 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
+# Auto-generated Xcode files
+*.xcuserstate
+*.xcuserdatad
+
+# OS X garbage
+*.DS_Store
 
 android/build
