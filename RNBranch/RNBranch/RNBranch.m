@@ -26,7 +26,7 @@ RCT_EXPORT_MODULE();
 //Called by AppDelegate.m -- stores initSession result in static variables and raises initSessionFinished event that's captured by the RNBranch instance to emit it to React Native
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
     [[Branch getInstance] initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-        initSessionWithLaunchOptionsResult = @{@"params": params ? params : [NSNull null], @"error": error ? error : [NSNull null]};
+        initSessionWithLaunchOptionsResult = @{@"params": params ? params : [NSNull null], @"error": error ? [error localizedDescription] : [NSNull null]};
         [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult]; //Forward to RNBranch instance
     }];
 }
@@ -41,9 +41,9 @@ RCT_EXPORT_MODULE();
 
 - (id)init {
   self = [super init];
-  
+
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:initSessionWithLaunchOptionsFinishedEventName object:nil];
-  
+
   return self;
 }
 
@@ -114,7 +114,7 @@ RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap withBranchUnive
 
     BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
     linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
-    linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];  
+    linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];
 
     [branchUniversalObject showShareSheetWithLinkProperties:linkProperties
                                              andShareText:[shareOptionsMap objectForKey:@"messageBody"]
@@ -126,7 +126,7 @@ RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap withBranchUnive
         @"error" : [NSNull null]
       };
 
-      callback(@[result]);                                      
+      callback(@[result]);
     }];
   });
 }
