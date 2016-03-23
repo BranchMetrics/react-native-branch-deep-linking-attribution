@@ -35,7 +35,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         private ReactActivity mActivity = null;
 
         @Override
-        public void onInitFinished(JSONObject referringParams, BranchError error) {    
+        public void onInitFinished(JSONObject referringParams, BranchError error) {
+            Log.d(REACT_CLASS, "onInitFinished");
             JSONObject result = new JSONObject();
             try{
                 result.put("params", referringParams != null ? referringParams : JSONObject.NULL);
@@ -59,6 +60,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   public RNBranchModule(ReactApplicationContext reactContext) {
     super(reactContext);
     
+    Log.d(REACT_CLASS, "ctor");
+
     forwardInitSessionFinishedEventToReactNative(reactContext);
   }
 
@@ -236,21 +239,57 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
   public void sendRNEvent(String eventName, @Nullable WritableMap params) {
     // This should avoid the crash in getJSModule() at startup
-    // Todo: It would be even better to wait until the catalyst instance has became available, but its not clear
-    // how to do that.
     // See also: https://github.com/walmartreact/react-native-orientation-listener/issues/8
-    // We also wait 100ms here before sending the event so the catalyst instance should be available.
     
-    try {
-        Thread.sleep(100);  
-        if (getReactApplicationContext().hasActiveCatalystInstance()) {
-            getReactApplicationContext()
-                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                .emit(eventName, params);
-        } 
-    } catch(InterruptedException ex) {
-        Thread.currentThread().interrupt();
-    }   
+    ReactApplicationContext context = getReactApplicationContext();
+    Handler mainHandler = new Handler(context.getMainLooper());
+
+    Runnable poller = new Runnable() {
+    
+      private Runnable init(ReactApplicationContext _context, Handler _mainHandler, String _eventName, WritableMap _params) {
+        mMainHandler = _mainHandler;
+        mEventName = _eventName;
+        mContext = _context;
+        mParams = _params;
+        return this;
+      }
+    
+      final int pollDelayInMs = 100;
+      final int maxTries = 300;
+      
+      int tries = 1;
+      String mEventName;
+      WritableMap mParams;
+      Handler mMainHandler;
+      ReactApplicationContext mContext;
+    
+      @Override 
+      public void run() {
+        try {
+          Log.d(REACT_CLASS, "Catalyst instance poller try " + Integer.toString(tries));
+          if (mContext.hasActiveCatalystInstance()) {
+            Log.d(REACT_CLASS, "Catalyst instance active");
+            mContext
+              .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+              .emit(mEventName, mParams);
+          } else {
+            tries++;
+            if (tries <= maxTries) {
+              mMainHandler.postDelayed(this, pollDelayInMs);    
+            } else {
+              Log.e(REACT_CLASS, "Could not get Catalyst instance");
+            }
+          }
+        }
+        catch (Exception e) {
+          e.printStackTrace();
+        }
+      }     
+    }.init(context, mainHandler, eventName, params);
+    
+    Log.d(REACT_CLASS, "sendRNEvent");
+
+    mainHandler.post(poller);
   }
 
   private static Object getReadableMapObjectForKey(ReadableMap readableMap, String key) {
