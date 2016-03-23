@@ -253,7 +253,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         return this;
       }
     
-      final int pollDelayInMs = 50;
+      final int pollDelayInMs = 100;
       final int maxTries = 20;
       
       int tries = 1;
