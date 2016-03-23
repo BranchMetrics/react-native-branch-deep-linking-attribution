@@ -273,7 +273,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
               .emit(mEventName, mParams);
           } else {
             tries++;
-            if (tries < maxTries) {
+            if (tries <= maxTries) {
               mMainHandler.postDelayed(this, pollDelayInMs);    
             } else {
               Log.e(REACT_CLASS, "Could not get Catalyst instance");
