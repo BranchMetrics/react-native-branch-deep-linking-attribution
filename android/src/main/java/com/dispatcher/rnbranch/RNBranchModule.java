@@ -35,7 +35,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         private ReactActivity mActivity = null;
 
         @Override
-        public void onInitFinished(JSONObject referringParams, BranchError error) {    
+        public void onInitFinished(JSONObject referringParams, BranchError error) {
+            Log.d(REACT_CLASS, "onInitFinished");
             JSONObject result = new JSONObject();
             try{
                 result.put("params", referringParams != null ? referringParams : JSONObject.NULL);
@@ -254,7 +255,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
       }
     
       final int pollDelayInMs = 100;
-      final int maxTries = 20;
+      final int maxTries = 300;
       
       int tries = 1;
       String mEventName;
