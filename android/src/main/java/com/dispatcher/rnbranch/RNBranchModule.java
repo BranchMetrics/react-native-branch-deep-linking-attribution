@@ -59,6 +59,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   public RNBranchModule(ReactApplicationContext reactContext) {
     super(reactContext);
     
+    Log.d(REACT_CLASS, "ctor");
+
     forwardInitSessionFinishedEventToReactNative(reactContext);
   }
 
@@ -246,15 +248,15 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
       private Runnable init(ReactApplicationContext _context, Handler _mainHandler, String _eventName, WritableMap _params) {
         mMainHandler = _mainHandler;
         mEventName = _eventName;
+        mContext = _context;
         mParams = _params;
-        
         return this;
       }
     
       final int pollDelayInMs = 50;
       final int maxTries = 20;
       
-      int tries = 0;
+      int tries = 1;
       String mEventName;
       WritableMap mParams;
       Handler mMainHandler;
@@ -263,7 +265,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
       @Override 
       public void run() {
         try {
+          Log.d(REACT_CLASS, "Catalyst instance poller try " + Integer.toString(tries));
           if (mContext.hasActiveCatalystInstance()) {
+            Log.d(REACT_CLASS, "Catalyst instance active");
             mContext
               .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
               .emit(mEventName, mParams);
@@ -271,6 +275,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             tries++;
             if (tries < maxTries) {
               mMainHandler.postDelayed(this, pollDelayInMs);    
+            } else {
+              Log.e(REACT_CLASS, "Could not get Catalyst instance");
             }
           }
         }
@@ -280,6 +286,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
       }     
     }.init(context, mainHandler, eventName, params);
     
+    Log.d(REACT_CLASS, "sendRNEvent");
+
     mainHandler.post(poller);
   }
 
