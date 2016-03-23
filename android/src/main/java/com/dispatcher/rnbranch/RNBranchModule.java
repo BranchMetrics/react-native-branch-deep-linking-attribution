@@ -236,21 +236,51 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
   public void sendRNEvent(String eventName, @Nullable WritableMap params) {
     // This should avoid the crash in getJSModule() at startup
-    // Todo: It would be even better to wait until the catalyst instance has became available, but its not clear
-    // how to do that.
     // See also: https://github.com/walmartreact/react-native-orientation-listener/issues/8
-    // We also wait 100ms here before sending the event so the catalyst instance should be available.
     
-    try {
-        Thread.sleep(100);  
-        if (getReactApplicationContext().hasActiveCatalystInstance()) {
-            getReactApplicationContext()
-                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                .emit(eventName, params);
-        } 
-    } catch(InterruptedException ex) {
-        Thread.currentThread().interrupt();
-    }   
+    ReactApplicationContext context = getReactApplicationContext();
+    Handler mainHandler = new Handler(context.getMainLooper());
+
+    Runnable poller = new Runnable() {
+    
+      private Runnable init(ReactApplicationContext _context, Handler _mainHandler, String _eventName, WritableMap _params) {
+        mMainHandler = _mainHandler;
+        mEventName = _eventName;
+        mParams = _params;
+        
+        return this;
+      }
+    
+      final int pollDelayInMs = 50;
+      final int maxTries = 20;
+      
+      int tries = 0;
+      String mEventName;
+      WritableMap mParams;
+      Handler mMainHandler;
+      ReactApplicationContext mContext;
+    
+      @Override 
+      public void run() {
+        try {
+          if (mContext.hasActiveCatalystInstance()) {
+            mContext
+              .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+              .emit(mEventName, mParams);
+          } else {
+            tries++;
+            if (tries < maxTries) {
+              mMainHandler.postDelayed(this, pollDelayInMs);    
+            }
+          }
+        }
+        catch (Exception e) {
+          e.printStackTrace();
+        }
+      }     
+    }.init(context, mainHandler, eventName, params);
+    
+    mainHandler.post(poller);
   }
 
   private static Object getReadableMapObjectForKey(ReadableMap readableMap, String key) {
