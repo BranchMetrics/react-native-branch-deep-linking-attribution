@@ -41,9 +41,9 @@ RCT_EXPORT_MODULE();
 
 - (id)init {
   self = [super init];
-  
+
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:initSessionWithLaunchOptionsFinishedEventName object:nil];
-  
+
   return self;
 }
 
@@ -114,7 +114,7 @@ RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap withBranchUnive
 
     BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
     linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
-    linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];  
+    linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];
 
     [branchUniversalObject showShareSheetWithLinkProperties:linkProperties
                                              andShareText:[shareOptionsMap objectForKey:@"messageBody"]
@@ -126,9 +126,31 @@ RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap withBranchUnive
         @"error" : [NSNull null]
       };
 
-      callback(@[result]);                                      
+      callback(@[result]);
     }];
   });
+}
+
+
+RCT_EXPORT_METHOD(getShortUrl:(NSDictionary *)linkPropertiesMap resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSString *feature = [linkPropertiesMap objectForKey:@"feature"];
+    NSString *channel = [linkPropertiesMap objectForKey:@"channel"];
+    NSString *stage = [linkPropertiesMap objectForKey:@"stage"];
+    NSArray *tags = [linkPropertiesMap objectForKey:@"tags"];
+
+    [[Branch getInstance] getShortURLWithParams:linkPropertiesMap
+                                        andTags:tags
+                                     andChannel:channel
+                                     andFeature:feature
+                                       andStage:stage
+                                    andCallback:^(NSString *url, NSError *error) {
+                                        if (error) {
+                                            NSLog(@"RNBranch::Error: %@", error.localizedDescription);
+                                            reject(@"RNBranch::Error", @"getShortURLWithParams", error);
+                                        }
+                                        resolve(url);
+                                    }];
 }
 
 @end

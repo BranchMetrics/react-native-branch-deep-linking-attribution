@@ -32,7 +32,7 @@ class Branch {
     this._patientInitSessionObservers = [];
   };
 
-  _getInitSessionResult = (callback) => {    
+  _getInitSessionResult = (callback) => {
     rnBranch.getInitSessionResult(callback);
   };
 
@@ -44,7 +44,7 @@ class Branch {
     this._patientInitSessionObservers.push(callback);
   };
 
-  setDebug = () => {   
+  setDebug = () => {
     rnBranch.setDebug();
   };
 
@@ -75,6 +75,10 @@ class Branch {
     _.defaults(linkProperties, {feature: 'share', channel: 'RNApp'});
 
     rnBranch.showShareSheet(shareOptions, branchUniversalObject, linkProperties, ({channel, completed, error}) => callback({channel, completed, error}));
+  };
+
+  getShortUrl = () => {
+    return rnBranch.getShortUrl();
   };
 }
 
