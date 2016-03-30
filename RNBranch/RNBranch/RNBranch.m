@@ -52,7 +52,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (void) onInitSessionFinished:(NSNotification*) notification {
-  [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionFinished" body:[notification object]];
+  [self.bridge.eventDispatcher sendDeviceEventWithName:@"RNBranch.initSessionFinished" body:[notification object]];
 }
 
 
