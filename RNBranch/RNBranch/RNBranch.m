@@ -26,7 +26,7 @@ RCT_EXPORT_MODULE();
 //Called by AppDelegate.m -- stores initSession result in static variables and raises initSessionFinished event that's captured by the RNBranch instance to emit it to React Native
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
     [[Branch getInstance] initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-        initSessionWithLaunchOptionsResult = @{@"params": params ? params : [NSNull null], @"error": error ? error : [NSNull null]};
+        initSessionWithLaunchOptionsResult = @{@"params": params ? params : [NSNull null], @"error": error ? [error localizedDescription] : [NSNull null]};
         [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult]; //Forward to RNBranch instance
     }];
 }
