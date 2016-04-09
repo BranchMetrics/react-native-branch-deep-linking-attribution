@@ -52,7 +52,15 @@ RCT_EXPORT_MODULE();
 }
 
 - (void) onInitSessionFinished:(NSNotification*) notification {
-  [self.bridge.eventDispatcher sendDeviceEventWithName:@"RNBranch.initSessionFinished" body:[notification object]];
+    id notificationObject = notification.object;
+
+    // If there is an error, send back along the localized description string
+    // Raw object may contain objects which cannot be converted to JS objects
+    if (notificationObject[@"error"] != [NSNull null]) {
+        notificationObject = [notificationObject[@"error"] localizedDescription];
+    }
+
+    [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionFinished" body:notificationObject];
 }
 
 
