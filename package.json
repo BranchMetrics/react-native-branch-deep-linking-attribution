@@ -1,6 +1,6 @@
 {
-  "name": "branch-react-native-sdk",
-  "version": "0.0.12",
+  "name": "react-native-branch",
+  "version": "0.0.0",
   "description": "Branch Metrics React Native SDK",
   "main": "index.js",
   "scripts": {
@@ -21,12 +21,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BranchMetrics/React-Native-Deep-Linking-SDK.git"
+    "url": "git+https://github.com/BranchMetrics/react-native-branch.git"
   },
   "bugs": {
-    "url": "https://github.com/BranchMetrics/React-Native-Deep-Linking-SDK/issues"
+    "url": "https://github.com/BranchMetrics/react-native-branch/issues"
   },
-  "homepage": "https://github.com/BranchMetrics/React-Native-Deep-Linking-SDK",
+  "homepage": "https://github.com/BranchMetrics/react-native-branch",
   "devDependencies": {
     "ava": "^0.14.0"
   }
