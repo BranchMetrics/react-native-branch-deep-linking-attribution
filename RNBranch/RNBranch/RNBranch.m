@@ -54,13 +54,17 @@ RCT_EXPORT_MODULE();
 - (void) onInitSessionFinished:(NSNotification*) notification {
   id notificationObject = notification.object;
 
-  // If there is an error, send back along the localized description string
-  // Raw object may contain objects which cannot be converted to JS objects
+  // If there is an error, try to parse a useful message and fire error event
   if (notificationObject[@"error"] != [NSNull null]) {
-    notificationObject = [notificationObject[@"error"] localizedDescription];
+    if ([notificationObject[@"error"] respondsToSelector:@selector(localizedDescription)]) {
+      notificationObject[@"error"] = [notificationObject[@"error"] localizedDescription];
+    }
+    [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionError" body:notificationObject];
   }
-
-  [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionFinished" body:notificationObject];
+  // otherwise notify the session is finished
+  else {
+    [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionSuccess" body:notificationObject];
+  }
 }
 
 

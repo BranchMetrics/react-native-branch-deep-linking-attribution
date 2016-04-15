@@ -6,7 +6,8 @@ import { NativeModules, NativeAppEventEmitter, DeviceEventEmitter, Platform } fr
 const nativeEventEmitter = Platform.OS === 'ios' ? NativeAppEventEmitter : DeviceEventEmitter;
 const { RNBranch } = NativeModules;
 
-const INIT_SESSION_EVENT = 'RNBranch.initSessionFinished';
+const INIT_SESSION_SUCCESS = 'RNBranch.initSessionSuccess';
+const INIT_SESSION_ERROR = 'RNBranch.initSessionError';
 
 class Branch {
 
@@ -14,20 +15,21 @@ class Branch {
   _lastParams = {};
 
   constructor() {
-    //We listen to the initialization event AND retrieve the result to account for both scenarios in which the results may already be available or be posted at a later point in time
-    nativeEventEmitter.addListener(INIT_SESSION_EVENT, this._onReceivedInitSessionResult);
+    // listen for initSession results and errors.
+    nativeEventEmitter.addListener(INIT_SESSION_SUCCESS, this._onInitSessionResult);
+    nativeEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult);
 
+    // retrieve the last initSession if it exists
     this._getInitSessionResult((result) => {
-      if(!result) { //Not available yet => will come through with the initSessionFinished event
-        return;
-      }
-
-      this._onReceivedInitSessionResult(result);
+      if(!result) return;
+      else this._onInitSessionResult(result);
     });
+
+    // clear the initial observers
     this._patientInitSessionObservers = [];
   };
 
-  _onReceivedInitSessionResult = (result) => {
+  _onInitSessionResult = (result) => {
     this._initSessionResult = result;
 
     this._patientInitSessionObservers.forEach((cb) => cb(result));
