@@ -1,13 +1,13 @@
-import { NativeModules, NativeAppEventEmitter, DeviceEventEmitter, Platform } from 'react-native';
+import { NativeModules, NativeAppEventEmitter, DeviceEventEmitter, Platform } from 'react-native'
 
 // According to the React Native docs from 0.21, NativeAppEventEmitter is used for native iOS modules to emit events. DeviceEventEmitter is used for native Android modules.
 // Both are technically supported on Android -- but I chose to follow the suggested route by the documentation to minimize the risk of this code breaking with a future release
 // in case NativeAppEventEmitter ever got deprecated on Android
-const nativeEventEmitter = Platform.OS === 'ios' ? NativeAppEventEmitter : DeviceEventEmitter;
-const { RNBranch } = NativeModules;
+const nativeEventEmitter = Platform.OS === 'ios' ? NativeAppEventEmitter : DeviceEventEmitter
+const { RNBranch } = NativeModules
 
-const INIT_SESSION_SUCCESS = 'RNBranch.initSessionSuccess';
-const INIT_SESSION_ERROR = 'RNBranch.initSessionError';
+const INIT_SESSION_SUCCESS = 'RNBranch.initSessionSuccess'
+const INIT_SESSION_ERROR = 'RNBranch.initSessionError'
 
 class Branch {
 
@@ -16,104 +16,104 @@ class Branch {
 
   constructor() {
     // listen for initSession results and errors.
-    nativeEventEmitter.addListener(INIT_SESSION_SUCCESS, this._onInitSessionResult);
-    nativeEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult);
+    nativeEventEmitter.addListener(INIT_SESSION_SUCCESS, this._onInitSessionResult)
+    nativeEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult)
 
     // retrieve the last initSession if it exists
     this._getInitSessionResult((result) => {
-      if(!result) return;
-      else this._onInitSessionResult(result);
-    });
+      if(!result) return
+      else this._onInitSessionResult(result)
+    })
 
     // clear the initial observers
-    this._patientInitSessionObservers = [];
-  };
+    this._patientInitSessionObservers = []
+  }
 
   _onInitSessionResult = (result) => {
-    this._initSessionResult = result;
+    this._initSessionResult = result
 
-    this._patientInitSessionObservers.forEach((cb) => cb(result));
-    if (this._isNewResult(result)) this._listeners.forEach(cb => cb(result));
+    this._patientInitSessionObservers.forEach((cb) => cb(result))
+    if (this._isNewResult(result)) this._listeners.forEach(cb => cb(result))
 
-    this._lastParams = result.params;
-    this._patientInitSessionObservers = [];
-  };
+    this._lastParams = result.params
+    this._patientInitSessionObservers = []
+  }
 
   // filter duplicate results (as observed in android. further investigation required) [rt2zz]
   _isNewResult = ({params}) => {
-    return (this._lastParams['~id'] !== params['~id'] || this._lastParams['+click_timestamp'] !== params['+click_timestamp']);
+    return (this._lastParams['~id'] !== params['~id'] || this._lastParams['+click_timestamp'] !== params['+click_timestamp'])
   }
 
   _getInitSessionResult = (callback) => {
-    RNBranch.getInitSessionResult(callback);
-  };
+    RNBranch.getInitSessionResult(callback)
+  }
 
   getInitSessionResultPatiently = (callback) => {
     if(this._initSessionResult) {
-      return callback(this._initSessionResult);
+      return callback(this._initSessionResult)
     }
 
-    this._patientInitSessionObservers.push(callback);
-  };
+    this._patientInitSessionObservers.push(callback)
+  }
 
   subscribe = (listener) => {
-    this._listeners.push(listener);
+    this._listeners.push(listener)
     const unsubscribe = () => {
-      let index = this._listeners.indexOf(listener);
-      this._listeners.splice(index, 1);
+      let index = this._listeners.indexOf(listener)
+      this._listeners.splice(index, 1)
     }
-    return unsubscribe;
-  };
+    return unsubscribe
+  }
 
   setDebug = () => {
-    RNBranch.setDebug();
-  };
+    RNBranch.setDebug()
+  }
 
   getLatestReferringParams = (callback) => {
-    RNBranch.getLatestReferringParams(callback);
-  };
+    RNBranch.getLatestReferringParams(callback)
+  }
 
   getFirstReferringParams = (callback) => {
-    RNBranch.getFirstReferringParams(callback);
-  };
+    RNBranch.getFirstReferringParams(callback)
+  }
 
   setIdentity = (identity) => {
-    RNBranch.setIdentity(identity);
-  };
+    RNBranch.setIdentity(identity)
+  }
 
   logout = () => {
-    RNBranch.logout();
-  };
+    RNBranch.logout()
+  }
 
   userCompletedAction = (event, state = {}) => {
-    RNBranch.userCompletedAction(event, state);
-  };
+    RNBranch.userCompletedAction(event, state)
+  }
 
   showShareSheet = (shareOptions = {}, branchUniversalObject = {}, linkProperties = {}, callback = () => {}) => {
     shareOptions = {
-      messageHeader: "Check this out!",
-      messageBody: "Check this cool thing out: ",
+      messageHeader: 'Check this out!',
+      messageBody: 'Check this cool thing out',
       ...shareOptions,
-    };
+    }
     branchUniversalObject = {
-      canonicalIdentifier: "RNBranchSharedObjectId",
-      contentTitle: "Cool Content!",
-      contentDescription: "Cool Content Description",
-      contentImageUrl: "",
+      canonicalIdentifier: 'RNBranchSharedObjectId',
+      contentTitle: 'Cool Content!',
+      contentDescription: 'Cool Content Description',
+      contentImageUrl: '',
       ...branchUniversalObject,
-    };
+    }
     linkProperties = {
       feature: 'share',
       channel: 'RNApp',
       ...linkProperties,
-    };
+    }
 
-    RNBranch.showShareSheet(shareOptions, branchUniversalObject, linkProperties, ({channel, completed, error}) => callback({channel, completed, error}));
-  };
+    RNBranch.showShareSheet(shareOptions, branchUniversalObject, linkProperties, ({channel, completed, error}) => callback({channel, completed, error}))
+  }
 
   getShortUrl = () => {
-    return RNBranch.getShortUrl();
-  };
+    return RNBranch.getShortUrl()
+  }
 }
 
-module.exports = new Branch();
+module.exports = new Branch()

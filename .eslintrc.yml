@@ -1,0 +1,10 @@
+---
+extends:
+- rackt
+
+rules:
+  array-bracket-spacing: 0      # [loosen] override rackt
+  comma-dangle: 0               # [loosen] override rackt
+  object-curly-spacing: 0       # [loosen] override rackt
+  no-console: 0                 # [loosen] override rackt
+  no-unused-vars: [2, {vars: all, args: none}]

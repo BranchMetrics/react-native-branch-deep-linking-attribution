@@ -28,6 +28,8 @@
   },
   "homepage": "https://github.com/BranchMetrics/react-native-branch",
   "devDependencies": {
-    "ava": "^0.14.0"
+    "ava": "^0.14.0",
+    "eslint": "^2.7.0",
+    "eslint-config-rackt": "^1.1.1"
   }
 }
