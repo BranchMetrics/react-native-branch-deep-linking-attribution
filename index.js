@@ -11,8 +11,9 @@ const INIT_SESSION_ERROR = 'RNBranch.initSessionError'
 
 class Branch {
 
+  _lastParams = null;
   _listeners = [];
-  _lastParams = {};
+  _patientInitSessionObservers = [];
 
   constructor() {
     // listen for initSession results and errors.
@@ -20,9 +21,8 @@ class Branch {
     nativeEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult)
 
     // retrieve the last initSession if it exists
-    this._getInitSessionResult((result) => {
-      if(!result) return
-      else this._onInitSessionResult(result)
+    RNBranch.getInitSessionResult((result) => {
+      if (result) this._onInitSessionResult(result)
     })
 
     // clear the initial observers
@@ -37,26 +37,19 @@ class Branch {
 
     this._lastParams = result.params
     this._patientInitSessionObservers = []
-  }
+  };
 
   // filter duplicate results (as observed in android. further investigation required) [rt2zz]
-  _isNewResult = ({params}) => {
-    return (this._lastParams['~id'] !== params['~id'] || this._lastParams['+click_timestamp'] !== params['+click_timestamp'])
+  _isNewResult({params}) {
+    return (!this._lastParams || this._lastParams['~id'] !== params['~id'] || this._lastParams['+click_timestamp'] !== params['+click_timestamp'])
   }
 
-  _getInitSessionResult = (callback) => {
-    RNBranch.getInitSessionResult(callback)
+  getInitSessionResultPatiently = (cb) => {
+    if(this._initSessionResult) return cb(this._initSessionResult)
+    this._patientInitSessionObservers.push(cb)
   }
 
-  getInitSessionResultPatiently = (callback) => {
-    if(this._initSessionResult) {
-      return callback(this._initSessionResult)
-    }
-
-    this._patientInitSessionObservers.push(callback)
-  }
-
-  subscribe = (listener) => {
+  subscribe(listener) {
     this._listeners.push(listener)
     const unsubscribe = () => {
       let index = this._listeners.indexOf(listener)
@@ -65,31 +58,31 @@ class Branch {
     return unsubscribe
   }
 
-  setDebug = () => {
+  setDebug() {
     RNBranch.setDebug()
   }
 
-  getLatestReferringParams = (callback) => {
-    RNBranch.getLatestReferringParams(callback)
+  getLatestReferringParams(cb) {
+    RNBranch.getLatestReferringParams(cb)
   }
 
-  getFirstReferringParams = (callback) => {
-    RNBranch.getFirstReferringParams(callback)
+  getFirstReferringParams(cb) {
+    RNBranch.getFirstReferringParams(cb)
   }
 
-  setIdentity = (identity) => {
+  setIdentity(identity) {
     RNBranch.setIdentity(identity)
   }
 
-  logout = () => {
+  logout() {
     RNBranch.logout()
   }
 
-  userCompletedAction = (event, state = {}) => {
+  userCompletedAction(event, state = {}) {
     RNBranch.userCompletedAction(event, state)
   }
 
-  showShareSheet = (shareOptions = {}, branchUniversalObject = {}, linkProperties = {}, callback = () => {}) => {
+  showShareSheet(shareOptions = {}, branchUniversalObject = {}, linkProperties = {}, callback = () => {}) {
     shareOptions = {
       messageHeader: 'Check this out!',
       messageBody: 'Check this cool thing out',
@@ -111,9 +104,9 @@ class Branch {
     RNBranch.showShareSheet(shareOptions, branchUniversalObject, linkProperties, ({channel, completed, error}) => callback({channel, completed, error}))
   }
 
-  getShortUrl = () => {
+  getShortUrl() {
     return RNBranch.getShortUrl()
   }
 }
 
-module.exports = new Branch()
+export default new Branch()
