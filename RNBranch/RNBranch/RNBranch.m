@@ -25,18 +25,18 @@ RCT_EXPORT_MODULE();
 
 //Called by AppDelegate.m -- stores initSession result in static variables and raises initSessionFinished event that's captured by the RNBranch instance to emit it to React Native
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
-    [[Branch getInstance] initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-        initSessionWithLaunchOptionsResult = @{@"params": params ? params : [NSNull null], @"error": error ? [error localizedDescription] : [NSNull null]};
-        [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult]; //Forward to RNBranch instance
-    }];
+  [[Branch getInstance] initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+    initSessionWithLaunchOptionsResult = @{@"params": params ? params : [NSNull null], @"error": error ? [error localizedDescription] : [NSNull null]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult]; //Forward to RNBranch instance
+  }];
 }
 
 + (BOOL)handleDeepLink:(NSURL *)url {
-    return [[Branch getInstance] handleDeepLink:url];
+  return [[Branch getInstance] handleDeepLink:url];
 }
 
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity {
-    return [[Branch getInstance] continueUserActivity:userActivity];
+  return [[Branch getInstance] continueUserActivity:userActivity];
 }
 
 - (id)init {
@@ -52,15 +52,15 @@ RCT_EXPORT_MODULE();
 }
 
 - (void) onInitSessionFinished:(NSNotification*) notification {
-    id notificationObject = notification.object;
+  id notificationObject = notification.object;
 
-    // If there is an error, send back along the localized description string
-    // Raw object may contain objects which cannot be converted to JS objects
-    if (notificationObject[@"error"] != [NSNull null]) {
-        notificationObject = [notificationObject[@"error"] localizedDescription];
-    }
+  // If there is an error, send back along the localized description string
+  // Raw object may contain objects which cannot be converted to JS objects
+  if (notificationObject[@"error"] != [NSNull null]) {
+    notificationObject = [notificationObject[@"error"] localizedDescription];
+  }
 
-    [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionFinished" body:notificationObject];
+  [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionFinished" body:notificationObject];
 }
 
 
@@ -142,23 +142,23 @@ RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap withBranchUnive
 
 RCT_EXPORT_METHOD(getShortUrl:(NSDictionary *)linkPropertiesMap resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *feature = [linkPropertiesMap objectForKey:@"feature"];
-    NSString *channel = [linkPropertiesMap objectForKey:@"channel"];
-    NSString *stage = [linkPropertiesMap objectForKey:@"stage"];
-    NSArray *tags = [linkPropertiesMap objectForKey:@"tags"];
+  NSString *feature = [linkPropertiesMap objectForKey:@"feature"];
+  NSString *channel = [linkPropertiesMap objectForKey:@"channel"];
+  NSString *stage = [linkPropertiesMap objectForKey:@"stage"];
+  NSArray *tags = [linkPropertiesMap objectForKey:@"tags"];
 
-    [[Branch getInstance] getShortURLWithParams:linkPropertiesMap
-                                        andTags:tags
-                                     andChannel:channel
-                                     andFeature:feature
-                                       andStage:stage
-                                    andCallback:^(NSString *url, NSError *error) {
-                                        if (error) {
-                                            NSLog(@"RNBranch::Error: %@", error.localizedDescription);
-                                            reject(@"RNBranch::Error", @"getShortURLWithParams", error);
-                                        }
-                                        resolve(url);
-                                    }];
+  [[Branch getInstance] getShortURLWithParams:linkPropertiesMap
+                                      andTags:tags
+                                   andChannel:channel
+                                   andFeature:feature
+                                     andStage:stage
+                                  andCallback:^(NSString *url, NSError *error) {
+                                      if (error) {
+                                          NSLog(@"RNBranch::Error: %@", error.localizedDescription);
+                                          reject(@"RNBranch::Error", @"getShortURLWithParams", error);
+                                      }
+                                      resolve(url);
+                                  }];
 }
 
 @end
