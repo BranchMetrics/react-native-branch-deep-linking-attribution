@@ -11,7 +11,7 @@ const INIT_SESSION_EVENT = 'RNBranch.initSessionFinished';
 class Branch {
 
   _listeners = [];
-  _lastParams = [];
+  _lastParams = {};
 
   constructor() {
     //We listen to the initialization event AND retrieve the result to account for both scenarios in which the results may already be available or be posted at a later point in time
