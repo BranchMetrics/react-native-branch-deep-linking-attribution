@@ -1,4 +1,4 @@
-package com.dispatcher.rnbranch;
+package io.branch.rnbranch;
 
 import android.content.Context;
 import android.content.Intent;

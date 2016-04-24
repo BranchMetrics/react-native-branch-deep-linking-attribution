@@ -1,4 +1,4 @@
-package com.dispatcher.rnbranch;
+package io.branch.rnbranch;
 
 import java.util.*;
 
@@ -27,6 +27,6 @@ public class RNBranchPackage implements ReactPackage {
 
   @Override
   public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-  	return Collections.emptyList();       
+  	return Collections.emptyList();
   }
 }
