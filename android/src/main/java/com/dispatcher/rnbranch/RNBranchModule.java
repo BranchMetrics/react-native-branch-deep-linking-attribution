@@ -12,6 +12,7 @@ import android.os.Handler;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.*;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.modules.core.*;
 
 import io.branch.referral.*;
@@ -40,9 +41,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             JSONObject result = new JSONObject();
             try{
                 result.put("params", referringParams != null ? referringParams : JSONObject.NULL);
-                result.put("error", error != null ? error.getMessage() : JSONObject.NULL);                
+                result.put("error", error != null ? error.getMessage() : JSONObject.NULL);
             } catch(JSONException ex) {
-                try { 
+                try {
                     result.put("error", "Failed to convert result to JSONObject: " + ex.getMessage());
                 } catch(JSONException k) {}
             }
@@ -55,11 +56,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             return this;
         }
     }.init(reactActivity), uri, reactActivity);
-  }  
+  }
 
   public RNBranchModule(ReactApplicationContext reactContext) {
     super(reactContext);
-    
+
     Log.d(REACT_CLASS, "ctor");
 
     forwardInitSessionFinishedEventToReactNative(reactContext);
@@ -84,69 +85,69 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   }
 
   @Override
-  public void onCatalystInstanceDestroy() {    
+  public void onCatalystInstanceDestroy() {
     LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionEventReceiver);
   }
 
   @Override
-  public String getName() {     
+  public String getName() {
     return REACT_CLASS;
   }
 
   @ReactMethod
-  public void getInitSessionResult(Callback cb) {     
-    cb.invoke(convertJsonToMap(initSessionResult));
+  public void getInitSessionResult(Promise promise) {
+    promise.resolve(convertJsonToMap(initSessionResult));
   }
 
   @ReactMethod
-  public void setDebug() {    
+  public void setDebug() {
     Branch branch = Branch.getInstance();
     branch.setDebug();
   }
 
   @ReactMethod
-  public void getLatestReferringParams(Callback cb) {    
+  public void getLatestReferringParams(Promise promise) {
     Branch branch = Branch.getInstance();
-    cb.invoke(convertJsonToMap(branch.getLatestReferringParams()));
+    promise.resolve(convertJsonToMap(branch.getLatestReferringParams()));
   }
 
   @ReactMethod
-  public void getFirstReferringParams(Callback cb) {    
+  public void getFirstReferringParams(Promise promise) {
     Branch branch = Branch.getInstance();
-    cb.invoke(convertJsonToMap(branch.getFirstReferringParams()));
+    promise.resolve(convertJsonToMap(branch.getFirstReferringParams()));
   }
 
   @ReactMethod
-  public void setIdentity(String identity) {    
+  public void setIdentity(String identity) {
     Branch branch = Branch.getInstance();
     branch.setIdentity(identity);
   }
 
   @ReactMethod
-  public void logout() {    
+  public void logout() {
     Branch branch = Branch.getInstance();
     branch.logout();
   }
 
   @ReactMethod
-  public void userCompletedAction(String event, ReadableMap appState) throws JSONException {    
+  public void userCompletedAction(String event, ReadableMap appState) throws JSONException {
     Branch branch = Branch.getInstance();
     branch.userCompletedAction(event, convertMapToJson(appState));
   }
 
   @ReactMethod
-  public void showShareSheet(ReadableMap shareOptionsMap, ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, Callback cb) {      
+  public void showShareSheet(ReadableMap shareOptionsMap, ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, Promise promise) {
     Context context = getReactApplicationContext();
 
     Handler mainHandler = new Handler(context.getMainLooper());
 
     Runnable myRunnable = new Runnable() {
-      Callback mCb;
+      Promise mPm;
       Context mContext;
       ReadableMap shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap;
 
-      private Runnable init(ReadableMap _shareOptionsMap, ReadableMap _branchUniversalObjectMap, ReadableMap _linkPropertiesMap, Callback cb, Context context) {
-        mCb = cb;
+      private Runnable init(ReadableMap _shareOptionsMap, ReadableMap _branchUniversalObjectMap, ReadableMap _linkPropertiesMap, Promise promise, Context context) {
+        mPm = promise;
         mContext = context;
         shareOptionsMap = _shareOptionsMap;
         branchUniversalObjectMap = _branchUniversalObjectMap;
@@ -155,7 +156,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         return this;
       }
 
-      @Override 
+      @Override
       public void run() {
         ShareSheetStyle shareSheetStyle = new ShareSheetStyle(mContext, shareOptionsMap.getString("messageHeader"), shareOptionsMap.getString("messageBody"))
                 .setCopyUrlStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
@@ -180,59 +181,59 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             String metadataKey = iterator.nextKey();
             Object metadataObject = getReadableMapObjectForKey(metadataMap, metadataKey);
             branchUniversalObject.addContentMetadata(metadataKey, metadataObject.toString());
-          }      
+          }
         }
 
         LinkProperties linkProperties = new LinkProperties()
                    .setChannel(linkPropertiesMap.getString("channel"))
                    .setFeature(linkPropertiesMap.getString("feature"));
 
-        branchUniversalObject.showShareSheet(getCurrentActivity(), 
+        branchUniversalObject.showShareSheet(getCurrentActivity(),
                                           linkProperties,
                                           shareSheetStyle,
                                            new Branch.BranchLinkShareListener() {
-            private Callback mCallback = null;
+            private Promise mPromise = null;
 
             @Override
-            public void onShareLinkDialogLaunched() {          
+            public void onShareLinkDialogLaunched() {
             }
             @Override
             public void onShareLinkDialogDismissed() {
-              if(mCallback == null) {
+              if(mPromise == null) {
                 return;
               }
-              
+
               WritableMap map = new WritableNativeMap();
               map.putString("channel", null);
               map.putBoolean("completed", false);
-              map.putString("error", null);          
-              mCallback.invoke(map);
-              mCallback = null;
+              map.putString("error", null);
+              mPromise.resolve(map);
+              mPromise = null;
             }
             @Override
-            public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {          
-              if(mCallback == null) {
+            public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {
+              if(mPromise == null) {
                 return;
               }
 
               WritableMap map = new WritableNativeMap();
               map.putString("channel", sharedChannel);
               map.putBoolean("completed", true);
-              map.putString("error", (error != null ? error.getMessage() : null));         
-              mCallback.invoke(map);
-              mCallback = null;
+              map.putString("error", (error != null ? error.getMessage() : null));
+              mPromise.resolve(map);
+              mPromise = null;
             }
             @Override
             public void onChannelSelected(String channelName) {
             }
 
-            private Branch.BranchLinkShareListener init(Callback callback) {
-              mCallback = callback;
+            private Branch.BranchLinkShareListener init(Promise promise) {
+              mPromise = promise;
               return this;
             }
-        }.init(mCb));
-      } 
-    }.init(shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap, cb, context);
+        }.init(mPm));
+      }
+    }.init(shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap, promise, context);
 
     mainHandler.post(myRunnable);
   }
@@ -240,12 +241,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   public void sendRNEvent(String eventName, @Nullable WritableMap params) {
     // This should avoid the crash in getJSModule() at startup
     // See also: https://github.com/walmartreact/react-native-orientation-listener/issues/8
-    
+
     ReactApplicationContext context = getReactApplicationContext();
     Handler mainHandler = new Handler(context.getMainLooper());
 
     Runnable poller = new Runnable() {
-    
+
       private Runnable init(ReactApplicationContext _context, Handler _mainHandler, String _eventName, WritableMap _params) {
         mMainHandler = _mainHandler;
         mEventName = _eventName;
@@ -253,17 +254,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         mParams = _params;
         return this;
       }
-    
+
       final int pollDelayInMs = 100;
       final int maxTries = 300;
-      
+
       int tries = 1;
       String mEventName;
       WritableMap mParams;
       Handler mMainHandler;
       ReactApplicationContext mContext;
-    
-      @Override 
+
+      @Override
       public void run() {
         try {
           Log.d(REACT_CLASS, "Catalyst instance poller try " + Integer.toString(tries));
@@ -275,7 +276,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
           } else {
             tries++;
             if (tries <= maxTries) {
-              mMainHandler.postDelayed(this, pollDelayInMs);    
+              mMainHandler.postDelayed(this, pollDelayInMs);
             } else {
               Log.e(REACT_CLASS, "Could not get Catalyst instance");
             }
@@ -284,9 +285,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         catch (Exception e) {
           e.printStackTrace();
         }
-      }     
+      }
     }.init(context, mainHandler, eventName, params);
-    
+
     Log.d(REACT_CLASS, "sendRNEvent");
 
     mainHandler.post(poller);
@@ -295,9 +296,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   private static Object getReadableMapObjectForKey(ReadableMap readableMap, String key) {
     switch(readableMap.getType(key)) {
       case Null:
-        return "Null";        
+        return "Null";
       case Boolean:
-        return readableMap.getBoolean(key);        
+        return readableMap.getBoolean(key);
       case Number:
         return readableMap.getDouble(key);
       case String:

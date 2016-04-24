@@ -20,13 +20,13 @@ class Branch {
     nativeEventEmitter.addListener(INIT_SESSION_SUCCESS, this._onInitSessionResult)
     nativeEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult)
 
-    // retrieve the last initSession if it exists
-    RNBranch.getInitSessionResult((result) => {
-      if (result) this._onInitSessionResult(result)
-    })
+    this._processInitSession()
+  }
 
-    // clear the initial observers
-    this._patientInitSessionObservers = []
+  async _processInitSession() {
+    // retrieve the last initSession if it exists
+    let result = await RNBranch.getInitSessionResult()
+    if (result) this._onInitSessionResult(result)
   }
 
   _onInitSessionResult = (result) => {
@@ -58,31 +58,16 @@ class Branch {
     return unsubscribe
   }
 
-  setDebug() {
-    RNBranch.setDebug()
-  }
+  /*** RNBranch singleton methods ***/
+  setDebug = RNBranch.setDebug
+  getLatestReferringParams = RNBranch.getLatestReferringParams
+  getFirstReferringParams = RNBranch.getFirstReferringParams
+  setIdentity = (identity) => RNBranch.setIdentity(identity)
+  logout = RNBranch.logout
+  userCompletedAction = (event, state = {}) => RNBranch.userCompletedAction(event, state)
+  getShortUrl = RNBranch.getShortUrl
 
-  getLatestReferringParams(cb) {
-    RNBranch.getLatestReferringParams(cb)
-  }
-
-  getFirstReferringParams(cb) {
-    RNBranch.getFirstReferringParams(cb)
-  }
-
-  setIdentity(identity) {
-    RNBranch.setIdentity(identity)
-  }
-
-  logout() {
-    RNBranch.logout()
-  }
-
-  userCompletedAction(event, state = {}) {
-    RNBranch.userCompletedAction(event, state)
-  }
-
-  showShareSheet(shareOptions = {}, branchUniversalObject = {}, linkProperties = {}, callback = () => {}) {
+  showShareSheet(shareOptions = {}, branchUniversalObject = {}, linkProperties = {}) {
     shareOptions = {
       messageHeader: 'Check this out!',
       messageBody: 'Check this cool thing out',
@@ -101,11 +86,7 @@ class Branch {
       ...linkProperties,
     }
 
-    RNBranch.showShareSheet(shareOptions, branchUniversalObject, linkProperties, ({channel, completed, error}) => callback({channel, completed, error}))
-  }
-
-  getShortUrl() {
-    return RNBranch.getShortUrl()
+    return RNBranch.showShareSheet(shareOptions, branchUniversalObject, linkProperties)
   }
 }
 

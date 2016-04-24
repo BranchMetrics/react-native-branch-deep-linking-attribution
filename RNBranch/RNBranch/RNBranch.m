@@ -68,8 +68,10 @@ RCT_EXPORT_MODULE();
 }
 
 
-RCT_EXPORT_METHOD(getInitSessionResult:(RCTResponseSenderBlock)callback) {
-  callback(@[initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]]);
+RCT_EXPORT_METHOD(getInitSessionResult:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject)
+{
+  resolve(@[initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]]);
 }
 
 RCT_EXPORT_METHOD(setDebug) {
@@ -77,16 +79,18 @@ RCT_EXPORT_METHOD(setDebug) {
   [branch setDebug];
 }
 
-RCT_EXPORT_METHOD(getLatestReferringParams:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getLatestReferringParams:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject)
 {
   Branch *branch = [Branch getInstance];
-  callback(@[[branch getLatestReferringParams]]);
+  resolve(@[[branch getLatestReferringParams]]);
 }
 
-RCT_EXPORT_METHOD(getFirstReferringParams:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getFirstReferringParams:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject)
 {
   Branch *branch = [Branch getInstance];
-  callback(@[[branch getFirstReferringParams]]);
+  resolve(@[[branch getFirstReferringParams]]);
 }
 
 RCT_EXPORT_METHOD(setIdentity:(NSString *)identity)
@@ -107,7 +111,11 @@ RCT_EXPORT_METHOD(userCompletedAction:(NSString *)event withState:(NSDictionary 
   [branch userCompletedAction:event withState:appState];
 }
 
-RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap withBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap withLinkProperties:(NSDictionary *)linkPropertiesMap withCallback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap
+                  withBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap
+                  withLinkProperties:(NSDictionary *)linkPropertiesMap
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject)
 {
   dispatch_async(dispatch_get_main_queue(), ^(void){
     BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:[branchUniversalObjectMap objectForKey:@"canonicalIdentifier"]];
@@ -138,13 +146,15 @@ RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap withBranchUnive
         @"error" : [NSNull null]
       };
 
-      callback(@[result]);
+      resolve(@[result]);
     }];
   });
 }
 
 
-RCT_EXPORT_METHOD(getShortUrl:(NSDictionary *)linkPropertiesMap resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getShortUrl:(NSDictionary *)linkPropertiesMap
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
   NSString *feature = [linkPropertiesMap objectForKey:@"feature"];
   NSString *channel = [linkPropertiesMap objectForKey:@"channel"];
