@@ -71,7 +71,7 @@ RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(getInitSessionResult:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject)
 {
-  resolve(@[initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]]);
+  resolve(initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]);
 }
 
 RCT_EXPORT_METHOD(setDebug) {
@@ -83,14 +83,14 @@ RCT_EXPORT_METHOD(getLatestReferringParams:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject)
 {
   Branch *branch = [Branch getInstance];
-  resolve(@[[branch getLatestReferringParams]]);
+  resolve([branch getLatestReferringParams]);
 }
 
 RCT_EXPORT_METHOD(getFirstReferringParams:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject)
 {
   Branch *branch = [Branch getInstance];
-  resolve(@[[branch getFirstReferringParams]]);
+  resolve([branch getFirstReferringParams]);
 }
 
 RCT_EXPORT_METHOD(setIdentity:(NSString *)identity)
