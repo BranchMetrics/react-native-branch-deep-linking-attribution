@@ -79,7 +79,8 @@ Please see our main [SDK Integration Guide](https://dev.branch.io/getting-starte
 var branch = require('react-native-branch');
 
 //Receives the initSession's result as soon as it becomes available
-let result = await branch.getInitSessionResultPatiently();
+branch.getInitSessionResultPatiently(({params, error}) => {});
+branch.subscribe(({params, error}) => {});
 
 branch.setDebug();
 let params = await branch.getLatestReferringParams();
