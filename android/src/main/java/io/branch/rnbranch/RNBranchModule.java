@@ -24,10 +24,11 @@ import java.util.*;
 
 public class RNBranchModule extends ReactContextBaseJavaModule {
   public static final String REACT_CLASS = "RNBranch";
+  public static final String MODULE_NAME = "RNBranch";
   private static final String NATIVE_INIT_SESSION_FINISHED_EVENT = "onInitSessionFinished";
   private static final String RN_INIT_SESSION_FINISHED_EVENT = "RNBranch.initSessionFinished";
 
-  private static JSONObject initSessionResult = null;
+  private static WritableMap initSessionResult = null;
   private BroadcastReceiver mInitSessionEventReceiver = null;
 
   public static void initSession(Uri uri, ReactActivity reactActivity) {
@@ -38,20 +39,23 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         @Override
         public void onInitFinished(JSONObject referringParams, BranchError error) {
             Log.d(REACT_CLASS, "onInitFinished");
-            JSONObject result = new JSONObject();
+            WritableMap result = new WritableNativeMap();
             try{
-                result.put("params", referringParams != null ? referringParams : JSONObject.NULL);
-                result.put("error", error != null ? error.getMessage() : JSONObject.NULL);
-            } catch(JSONException ex) {
+                result.putMap("params", convertJsonToMap(referringParams));
+                result.putString("error", error != null ? error.getMessage() : null);
+            } catch(Exception ex) {
                 try {
-                    result.put("error", "Failed to convert result to JSONObject: " + ex.getMessage());
-                } catch(JSONException k) {}
+                    result.putString("error", "Failed to convert result to JSONObject: " + ex.getMessage());
+                } catch(Exception k) {
+                    result.putString("error", "Failed to convert result to JSONObject with unknown error");
+                }
             }
             initSessionResult = result;
             LocalBroadcastManager.getInstance(mActivity).sendBroadcast(new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT));
         }
 
         private Branch.BranchReferralInitListener init(ReactActivity activity) {
+            Log.d(REACT_CLASS, "init");
             mActivity = activity;
             return this;
         }
@@ -60,9 +64,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
   public RNBranchModule(ReactApplicationContext reactContext) {
     super(reactContext);
-
-    Log.d(REACT_CLASS, "ctor");
-
     forwardInitSessionFinishedEventToReactNative(reactContext);
   }
 
@@ -72,7 +73,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
       @Override
       public void onReceive(Context context, Intent intent) {
-        mBranchModule.sendRNEvent(RN_INIT_SESSION_FINISHED_EVENT, convertJsonToMap(initSessionResult));
+        mBranchModule.sendRNEvent(RN_INIT_SESSION_FINISHED_EVENT, initSessionResult);
       }
 
       private BroadcastReceiver init(RNBranchModule branchModule) {
@@ -91,12 +92,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
   @Override
   public String getName() {
-    return REACT_CLASS;
+    return MODULE_NAME;
   }
 
   @ReactMethod
   public void getInitSessionResult(Promise promise) {
-    promise.resolve(convertJsonToMap(initSessionResult));
+    Log.d(REACT_CLASS, "getInitSessionResult");
+    promise.resolve(initSessionResult);
   }
 
   @ReactMethod
@@ -387,6 +389,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 map.putDouble(key, (Double) value);
             } else if (value instanceof String)  {
                 map.putString(key, (String) value);
+            } else if (value == null) {
+                map.putNull(key);
             } else {
                 map.putString(key, value.toString());
             }
