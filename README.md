@@ -2,58 +2,16 @@
 
 This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK.
 
-Supports iOS and Android.
-> **Wish List:**
->
-> - [x] Implement a `getShortUrl` method (`getShortUrlWithLinkProperties` in iOS and `generateShortUrl` in Android native SDKs).
-> - [ ] Allow defining [link control parameters](https://dev.branch.io/getting-started/configuring-links/guide/#link-control-parameters) (`addControlParam` in iOS and `addControlParameter` in Android native SDKs).
-> - [ ] Support full set of [link analytics labels](https://dev.branch.io/getting-started/configuring-links/guide/#analytics-labels) and [BranchUniversalObject parameters](https://dev.branch.io/getting-started/branch-universal-object/guide/ios/#parameters).
-
 ## Installation
 
-The SDK is available as a package on NPM. To get it, use these commands:
-
 1. `npm install --save react-native-branch`
-2. link the project [manually](#linking) or with `rnpm link react-native-branch`
-3. @TODO - pod
+2. `rnpm link react-native-branch` **or** link the project [manually](./docs/installation.md#manual-linking)
+3. Add `pod 'react-native-branch', :path => '../node_modules/react-native-branch'` to your ios/Podfile ([details](#cocoa-pods))
+4. `cd ios && pod install`
 
-
-#### Linking
-- @TODO
-
-### Android
-
-Sometimes `rnpm` link creates incorrect relative paths, leading to compilation errors. Ensure that the following files look as described and all linked paths are correct:
-
-```gradle
-// file: android/settings.gradle
-...
-
-include ':react-native-branch', ':app'
-
-// The relative path to the react-native-branch directory tends to often be prefixed with one too many "../"s
-project(':react-native-branch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-branch/android')
-```
-
-```gradle
-// file: android/app/build.gradle
-...
-
-dependencies {
-    ...
-    compile project(':react-native-branch')
-}
-```
-
-### iOS
-
-1. Navigate into the SDK package directory: `cd node_modules/react-native-branch`.
-1. Use CocoaPods to install dependencies: `pod install`.
-1. Drag **/node_modules/react-native-branch/Pods/Pods.xcodeproj** into the **Libraries** folder of your Xcode project. ![](https://dev.branch.io/img/pages/getting-started/sdk-integration-guide/pod-import.png)
-1. In Xcode, drag the `libBranch.a` Product from **Pods.xcodeproj** into your the **Link Binary with Libraries** section of Build Phases for your project’s target. ![](https://dev.branch.io/img/pages/getting-started/sdk-integration-guide/link-pod-binary.png)
+[Full Installation Instructions](./docs/installation.md)
 
 ## Next Steps
-
 Please see our main [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
 
 - Enable [Universal & App Links](https://dev.branch.io/getting-started/universal-app-links) — traditional URI scheme links are no longer supported in many situations on iOS 9.2+, and are a less than ideal solution on new versions of Android. To get full functionality from your Branch links on iOS devices, **you should enable Universal Links as soon as possible.**
@@ -72,12 +30,12 @@ Please see our main [SDK Integration Guide](https://dev.branch.io/getting-starte
 var branch = require('react-native-branch');
 
 //Receives the initSession's result as soon as it becomes available
-branch.getInitSessionResultPatiently(({params, error}) => {});
+branch.getInitSession(({params, error}) => {});
 branch.subscribe(({params, error}) => {});
 
 branch.setDebug();
-let params = await branch.getLatestReferringParams();
-let params = await branch.getFirstReferringParams();
+let params = await branch.getLatestReferringParams(); // params from last open
+let params = await branch.getFirstReferringParams(); // params from original install
 branch.setIdentity("Your User's ID");
 branch.userCompletedAction("Purchased Item", {item: 123});
 
@@ -88,3 +46,7 @@ let {channel, completed, error} = await branch.showShareSheet(shareOptions, bran
 
 branch.logout();
 ```
+
+## @TODO
+- [ ] Allow defining [link control parameters](https://dev.branch.io/getting-started/configuring-links/guide/#link-control-parameters) (`addControlParam` in iOS and `addControlParameter` in Android native SDKs).
+- [ ] Support full set of [link analytics labels](https://dev.branch.io/getting-started/configuring-links/guide/#analytics-labels) and [BranchUniversalObject parameters](https://dev.branch.io/getting-started/branch-universal-object/guide/ios/#parameters).

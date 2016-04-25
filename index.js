@@ -11,6 +11,7 @@ const INIT_SESSION_ERROR = 'RNBranch.initSessionError'
 
 class Branch {
 
+  _initSessionResult = null;
   _lastParams = null;
   _listeners = [];
   _patientInitSessionObservers = [];
@@ -44,12 +45,13 @@ class Branch {
     return (!this._lastParams || this._lastParams['~id'] !== params['~id'] || this._lastParams['+click_timestamp'] !== params['+click_timestamp'])
   }
 
-  getInitSessionResultPatiently = (cb) => {
+  getInitSession(cb) {
     if(this._initSessionResult) return cb(this._initSessionResult)
     this._patientInitSessionObservers.push(cb)
   }
 
   subscribe(listener) {
+    if (this._initSessionResult) listener(this._initSessionResult)
     this._listeners.push(listener)
     const unsubscribe = () => {
       let index = this._listeners.indexOf(listener)
