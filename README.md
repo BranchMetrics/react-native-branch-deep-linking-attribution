@@ -16,7 +16,7 @@ The SDK is available as a package on NPM. To get it, use these commands:
 1. `npm install --save react-native-branch`
 2. link the project [manually](#linking) or with `rnpm link react-native-branch`
 3. @TODO - pod
-```
+
 
 #### Linking
 - @TODO

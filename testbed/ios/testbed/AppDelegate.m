@@ -11,10 +11,14 @@
 
 #import "RCTRootView.h"
 
+#import "RNBranch.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
+
   NSURL *jsCodeLocation;
 
   /**
@@ -54,6 +58,17 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  if (![RNBranch handleDeepLink:url]) {
+    // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
+  }
+  return YES;
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
+  return [RNBranch continueUserActivity:userActivity];
 }
 
 @end
