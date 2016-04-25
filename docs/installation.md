@@ -18,7 +18,7 @@ Then run `pod install`
 ## Manual Linking
 #### iOS:
 - Drag and Drop /node_modules/react-native-branch/RNBranch/RNBranch.xcodeproj into the Libraries folder of your project in XCode (as described in Step 1 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
-- Drag and Drop the RNBrnach.xcodeproj's Products's libRNBranch.a into your project's target's "Linked Frameworks and Libraries" section (as described in Step 2 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
+- Drag and Drop the RNBranch.xcodeproj's Products's libRNBranch.a into your project's target's "Linked Frameworks and Libraries" section (as described in Step 2 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
 
 #### android:
 android/settings.gradle
