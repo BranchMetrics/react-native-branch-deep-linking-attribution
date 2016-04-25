@@ -2,14 +2,7 @@
 
 This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK.
 
-Tested with React Native 0.21.0.
-
 Supports iOS and Android.
-
-> #### Limited Functionality!
->
-> The React Native SDK currently implements a subset of Branch features. We plan to add further functionality soon, and would gladly accept pull requests!
->
 > **Wish List:**
 >
 > - [x] Implement a `getShortUrl` method (`getShortUrlWithLinkProperties` in iOS and `generateShortUrl` in Android native SDKs).
@@ -20,13 +13,13 @@ Supports iOS and Android.
 
 The SDK is available as a package on NPM. To get it, use these commands:
 
-```sh
-npm install rnpm -g
-npm install --save react-native-branch
-rnpm link react-native-branch
-cd node_modules/react-native-branch
-pod install #Only required for iOS
+1. `npm install --save react-native-branch`
+2. link the project [manually](#linking) or with `rnpm link react-native-branch`
+3. @TODO - pod
 ```
+
+#### Linking
+- @TODO
 
 ### Android
 
