@@ -7,8 +7,7 @@ Pod::Spec.new do |s|
   s.license      = 'MIT'
   s.homepage     = 'n/a'
   s.platform     = :ios, "7.0"
+  s.source       = { :git => "https://github.com/branchmetrics/react-native-branch.git" }
+  s.source_files = 'RNBranch/*'
   s.dependency 'Branch'
 end
-
-#  s.source       = { :git => "https://github.com/branchmetrics/react-native-branch.git" }
-#  s.source_files = 'iOS/*'
