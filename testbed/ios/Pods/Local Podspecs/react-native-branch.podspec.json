@@ -1,0 +1,19 @@
+{
+  "name": "react-native-branch",
+  "version": "0.0.1",
+  "summary": "iOS react-native branch",
+  "requires_arc": true,
+  "authors": {
+    "rt2zz": "zack@root-two.com"
+  },
+  "license": "MIT",
+  "homepage": "n/a",
+  "platforms": {
+    "ios": "7.0"
+  },
+  "dependencies": {
+    "Branch": [
+
+    ]
+  }
+}

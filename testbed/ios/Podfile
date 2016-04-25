@@ -1,3 +1,5 @@
+platform :ios, '7.0'
+
 target 'testbed' do
-  pod "Branch"
+  pod 'react-native-branch', :path => '../node_modules/react-native-branch'
 end

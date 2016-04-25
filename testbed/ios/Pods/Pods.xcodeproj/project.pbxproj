@@ -268,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				DDDAE7A52A794E70B6B4415096488ADB /* Development Pods */,
 				14B8B9B15ECBE87983FF987239AB2D7B /* Frameworks */,
 				D3C8AA9CF4833AE2FADE8F40E58E2D03 /* Pods */,
 				CB1BA22B39948930C8DA981402F0A4A5 /* Products */,
@@ -316,6 +317,22 @@
 				FE0BDB4A85B1C90991391A4E93EBF2F3 /* Branch */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		DDDAE7A52A794E70B6B4415096488ADB /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E84ED447EF847906FFE9230D2BDC30A6 /* react-native-branch */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		E84ED447EF847906FFE9230D2BDC30A6 /* react-native-branch */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "react-native-branch";
+			path = "../../node_modules/react-native-branch";
 			sourceTree = "<group>";
 		};
 		FE0BDB4A85B1C90991391A4E93EBF2F3 /* Branch */ = {

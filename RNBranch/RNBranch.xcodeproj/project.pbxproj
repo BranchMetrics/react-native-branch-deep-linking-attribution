@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		147052311CCDDA6000333C29 /* libBranch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 147052301CCDDA6000333C29 /* libBranch.a */; };
 		B3A3CC3A1C5B0A070016AC52 /* RNBranch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B3A3CC391C5B0A070016AC52 /* RNBranch.h */; };
 		B3A3CC3C1C5B0A070016AC52 /* RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A3CC3B1C5B0A070016AC52 /* RNBranch.m */; };
 /* End PBXBuildFile section */
@@ -25,6 +26,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		147052301CCDDA6000333C29 /* libBranch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBranch.a; path = "Pods/../build/Debug-iphoneos/libBranch.a"; sourceTree = "<group>"; };
+		21A8C0EA07E17373047964D2 /* Pods-RNBranch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNBranch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RNBranch/Pods-RNBranch.debug.xcconfig"; sourceTree = "<group>"; };
+		30F072B7594E7A4089D93C84 /* libPods-RNBranch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNBranch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		72D6A203954551C2E478BFF4 /* Pods-RNBranch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNBranch.release.xcconfig"; path = "Pods/Target Support Files/Pods-RNBranch/Pods-RNBranch.release.xcconfig"; sourceTree = "<group>"; };
 		B3A3CC361C5B0A070016AC52 /* libRNBranch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNBranch.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A3CC391C5B0A070016AC52 /* RNBranch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNBranch.h; sourceTree = "<group>"; };
 		B3A3CC3B1C5B0A070016AC52 /* RNBranch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNBranch.m; sourceTree = "<group>"; };
@@ -35,17 +40,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				147052311CCDDA6000333C29 /* libBranch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52D26142CFE0360516F8E1D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				147052301CCDDA6000333C29 /* libBranch.a */,
+				30F072B7594E7A4089D93C84 /* libPods-RNBranch.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B3A3CC2D1C5B0A070016AC52 = {
 			isa = PBXGroup;
 			children = (
 				B3A3CC381C5B0A070016AC52 /* RNBranch */,
 				B3A3CC371C5B0A070016AC52 /* Products */,
+				F180E5CA96E332F1121655D8 /* Pods */,
+				52D26142CFE0360516F8E1D2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +83,15 @@
 			path = RNBranch;
 			sourceTree = "<group>";
 		};
+		F180E5CA96E332F1121655D8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				21A8C0EA07E17373047964D2 /* Pods-RNBranch.debug.xcconfig */,
+				72D6A203954551C2E478BFF4 /* Pods-RNBranch.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -73,9 +99,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3A3CC3F1C5B0A070016AC52 /* Build configuration list for PBXNativeTarget "RNBranch" */;
 			buildPhases = (
+				93C73B8098B6D42F8412A0DF /* Check Pods Manifest.lock */,
 				B3A3CC321C5B0A070016AC52 /* Sources */,
 				B3A3CC331C5B0A070016AC52 /* Frameworks */,
 				B3A3CC341C5B0A070016AC52 /* CopyFiles */,
+				58C3F84E06B177A2EC55F81E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -116,6 +144,39 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		58C3F84E06B177A2EC55F81E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RNBranch/Pods-RNBranch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		93C73B8098B6D42F8412A0DF /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B3A3CC321C5B0A070016AC52 /* Sources */ = {
@@ -221,6 +282,7 @@
 		};
 		B3A3CC401C5B0A070016AC52 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21A8C0EA07E17373047964D2 /* Pods-RNBranch.debug.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -228,6 +290,10 @@
 					"$(SRCROOT)/../../react-native/React/**",
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public\"",
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public/Branch\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -237,6 +303,7 @@
 		};
 		B3A3CC411C5B0A070016AC52 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72D6A203954551C2E478BFF4 /* Pods-RNBranch.release.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -244,6 +311,10 @@
 					"$(SRCROOT)/../../react-native/React/**",
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public\"",
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public/Branch\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
