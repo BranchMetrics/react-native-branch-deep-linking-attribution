@@ -6,10 +6,13 @@ This is a repository of our open source React Native SDK. Huge shoutout to our f
 
 1. `npm install --save react-native-branch`
 2. `rnpm link react-native-branch` **or** link the project [manually](./docs/installation.md#manual-linking)
-3. Add `pod 'react-native-branch', :path => '../node_modules/react-native-branch'` to your ios/Podfile ([details](./docs/installation.md#cocoa-pods))
+3. Add `pod 'Branch'` to your ios/Podfile ([details](./docs/installation.md#cocoa-pods))
 4. `cd ios && pod install`
 
-[Full Installation Instructions](./docs/installation.md)
+If you are new to react-native or cocoa-pods, read below for more details:
+- [Full Installation Instructions](./docs/installation.md)
+- [If you already have React in your Podfile]('./docs/installation.md#pod-only-installation')
+- [If you do not know what a Podfile is]('./docs/installation.md#creating-a-new-podfile')
 
 ## Next Steps
 Please see our main [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.

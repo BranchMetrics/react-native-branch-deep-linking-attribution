@@ -1,19 +1,37 @@
 # React Native Branch - Installation
-
 1. `npm install --save react-native-branch`
 2. `rnpm link react-native-branch` **or** link the project [manually](#manual-linking)
-3. Add `pod 'react-native-branch', :path => '../node_modules/react-native-branch'` to your ios/Podfile ([details](#cocoa-pods))
+3. Add `pod 'Branch'` as a dependency in your ios/Podfile
 4. `cd ios && pod install`
 
 ## Cocoa Pods
-If you do not already have a Podfile in your ios directory, you can create one with `pod init`. The final Podfile should look something like:
+#### Example Podfile
+In a standard installation your Podfile should look something like:
 ```
-target 'testbed' do
-  pod 'react-native-branch', :path => '../node_modules/react-native-branch'
+target 'MyProject' do
+  pod 'Branch'
 end
 ```
 
-Then run `pod install`
+#### Creating a New Podfile
+If you do not already have a Podfile in your ios directory, you can create one with `cd ios && pod init`. Then add `pod 'Branch'` to your target. The final Podfile should look something like:
+```
+target 'MyProject' do
+  pod 'Branch'
+end
+```
+Now run `pod install` to get the branch sdk.
+
+After pod install you will from now on need to open your project using **[MyProject].xcworkspace** instead of the old .xcodeproj.
+
+#### Pod Only Installation
+If you already use the React cocoa-pod, you can simply add the react-native-branch dependency to your Podfile:
+```
+target 'MyProject' do
+  pod 'React', :path => '../node_modules/react-native'
+  pod 'react-native-branch', :path => '../node_modules/react-native-branch'
+end
+```
 
 ## Manual Linking
 #### iOS:
@@ -36,7 +54,7 @@ dependencies {
 ```
 android/app/src/[...]/MainActivity.java
 ```java
-import com.dispatcher.rnbranch.*; // <-- Add this
+import io.branch.rnbranch.*; // <-- Add this
 
 public class MainActivity extends ReactActivity {
     // ...
