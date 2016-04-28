@@ -24,8 +24,9 @@ import java.util.*;
 
 public class RNBranchModule extends ReactContextBaseJavaModule {
   public static final String REACT_CLASS = "RNBranch";
+  public static final String REACT_MODULE_NAME = "RNBranch";
   private static final String NATIVE_INIT_SESSION_FINISHED_EVENT = "onInitSessionFinished";
-  private static final String RN_INIT_SESSION_FINISHED_EVENT = "RNBranch.initSessionFinished";
+  private static final String RN_INIT_SESSION_EVENT = "RNBranch.initSessionSuccess";
 
   private static JSONObject initSessionResult = null;
   private BroadcastReceiver mInitSessionEventReceiver = null;
@@ -72,7 +73,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
       @Override
       public void onReceive(Context context, Intent intent) {
-        mBranchModule.sendRNEvent(RN_INIT_SESSION_FINISHED_EVENT, convertJsonToMap(initSessionResult));
+        mBranchModule.sendRNEvent(RN_INIT_SESSION_EVENT, convertJsonToMap(initSessionResult));
       }
 
       private BroadcastReceiver init(RNBranchModule branchModule) {
@@ -91,7 +92,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
   @Override
   public String getName() {
-    return REACT_CLASS;
+    return REACT_MODULE_NAME;
   }
 
   @ReactMethod
