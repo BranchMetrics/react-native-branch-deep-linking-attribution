@@ -6,6 +6,21 @@
   "scripts": {
     "test": "ava"
   },
+  "ava": {
+    "require": [
+      "babel-register",
+      "babel-polyfill",
+      "react-native-mock/mock.js",
+      "./test/helpers/RNBranch.mock.js"
+    ],
+    "babel": "inherit"
+  },
+  "babel": {
+    "ignore": false,
+    "presets": [
+      "react-native"
+    ]
+  },
   "keywords": [
     "react-native",
     "react-component",
@@ -28,6 +43,13 @@
   },
   "homepage": "https://github.com/BranchMetrics/react-native-branch",
   "devDependencies": {
-    "ava": "^0.14.0"
+    "ava": "^0.14.0",
+    "babel-polyfill": "^6.7.4",
+    "eslint": "^2.7.0",
+    "eslint-config-rackt": "^1.1.1",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-native": "^0.24.1",
+    "react-native-mock": "0.0.7"
   }
 }

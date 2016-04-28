@@ -1,5 +1,11 @@
 import test from 'ava'
 
-test('ava and travis work', t => {
-  t.truthy(true)
+import branch from '../index.js'
+
+test('subscribe returns init session', t => {
+  return new Promise((resolve, reject) => {
+    branch.subscribe((session) => {
+      resolve()
+    })
+  })
 })
