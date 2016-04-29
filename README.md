@@ -15,43 +15,35 @@ If you are new to react-native or cocoa-pods, read below for more details:
 - [If you do not know what a Podfile is]('./docs/installation.md#creating-a-new-podfile')
 
 ## Next Steps
-Please see our main [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
+In order to get full branch support you will need to setup your ios and android projects accordingly:
+- [iOS]('./docs/setup.md#ios')
+- [android]('./docs/setup.md#android')
 
-- Enable [Universal & App Links](https://dev.branch.io/getting-started/universal-app-links) — traditional URI scheme links are no longer supported in many situations on iOS 9.2+, and are a less than ideal solution on new versions of Android. To get full functionality from your Branch links on iOS devices, **you should enable Universal Links as soon as possible.**
-- Learn how to [create Branch links](https://dev.branch.io/getting-started/creating-links-in-apps/) in your app.
-- Set up [deep link routing](https://dev.branch.io/getting-started/deep-link-routing/)
+Please see the branch [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
 
 ## Additional Resources
-
-- [SDK Integration guide](https://dev.branch.io/recipes/add_the_sdk/react/) *Start Here*
+- [SDK Integration guide](https://dev.branch.io/recipes/add_the_sdk/react/)
 - [Testing](https://dev.branch.io/getting-started/integration-testing/guide/react/)
 - [Support portal, FAQ](http://support.branch.io/)
 
 ## Usage
-
 ```js
-var branch = require('react-native-branch');
+var branch = require('react-native-branch')
 
 //Receives the initSession's result as soon as it becomes available
-branch.getInitSession(({params, error}) => {});
-branch.subscribe(({params, error}) => {});
+branch.getInitSession(({params, error}) => {})
+branch.subscribe(({params, error}) => {})
 
-branch.setDebug();
-let params = await branch.getLatestReferringParams(); // params from last open
-let params = await branch.getFirstReferringParams(); // params from original install
-branch.setIdentity("Your User's ID");
-branch.userCompletedAction("Purchased Item", {item: 123});
+branch.setDebug()
+let params = await branch.getLatestReferringParams() // params from last open
+let params = await branch.getFirstReferringParams() // params from original install
+branch.setIdentity("Your User's ID")
+branch.userCompletedAction("Purchased Item", {item: 123})
 
-var shareOptions = {messageHeader: "Check this out!", messageBody: "Check this cool thing out: "};
-var branchUniversalObject = {metadata: {prop1: "test", prop2: "abc"}, canonicalIdentifier: "RNBranchSharedObjectId", contentTitle: "Cool Content!", contentDescription: "Cool Content Description", contentImageUrl: ""};
-var linkProperties = {feature: 'share', channel: 'RNApp'};
-let {channel, completed, error} = await branch.showShareSheet(shareOptions, branchUniversalObject, linkProperties);
+var shareOptions = {messageHeader: "Check this out!", messageBody: "Check this cool thing out: "}
+var branchUniversalObject = {metadata: {prop1: "test", prop2: "abc"}, canonicalIdentifier: "RNBranchSharedObjectId", contentTitle: "Cool Content!", contentDescription: "Cool Content Description", contentImageUrl: ""}
+var linkProperties = {feature: 'share', channel: 'RNApp'}
+let {channel, completed, error} = await branch.showShareSheet(shareOptions, branchUniversalObject, linkProperties)
 
-branch.logout();
+branch.logout()
 ```
-
-## @TODO
-- [ ] Allow defining [link control parameters](https://dev.branch.io/getting-started/configuring-links/guide/#link-control-parameters) (`addControlParam` in iOS and `addControlParameter` in Android native SDKs).
-- [ ] Support full set of [link analytics labels](https://dev.branch.io/getting-started/configuring-links/guide/#analytics-labels)
-- [ ] full [BranchUniversalObject](https://dev.branch.io/getting-started/branch-universal-object/guide/ios/#parameters) support.
-- [ ] [referral methods](https://github.com/BranchMetrics/Cordova-Ionic-PhoneGap-Deferred-Deep-Linking-SDK/blob/master/src/ios/BranchSDK.m#L275-L357)
