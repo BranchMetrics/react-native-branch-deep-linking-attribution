@@ -6,6 +6,8 @@ import { NativeModules, NativeAppEventEmitter, DeviceEventEmitter, Platform } fr
 const nativeEventEmitter = Platform.OS === 'ios' ? NativeAppEventEmitter : DeviceEventEmitter
 const { RNBranch } = NativeModules
 
+import createBranchUniversalObject from './branchUniversalObject'
+
 const INIT_SESSION_SUCCESS = 'RNBranch.initSessionSuccess'
 const INIT_SESSION_ERROR = 'RNBranch.initSessionError'
 
@@ -24,6 +26,7 @@ class Branch {
     this._processInitSession()
   }
 
+  /*** RNBranch Deep Linking ***/
   async _processInitSession() {
     // retrieve the last initSession if it exists
     let result = await RNBranch.getInitSessionResult()
@@ -70,27 +73,8 @@ class Branch {
   userCompletedAction = (event, state = {}) => RNBranch.userCompletedAction(event, state)
   getShortUrl = RNBranch.getShortUrl
 
-  showShareSheet(shareOptions = {}, branchUniversalObject = {}, linkProperties = {}) {
-    shareOptions = {
-      messageHeader: 'Check this out!',
-      messageBody: 'Check this cool thing out',
-      ...shareOptions,
-    }
-    branchUniversalObject = {
-      canonicalIdentifier: 'RNBranchSharedObjectId',
-      contentTitle: 'Cool Content!',
-      contentDescription: 'Cool Content Description',
-      contentImageUrl: '',
-      ...branchUniversalObject,
-    }
-    linkProperties = {
-      feature: 'share',
-      channel: 'RNApp',
-      ...linkProperties,
-    }
-
-    return RNBranch.showShareSheet(shareOptions, branchUniversalObject, linkProperties)
-  }
+  /*** BranchUniversalObject ***/
+  createBranchUniversalObject = createBranchUniversalObject
 }
 
 export default new Branch()

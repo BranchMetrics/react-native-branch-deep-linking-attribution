@@ -13,7 +13,6 @@
 #import "BranchLinkProperties.h"
 #import "BranchUniversalObject.h"
 
-
 @implementation RNBranch
 
 NSString * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWithLaunchOptionsFinished";
@@ -67,6 +66,25 @@ RCT_EXPORT_MODULE();
   }
 }
 
+- (BranchUniversalObject) createBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap
+{
+  BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:[branchUniversalObjectMap objectForKey:@"canonicalIdentifier"]];
+  branchUniversalObject.title = [branchUniversalObjectMap objectForKey:@"contentTitle"];
+  branchUniversalObject.contentDescription = [branchUniversalObjectMap objectForKey:@"contentDescription"];
+  branchUniversalObject.imageUrl = [branchUniversalObjectMap objectForKey:@"contentImageUrl"];
+
+  NSDictionary* metaData = [branchUniversalObjectMap objectForKey:@"metadata"];
+  if(metaData) {
+    NSEnumerator *enumerator = [metaData keyEnumerator];
+    id metaDataKey;
+    while((metaDataKey = [enumerator nextObject])) {
+      [branchUniversalObject addMetadataKey:metaDataKey value:[metaData objectForKey:metaDataKey]];
+    }
+  }
+
+  return branchUniversalObject
+}
+
 
 RCT_EXPORT_METHOD(getInitSessionResult:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject)
@@ -111,26 +129,14 @@ RCT_EXPORT_METHOD(userCompletedAction:(NSString *)event withState:(NSDictionary 
   [branch userCompletedAction:event withState:appState];
 }
 
-RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap
-                  withBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap
+RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)branchUniversalObjectMap
+                  withShareOptions:(NSDictionary *)shareOptionsMap
                   withLinkProperties:(NSDictionary *)linkPropertiesMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject)
 {
   dispatch_async(dispatch_get_main_queue(), ^(void){
-    BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:[branchUniversalObjectMap objectForKey:@"canonicalIdentifier"]];
-    branchUniversalObject.title = [branchUniversalObjectMap objectForKey:@"contentTitle"];
-    branchUniversalObject.contentDescription = [branchUniversalObjectMap objectForKey:@"contentDescription"];
-    branchUniversalObject.imageUrl = [branchUniversalObjectMap objectForKey:@"contentImageUrl"];
-
-    NSDictionary* metaData = [branchUniversalObjectMap objectForKey:@"metadata"];
-    if(metaData) {
-      NSEnumerator *enumerator = [metaData keyEnumerator];
-      id metaDataKey;
-      while((metaDataKey = [enumerator nextObject])) {
-        [branchUniversalObject addMetadataKey:metaDataKey value:[metaData objectForKey:metaDataKey]];
-      }
-    }
+    BranchUniversalObject branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
 
     BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
     linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
@@ -152,6 +158,72 @@ RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap
   });
 }
 
+RCT_EXPORT_METHOD(registerView:(NSDictionary *)branchUniversalObjectMap
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+  BranchUniversalObject branchUniversalObject = [self makeBranchUniversalObject:branchUniversalObjectMap];
+  [branchUniversalObject registerViewWithCallback:^(NSDictionary *params, NSError *error) {
+    CDVPluginResult *pluginResult = nil;
+    if (!error) {
+      resolve(params);
+    } else {
+      reject(error);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(generateShortUrl:(NSDictionary *)branchUniversalObjectMap
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+  BranchUniversalObject branchUniversalObject = [self makeBranchUniversalObject:branchUniversalObjectMap];
+
+  BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
+  linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
+  linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];
+
+  [branchUniversalObject getShortUrlWithLinkProperties:linkProperties andCallback:^(NSString *url, NSError *error) {
+    CDVPluginResult* pluginResult = nil;
+    if (!error) {
+      NSError *err;
+      NSDictionary *jsonObj = [[NSDictionary alloc] initWithObjectsAndKeys:url, @"url", 0, @"options", &err, @"error", nil];
+
+      if (err) {
+        NSLog(@"Parsing Error: %@", [err localizedDescription]);
+        reject(err);
+      } else {
+        NSLog(@"RNBranch Success");
+        resolve(jsonObj);
+      }
+    } else {
+      reject(error);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(listOnSpotlight:(NSDictionary *)branchUniversalObjectMap
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+  BranchUniversalObject branchUniversalObject = [self makeBranchUniversalObject:branchUniversalObjectMap];
+  [branchUniversalObj listOnSpotlightWithCallback:^(NSString *string, NSError *error) {
+    if (!error) {
+      NSError *err;
+      NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"result":string}
+                                                         options:0
+                                                           error:&err];
+      if (err) {
+        reject(err);
+      } else {
+        resolve(jsonData);
+      }
+    }
+    else {
+      reject(error);
+    }
+  }];
+}
 
 RCT_EXPORT_METHOD(getShortUrl:(NSDictionary *)linkPropertiesMap
                   resolver:(RCTPromiseResolveBlock)resolve

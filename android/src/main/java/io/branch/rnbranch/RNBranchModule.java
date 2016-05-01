@@ -137,7 +137,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void showShareSheet(ReadableMap shareOptionsMap, ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, Promise promise) {
+  public void showShareSheet(ReadableMap branchUniversalObjectMap, ReadableMap shareOptionsMap, ReadableMap linkPropertiesMap, Promise promise) {
     Context context = getReactApplicationContext();
 
     Handler mainHandler = new Handler(context.getMainLooper());
@@ -153,61 +153,34 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         shareOptionsMap = _shareOptionsMap;
         branchUniversalObjectMap = _branchUniversalObjectMap;
         linkPropertiesMap = _linkPropertiesMap;
-
         return this;
       }
 
       @Override
       public void run() {
         ShareSheetStyle shareSheetStyle = new ShareSheetStyle(mContext, shareOptionsMap.getString("messageHeader"), shareOptionsMap.getString("messageBody"))
-                .setCopyUrlStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
-                .setMoreOptionStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_search), "Show more")
-                .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
-                .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
-                .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
-                .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK);
+          .setCopyUrlStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
+          .setMoreOptionStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_search), "Show more")
+          .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
+          .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
+          .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
+          .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK);
 
-        BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
-                // The identifier is what Branch will use to de-dupe the content across many different Universal Objects
-                .setCanonicalIdentifier(branchUniversalObjectMap.getString("canonicalIdentifier"))
-                // This is where you define the open graph structure and how the object will appear on Facebook or in a deepview
-                .setTitle(branchUniversalObjectMap.getString("contentTitle"))
-                .setContentDescription(branchUniversalObjectMap.getString("contentDescription"))
-                .setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
+        BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
 
-        if(branchUniversalObjectMap.hasKey("metadata")) {
-          ReadableMap metadataMap = branchUniversalObjectMap.getMap("metadata");
-          ReadableMapKeySetIterator iterator = metadataMap.keySetIterator();
-          while (iterator.hasNextKey()) {
-            String metadataKey = iterator.nextKey();
-            Object metadataObject = getReadableMapObjectForKey(metadataMap, metadataKey);
-            branchUniversalObject.addContentMetadata(metadataKey, metadataObject.toString());
-          }
-        }
+        LinkProperties linkProperties = RNBranchModule.createLinkProperties(linkPropertiesMap);
 
-        LinkProperties linkProperties = new LinkProperties()
-                   .setChannel(linkPropertiesMap.getString("channel"))
-                   .setFeature(linkPropertiesMap.getString("feature"));
-
-        ReadableMap controlParams = linkPropertiesMap.getMap("controlParams");
-        ReadableMapKeySetIterator iterator = controlParams.keySetIterator();
-        while (iterator.hasNextKey()) {
-          String controlParamKey = iterator.nextKey();
-          Object controlParamObject = getReadableMapObjectForKey(controlParams, controlParamKey);
-          if (controlParamObject instanceof String) {
-            linkProperties.addControlParameter(controlParamKey, (String)controlParamObject);
-          }
-        }
-
-        branchUniversalObject.showShareSheet(getCurrentActivity(),
-                                          linkProperties,
-                                          shareSheetStyle,
-                                           new Branch.BranchLinkShareListener() {
+        branchUniversalObject.showShareSheet(
+          getCurrentActivity(),
+          linkProperties,
+          shareSheetStyle,
+          new Branch.BranchLinkShareListener() {
             private Promise mPromise = null;
 
             @Override
             public void onShareLinkDialogLaunched() {
             }
+
             @Override
             public void onShareLinkDialogDismissed() {
               if(mPromise == null) {
@@ -221,6 +194,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
               mPromise.resolve(map);
               mPromise = null;
             }
+
             @Override
             public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {
               if(mPromise == null) {
@@ -247,6 +221,83 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }.init(shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap, promise, context);
 
     mainHandler.post(myRunnable);
+  }
+
+  private void registerView(ReadableMap branchUniversalObjectMap, Promise promise) {
+    BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
+    branchUniversalObject.registerView();
+    // @TODO add callback error handling
+    Promise.resolve();
+  }
+
+  /**
+   * Generate a URL.
+   *
+   * @param instanceIdx The instance index from branchObjects array
+   * @param options A {@link JSONObject} value to set URL options.
+   * @param controlParams A {@link JSONObject} value to set the URL control parameters.
+   */
+  private void generateShortUrl(ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, Promise promise) {
+    BranchLinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
+
+    BranchUniversalObjectWrapper branchUniversalWrapper = (BranchUniversalObjectWrapper) this.branchObjectWrappers.get(instanceIdx);
+
+    branchUniversalWrapper.branchUniversalObj.generateShortUrl(this.activity, linkProperties, new GenerateShortUrlListener(callbackContext));
+
+  }
+
+  public LinkProperties createLinkProperties(ReadableMap linkPropertiesMap){
+    LinkProperties linkProperties = new LinkProperties()
+      .setChannel(linkPropertiesMap.getString("channel"))
+      .setFeature(linkPropertiesMap.getString("feature"));
+
+    if (controlParams.hasKey("$fallback_url")) {
+        linkProperties.addControlParameter("$fallback_url", controlParams.getString("$fallback_url"));
+    }
+    if (controlParams.hasKey("$desktop_url")) {
+        linkProperties.addControlParameter("$desktop_url", controlParams.getString("$desktop_url"));
+    }
+    if (controlParams.hasKey("$android_url")) {
+        linkProperties.addControlParameter("$android_url", controlParams.getString("$android_url"));
+    }
+    if (controlParams.hasKey("$ios_url")) {
+        linkProperties.addControlParameter("$ios_url", controlParams.getString("$ios_url"));
+    }
+    if (controlParams.hasKey("$ipad_url")) {
+        linkProperties.addControlParameter("$ipad_url", controlParams.getString("$ipad_url"));
+    }
+    if (controlParams.hasKey("$fire_url")) {
+        linkProperties.addControlParameter("$fire_url", controlParams.getString("$fire_url"));
+    }
+    if (controlParams.hasKey("$blackberry_url")) {
+        linkProperties.addControlParameter("$blackberry_url", controlParams.getString("$blackberry_url"));
+    }
+    if (controlParams.hasKey("$windows_phone_url")) {
+        linkProperties.addControlParameter("$windows_phone_url", controlParams.getString("$windows_phone_url"));
+    }
+
+    return linkProperties;
+  }
+
+  public BranchUniversalObject createBranchUniversalObject(ReadableMap branchUniversalObjectMap) {
+    BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
+      // The identifier is what Branch will use to de-dupe the content across many different Universal Objects
+      .setCanonicalIdentifier(branchUniversalObjectMap.getString("canonicalIdentifier"))
+      .setTitle(branchUniversalObjectMap.getString("contentTitle"))
+      .setContentDescription(branchUniversalObjectMap.getString("contentDescription"))
+      .setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
+
+    if(branchUniversalObjectMap.hasKey("metadata")) {
+      ReadableMap metadataMap = branchUniversalObjectMap.getMap("metadata");
+      ReadableMapKeySetIterator iterator = metadataMap.keySetIterator();
+      while (iterator.hasNextKey()) {
+        String metadataKey = iterator.nextKey();
+        Object metadataObject = getReadableMapObjectForKey(metadataMap, metadataKey);
+        branchUniversalObject.addContentMetadata(metadataKey, metadataObject.toString());
+      }
+    }
+
+    return branchUniversalObject;
   }
 
   public void sendRNEvent(String eventName, @Nullable WritableMap params) {
