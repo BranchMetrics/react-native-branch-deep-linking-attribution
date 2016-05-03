@@ -14,10 +14,12 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.*;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.modules.core.*;
+import com.facebook.react.bridge.ReadableMap;
 
 import io.branch.referral.*;
+import io.branch.referral.Branch.BranchLinkCreateListener;
 import io.branch.referral.util.*;
-import io.branch.indexing.BranchUniversalObject;
+import io.branch.indexing.*;
 
 import org.json.*;
 import java.util.*;
@@ -31,31 +33,36 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   private static JSONObject initSessionResult = null;
   private BroadcastReceiver mInitSessionEventReceiver = null;
 
+  private ReactActivity mActivity = null;
+
+
   public static void initSession(Uri uri, ReactActivity reactActivity) {
     Branch branch = Branch.getInstance();
     branch.initSession(new Branch.BranchReferralInitListener(){
-        private ReactActivity mActivity = null;
 
-        @Override
-        public void onInitFinished(JSONObject referringParams, BranchError error) {
-            Log.d(REACT_CLASS, "onInitFinished");
-            JSONObject result = new JSONObject();
-            try{
-                result.put("params", referringParams != null ? referringParams : JSONObject.NULL);
-                result.put("error", error != null ? error.getMessage() : JSONObject.NULL);
-            } catch(JSONException ex) {
-                try {
-                    result.put("error", "Failed to convert result to JSONObject: " + ex.getMessage());
-                } catch(JSONException k) {}
-            }
-            initSessionResult = result;
-            LocalBroadcastManager.getInstance(mActivity).sendBroadcast(new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT));
-        }
+      private ReactActivity mmActivity = null;
 
-        private Branch.BranchReferralInitListener init(ReactActivity activity) {
-            mActivity = activity;
-            return this;
+      @Override
+      public void onInitFinished(JSONObject referringParams, BranchError error) {
+
+        Log.d(REACT_CLASS, "onInitFinished");
+        JSONObject result = new JSONObject();
+        try{
+          result.put("params", referringParams != null ? referringParams : JSONObject.NULL);
+          result.put("error", error != null ? error.getMessage() : JSONObject.NULL);
+        } catch(JSONException ex) {
+          try {
+            result.put("error", "Failed to convert result to JSONObject: " + ex.getMessage());
+          } catch(JSONException k) {}
         }
+        initSessionResult = result;
+        LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT));
+      }
+
+      private Branch.BranchReferralInitListener init(ReactActivity activity) {
+        mmActivity = activity;
+        return this;
+      }
     }.init(reactActivity), uri, reactActivity);
   }
 
@@ -159,63 +166,63 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
       @Override
       public void run() {
         ShareSheetStyle shareSheetStyle = new ShareSheetStyle(mContext, shareOptionsMap.getString("messageHeader"), shareOptionsMap.getString("messageBody"))
-          .setCopyUrlStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
-          .setMoreOptionStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_search), "Show more")
-          .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
-          .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
-          .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
-          .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK);
+        .setCopyUrlStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
+        .setMoreOptionStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_search), "Show more")
+        .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
+        .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
+        .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
+        .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK);
 
         BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
 
-        LinkProperties linkProperties = RNBranchModule.createLinkProperties(linkPropertiesMap);
+        LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, null);
 
         branchUniversalObject.showShareSheet(
-          getCurrentActivity(),
-          linkProperties,
-          shareSheetStyle,
-          new Branch.BranchLinkShareListener() {
-            private Promise mPromise = null;
+        getCurrentActivity(),
+        linkProperties,
+        shareSheetStyle,
+        new Branch.BranchLinkShareListener() {
+          private Promise mPromise = null;
 
-            @Override
-            public void onShareLinkDialogLaunched() {
+          @Override
+          public void onShareLinkDialogLaunched() {
+          }
+
+          @Override
+          public void onShareLinkDialogDismissed() {
+            if(mPromise == null) {
+              return;
             }
 
-            @Override
-            public void onShareLinkDialogDismissed() {
-              if(mPromise == null) {
-                return;
-              }
+            WritableMap map = new WritableNativeMap();
+            map.putString("channel", null);
+            map.putBoolean("completed", false);
+            map.putString("error", null);
+            mPromise.resolve(map);
+            mPromise = null;
+          }
 
-              WritableMap map = new WritableNativeMap();
-              map.putString("channel", null);
-              map.putBoolean("completed", false);
-              map.putString("error", null);
-              mPromise.resolve(map);
-              mPromise = null;
+          @Override
+          public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {
+            if(mPromise == null) {
+              return;
             }
 
-            @Override
-            public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {
-              if(mPromise == null) {
-                return;
-              }
+            WritableMap map = new WritableNativeMap();
+            map.putString("channel", sharedChannel);
+            map.putBoolean("completed", true);
+            map.putString("error", (error != null ? error.getMessage() : null));
+            mPromise.resolve(map);
+            mPromise = null;
+          }
+          @Override
+          public void onChannelSelected(String channelName) {
+          }
 
-              WritableMap map = new WritableNativeMap();
-              map.putString("channel", sharedChannel);
-              map.putBoolean("completed", true);
-              map.putString("error", (error != null ? error.getMessage() : null));
-              mPromise.resolve(map);
-              mPromise = null;
-            }
-            @Override
-            public void onChannelSelected(String channelName) {
-            }
-
-            private Branch.BranchLinkShareListener init(Promise promise) {
-              mPromise = promise;
-              return this;
-            }
+          private Branch.BranchLinkShareListener init(Promise promise) {
+            mPromise = promise;
+            return this;
+          }
         }.init(mPm));
       }
     }.init(shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap, promise, context);
@@ -227,53 +234,56 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
     branchUniversalObject.registerView();
     // @TODO add callback error handling
-    Promise.resolve();
+    promise.resolve(true);
   }
 
   /**
-   * Generate a URL.
-   *
-   * @param instanceIdx The instance index from branchObjects array
-   * @param options A {@link JSONObject} value to set URL options.
-   * @param controlParams A {@link JSONObject} value to set the URL control parameters.
-   */
+  * Generate a URL.
+  */
   private void generateShortUrl(ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, Promise promise) {
-    BranchLinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
+    LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
 
-    BranchUniversalObjectWrapper branchUniversalWrapper = (BranchUniversalObjectWrapper) this.branchObjectWrappers.get(instanceIdx);
+    BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
 
-    branchUniversalWrapper.branchUniversalObj.generateShortUrl(this.activity, linkProperties, new GenerateShortUrlListener(callbackContext));
+    branchUniversalObject.generateShortUrl(mActivity, linkProperties, new BranchLinkCreateListener() {
+      @Override
+      public void onLinkCreate(String url, BranchError error) {
+        Log.d(REACT_CLASS, "onLinkCreate " + url);
+      }
+    });
 
   }
 
-  public LinkProperties createLinkProperties(ReadableMap linkPropertiesMap){
+  public static LinkProperties createLinkProperties(ReadableMap linkPropertiesMap, @Nullable ReadableMap controlParams){
     LinkProperties linkProperties = new LinkProperties()
-      .setChannel(linkPropertiesMap.getString("channel"))
-      .setFeature(linkPropertiesMap.getString("feature"));
+    .setChannel(linkPropertiesMap.getString("channel"))
+    .setFeature(linkPropertiesMap.getString("feature"));
 
-    if (controlParams.hasKey("$fallback_url")) {
+    if (controlParams != null) {
+      if (controlParams.hasKey("$fallback_url")) {
         linkProperties.addControlParameter("$fallback_url", controlParams.getString("$fallback_url"));
-    }
-    if (controlParams.hasKey("$desktop_url")) {
+      }
+      if (controlParams.hasKey("$desktop_url")) {
         linkProperties.addControlParameter("$desktop_url", controlParams.getString("$desktop_url"));
-    }
-    if (controlParams.hasKey("$android_url")) {
+      }
+      if (controlParams.hasKey("$android_url")) {
         linkProperties.addControlParameter("$android_url", controlParams.getString("$android_url"));
-    }
-    if (controlParams.hasKey("$ios_url")) {
+      }
+      if (controlParams.hasKey("$ios_url")) {
         linkProperties.addControlParameter("$ios_url", controlParams.getString("$ios_url"));
-    }
-    if (controlParams.hasKey("$ipad_url")) {
+      }
+      if (controlParams.hasKey("$ipad_url")) {
         linkProperties.addControlParameter("$ipad_url", controlParams.getString("$ipad_url"));
-    }
-    if (controlParams.hasKey("$fire_url")) {
+      }
+      if (controlParams.hasKey("$fire_url")) {
         linkProperties.addControlParameter("$fire_url", controlParams.getString("$fire_url"));
-    }
-    if (controlParams.hasKey("$blackberry_url")) {
+      }
+      if (controlParams.hasKey("$blackberry_url")) {
         linkProperties.addControlParameter("$blackberry_url", controlParams.getString("$blackberry_url"));
-    }
-    if (controlParams.hasKey("$windows_phone_url")) {
+      }
+      if (controlParams.hasKey("$windows_phone_url")) {
         linkProperties.addControlParameter("$windows_phone_url", controlParams.getString("$windows_phone_url"));
+      }
     }
 
     return linkProperties;
@@ -281,11 +291,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
   public BranchUniversalObject createBranchUniversalObject(ReadableMap branchUniversalObjectMap) {
     BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
-      // The identifier is what Branch will use to de-dupe the content across many different Universal Objects
-      .setCanonicalIdentifier(branchUniversalObjectMap.getString("canonicalIdentifier"))
-      .setTitle(branchUniversalObjectMap.getString("contentTitle"))
-      .setContentDescription(branchUniversalObjectMap.getString("contentDescription"))
-      .setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
+    // The identifier is what Branch will use to de-dupe the content across many different Universal Objects
+    .setCanonicalIdentifier(branchUniversalObjectMap.getString("canonicalIdentifier"))
+    .setTitle(branchUniversalObjectMap.getString("contentTitle"))
+    .setContentDescription(branchUniversalObjectMap.getString("contentDescription"))
+    .setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
 
     if(branchUniversalObjectMap.hasKey("metadata")) {
       ReadableMap metadataMap = branchUniversalObjectMap.getMap("metadata");
@@ -333,8 +343,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
           if (mContext.hasActiveCatalystInstance()) {
             Log.d(REACT_CLASS, "Catalyst instance active");
             mContext
-              .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-              .emit(mEventName, mParams);
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit(mEventName, mParams);
           } else {
             tries++;
             if (tries <= maxTries) {
@@ -358,15 +368,15 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   private static Object getReadableMapObjectForKey(ReadableMap readableMap, String key) {
     switch(readableMap.getType(key)) {
       case Null:
-        return "Null";
+      return "Null";
       case Boolean:
-        return readableMap.getBoolean(key);
+      return readableMap.getBoolean(key);
       case Number:
-        return readableMap.getDouble(key);
+      return readableMap.getDouble(key);
       case String:
-        return readableMap.getString(key);
+      return readableMap.getString(key);
       default:
-        return "Unsupported Type";
+      return "Unsupported Type";
     }
   }
 
@@ -374,27 +384,27 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     JSONObject object = new JSONObject();
     ReadableMapKeySetIterator iterator = readableMap.keySetIterator();
     while (iterator.hasNextKey()) {
-        String key = iterator.nextKey();
-        switch (readableMap.getType(key)) {
-            case Null:
-                object.put(key, JSONObject.NULL);
-                break;
-            case Boolean:
-                object.put(key, readableMap.getBoolean(key));
-                break;
-            case Number:
-                object.put(key, readableMap.getDouble(key));
-                break;
-            case String:
-                object.put(key, readableMap.getString(key));
-                break;
-            case Map:
-                object.put(key, convertMapToJson(readableMap.getMap(key)));
-                break;
-            case Array:
-                object.put(key, convertArrayToJson(readableMap.getArray(key)));
-                break;
-        }
+      String key = iterator.nextKey();
+      switch (readableMap.getType(key)) {
+        case Null:
+        object.put(key, JSONObject.NULL);
+        break;
+        case Boolean:
+        object.put(key, readableMap.getBoolean(key));
+        break;
+        case Number:
+        object.put(key, readableMap.getDouble(key));
+        break;
+        case String:
+        object.put(key, readableMap.getString(key));
+        break;
+        case Map:
+        object.put(key, convertMapToJson(readableMap.getMap(key)));
+        break;
+        case Array:
+        object.put(key, convertArrayToJson(readableMap.getArray(key)));
+        break;
+      }
     }
     return object;
   }
@@ -402,61 +412,61 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   private static JSONArray convertArrayToJson(ReadableArray readableArray) throws JSONException {
     JSONArray array = new JSONArray();
     for (int i = 0; i < readableArray.size(); i++) {
-        switch (readableArray.getType(i)) {
-            case Null:
-                break;
-            case Boolean:
-                array.put(readableArray.getBoolean(i));
-                break;
-            case Number:
-                array.put(readableArray.getDouble(i));
-                break;
-            case String:
-                array.put(readableArray.getString(i));
-                break;
-            case Map:
-                array.put(convertMapToJson(readableArray.getMap(i)));
-                break;
-            case Array:
-                array.put(convertArrayToJson(readableArray.getArray(i)));
-                break;
-        }
+      switch (readableArray.getType(i)) {
+        case Null:
+        break;
+        case Boolean:
+        array.put(readableArray.getBoolean(i));
+        break;
+        case Number:
+        array.put(readableArray.getDouble(i));
+        break;
+        case String:
+        array.put(readableArray.getString(i));
+        break;
+        case Map:
+        array.put(convertMapToJson(readableArray.getMap(i)));
+        break;
+        case Array:
+        array.put(convertArrayToJson(readableArray.getArray(i)));
+        break;
+      }
     }
     return array;
   }
 
   private static WritableMap convertJsonToMap(JSONObject jsonObject) {
     if(jsonObject == null) {
-        return null;
+      return null;
     }
 
     WritableMap map = new WritableNativeMap();
 
     try {
-        Iterator<String> iterator = jsonObject.keys();
-        while (iterator.hasNext()) {
-            String key = iterator.next();
-            Object value = jsonObject.get(key);
-            if (value instanceof JSONObject) {
-                map.putMap(key, convertJsonToMap((JSONObject) value));
-            } else if (value instanceof  JSONArray) {
-                map.putArray(key, convertJsonToArray((JSONArray) value));
-            } else if (value instanceof  Boolean) {
-                map.putBoolean(key, (Boolean) value);
-            } else if (value instanceof  Integer) {
-                map.putInt(key, (Integer) value);
-            } else if (value instanceof  Double) {
-                map.putDouble(key, (Double) value);
-            } else if (value instanceof String)  {
-                map.putString(key, (String) value);
-            } else if (value == null || value == JSONObject.NULL) {
-                map.putNull(key);
-            } else {
-                map.putString(key, value.toString());
-            }
+      Iterator<String> iterator = jsonObject.keys();
+      while (iterator.hasNext()) {
+        String key = iterator.next();
+        Object value = jsonObject.get(key);
+        if (value instanceof JSONObject) {
+          map.putMap(key, convertJsonToMap((JSONObject) value));
+        } else if (value instanceof  JSONArray) {
+          map.putArray(key, convertJsonToArray((JSONArray) value));
+        } else if (value instanceof  Boolean) {
+          map.putBoolean(key, (Boolean) value);
+        } else if (value instanceof  Integer) {
+          map.putInt(key, (Integer) value);
+        } else if (value instanceof  Double) {
+          map.putDouble(key, (Double) value);
+        } else if (value instanceof String)  {
+          map.putString(key, (String) value);
+        } else if (value == null || value == JSONObject.NULL) {
+          map.putNull(key);
+        } else {
+          map.putString(key, value.toString());
         }
+      }
     } catch(JSONException ex) {
-        map.putString("error", "Failed to convert JSONObject to WriteableMap: " + ex.getMessage());
+      map.putString("error", "Failed to convert JSONObject to WriteableMap: " + ex.getMessage());
     }
 
     return map;
@@ -466,22 +476,22 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     WritableArray array = new WritableNativeArray();
 
     for (int i = 0; i < jsonArray.length(); i++) {
-        Object value = jsonArray.get(i);
-        if (value instanceof JSONObject) {
-            array.pushMap(convertJsonToMap((JSONObject) value));
-        } else if (value instanceof  JSONArray) {
-            array.pushArray(convertJsonToArray((JSONArray) value));
-        } else if (value instanceof  Boolean) {
-            array.pushBoolean((Boolean) value);
-        } else if (value instanceof  Integer) {
-            array.pushInt((Integer) value);
-        } else if (value instanceof  Double) {
-            array.pushDouble((Double) value);
-        } else if (value instanceof String)  {
-            array.pushString((String) value);
-        } else {
-            array.pushString(value.toString());
-        }
+      Object value = jsonArray.get(i);
+      if (value instanceof JSONObject) {
+        array.pushMap(convertJsonToMap((JSONObject) value));
+      } else if (value instanceof  JSONArray) {
+        array.pushArray(convertJsonToArray((JSONArray) value));
+      } else if (value instanceof  Boolean) {
+        array.pushBoolean((Boolean) value);
+      } else if (value instanceof  Integer) {
+        array.pushInt((Integer) value);
+      } else if (value instanceof  Double) {
+        array.pushDouble((Double) value);
+      } else if (value instanceof String)  {
+        array.pushString((String) value);
+      } else {
+        array.pushString(value.toString());
+      }
     }
     return array;
   }
