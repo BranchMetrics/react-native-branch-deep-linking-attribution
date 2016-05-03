@@ -25,10 +25,15 @@ RCT_EXPORT_MODULE();
 //Called by AppDelegate.m -- stores initSession result in static variables and raises initSessionFinished event that's captured by the RNBranch instance to emit it to React Native
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
   [[Branch getInstance] initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-    initSessionWithLaunchOptionsResult = @{@"params": params ? params : [NSNull null], @"error": error ? error : [NSNull null]};
-    if ([initSessionWithLaunchOptionsResult[@"error"] respondsToSelector:@selector(localizedDescription)]) {
-      initSessionWithLaunchOptionsResult[@"error"] = [notificationObject[@"error"] localizedDescription];
+    NSString *errorMessage = [NSNull null];
+    if ([error respondsToSelector:@selector(localizedDescription)]) {
+      errorMessage = [initSessionWithLaunchOptionsResult[@"error"] localizedDescription];
+    } else if (error) {
+      errorMessage = error;
     }
+
+    initSessionWithLaunchOptionsResult = @{@"params": params ? params : [NSNull null], @"error": error ? error : [NSNull null]};
+
     [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult];
   }];
 }
@@ -69,7 +74,7 @@ RCT_EXPORT_MODULE();
   }
 }
 
-- (BranchUniversalObject) createBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap
+- (BranchUniversalObject*) createBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap
 {
   BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:[branchUniversalObjectMap objectForKey:@"canonicalIdentifier"]];
   branchUniversalObject.title = [branchUniversalObjectMap objectForKey:@"contentTitle"];
@@ -85,7 +90,7 @@ RCT_EXPORT_MODULE();
     }
   }
 
-  return branchUniversalObject
+    return branchUniversalObject;
 }
 
 
@@ -139,7 +144,7 @@ RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)branchUniversalObjectMap
                   rejecter:(__unused RCTPromiseRejectBlock)reject)
 {
   dispatch_async(dispatch_get_main_queue(), ^(void){
-    BranchUniversalObject branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
+    BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
 
     BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
     linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
@@ -165,42 +170,41 @@ RCT_EXPORT_METHOD(registerView:(NSDictionary *)branchUniversalObjectMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-  BranchUniversalObject branchUniversalObject = [self makeBranchUniversalObject:branchUniversalObjectMap];
+  BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
   [branchUniversalObject registerViewWithCallback:^(NSDictionary *params, NSError *error) {
-    CDVPluginResult *pluginResult = nil;
     if (!error) {
       resolve(params);
     } else {
-      reject(error);
+      reject([NSString stringWithFormat: @"%lu", (long)error.code], error.localizedDescription, error);
     }
   }];
 }
 
 RCT_EXPORT_METHOD(generateShortUrl:(NSDictionary *)branchUniversalObjectMap
+                  withlinkProperties:(NSDictionary *)linkPropertiesMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-  BranchUniversalObject branchUniversalObject = [self makeBranchUniversalObject:branchUniversalObjectMap];
+  BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
 
   BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
   linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
   linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];
 
   [branchUniversalObject getShortUrlWithLinkProperties:linkProperties andCallback:^(NSString *url, NSError *error) {
-    CDVPluginResult* pluginResult = nil;
     if (!error) {
       NSError *err;
       NSDictionary *jsonObj = [[NSDictionary alloc] initWithObjectsAndKeys:url, @"url", 0, @"options", &err, @"error", nil];
 
       if (err) {
         NSLog(@"Parsing Error: %@", [err localizedDescription]);
-        reject(err);
+        reject([NSString stringWithFormat: @"%lu", (long)err.code], err.localizedDescription, err);
       } else {
         NSLog(@"RNBranch Success");
         resolve(jsonObj);
       }
     } else {
-      reject(error);
+      reject([NSString stringWithFormat: @"%lu", (long)error.code], error.localizedDescription, error);
     }
   }];
 }
@@ -209,21 +213,21 @@ RCT_EXPORT_METHOD(listOnSpotlight:(NSDictionary *)branchUniversalObjectMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-  BranchUniversalObject branchUniversalObject = [self makeBranchUniversalObject:branchUniversalObjectMap];
-  [branchUniversalObj listOnSpotlightWithCallback:^(NSString *string, NSError *error) {
+  BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
+  [branchUniversalObject listOnSpotlightWithCallback:^(NSString *string, NSError *error) {
     if (!error) {
       NSError *err;
       NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"result":string}
                                                          options:0
                                                            error:&err];
       if (err) {
-        reject(err);
+        reject([NSString stringWithFormat: @"%lu", (long)err.code], err.localizedDescription, err);
       } else {
         resolve(jsonData);
       }
     }
     else {
-      reject(error);
+      reject([NSString stringWithFormat: @"%lu", (long)error.code], error.localizedDescription, error);
     }
   }];
 }
