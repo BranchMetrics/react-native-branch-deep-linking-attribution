@@ -135,6 +135,7 @@ RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)shareOptionsMap
     BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
     linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
     linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];
+    linkProperties.controlParams = [linkPropertiesMap objectForKey:@"controlParams"];
 
     [branchUniversalObject showShareSheetWithLinkProperties:linkProperties
                                              andShareText:[shareOptionsMap objectForKey:@"messageBody"]

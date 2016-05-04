@@ -189,6 +189,16 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                    .setChannel(linkPropertiesMap.getString("channel"))
                    .setFeature(linkPropertiesMap.getString("feature"));
 
+        ReadableMap controlParams = linkPropertiesMap.getMap("controlParams");
+        ReadableMapKeySetIterator iterator = controlParams.keySetIterator();
+        while (iterator.hasNextKey()) {
+          String controlParamKey = iterator.nextKey();
+          Object controlParamObject = getReadableMapObjectForKey(controlParams, controlParamKey);
+          if (controlParamObject instanceof String) {
+            linkProperties.addControlParameter(controlParamKey, (String)controlParamObject);
+          }
+        }
+
         branchUniversalObject.showShareSheet(getCurrentActivity(),
                                           linkProperties,
                                           shareSheetStyle,
