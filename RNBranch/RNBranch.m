@@ -91,6 +91,14 @@ RCT_EXPORT_MODULE();
     return branchUniversalObject;
 }
 
+- (BranchLinkProperties*) createLinkProperties:(NSDictionary *)linkPropertiesMap withControlParams:(NSDictionary *)controlParamsMap
+{
+  BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
+  linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
+  linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];
+  linkProperties.controlParams = controlParamsMap;
+  return linkProperties;
+}
 
 RCT_EXPORT_METHOD(getInitSessionResult:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject)
@@ -138,19 +146,16 @@ RCT_EXPORT_METHOD(userCompletedAction:(NSString *)event withState:(NSDictionary 
 RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)branchUniversalObjectMap
                   withShareOptions:(NSDictionary *)shareOptionsMap
                   withLinkProperties:(NSDictionary *)linkPropertiesMap
+                  withControlParams:(NSDictionary *)controlParamsMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject)
 {
   dispatch_async(dispatch_get_main_queue(), ^(void){
     BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
-
-    BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
-    linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
-    linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];
-    linkProperties.controlParams = [linkPropertiesMap objectForKey:@"controlParams"];
+    BranchLinkProperties *linkProperties = [self createLinkProperties:linkProperties withControlParams:controlParamsMap];
 
     [branchUniversalObject showShareSheetWithLinkProperties:linkProperties
-                                             andShareText:[shareOptionsMap objectForKey:@"messageBody"]
+                                             andShareText:[shareOptionsMap objectForKey:@"text"]
                                              fromViewController:nil
                                               completion:^(NSString *activityType, BOOL completed){
       NSDictionary *result = @{
@@ -179,15 +184,13 @@ RCT_EXPORT_METHOD(registerView:(NSDictionary *)branchUniversalObjectMap
 }
 
 RCT_EXPORT_METHOD(generateShortUrl:(NSDictionary *)branchUniversalObjectMap
-                  withlinkProperties:(NSDictionary *)linkPropertiesMap
+                  withLinkProperties:(NSDictionary *)linkPropertiesMap
+                  withControlParams:(NSDictionary *)controlParamsMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
   BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
-
-  BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
-  linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
-  linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];
+  BranchLinkProperties *linkProperties = [self createLinkProperties:linkProperties withControlParams:controlParamsMap];
 
   [branchUniversalObject getShortUrlWithLinkProperties:linkProperties andCallback:^(NSString *url, NSError *error) {
     if (!error) {
@@ -230,6 +233,7 @@ RCT_EXPORT_METHOD(listOnSpotlight:(NSDictionary *)branchUniversalObjectMap
   }];
 }
 
+// @TODO can this be removed? legacy, short url should be created from BranchUniversalObject
 RCT_EXPORT_METHOD(getShortUrl:(NSDictionary *)linkPropertiesMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
