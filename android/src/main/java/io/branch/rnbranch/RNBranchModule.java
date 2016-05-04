@@ -34,11 +34,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   private BroadcastReceiver mInitSessionEventReceiver = null;
 
   private ReactActivity mActivity = null;
+  private static Branch mBranch = null;
 
-
-  public static void initSession(Uri uri, ReactActivity reactActivity) {
-    Branch branch = Branch.getInstance();
-    branch.initSession(new Branch.BranchReferralInitListener(){
+  public static void initSession(final Uri uri, ReactActivity reactActivity) {
+    mBranch = Branch.getInstance();
+    mBranch.initSession(new Branch.BranchReferralInitListener(){
 
       private ReactActivity mmActivity = null;
 
@@ -48,8 +48,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Log.d(REACT_CLASS, "onInitFinished");
         JSONObject result = new JSONObject();
         try{
-          result.put("params", referringParams != null ? referringParams : JSONObject.NULL);
+          result.put("params", referringParams != null && referringParams.has("~id") ? referringParams : JSONObject.NULL);
           result.put("error", error != null ? error.getMessage() : JSONObject.NULL);
+          result.put("uri", uri != null ? uri.toString() : JSONObject.NULL);
         } catch(JSONException ex) {
           try {
             result.put("error", "Failed to convert result to JSONObject: " + ex.getMessage());
@@ -66,11 +67,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }.init(reactActivity), uri, reactActivity);
   }
 
+  public static void onStop() {
+    mBranch.closeSession();
+  }
+
   public RNBranchModule(ReactApplicationContext reactContext) {
     super(reactContext);
-
-    Log.d(REACT_CLASS, "ctor");
-
     forwardInitSessionFinishedEventToReactNative(reactContext);
   }
 

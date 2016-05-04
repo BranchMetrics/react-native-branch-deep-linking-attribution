@@ -17,6 +17,7 @@
 
 NSString * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWithLaunchOptionsFinished";
 static NSDictionary* initSessionWithLaunchOptionsResult;
+static NSURL* sourceUrl;
 
 @synthesize bridge = _bridge;
 
@@ -32,14 +33,24 @@ RCT_EXPORT_MODULE();
       errorMessage = error;
     }
 
-    initSessionWithLaunchOptionsResult = @{@"params": params ? params : [NSNull null], @"error": error ? error : [NSNull null]};
+    initSessionWithLaunchOptionsResult = @{
+      @"params": params ? params : [NSNull null],
+      @"error": error ? error : [NSNull null],
+      @"uri": sourceUrl ? [sourceUrl absoluteString] : [NSNull null]
+    };
 
     [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult];
   }];
 }
 
 + (BOOL)handleDeepLink:(NSURL *)url {
-  return [[Branch getInstance] handleDeepLink:url];
+  sourceUrl = url;
+  BOOL handled = [[Branch getInstance] handleDeepLink:url];
+  if (!handled) {
+    NSDictionary* nonBranchResult = @{@"params": [NSNull null], @"error": [NSNull null], @"uri": [url absoluteString]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:nonBranchResult];
+  }
+  return handled;
 }
 
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity {
