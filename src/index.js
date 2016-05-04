@@ -37,17 +37,11 @@ class Branch {
     this._initSessionResult = result
 
     this._patientInitSessionObservers.forEach((cb) => cb(result))
-    if (this._isValidResult(result)) this._listeners.forEach(cb => cb(result))
+    this._listeners.forEach(cb => cb(result))
 
     this._lastParams = result.params
     this._patientInitSessionObservers = []
   };
-
-  // filter null and duplicate results (as observed in android. further investigation required) [rt2zz]
-  _isValidResult(result) {
-    if (!result || !result.params) return false
-    return (!this._lastParams || this._lastParams['~id'] !== result.params['~id'] || this._lastParams['+click_timestamp'] !== result.params['+click_timestamp'])
-  }
 
   getInitSession(cb) {
     if(this._initSessionResult) return cb(this._initSessionResult)
