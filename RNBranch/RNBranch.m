@@ -34,7 +34,7 @@ RCT_EXPORT_MODULE();
     }
 
     initSessionWithLaunchOptionsResult = @{
-      @"params": params ? params : [NSNull null],
+      @"params": params && [params objectForKey:@"~id"] ? params : [NSNull null],
       @"error": error ? error : [NSNull null],
       @"uri": sourceUrl ? [sourceUrl absoluteString] : [NSNull null]
     };
