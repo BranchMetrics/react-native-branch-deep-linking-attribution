@@ -6,19 +6,16 @@ export default function createBranchUniversalObject(identifier, options = {}) {
   if (typeof identifier !== 'string') throw new Error('react-native-branch: identifier must be a string')
 
   const branchUniversalObject = {
+    contentIndexingMode: 'private',
     canonicalIdentifier: identifier,
-    contentTitle: options.title,
-    contentDescription: options.contentDescription,
-    contentImageUrl: options.contentImageUrl,
-    contentIndexingMode: options.contentIndexingMode || 'private',
-    expirationDate: options.expirationDate,
+    ...options
   }
 
   return {
-    showShareSheet(shareOptions = {}, linkProperties = {}) {
+    showShareSheet(shareOptions = {}, linkProperties = {}, controlParams = {}) {
       shareOptions = {
-        messageHeader: '',
-        messageBody: '',
+        title: options.title || '',
+        text: options.contentDescription || '',
         ...shareOptions,
       }
 
@@ -28,13 +25,13 @@ export default function createBranchUniversalObject(identifier, options = {}) {
         ...linkProperties,
       }
 
-      return RNBranch.showShareSheet(branchUniversalObject, shareOptions, linkProperties)
+      return RNBranch.showShareSheet(branchUniversalObject, shareOptions, linkProperties, controlParams)
     },
     registerView() {
       return RNBranch.registerView(branchUniversalObject)
     },
-    generateShortUrl() {
-      return RNBranch.generateShortUrl(branchUniversalObject)
+    generateShortUrl(linkProperties = {}, controlParams = {}) {
+      return RNBranch.generateShortUrl(branchUniversalObject, linkProperties, controlParams)
     },
     listOnSpotlight() {
       if (Platform.OS !== 'ios') return Promise.resolve()
