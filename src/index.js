@@ -6,6 +6,8 @@ import { NativeModules, NativeAppEventEmitter, DeviceEventEmitter, Platform } fr
 const nativeEventEmitter = Platform.OS === 'ios' ? NativeAppEventEmitter : DeviceEventEmitter
 const { RNBranch } = NativeModules
 
+import createBranchUniversalObject from './branchUniversalObject'
+
 const INIT_SESSION_SUCCESS = 'RNBranch.initSessionSuccess'
 const INIT_SESSION_ERROR = 'RNBranch.initSessionError'
 
@@ -24,6 +26,7 @@ class Branch {
     this._processInitSession()
   }
 
+  /*** RNBranch Deep Linking ***/
   async _processInitSession() {
     // retrieve the last initSession if it exists
     let result = await RNBranch.getInitSessionResult()
@@ -34,17 +37,11 @@ class Branch {
     this._initSessionResult = result
 
     this._patientInitSessionObservers.forEach((cb) => cb(result))
-    if (this._isValidResult(result)) this._listeners.forEach(cb => cb(result))
+    this._listeners.forEach(cb => cb(result))
 
     this._lastParams = result.params
     this._patientInitSessionObservers = []
   };
-
-  // filter null and duplicate results (as observed in android. further investigation required) [rt2zz]
-  _isValidResult(result) {
-    if (!result || !result.params) return false
-    return (!this._lastParams || this._lastParams['~id'] !== result.params['~id'] || this._lastParams['+click_timestamp'] !== result.params['+click_timestamp'])
-  }
 
   getInitSession(cb) {
     if(this._initSessionResult) return cb(this._initSessionResult)
@@ -70,27 +67,8 @@ class Branch {
   userCompletedAction = (event, state = {}) => RNBranch.userCompletedAction(event, state)
   getShortUrl = RNBranch.getShortUrl
 
-  showShareSheet(shareOptions = {}, branchUniversalObject = {}, linkProperties = {}) {
-    shareOptions = {
-      messageHeader: 'Check this out!',
-      messageBody: 'Check this cool thing out',
-      ...shareOptions,
-    }
-    branchUniversalObject = {
-      canonicalIdentifier: 'RNBranchSharedObjectId',
-      contentTitle: 'Cool Content!',
-      contentDescription: 'Cool Content Description',
-      contentImageUrl: '',
-      ...branchUniversalObject,
-    }
-    linkProperties = {
-      feature: 'share',
-      channel: 'RNApp',
-      ...linkProperties,
-    }
-
-    return RNBranch.showShareSheet(shareOptions, branchUniversalObject, linkProperties)
-  }
+  /*** BranchUniversalObject ***/
+  createBranchUniversalObject = createBranchUniversalObject
 }
 
 export default new Branch()

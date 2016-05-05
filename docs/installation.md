@@ -66,5 +66,23 @@ public class MainActivity extends ReactActivity {
         );
     }
     // ...
+    // Add/extend the following lifecycle methods:
+    @Override
+    protected void onStart() {
+        super.onStart();
+        RNBranchModule.initSession(this.getIntent().getData(), this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        RNBranchModule.onStop();
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
+    }
+    // ...
 }
 ```

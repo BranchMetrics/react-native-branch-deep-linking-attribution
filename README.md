@@ -30,9 +30,11 @@ Please see the branch [SDK Integration Guide](https://dev.branch.io/getting-star
 ```js
 var branch = require('react-native-branch')
 
-//Receives the initSession's result as soon as it becomes available
-branch.getInitSession(({params, error}) => {})
-branch.subscribe(({params, error}) => {})
+// Subscribe to incoming links (both branch & non-branch)
+branch.subscribe(({params, error, uri}) => {
+  if (params) { /* handle branch link */ }
+  else { /* handle uri */ }
+})
 
 branch.setDebug()
 let params = await branch.getLatestReferringParams() // params from last open

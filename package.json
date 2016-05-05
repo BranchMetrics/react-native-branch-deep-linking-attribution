@@ -2,7 +2,7 @@
   "name": "react-native-branch",
   "version": "0.0.0",
   "description": "Branch Metrics React Native SDK",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "ava"
   },
@@ -44,6 +44,7 @@
   "homepage": "https://github.com/BranchMetrics/react-native-branch",
   "devDependencies": {
     "ava": "^0.14.0",
+    "babel-eslint": "^6.0.4",
     "babel-polyfill": "^6.7.4",
     "eslint": "^2.7.0",
     "eslint-config-rackt": "^1.1.1",
