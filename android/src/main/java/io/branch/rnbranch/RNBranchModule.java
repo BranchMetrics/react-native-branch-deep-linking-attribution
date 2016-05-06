@@ -232,6 +232,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     mainHandler.post(myRunnable);
   }
 
+  @ReactMethod
   private void registerView(ReadableMap branchUniversalObjectMap, Promise promise) {
     BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
     branchUniversalObject.registerView();
@@ -239,9 +240,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     promise.resolve(true);
   }
 
-  /**
-  * Generate a URL.
-  */
+  @ReactMethod
   private void generateShortUrl(ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, Promise promise) {
     LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
 
@@ -253,7 +252,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Log.d(REACT_CLASS, "onLinkCreate " + url);
       }
     });
-
   }
 
   public static LinkProperties createLinkProperties(ReadableMap linkPropertiesMap, @Nullable ReadableMap controlParams){
@@ -310,6 +308,118 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     return branchUniversalObject;
+  }
+
+  @ReactMethod
+  private void redeemRewards(int value, String bucket, Promise promise)
+  {
+    if (bucket == null) {
+      Branch.getInstance().redeemRewards(value, new RedeemRewardsListener(promise));
+    } else {
+      Branch.getInstance().redeemRewards(bucket, value, new RedeemRewardsListener(promise));
+    }
+  }
+
+  @ReactMethod
+  private void loadRewards(Promise promise)
+  {
+    Branch.getInstance().loadRewards(new LoadRewardsListener(promise));
+  }
+
+  @ReactMethod
+  private void getCreditHistory(Promise promise)
+  {
+    Branch.getInstance().getCreditHistory(new CreditHistoryListener(promise));
+  }
+
+  protected class CreditHistoryListener implements Branch.BranchListResponseListener
+  {
+    private Promise _promise;
+
+    // Constructor that takes in a required callbackContext object
+    public CreditHistoryListener(Promise promise) {
+      this._promise = promise;
+    }
+
+    // Listener that implements BranchListResponseListener for getCreditHistory()
+    @Override
+    public void onReceivingResponse(JSONArray list, BranchError error) {
+      ArrayList<String> errors = new ArrayList<String>();
+      if (error == null) {
+        JSONArray data = new JSONArray();
+        if (list != null) {
+          for (int i = 0, limit = list.length(); i < limit; ++i) {
+            JSONObject entry;
+            try {
+              entry = list.getJSONObject(i);
+              data.put(entry);
+            } catch (JSONException e) {
+              e.printStackTrace();
+              errors.add(e.getMessage());
+            }
+          }
+        }
+        if (errors.size() > 0) {
+          StringBuilder sb = new StringBuilder();
+          for (String s : errors) {
+            sb.append(s);
+            sb.append("\n");
+          }
+          this._promise.reject(sb.toString());
+        } else {
+          this._promise.resolve(data);
+        }
+      } else {
+        String errorMessage = error.getMessage();
+        Log.d(REACT_CLASS, errorMessage);
+        this._promise.reject(errorMessage);
+      }
+    }
+  }
+
+  protected class RedeemRewardsListener implements Branch.BranchReferralStateChangedListener
+  {
+    private Promise _promise;
+
+    public RedeemRewardsListener(Promise promise) {
+      this._promise = promise;
+    }
+
+    @Override
+    public void onStateChanged(boolean changed, BranchError error) {
+      if (error == null) {
+        WritableMap map = new WritableNativeMap();
+        map.putBoolean("changed", changed);
+        this._promise.resolve(map);
+      } else {
+        String errorMessage = error.getMessage();
+        Log.d(REACT_CLASS, errorMessage);
+        this._promise.reject(errorMessage);
+      }
+    }
+  }
+
+  protected class LoadRewardsListener implements Branch.BranchReferralStateChangedListener
+  {
+    private Promise _promise;
+
+    public LoadRewardsListener(Promise promise) {
+      this._promise = promise;
+    }
+
+    @Override
+    public void onStateChanged(boolean changed, BranchError error) {
+      if (error == null) {
+        int credits = Branch.getInstance().getCredits();
+        WritableMap map = new WritableNativeMap();
+        map.putInt("credits", credits);
+        this._promise.resolve(map);
+      } else {
+        String errorMessage = error.getMessage();
+        Log.d(REACT_CLASS, errorMessage);
+        this._promise.reject(errorMessage);
+      }
+    }
   }
 
   public void sendRNEvent(String eventName, @Nullable WritableMap params) {
