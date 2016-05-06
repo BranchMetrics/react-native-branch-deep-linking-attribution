@@ -86,7 +86,7 @@ RCT_EXPORT_MODULE();
 - (BranchUniversalObject*) createBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap
 {
   BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:[branchUniversalObjectMap objectForKey:@"canonicalIdentifier"]];
-  branchUniversalObject.title = [branchUniversalObjectMap objectForKey:@"contentTitle"];
+  branchUniversalObject.title = [branchUniversalObjectMap objectForKey:@"title"];
   branchUniversalObject.contentDescription = [branchUniversalObjectMap objectForKey:@"contentDescription"];
   branchUniversalObject.imageUrl = [branchUniversalObjectMap objectForKey:@"contentImageUrl"];
 
@@ -228,17 +228,9 @@ RCT_EXPORT_METHOD(listOnSpotlight:(NSDictionary *)branchUniversalObjectMap
   BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
   [branchUniversalObject listOnSpotlightWithCallback:^(NSString *string, NSError *error) {
     if (!error) {
-      NSError *err;
-      NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"result":string}
-                                                         options:0
-                                                           error:&err];
-      if (err) {
-        reject([NSString stringWithFormat: @"%lu", (long)err.code], err.localizedDescription, err);
-      } else {
-        resolve(jsonData);
-      }
-    }
-    else {
+      NSDictionary *data = @{@"result":string};
+      resolve(data);
+    } else {
       reject([NSString stringWithFormat: @"%lu", (long)error.code], error.localizedDescription, error);
     }
   }];
