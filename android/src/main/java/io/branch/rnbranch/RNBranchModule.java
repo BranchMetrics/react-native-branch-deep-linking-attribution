@@ -352,28 +352,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void onReceivingResponse(JSONArray list, BranchError error) {
       ArrayList<String> errors = new ArrayList<String>();
       if (error == null) {
-        JSONArray data = new JSONArray();
-        if (list != null) {
-          for (int i = 0, limit = list.length(); i < limit; ++i) {
-            JSONObject entry;
-            try {
-              entry = list.getJSONObject(i);
-              data.put(entry);
-            } catch (JSONException e) {
-              e.printStackTrace();
-              errors.add(e.getMessage());
-            }
-          }
-        }
-        if (errors.size() > 0) {
-          StringBuilder sb = new StringBuilder();
-          for (String s : errors) {
-            sb.append(s);
-            sb.append("\n");
-          }
-          this._promise.reject(sb.toString());
-        } else {
-          this._promise.resolve(data);
+        try {
+          ReadableArray result = convertJsonToArray(list);
+          this._promise.resolve(result);
+        } catch (JSONException err) {
+          this._promise.reject(err.getMessage());
         }
       } else {
         String errorMessage = error.getMessage();
