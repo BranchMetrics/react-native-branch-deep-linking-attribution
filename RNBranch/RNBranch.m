@@ -184,7 +184,7 @@ RCT_EXPORT_METHOD(
         @"error" : [NSNull null]
       };
 
-      resolve(@[result]);
+      resolve(result);
     }];
   });
 }
@@ -197,7 +197,7 @@ RCT_EXPORT_METHOD(
   BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
   [branchUniversalObject registerViewWithCallback:^(NSDictionary *params, NSError *error) {
     if (!error) {
-      resolve(params);
+        resolve([NSNull null]);
     } else {
       reject([NSString stringWithFormat: @"%lu", (long)error.code], error.localizedDescription, error);
     }
