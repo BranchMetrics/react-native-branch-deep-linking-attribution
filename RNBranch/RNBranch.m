@@ -111,56 +111,65 @@ RCT_EXPORT_MODULE();
   return linkProperties;
 }
 
-RCT_EXPORT_METHOD(getInitSessionResult:(RCTPromiseResolveBlock)resolve
-                  rejecter:(__unused RCTPromiseRejectBlock)reject)
-{
+RCT_EXPORT_METHOD(
+  getInitSessionResult:(RCTPromiseResolveBlock)resolve
+  rejecter:(__unused RCTPromiseRejectBlock)reject
+){
   resolve(initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]);
 }
 
-RCT_EXPORT_METHOD(setDebug) {
+RCT_EXPORT_METHOD(
+  setDebug
+){
   Branch *branch = [Branch getInstance];
   [branch setDebug];
 }
 
-RCT_EXPORT_METHOD(getLatestReferringParams:(RCTPromiseResolveBlock)resolve
-                  rejecter:(__unused RCTPromiseRejectBlock)reject)
-{
+RCT_EXPORT_METHOD(
+  getLatestReferringParams:(RCTPromiseResolveBlock)resolve
+  rejecter:(__unused RCTPromiseRejectBlock)reject
+){
   Branch *branch = [Branch getInstance];
   resolve([branch getLatestReferringParams]);
 }
 
-RCT_EXPORT_METHOD(getFirstReferringParams:(RCTPromiseResolveBlock)resolve
-                  rejecter:(__unused RCTPromiseRejectBlock)reject)
-{
+RCT_EXPORT_METHOD(
+  getFirstReferringParams:(RCTPromiseResolveBlock)resolve
+  rejecter:(__unused RCTPromiseRejectBlock)reject
+){
   Branch *branch = [Branch getInstance];
   resolve([branch getFirstReferringParams]);
 }
 
-RCT_EXPORT_METHOD(setIdentity:(NSString *)identity)
-{
+RCT_EXPORT_METHOD(
+  setIdentity:(NSString *)identity
+){
   Branch *branch = [Branch getInstance];
   [branch setIdentity:identity];
 }
 
-RCT_EXPORT_METHOD(logout)
-{
+RCT_EXPORT_METHOD(
+  logout
+){
   Branch *branch = [Branch getInstance];
   [branch logout];
 }
 
-RCT_EXPORT_METHOD(userCompletedAction:(NSString *)event withState:(NSDictionary *)appState)
-{
+RCT_EXPORT_METHOD(
+  userCompletedAction:(NSString *)event withState:(NSDictionary *)appState
+){
   Branch *branch = [Branch getInstance];
   [branch userCompletedAction:event withState:appState];
 }
 
-RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)branchUniversalObjectMap
-                  withShareOptions:(NSDictionary *)shareOptionsMap
-                  withLinkProperties:(NSDictionary *)linkPropertiesMap
-                  withControlParams:(NSDictionary *)controlParamsMap
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(__unused RCTPromiseRejectBlock)reject)
-{
+RCT_EXPORT_METHOD(
+  showShareSheet:(NSDictionary *)branchUniversalObjectMap
+  withShareOptions:(NSDictionary *)shareOptionsMap
+  withLinkProperties:(NSDictionary *)linkPropertiesMap
+  withControlParams:(NSDictionary *)controlParamsMap
+  resolver:(RCTPromiseResolveBlock)resolve
+  rejecter:(__unused RCTPromiseRejectBlock)reject
+){
   dispatch_async(dispatch_get_main_queue(), ^(void){
     BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
     BranchLinkProperties *linkProperties = [self createLinkProperties:linkProperties withControlParams:controlParamsMap];
@@ -180,10 +189,11 @@ RCT_EXPORT_METHOD(showShareSheet:(NSDictionary *)branchUniversalObjectMap
   });
 }
 
-RCT_EXPORT_METHOD(registerView:(NSDictionary *)branchUniversalObjectMap
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject)
-{
+RCT_EXPORT_METHOD(
+  registerView:(NSDictionary *)branchUniversalObjectMap
+  resolver:(RCTPromiseResolveBlock)resolve
+  rejecter:(RCTPromiseRejectBlock)reject
+){
   BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
   [branchUniversalObject registerViewWithCallback:^(NSDictionary *params, NSError *error) {
     if (!error) {
@@ -194,12 +204,13 @@ RCT_EXPORT_METHOD(registerView:(NSDictionary *)branchUniversalObjectMap
   }];
 }
 
-RCT_EXPORT_METHOD(generateShortUrl:(NSDictionary *)branchUniversalObjectMap
-                  withLinkProperties:(NSDictionary *)linkPropertiesMap
-                  withControlParams:(NSDictionary *)controlParamsMap
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject)
-{
+RCT_EXPORT_METHOD(
+  generateShortUrl:(NSDictionary *)branchUniversalObjectMap
+  withLinkProperties:(NSDictionary *)linkPropertiesMap
+  withControlParams:(NSDictionary *)controlParamsMap
+  resolver:(RCTPromiseResolveBlock)resolve
+  rejecter:(RCTPromiseRejectBlock)reject
+){
   BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
   BranchLinkProperties *linkProperties = [self createLinkProperties:linkProperties withControlParams:controlParamsMap];
 
@@ -221,10 +232,11 @@ RCT_EXPORT_METHOD(generateShortUrl:(NSDictionary *)branchUniversalObjectMap
   }];
 }
 
-RCT_EXPORT_METHOD(listOnSpotlight:(NSDictionary *)branchUniversalObjectMap
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject)
-{
+RCT_EXPORT_METHOD(
+  listOnSpotlight:(NSDictionary *)branchUniversalObjectMap
+  resolver:(RCTPromiseResolveBlock)resolve
+  rejecter:(RCTPromiseRejectBlock)reject
+){
   BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
   [branchUniversalObject listOnSpotlightWithCallback:^(NSString *string, NSError *error) {
     if (!error) {
@@ -237,10 +249,11 @@ RCT_EXPORT_METHOD(listOnSpotlight:(NSDictionary *)branchUniversalObjectMap
 }
 
 // @TODO can this be removed? legacy, short url should be created from BranchUniversalObject
-RCT_EXPORT_METHOD(getShortUrl:(NSDictionary *)linkPropertiesMap
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject)
-{
+RCT_EXPORT_METHOD(
+  getShortUrl:(NSDictionary *)linkPropertiesMap
+  resolver:(RCTPromiseResolveBlock)resolve
+  rejecter:(RCTPromiseRejectBlock)reject
+){
   NSString *feature = [linkPropertiesMap objectForKey:@"feature"];
   NSString *channel = [linkPropertiesMap objectForKey:@"channel"];
   NSString *stage = [linkPropertiesMap objectForKey:@"stage"];
@@ -258,6 +271,59 @@ RCT_EXPORT_METHOD(getShortUrl:(NSDictionary *)linkPropertiesMap
                                       }
                                       resolve(url);
                                   }];
+}
+
+RCT_EXPORT_METHOD(
+  loadRewards:(RCTPromiseResolveBlock)resolve
+  rejecter:(RCTPromiseRejectBlock)reject
+){
+  [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *error) {
+    if(!error) {
+      int credits = (int)[[Branch getInstance] getCredits];
+        resolve(@{@"credits": @(credits)});
+    } else {
+      NSLog(@"Load Rewards Error: %@", [error localizedDescription]);
+      reject(@"RNBranch::Error::loadRewardsWithCallback", @"loadRewardsWithCallback", error);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(
+  redeemRewards:(NSInteger *)amount
+  inBucket:(NSString *)bucket
+  resolver:(RCTPromiseResolveBlock)resolve
+  rejecter:(RCTPromiseRejectBlock)reject
+){
+  [[Branch getInstance] redeemRewards:amount forBucket:bucket callback:^(BOOL changed, NSError *error) {
+    if (!error) {
+        resolve(@{@"changed": @(changed)});
+    } else {
+      NSLog(@"Redeem Rewards Error: %@", [error localizedDescription]);
+      reject(@"RNBranch::Error::redeemRewards", [error localizedDescription], error);
+    }
+  }];
+  [[Branch getInstance] redeemRewards:amount callback:^(BOOL changed, NSError *error) {
+    if (!error) {
+      resolve(@{@"changed": @(changed)});
+    } else {
+      NSLog(@"Redeem Rewards Error: %@", [error localizedDescription]);
+      reject(@"RNBranch::Error::redeemRewards", [error localizedDescription], error);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(
+  getCreditHistory:(RCTPromiseResolveBlock)resolve
+  rejecter:(RCTPromiseRejectBlock)reject
+){
+  [[Branch getInstance] getCreditHistoryWithCallback:^(NSArray *list, NSError *error) {
+    if (!error) {
+      resolve(list);
+    } else {
+      NSLog(@"Credit History Error: %@", [error localizedDescription]);
+      reject(@"RNBranch::Error::getCreditHistory", [error localizedDescription], error);
+    }
+  }];
 }
 
 @end
