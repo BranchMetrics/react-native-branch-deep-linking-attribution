@@ -317,7 +317,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  private void redeemRewards(int value, String bucket, Promise promise)
+  public void redeemRewards(int value, String bucket, Promise promise)
   {
     if (bucket == null) {
       Branch.getInstance().redeemRewards(value, new RedeemRewardsListener(promise));
@@ -327,13 +327,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  private void loadRewards(Promise promise)
+  public void loadRewards(Promise promise)
   {
     Branch.getInstance().loadRewards(new LoadRewardsListener(promise));
   }
 
   @ReactMethod
-  private void getCreditHistory(Promise promise)
+  public void getCreditHistory(Promise promise)
   {
     Branch.getInstance().getCreditHistory(new CreditHistoryListener(promise));
   }

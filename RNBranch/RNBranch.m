@@ -294,22 +294,25 @@ RCT_EXPORT_METHOD(
   resolver:(RCTPromiseResolveBlock)resolve
   rejecter:(RCTPromiseRejectBlock)reject
 ){
-  [[Branch getInstance] redeemRewards:amount forBucket:bucket callback:^(BOOL changed, NSError *error) {
-    if (!error) {
+  if (bucket) {
+    [[Branch getInstance] redeemRewards:amount forBucket:bucket callback:^(BOOL changed, NSError *error) {
+      if (!error) {
         resolve(@{@"changed": @(changed)});
-    } else {
-      NSLog(@"Redeem Rewards Error: %@", [error localizedDescription]);
-      reject(@"RNBranch::Error::redeemRewards", [error localizedDescription], error);
-    }
-  }];
-  [[Branch getInstance] redeemRewards:amount callback:^(BOOL changed, NSError *error) {
-    if (!error) {
-      resolve(@{@"changed": @(changed)});
-    } else {
-      NSLog(@"Redeem Rewards Error: %@", [error localizedDescription]);
-      reject(@"RNBranch::Error::redeemRewards", [error localizedDescription], error);
-    }
-  }];
+      } else {
+        NSLog(@"Redeem Rewards Error: %@", [error localizedDescription]);
+        reject(@"RNBranch::Error::redeemRewards", [error localizedDescription], error);
+      }
+    }];
+  } else {
+    [[Branch getInstance] redeemRewards:amount callback:^(BOOL changed, NSError *error) {
+      if (!error) {
+        resolve(@{@"changed": @(changed)});
+      } else {
+        NSLog(@"Redeem Rewards Error: %@", [error localizedDescription]);
+        reject(@"RNBranch::Error::redeemRewards", [error localizedDescription], error);
+      }
+    }];
+  }
 }
 
 RCT_EXPORT_METHOD(
