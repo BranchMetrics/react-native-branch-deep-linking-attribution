@@ -53,4 +53,4 @@ dependencies {
 }
 ```
 
-Now that branch is installed, you will need to [set up your app to handle branch links]('./setup.md').
+Now that branch is installed, you will need to [set up your app to handle branch links](./setup.md).

@@ -1,5 +1,5 @@
 ## Setting Up Branch
-After [installing]('./installation.md') branch, you will need to set up your android and ios apps to handle incoming links.
+After [installing](./installation.md) branch, you will need to set up your android and ios apps to handle incoming links.
 
 #### AppDelegate.m
 Modify AppDelegate.m as follows:
