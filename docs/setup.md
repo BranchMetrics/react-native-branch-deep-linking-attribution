@@ -38,43 +38,41 @@ Modify AppDelegate.m as follows:
 
 #### android project
 
-1. Modify your MainActivity.java to handle branch links:
-
-android/app/src/[...]/MainActivity.java
-```java
-import io.branch.rnbranch.*; // <-- add this
-import android.content.Intent; // <-- and this
-
-public class MainActivity extends ReactActivity {
-    // ...
-    @Override
-    protected List<ReactPackage> getPackages() {
-        return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-            new RNBranchPackage() // <-- add this
-        );
+1. Modify your MainActivity.java to handle branch links (`android/app/src/[...]/MainActivity.java`) 
+    ```java
+    import io.branch.rnbranch.*; // <-- add this
+    import android.content.Intent; // <-- and this
+    
+    public class MainActivity extends ReactActivity {
+        // ...
+        @Override
+        protected List<ReactPackage> getPackages() {
+            return Arrays.<ReactPackage>asList(
+                new MainReactPackage(),
+                new RNBranchPackage() // <-- add this
+            );
+        }
+        // ...
+        // Add/extend the following lifecycle methods:
+        @Override
+        protected void onStart() {
+            super.onStart();
+            RNBranchModule.initSession(this.getIntent().getData(), this);
+        }
+    
+        @Override
+        protected void onStop() {
+            super.onStop();
+            RNBranchModule.onStop();
+        }
+    
+        @Override
+        public void onNewIntent(Intent intent) {
+            this.setIntent(intent);
+        }
+        // ...
     }
-    // ...
-    // Add/extend the following lifecycle methods:
-    @Override
-    protected void onStart() {
-        super.onStart();
-        RNBranchModule.initSession(this.getIntent().getData(), this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        RNBranchModule.onStop();
-    }
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        this.setIntent(intent);
-    }
-    // ...
-}
-```
+    ```
 
 2. [Configure AndroidManifest.xml](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#configure-manifest). Be sure to set `android:launchMode="singleTask"` on your main activity.
 
