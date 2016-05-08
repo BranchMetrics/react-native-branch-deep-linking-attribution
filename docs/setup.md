@@ -1,35 +1,32 @@
 ## Setting Up Branch
 After [installing](./installation.md) branch, you will need to set up your android and ios apps to handle incoming links.
 
-#### AppDelegate.m
-Modify AppDelegate.m as follows:
-
-```objective-c
-#import "RNBranch.h" // at the top
-
-// Initialize the Branch Session at the top of existing didFinishLaunchingWithOptions
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES]; // <-- add this
-
-  NSURL *jsCodeLocation;
-  //...
-}
-
-// Add the openURL and continueUserActivity functions
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-  if (![RNBranch handleDeepLink:url]) {
-    // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
-  }
-  return YES;
-}
-
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
-  return [RNBranch continueUserActivity:userActivity];
-}
-```
-
 #### iOS project
+1. Modify AppDelegate.m as follows:
+    ```objective-c
+    #import "RNBranch.h" // at the top
+    
+    // Initialize the Branch Session at the top of existing didFinishLaunchingWithOptions
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+    {
+      [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES]; // <-- add this
+    
+      NSURL *jsCodeLocation;
+      //...
+    }
+    
+    // Add the openURL and continueUserActivity functions
+    - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+      if (![RNBranch handleDeepLink:url]) {
+        // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
+      }
+      return YES;
+    }
+    
+    - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
+      return [RNBranch continueUserActivity:userActivity];
+    }
+    ```
 1. [Add a String entry branch_key](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project) with your branch key to your info.plist
 
 2. [Register a URI Scheme for Direct Deep Linking](https://dev.branch.io/references/ios_sdk/#register-a-uri-scheme-direct-deep-linking-optional-but-recommended) (optional but recommended)
