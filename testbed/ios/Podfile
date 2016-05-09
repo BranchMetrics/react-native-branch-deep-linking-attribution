@@ -4,5 +4,5 @@
 # use_frameworks!
 
 target 'testbed' do
-  pod 'react-native-branch', :path => '../node_modules/react-native-branch'
+  pod 'Branch'
 end

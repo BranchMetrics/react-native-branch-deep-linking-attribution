@@ -122,6 +122,7 @@ void (^NSURLConnectionCompletionHandler) (NSURLResponse *response, NSData *respo
             
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (callback)
             callback(serverResponse, error);
         });
     };
@@ -250,7 +251,6 @@ void (^NSURLConnectionCompletionHandler) (NSURLResponse *response, NSData *respo
         dict[BRANCH_REQUEST_KEY_IS_HARDWARE_ID_REAL] = @(deviceInfo.isRealHardwareId);
     }
     
-    [self safeSetValue:deviceInfo.carrierName forKey:BRANCH_REQUEST_KEY_CARRIER onDict:dict];
     [self safeSetValue:deviceInfo.brandName forKey:BRANCH_REQUEST_KEY_BRAND onDict:dict];
     [self safeSetValue:deviceInfo.modelName forKey:BRANCH_REQUEST_KEY_MODEL onDict:dict];
     [self safeSetValue:deviceInfo.osName forKey:BRANCH_REQUEST_KEY_OS onDict:dict];

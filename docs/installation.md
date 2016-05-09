@@ -52,37 +52,5 @@ dependencies {
     compile project(':react-native-branch')
 }
 ```
-android/app/src/[...]/MainActivity.java
-```java
-import io.branch.rnbranch.*; // <-- Add this
 
-public class MainActivity extends ReactActivity {
-    // ...
-    @Override
-    protected List<ReactPackage> getPackages() {
-        return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-            new RNBranchPackage() // <-- Add this
-        );
-    }
-    // ...
-    // Add/extend the following lifecycle methods:
-    @Override
-    protected void onStart() {
-        super.onStart();
-        RNBranchModule.initSession(this.getIntent().getData(), this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        RNBranchModule.onStop();
-    }
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        this.setIntent(intent);
-    }
-    // ...
-}
-```
+Now that branch is installed, you will need to [set up your app to handle branch links](./setup.md).
