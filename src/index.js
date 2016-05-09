@@ -67,6 +67,11 @@ class Branch {
   userCompletedAction = (event, state = {}) => RNBranch.userCompletedAction(event, state)
   getShortUrl = RNBranch.getShortUrl
 
+  /*** Referral Methods ***/
+  redeemRewards = (amount, bucket) => RNBranch.redeemRewards(amount, bucket)
+  loadRewards = RNBranch.loadRewards
+  getCreditHistory = RNBranch.getCreditHistory
+
   /*** BranchUniversalObject ***/
   createBranchUniversalObject = createBranchUniversalObject
 }

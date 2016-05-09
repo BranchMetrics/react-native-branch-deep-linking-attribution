@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Branch Metrics React Native SDK",
   "main": "src/index.js",
+  "files": ["src", "docs", "android", "RNBranch", "react-native-branch.podspec"],
   "scripts": {
     "test": "ava"
   },

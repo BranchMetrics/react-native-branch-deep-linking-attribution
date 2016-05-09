@@ -33,11 +33,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   private static JSONObject initSessionResult = null;
   private BroadcastReceiver mInitSessionEventReceiver = null;
 
-  private ReactActivity mActivity = null;
+  private static ReactActivity mActivity = null;
   private static Branch mBranch = null;
 
   public static void initSession(final Uri uri, ReactActivity reactActivity) {
     mBranch = Branch.getInstance();
+    mActivity = reactActivity;
     mBranch.initSession(new Branch.BranchReferralInitListener(){
 
       private ReactActivity mmActivity = null;
@@ -146,7 +147,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void showShareSheet(ReadableMap branchUniversalObjectMap, ReadableMap shareOptionsMap, ReadableMap linkPropertiesMap, Promise promise) {
+  public void showShareSheet(ReadableMap branchUniversalObjectMap, ReadableMap shareOptionsMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, Promise promise) {
     Context context = getReactApplicationContext();
 
     Handler mainHandler = new Handler(context.getMainLooper());
@@ -154,30 +155,33 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     Runnable myRunnable = new Runnable() {
       Promise mPm;
       Context mContext;
-      ReadableMap shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap;
+      ReadableMap shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap, controlParamsMap;
 
-      private Runnable init(ReadableMap _shareOptionsMap, ReadableMap _branchUniversalObjectMap, ReadableMap _linkPropertiesMap, Promise promise, Context context) {
+      private Runnable init(ReadableMap _shareOptionsMap, ReadableMap _branchUniversalObjectMap, ReadableMap _linkPropertiesMap, ReadableMap _controlParamsMap, Promise promise, Context context) {
         mPm = promise;
         mContext = context;
         shareOptionsMap = _shareOptionsMap;
         branchUniversalObjectMap = _branchUniversalObjectMap;
         linkPropertiesMap = _linkPropertiesMap;
+        controlParamsMap = _controlParamsMap;
         return this;
       }
 
       @Override
       public void run() {
-        ShareSheetStyle shareSheetStyle = new ShareSheetStyle(mContext, shareOptionsMap.getString("messageHeader"), shareOptionsMap.getString("messageBody"))
-        .setCopyUrlStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
-        .setMoreOptionStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_search), "Show more")
-        .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
-        .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
-        .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
-        .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK);
+        String messageHeader = shareOptionsMap.hasKey("messageHeader") ? shareOptionsMap.getString("messageHeader") : "";
+        String messageBody = shareOptionsMap.hasKey("messageBody") ? shareOptionsMap.getString("messageBody") : "";
+        ShareSheetStyle shareSheetStyle = new ShareSheetStyle(mContext, messageHeader, messageBody)
+          .setCopyUrlStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
+          .setMoreOptionStyle(mContext.getResources().getDrawable(android.R.drawable.ic_menu_search), "Show more")
+          .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
+          .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
+          .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
+          .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK);
 
         BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
 
-        LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, null);
+        LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
 
         branchUniversalObject.showShareSheet(
         getCurrentActivity(),
@@ -227,22 +231,20 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
           }
         }.init(mPm));
       }
-    }.init(shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap, promise, context);
+    }.init(shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap, controlParamsMap, promise, context);
 
     mainHandler.post(myRunnable);
   }
 
-  private void registerView(ReadableMap branchUniversalObjectMap, Promise promise) {
+  @ReactMethod
+  public void registerView(ReadableMap branchUniversalObjectMap, Promise promise) {
     BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
     branchUniversalObject.registerView();
-    // @TODO add callback error handling
-    promise.resolve(true);
+    promise.resolve(null);
   }
 
-  /**
-  * Generate a URL.
-  */
-  private void generateShortUrl(ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, Promise promise) {
+  @ReactMethod
+  public void generateShortUrl(ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, final Promise promise) {
     LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
 
     BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
@@ -251,15 +253,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
       @Override
       public void onLinkCreate(String url, BranchError error) {
         Log.d(REACT_CLASS, "onLinkCreate " + url);
+        WritableMap map = new WritableNativeMap();
+        map.putString("url", url);
+        promise.resolve(map);
       }
     });
-
   }
 
   public static LinkProperties createLinkProperties(ReadableMap linkPropertiesMap, @Nullable ReadableMap controlParams){
-    LinkProperties linkProperties = new LinkProperties()
-    .setChannel(linkPropertiesMap.getString("channel"))
-    .setFeature(linkPropertiesMap.getString("feature"));
+    LinkProperties linkProperties = new LinkProperties();
+    if (linkPropertiesMap.hasKey("channel")) linkProperties.setChannel(linkPropertiesMap.getString("channel"));
+    if (linkPropertiesMap.hasKey("feature")) linkProperties.setFeature(linkPropertiesMap.getString("feature"));
 
     if (controlParams != null) {
       if (controlParams.hasKey("$fallback_url")) {
@@ -293,11 +297,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
   public BranchUniversalObject createBranchUniversalObject(ReadableMap branchUniversalObjectMap) {
     BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
-    // The identifier is what Branch will use to de-dupe the content across many different Universal Objects
-    .setCanonicalIdentifier(branchUniversalObjectMap.getString("canonicalIdentifier"))
-    .setTitle(branchUniversalObjectMap.getString("contentTitle"))
-    .setContentDescription(branchUniversalObjectMap.getString("contentDescription"))
-    .setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
+      .setCanonicalIdentifier(branchUniversalObjectMap.getString("canonicalIdentifier"));
+
+    if (branchUniversalObjectMap.hasKey("title")) branchUniversalObject.setTitle(branchUniversalObjectMap.getString("title"));
+    if (branchUniversalObjectMap.hasKey("contentDescription")) branchUniversalObject.setContentDescription(branchUniversalObjectMap.getString("contentDescription"));
+    if (branchUniversalObjectMap.hasKey("contentImageUrl")) branchUniversalObject.setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
 
     if(branchUniversalObjectMap.hasKey("metadata")) {
       ReadableMap metadataMap = branchUniversalObjectMap.getMap("metadata");
@@ -310,6 +314,101 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     return branchUniversalObject;
+  }
+
+  @ReactMethod
+  public void redeemRewards(int value, String bucket, Promise promise)
+  {
+    if (bucket == null) {
+      Branch.getInstance().redeemRewards(value, new RedeemRewardsListener(promise));
+    } else {
+      Branch.getInstance().redeemRewards(bucket, value, new RedeemRewardsListener(promise));
+    }
+  }
+
+  @ReactMethod
+  public void loadRewards(Promise promise)
+  {
+    Branch.getInstance().loadRewards(new LoadRewardsListener(promise));
+  }
+
+  @ReactMethod
+  public void getCreditHistory(Promise promise)
+  {
+    Branch.getInstance().getCreditHistory(new CreditHistoryListener(promise));
+  }
+
+  protected class CreditHistoryListener implements Branch.BranchListResponseListener
+  {
+    private Promise _promise;
+
+    // Constructor that takes in a required callbackContext object
+    public CreditHistoryListener(Promise promise) {
+      this._promise = promise;
+    }
+
+    // Listener that implements BranchListResponseListener for getCreditHistory()
+    @Override
+    public void onReceivingResponse(JSONArray list, BranchError error) {
+      ArrayList<String> errors = new ArrayList<String>();
+      if (error == null) {
+        try {
+          ReadableArray result = convertJsonToArray(list);
+          this._promise.resolve(result);
+        } catch (JSONException err) {
+          this._promise.reject(err.getMessage());
+        }
+      } else {
+        String errorMessage = error.getMessage();
+        Log.d(REACT_CLASS, errorMessage);
+        this._promise.reject(errorMessage);
+      }
+    }
+  }
+
+  protected class RedeemRewardsListener implements Branch.BranchReferralStateChangedListener
+  {
+    private Promise _promise;
+
+    public RedeemRewardsListener(Promise promise) {
+      this._promise = promise;
+    }
+
+    @Override
+    public void onStateChanged(boolean changed, BranchError error) {
+      if (error == null) {
+        WritableMap map = new WritableNativeMap();
+        map.putBoolean("changed", changed);
+        this._promise.resolve(map);
+      } else {
+        String errorMessage = error.getMessage();
+        Log.d(REACT_CLASS, errorMessage);
+        this._promise.reject(errorMessage);
+      }
+    }
+  }
+
+  protected class LoadRewardsListener implements Branch.BranchReferralStateChangedListener
+  {
+    private Promise _promise;
+
+    public LoadRewardsListener(Promise promise) {
+      this._promise = promise;
+    }
+
+    @Override
+    public void onStateChanged(boolean changed, BranchError error) {
+      if (error == null) {
+        int credits = Branch.getInstance().getCredits();
+        WritableMap map = new WritableNativeMap();
+        map.putInt("credits", credits);
+        this._promise.resolve(map);
+      } else {
+        String errorMessage = error.getMessage();
+        Log.d(REACT_CLASS, errorMessage);
+        this._promise.reject(errorMessage);
+      }
+    }
   }
 
   public void sendRNEvent(String eventName, @Nullable WritableMap params) {

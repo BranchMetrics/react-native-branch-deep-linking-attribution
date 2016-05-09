@@ -1,17 +1,10 @@
 PODS:
-  - Branch (0.12.0)
-  - react-native-branch (0.0.1):
-    - Branch
+  - Branch (0.12.1)
 
 DEPENDENCIES:
-  - react-native-branch (from `../node_modules/react-native-branch`)
-
-EXTERNAL SOURCES:
-  react-native-branch:
-    :path: ../node_modules/react-native-branch
+  - Branch
 
 SPEC CHECKSUMS:
-  Branch: beeefb8cff5d802cb2983657a19dcf96d3197654
-  react-native-branch: 5fef57967870cdbacbe2719243cc4b4fc8f48814
+  Branch: 32fb6e2048118a7ff23be984e731569517fbc5f3
 
 COCOAPODS: 0.39.0

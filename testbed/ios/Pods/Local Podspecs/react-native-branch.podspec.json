@@ -11,6 +11,10 @@
   "platforms": {
     "ios": "7.0"
   },
+  "source": {
+    "git": "https://github.com/branchmetrics/react-native-branch.git"
+  },
+  "source_files": "RNBranch/*",
   "dependencies": {
     "Branch": [
 
