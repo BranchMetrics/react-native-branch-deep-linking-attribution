@@ -59,12 +59,12 @@ let creditHistory = await branch.getCreditHistory()
 ```
 
 ## Linking
-###### <a id='params'></a>[`params object`](#params)
-The params object is returned by various linking methods including subscribe, getLatestReferringParams, and getFirstReferringParams. Params will contain any data associated with the Branch link that was clicked before the app session began.
+###### <a id='params'></a>[`params object`](#params)  
+The params object is returned by various linking methods including subscribe, getLatestReferringParams, and getFirstReferringParams. Params will contain any data associated with the Branch link that was clicked before the app session began.  
 
-Branch returns explicit parameters every time. Here is a list, and a description of what each represents.
-* `~` denotes analytics
-* `+` denotes information added by Branch
+Branch returns explicit parameters every time. Here is a list, and a description of what each represents.  
+* `~` denotes analytics  
+* `+` denotes information added by Branch  
 | **Parameter** | **Meaning**
 | --- | ---
 | ~channel | The channel on which the link was shared, specified at link creation time
@@ -82,11 +82,12 @@ Branch returns explicit parameters every time. Here is a list, and a description
 Any additional data attached to the branch link will be available unprefixed.
 
 ###### <a id='subscribe'></a>[`subscribe(listener)`](#subscribe)
-**listener** (function)
-Adds a change listener. Listener takes 1 argument with the shape `{ params, uri, error}`. The listener will be called for all incoming links. Branch links will have params, plain deep links will only have a uri.
+**listener** (function)  
+Adds a change listener. Listener takes 1 argument with the shape `{ params, uri, error}`. The listener will be called for all incoming links. Branch links will have params, plain deep links will only have a uri.  
 
 ###### <a id='getlatestreferringparams'></a>[`getLatestReferringParams(): Promise`](#getlatestreferringparams)
 Returns a promise that resolves to the most recent referring parameters. Because params come in asynchronously, in most cases it is better to use the `subscribe` method to receive the params as soon as they are available.
+
 ###### <a id='getfirstreferringparams'></a>[`getFirstReferringParams(): Promise`](#getfirstreferringparams)
 Returns a promise to resolves with the first install referring params.
 
@@ -95,40 +96,40 @@ Returns a promise to resolves with the first install referring params.
 Set an identifier for the current user.
 
 ###### <a id='logout'></a>[`logout(userId)`](#logout)
-Logout the current user.
+Logout the current user.  
 
 ###### <a id='usercompletedaction'></a>[`userCompletedAction(label, payload)`](#usercompletedaction)
-Register a user action with branch.
+Register a user action with branch.  
 
 ## Branch Universal Object
 ###### <a id='universalobjectoptions'></a>[`universalObjectOptions object`](#universalobjectoptions)
-An object of options for the branchUniversalObject.
-`{metadata: {prop1: 'test', prop2: 'abc'}, contentTitle: 'Cool Content!', contentDescription: 'Cool Content Description'}`
+An object of options for the branchUniversalObject.  
+`{metadata: {prop1: 'test', prop2: 'abc'}, contentTitle: 'Cool Content!', contentDescription: 'Cool Content Description'}`  
 
-###### <a id='linkproperties'></a>[`linkProperties object`](#linkproperties)
-An object of link properties.
-`{ feature: 'share', channel: 'RNApp' }`
+###### <a id='linkproperties'></a>[`linkProperties object`](#linkproperties) 
+An object of link properties.  
+`{ feature: 'share', channel: 'RNApp' }`  
 
 ###### <a id='controlparams'></a>controlParams object`](#controlparams)
-Control parameters for the link.
-`{ $desktop_url: 'http://example.com/home', $ios_url: 'http://example.com/ios' }`
+Control parameters for the link.  
+`{ $desktop_url: 'http://example.com/home', $ios_url: 'http://example.com/ios' }`  
 
 ###### <a id='createbranchuniversalobject'></a>[`createBranchUniversalObject(canonicalIdentifier, universalObjectOptions): object`](#createbranchuniversalobject)
-Create a branch universal object.
-**canonicalIdentifier** the unique identifier for the content.
-**universalObjectOptions** options for contentTitle, contentDescription and metadata.
-Returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, and `showShareSheet`.
+Create a branch universal object.  
+**canonicalIdentifier** the unique identifier for the content.  
+**universalObjectOptions** options for contentTitle, contentDescription and metadata.  
+Returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, and `showShareSheet`.  
 
-###### <a id='showsharesheet'></a>[`branchUniversalObject.showsharesheet(shareOptions, linkProperties, controlParams): object`](#showsharesheet)
-** shareOptions ** as defined [above](#shareoptions)
-** linkProperties ** as defined [above](#linkproperties)
-** controlParams ** as defined [above](#controlparams)
-Returns an object with `{ channel, completed, error }`
+###### <a id='showsharesheet'></a>[`branchUniversalObject.showsharesheet(shareOptions, linkProperties, controlParams): object`](#showsharesheet)  
+**shareOptions** as defined [above](#shareoptions)  
+**linkProperties** as defined [above](#linkproperties)  
+**controlParams** as defined [above](#controlparams)  
+Returns an object with `{ channel, completed, error }`  
 
 ######  <a id='generateshorturl'></a>[`branchUniversalObject.generateShortUrl(linkProperties, controlParams): object`](#generateshorturl)
-** linkProperties ** as defined [above](#linkproperties)
-** controlParams ** as defined [above](#controlparams)
-Returns an object with `{ url }`
+**linkProperties** as defined [above](#linkproperties)  
+**controlParams** as defined [above](#controlparams)  
+Returns an object with `{ url }`  
 
 ######  <a id='registerview'></a>[`branchUniversalObject.registerView()`](#registerview)
 Register a view for this universal object.
@@ -142,8 +143,8 @@ Load rewards.
 
 ######  <a id='redeemrewards'></a>[`branchUniversalObject.redeemRewards(amount, bucket)`](#redeemrewards)
 Redeem rewards.
-** amount ** the amount to redeem
-** bucket ** (optional) the bucket to redeem from.
+**amount** the amount to redeem  
+**bucket** (optional) the bucket to redeem from.  
 
 ######  <a id='getcredithistory'></a>[`branchUniversalObject.getCreditHistory(): array`](#getcredithistory)
 Get the credit history as an array.
