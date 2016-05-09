@@ -739,6 +739,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
 				PRODUCT_NAME = testbed;
 			};
 			name = Debug;
@@ -761,6 +762,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
 				PRODUCT_NAME = testbed;
 			};
 			name = Release;
