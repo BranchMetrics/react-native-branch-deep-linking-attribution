@@ -64,7 +64,8 @@ The params object is returned by various linking methods including subscribe, ge
 
 Branch returns explicit parameters every time. Here is a list, and a description of what each represents.  
 * `~` denotes analytics  
-* `+` denotes information added by Branch  
+* `+` denotes information added by Branch 
+
 | **Parameter** | **Meaning**
 | --- | ---
 | ~channel | The channel on which the link was shared, specified at link creation time
@@ -79,6 +80,7 @@ Branch returns explicit parameters every time. Here is a list, and a description
 | +is_first_session | Denotes whether this is the first session (install) or any other session (open)
 | +clicked_branch_link | Denotes whether or not the user clicked a Branch link that triggered this session
 | +click_timestamp | Epoch timestamp of when the click occurred
+
 Any additional data attached to the branch link will be available unprefixed.
 
 ###### <a id='subscribe'></a>[`subscribe(listener)`](#subscribe)
