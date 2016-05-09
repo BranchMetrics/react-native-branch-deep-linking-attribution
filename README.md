@@ -138,13 +138,13 @@ Register a view for this universal object.
 List the univeral object in spotlight (ios only).
 
 ## Referral Methods
-######  <a id='loadrewards'></a>[`branchUniversalObject.loadRewards()`](#loadrewards)
+######  <a id='loadrewards'></a>[`loadRewards()`](#loadrewards)
 Load rewards.
 
-######  <a id='redeemrewards'></a>[`branchUniversalObject.redeemRewards(amount, bucket)`](#redeemrewards)
+######  <a id='redeemrewards'></a>[`redeemRewards(amount, bucket)`](#redeemrewards)
 Redeem rewards.
 **amount** the amount to redeem  
 **bucket** (optional) the bucket to redeem from.  
 
-######  <a id='getcredithistory'></a>[`branchUniversalObject.getCreditHistory(): array`](#getcredithistory)
+######  <a id='getcredithistory'></a>[`getCreditHistory(): array`](#getcredithistory)
 Get the credit history as an array.
