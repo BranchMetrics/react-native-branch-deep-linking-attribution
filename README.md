@@ -173,7 +173,7 @@ Control parameters for the link.
 | messageBody        | `string` | The body text
 
 ## Referral Methods
-######  <a id='loadrewards'></a>[loadRewards()`](#loadrewards)
+######  <a id='loadrewards'></a>[loadRewards()](#loadrewards)
 Load rewards.
 
 ######  <a id='redeemrewards'></a>[redeemRewards(amount, bucket)](#redeemrewards)
