@@ -151,7 +151,7 @@ An object of link properties.
 | stage    | `string` |   Use this to categorize the progress or category of a user when the link was generated. For example, if you had an invite system accessible on level 1, level 3 and 5, you could differentiate links generated at each level with this parameter
 | duration |  `int`   | duration of the link.
 
-###### <a id='controlparams'></a>controlParams object`](#controlparams)
+###### <a id='controlparams'></a>[controlParams object](#controlparams)
 Control parameters for the link.  
 
 |        KEY         |   TYPE   |       MEANING
