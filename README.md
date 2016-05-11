@@ -130,6 +130,7 @@ List the univeral object in spotlight (ios only).
 
 ###### <a id='universalobjectoptions'></a>[universalObjectOptions object](#universalobjectoptions)
 An object of options for the branchUniversalObject.  
+
 |         Key         | TYPE   |             DESCRIPTION             |
 | ------------------- | ------ | ----------------------------------- |
 | canonicalIdentifier | String | The object identifier               |
@@ -141,6 +142,7 @@ An object of options for the branchUniversalObject.
 
 ###### <a id='linkproperties'></a>[linkProperties object](#linkproperties)
 An object of link properties.  
+
 |    KEY   |   TYPE   |          MEANING
 | -------- | -------- |------------------------
 | feature  | `string` | This is the feature of your app that the link might be associated with. eg: if you had built a referral program, you would label links with the feature `referral`
@@ -151,6 +153,7 @@ An object of link properties.
 
 ###### <a id='controlparams'></a>controlParams object`](#controlparams)
 Control parameters for the link.  
+
 |        KEY         |   TYPE   |       MEANING
 | ------------------ | -------- | --------------------
 | $fallback_url      | `string` | Change the redirect endpoint for all platforms - so you don’t have to enable it by platform
@@ -162,7 +165,8 @@ Control parameters for the link.
 | $blackberry_url    | `string` | Change the redirect endpoint for Blackberry OS
 | $windows_phone_url | `string` | Change the redirect endpoint for Windows OS
 
-###### <a id='shareoptions'></a>[shareOptions object](#shareoptions)
+###### <a id='shareoptions'></a>[shareOptions object](#shareoptions)  
+
 |        KEY         |   TYPE   |       MEANING
 | ------------------ | -------- | --------------------
 | messageHeader      | `string` | The header text
