@@ -59,17 +59,17 @@ let creditHistory = await branch.getCreditHistory()
 ```
 
 ## Linking
-###### <a id='subscribe'></a>[`subscribe(listener)`](#subscribe)
+###### <a id='subscribe'></a>[subscribe(listener)](#subscribe)
 **listener** (function)  
 Adds a change listener. Listener takes 1 argument with the shape `{ params, uri, error}`. The listener will be called for all incoming links. Branch links will have [params](#params), plain deep links will only have a uri.  
 
-###### <a id='getlatestreferringparams'></a>[`getLatestReferringParams(): Promise`](#getlatestreferringparams)
+###### <a id='getlatestreferringparams'></a>[getLatestReferringParams(): Promise](#getlatestreferringparams)
 Returns a promise that resolves to the most recent referring [params](#params). Because params come in asynchronously, in most cases it is better to use the `subscribe` method to receive the params as soon as they are available.
 
-###### <a id='getfirstreferringparams'></a>[`getFirstReferringParams(): Promise`](#getfirstreferringparams)
+###### <a id='getfirstreferringparams'></a>[getFirstReferringParams(): Promise](#getfirstreferringparams)
 Returns a promise to resolves with the first install referring [params](#params).
 
-###### <a id='params'></a>[`params object`](#params)  
+###### <a id='params'></a>[params object](#params)  
 The params object is returned by various linking methods including subscribe, getLatestReferringParams, and getFirstReferringParams. Params will contain any data associated with the Branch link that was clicked before the app session began.  
 
 Branch returns explicit parameters every time. Here is a list, and a description of what each represents.  
@@ -94,40 +94,41 @@ Branch returns explicit parameters every time. Here is a list, and a description
 Any additional data attached to the branch link will be available unprefixed.
 
 ## User Methods
-###### <a id='setidentity'></a>[`setIdentity(userId)`](#setidentity)
+###### <a id='setidentity'></a>[setIdentity(userId)](#setidentity)
 Set an identifier for the current user.
 
-###### <a id='logout'></a>[`logout(userId)`](#logout)
+###### <a id='logout'></a>[logout(userId)](#logout)
 Logout the current user.  
 
-###### <a id='usercompletedaction'></a>[`userCompletedAction(label, payload)`](#usercompletedaction)
+###### <a id='usercompletedaction'></a>[userCompletedAction(label, payload)](#usercompletedaction)
 Register a user action with branch.  
 
 ## Branch Universal Object
-###### <a id='createbranchuniversalobject'></a>[`createBranchUniversalObject(canonicalIdentifier, universalObjectOptions): object`](#createbranchuniversalobject)
+###### <a id='createbranchuniversalobject'></a>[createBranchUniversalObject(canonicalIdentifier, universalObjectOptions): object](#createbranchuniversalobject)
 Create a branch universal object.  
 **canonicalIdentifier** the unique identifier for the content.  
 **universalObjectOptions** options for universal object as defined [below][#universalobjectoptions].
 Returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, and `showShareSheet`.  
 
-###### <a id='showsharesheet'></a>[`branchUniversalObject.showsharesheet(shareOptions, linkProperties, controlParams): object`](#showsharesheet)  
+##### The following methods are available on the resulting branchUniversalObject:
+###### <a id='showsharesheet'></a>[- showsharesheet(shareOptions, linkProperties, controlParams): object](#showsharesheet)  
 **shareOptions** as defined [below](#shareoptions)  
 **linkProperties** as defined [below](#linkproperties)  
 **controlParams** as defined [below](#controlparams)  
 Returns an object with `{ channel, completed, error }`  
 
-######  <a id='generateshorturl'></a>[`branchUniversalObject.generateShortUrl(linkProperties, controlParams): object`](#generateshorturl)
+######  <a id='generateshorturl'></a>[- generateShortUrl(linkProperties, controlParams): object](#generateshorturl)
 **linkProperties** as defined [below](#linkproperties)  
 **controlParams** as defined [below](#controlparams)  
 Returns an object with `{ url }`  
 
-######  <a id='registerview'></a>[`branchUniversalObject.registerView()`](#registerview)
+######  <a id='registerview'></a>[- registerView()](#registerview)
 Register a view for this universal object.
 
-######  <a id='listonspotlight'></a>[`branchUniversalObject.listOnSpotlight()`](#listonspotlight)
+######  <a id='listonspotlight'></a>[- listOnSpotlight()](#listonspotlight)
 List the univeral object in spotlight (ios only).
 
-###### <a id='universalobjectoptions'></a>[`universalObjectOptions object`](#universalobjectoptions)
+###### <a id='universalobjectoptions'></a>[universalObjectOptions object](#universalobjectoptions)
 An object of options for the branchUniversalObject.  
 |         Key         | TYPE   |             DESCRIPTION             |
 | ------------------- | ------ | ----------------------------------- |
@@ -138,7 +139,7 @@ An object of options for the branchUniversalObject.
 | contentIndexingMode | String | Indexing Mode 'private' or 'public' |
 | contentMetadata     | Object | Custom key/value                    |
 
-###### <a id='linkproperties'></a>[`linkProperties object`](#linkproperties)
+###### <a id='linkproperties'></a>[linkProperties object](#linkproperties)
 An object of link properties.  
 |    KEY   |   TYPE   |          MEANING
 | -------- | -------- |------------------------
@@ -161,20 +162,20 @@ Control parameters for the link.
 | $blackberry_url    | `string` | Change the redirect endpoint for Blackberry OS
 | $windows_phone_url | `string` | Change the redirect endpoint for Windows OS
 
-###### <a id='shareoptions'></a>[`shareOptions object`](#shareoptions)
+###### <a id='shareoptions'></a>[shareOptions object](#shareoptions)
 |        KEY         |   TYPE   |       MEANING
 | ------------------ | -------- | --------------------
 | messageHeader      | `string` | The header text
 | messageBody        | `string` | The body text
 
 ## Referral Methods
-######  <a id='loadrewards'></a>[`loadRewards()`](#loadrewards)
+######  <a id='loadrewards'></a>[loadRewards()`](#loadrewards)
 Load rewards.
 
-######  <a id='redeemrewards'></a>[`redeemRewards(amount, bucket)`](#redeemrewards)
+######  <a id='redeemrewards'></a>[redeemRewards(amount, bucket)](#redeemrewards)
 Redeem rewards.
 **amount** the amount to redeem  
 **bucket** (optional) the bucket to redeem from.  
 
-######  <a id='getcredithistory'></a>[`getCreditHistory(): array`](#getcredithistory)
+######  <a id='getcredithistory'></a>[getCreditHistory(): array](#getcredithistory)
 Get the credit history as an array.
