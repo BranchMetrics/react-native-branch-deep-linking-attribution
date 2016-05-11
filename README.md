@@ -8,7 +8,7 @@ This is a repository of our open source React Native SDK. Huge shoutout to our f
 2. `rnpm link react-native-branch` **or** link the project [manually](./docs/installation.md#manual-linking)
 3. Add `pod 'Branch'` to your ios/Podfile ([details](./docs/installation.md#cocoa-pods))
 4. `cd ios && pod install`
-5. Follow the [setup instructions](`./docs/setup.md`)
+5. Follow the [setup instructions](./docs/setup.md)
 
 If you are new to react-native or cocoa-pods, read below for more details:
 - [Full Installation Instructions](./docs/installation.md)
@@ -59,12 +59,22 @@ let creditHistory = await branch.getCreditHistory()
 ```
 
 ## Linking
+###### <a id='subscribe'></a>[`subscribe(listener)`](#subscribe)
+**listener** (function)  
+Adds a change listener. Listener takes 1 argument with the shape `{ params, uri, error}`. The listener will be called for all incoming links. Branch links will have [params](#params), plain deep links will only have a uri.  
+
+###### <a id='getlatestreferringparams'></a>[`getLatestReferringParams(): Promise`](#getlatestreferringparams)
+Returns a promise that resolves to the most recent referring [params](#params). Because params come in asynchronously, in most cases it is better to use the `subscribe` method to receive the params as soon as they are available.
+
+###### <a id='getfirstreferringparams'></a>[`getFirstReferringParams(): Promise`](#getfirstreferringparams)
+Returns a promise to resolves with the first install referring [params](#params).
+
 ###### <a id='params'></a>[`params object`](#params)  
 The params object is returned by various linking methods including subscribe, getLatestReferringParams, and getFirstReferringParams. Params will contain any data associated with the Branch link that was clicked before the app session began.  
 
 Branch returns explicit parameters every time. Here is a list, and a description of what each represents.  
 * `~` denotes analytics  
-* `+` denotes information added by Branch 
+* `+` denotes information added by Branch
 
 | **Parameter** | **Meaning**
 | --- | ---
@@ -83,16 +93,6 @@ Branch returns explicit parameters every time. Here is a list, and a description
 
 Any additional data attached to the branch link will be available unprefixed.
 
-###### <a id='subscribe'></a>[`subscribe(listener)`](#subscribe)
-**listener** (function)  
-Adds a change listener. Listener takes 1 argument with the shape `{ params, uri, error}`. The listener will be called for all incoming links. Branch links will have params, plain deep links will only have a uri.  
-
-###### <a id='getlatestreferringparams'></a>[`getLatestReferringParams(): Promise`](#getlatestreferringparams)
-Returns a promise that resolves to the most recent referring parameters. Because params come in asynchronously, in most cases it is better to use the `subscribe` method to receive the params as soon as they are available.
-
-###### <a id='getfirstreferringparams'></a>[`getFirstReferringParams(): Promise`](#getfirstreferringparams)
-Returns a promise to resolves with the first install referring params.
-
 ## User Methods
 ###### <a id='setidentity'></a>[`setIdentity(userId)`](#setidentity)
 Set an identifier for the current user.
@@ -104,33 +104,21 @@ Logout the current user.
 Register a user action with branch.  
 
 ## Branch Universal Object
-###### <a id='universalobjectoptions'></a>[`universalObjectOptions object`](#universalobjectoptions)
-An object of options for the branchUniversalObject.  
-`{metadata: {prop1: 'test', prop2: 'abc'}, contentTitle: 'Cool Content!', contentDescription: 'Cool Content Description'}`  
-
-###### <a id='linkproperties'></a>[`linkProperties object`](#linkproperties) 
-An object of link properties.  
-`{ feature: 'share', channel: 'RNApp' }`  
-
-###### <a id='controlparams'></a>controlParams object`](#controlparams)
-Control parameters for the link.  
-`{ $desktop_url: 'http://example.com/home', $ios_url: 'http://example.com/ios' }`  
-
 ###### <a id='createbranchuniversalobject'></a>[`createBranchUniversalObject(canonicalIdentifier, universalObjectOptions): object`](#createbranchuniversalobject)
 Create a branch universal object.  
 **canonicalIdentifier** the unique identifier for the content.  
-**universalObjectOptions** options for contentTitle, contentDescription and metadata.  
+**universalObjectOptions** options for universal object as defined [below][#universalobjectoptions].
 Returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, and `showShareSheet`.  
 
 ###### <a id='showsharesheet'></a>[`branchUniversalObject.showsharesheet(shareOptions, linkProperties, controlParams): object`](#showsharesheet)  
-**shareOptions** as defined [above](#shareoptions)  
-**linkProperties** as defined [above](#linkproperties)  
-**controlParams** as defined [above](#controlparams)  
+**shareOptions** as defined [below](#shareoptions)  
+**linkProperties** as defined [below](#linkproperties)  
+**controlParams** as defined [below](#controlparams)  
 Returns an object with `{ channel, completed, error }`  
 
 ######  <a id='generateshorturl'></a>[`branchUniversalObject.generateShortUrl(linkProperties, controlParams): object`](#generateshorturl)
-**linkProperties** as defined [above](#linkproperties)  
-**controlParams** as defined [above](#controlparams)  
+**linkProperties** as defined [below](#linkproperties)  
+**controlParams** as defined [below](#controlparams)  
 Returns an object with `{ url }`  
 
 ######  <a id='registerview'></a>[`branchUniversalObject.registerView()`](#registerview)
@@ -138,6 +126,46 @@ Register a view for this universal object.
 
 ######  <a id='listonspotlight'></a>[`branchUniversalObject.listOnSpotlight()`](#listonspotlight)
 List the univeral object in spotlight (ios only).
+
+###### <a id='universalobjectoptions'></a>[`universalObjectOptions object`](#universalobjectoptions)
+An object of options for the branchUniversalObject.  
+|         Key         | TYPE   |             DESCRIPTION             |
+| ------------------- | ------ | ----------------------------------- |
+| canonicalIdentifier | String | The object identifier               |
+| title               | String | The object title                    |
+| contentDescription  | String | Object Description                  |
+| contentImageUrl     | String | The Image URL                       |
+| contentIndexingMode | String | Indexing Mode 'private' or 'public' |
+| contentMetadata     | Object | Custom key/value                    |
+
+###### <a id='linkproperties'></a>[`linkProperties object`](#linkproperties)
+An object of link properties.  
+|    KEY   |   TYPE   |          MEANING
+| -------- | -------- |------------------------
+| feature  | `string` | This is the feature of your app that the link might be associated with. eg: if you had built a referral program, you would label links with the feature `referral`
+| alias    | `string` | Specify a link alias in place of the standard encoded short URL (e.g., `[branchsubdomain]/youralias or yourdomain.co/youralias)`. Link aliases are unique, immutable objects that cannot be deleted. **Aliases on the legacy `bnc.lt` domain are incompatible with Universal Links and Spotlight**
+| channel  | `string` | Use channel to tag the route that your link reaches users. For example, tag links with ‘Facebook’ or ‘LinkedIn’ to help track clicks and installs through those paths separately
+| stage    | `string` |   Use this to categorize the progress or category of a user when the link was generated. For example, if you had an invite system accessible on level 1, level 3 and 5, you could differentiate links generated at each level with this parameter
+| duration |  `int`   | duration of the link.
+
+###### <a id='controlparams'></a>controlParams object`](#controlparams)
+Control parameters for the link.  
+|        KEY         |   TYPE   |       MEANING
+| ------------------ | -------- | --------------------
+| $fallback_url      | `string` | Change the redirect endpoint for all platforms - so you don’t have to enable it by platform
+| $desktop_url       | `string` | Change the redirect endpoint on desktops  
+| $android_url       | `string` | Change the redirect endpoint for Android
+| $ios_url           | `string` | Change the redirect endpoint for iOS
+| $ipad_url          | `string` | Change the redirect endpoint for iPads
+| $fire_url          | `string` | Change the redirect endpoint for Amazon Fire OS
+| $blackberry_url    | `string` | Change the redirect endpoint for Blackberry OS
+| $windows_phone_url | `string` | Change the redirect endpoint for Windows OS
+
+###### <a id='shareoptions'></a>[`shareOptions object`](#shareoptions)
+|        KEY         |   TYPE   |       MEANING
+| ------------------ | -------- | --------------------
+| messageHeader      | `string` | The header text
+| messageBody        | `string` | The body text
 
 ## Referral Methods
 ######  <a id='loadrewards'></a>[`loadRewards()`](#loadrewards)

@@ -1,20 +1,20 @@
 ## Setting Up Branch
-After [installing](./installation.md) branch, you will need to set up your android and ios apps to handle incoming links.
+After [installing](./installation.md) branch, you will need to set up your android and ios apps to handle incoming links:
 
 #### iOS project
 1. Modify AppDelegate.m as follows:
     ```objective-c
     #import "RNBranch.h" // at the top
-    
+
     // Initialize the Branch Session at the top of existing didFinishLaunchingWithOptions
     - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     {
       [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES]; // <-- add this
-    
+
       NSURL *jsCodeLocation;
       //...
     }
-    
+
     // Add the openURL and continueUserActivity functions
     - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
       if (![RNBranch handleDeepLink:url]) {
@@ -22,7 +22,7 @@ After [installing](./installation.md) branch, you will need to set up your andro
       }
       return YES;
     }
-    
+
     - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
       return [RNBranch continueUserActivity:userActivity];
     }
@@ -35,11 +35,11 @@ After [installing](./installation.md) branch, you will need to set up your andro
 
 #### android project
 
-1. Modify your MainActivity.java to handle branch links (`android/app/src/[...]/MainActivity.java`) 
+1. Modify your MainActivity.java to handle branch links (`android/app/src/[...]/MainActivity.java`)
     ```java
     import io.branch.rnbranch.*; // <-- add this
     import android.content.Intent; // <-- and this
-    
+
     public class MainActivity extends ReactActivity {
         // ...
         @Override
@@ -56,13 +56,13 @@ After [installing](./installation.md) branch, you will need to set up your andro
             super.onStart();
             RNBranchModule.initSession(this.getIntent().getData(), this);
         }
-    
+
         @Override
         protected void onStop() {
             super.onStop();
             RNBranchModule.onStop();
         }
-    
+
         @Override
         public void onNewIntent(Intent intent) {
             this.setIntent(intent);
