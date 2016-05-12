@@ -28,14 +28,14 @@ RCT_EXPORT_MODULE();
   [[Branch getInstance] initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
     NSString *errorMessage = [NSNull null];
     if ([error respondsToSelector:@selector(localizedDescription)]) {
-      errorMessage = [initSessionWithLaunchOptionsResult[@"error"] localizedDescription];
+      errorMessage = [error localizedDescription];
     } else if (error) {
       errorMessage = error;
     }
 
     initSessionWithLaunchOptionsResult = @{
       @"params": params && [params objectForKey:@"~id"] ? params : [NSNull null],
-      @"error": error ? error : [NSNull null],
+      @"error": errorMessage ? errorMessage : [NSNull null],
       @"uri": sourceUrl ? [sourceUrl absoluteString] : [NSNull null]
     };
 
