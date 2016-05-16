@@ -173,10 +173,12 @@ RCT_EXPORT_METHOD(
   dispatch_async(dispatch_get_main_queue(), ^(void){
     BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
     BranchLinkProperties *linkProperties = [self createLinkProperties:linkProperties withControlParams:controlParamsMap];
-
+    
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *fromViewController = (rootViewController.presentedViewController ? rootViewController.presentedViewController : rootViewController);
     [branchUniversalObject showShareSheetWithLinkProperties:linkProperties
                                              andShareText:[shareOptionsMap objectForKey:@"text"]
-                                             fromViewController:nil
+                                             fromViewController:fromViewController
                                               completion:^(NSString *activityType, BOOL completed){
       NSDictionary *result = @{
         @"channel" : activityType ? activityType : [NSNull null],
