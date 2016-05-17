@@ -2,6 +2,8 @@
 
 This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK.
 
+**v0.1.0** has just been released with **breaking changes**! [[Upgrade Notes]](https://github.com/BranchMetrics/react-native-branch/issues/8)
+
 ## Installation
 
 1. `npm install --save react-native-branch`
