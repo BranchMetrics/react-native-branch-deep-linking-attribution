@@ -1,6 +1,6 @@
 # Branch Metrics React Native SDK Reference
 
-This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK.
+This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK. This SDK will help you handle iOS Universal Links, Android App Link, Deferred deep links and much more!
 
 **v0.1.0** has just been released with **breaking changes**! [[Upgrade Notes]](https://github.com/BranchMetrics/react-native-branch/issues/8)
 
