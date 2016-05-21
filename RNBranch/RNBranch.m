@@ -177,9 +177,9 @@ RCT_EXPORT_METHOD(
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *fromViewController = (rootViewController.presentedViewController ? rootViewController.presentedViewController : rootViewController);
     [branchUniversalObject showShareSheetWithLinkProperties:linkProperties
-                                             andShareText:[shareOptionsMap objectForKey:@"text"]
-                                             fromViewController:fromViewController
-                                              completion:^(NSString *activityType, BOOL completed){
+                           andShareText:[shareOptionsMap objectForKey:@"messageBody"]
+                           fromViewController:fromViewController
+                           completion:^(NSString *activityType, BOOL completed){
       NSDictionary *result = @{
         @"channel" : activityType ? activityType : [NSNull null],
         @"completed" : [NSNumber numberWithBool:completed],
