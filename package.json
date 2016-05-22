@@ -1,6 +1,6 @@
 {
   "name": "react-native-branch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Branch Metrics React Native SDK",
   "main": "src/index.js",
   "files": ["src", "docs", "android", "RNBranch", "react-native-branch.podspec"],
@@ -33,7 +33,10 @@
     "deep",
     "link"
   ],
-  "author": "Kevin Stumpf",
+  "authors": [
+      "Zack Story <zack@root-two.com> (https://github.com/rt2zz)",
+      "Kevin Stumpf (https://github.com/kevinstumpf)"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
