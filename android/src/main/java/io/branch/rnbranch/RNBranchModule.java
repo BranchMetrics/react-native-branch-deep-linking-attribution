@@ -37,7 +37,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   private static Branch mBranch = null;
 
   public static void initSession(final Uri uri, ReactActivity reactActivity) {
-    mBranch = Branch.getInstance();
+    mBranch = Branch.getInstance(reactActivity.getApplicationContext());
     mActivity = reactActivity;
     mBranch.initSession(new Branch.BranchReferralInitListener(){
 
