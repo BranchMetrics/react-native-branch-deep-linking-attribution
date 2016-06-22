@@ -4,9 +4,9 @@ This is a repository of our open source React Native SDK. Huge shoutout to our f
 
 **v0.1.0** has just been released with **breaking changes**! [[Upgrade Notes]](https://github.com/BranchMetrics/react-native-branch/issues/8)
 
-[![build status](https://img.shields.io/travis/BranchMetrics/React-Native-Deferred-Deep-Linking-SDK/master.svg?style=flat-square)](https://travis-ci.org/rt2zz/redux-persist)
-[![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/redux-persist)
-[![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/redux-persist)
+[![build status](https://img.shields.io/travis/BranchMetrics/React-Native-Deferred-Deep-Linking-SDK/master.svg?style=flat-square)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
+[![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
 
 ## Installation
 
