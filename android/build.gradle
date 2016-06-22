@@ -19,5 +19,5 @@ android {
 
 dependencies {
     compile 'com.facebook.react:react-native:0.20.+'
-    compile 'io.branch.sdk.android:library:1.+'
+    compile ('io.branch.sdk.android:library:1.13.1')
 }
