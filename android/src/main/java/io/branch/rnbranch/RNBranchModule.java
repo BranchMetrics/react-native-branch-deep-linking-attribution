@@ -1,5 +1,6 @@
 package io.branch.rnbranch;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -10,7 +11,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.os.Handler;
 
-import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.*;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.modules.core.*;
@@ -33,15 +33,15 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   private static JSONObject initSessionResult = null;
   private BroadcastReceiver mInitSessionEventReceiver = null;
 
-  private static ReactActivity mActivity = null;
+  private static Activity mActivity = null;
   private static Branch mBranch = null;
 
-  public static void initSession(final Uri uri, ReactActivity reactActivity) {
+  public static void initSession(final Uri uri, Activity reactActivity) {
     mBranch = Branch.getInstance(reactActivity.getApplicationContext());
     mActivity = reactActivity;
     mBranch.initSession(new Branch.BranchReferralInitListener(){
 
-      private ReactActivity mmActivity = null;
+      private Activity mmActivity = null;
 
       @Override
       public void onInitFinished(JSONObject referringParams, BranchError error) {
@@ -61,7 +61,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT));
       }
 
-      private Branch.BranchReferralInitListener init(ReactActivity activity) {
+      private Branch.BranchReferralInitListener init(Activity activity) {
         mmActivity = activity;
         return this;
       }
