@@ -35,8 +35,9 @@ end
 
 ## Manual Linking
 #### iOS:
-- Drag and Drop /node_modules/react-native-branch/RNBranch/RNBranch.xcodeproj into the Libraries folder of your project in XCode (as described in Step 1 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
-- Drag and Drop the RNBranch.xcodeproj's Products's libRNBranch.a into your project's target's "Linked Frameworks and Libraries" section (as described in Step 2 [here](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content))
+- Drag and Drop /node_modules/react-native-branch/RNBranch/RNBranch.xcodeproj into the Libraries folder of your project in XCode (as described in Step 1 [here](http://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking))
+- Drag and Drop the RNBranch.xcodeproj's Products's libRNBranch.a into your project's target's "Linked Frameworks and Libraries" section (as described in Step 2 [here](http://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking))
+- Add "$(SRCROOT)/../node_modules/react-native-branch/ios" to your project's **Build Settings** -> **Header Search Paths** (as described in Step 3 [here](http://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking))
 
 #### android:
 android/settings.gradle

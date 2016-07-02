@@ -8,6 +8,6 @@ Pod::Spec.new do |s|
   s.homepage     = 'n/a'
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/branchmetrics/react-native-branch.git" }
-  s.source_files = 'RNBranch/*'
+  s.source_files = 'ios/*'
   s.dependency 'Branch'
 end
