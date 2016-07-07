@@ -179,10 +179,8 @@ RCT_EXPORT_METHOD(
     [branchUniversalObject showShareSheetWithLinkProperties:linkProperties
                            andShareText:[shareOptionsMap objectForKey:@"messageBody"]
                            fromViewController:fromViewController
-                           andCallback:^(NSString *activityType, BOOL completed){
+                           andCallback:^(){
       NSDictionary *result = @{
-        @"channel" : activityType ? activityType : [NSNull null],
-        @"completed" : [NSNumber numberWithBool:completed],
         @"error" : [NSNull null]
       };
 
