@@ -177,6 +177,7 @@ Control parameters for the link.
 | ------------------ | -------- | --------------------
 | messageHeader      | `string` | The header text
 | messageBody        | `string` | The body text
+| emailSubject       | `string` | The subject of the email channel if selected
 
 ## Referral Methods
 ######  <a id='loadrewards'></a>[loadRewards()](#loadrewards)
