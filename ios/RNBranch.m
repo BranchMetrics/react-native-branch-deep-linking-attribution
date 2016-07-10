@@ -172,7 +172,13 @@ RCT_EXPORT_METHOD(
 ){
   dispatch_async(dispatch_get_main_queue(), ^(void){
     BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
-    BranchLinkProperties *linkProperties = [self createLinkProperties:linkPropertiesMap withControlParams:controlParamsMap];
+    
+    NSMutableDictionary *mutableControlParams = [controlParamsMap mutableCopy];
+    if (shareOptionsMap && [shareOptionsMap objectForKey:@"emailSubject"]) {
+        [mutableControlParams setValue:[shareOptionsMap objectForKey:@"emailSubject"] forKey:@"$email_subject"];
+    }
+      
+    BranchLinkProperties *linkProperties = [self createLinkProperties:linkPropertiesMap withControlParams:mutableControlParams];
 
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *fromViewController = (rootViewController.presentedViewController ? rootViewController.presentedViewController : rootViewController);
