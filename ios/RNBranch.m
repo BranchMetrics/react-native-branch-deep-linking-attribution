@@ -19,9 +19,13 @@ NSString * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWi
 static NSDictionary* initSessionWithLaunchOptionsResult;
 static NSURL* sourceUrl;
 
-@synthesize bridge = _bridge;
-
 RCT_EXPORT_MODULE();
+
+- (NSArray *)supportedEvents
+{
+    return @[@"RNBranch.initSessionSuccess",
+             @"RNBranch.initSessionError"];
+}
 
 //Called by AppDelegate.m -- stores initSession result in static variables and raises initSessionFinished event that's captured by the RNBranch instance to emit it to React Native
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
@@ -74,12 +78,12 @@ RCT_EXPORT_MODULE();
 
   // If there is an error, fire error event
   if (notificationObject[@"error"] != [NSNull null]) {
-    [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionError" body:notificationObject];
+    [self sendEventWithName:@"RNBranch.initSessionError" body:notificationObject];
   }
 
   // otherwise notify the session is finished
   else {
-    [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionSuccess" body:notificationObject];
+    [self sendEventWithName:@"RNBranch.initSessionSuccess" body:notificationObject];
   }
 }
 
@@ -172,12 +176,12 @@ RCT_EXPORT_METHOD(
 ){
   dispatch_async(dispatch_get_main_queue(), ^(void){
     BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
-    
+
     NSMutableDictionary *mutableControlParams = [controlParamsMap mutableCopy];
     if (shareOptionsMap && [shareOptionsMap objectForKey:@"emailSubject"]) {
         [mutableControlParams setValue:[shareOptionsMap objectForKey:@"emailSubject"] forKey:@"$email_subject"];
     }
-      
+
     BranchLinkProperties *linkProperties = [self createLinkProperties:linkPropertiesMap withControlParams:mutableControlParams];
 
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
