@@ -6,9 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <React/RCTBridgeModule.h>
+#import "RCTEventEmitter.h"
 
-@interface RNBranch : NSObject <RCTBridgeModule>
+@interface RNBranch : RCTEventEmitter
 
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable;
 + (BOOL)handleDeepLink:(NSURL *)url;
