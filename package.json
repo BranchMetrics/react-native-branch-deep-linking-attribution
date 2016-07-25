@@ -1,6 +1,6 @@
 {
   "name": "react-native-branch",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Branch Metrics React Native SDK",
   "main": "src/index.js",
   "files": ["src", "docs", "android", "ios", "react-native-branch.podspec"],
