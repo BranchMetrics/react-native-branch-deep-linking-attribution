@@ -1,17 +1,10 @@
-//
-//  RNBranch.m
-//  RNBranch
-//
-//  Created by Kevin Stumpf on 1/28/16.
-//
-
 #import "RNBranch.h"
 #import "RCTBridgeModule.h"
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
 #import <Branch/Branch.h>
-#import "BranchLinkProperties.h"
-#import "BranchUniversalObject.h"
+#import <Branch/BranchLinkProperties.h>
+#import <Branch/BranchUniversalObject.h>
 
 @implementation RNBranch
 

@@ -1,10 +1,7 @@
-import { NativeModules, NativeAppEventEmitter, DeviceEventEmitter, Platform } from 'react-native'
+import { NativeModules, NativeEventEmitter, DeviceEventEmitter, Platform } from 'react-native'
 
-// According to the React Native docs from 0.21, NativeAppEventEmitter is used for native iOS modules to emit events. DeviceEventEmitter is used for native Android modules.
-// Both are technically supported on Android -- but I chose to follow the suggested route by the documentation to minimize the risk of this code breaking with a future release
-// in case NativeAppEventEmitter ever got deprecated on Android
-const nativeEventEmitter = Platform.OS === 'ios' ? NativeAppEventEmitter : DeviceEventEmitter
 const { RNBranch } = NativeModules
+const nativeEventEmitter = Platform.OS === 'ios' ? new NativeEventEmitter(RNBranch) : DeviceEventEmitter
 
 import createBranchUniversalObject from './branchUniversalObject'
 
