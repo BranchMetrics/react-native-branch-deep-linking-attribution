@@ -1,10 +1,7 @@
-import { NativeModules, NativeAppEventEmitter, DeviceEventEmitter, Platform } from 'react-native'
+import { NativeModules, NativeEventEmitter } from 'react-native'
 
-// According to the React Native docs from 0.21, NativeAppEventEmitter is used for native iOS modules to emit events. DeviceEventEmitter is used for native Android modules.
-// Both are technically supported on Android -- but I chose to follow the suggested route by the documentation to minimize the risk of this code breaking with a future release
-// in case NativeAppEventEmitter ever got deprecated on Android
-const nativeEventEmitter = Platform.OS === 'ios' ? NativeAppEventEmitter : DeviceEventEmitter
 const { RNBranch } = NativeModules
+const branchEventEmitter = new NativeEventEmitter(RNBranch)
 
 import createBranchUniversalObject from './branchUniversalObject'
 
@@ -20,8 +17,8 @@ class Branch {
 
   constructor() {
     // listen for initSession results and errors.
-    nativeEventEmitter.addListener(INIT_SESSION_SUCCESS, this._onInitSessionResult)
-    nativeEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult)
+    branchEventEmitter.addListener(INIT_SESSION_SUCCESS, this._onInitSessionResult)
+    branchEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult)
 
     this._processInitSession()
   }
