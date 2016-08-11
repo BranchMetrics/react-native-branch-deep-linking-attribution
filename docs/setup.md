@@ -36,19 +36,19 @@ After [installing](./installation.md) branch, you will need to set up your andro
 #### android project
 
 1. Add RNBranchPackage to packages list in MainApplication.java (`android/app/src/[...]/MainApplication.java`)
-```java
-//...
-import io.branch.rnbranch.*; // <-- add this
-//...
-@Override
-  protected List<ReactPackage> getPackages() {
-    return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-            new RNBranchPackage(), // <-- add this
-// ...
-```
+    ```java
+    //...
+    import io.branch.rnbranch.*; // <-- add this
+    //...
+    @Override
+      protected List<ReactPackage> getPackages() {
+        return Arrays.<ReactPackage>asList(
+                new MainReactPackage(),
+                new RNBranchPackage(), // <-- add this
+    // ...
+    ```
 
-1. Modify your MainActivity.java to handle branch links (`android/app/src/[...]/MainActivity.java`)
+1. Override onStart, onStop and onNewIntent in MainActivity.java to handle branch links (`android/app/src/[...]/MainActivity.java`)
     ```java
     import io.branch.rnbranch.*; // <-- add this
     import android.content.Intent; // <-- and this
