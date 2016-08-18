@@ -108,10 +108,11 @@ RCT_EXPORT_MODULE();
 }
 
 RCT_EXPORT_METHOD(
-  getInitSessionResult:(RCTPromiseResolveBlock)resolve
+  redeemInitSessionResult:(RCTPromiseResolveBlock)resolve
   rejecter:(__unused RCTPromiseRejectBlock)reject
 ){
   resolve(initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]);
+  initSessionWithLaunchOptionsResult = @{};
 }
 
 RCT_EXPORT_METHOD(
