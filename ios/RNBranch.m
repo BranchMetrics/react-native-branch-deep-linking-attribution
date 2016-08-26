@@ -46,10 +46,6 @@ RCT_EXPORT_MODULE();
 + (BOOL)handleDeepLink:(NSURL *)url {
   sourceUrl = url;
   BOOL handled = [[Branch getInstance] handleDeepLink:url];
-  if (!handled) {
-    NSDictionary* nonBranchResult = @{@"params": [NSNull null], @"error": [NSNull null], @"uri": [url absoluteString]};
-    [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:nonBranchResult];
-  }
   return handled;
 }
 
@@ -112,10 +108,11 @@ RCT_EXPORT_MODULE();
 }
 
 RCT_EXPORT_METHOD(
-  getInitSessionResult:(RCTPromiseResolveBlock)resolve
+  redeemInitSessionResult:(RCTPromiseResolveBlock)resolve
   rejecter:(__unused RCTPromiseRejectBlock)reject
 ){
   resolve(initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]);
+  initSessionWithLaunchOptionsResult = @{};
 }
 
 RCT_EXPORT_METHOD(
@@ -172,12 +169,12 @@ RCT_EXPORT_METHOD(
 ){
   dispatch_async(dispatch_get_main_queue(), ^(void){
     BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
-    
+
     NSMutableDictionary *mutableControlParams = [controlParamsMap mutableCopy];
     if (shareOptionsMap && [shareOptionsMap objectForKey:@"emailSubject"]) {
         [mutableControlParams setValue:[shareOptionsMap objectForKey:@"emailSubject"] forKey:@"$email_subject"];
     }
-      
+
     BranchLinkProperties *linkProperties = [self createLinkProperties:linkPropertiesMap withControlParams:mutableControlParams];
 
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;

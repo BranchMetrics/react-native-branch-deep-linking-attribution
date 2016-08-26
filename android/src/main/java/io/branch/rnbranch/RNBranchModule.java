@@ -106,8 +106,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void getInitSessionResult(Promise promise) {
+  public void redeemInitSessionResult(Promise promise) {
     promise.resolve(convertJsonToMap(initSessionResult));
+    initSessionResult = null;
   }
 
   @ReactMethod

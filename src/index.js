@@ -29,11 +29,13 @@ class Branch {
   /*** RNBranch Deep Linking ***/
   async _processInitSession() {
     // retrieve the last initSession if it exists
-    let result = await RNBranch.getInitSessionResult()
+    let result = await RNBranch.redeemInitSessionResult()
     if (result) this._onInitSessionResult(result)
   }
 
   _onInitSessionResult = (result) => {
+    // redeem the result so it can be cleared from the native cache
+    RNBranch.redeemInitSessionResult()
     this._initSessionResult = result
 
     this._patientInitSessionObservers.forEach((cb) => cb(result))
