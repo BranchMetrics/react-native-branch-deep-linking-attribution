@@ -17,7 +17,7 @@
 
 NSString * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWithLaunchOptionsFinished";
 static NSDictionary* initSessionWithLaunchOptionsResult;
-static NSURL* sourceUrl;
+static NSString* sourceUrl;
 
 @synthesize bridge = _bridge;
 
@@ -36,7 +36,7 @@ RCT_EXPORT_MODULE();
     initSessionWithLaunchOptionsResult = @{
       @"params": params && [params objectForKey:@"~id"] ? params : [NSNull null],
       @"error": errorMessage ? errorMessage : [NSNull null],
-      @"uri": sourceUrl ? [sourceUrl absoluteString] : [NSNull null]
+      @"uri": sourceUrl ? sourceUrl : [NSNull null]
     };
 
     [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult];
@@ -44,7 +44,7 @@ RCT_EXPORT_MODULE();
 }
 
 + (BOOL)handleDeepLink:(NSURL *)url {
-  sourceUrl = url;
+  sourceUrl = url ? [url absoluteString] : [NSNull null];
   BOOL handled = [[Branch getInstance] handleDeepLink:url];
   return handled;
 }
@@ -112,7 +112,8 @@ RCT_EXPORT_METHOD(
   rejecter:(__unused RCTPromiseRejectBlock)reject
 ){
   resolve(initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]);
-  initSessionWithLaunchOptionsResult = @{};
+  initSessionWithLaunchOptionsResult = [NSNull null];
+  sourceUrl = [NSNull null];
 }
 
 RCT_EXPORT_METHOD(
