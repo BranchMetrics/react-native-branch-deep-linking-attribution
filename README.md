@@ -144,7 +144,7 @@ An object of options for the branchUniversalObject.
 | contentDescription  | String | Object Description                  |
 | contentImageUrl     | String | The Image URL                       |
 | contentIndexingMode | String | Indexing Mode 'private' or 'public' |
-| contentMetadata     | Object | Custom key/value                    |
+| metadata            | Object | Custom key/value                    |
 
 ###### <a id='linkproperties'></a>[linkProperties object](#linkproperties)
 An object of link properties.  
