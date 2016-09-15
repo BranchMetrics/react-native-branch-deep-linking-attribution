@@ -1,10 +1,3 @@
-//
-//  RNBranch.m
-//  RNBranch
-//
-//  Created by Kevin Stumpf on 1/28/16.
-//
-
 #import "RNBranch.h"
 #import "RCTBridgeModule.h"
 #import "RCTBridge.h"
