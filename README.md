@@ -2,7 +2,7 @@
 
 This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK. This SDK will help you handle iOS Universal Links, Android App Link, deferred deep links, do install attribution and much more!
 
-**v0.1.0** has just been released with **breaking changes**! [[Upgrade Notes]](https://github.com/BranchMetrics/react-native-branch/issues/8)
+**v0.8.0** has just been released. If you currently override `onStop` in MainActivity.java be sure *not* to invoke `RNBranchModule.onStop()`
 
 [![build status](https://img.shields.io/travis/BranchMetrics/React-Native-Deferred-Deep-Linking-SDK/master.svg?style=flat-square)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
 [![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
