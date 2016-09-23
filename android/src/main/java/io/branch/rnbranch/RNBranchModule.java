@@ -68,10 +68,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }.init(reactActivity), uri, reactActivity);
   }
 
-  public static void onStop() {
-    mBranch.closeSession();
-  }
-
   public RNBranchModule(ReactApplicationContext reactContext) {
     super(reactContext);
     forwardInitSessionFinishedEventToReactNative(reactContext);
