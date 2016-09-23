@@ -62,7 +62,7 @@ After [installing](./installation.md) branch, you will need to set up your andro
     }
     ```
 
-1. Override onStart, onStop and onNewIntent in MainActivity.java to handle branch links (`android/app/src/[...]/MainActivity.java`)
+1. Override onStart and onNewIntent in MainActivity.java to handle branch links (`android/app/src/[...]/MainActivity.java`)
     ```java
     import io.branch.rnbranch.*; // <-- add this
     import android.content.Intent; // <-- and this
@@ -79,12 +79,6 @@ After [installing](./installation.md) branch, you will need to set up your andro
         protected void onStart() {
             super.onStart();
             RNBranchModule.initSession(this.getIntent().getData(), this);
-        }
-
-        @Override
-        protected void onStop() {
-            super.onStop();
-            RNBranchModule.onStop();
         }
 
         @Override
