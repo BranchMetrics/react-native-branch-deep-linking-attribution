@@ -252,6 +252,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Log.d(REACT_CLASS, "onLinkCreate " + url);
         WritableMap map = new WritableNativeMap();
         map.putString("url", url);
+        if (error != null) {
+          map.putString("error", error.toString());
+        }
         promise.resolve(map);
       }
     });
