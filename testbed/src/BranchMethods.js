@@ -36,7 +36,7 @@ class BranchMethods extends Component {
       console.log('generateShortUrl', result)
       this.addResult('success', 'generateShortUrl', result)
     } catch (err) {
-      console.log('generateShortUrl err', err.toString())
+      console.log('generateShortUrl err', err)
       this.addResult('error', 'generateShortUrl', err.toString())
     }
   }

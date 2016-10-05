@@ -6,8 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "react": "^0.14.8",
-    "react-native": "^0.25.1",
-    "react-native-branch": "github:branchmetrics/react-native-branch#testbed"
+    "react": "^15.3.2",
+    "react-native": "^0.34.1",
+    "react-native-branch": "^0.8.0"
   }
 }
