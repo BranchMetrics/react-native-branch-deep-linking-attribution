@@ -17,8 +17,11 @@ class Branch {
   _lastParams = null;
   _listeners = [];
   _patientInitSessionObservers = [];
+  _debug = false;
 
-  constructor() {
+  constructor(options = {}) {
+    if (options.debug) this._debug = true
+
     // listen for initSession results and errors.
     nativeEventEmitter.addListener(INIT_SESSION_SUCCESS, this._onInitSessionResult)
     nativeEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult)
@@ -37,11 +40,12 @@ class Branch {
     // redeem the result so it can be cleared from the native cache
     RNBranch.redeemInitSessionResult()
     this._initSessionResult = result
+    if (this._debug && !result) console.log('## Branch: received null result in _onInitSessionResult')
 
     this._patientInitSessionObservers.forEach((cb) => cb(result))
     this._listeners.forEach(cb => cb(result))
 
-    this._lastParams = result.params
+    this._lastParams = result && result.params || {}
     this._patientInitSessionObservers = []
   };
 
@@ -78,4 +82,5 @@ class Branch {
   createBranchUniversalObject = createBranchUniversalObject
 }
 
+export { Branch }
 export default new Branch()
