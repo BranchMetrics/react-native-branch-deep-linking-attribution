@@ -9,6 +9,8 @@ After [installing](./installation.md) branch, you will need to set up your andro
     // Initialize the Branch Session at the top of existing didFinishLaunchingWithOptions
     - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     {
+      // Uncomment this line to use the test key instead of the live one.
+      // [RNBranch useTestInstance]
       [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES]; // <-- add this
 
       NSURL *jsCodeLocation;

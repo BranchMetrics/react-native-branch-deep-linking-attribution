@@ -17,6 +17,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  /**
+   * Uncomment to use the test key instead of the live one.
+   */
+//   [RNBranch useTestInstance]
+
   [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
 
   NSURL *jsCodeLocation;
