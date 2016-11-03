@@ -6,5 +6,6 @@
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable;
 + (BOOL)handleDeepLink:(NSURL *)url;
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity;
++ (void)useTestInstance;
 
 @end
