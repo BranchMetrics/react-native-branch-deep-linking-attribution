@@ -222,12 +222,14 @@
 		B3A3CC401C5B0A070016AC52 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../ios/Carthage/Build/iOS";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../react-native/React/**",
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public\"",
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public/Branch\"",
+					"\"$(SRCROOT)/../../../ios/Carthage/Build/iOS/Branch.framework/Headers\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -242,12 +244,14 @@
 		B3A3CC411C5B0A070016AC52 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../ios/Carthage/Build/iOS";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../react-native/React/**",
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public\"",
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public/Branch\"",
+					"\"$(SRCROOT)/../../../ios/Carthage/Build/iOS/Branch.framework/Headers\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
