@@ -21,6 +21,19 @@ If you are new to react-native or cocoa-pods, read below for more details:
 - [If you already have React in your Podfile](./docs/installation.md#pod-only-installation)
 - [If you do not know what a Podfile is](./docs/installation.md#creating-a-new-podfile)
 
+### Carthage
+[carthage]: https://github.com/Carthage/Carthage
+
+If you would prefer to use [Carthage](carthage), you can skip steps 3 & 4 above and instead add the following to your `Cartfile`:
+
+`github "BranchMetrics/ios-branch-deep-linking`
+
+Then run:
+
+`$ carthage bootstrap`
+
+If you're unfamiliar with how to add a framework to your project with [Carthage](carthage), you can [learn more here](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application). You will need to maually link the framework by adding it to the "Linked Frameworks and Libraries" section of your target settings, and copy it by adding it to the "Input Files" section of your `carthage copy-frameworks` build phase.
+
 ## Next Steps
 In order to get full branch support you will need to setup your ios and android projects accordingly:
 - [iOS](./docs/setup.md#ios)
