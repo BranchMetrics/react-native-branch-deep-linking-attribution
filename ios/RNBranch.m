@@ -11,14 +11,22 @@
 NSString * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWithLaunchOptionsFinished";
 static NSDictionary* initSessionWithLaunchOptionsResult;
 static NSString* sourceUrl;
+static Branch *branchInstance;
 
 @synthesize bridge = _bridge;
 
 RCT_EXPORT_MODULE();
 
++ (void)useTestInstance {
+  branchInstance = [Branch getTestInstance];
+}
+
 //Called by AppDelegate.m -- stores initSession result in static variables and raises initSessionFinished event that's captured by the RNBranch instance to emit it to React Native
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
-  [[Branch getInstance] initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+  if (!branchInstance) {
+    branchInstance = [Branch getInstance];
+  }
+  [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
     NSString *errorMessage = [NSNull null];
     if ([error respondsToSelector:@selector(localizedDescription)]) {
       errorMessage = [error localizedDescription];
@@ -38,12 +46,12 @@ RCT_EXPORT_MODULE();
 
 + (BOOL)handleDeepLink:(NSURL *)url {
   sourceUrl = url ? [url absoluteString] : [NSNull null];
-  BOOL handled = [[Branch getInstance] handleDeepLink:url];
+  BOOL handled = [branchInstance handleDeepLink:url];
   return handled;
 }
 
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity {
-  return [[Branch getInstance] continueUserActivity:userActivity];
+  return [branchInstance continueUserActivity:userActivity];
 }
 
 - (id)init {
@@ -112,45 +120,39 @@ RCT_EXPORT_METHOD(
 RCT_EXPORT_METHOD(
   setDebug
 ){
-  Branch *branch = [Branch getInstance];
-  [branch setDebug];
+  [branchInstance setDebug];
 }
 
 RCT_EXPORT_METHOD(
   getLatestReferringParams:(RCTPromiseResolveBlock)resolve
   rejecter:(__unused RCTPromiseRejectBlock)reject
 ){
-  Branch *branch = [Branch getInstance];
-  resolve([branch getLatestReferringParams]);
+  resolve([branchInstance getLatestReferringParams]);
 }
 
 RCT_EXPORT_METHOD(
   getFirstReferringParams:(RCTPromiseResolveBlock)resolve
   rejecter:(__unused RCTPromiseRejectBlock)reject
 ){
-  Branch *branch = [Branch getInstance];
-  resolve([branch getFirstReferringParams]);
+  resolve([branchInstance getFirstReferringParams]);
 }
 
 RCT_EXPORT_METHOD(
   setIdentity:(NSString *)identity
 ){
-  Branch *branch = [Branch getInstance];
-  [branch setIdentity:identity];
+  [branchInstance setIdentity:identity];
 }
 
 RCT_EXPORT_METHOD(
   logout
 ){
-  Branch *branch = [Branch getInstance];
-  [branch logout];
+  [branchInstance logout];
 }
 
 RCT_EXPORT_METHOD(
   userCompletedAction:(NSString *)event withState:(NSDictionary *)appState
 ){
-  Branch *branch = [Branch getInstance];
-  [branch userCompletedAction:event withState:appState];
+  [branchInstance userCompletedAction:event withState:appState];
 }
 
 RCT_EXPORT_METHOD(
@@ -258,7 +260,7 @@ RCT_EXPORT_METHOD(
   NSString *stage = [linkPropertiesMap objectForKey:@"stage"];
   NSArray *tags = [linkPropertiesMap objectForKey:@"tags"];
 
-  [[Branch getInstance] getShortURLWithParams:linkPropertiesMap
+  [branchInstance getShortURLWithParams:linkPropertiesMap
                                       andTags:tags
                                    andChannel:channel
                                    andFeature:feature
@@ -276,9 +278,9 @@ RCT_EXPORT_METHOD(
   loadRewards:(RCTPromiseResolveBlock)resolve
   rejecter:(RCTPromiseRejectBlock)reject
 ){
-  [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *error) {
+  [branchInstance loadRewardsWithCallback:^(BOOL changed, NSError *error) {
     if(!error) {
-      int credits = (int)[[Branch getInstance] getCredits];
+      int credits = (int)[branchInstance getCredits];
         resolve(@{@"credits": @(credits)});
     } else {
       NSLog(@"Load Rewards Error: %@", [error localizedDescription]);
@@ -294,7 +296,7 @@ RCT_EXPORT_METHOD(
   rejecter:(RCTPromiseRejectBlock)reject
 ){
   if (bucket) {
-    [[Branch getInstance] redeemRewards:amount forBucket:bucket callback:^(BOOL changed, NSError *error) {
+    [branchInstance redeemRewards:amount forBucket:bucket callback:^(BOOL changed, NSError *error) {
       if (!error) {
         resolve(@{@"changed": @(changed)});
       } else {
@@ -303,7 +305,7 @@ RCT_EXPORT_METHOD(
       }
     }];
   } else {
-    [[Branch getInstance] redeemRewards:amount callback:^(BOOL changed, NSError *error) {
+    [branchInstance redeemRewards:amount callback:^(BOOL changed, NSError *error) {
       if (!error) {
         resolve(@{@"changed": @(changed)});
       } else {
@@ -318,7 +320,7 @@ RCT_EXPORT_METHOD(
   getCreditHistory:(RCTPromiseResolveBlock)resolve
   rejecter:(RCTPromiseRejectBlock)reject
 ){
-  [[Branch getInstance] getCreditHistoryWithCallback:^(NSArray *list, NSError *error) {
+  [branchInstance getCreditHistoryWithCallback:^(NSArray *list, NSError *error) {
     if (!error) {
       resolve(list);
     } else {
