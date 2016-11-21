@@ -62,7 +62,7 @@ branch.setIdentity('theUserId')
 branch.userCompletedAction('Purchased Item', {item: 123})
 branch.logout()
 
-let branchUniversalObject = branch.createBranchUniversalObject('canonicalIdentifier', {metadata: {prop1: 'test', prop2: 'abc'}, contentTitle: 'Cool Content!', contentDescription: 'Cool Content Description'}
+let branchUniversalObject = branch.createBranchUniversalObject('canonicalIdentifier', {metadata: {prop1: 'test', prop2: 'abc'}, title: 'Cool Content!', contentDescription: 'Cool Content Description'}
 
 let shareOptions = { messageHeader: 'Check this out', messageBody: 'No really, check this out!' }
 let linkProperties = { feature: 'share', channel: 'RNApp' }
