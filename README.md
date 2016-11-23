@@ -51,9 +51,11 @@ Please see the branch [SDK Integration Guide](https://dev.branch.io/getting-star
 import branch from 'react-native-branch'
 
 // Subscribe to incoming links (both branch & non-branch)
-branch.subscribe(({params, error, uri}) => {
-  if (params) { /* handle branch link */ }
-  else { /* handle uri */ }
+// bundle = object with: {params, error, uri}
+branch.subscribe((bundle) => {
+  if (bundle && bundle.params && !bundle.error) {
+  	// grab deep link data and route appropriately.
+  }
 })
 
 let lastParams = await branch.getLatestReferringParams() // params from last open
