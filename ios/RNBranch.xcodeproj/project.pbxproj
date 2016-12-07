@@ -230,6 +230,7 @@
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public\"",
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public/Branch\"",
 					"\"$(SRCROOT)/../../../ios/Carthage/Build/iOS/Branch.framework/Headers\"",
+					"\"$(SRCROOT)/../../../ios/Pods/Branch/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -252,6 +253,7 @@
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public\"",
 					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public/Branch\"",
 					"\"$(SRCROOT)/../../../ios/Carthage/Build/iOS/Branch.framework/Headers\"",
+					"\"$(SRCROOT)/../../../ios/Pods/Branch/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

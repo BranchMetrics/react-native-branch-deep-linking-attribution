@@ -2,7 +2,7 @@
 #import "RCTBridgeModule.h"
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
-#import <Branch/Branch.h>
+#import "Branch.h"
 #import "BranchLinkProperties.h"
 #import "BranchUniversalObject.h"
 
