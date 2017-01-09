@@ -9,9 +9,9 @@
 
 #import "AppDelegate.h"
 
-#import "RCTRootView.h"
+#import <React/RCTRootView.h>
 
-#import "RNBranch.h"
+#import <RNBranch/RNBranch.h>
 
 @implementation AppDelegate
 

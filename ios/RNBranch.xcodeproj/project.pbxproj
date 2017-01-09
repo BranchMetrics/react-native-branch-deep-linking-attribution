@@ -16,7 +16,7 @@
 		7B3FCB321E206317008E38E2 /* Copy Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/react-native-branch";
+			dstPath = include/RNBranch;
 			dstSubfolderSpec = 16;
 			files = (
 				7B3FCB331E206323008E38E2 /* RNBranch.h in Copy Headers */,
@@ -31,7 +31,7 @@
 		148030ED1CCDF9FA004ABEA4 /* RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranch.h; sourceTree = "<group>"; };
 		148030EE1CCDF9FA004ABEA4 /* RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranch.m; sourceTree = "<group>"; };
 		7B3FCB961E20675B008E38E2 /* libBranch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBranch.a; path = "/Users/jdee/branch/react-native-sandbox/testbed/ios/Pods/../build/Debug-iphoneos/Branch/libBranch.a"; sourceTree = "<absolute>"; };
-		B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libreact-native-branch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3A3CC361C5B0A070016AC52 /* libRNBranch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNBranch.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +67,7 @@
 		B3A3CC371C5B0A070016AC52 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */,
+				B3A3CC361C5B0A070016AC52 /* libRNBranch.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,7 +101,7 @@
 			);
 			name = RNBranch;
 			productName = RNBranch;
-			productReference = B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */;
+			productReference = B3A3CC361C5B0A070016AC52 /* libRNBranch.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -237,8 +237,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "react-native-branch";
-				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/react-native-branch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/$(PRODUCT_NAME)";
 			};
 			name = Debug;
 		};
@@ -246,8 +246,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "react-native-branch";
-				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/react-native-branch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/$(PRODUCT_NAME)";
 			};
 			name = Release;
 		};
