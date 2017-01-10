@@ -11,7 +11,7 @@
 
 #import <React/RCTRootView.h>
 
-#import <RNBranch/RNBranch.h>
+#import <react-native-branch/RNBranch.h>
 
 @implementation AppDelegate
 
