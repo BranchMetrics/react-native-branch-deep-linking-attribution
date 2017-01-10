@@ -7,17 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		148030EF1CCDF9FA004ABEA4 /* RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 148030EE1CCDF9FA004ABEA4 /* RNBranch.m */; };
+		7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 148030ED1CCDF9FA004ABEA4 /* RNBranch.h */; };
+		7B3FCB331E206323008E38E2 /* RNBranch.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 148030ED1CCDF9FA004ABEA4 /* RNBranch.h */; };
+		7BE575131E205B8600C936E2 /* RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 148030EE1CCDF9FA004ABEA4 /* RNBranch.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		B3A3CC341C5B0A070016AC52 /* CopyFiles */ = {
+		7B3FCB321E206317008E38E2 /* Copy Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				7B3FCB331E206323008E38E2 /* RNBranch.h in Copy Headers */,
 			);
+			name = "Copy Headers";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -26,7 +30,8 @@
 		147052301CCDDA6000333C29 /* libBranch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBranch.a; path = "Pods/../build/Debug-iphoneos/libBranch.a"; sourceTree = "<group>"; };
 		148030ED1CCDF9FA004ABEA4 /* RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranch.h; sourceTree = "<group>"; };
 		148030EE1CCDF9FA004ABEA4 /* RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranch.m; sourceTree = "<group>"; };
-		B3A3CC361C5B0A070016AC52 /* libRNBranch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNBranch.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B3FCB961E20675B008E38E2 /* libBranch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBranch.a; path = "/Users/jdee/branch/react-native-sandbox/testbed/ios/Pods/../build/Debug-iphoneos/Branch/libBranch.a"; sourceTree = "<absolute>"; };
+		B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libreact-native-branch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +48,7 @@
 		52D26142CFE0360516F8E1D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B3FCB961E20675B008E38E2 /* libBranch.a */,
 				147052301CCDDA6000333C29 /* libBranch.a */,
 			);
 			name = Frameworks;
@@ -61,21 +67,33 @@
 		B3A3CC371C5B0A070016AC52 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B3A3CC361C5B0A070016AC52 /* libRNBranch.a */,
+				B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		7B3FCB251E20625C008E38E2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		B3A3CC351C5B0A070016AC52 /* RNBranch */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3A3CC3F1C5B0A070016AC52 /* Build configuration list for PBXNativeTarget "RNBranch" */;
 			buildPhases = (
+				7B3FCB251E20625C008E38E2 /* Headers */,
+				7B3FCB321E206317008E38E2 /* Copy Headers */,
 				B3A3CC321C5B0A070016AC52 /* Sources */,
 				B3A3CC331C5B0A070016AC52 /* Frameworks */,
-				B3A3CC341C5B0A070016AC52 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -83,7 +101,7 @@
 			);
 			name = RNBranch;
 			productName = RNBranch;
-			productReference = B3A3CC361C5B0A070016AC52 /* libRNBranch.a */;
+			productReference = B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -122,7 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				148030EF1CCDF9FA004ABEA4 /* RNBranch.m in Sources */,
+				7BE575131E205B8600C936E2 /* RNBranch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,15 +183,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../react-native/React/**",
-				);
+				HEADER_SEARCH_PATHS = "$(PODS_ROOT)/Headers/Public";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PODS_ROOT = "$(SRCROOT)/../../../ios/Pods";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -195,7 +211,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -207,14 +223,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../react-native/React/**",
-				);
+				HEADER_SEARCH_PATHS = "$(PODS_ROOT)/Headers/Public";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PODS_ROOT = "$(SRCROOT)/../../../ios/Pods";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -222,44 +236,18 @@
 		B3A3CC401C5B0A070016AC52 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../ios/Carthage/Build/iOS";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../react-native/React/**",
-					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public\"",
-					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public/Branch\"",
-					"\"$(SRCROOT)/../../../ios/Carthage/Build/iOS/Branch.framework/Headers\"",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				PRODUCT_NAME = "react-native-branch";
+				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/$(PRODUCT_NAME)";
 			};
 			name = Debug;
 		};
 		B3A3CC411C5B0A070016AC52 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../ios/Carthage/Build/iOS";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../react-native/React/**",
-					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public\"",
-					"\"$(SRCROOT)/../../../ios/Pods/Headers/Public/Branch\"",
-					"\"$(SRCROOT)/../../../ios/Carthage/Build/iOS/Branch.framework/Headers\"",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				PRODUCT_NAME = "react-native-branch";
+				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/$(PRODUCT_NAME)";
 			};
 			name = Release;
 		};
