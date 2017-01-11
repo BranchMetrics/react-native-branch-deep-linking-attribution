@@ -2,14 +2,20 @@
 
 **Work in progress**
 
-There are two working examples in this directory:
+There are three working examples in this directory:
 
 [testbed_carthage](./testbed_carthage)
+
+[testbed_cocoapods](./testbed_cocoapods)
 
 [testbed_manual](./testbed_manual)
 
 These differ by the method used to install the Branch SDK for iOS.
-The first uses Carthage. The second uses cocoapods.
+The first uses Carthage. The other two use Cocoapods. testbed_manual
+only uses Cocoapods for the Branch SDK. testbed_cocoapods also takes
+the native React libraries and this package (react-native-branch) from
+Cocoapods. The names of these projects may change before the release
+of 0.10.0.
 
 To build and run any of them, you must first change to that directory
 and install dependencies from NPM, e.g.:
@@ -36,11 +42,6 @@ requires further setup.
 cd testbed_carthage/ios/
 carthage update
 ```
-
-## Known issues
-
-There is also a [testbed_cocoapods](./testbed_cocoapods) that can be built but generates
-a runtime error. This will be fixed before the release of 0.10.0.
 
 ## Android
 
