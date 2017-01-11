@@ -1,28 +1,49 @@
-# testbed sample app
+# testbed applications
 
-## Building for iOS
+**Work in progress**
 
-Install dependencies from NPM using:
+There are two working examples in this directory:
+
+[testbed_carthage](./testbed_carthage)
+
+[testbed_manual](./testbed_manual)
+
+These differ by the method used to install the Branch SDK for iOS.
+The first uses Carthage. The second uses cocoapods.
+
+To build and run any of them, you must first change to that directory
+and install dependencies from NPM, e.g.:
 
 ```bash
+cd testbed_manual
 npm install
 ```
 
-or
+Or
 
 ```bash
+cd testbed_carthage
 yarn
 ```
 
-Then simply build and run the Xcode project or use
+Having installed the NPM dependencies, you can simply use
+`react-native run-ios`. The exception is `testbed_carthage`, which
+requires further setup.
+
+## Carthage installation
 
 ```bash
-react-native run-ios
+cd testbed_carthage/ios/
+carthage update
 ```
 
-There is no need to install the Branch SDK via `pod install` or
-another method. It is included in the ios/Pods subdirectory.
+## Known issues
 
-## Building for Android
+There is also a [testbed_cocoapods](./testbed_cocoapods) that can be built but generates
+a runtime error. This will be fixed before the release of 0.10.0.
 
-*Work in progress*
+## Android
+
+The Android implementation of testbed_manual should work, but is untested.
+The other Android implementations need to be finished before release of
+0.10.0.
