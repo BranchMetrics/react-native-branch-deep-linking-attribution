@@ -4,8 +4,9 @@
 
 There are two working examples in this directory:
 
-[testbed_carthage]
-[testbed_manual]
+[testbed_carthage](./testbed_carthage)
+
+[testbed_manual](./testbed_manual)
 
 These differ by the method used to install the Branch SDK for iOS.
 The first uses Carthage. The second uses cocoapods.
@@ -38,5 +39,11 @@ carthage update
 
 ## Known issues
 
-There is also a [testbed_cocoapods] that can be built but generates
+There is also a [testbed_cocoapods](./testbed_cocoapods) that can be built but generates
 a runtime error. This will be fixed before the release of 0.10.0.
+
+## Android
+
+The Android implementation of testbed_manual should work, but is untested.
+The other Android implementations need to be finished before release of
+0.10.0.
