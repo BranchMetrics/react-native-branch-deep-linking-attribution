@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 148030ED1CCDF9FA004ABEA4 /* RNBranch.h */; };
 		7B3FCB331E206323008E38E2 /* RNBranch.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 148030ED1CCDF9FA004ABEA4 /* RNBranch.h */; };
+		7BA33EBC1E25AD6D00C61D15 /* Branch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BA33EBB1E25AD6D00C61D15 /* Branch.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BE575131E205B8600C936E2 /* RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 148030EE1CCDF9FA004ABEA4 /* RNBranch.m */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		148030ED1CCDF9FA004ABEA4 /* RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranch.h; sourceTree = "<group>"; };
 		148030EE1CCDF9FA004ABEA4 /* RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranch.m; sourceTree = "<group>"; };
 		7B3FCB961E20675B008E38E2 /* libBranch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBranch.a; path = "/Users/jdee/branch/react-native-sandbox/testbed/ios/Pods/../build/Debug-iphoneos/Branch/libBranch.a"; sourceTree = "<absolute>"; };
+		7BA33EBB1E25AD6D00C61D15 /* Branch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Branch.framework; path = "$(PODS_CONFIGURATION_BUILD_DIR)/Branch/Branch.framework"; sourceTree = "<group>"; };
 		B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libreact-native-branch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -39,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BA33EBC1E25AD6D00C61D15 /* Branch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +51,7 @@
 		52D26142CFE0360516F8E1D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BA33EBB1E25AD6D00C61D15 /* Branch.framework */,
 				7B3FCB961E20675B008E38E2 /* libBranch.a */,
 				147052301CCDDA6000333C29 /* libBranch.a */,
 			);
