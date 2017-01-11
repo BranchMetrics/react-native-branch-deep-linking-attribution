@@ -33,15 +33,8 @@ yarn
 ```
 
 Having installed the NPM dependencies, you can simply use
-`react-native run-ios`. The exception is `testbed_carthage`, which
-requires further setup.
-
-## Carthage installation
-
-```bash
-cd testbed_carthage/ios/
-carthage update
-```
+`react-native run-ios`. The dependencies from Cocoapods and Carthage
+are already present.
 
 ## Android
 
