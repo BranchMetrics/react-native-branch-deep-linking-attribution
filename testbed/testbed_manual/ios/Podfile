@@ -1,5 +1,0 @@
-use_frameworks!
-
-pod "Branch"
-
-target "testbed_manual"

@@ -2,6 +2,9 @@ package com.testbed_cocoapods;
 
 import com.facebook.react.ReactActivity;
 
+import io.branch.rnbranch.*;
+import android.content.Intent;
+
 public class MainActivity extends ReactActivity {
 
     /**
@@ -11,5 +14,16 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "testbed_cocoapods";
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        RNBranchModule.initSession(this.getIntent().getData(), this);
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
     }
 }

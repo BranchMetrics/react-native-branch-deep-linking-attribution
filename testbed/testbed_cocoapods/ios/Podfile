@@ -1,4 +1,5 @@
-pod "React", path: "../node_modules/react-native"
-pod "react-native-branch", path: "../node_modules/react-native-branch"
+use_frameworks!
+
+pod "Branch"
 
 target "testbed_cocoapods"
