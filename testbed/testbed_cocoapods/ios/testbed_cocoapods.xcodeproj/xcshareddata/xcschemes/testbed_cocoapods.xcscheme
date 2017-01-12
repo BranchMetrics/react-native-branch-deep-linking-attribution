@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "testbed_manual.app"
-               BlueprintName = "testbed_manual"
-               ReferencedContainer = "container:testbed_manual.xcodeproj">
+               BuildableName = "testbed_cocoapods.app"
+               BlueprintName = "testbed_cocoapods"
+               ReferencedContainer = "container:testbed_cocoapods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "testbed_manualTests.xctest"
-               BlueprintName = "testbed_manualTests"
-               ReferencedContainer = "container:testbed_manual.xcodeproj">
+               BuildableName = "testbed_cocoapodsTests.xctest"
+               BlueprintName = "testbed_cocoapodsTests"
+               ReferencedContainer = "container:testbed_cocoapods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "testbed_manualTests.xctest"
-               BlueprintName = "testbed_manualTests"
-               ReferencedContainer = "container:testbed_manual.xcodeproj">
+               BuildableName = "testbed_cocoapodsTests.xctest"
+               BlueprintName = "testbed_cocoapodsTests"
+               ReferencedContainer = "container:testbed_cocoapods.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "testbed_manual.app"
-            BlueprintName = "testbed_manual"
-            ReferencedContainer = "container:testbed_manual.xcodeproj">
+            BuildableName = "testbed_cocoapods.app"
+            BlueprintName = "testbed_cocoapods"
+            ReferencedContainer = "container:testbed_cocoapods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "testbed_manual.app"
-            BlueprintName = "testbed_manual"
-            ReferencedContainer = "container:testbed_manual.xcodeproj">
+            BuildableName = "testbed_cocoapods.app"
+            BlueprintName = "testbed_cocoapods"
+            ReferencedContainer = "container:testbed_cocoapods.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -120,9 +120,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "testbed_manual.app"
-            BlueprintName = "testbed_manual"
-            ReferencedContainer = "container:testbed_manual.xcodeproj">
+            BuildableName = "testbed_cocoapods.app"
+            BlueprintName = "testbed_cocoapods"
+            ReferencedContainer = "container:testbed_cocoapods.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
