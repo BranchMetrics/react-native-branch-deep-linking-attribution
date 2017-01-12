@@ -1,6 +1,6 @@
 <manifest
   xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.testbed_manual"
+  package="com.testbed_cocoapods"
   android:versionCode="1"
   android:versionName="1.0">
 

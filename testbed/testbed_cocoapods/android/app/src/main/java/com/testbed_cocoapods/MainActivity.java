@@ -1,4 +1,4 @@
-package com.testbed_manual;
+package com.testbed_cocoapods;
 
 import com.facebook.react.ReactActivity;
 
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "testbed_manual";
+        return "testbed_cocoapods";
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.testbed_manual;
+package com.testbed_cocoapods;
 
 import android.app.Application;
 import android.util.Log;

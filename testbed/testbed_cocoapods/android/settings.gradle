@@ -1,4 +1,4 @@
-rootProject.name = 'testbed_manual'
+rootProject.name = 'testbed_cocoapods'
 
 include ':app'
 include ':react-native-branch'
