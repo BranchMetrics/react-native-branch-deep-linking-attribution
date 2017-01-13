@@ -1,8 +1,8 @@
 # Branch Metrics React Native SDK Reference
 
-This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK. This SDK will help you handle iOS Universal Links, Android App Link, deferred deep links, do install attribution and much more!
+This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK. This SDK will help you handle iOS Universal Links, Android App Links and deferred deep links, do install attribution and much more!
 
-**react-native v0.40 support** is now on master and will be released shortly. This is a non-backwards compatible update. If you need to stay on react-native <0.40 please fix your package.json version to react-native-branch@0.8.
+**react-native v0.40 support** is now on master and will be released shortly. This is a non-backwards compatible update. If you need to stay on react-native <0.40 please fix your package.json version to react-native-branch@0.8. See [Updating to 1.0.0](./docs/updating-1.0.0.md) for details.
 
 **v0.8.0** If you have overridden `onStop` in MainActivity.java be sure *not* to invoke `RNBranchModule.onStop()`.
 
@@ -13,11 +13,9 @@ This is a repository of our open source React Native SDK. Huge shoutout to our f
 ## Installation
 
 1. `npm install --save react-native-branch`
-2. `npm link react-native-branch` **or** link the project [manually](./docs/installation.md#manual-linking)
+2. `react-native link react-native-branch` **or** link the project [manually](./docs/installation.md#manual-linking)
 3. Add `pod 'Branch'` to your ios/Podfile ([details](./docs/installation.md#cocoa-pods))
-4. `cd ios && pod install`
-5. Add the node_modules/react-native-branch/RNBranch.xcodeproj to your Libraries group after all the React projects.
-6. On the General tab for your application target, add a dependency on libRNBranch.a.
+4. `cd ios; pod install`
 7. Follow the [setup instructions](./docs/setup.md)
 
 If you are new to react-native or cocoa-pods, read below for more details:
@@ -30,20 +28,20 @@ If you are new to react-native or cocoa-pods, read below for more details:
 
 If you would prefer to use [Carthage](carthage), you can skip steps 3 & 4 above and instead add the following to your `Cartfile`:
 
-`github "BranchMetrics/ios-branch-deep-linking`
+`github "BranchMetrics/ios-branch-deep-linking"`
 
 Then run:
 
-`$ carthage bootstrap`
+`carthage update`
 
 If you're unfamiliar with how to add a framework to your project with [Carthage](carthage), you can [learn more here](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application). You will need to maually link the framework by adding it to the "Linked Frameworks and Libraries" section of your target settings, and copy it by adding it to the "Input Files" section of your `carthage copy-frameworks` build phase.
 
 ## Next Steps
-In order to get full branch support you will need to setup your ios and android projects accordingly:
+In order to get full Branch support you will need to setup your ios and android projects accordingly:
 - [iOS](./docs/setup.md#ios)
 - [android](./docs/setup.md#android)
 
-Please see the branch [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
+Please see the Branch [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
 
 ## Additional Resources
 - [SDK Integration guide](https://dev.branch.io/recipes/add_the_sdk/react/)
@@ -54,7 +52,7 @@ Please see the branch [SDK Integration Guide](https://dev.branch.io/getting-star
 ```js
 import branch from 'react-native-branch'
 
-// Subscribe to incoming links (both branch & non-branch)
+// Subscribe to incoming links (both Branch & non-Branch)
 // bundle = object with: {params, error, uri}
 branch.subscribe((bundle) => {
   if (bundle && bundle.params && !bundle.error) {
@@ -116,7 +114,7 @@ Branch returns explicit parameters every time. Here is a list, and a description
 | +clicked_branch_link | Denotes whether or not the user clicked a Branch link that triggered this session
 | +click_timestamp | Epoch timestamp of when the click occurred
 
-Any additional data attached to the branch link will be available unprefixed.
+Any additional data attached to the Branch link will be available unprefixed.
 
 ## User Methods
 ###### <a id='setidentity'></a>[setIdentity(userId)](#setidentity)
@@ -126,7 +124,7 @@ Set an identifier for the current user.
 Logout the current user.  
 
 ###### <a id='usercompletedaction'></a>[userCompletedAction(label, payload)](#usercompletedaction)
-Register a user action with branch.  
+Register a user action with Branch.  
 
 ## Branch Universal Object
 ###### <a id='createbranchuniversalobject'></a>[createBranchUniversalObject(canonicalIdentifier, universalObjectOptions): object](#createbranchuniversalobject)

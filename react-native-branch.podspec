@@ -11,7 +11,10 @@ Pod::Spec.new do |s|
   s.version          = spec['version']
   s.summary          = spec['description']
   s.requires_arc = true
-  s.author       = { 'rt2zz' => 'zack@root-two.com' }
+  s.authors      = {
+                     'rt2zz' => 'zack@root-two.com',
+                     'Jimmy Dee' => 'jgvdthree@gmail.com'
+                   }
   s.license      = spec['description']
   s.homepage     = spec['description']
   s.platform     = :ios, "7.0"

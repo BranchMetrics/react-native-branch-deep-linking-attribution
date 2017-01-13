@@ -1,7 +1,5 @@
 # testbed applications
 
-**Work in progress**
-
 There are two working examples in this directory:
 
 [testbed_carthage](./testbed_carthage)
@@ -26,11 +24,5 @@ yarn
 ```
 
 Having installed the NPM dependencies, you can simply use
-`react-native run-ios`. The dependencies from Cocoapods and Carthage
-are already present.
-
-## Android
-
-The Android implementation of testbed_cocoapods should work, but is untested.
-The other Android implementations need to be finished before release of
-0.10.0.
+`react-native run-ios` (or `react-native run-android`). The dependencies
+from CocoaPods and Carthage for iOS are already present.
