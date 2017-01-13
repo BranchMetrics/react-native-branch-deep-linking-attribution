@@ -37,11 +37,11 @@ Then run:
 If you're unfamiliar with how to add a framework to your project with [Carthage](carthage), you can [learn more here](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application). You will need to maually link the framework by adding it to the "Linked Frameworks and Libraries" section of your target settings, and copy it by adding it to the "Input Files" section of your `carthage copy-frameworks` build phase.
 
 ## Next Steps
-In order to get full branch support you will need to setup your ios and android projects accordingly:
+In order to get full Branch support you will need to setup your ios and android projects accordingly:
 - [iOS](./docs/setup.md#ios)
 - [android](./docs/setup.md#android)
 
-Please see the branch [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
+Please see the Branch [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
 
 ## Additional Resources
 - [SDK Integration guide](https://dev.branch.io/recipes/add_the_sdk/react/)
@@ -52,7 +52,7 @@ Please see the branch [SDK Integration Guide](https://dev.branch.io/getting-star
 ```js
 import branch from 'react-native-branch'
 
-// Subscribe to incoming links (both branch & non-branch)
+// Subscribe to incoming links (both Branch & non-Branch)
 // bundle = object with: {params, error, uri}
 branch.subscribe((bundle) => {
   if (bundle && bundle.params && !bundle.error) {
@@ -114,7 +114,7 @@ Branch returns explicit parameters every time. Here is a list, and a description
 | +clicked_branch_link | Denotes whether or not the user clicked a Branch link that triggered this session
 | +click_timestamp | Epoch timestamp of when the click occurred
 
-Any additional data attached to the branch link will be available unprefixed.
+Any additional data attached to the Branch link will be available unprefixed.
 
 ## User Methods
 ###### <a id='setidentity'></a>[setIdentity(userId)](#setidentity)
@@ -124,7 +124,7 @@ Set an identifier for the current user.
 Logout the current user.  
 
 ###### <a id='usercompletedaction'></a>[userCompletedAction(label, payload)](#usercompletedaction)
-Register a user action with branch.  
+Register a user action with Branch.  
 
 ## Branch Universal Object
 ###### <a id='createbranchuniversalobject'></a>[createBranchUniversalObject(canonicalIdentifier, universalObjectOptions): object](#createbranchuniversalobject)

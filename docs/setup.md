@@ -1,10 +1,10 @@
 ## Setting Up Branch
-After [installing](./installation.md) branch, you will need to set up your android and ios apps to handle incoming links:
+After [installing](./installation.md) Branch, you will need to set up your android and ios apps to handle incoming links:
 
 #### iOS project
 1. Modify AppDelegate.m as follows:
     ```objective-c
-    #import "RNBranch.h" // at the top
+    #import <react-native-branch/RNBranch.h> // at the top
 
     // Initialize the Branch Session at the top of existing didFinishLaunchingWithOptions
     - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -29,7 +29,7 @@ After [installing](./installation.md) branch, you will need to set up your andro
       return [RNBranch continueUserActivity:userActivity];
     }
     ```
-1. [Add a String entry branch_key](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project) with your branch key to your info.plist
+1. [Add a String entry branch_key](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project) with your Branch key to your info.plist
 
 2. [Register a URI Scheme for Direct Deep Linking](https://dev.branch.io/references/ios_sdk/#register-a-uri-scheme-direct-deep-linking-optional-but-recommended) (optional but recommended)
 
@@ -40,22 +40,22 @@ After [installing](./installation.md) branch, you will need to set up your andro
 1. Add RNBranchPackage to packages list in MainApplication.java (`android/app/src/[...]/MainApplication.java`)
     ```java
     // ...
-    
+
     // import Branch and RNBranch
     import io.branch.rnbranch.*;
     import io.branch.referral.Branch;
 
     //...
-    
+
     // add RNBranchPackage to react-native package list
     @Override
       protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
                 new MainReactPackage(),
                 new RNBranchPackage(), // <-- add this
-    
+
     // ...
-    
+
     // add onCreate() override
     @Override
     public void onCreate() {
@@ -64,7 +64,7 @@ After [installing](./installation.md) branch, you will need to set up your andro
     }
     ```
 
-1. Override onStart and onNewIntent in MainActivity.java to handle branch links (`android/app/src/[...]/MainActivity.java`)
+1. Override onStart and onNewIntent in MainActivity.java to handle Branch links (`android/app/src/[...]/MainActivity.java`)
     ```java
     import io.branch.rnbranch.*; // <-- add this
     import android.content.Intent; // <-- and this
@@ -104,4 +104,4 @@ After [installing](./installation.md) branch, you will need to set up your andro
 
 6. [Enable App Links for Android M and above](https://dev.branch.io/getting-started/universal-app-links/guide/android/) (optional but recommended)
 
-7. Add your branch key to AndroidManifest: Inside of application node add     `<meta-data android:name="io.branch.sdk.BranchKey" android:value="your_branch_key" />`
+7. Add your Branch key to AndroidManifest: Inside of application node add     `<meta-data android:name="io.branch.sdk.BranchKey" android:value="your_branch_key" />`
