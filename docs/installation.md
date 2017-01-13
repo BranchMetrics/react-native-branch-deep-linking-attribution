@@ -1,6 +1,6 @@
 # React Native Branch - Installation
 1. `npm install --save react-native-branch`
-2. `rnpm link react-native-branch` **or** link the project [manually](#manual-linking)
+2. `react-native link react-native-branch` **or** link the project [manually](#manual-linking)
 3. Add `pod 'Branch'` as a dependency in your ios/Podfile
 4. `cd ios && pod install`
 
