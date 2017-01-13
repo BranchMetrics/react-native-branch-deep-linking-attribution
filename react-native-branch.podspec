@@ -21,5 +21,4 @@ Pod::Spec.new do |s|
   s.source       = { spec['repository']['type'] => spec['repository']['type'] }
   s.source_files = 'ios/*'
   s.dependency 'Branch'
-  s.dependency 'React'
 end
