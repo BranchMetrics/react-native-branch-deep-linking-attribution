@@ -40,8 +40,10 @@ end
 
 ## Manual Linking
 #### iOS:
-- Drag and Drop node_modules/react-native-branch/RNBranch/RNBranch.xcodeproj into the Libraries folder of your project in XCode (as described in Step 1 [here](http://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking))
-- Drag and Drop the RNBranch.xcodeproj's Products's libreact-native-branch.a into your project's target's "Linked Frameworks and Libraries" section (as described in Step 2 [here](http://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking))
+- Drag and Drop node_modules/react-native-branch/RNBranch/RNBranch.xcodeproj into the Libraries folder of your project in XCode (as described in Step 1 [here](http://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking)). Be certain to add RNBRanch.xcodeproj
+*after* all the React projects in the Libraries group.
+![RNBranch.xcodeproj after React projects](./assets/RNBRanch.png)
+- Drag and Drop the RNBranch.xcodeproj's Products's libreact-native-branch.a into your project's target's "Linked Frameworks and Libraries" section (as described in Step 2 [here](http://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking)). The order here is not important.
 - There should be no need to add a Header Search Path to your project as
   discussed in Step 3 of the React Native installation instructions.
 
