@@ -3,8 +3,6 @@
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
 #import <Branch/Branch.h>
-#import "BranchLinkProperties.h"
-#import "BranchUniversalObject.h"
 
 @implementation RNBranch
 
