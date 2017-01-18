@@ -49,7 +49,7 @@ end
 - Drag and Drop the RNBranch.xcodeproj's Products's libreact-native-branch.a into your project's target's "Linked Frameworks and Libraries" section (as described in Step 2 [here](http://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking)). The order here is not important.
 - If you are using version 0.9 of `react-native-branch`, add a Header Search Path pointing to `$(SRCROOT)/../node_modules/react-native-branch/ios` (as described in Step 3 [here](http://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking)).
 
-![Custom Header Search Path](./assets/header-search-path.png)
+![Custom Header Search Path](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/header-search-path.png)
 
 This step is not necessary if you are using version 1.0.
 
