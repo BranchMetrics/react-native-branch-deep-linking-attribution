@@ -2,7 +2,8 @@
 
 This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK. This SDK will help you handle iOS Universal Links, Android App Links and deferred deep links, do install attribution and much more!
 
-**react-native v0.40 support** is available in version 1.0.0. This is a non-backwards compatible update. If you need to stay on react-native <0.40 please fix your package.json version to react-native-branch@0.8. See [Updating to 1.0.0](./docs/updating-1.0.0.md) for details.
+**react-native v0.40 support** is available in version 1.0.0. This is a non-backwards compatible update. If you need to stay on react-native <0.40 please fix your package.json version to react-native-branch@0.9. See [Updating to 1.0.0](./docs/updating-1.0.0.md) for details. Note that some build steps differ between 0.9 and 1.0. These are highlighted
+where applicable.
 
 **v0.8.0** If you have overridden `onStop` in MainActivity.java be sure *not* to invoke `RNBranchModule.onStop()`.
 
@@ -25,6 +26,8 @@ If you are new to react-native or cocoa-pods, read below for more details:
 
 ### Carthage
 [carthage]: https://github.com/Carthage/Carthage
+
+**Note:** Carthage is not fully supported in version 0.9.0. It requires 0.9.1 (to be released soon) or 1.0.0.
 
 If you would prefer to use [Carthage](carthage), you can skip steps 3 & 4 above and instead add the following to your `Cartfile`:
 

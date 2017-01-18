@@ -1,6 +1,8 @@
 ## Setting Up Branch
 After [installing](./installation.md) Branch, you will need to set up your android and ios apps to handle incoming links:
 
+**Note:** When using `react-native` < 0.40 and `react-native-branch` 0.9, specify imports without a path prefix, e.g. `#import "RNBranch.h"` instead of `#import <react-native-branch/RNBranch.h>`.
+
 #### iOS project
 1. Modify AppDelegate.m as follows:
     ```objective-c
