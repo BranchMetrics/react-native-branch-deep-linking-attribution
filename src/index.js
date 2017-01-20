@@ -10,10 +10,9 @@ import createBranchUniversalObject from './branchUniversalObject'
 
 const INIT_SESSION_SUCCESS = 'RNBranch.initSessionSuccess'
 const INIT_SESSION_ERROR = 'RNBranch.initSessionError'
+const INIT_SESSION_TTL = 5000
 
 class Branch {
-  initSessionTTL = 5000;
-
   _launchTime = new Date().getTime();
   _initSessionResult = null;
   _lastParams = null;
@@ -33,7 +32,7 @@ class Branch {
     // void cache after TTL expires
     setTimeout(() => {
       this._initSessionResult = null
-    }, this.initSessionTTL)
+    }, INIT_SESSION_TTL)
   }
 
   /*** RNBranch Deep Linking ***/
@@ -48,7 +47,7 @@ class Branch {
     RNBranch.redeemInitSessionResult()
 
     // Cache up to the TTL
-    if (this._timeSinceLaunch() < this.initSessionTTL) {
+    if (this._timeSinceLaunch() < INIT_SESSION_TTL) {
       this._initSessionResult = result
     }
 
