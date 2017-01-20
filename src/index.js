@@ -12,7 +12,9 @@ const INIT_SESSION_SUCCESS = 'RNBranch.initSessionSuccess'
 const INIT_SESSION_ERROR = 'RNBranch.initSessionError'
 
 class Branch {
+  initSessionTTL = 5000;
 
+  _launchTime = new Date().getTime();
   _initSessionResult = null;
   _lastParams = null;
   _listeners = [];
@@ -27,6 +29,11 @@ class Branch {
     nativeEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult)
 
     this._processInitSession()
+
+    // void cache after TTL expires
+    setTimeout(() => {
+      this._initSessionResult = null
+    }, this.initSessionTTL)
   }
 
   /*** RNBranch Deep Linking ***/
@@ -39,7 +46,12 @@ class Branch {
   _onInitSessionResult = (result) => {
     // redeem the result so it can be cleared from the native cache
     RNBranch.redeemInitSessionResult()
-    this._initSessionResult = result
+
+    // Cache up to the TTL
+    if (this._timeSinceLaunch() < this.initSessionTTL) {
+      this._initSessionResult = result
+    }
+
     if (this._debug && !result) console.log('## Branch: received null result in _onInitSessionResult')
 
     this._patientInitSessionObservers.forEach((cb) => cb(result))
@@ -62,6 +74,10 @@ class Branch {
       this._listeners.splice(index, 1)
     }
     return unsubscribe
+  }
+
+  _timeSinceLaunch() {
+    return new Date().getTime() - this._launchTime
   }
 
   /*** RNBranch singleton methods ***/
