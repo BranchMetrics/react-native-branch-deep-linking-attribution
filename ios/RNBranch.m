@@ -101,8 +101,12 @@ RCT_EXPORT_MODULE();
 - (BranchLinkProperties*) createLinkProperties:(NSDictionary *)linkPropertiesMap withControlParams:(NSDictionary *)controlParamsMap
 {
     BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
-    linkProperties.channel = linkPropertiesMap[@"channel"];
-    linkProperties.feature = linkPropertiesMap[@"feature"];
+    linkProperties.alias    = linkPropertiesMap[@"alias"];
+    linkProperties.campaign = linkPropertiesMap[@"campaign"];
+    linkProperties.channel  = linkPropertiesMap[@"channel"];
+    linkProperties.feature  = linkPropertiesMap[@"feature"];
+    linkProperties.stage    = linkPropertiesMap[@"stage"];
+    linkProperties.tags     = [NSSet setWithArray:linkPropertiesMap[@"tags"]];
     linkProperties.controlParams = controlParamsMap;
     return linkProperties;
 }
