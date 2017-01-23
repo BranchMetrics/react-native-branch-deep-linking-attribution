@@ -262,8 +262,18 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
   public static LinkProperties createLinkProperties(ReadableMap linkPropertiesMap, @Nullable ReadableMap controlParams){
     LinkProperties linkProperties = new LinkProperties();
+    if (linkPropertiesMap.hasKey("alias")) linkProperties.setFeature(linkPropertiesMap.getString("alias"));
+    if (linkPropertiesMap.hasKey("campaign")) linkProperties.setFeature(linkPropertiesMap.getString("campaign"));
     if (linkPropertiesMap.hasKey("channel")) linkProperties.setChannel(linkPropertiesMap.getString("channel"));
     if (linkPropertiesMap.hasKey("feature")) linkProperties.setFeature(linkPropertiesMap.getString("feature"));
+    if (linkPropertiesMap.hasKey("stage")) linkProperties.setFeature(linkPropertiesMap.getString("stage"));
+    if (linkPropertiesMap.hasKey("tags")) {
+      ReadableArray tags = linkPropertiesMap.getArray("tags");
+      for (int i=0; i<tags.size(); ++i) {
+        String tag = tags.getString(i);
+        linkProperties.addTag(tag);
+      }
+    }
 
     if (controlParams != null) {
       if (controlParams.hasKey("$fallback_url")) {
