@@ -265,6 +265,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     if (linkPropertiesMap.hasKey("alias")) linkProperties.setFeature(linkPropertiesMap.getString("alias"));
     if (linkPropertiesMap.hasKey("campaign")) linkProperties.setFeature(linkPropertiesMap.getString("campaign"));
     if (linkPropertiesMap.hasKey("channel")) linkProperties.setChannel(linkPropertiesMap.getString("channel"));
+    if (linkPropertiesMap.hasKey("duration")) linkProperties.setDuration(linkPropertiesMap.getInt("duration"));
     if (linkPropertiesMap.hasKey("feature")) linkProperties.setFeature(linkPropertiesMap.getString("feature"));
     if (linkPropertiesMap.hasKey("stage")) linkProperties.setFeature(linkPropertiesMap.getString("stage"));
     if (linkPropertiesMap.hasKey("tags")) {

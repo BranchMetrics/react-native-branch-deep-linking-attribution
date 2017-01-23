@@ -104,6 +104,10 @@ RCT_EXPORT_MODULE();
     linkProperties.alias    = linkPropertiesMap[@"alias"];
     linkProperties.campaign = linkPropertiesMap[@"campaign"];
     linkProperties.channel  = linkPropertiesMap[@"channel"];
+    NSNumber *duration      = linkPropertiesMap[@"duration"];
+    if (duration) {
+        linkProperties.matchDuration = duration.unsignedIntegerValue;
+    }
     linkProperties.feature  = linkPropertiesMap[@"feature"];
     linkProperties.stage    = linkPropertiesMap[@"stage"];
     linkProperties.tags     = [NSSet setWithArray:linkPropertiesMap[@"tags"]];
