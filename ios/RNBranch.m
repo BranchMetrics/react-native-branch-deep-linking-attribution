@@ -26,16 +26,17 @@ RCT_EXPORT_MODULE();
     }
     [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSString *errorMessage = [NSNull null];
+        // TODO: How can you get an NSError that doesn't respondToSelector localizedDescription?
         if ([error respondsToSelector:@selector(localizedDescription)]) {
-            errorMessage = [error localizedDescription];
+            errorMessage = error.localizedDescription;
         } else if (error) {
             errorMessage = error;
         }
         
         initSessionWithLaunchOptionsResult = @{
-                                               @"params": params && [params objectForKey:@"~id"] ? params : [NSNull null],
-                                               @"error": errorMessage ? errorMessage : [NSNull null],
-                                               @"uri": sourceUrl ? sourceUrl : [NSNull null]
+                                               @"params": params && params[@"~id"] ? params : [NSNull null],
+                                               @"error": errorMessage ?: [NSNull null],
+                                               @"uri": sourceUrl ?: [NSNull null]
                                                };
         
         [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult];
@@ -43,7 +44,7 @@ RCT_EXPORT_MODULE();
 }
 
 + (BOOL)handleDeepLink:(NSURL *)url {
-    sourceUrl = url ? [url absoluteString] : [NSNull null];
+    sourceUrl = url ? url.absoluteString : [NSNull null];
     BOOL handled = [branchInstance handleDeepLink:url];
     return handled;
 }
@@ -80,17 +81,17 @@ RCT_EXPORT_MODULE();
 
 - (BranchUniversalObject*) createBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap
 {
-    BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:[branchUniversalObjectMap objectForKey:@"canonicalIdentifier"]];
-    branchUniversalObject.title = [branchUniversalObjectMap objectForKey:@"title"];
-    branchUniversalObject.contentDescription = [branchUniversalObjectMap objectForKey:@"contentDescription"];
-    branchUniversalObject.imageUrl = [branchUniversalObjectMap objectForKey:@"contentImageUrl"];
+    BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:branchUniversalObjectMap[@"canonicalIdentifier"]];
+    branchUniversalObject.title = branchUniversalObjectMap[@"title"];
+    branchUniversalObject.contentDescription = branchUniversalObjectMap[@"contentDescription"];
+    branchUniversalObject.imageUrl = branchUniversalObjectMap[@"contentImageUrl"];
     
-    NSDictionary* metaData = [branchUniversalObjectMap objectForKey:@"metadata"];
+    NSDictionary* metaData = branchUniversalObjectMap[@"metadata"];
     if(metaData) {
-        NSEnumerator *enumerator = [metaData keyEnumerator];
+        NSEnumerator *enumerator = metaData.keyEnumerator;
         id metaDataKey;
-        while((metaDataKey = [enumerator nextObject])) {
-            [branchUniversalObject addMetadataKey:metaDataKey value:[metaData objectForKey:metaDataKey]];
+        while((metaDataKey = enumerator.nextObject)) {
+            [branchUniversalObject addMetadataKey:metaDataKey value:metaData[metaDataKey]];
         }
     }
     
@@ -100,8 +101,8 @@ RCT_EXPORT_MODULE();
 - (BranchLinkProperties*) createLinkProperties:(NSDictionary *)linkPropertiesMap withControlParams:(NSDictionary *)controlParamsMap
 {
     BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
-    linkProperties.channel = [linkPropertiesMap objectForKey:@"channel"];
-    linkProperties.feature = [linkPropertiesMap objectForKey:@"feature"];
+    linkProperties.channel = linkPropertiesMap[@"channel"];
+    linkProperties.feature = linkPropertiesMap[@"feature"];
     linkProperties.controlParams = controlParamsMap;
     return linkProperties;
 }
@@ -165,20 +166,20 @@ RCT_EXPORT_METHOD(
         BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
         
         NSMutableDictionary *mutableControlParams = [controlParamsMap mutableCopy];
-        if (shareOptionsMap && [shareOptionsMap objectForKey:@"emailSubject"]) {
-            [mutableControlParams setValue:[shareOptionsMap objectForKey:@"emailSubject"] forKey:@"$email_subject"];
+        if (shareOptionsMap && shareOptionsMap[@"emailSubject"]) {
+            mutableControlParams[@"$email_subject"] = shareOptionsMap[@"emailSubject"];
         }
         
         BranchLinkProperties *linkProperties = [self createLinkProperties:linkPropertiesMap withControlParams:mutableControlParams];
         
         UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        UIViewController *fromViewController = (rootViewController.presentedViewController ? rootViewController.presentedViewController : rootViewController);
+        UIViewController *fromViewController = rootViewController.presentedViewController ?: rootViewController;
         [branchUniversalObject showShareSheetWithLinkProperties:linkProperties
-                                                   andShareText:[shareOptionsMap objectForKey:@"messageBody"]
+                                                   andShareText:shareOptionsMap[@"messageBody"]
                                              fromViewController:fromViewController
                                                      completion:^(NSString *activityType, BOOL completed){
                                                          NSDictionary *result = @{
-                                                                                  @"channel" : activityType ? activityType : [NSNull null],
+                                                                                  @"channel" : activityType ?: [NSNull null],
                                                                                   @"completed" : [NSNumber numberWithBool:completed],
                                                                                   @"error" : [NSNull null]
                                                                                   };
@@ -216,10 +217,10 @@ RCT_EXPORT_METHOD(
     [branchUniversalObject getShortUrlWithLinkProperties:linkProperties andCallback:^(NSString *url, NSError *error) {
         if (!error) {
             NSError *err;
-            NSDictionary *jsonObj = [[NSDictionary alloc] initWithObjectsAndKeys:url, @"url", 0, @"options", &err, @"error", nil];
+            NSDictionary *jsonObj = @{ @"url": url, @"options": @0, @"error": err };
             
             if (err) {
-                NSLog(@"Parsing Error: %@", [err localizedDescription]);
+                NSLog(@"Parsing Error: %@", err.localizedDescription);
                 reject([NSString stringWithFormat: @"%lu", (long)err.code], err.localizedDescription, err);
             } else {
                 NSLog(@"RNBranch Success");
@@ -253,10 +254,10 @@ RCT_EXPORT_METHOD(
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    NSString *feature = [linkPropertiesMap objectForKey:@"feature"];
-    NSString *channel = [linkPropertiesMap objectForKey:@"channel"];
-    NSString *stage = [linkPropertiesMap objectForKey:@"stage"];
-    NSArray *tags = [linkPropertiesMap objectForKey:@"tags"];
+    NSString *feature = linkPropertiesMap[@"feature"];
+    NSString *channel = linkPropertiesMap[@"channel"];
+    NSString *stage = linkPropertiesMap[@"stage"];
+    NSArray *tags = linkPropertiesMap[@"tags"];
     
     [branchInstance getShortURLWithParams:linkPropertiesMap
                                   andTags:tags
@@ -281,7 +282,7 @@ RCT_EXPORT_METHOD(
             int credits = (int)[branchInstance getCredits];
             resolve(@{@"credits": @(credits)});
         } else {
-            NSLog(@"Load Rewards Error: %@", [error localizedDescription]);
+            NSLog(@"Load Rewards Error: %@", error.localizedDescription);
             reject(@"RNBranch::Error::loadRewardsWithCallback", @"loadRewardsWithCallback", error);
         }
     }];
@@ -298,8 +299,8 @@ RCT_EXPORT_METHOD(
             if (!error) {
                 resolve(@{@"changed": @(changed)});
             } else {
-                NSLog(@"Redeem Rewards Error: %@", [error localizedDescription]);
-                reject(@"RNBranch::Error::redeemRewards", [error localizedDescription], error);
+                NSLog(@"Redeem Rewards Error: %@", error.localizedDescription);
+                reject(@"RNBranch::Error::redeemRewards", error.localizedDescription, error);
             }
         }];
     } else {
@@ -307,8 +308,8 @@ RCT_EXPORT_METHOD(
             if (!error) {
                 resolve(@{@"changed": @(changed)});
             } else {
-                NSLog(@"Redeem Rewards Error: %@", [error localizedDescription]);
-                reject(@"RNBranch::Error::redeemRewards", [error localizedDescription], error);
+                NSLog(@"Redeem Rewards Error: %@", error.localizedDescription);
+                reject(@"RNBranch::Error::redeemRewards", error.localizedDescription, error);
             }
         }];
     }
@@ -322,8 +323,8 @@ RCT_EXPORT_METHOD(
         if (!error) {
             resolve(list);
         } else {
-            NSLog(@"Credit History Error: %@", [error localizedDescription]);
-            reject(@"RNBranch::Error::getCreditHistory", [error localizedDescription], error);
+            NSLog(@"Credit History Error: %@", error.localizedDescription);
+            reject(@"RNBranch::Error::getCreditHistory", error.localizedDescription, error);
         }
     }];
 }
