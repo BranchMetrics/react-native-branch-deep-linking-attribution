@@ -4,6 +4,10 @@
 #import "RCTEventDispatcher.h"
 #import <Branch/Branch.h>
 
+@interface RNBranch()
+@property (nonatomic, readonly) UIViewController *currentViewController;
+@end
+
 @implementation RNBranch
 
 NSString * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWithLaunchOptionsFinished";
@@ -12,6 +16,15 @@ static NSString* sourceUrl;
 static Branch *branchInstance;
 
 @synthesize bridge = _bridge;
+
+- (UIViewController *)currentViewController
+{
+    UIViewController *current = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (current.presentedViewController && ![current.presentedViewController isKindOfClass:UIAlertController.class]) {
+        current = current.presentedViewController;
+    }
+    return current;
+}
 
 RCT_EXPORT_MODULE();
 
@@ -195,11 +208,9 @@ RCT_EXPORT_METHOD(
         
         BranchLinkProperties *linkProperties = [self createLinkProperties:linkPropertiesMap withControlParams:mutableControlParams];
         
-        UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        UIViewController *fromViewController = rootViewController.presentedViewController ?: rootViewController;
         [branchUniversalObject showShareSheetWithLinkProperties:linkProperties
                                                    andShareText:shareOptionsMap[@"messageBody"]
-                                             fromViewController:fromViewController
+                                             fromViewController:self.currentViewController
                                                      completion:^(NSString *activityType, BOOL completed){
                                                          NSDictionary *result = @{
                                                                                   @"channel" : activityType ?: [NSNull null],
