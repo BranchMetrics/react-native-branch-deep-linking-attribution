@@ -101,8 +101,31 @@ RCT_EXPORT_MODULE();
 - (BranchLinkProperties*) createLinkProperties:(NSDictionary *)linkPropertiesMap withControlParams:(NSDictionary *)controlParamsMap
 {
     BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
-    linkProperties.channel = linkPropertiesMap[@"channel"];
-    linkProperties.feature = linkPropertiesMap[@"feature"];
+
+    if (linkPropertiesMap[@"alias"]) {
+        linkProperties.alias = linkPropertiesMap[@"alias"];
+    }
+
+    if (linkPropertiesMap[@"campaign"]) {
+        linkProperties.campaign = linkPropertiesMap[@"campaign"];
+    }
+
+    if (linkPropertiesMap[@"channel"]) {
+        linkProperties.channel = linkPropertiesMap[@"channel"];
+    }
+
+    if (linkPropertiesMap[@"feature"]) {
+        linkProperties.feature = linkPropertiesMap[@"feature"];
+    }
+
+    if (linkPropertiesMap[@"stage"]) {
+        linkProperties.stage = linkPropertiesMap[@"stage"];
+    }
+
+    if (linkPropertiesMap[@"tags"]) {
+        linkProperties.tags = linkPropertiesMap[@"tags"];
+    }
+
     linkProperties.controlParams = controlParamsMap;
     return linkProperties;
 }
@@ -165,7 +188,7 @@ RCT_EXPORT_METHOD(
     dispatch_async(dispatch_get_main_queue(), ^(void){
         BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
         
-        NSMutableDictionary *mutableControlParams = [controlParamsMap mutableCopy];
+        NSMutableDictionary *mutableControlParams = controlParamsMap.mutableCopy;
         if (shareOptionsMap && shareOptionsMap[@"emailSubject"]) {
             mutableControlParams[@"$email_subject"] = shareOptionsMap[@"emailSubject"];
         }
@@ -180,7 +203,7 @@ RCT_EXPORT_METHOD(
                                                      completion:^(NSString *activityType, BOOL completed){
                                                          NSDictionary *result = @{
                                                                                   @"channel" : activityType ?: [NSNull null],
-                                                                                  @"completed" : [NSNumber numberWithBool:completed],
+                                                                                  @"completed" : @(completed),
                                                                                   @"error" : [NSNull null]
                                                                                   };
                                                          
@@ -216,16 +239,8 @@ RCT_EXPORT_METHOD(
     
     [branchUniversalObject getShortUrlWithLinkProperties:linkProperties andCallback:^(NSString *url, NSError *error) {
         if (!error) {
-            NSError *err;
-            NSDictionary *jsonObj = @{ @"url": url, @"options": @0, @"error": err };
-            
-            if (err) {
-                NSLog(@"Parsing Error: %@", err.localizedDescription);
-                reject([NSString stringWithFormat: @"%lu", (long)err.code], err.localizedDescription, err);
-            } else {
-                NSLog(@"RNBranch Success");
-                resolve(jsonObj);
-            }
+            NSLog(@"RNBranch Success");
+            resolve(@{ @"url": url });
         } else {
             reject([NSString stringWithFormat: @"%lu", (long)error.code], error.localizedDescription, error);
         }
