@@ -39,13 +39,7 @@ RCT_EXPORT_MODULE();
     }
     [branchInstance setDebug];
     [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-        NSString *errorMessage = [NSNull null];
-        // TODO: How can you get an NSError that doesn't respondToSelector localizedDescription?
-        if ([error respondsToSelector:@selector(localizedDescription)]) {
-            errorMessage = error.localizedDescription;
-        } else if (error) {
-            errorMessage = error;
-        }
+        NSString *errorMessage = error.localizedDescription;
         
         initSessionWithLaunchOptionsResult = @{
                                                @"params": params && params[@"~id"] ? params : [NSNull null],
