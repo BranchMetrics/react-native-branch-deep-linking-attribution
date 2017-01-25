@@ -37,6 +37,7 @@ RCT_EXPORT_MODULE();
     if (!branchInstance) {
         branchInstance = [Branch getInstance];
     }
+    [branchInstance setDebug];
     [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSString *errorMessage = [NSNull null];
         // TODO: How can you get an NSError that doesn't respondToSelector localizedDescription?
@@ -115,28 +116,16 @@ RCT_EXPORT_MODULE();
 {
     BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
 
-    if (linkPropertiesMap[@"alias"]) {
-        linkProperties.alias = linkPropertiesMap[@"alias"];
-    }
-
-    if (linkPropertiesMap[@"campaign"]) {
-        linkProperties.campaign = linkPropertiesMap[@"campaign"];
-    }
-
-    if (linkPropertiesMap[@"channel"]) {
-        linkProperties.channel = linkPropertiesMap[@"channel"];
-    }
-
-    if (linkPropertiesMap[@"feature"]) {
-        linkProperties.feature = linkPropertiesMap[@"feature"];
-    }
-
-    if (linkPropertiesMap[@"stage"]) {
-        linkProperties.stage = linkPropertiesMap[@"stage"];
-    }
-
-    if (linkPropertiesMap[@"tags"]) {
-        linkProperties.tags = linkPropertiesMap[@"tags"];
+    /*
+     * Support properties of BranchLinkProperties in a more dynamic way that is less dependent on
+     * the specific native SDK. This provides support for alias, campaign, channel, feature, stage and tags.
+     */
+    for (NSString *property in linkPropertiesMap.allKeys) {
+        NSString *setter = [NSString stringWithFormat:@"set%@:", property.capitalizedString];
+        SEL setterSelector = @selector(setter);
+        if (![linkProperties respondsToSelector:setterSelector]) continue;
+        
+        [linkProperties performSelector:setterSelector withObject:linkPropertiesMap[property]];
     }
 
     linkProperties.controlParams = controlParamsMap;
@@ -211,7 +200,13 @@ RCT_EXPORT_METHOD(
         [branchUniversalObject showShareSheetWithLinkProperties:linkProperties
                                                    andShareText:shareOptionsMap[@"messageBody"]
                                              fromViewController:self.currentViewController
-                                                     completion:^(NSString *activityType, BOOL completed){
+                                                     completionWithError:^(NSString * _Nullable activityType, BOOL completed, NSError * _Nullable activityError){
+                                                         if (activityError) {
+                                                             NSString *errorCodeString = [NSString stringWithFormat:@"%ld", (long)activityError.code];
+                                                             reject(errorCodeString, activityError.localizedDescription, activityError);
+                                                             return;
+                                                         }
+
                                                          NSDictionary *result = @{
                                                                                   @"channel" : activityType ?: [NSNull null],
                                                                                   @"completed" : @(completed),
