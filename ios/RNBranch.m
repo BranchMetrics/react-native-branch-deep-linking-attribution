@@ -1,78 +1,9 @@
 #import "RNBranch.h"
-#import "RCTBridgeModule.h"
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
-#import <Branch/Branch.h>
-
-#pragma mark - RNBranchProperty
-
-/*
- * Utility class to represent dynamically all supported JS link properties.
- */
-@interface RNBranchProperty : NSObject
-@property (nonatomic) SEL setterSelector;
-@property (nonatomic) Class type;
-
-+ (NSDictionary<NSString *, RNBranchProperty *> *)linkProperties;
-+ (NSDictionary<NSString *, RNBranchProperty *> *)universalObjectProperties;
-+ (instancetype) propertyWithSetterSelector:(SEL)selector type:(Class)type;
-
-- (instancetype) initWithSetterSelector:(SEL)selector type:(Class)type NS_DESIGNATED_INITIALIZER;
-@end
-
-@implementation RNBranchProperty
-
-+ (NSDictionary<NSString *, RNBranchProperty *> *)linkProperties
-{
-    static NSDictionary<NSString *, RNBranchProperty *> *_linkProperties;
-    if (_linkProperties) return _linkProperties;
-
-    _linkProperties =
-    @{
-      @"alias": [self propertyWithSetterSelector:@selector(setAlias:) type:NSString.class],
-      @"campaign": [self propertyWithSetterSelector:@selector(setCampaign:) type:NSString.class],
-      @"channel": [self propertyWithSetterSelector:@selector(setChannel:) type:NSString.class],
-      // @"duration": [self propertyWithSetterSelector:@selector(setMatchDuration:) type:NSNumber.class], // deprecated
-      @"feature": [self propertyWithSetterSelector:@selector(setFeature:) type:NSString.class],
-      @"stage": [self propertyWithSetterSelector:@selector(setStage:) type:NSString.class],
-      @"tags": [self propertyWithSetterSelector:@selector(setTags:) type:NSArray.class]
-      };
-
-    return _linkProperties;
-}
-
-+ (NSDictionary<NSString *,RNBranchProperty *> *)universalObjectProperties
-{
-    static NSDictionary<NSString *, RNBranchProperty *> *_universalObjectProperties;
-    if (!_universalObjectProperties) return _universalObjectProperties;
-
-    _universalObjectProperties =
-    @{
-      @"canonicalUrl": [self propertyWithSetterSelector:@selector(setCanonicalUrl:) type:NSString.class],
-      @"contentDescription": [self propertyWithSetterSelector:@selector(setContentDescription:) type:NSString.class],
-      @"contentImageUrl": [self propertyWithSetterSelector:@selector(setImageUrl:) type:NSString.class],
-      @"title": [self propertyWithSetterSelector:@selector(setTitle:) type:NSString.class]
-     };
-
-    return _universalObjectProperties;
-}
-
-+ (instancetype)propertyWithSetterSelector:(SEL)selector type:(Class)type
-{
-    return [[self alloc] initWithSetterSelector:selector type:type];
-}
-
-- (instancetype)initWithSetterSelector:(SEL)selector type:(Class)type
-{
-    self = [super init];
-    if (self) {
-        _setterSelector = selector;
-        _type = type;
-    }
-    return self;
-}
-
-@end
+#import "RNBranchProperty.h"
+#import "BranchLinkProperties+RNBranch.h"
+#import "BranchUniversalObject+RNBranch.h"
 
 #pragma mark - Private RNBranch declarations
 
@@ -169,8 +100,7 @@ RCT_EXPORT_MODULE();
 
 - (BranchUniversalObject*) createBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap
 {
-    BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:branchUniversalObjectMap[@"canonicalIdentifier"]];
-    [self setProperties:RNBranchProperty.universalObjectProperties onObject:branchUniversalObject fromMap:branchUniversalObjectMap];
+    BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithMap:branchUniversalObjectMap];
     
     NSDictionary* metaData = branchUniversalObjectMap[@"metadata"];
     for (NSString *metaDataKey in metaData.allKeys) {
@@ -182,42 +112,10 @@ RCT_EXPORT_MODULE();
 
 - (BranchLinkProperties*) createLinkProperties:(NSDictionary *)linkPropertiesMap withControlParams:(NSDictionary *)controlParamsMap
 {
-    BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
-
-    /*
-     * Support properties of BranchLinkProperties in a more dynamic way that is less dependent on
-     * the specific native SDK. This provides support for alias, campaign, channel, feature, stage and tags.
-     */
-    [self setProperties:RNBranchProperty.linkProperties onObject:linkProperties fromMap:linkPropertiesMap];
+    BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] initWithMap:linkPropertiesMap];
     
     linkProperties.controlParams = controlParamsMap;
     return linkProperties;
-}
-
-- (void)setProperties:(NSDictionary<NSString *, RNBranchProperty *> *)properties onObject:(NSObject *)object fromMap:(NSDictionary *)map
-{
-    for (NSString *key in map.allKeys) {
-        RNBranchProperty *property = properties[key];
-        if (!property) {
-            NSLog(@"\"%@\" is not a supported link property.", key);
-            continue;
-        }
-        
-        id value = map[key];
-        Class type = property.type;
-        if (![value isKindOfClass:type]) {
-            NSLog(@"\"%@\" requires a value of type %@.", key, NSStringFromClass(type));
-            continue;
-        }
-        
-        SEL setterSelector = property.setterSelector;
-        if (![object respondsToSelector:setterSelector]) {
-            NSLog(@"\"%@\" is not supported by the installed version of the native Branch SDK for objects of type %@. Please update to the current release using \"pod update\" or \"carthage update\".", key, NSStringFromClass(object.class));
-            continue;
-        }
-        
-        [object performSelector:setterSelector withObject:value];
-    }
 }
 
 #pragma mark - Methods exported to React Native
