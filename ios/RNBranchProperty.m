@@ -93,7 +93,7 @@
     for (NSString *key in map.allKeys) {
         RNBranchProperty *property = properties[key];
         if (!property) {
-            NSLog(@"\"%@\" is not a supported link property.", key);
+            NSLog(@"\"%@\" is not a supported %@ property.", properties == self.linkProperties ? @"link" : @"universal object", key);
             continue;
         }
 
