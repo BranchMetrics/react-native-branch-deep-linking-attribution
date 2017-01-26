@@ -9,9 +9,29 @@
 #import "RCTLog.h"
 
 #import "BranchUniversalObject+RNBranch.h"
+#import "NSObject+RNBranch.h"
 #import "RNBranchProperty.h"
 
 @implementation BranchUniversalObject(RNBranch)
+
++ (NSDictionary<NSString *,RNBranchProperty *> *)supportedProperties
+{
+    static NSDictionary<NSString *, RNBranchProperty *> *_universalObjectProperties;
+    static dispatch_once_t once = 0;
+    dispatch_once(&once, ^{
+        _universalObjectProperties =
+        @{
+          @"canonicalUrl": [RNBranchProperty propertyWithSetterSelector:@selector(setCanonicalUrl:) type:NSString.class],
+          @"contentDescription": [RNBranchProperty propertyWithSetterSelector:@selector(setContentDescription:) type:NSString.class],
+          @"contentImageUrl": [RNBranchProperty propertyWithSetterSelector:@selector(setImageUrl:) type:NSString.class],
+          @"contentIndexingMode": [RNBranchProperty propertyWithSetterSelector:@selector(setContentIndexingMode:) type:NSString.class],
+          @"metadata": [RNBranchProperty propertyWithSetterSelector:@selector(setMetadata:) type:NSDictionary.class],
+          @"title": [RNBranchProperty propertyWithSetterSelector:@selector(setTitle:) type:NSString.class]
+          };
+    });
+    
+    return _universalObjectProperties;
+}
 
 - (instancetype)initWithMap:(NSDictionary *)map
 {
@@ -21,7 +41,7 @@
 
     self = [self initWithCanonicalIdentifier:canonicalIdentifier];
     if (self) {
-        [RNBranchProperty setUniversalObjectPropertiesOn:self fromMap:mutableMap];
+        [self setSupportedPropertiesWithMap:mutableMap];
     }
     return self;
 }

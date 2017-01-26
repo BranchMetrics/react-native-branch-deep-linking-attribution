@@ -8,8 +8,11 @@
 
 #import <Branch/Branch.h>
 
+@class RNBranchProperty;
+
 @interface BranchLinkProperties(RNBranch)
 
 - (instancetype)initWithMap:(NSDictionary *)map;
 
++ (NSDictionary<NSString *, RNBranchProperty *> *) supportedProperties;
 @end

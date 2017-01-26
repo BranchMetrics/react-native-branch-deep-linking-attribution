@@ -12,6 +12,10 @@
  * Utility class to represent dynamically all supported JS properties on BranchUniversalObject and BranchLinkProperties.
  */
 @interface RNBranchProperty : NSObject
-+ (void)setLinkPropertiesOn:(BranchLinkProperties *)linkProperties fromMap:(NSDictionary *)map;
-+ (void)setUniversalObjectPropertiesOn:(BranchUniversalObject *)universalObject fromMap:(NSDictionary *)map;
+@property (nonatomic) SEL setterSelector;
+@property (nonatomic) Class type;
+
++ (instancetype) propertyWithSetterSelector:(SEL)selector type:(Class)type;
+
+- (instancetype) initWithSetterSelector:(SEL)selector type:(Class)type NS_DESIGNATED_INITIALIZER;
 @end
