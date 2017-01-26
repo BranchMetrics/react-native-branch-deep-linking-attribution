@@ -6,6 +6,8 @@
 //  Copyright © 2017 Dispatcher. All rights reserved.
 //
 
+#import "RCTLog.h"
+
 #import "BranchUniversalObject+RNBranch.h"
 #import "RNBranchProperty.h"
 
@@ -14,9 +16,12 @@
 - (instancetype)initWithMap:(NSDictionary *)map
 {
     NSString *canonicalIdentifier = map[@"canonicalIdentifier"];
+    NSMutableDictionary *mutableMap = map.mutableCopy;
+    [mutableMap removeObjectForKey:@"canonicalIdentifier"];
+
     self = [self initWithCanonicalIdentifier:canonicalIdentifier];
     if (self) {
-        [RNBranchProperty setUniversalObjectPropertiesOn:self fromMap:map];
+        [RNBranchProperty setUniversalObjectPropertiesOn:self fromMap:mutableMap];
     }
     return self;
 }
@@ -26,7 +31,7 @@
     SEL selector = @selector(setContentIndexMode:);
 
     if (![self respondsToSelector:selector]) {
-        NSLog(@"\"contentIndexingMode\" is not supported by the installed version of the native Branch SDK for objects of type BranchUniversalObject. Please update to the current release using \"pod update\" or \"carthage update\".");
+        RCTLogWarn(@"\"contentIndexingMode\" is not supported by the installed version of the native Branch SDK for objects of type BranchUniversalObject. Please update to the current release using \"pod update\" or \"carthage update\".");
         return;
     }
 
@@ -37,7 +42,7 @@
         [self performSelector:selector withObject:@(ContentIndexModePublic)];
     }
     else {
-        NSLog(@"Invalid value \"%@\" for \"contentIndexingMode\". Supported values are \"public\" and \"private\"", contentIndexingMode);
+        RCTLogWarn(@"Invalid value \"%@\" for \"contentIndexingMode\". Supported values are \"public\" and \"private\".", contentIndexingMode);
     }
 }
 

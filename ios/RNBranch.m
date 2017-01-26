@@ -1,6 +1,7 @@
 #import "RNBranch.h"
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
+#import "RCTLog.h"
 #import "RNBranchProperty.h"
 #import "BranchLinkProperties+RNBranch.h"
 #import "BranchUniversalObject+RNBranch.h"
@@ -101,11 +102,6 @@ RCT_EXPORT_MODULE();
 - (BranchUniversalObject*) createBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap
 {
     BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithMap:branchUniversalObjectMap];
-    
-    NSDictionary* metaData = branchUniversalObjectMap[@"metadata"];
-    for (NSString *metaDataKey in metaData.allKeys) {
-        [branchUniversalObject addMetadataKey:metaDataKey value:metaData[metaDataKey]];
-    }
     
     return branchUniversalObject;
 }
@@ -233,7 +229,7 @@ RCT_EXPORT_METHOD(
     
     [branchUniversalObject getShortUrlWithLinkProperties:linkProperties andCallback:^(NSString *url, NSError *error) {
         if (!error) {
-            NSLog(@"RNBranch Success");
+            RCTLogInfo(@"RNBranch Success");
             resolve(@{ @"url": url });
         } else {
             reject([NSString stringWithFormat: @"%lu", (long)error.code], error.localizedDescription, error);
@@ -275,7 +271,7 @@ RCT_EXPORT_METHOD(
                                  andStage:stage
                               andCallback:^(NSString *url, NSError *error) {
                                   if (error) {
-                                      NSLog(@"RNBranch::Error: %@", error.localizedDescription);
+                                      RCTLogError(@"RNBranch::Error: %@", error.localizedDescription);
                                       reject(@"RNBranch::Error", @"getShortURLWithParams", error);
                                   }
                                   resolve(url);
@@ -291,7 +287,7 @@ RCT_EXPORT_METHOD(
             int credits = (int)[branchInstance getCredits];
             resolve(@{@"credits": @(credits)});
         } else {
-            NSLog(@"Load Rewards Error: %@", error.localizedDescription);
+            RCTLogError(@"Load Rewards Error: %@", error.localizedDescription);
             reject(@"RNBranch::Error::loadRewardsWithCallback", @"loadRewardsWithCallback", error);
         }
     }];
@@ -308,7 +304,7 @@ RCT_EXPORT_METHOD(
             if (!error) {
                 resolve(@{@"changed": @(changed)});
             } else {
-                NSLog(@"Redeem Rewards Error: %@", error.localizedDescription);
+                RCTLogError(@"Redeem Rewards Error: %@", error.localizedDescription);
                 reject(@"RNBranch::Error::redeemRewards", error.localizedDescription, error);
             }
         }];
@@ -317,7 +313,7 @@ RCT_EXPORT_METHOD(
             if (!error) {
                 resolve(@{@"changed": @(changed)});
             } else {
-                NSLog(@"Redeem Rewards Error: %@", error.localizedDescription);
+                RCTLogError(@"Redeem Rewards Error: %@", error.localizedDescription);
                 reject(@"RNBranch::Error::redeemRewards", error.localizedDescription, error);
             }
         }];
@@ -332,7 +328,7 @@ RCT_EXPORT_METHOD(
         if (!error) {
             resolve(list);
         } else {
-            NSLog(@"Credit History Error: %@", error.localizedDescription);
+            RCTLogError(@"Credit History Error: %@", error.localizedDescription);
             reject(@"RNBranch::Error::getCreditHistory", error.localizedDescription, error);
         }
     }];

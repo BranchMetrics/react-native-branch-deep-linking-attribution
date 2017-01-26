@@ -9,6 +9,8 @@
 #import "RNBranchProperty.h"
 #import "BranchUniversalObject+RNBranch.h"
 
+#import "RCTLog.h"
+
 @interface RNBranchProperty()
 @property (nonatomic) SEL setterSelector;
 @property (nonatomic) Class type;
@@ -66,6 +68,7 @@
           @"contentDescription": [self propertyWithSetterSelector:@selector(setContentDescription:) type:NSString.class],
           @"contentImageUrl": [self propertyWithSetterSelector:@selector(setImageUrl:) type:NSString.class],
           @"contentIndexingMode": [self propertyWithSetterSelector:@selector(setContentIndexingMode:) type:NSString.class],
+          @"metadata": [self propertyWithSetterSelector:@selector(setMetadata:) type:NSDictionary.class],
           @"title": [self propertyWithSetterSelector:@selector(setTitle:) type:NSString.class]
           };
     });
@@ -93,20 +96,20 @@
     for (NSString *key in map.allKeys) {
         RNBranchProperty *property = properties[key];
         if (!property) {
-            NSLog(@"\"%@\" is not a supported %@ property.", properties == self.linkProperties ? @"link" : @"universal object", key);
+            RCTLogWarn(@"\"%@\" is not a supported %@ property.", key, properties == self.linkProperties ? @"link" : @"universal object");
             continue;
         }
 
         id value = map[key];
         Class type = property.type;
         if (![value isKindOfClass:type]) {
-            NSLog(@"\"%@\" requires a value of type %@.", key, NSStringFromClass(type));
+            RCTLogWarn(@"\"%@\" requires a value of type %@.", key, NSStringFromClass(type));
             continue;
         }
 
         SEL setterSelector = property.setterSelector;
         if (![object respondsToSelector:setterSelector]) {
-            NSLog(@"\"%@\" is not supported by the installed version of the native Branch SDK for objects of type %@. Please update to the current release using \"pod update\" or \"carthage update\".", key, NSStringFromClass(object.class));
+            RCTLogWarn(@"\"%@\" is not supported by the installed version of the native Branch SDK for objects of type %@. Please update to the current release using \"pod update\" or \"carthage update\".", key, NSStringFromClass(object.class));
             continue;
         }
 
