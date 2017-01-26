@@ -4,12 +4,14 @@
 #import "RCTEventDispatcher.h"
 #import <Branch/Branch.h>
 
+#pragma mark - RNBranchProperty
+
 /*
  * Utility class to represent dynamically all supported JS link properties.
  */
 @interface RNBranchProperty : NSObject
 @property (nonatomic) SEL setterSelector;
-@property (nonatomic) Class typeClass;
+@property (nonatomic) Class type;
 
 + (NSDictionary<NSString *, RNBranchProperty *> *)linkProperties;
 + (instancetype) propertyWithSetterSelector:(SEL)selector type:(Class)type;
@@ -48,16 +50,20 @@
     self = [super init];
     if (self) {
         _setterSelector = selector;
-        _typeClass = type;
+        _type = type;
     }
     return self;
 }
 
 @end
 
+#pragma mark - Private RNBranch declarations
+
 @interface RNBranch()
 @property (nonatomic, readonly) UIViewController *currentViewController;
 @end
+
+#pragma mark - RNBranch implementation
 
 @implementation RNBranch
 
@@ -68,16 +74,9 @@ static Branch *branchInstance;
 
 @synthesize bridge = _bridge;
 
-- (UIViewController *)currentViewController
-{
-    UIViewController *current = [UIApplication sharedApplication].keyWindow.rootViewController;
-    while (current.presentedViewController && ![current.presentedViewController isKindOfClass:UIAlertController.class]) {
-        current = current.presentedViewController;
-    }
-    return current;
-}
-
 RCT_EXPORT_MODULE();
+
+#pragma mark - Class methods
 
 + (void)useTestInstance {
     branchInstance = [Branch getTestInstance];
@@ -112,6 +111,8 @@ RCT_EXPORT_MODULE();
     return [branchInstance continueUserActivity:userActivity];
 }
 
+#pragma mark - Object lifecycle
+
 - (instancetype)init {
     self = [super init];
     
@@ -122,6 +123,17 @@ RCT_EXPORT_MODULE();
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Utility methods
+
+- (UIViewController *)currentViewController
+{
+    UIViewController *current = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (current.presentedViewController && ![current.presentedViewController isKindOfClass:UIAlertController.class]) {
+        current = current.presentedViewController;
+    }
+    return current;
 }
 
 - (void) onInitSessionFinished:(NSNotification*) notification {
@@ -173,8 +185,9 @@ RCT_EXPORT_MODULE();
         }
 
         id value = linkPropertiesMap[property];
-        if (![value isKindOfClass:linkProperty.typeClass]) {
-            NSLog(@"%@ requires a value of type %@", property, NSStringFromClass(linkProperty.typeClass));
+        Class type = linkProperty.type;
+        if (![value isKindOfClass:type]) {
+            NSLog(@"%@ requires a value of type %@", property, NSStringFromClass(type));
             continue;
         }
 
@@ -190,6 +203,8 @@ RCT_EXPORT_MODULE();
     linkProperties.controlParams = controlParamsMap;
     return linkProperties;
 }
+
+#pragma mark - Methods exported to React Native
 
 RCT_EXPORT_METHOD(
                   redeemInitSessionResult:(RCTPromiseResolveBlock)resolve
