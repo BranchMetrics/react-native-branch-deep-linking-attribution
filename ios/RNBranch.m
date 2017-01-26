@@ -4,6 +4,57 @@
 #import "RCTEventDispatcher.h"
 #import <Branch/Branch.h>
 
+/*
+ * Utility class to represent dynamically all supported JS link properties.
+ */
+@interface RNBranchProperty : NSObject
+@property (nonatomic) SEL setterSelector;
+@property (nonatomic) Class typeClass;
+
++ (NSDictionary<NSString *, RNBranchProperty *> *)linkProperties;
++ (instancetype) propertyWithSetterSelector:(SEL)selector type:(Class)type;
+
+- (instancetype) initWithSetterSelector:(SEL)selector type:(Class)type NS_DESIGNATED_INITIALIZER;
+@end
+
+@implementation RNBranchProperty
+
++ (NSDictionary<NSString *, RNBranchProperty *> *)linkProperties
+{
+    static NSDictionary<NSString *, RNBranchProperty *> *_linkProperties;
+    if (_linkProperties) return _linkProperties;
+
+    _linkProperties =
+    @{
+      @"alias": [self propertyWithSetterSelector:@selector(setAlias:) type:NSString.class],
+      @"campaign": [self propertyWithSetterSelector:@selector(setCampaign:) type:NSString.class],
+      @"channel": [self propertyWithSetterSelector:@selector(setChannel:) type:NSString.class],
+      // @"duration": [self propertyWithSetterSelector:@selector(setMatchDuration:) type:NSNumber.class], // deprecated
+      @"feature": [self propertyWithSetterSelector:@selector(setFeature:) type:NSString.class],
+      @"stage": [self propertyWithSetterSelector:@selector(setStage:) type:NSString.class],
+      @"tags": [self propertyWithSetterSelector:@selector(setTags:) type:NSArray.class]
+      };
+
+    return _linkProperties;
+}
+
++ (instancetype)propertyWithSetterSelector:(SEL)selector type:(Class)type
+{
+    return [[self alloc] initWithSetterSelector:selector type:type];
+}
+
+- (instancetype)initWithSetterSelector:(SEL)selector type:(Class)type
+{
+    self = [super init];
+    if (self) {
+        _setterSelector = selector;
+        _typeClass = type;
+    }
+    return self;
+}
+
+@end
+
 @interface RNBranch()
 @property (nonatomic, readonly) UIViewController *currentViewController;
 @end
@@ -61,7 +112,7 @@ RCT_EXPORT_MODULE();
     return [branchInstance continueUserActivity:userActivity];
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:initSessionWithLaunchOptionsFinishedEventName object:nil];
@@ -115,11 +166,25 @@ RCT_EXPORT_MODULE();
      * the specific native SDK. This provides support for alias, campaign, channel, feature, stage and tags.
      */
     for (NSString *property in linkPropertiesMap.allKeys) {
-        NSString *setter = [NSString stringWithFormat:@"set%@:", property.capitalizedString];
-        SEL setterSelector = @selector(setter);
-        if (![linkProperties respondsToSelector:setterSelector]) continue;
+        RNBranchProperty *linkProperty = RNBranchProperty.linkProperties[property];
+        if (!linkProperty) {
+            NSLog(@"%@ is not a supported link property.", property);
+            continue;
+        }
+
+        id value = linkPropertiesMap[property];
+        if (![value isKindOfClass:linkProperty.typeClass]) {
+            NSLog(@"%@ requires a value of type %@", property, NSStringFromClass(linkProperty.typeClass));
+            continue;
+        }
+
+        SEL setterSelector = linkProperty.setterSelector;
+        if (![linkProperties respondsToSelector:setterSelector]) {
+            NSLog(@"%@ is not supported by the native Branch SDK. Please update to the current release using \"pod update\" or \"carthage update\"");
+            continue;
+        }
         
-        [linkProperties performSelector:setterSelector withObject:linkPropertiesMap[property]];
+        [linkProperties performSelector:setterSelector withObject:value];
     }
 
     linkProperties.controlParams = controlParamsMap;
