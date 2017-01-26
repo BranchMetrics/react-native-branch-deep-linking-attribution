@@ -199,20 +199,20 @@ RCT_EXPORT_MODULE();
     for (NSString *key in map.allKeys) {
         RNBranchProperty *property = properties[key];
         if (!property) {
-            NSLog(@"%@ is not a supported link property.", key);
+            NSLog(@"\"%@\" is not a supported link property.", key);
             continue;
         }
         
         id value = map[key];
         Class type = property.type;
         if (![value isKindOfClass:type]) {
-            NSLog(@"%@ requires a value of type %@", key, NSStringFromClass(type));
+            NSLog(@"\"%@\" requires a value of type %@.", key, NSStringFromClass(type));
             continue;
         }
         
         SEL setterSelector = property.setterSelector;
         if (![object respondsToSelector:setterSelector]) {
-            NSLog(@"%@ is not supported by the native Branch SDK for object of type %@. Please update to the current release using \"pod update\" or \"carthage update\"", key, NSStringFromClass(object.class));
+            NSLog(@"\"%@\" is not supported by the installed version of the native Branch SDK for objects of type %@. Please update to the current release using \"pod update\" or \"carthage update\".", key, NSStringFromClass(object.class));
             continue;
         }
         
