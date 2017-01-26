@@ -14,6 +14,7 @@
 @property (nonatomic) Class type;
 
 + (NSDictionary<NSString *, RNBranchProperty *> *)linkProperties;
++ (NSDictionary<NSString *, RNBranchProperty *> *)universalObjectProperties;
 + (instancetype) propertyWithSetterSelector:(SEL)selector type:(Class)type;
 
 - (instancetype) initWithSetterSelector:(SEL)selector type:(Class)type NS_DESIGNATED_INITIALIZER;
@@ -38,6 +39,22 @@
       };
 
     return _linkProperties;
+}
+
++ (NSDictionary<NSString *,RNBranchProperty *> *)universalObjectProperties
+{
+    static NSDictionary<NSString *, RNBranchProperty *> *_universalObjectProperties;
+    if (!_universalObjectProperties) return _universalObjectProperties;
+
+    _universalObjectProperties =
+    @{
+      @"canonicalUrl": [self propertyWithSetterSelector:@selector(setCanonicalUrl:) type:NSString.class],
+      @"contentDescription": [self propertyWithSetterSelector:@selector(setContentDescription:) type:NSString.class],
+      @"contentImageUrl": [self propertyWithSetterSelector:@selector(setImageUrl:) type:NSString.class],
+      @"title": [self propertyWithSetterSelector:@selector(setTitle:) type:NSString.class]
+     };
+
+    return _universalObjectProperties;
 }
 
 + (instancetype)propertyWithSetterSelector:(SEL)selector type:(Class)type
@@ -153,17 +170,11 @@ RCT_EXPORT_MODULE();
 - (BranchUniversalObject*) createBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap
 {
     BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:branchUniversalObjectMap[@"canonicalIdentifier"]];
-    branchUniversalObject.title = branchUniversalObjectMap[@"title"];
-    branchUniversalObject.contentDescription = branchUniversalObjectMap[@"contentDescription"];
-    branchUniversalObject.imageUrl = branchUniversalObjectMap[@"contentImageUrl"];
+    [self setProperties:RNBranchProperty.universalObjectProperties onObject:branchUniversalObject fromMap:branchUniversalObjectMap];
     
     NSDictionary* metaData = branchUniversalObjectMap[@"metadata"];
-    if(metaData) {
-        NSEnumerator *enumerator = metaData.keyEnumerator;
-        id metaDataKey;
-        while((metaDataKey = enumerator.nextObject)) {
-            [branchUniversalObject addMetadataKey:metaDataKey value:metaData[metaDataKey]];
-        }
+    for (NSString *metaDataKey in metaData.allKeys) {
+        [branchUniversalObject addMetadataKey:metaDataKey value:metaData[metaDataKey]];
     }
     
     return branchUniversalObject;
@@ -177,31 +188,36 @@ RCT_EXPORT_MODULE();
      * Support properties of BranchLinkProperties in a more dynamic way that is less dependent on
      * the specific native SDK. This provides support for alias, campaign, channel, feature, stage and tags.
      */
-    for (NSString *property in linkPropertiesMap.allKeys) {
-        RNBranchProperty *linkProperty = RNBranchProperty.linkProperties[property];
-        if (!linkProperty) {
-            NSLog(@"%@ is not a supported link property.", property);
-            continue;
-        }
+    [self setProperties:RNBranchProperty.linkProperties onObject:linkProperties fromMap:linkPropertiesMap];
+    
+    linkProperties.controlParams = controlParamsMap;
+    return linkProperties;
+}
 
-        id value = linkPropertiesMap[property];
-        Class type = linkProperty.type;
-        if (![value isKindOfClass:type]) {
-            NSLog(@"%@ requires a value of type %@", property, NSStringFromClass(type));
-            continue;
-        }
-
-        SEL setterSelector = linkProperty.setterSelector;
-        if (![linkProperties respondsToSelector:setterSelector]) {
-            NSLog(@"%@ is not supported by the native Branch SDK. Please update to the current release using \"pod update\" or \"carthage update\"");
+- (void)setProperties:(NSDictionary<NSString *, RNBranchProperty *> *)properties onObject:(NSObject *)object fromMap:(NSDictionary *)map
+{
+    for (NSString *key in map.allKeys) {
+        RNBranchProperty *property = properties[key];
+        if (!property) {
+            NSLog(@"%@ is not a supported link property.", key);
             continue;
         }
         
-        [linkProperties performSelector:setterSelector withObject:value];
+        id value = map[key];
+        Class type = property.type;
+        if (![value isKindOfClass:type]) {
+            NSLog(@"%@ requires a value of type %@", key, NSStringFromClass(type));
+            continue;
+        }
+        
+        SEL setterSelector = property.setterSelector;
+        if (![object respondsToSelector:setterSelector]) {
+            NSLog(@"%@ is not supported by the native Branch SDK for object of type %@. Please update to the current release using \"pod update\" or \"carthage update\"", key, NSStringFromClass(object.class));
+            continue;
+        }
+        
+        [object performSelector:setterSelector withObject:value];
     }
-
-    linkProperties.controlParams = controlParamsMap;
-    return linkProperties;
 }
 
 #pragma mark - Methods exported to React Native
