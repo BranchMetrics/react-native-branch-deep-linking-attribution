@@ -38,18 +38,19 @@
 + (NSDictionary<NSString *, RNBranchProperty *> *)linkProperties
 {
     static NSDictionary<NSString *, RNBranchProperty *> *_linkProperties;
-    if (_linkProperties) return _linkProperties;
-
-    _linkProperties =
-    @{
-      @"alias": [self propertyWithSetterSelector:@selector(setAlias:) type:NSString.class],
-      @"campaign": [self propertyWithSetterSelector:@selector(setCampaign:) type:NSString.class],
-      @"channel": [self propertyWithSetterSelector:@selector(setChannel:) type:NSString.class],
-      // @"duration": [self propertyWithSetterSelector:@selector(setMatchDuration:) type:NSNumber.class], // deprecated
-      @"feature": [self propertyWithSetterSelector:@selector(setFeature:) type:NSString.class],
-      @"stage": [self propertyWithSetterSelector:@selector(setStage:) type:NSString.class],
-      @"tags": [self propertyWithSetterSelector:@selector(setTags:) type:NSArray.class]
-      };
+    static dispatch_once_t once = 0;
+    dispatch_once(&once, ^{
+        _linkProperties =
+        @{
+          @"alias": [self propertyWithSetterSelector:@selector(setAlias:) type:NSString.class],
+          @"campaign": [self propertyWithSetterSelector:@selector(setCampaign:) type:NSString.class],
+          @"channel": [self propertyWithSetterSelector:@selector(setChannel:) type:NSString.class],
+          // @"duration": [self propertyWithSetterSelector:@selector(setMatchDuration:) type:NSNumber.class], // deprecated
+          @"feature": [self propertyWithSetterSelector:@selector(setFeature:) type:NSString.class],
+          @"stage": [self propertyWithSetterSelector:@selector(setStage:) type:NSString.class],
+          @"tags": [self propertyWithSetterSelector:@selector(setTags:) type:NSArray.class]
+          };
+    });
 
     return _linkProperties;
 }
@@ -57,16 +58,17 @@
 + (NSDictionary<NSString *,RNBranchProperty *> *)universalObjectProperties
 {
     static NSDictionary<NSString *, RNBranchProperty *> *_universalObjectProperties;
-    if (!_universalObjectProperties) return _universalObjectProperties;
-
-    _universalObjectProperties =
-    @{
-      @"canonicalUrl": [self propertyWithSetterSelector:@selector(setCanonicalUrl:) type:NSString.class],
-      @"contentDescription": [self propertyWithSetterSelector:@selector(setContentDescription:) type:NSString.class],
-      @"contentImageUrl": [self propertyWithSetterSelector:@selector(setImageUrl:) type:NSString.class],
-      @"contentIndexingMode": [self propertyWithSetterSelector:@selector(setContentIndexingMode:) type:NSString.class],
-      @"title": [self propertyWithSetterSelector:@selector(setTitle:) type:NSString.class]
-      };
+    static dispatch_once_t once = 0;
+    dispatch_once(&once, ^{
+        _universalObjectProperties =
+        @{
+          @"canonicalUrl": [self propertyWithSetterSelector:@selector(setCanonicalUrl:) type:NSString.class],
+          @"contentDescription": [self propertyWithSetterSelector:@selector(setContentDescription:) type:NSString.class],
+          @"contentImageUrl": [self propertyWithSetterSelector:@selector(setImageUrl:) type:NSString.class],
+          @"contentIndexingMode": [self propertyWithSetterSelector:@selector(setContentIndexingMode:) type:NSString.class],
+          @"title": [self propertyWithSetterSelector:@selector(setTitle:) type:NSString.class]
+          };
+    });
 
     return _universalObjectProperties;
 }
