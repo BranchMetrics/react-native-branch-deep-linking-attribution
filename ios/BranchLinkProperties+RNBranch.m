@@ -13,7 +13,7 @@
 
 - (instancetype)initWithMap:(NSDictionary *)map
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         [RNBranchProperty setLinkPropertiesOn:self fromMap:map];
     }
