@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		148030EF1CCDF9FA004ABEA4 /* RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 148030EE1CCDF9FA004ABEA4 /* RNBranch.m */; };
+		7B13692A1E3AC9A5006E68C0 /* NSObject+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1369291E3AC9A5006E68C0 /* NSObject+RNBranch.m */; };
 		7B7198AB1E3A7C1400127009 /* RNBranchProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7198AA1E3A7C1400127009 /* RNBranchProperty.m */; };
 		7B7198B11E3A7CDD00127009 /* BranchUniversalObject+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7198B01E3A7CDD00127009 /* BranchUniversalObject+RNBranch.m */; };
 		7B7198B41E3A80CA00127009 /* BranchLinkProperties+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7198B31E3A80CA00127009 /* BranchLinkProperties+RNBranch.m */; };
@@ -30,6 +31,8 @@
 		147052301CCDDA6000333C29 /* libBranch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBranch.a; path = "Pods/../build/Debug-iphoneos/libBranch.a"; sourceTree = "<group>"; };
 		148030ED1CCDF9FA004ABEA4 /* RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranch.h; sourceTree = "<group>"; };
 		148030EE1CCDF9FA004ABEA4 /* RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranch.m; sourceTree = "<group>"; };
+		7B1369281E3AC9A5006E68C0 /* NSObject+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+RNBranch.h"; sourceTree = "<group>"; };
+		7B1369291E3AC9A5006E68C0 /* NSObject+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RNBranch.m"; sourceTree = "<group>"; };
 		7B7198A91E3A7C1400127009 /* RNBranchProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchProperty.h; sourceTree = "<group>"; };
 		7B7198AA1E3A7C1400127009 /* RNBranchProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchProperty.m; sourceTree = "<group>"; };
 		7B7198AF1E3A7CDD00127009 /* BranchUniversalObject+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchUniversalObject+RNBranch.h"; sourceTree = "<group>"; };
@@ -68,6 +71,8 @@
 				7B7198B31E3A80CA00127009 /* BranchLinkProperties+RNBranch.m */,
 				7B7198AF1E3A7CDD00127009 /* BranchUniversalObject+RNBranch.h */,
 				7B7198B01E3A7CDD00127009 /* BranchUniversalObject+RNBranch.m */,
+				7B1369281E3AC9A5006E68C0 /* NSObject+RNBranch.h */,
+				7B1369291E3AC9A5006E68C0 /* NSObject+RNBranch.m */,
 				148030ED1CCDF9FA004ABEA4 /* RNBranch.h */,
 				148030EE1CCDF9FA004ABEA4 /* RNBranch.m */,
 				7B7198A91E3A7C1400127009 /* RNBranchProperty.h */,
@@ -143,6 +148,7 @@
 			files = (
 				7B7198B41E3A80CA00127009 /* BranchLinkProperties+RNBranch.m in Sources */,
 				7B7198AB1E3A7C1400127009 /* RNBranchProperty.m in Sources */,
+				7B13692A1E3AC9A5006E68C0 /* NSObject+RNBranch.m in Sources */,
 				7B7198B11E3A7CDD00127009 /* BranchUniversalObject+RNBranch.m in Sources */,
 				148030EF1CCDF9FA004ABEA4 /* RNBranch.m in Sources */,
 			);

@@ -35,7 +35,6 @@ RCT_EXPORT_MODULE();
     if (!branchInstance) {
         branchInstance = [Branch getInstance];
     }
-    [branchInstance setDebug];
     [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSString *errorMessage = error.localizedDescription;
         

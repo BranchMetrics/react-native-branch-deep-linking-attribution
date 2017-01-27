@@ -14,5 +14,4 @@
 
 - (instancetype)initWithMap:(NSDictionary *)map;
 
-+ (NSDictionary<NSString *, RNBranchProperty *> *) supportedProperties;
 @end
