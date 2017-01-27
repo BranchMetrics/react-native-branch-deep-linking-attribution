@@ -267,6 +267,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     if (linkPropertiesMap.hasKey("channel")) linkProperties.setChannel(linkPropertiesMap.getString("channel"));
     if (linkPropertiesMap.hasKey("feature")) linkProperties.setFeature(linkPropertiesMap.getString("feature"));
     if (linkPropertiesMap.hasKey("stage")) linkProperties.setFeature(linkPropertiesMap.getString("stage"));
+
     if (linkPropertiesMap.hasKey("tags")) {
       ReadableArray tags = linkPropertiesMap.getArray("tags");
       for (int i=0; i<tags.size(); ++i) {
@@ -276,29 +277,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     if (controlParams != null) {
-      if (controlParams.hasKey("$fallback_url")) {
-        linkProperties.addControlParameter("$fallback_url", controlParams.getString("$fallback_url"));
-      }
-      if (controlParams.hasKey("$desktop_url")) {
-        linkProperties.addControlParameter("$desktop_url", controlParams.getString("$desktop_url"));
-      }
-      if (controlParams.hasKey("$android_url")) {
-        linkProperties.addControlParameter("$android_url", controlParams.getString("$android_url"));
-      }
-      if (controlParams.hasKey("$ios_url")) {
-        linkProperties.addControlParameter("$ios_url", controlParams.getString("$ios_url"));
-      }
-      if (controlParams.hasKey("$ipad_url")) {
-        linkProperties.addControlParameter("$ipad_url", controlParams.getString("$ipad_url"));
-      }
-      if (controlParams.hasKey("$fire_url")) {
-        linkProperties.addControlParameter("$fire_url", controlParams.getString("$fire_url"));
-      }
-      if (controlParams.hasKey("$blackberry_url")) {
-        linkProperties.addControlParameter("$blackberry_url", controlParams.getString("$blackberry_url"));
-      }
-      if (controlParams.hasKey("$windows_phone_url")) {
-        linkProperties.addControlParameter("$windows_phone_url", controlParams.getString("$windows_phone_url"));
+      ReadableMapKeySetIterator iterator = controlParams.keySetIterator();
+      while (iterator.hasNextKey()) {
+        String key = iterator.nextKey();
+        Object value = getReadableMapObjectForKey(controlParams, key);
+        linkProperties.addControlParameter(key, value.toString());
       }
     }
 
@@ -310,8 +293,23 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
       .setCanonicalIdentifier(branchUniversalObjectMap.getString("canonicalIdentifier"));
 
     if (branchUniversalObjectMap.hasKey("title")) branchUniversalObject.setTitle(branchUniversalObjectMap.getString("title"));
+    if (branchUniversalObjectMap.hasKey("canonicalUrl")) branchUniversalObject.setCanonicalUrl(branchUniversalObjectMap.getString("canonicalUrl"));
     if (branchUniversalObjectMap.hasKey("contentDescription")) branchUniversalObject.setContentDescription(branchUniversalObjectMap.getString("contentDescription"));
     if (branchUniversalObjectMap.hasKey("contentImageUrl")) branchUniversalObject.setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
+    if (branchUniversalObjectMap.hasKey("contentIndexingMode")) {
+      String mode = branchUniversalObjectMap.getString("contentIndexingMode");
+      switch (branchUniversalObjectMap.getType("contentIndexingMode")) {
+        case String:
+          if (mode.equals("private"))
+            branchUniversalObject.setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PRIVATE);
+          else if (mode.equals("public"))
+            branchUniversalObject.setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC);
+          else
+            Log.w(REACT_CLASS, "Unsupported value for contentIndexingMode: " + mode + ". Supported values are \"public\" and \"private\"");
+        default:
+          Log.w(REACT_CLASS, "contentIndexingMode must be a String");
+      }
+    }
 
     if(branchUniversalObjectMap.hasKey("metadata")) {
       ReadableMap metadataMap = branchUniversalObjectMap.getMap("metadata");
