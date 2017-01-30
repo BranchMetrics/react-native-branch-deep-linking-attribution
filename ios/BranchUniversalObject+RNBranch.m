@@ -21,6 +21,7 @@
     dispatch_once(&once, ^{
         _universalObjectProperties =
         @{
+          @"automaticallyListOnSpotlight": [RNBranchProperty propertyWithSetterSelector:@selector(setAutomaticallyListOnSpotlightWithNumber:) type:NSNumber.class],
           @"canonicalUrl": [RNBranchProperty propertyWithSetterSelector:@selector(setCanonicalUrl:) type:NSString.class],
           @"contentDescription": [RNBranchProperty propertyWithSetterSelector:@selector(setContentDescription:) type:NSString.class],
           @"contentImageUrl": [RNBranchProperty propertyWithSetterSelector:@selector(setImageUrl:) type:NSString.class],
@@ -73,6 +74,11 @@
 - (void)setPriceWithNumber:(NSNumber *)price
 {
     self.price = price.floatValue;
+}
+
+- (void)setAutomaticallyListOnSpotlightWithNumber:(NSNumber *)flag
+{
+    self.automaticallyListOnSpotlight = flag.boolValue;
 }
 
 @end
