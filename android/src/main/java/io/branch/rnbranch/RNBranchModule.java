@@ -297,17 +297,27 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     if (branchUniversalObjectMap.hasKey("contentDescription")) branchUniversalObject.setContentDescription(branchUniversalObjectMap.getString("contentDescription"));
     if (branchUniversalObjectMap.hasKey("contentImageUrl")) branchUniversalObject.setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
     if (branchUniversalObjectMap.hasKey("contentIndexingMode")) {
-      String mode = branchUniversalObjectMap.getString("contentIndexingMode");
       switch (branchUniversalObjectMap.getType("contentIndexingMode")) {
         case String:
+          String mode = branchUniversalObjectMap.getString("contentIndexingMode");
+
           if (mode.equals("private"))
             branchUniversalObject.setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PRIVATE);
           else if (mode.equals("public"))
             branchUniversalObject.setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC);
           else
-            Log.w(REACT_CLASS, "Unsupported value for contentIndexingMode: " + mode + ". Supported values are \"public\" and \"private\"");
+            Log.w(REACT_CLASS, "Unsupported value for contentIndexingMode: " + mode +
+                    ". Supported values are \"public\" and \"private\"");
+
         default:
           Log.w(REACT_CLASS, "contentIndexingMode must be a String");
+      }
+    }
+
+    if (branchUniversalObjectMap.hasKey("keywords")) {
+      ReadableArray keywords = branchUniversalObjectMap.getArray("keywords");
+      for (int i=0; i<keywords.size(); ++i) {
+        branchUniversalObject.addKeyWord(keywords.getString(i));
       }
     }
 
@@ -320,6 +330,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         branchUniversalObject.addContentMetadata(metadataKey, metadataObject.toString());
       }
     }
+
+    if (branchUniversalObjectMap.hasKey("type")) branchUniversalObject.setContentType(branchUniversalObjectMap.getString("type"));
 
     return branchUniversalObject;
   }

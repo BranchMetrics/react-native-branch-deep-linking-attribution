@@ -25,8 +25,10 @@
           @"contentDescription": [RNBranchProperty propertyWithSetterSelector:@selector(setContentDescription:) type:NSString.class],
           @"contentImageUrl": [RNBranchProperty propertyWithSetterSelector:@selector(setImageUrl:) type:NSString.class],
           @"contentIndexingMode": [RNBranchProperty propertyWithSetterSelector:@selector(setContentIndexingMode:) type:NSString.class],
+          @"keywords": [RNBranchProperty propertyWithSetterSelector:@selector(setKeywords:) type:NSArray.class],
           @"metadata": [RNBranchProperty propertyWithSetterSelector:@selector(setMetadata:) type:NSDictionary.class],
-          @"title": [RNBranchProperty propertyWithSetterSelector:@selector(setTitle:) type:NSString.class]
+          @"title": [RNBranchProperty propertyWithSetterSelector:@selector(setTitle:) type:NSString.class],
+          @"type": [RNBranchProperty propertyWithSetterSelector:@selector(setType:) type:NSString.class]
           };
     });
     
