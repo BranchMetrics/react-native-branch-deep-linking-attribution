@@ -17,6 +17,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
   s.source       = { spec['repository']['type'] => spec['repository']['type'] }
   s.source_files = 'ios/*'
-  s.dependency 'Branch'
+  s.dependency 'Branch', '>= 0.12.24'
   s.dependency 'React'
 end
