@@ -25,8 +25,10 @@
           @"contentDescription": [RNBranchProperty propertyWithSetterSelector:@selector(setContentDescription:) type:NSString.class],
           @"contentImageUrl": [RNBranchProperty propertyWithSetterSelector:@selector(setImageUrl:) type:NSString.class],
           @"contentIndexingMode": [RNBranchProperty propertyWithSetterSelector:@selector(setContentIndexingMode:) type:NSString.class],
+          @"currency": [RNBranchProperty propertyWithSetterSelector:@selector(setCurrency:) type:NSString.class],
           @"keywords": [RNBranchProperty propertyWithSetterSelector:@selector(setKeywords:) type:NSArray.class],
           @"metadata": [RNBranchProperty propertyWithSetterSelector:@selector(setMetadata:) type:NSDictionary.class],
+          @"price": [RNBranchProperty propertyWithSetterSelector:@selector(setPriceWithNumber:) type:NSNumber.class],
           @"title": [RNBranchProperty propertyWithSetterSelector:@selector(setTitle:) type:NSString.class],
           @"type": [RNBranchProperty propertyWithSetterSelector:@selector(setType:) type:NSString.class]
           };
@@ -66,6 +68,11 @@
     else {
         RCTLogWarn(@"Invalid value \"%@\" for \"contentIndexingMode\". Supported values are \"public\" and \"private\".", contentIndexingMode);
     }
+}
+
+- (void)setPriceWithNumber:(NSNumber *)price
+{
+    self.price = price.floatValue;
 }
 
 @end

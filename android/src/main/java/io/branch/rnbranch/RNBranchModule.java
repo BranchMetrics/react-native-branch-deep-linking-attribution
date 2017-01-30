@@ -314,6 +314,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
       }
     }
 
+    if (branchUniversalObjectMap.hasKey("currency") && branchUniversalObjectMap.hasKey("price")) {
+      String currencyString = branchUniversalObjectMap.getString("currency");
+      CurrencyType currency = CurrencyType.valueOf(currencyString);
+      branchUniversalObject.setPrice(branchUniversalObjectMap.getDouble("price"), currency);
+    }
+
     if (branchUniversalObjectMap.hasKey("keywords")) {
       ReadableArray keywords = branchUniversalObjectMap.getArray("keywords");
       for (int i=0; i<keywords.size(); ++i) {
