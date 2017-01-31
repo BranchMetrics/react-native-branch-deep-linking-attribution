@@ -22,6 +22,9 @@ import io.branch.referral.util.*;
 import io.branch.indexing.*;
 
 import org.json.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class RNBranchModule extends ReactContextBaseJavaModule {
@@ -308,9 +311,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
           else
             Log.w(REACT_CLASS, "Unsupported value for contentIndexingMode: " + mode +
                     ". Supported values are \"public\" and \"private\"");
-
+          break;
         default:
           Log.w(REACT_CLASS, "contentIndexingMode must be a String");
+          break;
       }
     }
 
@@ -318,6 +322,20 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
       String currencyString = branchUniversalObjectMap.getString("currency");
       CurrencyType currency = CurrencyType.valueOf(currencyString);
       branchUniversalObject.setPrice(branchUniversalObjectMap.getDouble("price"), currency);
+    }
+
+    if (branchUniversalObjectMap.hasKey("expirationDate")) {
+      String expirationString = branchUniversalObjectMap.getString("expirationDate");
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+      format.setTimeZone(TimeZone.getTimeZone("UTC"));
+      try {
+        Date date = format.parse(expirationString);
+        Log.d(REACT_CLASS, "Expiration date is " + date.toString());
+        branchUniversalObject.setContentExpiration(date);
+      }
+      catch (ParseException e) {
+        Log.w(REACT_CLASS, "Invalid expiration date format. Valid format is YYYY-mm-ddTHH:MM:SS, e.g. 2017-02-01T00:00:00. All times UTC.");
+      }
     }
 
     if (branchUniversalObjectMap.hasKey("keywords")) {
