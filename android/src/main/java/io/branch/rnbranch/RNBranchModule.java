@@ -22,6 +22,9 @@ import io.branch.referral.util.*;
 import io.branch.indexing.*;
 
 import org.json.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class RNBranchModule extends ReactContextBaseJavaModule {
@@ -297,17 +300,48 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     if (branchUniversalObjectMap.hasKey("contentDescription")) branchUniversalObject.setContentDescription(branchUniversalObjectMap.getString("contentDescription"));
     if (branchUniversalObjectMap.hasKey("contentImageUrl")) branchUniversalObject.setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
     if (branchUniversalObjectMap.hasKey("contentIndexingMode")) {
-      String mode = branchUniversalObjectMap.getString("contentIndexingMode");
       switch (branchUniversalObjectMap.getType("contentIndexingMode")) {
         case String:
+          String mode = branchUniversalObjectMap.getString("contentIndexingMode");
+
           if (mode.equals("private"))
             branchUniversalObject.setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PRIVATE);
           else if (mode.equals("public"))
             branchUniversalObject.setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC);
           else
-            Log.w(REACT_CLASS, "Unsupported value for contentIndexingMode: " + mode + ". Supported values are \"public\" and \"private\"");
+            Log.w(REACT_CLASS, "Unsupported value for contentIndexingMode: " + mode +
+                    ". Supported values are \"public\" and \"private\"");
+          break;
         default:
           Log.w(REACT_CLASS, "contentIndexingMode must be a String");
+          break;
+      }
+    }
+
+    if (branchUniversalObjectMap.hasKey("currency") && branchUniversalObjectMap.hasKey("price")) {
+      String currencyString = branchUniversalObjectMap.getString("currency");
+      CurrencyType currency = CurrencyType.valueOf(currencyString);
+      branchUniversalObject.setPrice(branchUniversalObjectMap.getDouble("price"), currency);
+    }
+
+    if (branchUniversalObjectMap.hasKey("expirationDate")) {
+      String expirationString = branchUniversalObjectMap.getString("expirationDate");
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+      format.setTimeZone(TimeZone.getTimeZone("UTC"));
+      try {
+        Date date = format.parse(expirationString);
+        Log.d(REACT_CLASS, "Expiration date is " + date.toString());
+        branchUniversalObject.setContentExpiration(date);
+      }
+      catch (ParseException e) {
+        Log.w(REACT_CLASS, "Invalid expiration date format. Valid format is YYYY-mm-ddTHH:MM:SS, e.g. 2017-02-01T00:00:00. All times UTC.");
+      }
+    }
+
+    if (branchUniversalObjectMap.hasKey("keywords")) {
+      ReadableArray keywords = branchUniversalObjectMap.getArray("keywords");
+      for (int i=0; i<keywords.size(); ++i) {
+        branchUniversalObject.addKeyWord(keywords.getString(i));
       }
     }
 
@@ -320,6 +354,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         branchUniversalObject.addContentMetadata(metadataKey, metadataObject.toString());
       }
     }
+
+    if (branchUniversalObjectMap.hasKey("type")) branchUniversalObject.setContentType(branchUniversalObjectMap.getString("type"));
 
     return branchUniversalObject;
   }
