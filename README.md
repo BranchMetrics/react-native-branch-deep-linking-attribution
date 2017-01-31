@@ -16,10 +16,13 @@ where applicable.
 1. `npm install --save react-native-branch`
 2. `react-native link react-native-branch` **or** link the project [manually](./docs/installation.md#manual-linking)
 3. Add `pod 'Branch'` to your ios/Podfile ([details](./docs/installation.md#cocoa-pods))
-4. `cd ios; pod install`
-7. Follow the [setup instructions](./docs/setup.md)
+4. `cd ios; pod install --repo-update`
+5. Follow the [setup instructions](./docs/setup.md)
 
-If you are new to react-native or cocoa-pods, read below for more details:
+Note that CocoaPods 1.0 no longer automatically updates pod repositories automatically on `pod install`. To make sure
+you get the latest version of the Branch SDK, use `--repo-update` or run `pod repo update` before `pod install`.
+
+If you are new to react-native or CocoaPods, read below for more details:
 - [Full Installation Instructions](./docs/installation.md)
 - [If you already have React in your Podfile](./docs/installation.md#pod-only-installation)
 - [If you do not know what a Podfile is](./docs/installation.md#creating-a-new-podfile)
@@ -42,7 +45,7 @@ If you're unfamiliar with how to add a framework to your project with [Carthage]
 ## Next Steps
 In order to get full Branch support you will need to setup your ios and android projects accordingly:
 - [iOS](./docs/setup.md#ios)
-- [android](./docs/setup.md#android)
+- [Android](./docs/setup.md#android)
 
 Please see the Branch [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
 

@@ -2,7 +2,10 @@
 1. `npm install --save react-native-branch`
 2. `react-native link react-native-branch` **or** link the project [manually](#manual-linking)
 3. Add `pod 'Branch'` as a dependency in your ios/Podfile
-4. `cd ios; pod install`
+4. `cd ios; pod install --repo-update`
+
+Note that CocoaPods 1.0 no longer automatically updates pod repositories automatically on `pod install`. To make sure
+you get the latest version of the Branch SDK, use `--repo-update` or run `pod repo update` before `pod install`.
 
 ## CocoaPods
 #### Example Podfile
