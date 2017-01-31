@@ -1,8 +1,11 @@
 # Branch Metrics React Native SDK Reference
 
-This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK. This SDK will help you handle iOS Universal Links, Android App Link, deferred deep links, do install attribution and much more!
+This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK. This SDK will help you handle iOS Universal Links, Android App Links and deferred deep links, do install attribution and much more!
 
-**v0.8.0** has just been released. If you currently override `onStop` in MainActivity.java be sure *not* to invoke `RNBranchModule.onStop()`
+**react-native v0.40 support** is available in version 1.0.0. This is a non-backwards compatible update. If you need to stay on react-native <0.40 please fix your package.json version to react-native-branch@0.9. See [Updating to 1.0.0](./docs/updating-1.0.0.md) for details. Note that some build steps differ between 0.9 and 1.0. These are highlighted
+where applicable.
+
+**v0.8.0** If you have overridden `onStop` in MainActivity.java be sure *not* to invoke `RNBranchModule.onStop()`.
 
 [![build status](https://img.shields.io/travis/BranchMetrics/React-Native-Deferred-Deep-Linking-SDK/master.svg?style=flat-square)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
 [![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
@@ -11,10 +14,10 @@ This is a repository of our open source React Native SDK. Huge shoutout to our f
 ## Installation
 
 1. `npm install --save react-native-branch`
-2. `rnpm link react-native-branch` **or** link the project [manually](./docs/installation.md#manual-linking)
+2. `react-native link react-native-branch` **or** link the project [manually](./docs/installation.md#manual-linking)
 3. Add `pod 'Branch'` to your ios/Podfile ([details](./docs/installation.md#cocoa-pods))
-4. `cd ios && pod install`
-5. Follow the [setup instructions](./docs/setup.md)
+4. `cd ios; pod install`
+7. Follow the [setup instructions](./docs/setup.md)
 
 If you are new to react-native or cocoa-pods, read below for more details:
 - [Full Installation Instructions](./docs/installation.md)
@@ -24,22 +27,24 @@ If you are new to react-native or cocoa-pods, read below for more details:
 ### Carthage
 [carthage]: https://github.com/Carthage/Carthage
 
+**Note:** Carthage is not fully supported in version 0.9.0. It requires 0.9.1 (to be released soon) or 1.0.0.
+
 If you would prefer to use [Carthage](carthage), you can skip steps 3 & 4 above and instead add the following to your `Cartfile`:
 
-`github "BranchMetrics/ios-branch-deep-linking`
+`github "BranchMetrics/ios-branch-deep-linking"`
 
 Then run:
 
-`$ carthage bootstrap`
+`carthage update`
 
 If you're unfamiliar with how to add a framework to your project with [Carthage](carthage), you can [learn more here](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application). You will need to maually link the framework by adding it to the "Linked Frameworks and Libraries" section of your target settings, and copy it by adding it to the "Input Files" section of your `carthage copy-frameworks` build phase.
 
 ## Next Steps
-In order to get full branch support you will need to setup your ios and android projects accordingly:
+In order to get full Branch support you will need to setup your ios and android projects accordingly:
 - [iOS](./docs/setup.md#ios)
 - [android](./docs/setup.md#android)
 
-Please see the branch [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
+Please see the Branch [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
 
 ## Additional Resources
 - [SDK Integration guide](https://dev.branch.io/recipes/add_the_sdk/react/)
@@ -50,10 +55,12 @@ Please see the branch [SDK Integration Guide](https://dev.branch.io/getting-star
 ```js
 import branch from 'react-native-branch'
 
-// Subscribe to incoming links (both branch & non-branch)
-branch.subscribe(({params, error, uri}) => {
-  if (params) { /* handle branch link */ }
-  else { /* handle uri */ }
+// Subscribe to incoming links (both Branch & non-Branch)
+// bundle = object with: {params, error, uri}
+branch.subscribe((bundle) => {
+  if (bundle && bundle.params && !bundle.error) {
+  	// grab deep link data and route appropriately.
+  }
 })
 
 let lastParams = await branch.getLatestReferringParams() // params from last open
@@ -62,7 +69,7 @@ branch.setIdentity('theUserId')
 branch.userCompletedAction('Purchased Item', {item: 123})
 branch.logout()
 
-let branchUniversalObject = branch.createBranchUniversalObject('canonicalIdentifier', {metadata: {prop1: 'test', prop2: 'abc'}, contentTitle: 'Cool Content!', contentDescription: 'Cool Content Description'}
+let branchUniversalObject = branch.createBranchUniversalObject('canonicalIdentifier', {metadata: {prop1: 'test', prop2: 'abc'}, title: 'Cool Content!', contentDescription: 'Cool Content Description'}
 
 let shareOptions = { messageHeader: 'Check this out', messageBody: 'No really, check this out!' }
 let linkProperties = { feature: 'share', channel: 'RNApp' }
@@ -110,7 +117,7 @@ Branch returns explicit parameters every time. Here is a list, and a description
 | +clicked_branch_link | Denotes whether or not the user clicked a Branch link that triggered this session
 | +click_timestamp | Epoch timestamp of when the click occurred
 
-Any additional data attached to the branch link will be available unprefixed.
+Any additional data attached to the Branch link will be available unprefixed.
 
 ## User Methods
 ###### <a id='setidentity'></a>[setIdentity(userId)](#setidentity)
@@ -120,7 +127,7 @@ Set an identifier for the current user.
 Logout the current user.  
 
 ###### <a id='usercompletedaction'></a>[userCompletedAction(label, payload)](#usercompletedaction)
-Register a user action with branch.  
+Register a user action with Branch.  
 
 ## Branch Universal Object
 ###### <a id='createbranchuniversalobject'></a>[createBranchUniversalObject(canonicalIdentifier, universalObjectOptions): object](#createbranchuniversalobject)
