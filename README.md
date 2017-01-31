@@ -30,8 +30,6 @@ If you are new to react-native or CocoaPods, read below for more details:
 ### Carthage
 [carthage]: https://github.com/Carthage/Carthage
 
-**Note:** Carthage is not fully supported in version 0.9.0. It requires 0.9.1 (to be released soon) or 1.0.0.
-
 If you would prefer to use [Carthage](carthage), you can skip steps 3 & 4 above and instead add the following to your `Cartfile`:
 
 `github "BranchMetrics/ios-branch-deep-linking"`
