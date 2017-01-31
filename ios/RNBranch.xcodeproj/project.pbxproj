@@ -7,7 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 148030ED1CCDF9FA004ABEA4 /* RNBranch.h */; };
+		7B1D33561E410DD200755B98 /* BranchLinkProperties+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1D334E1E410DD200755B98 /* BranchLinkProperties+RNBranch.h */; };
+		7B1D33571E410DD200755B98 /* BranchLinkProperties+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D334F1E410DD200755B98 /* BranchLinkProperties+RNBranch.m */; };
+		7B1D33581E410DD200755B98 /* BranchUniversalObject+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1D33501E410DD200755B98 /* BranchUniversalObject+RNBranch.h */; };
+		7B1D33591E410DD200755B98 /* BranchUniversalObject+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D33511E410DD200755B98 /* BranchUniversalObject+RNBranch.m */; };
+		7B1D335A1E410DD200755B98 /* NSObject+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1D33521E410DD200755B98 /* NSObject+RNBranch.h */; };
+		7B1D335B1E410DD200755B98 /* NSObject+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D33531E410DD200755B98 /* NSObject+RNBranch.m */; };
+		7B1D335C1E410DD200755B98 /* RNBranchProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1D33541E410DD200755B98 /* RNBranchProperty.h */; };
+		7B1D335D1E410DD300755B98 /* RNBranchProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D33551E410DD200755B98 /* RNBranchProperty.m */; };
+		7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 148030ED1CCDF9FA004ABEA4 /* RNBranch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B3FCB331E206323008E38E2 /* RNBranch.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 148030ED1CCDF9FA004ABEA4 /* RNBranch.h */; };
 		7BA33EBC1E25AD6D00C61D15 /* Branch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BA33EBB1E25AD6D00C61D15 /* Branch.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BE575131E205B8600C936E2 /* RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 148030EE1CCDF9FA004ABEA4 /* RNBranch.m */; };
@@ -31,6 +39,14 @@
 		147052301CCDDA6000333C29 /* libBranch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBranch.a; path = "Pods/../build/Debug-iphoneos/libBranch.a"; sourceTree = "<group>"; };
 		148030ED1CCDF9FA004ABEA4 /* RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranch.h; sourceTree = "<group>"; };
 		148030EE1CCDF9FA004ABEA4 /* RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranch.m; sourceTree = "<group>"; };
+		7B1D334E1E410DD200755B98 /* BranchLinkProperties+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchLinkProperties+RNBranch.h"; sourceTree = "<group>"; };
+		7B1D334F1E410DD200755B98 /* BranchLinkProperties+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BranchLinkProperties+RNBranch.m"; sourceTree = "<group>"; };
+		7B1D33501E410DD200755B98 /* BranchUniversalObject+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchUniversalObject+RNBranch.h"; sourceTree = "<group>"; };
+		7B1D33511E410DD200755B98 /* BranchUniversalObject+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BranchUniversalObject+RNBranch.m"; sourceTree = "<group>"; };
+		7B1D33521E410DD200755B98 /* NSObject+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+RNBranch.h"; sourceTree = "<group>"; };
+		7B1D33531E410DD200755B98 /* NSObject+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RNBranch.m"; sourceTree = "<group>"; };
+		7B1D33541E410DD200755B98 /* RNBranchProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchProperty.h; sourceTree = "<group>"; };
+		7B1D33551E410DD200755B98 /* RNBranchProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchProperty.m; sourceTree = "<group>"; };
 		7B3FCB961E20675B008E38E2 /* libBranch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBranch.a; path = "/Users/jdee/branch/react-native-sandbox/testbed/ios/Pods/../build/Debug-iphoneos/Branch/libBranch.a"; sourceTree = "<absolute>"; };
 		7BA33EBB1E25AD6D00C61D15 /* Branch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Branch.framework; path = "$(PODS_CONFIGURATION_BUILD_DIR)/Branch/Branch.framework"; sourceTree = "<group>"; };
 		B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libreact-native-branch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,8 +77,16 @@
 		B3A3CC2D1C5B0A070016AC52 = {
 			isa = PBXGroup;
 			children = (
+				7B1D334E1E410DD200755B98 /* BranchLinkProperties+RNBranch.h */,
+				7B1D334F1E410DD200755B98 /* BranchLinkProperties+RNBranch.m */,
+				7B1D33501E410DD200755B98 /* BranchUniversalObject+RNBranch.h */,
+				7B1D33511E410DD200755B98 /* BranchUniversalObject+RNBranch.m */,
+				7B1D33521E410DD200755B98 /* NSObject+RNBranch.h */,
+				7B1D33531E410DD200755B98 /* NSObject+RNBranch.m */,
 				148030ED1CCDF9FA004ABEA4 /* RNBranch.h */,
 				148030EE1CCDF9FA004ABEA4 /* RNBranch.m */,
+				7B1D33541E410DD200755B98 /* RNBranchProperty.h */,
+				7B1D33551E410DD200755B98 /* RNBranchProperty.m */,
 				B3A3CC371C5B0A070016AC52 /* Products */,
 				52D26142CFE0360516F8E1D2 /* Frameworks */,
 			);
@@ -83,7 +107,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B1D33581E410DD200755B98 /* BranchUniversalObject+RNBranch.h in Headers */,
+				7B1D335C1E410DD200755B98 /* RNBranchProperty.h in Headers */,
 				7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */,
+				7B1D335A1E410DD200755B98 /* NSObject+RNBranch.h in Headers */,
+				7B1D33561E410DD200755B98 /* BranchLinkProperties+RNBranch.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +172,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B1D33571E410DD200755B98 /* BranchLinkProperties+RNBranch.m in Sources */,
+				7B1D335D1E410DD300755B98 /* RNBranchProperty.m in Sources */,
+				7B1D33591E410DD200755B98 /* BranchUniversalObject+RNBranch.m in Sources */,
 				7BE575131E205B8600C936E2 /* RNBranch.m in Sources */,
+				7B1D335B1E410DD200755B98 /* NSObject+RNBranch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
