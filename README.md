@@ -158,28 +158,35 @@ List the univeral object in spotlight (ios only).
 ###### <a id='universalobjectoptions'></a>[universalObjectOptions object](#universalobjectoptions)
 An object of options for the branchUniversalObject.  
 
-|         Key         | TYPE   |             DESCRIPTION             |
-| ------------------- | ------ | ----------------------------------- |
-| canonicalIdentifier | String | The object identifier               |
-| title               | String | The object title                    |
-| contentDescription  | String | Object Description                  |
-| contentImageUrl     | String | The Image URL                       |
-| contentIndexingMode | String | Indexing Mode 'private' or 'public' |
-| metadata            | Object | Custom key/value                    |
+|         Key                  | TYPE   |             DESCRIPTION                                |
+| ---------------------------- | ------ | ------------------------------------------------------ |
+| automaticallyListOnSpotlight | Bool   | List this item on Spotlight (iOS). Ignored on Android. |
+| canonicalIdentifier          | String | The object identifier                                  |
+| contentDescription           | String | Object Description                                     |
+| contentImageUrl              | String | The Image URL                                          |
+| contentIndexingMode          | String | Indexing Mode 'private' or 'public'                    |
+| currency                     | String | A 3-letter ISO currency code (used with price)         |
+| expirationDate               | String | A UTC expiration date, e.g. 2018-02-01T00:00:00        |
+| keywords                     | Array  | An array of keyword strings                            |
+| metadata                     | Object | Custom key/value                                       |
+| price                        | Float  | A floating-point price (used with currency)            |
+| title                        | String | The object title                                       |
+| type                         | String | MIME type for this content                             |
 
 ###### <a id='linkproperties'></a>[linkProperties object](#linkproperties)
 An object of link properties.  
 
 |    KEY   |   TYPE   |          MEANING
 | -------- | -------- |------------------------
-| feature  | `string` | This is the feature of your app that the link might be associated with. eg: if you had built a referral program, you would label links with the feature `referral`
 | alias    | `string` | Specify a link alias in place of the standard encoded short URL (e.g., `[branchsubdomain]/youralias or yourdomain.co/youralias)`. Link aliases are unique, immutable objects that cannot be deleted. **Aliases on the legacy `bnc.lt` domain are incompatible with Universal Links and Spotlight**
+| campaign | `string` | Use this field to organize the links by actual campaign. For example, if you launched a new feature or product and want to run a campaign around that
 | channel  | `string` | Use channel to tag the route that your link reaches users. For example, tag links with ‘Facebook’ or ‘LinkedIn’ to help track clicks and installs through those paths separately
-| stage    | `string` |   Use this to categorize the progress or category of a user when the link was generated. For example, if you had an invite system accessible on level 1, level 3 and 5, you could differentiate links generated at each level with this parameter
-| duration |  `int`   | duration of the link.
+| feature  | `string` | This is the feature of your app that the link might be associated with. eg: if you had built a referral program, you would label links with the feature `referral`
+| stage    | `string` | Use this to categorize the progress or category of a user when the link was generated. For example, if you had an invite system accessible on level 1, level 3 and 5, you could differentiate links generated at each level with this parameter
+| tags     | `array`  | This is a free form entry with unlimited values. Use it to organize your link data with labels that don’t fit within the bounds of the above
 
 ###### <a id='controlparams'></a>[controlParams object](#controlparams)
-Control parameters for the link.  
+Control parameters for the link. All Branch control parameters are supported. See [here](https://dev.branch.io/getting-started/configuring-links/guide/#link-control-parameters) for a complete list. In particular, these control parameters determine where the link redirects.
 
 |        KEY         |   TYPE   |       MEANING
 | ------------------ | -------- | --------------------
