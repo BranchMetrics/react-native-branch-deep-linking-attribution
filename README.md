@@ -7,7 +7,7 @@ where applicable.
 
 **v0.8.0** If you have overridden `onStop` in MainActivity.java be sure *not* to invoke `RNBranchModule.onStop()`.
 
-[![build status](https://img.shields.io/travis/BranchMetrics/React-Native-Deferred-Deep-Linking-SDK/master.svg?style=flat-square)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
+[![build status](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking.svg?style=flat-square)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
 [![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
 
@@ -19,7 +19,7 @@ where applicable.
 4. `cd ios; pod install --repo-update`
 5. Follow the [setup instructions](./docs/setup.md)
 
-Note that CocoaPods 1.0 no longer automatically updates pod repositories automatically on `pod install`. To make sure
+Note that CocoaPods 1.x no longer automatically updates pod repositories automatically on `pod install`. To make sure
 you get the latest version of the Branch SDK, use `--repo-update` or run `pod repo update` before `pod install`.
 
 If you are new to react-native or CocoaPods, read below for more details:
