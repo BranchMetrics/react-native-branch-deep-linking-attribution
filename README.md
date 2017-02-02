@@ -111,12 +111,18 @@ Branch returns explicit parameters every time. Here is a list, and a description
 | ~campaign | The campaign the link is associated with, specified at link creation time
 | ~stage | The stage, specified at link creation time
 | ~creation_source | Where the link was created ('API', 'Dashboard', 'SDK', 'iOS SDK', 'Android SDK', or 'Web SDK')
+| ~referring_link | The referring link that drove the install/open, if present
+| ~id | Automatically generated 18 digit ID number for the link that drove the install/open, if present
 | +match_guaranteed | True or false as to whether the match was made with 100% accuracy
 | +referrer | The referrer for the link click, if a link was clicked
 | +phone_number | The phone number of the user, if the user texted himself/herself the app
 | +is_first_session | Denotes whether this is the first session (install) or any other session (open)
 | +clicked_branch_link | Denotes whether or not the user clicked a Branch link that triggered this session
 | +click_timestamp | Epoch timestamp of when the click occurred
+| +url | The full URL of the link that drove the install/open, if present (e.g. bnc.lt/m/abcde12345)
+
+See also [Deep Link Routing](https://dev.branch.io/getting-started/deep-link-routing/guide/react/#branch-provided-data-parameters-in-callback)
+on the Branch documentation site for more information.
 
 Any additional data attached to the Branch link will be available unprefixed.
 
