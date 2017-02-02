@@ -15,7 +15,7 @@
 		7B1D335B1E410DD200755B98 /* NSObject+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D33531E410DD200755B98 /* NSObject+RNBranch.m */; };
 		7B1D335C1E410DD200755B98 /* RNBranchProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1D33541E410DD200755B98 /* RNBranchProperty.h */; };
 		7B1D335D1E410DD300755B98 /* RNBranchProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D33551E410DD200755B98 /* RNBranchProperty.m */; };
-		7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 148030ED1CCDF9FA004ABEA4 /* RNBranch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 148030ED1CCDF9FA004ABEA4 /* RNBranch.h */; };
 		7B3FCB331E206323008E38E2 /* RNBranch.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 148030ED1CCDF9FA004ABEA4 /* RNBranch.h */; };
 		7BA33EBC1E25AD6D00C61D15 /* Branch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BA33EBB1E25AD6D00C61D15 /* Branch.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BE575131E205B8600C936E2 /* RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 148030EE1CCDF9FA004ABEA4 /* RNBranch.m */; };
@@ -107,9 +107,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */,
 				7B1D33581E410DD200755B98 /* BranchUniversalObject+RNBranch.h in Headers */,
 				7B1D335C1E410DD200755B98 /* RNBranchProperty.h in Headers */,
-				7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */,
 				7B1D335A1E410DD200755B98 /* NSObject+RNBranch.h in Headers */,
 				7B1D33561E410DD200755B98 /* BranchLinkProperties+RNBranch.h in Headers */,
 			);
