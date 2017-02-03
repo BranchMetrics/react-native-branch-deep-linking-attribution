@@ -1,0 +1,25 @@
+2017-01-13  Version 1.0.0
+
+  * Support for react-native 0.40.0
+  * Configuration changes to support various toolchains
+  * Full support for Carthage
+
+2017-01-31  Version 0.9.1
+
+  * Fixed unsubscribe bug (#73)
+  * Full support for Carthage
+  * Support all parameters of Branch Universal Object and link properties
+
+2017-01-31  Version 1.0.1
+
+  * Fixed unsubscribe bug (#73)
+  * Support all parameters of Branch Universal Object and link properties
+
+2017-02-06  Version 0.9.2
+
+  * Corrected peerDependencies
+
+2017-02-06  Version 1.0.2
+
+  * Corrected peerDependencies
+  * Fixed [an issue](https://github.com/BranchMetrics/react-native-branch-deep-linking/pull/93) that prevented App Store submission
