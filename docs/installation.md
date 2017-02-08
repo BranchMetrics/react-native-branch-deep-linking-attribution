@@ -4,7 +4,7 @@
 3. Add `pod 'Branch'` as a dependency in your ios/Podfile
 4. `cd ios; pod install --repo-update`
 
-Note that CocoaPods 1.0 no longer automatically updates pod repositories automatically on `pod install`. To make sure
+Note that CocoaPods 1.x no longer automatically updates pod repositories automatically on `pod install`. To make sure
 you get the latest version of the Branch SDK, use `--repo-update` or run `pod repo update` before `pod install`.
 
 ## CocoaPods
@@ -30,8 +30,6 @@ target "MyProjectTests"
 ```
 Now run `pod install` to get the Branch SDK.
 
-**Note:** Version 0.9.0 will not build if `use_frameworks!` is specified. Use 1.0.0 or 0.9.1 (to be released soon).
-
 After pod install you will from now on need to open your project using **[MyProject].xcworkspace** instead of the original .xcodeproj.
 
 #### Pod Only Installation
@@ -42,6 +40,19 @@ target 'MyProject' do
   pod 'react-native-branch', path: '../node_modules/react-native-branch'
 end
 ```
+
+### Carthage
+[carthage]: https://github.com/Carthage/Carthage
+
+If you would prefer to use [Carthage](carthage), you can skip steps 3 & 4 above and instead add the following to your `Cartfile`:
+
+`github "BranchMetrics/ios-branch-deep-linking"`
+
+Then run:
+
+`carthage update`
+
+If you're unfamiliar with how to add a framework to your project with [Carthage](carthage), you can [learn more here](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application). You will need to maually link the framework by adding it to the "Linked Frameworks and Libraries" section of your target settings, and copy it by adding it to the "Input Files" section of your `carthage copy-frameworks` build phase.
 
 ## Manual Linking
 #### iOS:
