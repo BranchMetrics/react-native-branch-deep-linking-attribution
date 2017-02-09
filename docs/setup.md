@@ -78,7 +78,7 @@ After [installing](./installation.md) Branch, you will need to set up your andro
             return "base";
         }
 
-        // Override onStart, onStop, onNewIntent:
+        // Override onStart, onNewIntent:
         @Override
         protected void onStart() {
             super.onStart();
