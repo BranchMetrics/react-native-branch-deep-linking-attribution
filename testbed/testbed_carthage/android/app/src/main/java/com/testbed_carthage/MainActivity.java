@@ -15,7 +15,7 @@ public class MainActivity extends ReactActivity {
         return "testbed_carthage";
     }
 
-    // Override onStart, onStop, onNewIntent:
+    // Override onStart, onNewIntent:
     @Override
     protected void onStart() {
         super.onStart();
