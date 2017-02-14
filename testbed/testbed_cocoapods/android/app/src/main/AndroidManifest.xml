@@ -28,7 +28,7 @@
       </intent-filter>
 
       <intent-filter>
-      	<data android:scheme="branchtest" android:host="open" />
+      	<data android:scheme="jdtest" android:host="open" />
       	<action android:name="android.intent.action.VIEW" />
       	<category android:name="android.intent.category.DEFAULT" />
       	<category android:name="android.intent.category.BROWSABLE" />
@@ -43,6 +43,6 @@
     	</intent-filter>
     </receiver>
 
-    <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_feebgAAhbH9Tv85H5wLQhpdaefiZv5Dv" />
+    <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_jixgYiNQ5mIoxwuSag5U7niavqp6LiFW" />
   </application>
 </manifest>
