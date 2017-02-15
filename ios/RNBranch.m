@@ -49,12 +49,13 @@ RCT_EXPORT_MODULE();
 }
 
 + (BOOL)handleDeepLink:(NSURL *)url {
-    sourceUrl = url ? url.absoluteString : [NSNull null];
+    sourceUrl = url.absoluteString ?: [NSNull null];
     BOOL handled = [branchInstance handleDeepLink:url];
     return handled;
 }
 
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity {
+    sourceUrl = userActivity.webpageURL.absoluteString ?: [NSNull null];
     return [branchInstance continueUserActivity:userActivity];
 }
 
