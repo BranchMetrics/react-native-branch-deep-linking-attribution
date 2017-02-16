@@ -23,3 +23,11 @@
 
   * Corrected peerDependencies
   * Fixed [an issue](https://github.com/BranchMetrics/react-native-branch-deep-linking/pull/93) that prevented App Store submission
+
+2017-02-15  Version 0.9.3
+
+  * Reduced iOS deploy target from 9.2 to 8.0.
+
+2017-02-15  Version 1.0.4
+
+  * Reduced iOS deploy target from 9.2 to 8.0.
