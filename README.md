@@ -10,6 +10,7 @@ where applicable.
 [![build status](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking.svg?style=flat-square)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
 [![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
 
 ## Installation
 
