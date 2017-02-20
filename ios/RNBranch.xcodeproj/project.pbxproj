@@ -209,6 +209,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(CARTHAGE_ROOT)/Build/iOS",
 					"$(PODS_CONFIGURATION_BUILD_DIR)/Branch",
+					"$(SRCROOT)/../../../ios/**",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -262,6 +263,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(CARTHAGE_ROOT)/Build/iOS",
 					"$(PODS_CONFIGURATION_BUILD_DIR)/Branch",
+					"$(SRCROOT)/../../../ios/**",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
