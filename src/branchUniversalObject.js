@@ -11,6 +11,8 @@ export default function createBranchUniversalObject(identifier, options = {}) {
     ...options
   }
 
+  RNBranch.createUniversalObject(branchUniversalObject)
+
   return {
     showShareSheet(shareOptions = {}, linkProperties = {}, controlParams = {}) {
       shareOptions = {
@@ -25,17 +27,20 @@ export default function createBranchUniversalObject(identifier, options = {}) {
         ...linkProperties,
       }
 
-      return RNBranch.showShareSheet(branchUniversalObject, shareOptions, linkProperties, controlParams)
+      return RNBranch.showShareSheet(identifier, shareOptions, linkProperties, controlParams)
     },
     registerView() {
-      return RNBranch.registerView(branchUniversalObject)
+      return RNBranch.registerView(identifier)
     },
     generateShortUrl(linkProperties = {}, controlParams = {}) {
-      return RNBranch.generateShortUrl(branchUniversalObject, linkProperties, controlParams)
+      return RNBranch.generateShortUrl(identifier, linkProperties, controlParams)
     },
     listOnSpotlight() {
       if (Platform.OS !== 'ios') return Promise.resolve()
-      return RNBranch.listOnSpotlight(branchUniversalObject)
+      return RNBranch.listOnSpotlight(identifier)
+    },
+    release() {
+      RNBranch.releaseUniversalObject(identifier)
     }
   }
 }

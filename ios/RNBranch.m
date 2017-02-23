@@ -9,6 +9,7 @@
 
 @interface RNBranch()
 @property (nonatomic, readonly) UIViewController *currentViewController;
+@property (nonatomic) NSMutableDictionary<NSString *, BranchUniversalObject *> *universalObjectMap;
 @end
 
 #pragma mark - RNBranch implementation
@@ -16,7 +17,7 @@
 @implementation RNBranch
 
 NSString * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWithLaunchOptionsFinished";
-static NSDictionary* initSessionWithLaunchOptionsResult;
+static NSDictionary *initSessionWithLaunchOptionsResult;
 static NSString* sourceUrl;
 static Branch *branchInstance;
 
@@ -63,6 +64,8 @@ RCT_EXPORT_MODULE();
 
 - (instancetype)init {
     self = [super init];
+
+    _universalObjectMap = [NSMutableDictionary dictionary];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:initSessionWithLaunchOptionsFinishedEventName object:nil];
     
@@ -98,19 +101,23 @@ RCT_EXPORT_MODULE();
     }
 }
 
-- (BranchUniversalObject*) createBranchUniversalObject:(NSDictionary *)branchUniversalObjectMap
-{
-    BranchUniversalObject *branchUniversalObject = [[BranchUniversalObject alloc] initWithMap:branchUniversalObjectMap];
-    
-    return branchUniversalObject;
-}
-
 - (BranchLinkProperties*) createLinkProperties:(NSDictionary *)linkPropertiesMap withControlParams:(NSDictionary *)controlParamsMap
 {
     BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] initWithMap:linkPropertiesMap];
     
     linkProperties.controlParams = controlParamsMap;
     return linkProperties;
+}
+
+- (BranchUniversalObject *)findUniversalObjectWithCanonicalIdentifier:(NSString *)canonicalIdentifier
+{
+    BranchUniversalObject *universalObject = self.universalObjectMap[canonicalIdentifier];
+
+    if (!universalObject) {
+        RCTLogError(@"BranchUniversalObject for canonicalIdentifier %@ not found", canonicalIdentifier);
+    }
+
+    return universalObject;
 }
 
 #pragma mark - Methods exported to React Native
@@ -163,16 +170,15 @@ RCT_EXPORT_METHOD(
 }
 
 RCT_EXPORT_METHOD(
-                  showShareSheet:(NSDictionary *)branchUniversalObjectMap
+                  showShareSheet:(NSString *)canonicalIdentifier
                   withShareOptions:(NSDictionary *)shareOptionsMap
                   withLinkProperties:(NSDictionary *)linkPropertiesMap
                   withControlParams:(NSDictionary *)controlParamsMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ){
-    dispatch_async(dispatch_get_main_queue(), ^(void){
-        BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
-        
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithCanonicalIdentifier:canonicalIdentifier];
+    dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableDictionary *mutableControlParams = controlParamsMap.mutableCopy;
         if (shareOptionsMap && shareOptionsMap[@"emailSubject"]) {
             mutableControlParams[@"$email_subject"] = shareOptionsMap[@"emailSubject"];
@@ -202,11 +208,11 @@ RCT_EXPORT_METHOD(
 }
 
 RCT_EXPORT_METHOD(
-                  registerView:(NSDictionary *)branchUniversalObjectMap
+                  registerView:(NSString *)canonicalIdentifier
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithCanonicalIdentifier:canonicalIdentifier];
     [branchUniversalObject registerViewWithCallback:^(NSDictionary *params, NSError *error) {
         if (!error) {
             resolve([NSNull null]);
@@ -217,13 +223,13 @@ RCT_EXPORT_METHOD(
 }
 
 RCT_EXPORT_METHOD(
-                  generateShortUrl:(NSDictionary *)branchUniversalObjectMap
+                  generateShortUrl:(NSString *)canonicalIdentifier
                   withLinkProperties:(NSDictionary *)linkPropertiesMap
                   withControlParams:(NSDictionary *)controlParamsMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithCanonicalIdentifier:canonicalIdentifier];
     BranchLinkProperties *linkProperties = [self createLinkProperties:linkPropertiesMap withControlParams:controlParamsMap];
     
     [branchUniversalObject getShortUrlWithLinkProperties:linkProperties andCallback:^(NSString *url, NSError *error) {
@@ -237,11 +243,11 @@ RCT_EXPORT_METHOD(
 }
 
 RCT_EXPORT_METHOD(
-                  listOnSpotlight:(NSDictionary *)branchUniversalObjectMap
+                  listOnSpotlight:(NSString *)canonicalIdentifier
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    BranchUniversalObject *branchUniversalObject = [self createBranchUniversalObject:branchUniversalObjectMap];
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithCanonicalIdentifier:canonicalIdentifier];
     [branchUniversalObject listOnSpotlightWithCallback:^(NSString *string, NSError *error) {
         if (!error) {
             NSDictionary *data = @{@"result":string};
@@ -331,6 +337,41 @@ RCT_EXPORT_METHOD(
             reject(@"RNBranch::Error::getCreditHistory", error.localizedDescription, error);
         }
     }];
+}
+
+/*
+ * TODO: Should this be reference-counted? It's not hard to imagine an app creating multiple instances of BUO
+ * in different code units and holding on to them. For example, a view that shows general information about some
+ * content could display a modal view with details about the same content. When routing the link, it would
+ * probably show the general view. Maybe there would be the same share option from both views, however, and a
+ * dev might call registerView() in each one. Properly calling release() in each place would make a reference
+ * count necessary in order for things to work after dismissing the modal.
+ */
+
+RCT_EXPORT_METHOD(
+                  createUniversalObject:(NSDictionary *)universalObjectProperties
+) {
+    NSString *canonicalIdentifier = universalObjectProperties[@"canonicalIdentifier"];
+
+    // missing canonicalIdentifier is handled in the JS method that calls this.
+    assert(canonicalIdentifier);
+
+    // TODO: Should this guard use promise rejection?
+    if (self.universalObjectMap[canonicalIdentifier]) {
+        // This can easily happen if BUO.release() is not called in JS before createBranchUniversalObject() is called again.
+        // TODO: Might want to verify that that params haven't changed.
+        RCTLogWarn(@"BranchUniversalObject with canonicalIdentifier %@ already exists.", canonicalIdentifier);
+        return;
+    }
+
+    BranchUniversalObject *universalObject = [[BranchUniversalObject alloc] initWithMap:universalObjectProperties];
+    self.universalObjectMap[canonicalIdentifier] = universalObject;
+}
+
+RCT_EXPORT_METHOD(
+                  releaseUniversalObject:(NSString *)canonicalIdentifier
+                  ) {
+    [self.universalObjectMap removeObjectForKey:canonicalIdentifier];
 }
 
 @end
