@@ -31,3 +31,11 @@
 2017-02-15  Version 1.0.4
 
   * Reduced iOS deploy target from 9.2 to 8.0.
+
+2017-02-24  Version 0.9.5
+
+  * Improved support for manual installation of Branch SDK
+
+2017-02-24  Version 1.0.5
+
+  * Improved support for manual installation of Branch SDK
