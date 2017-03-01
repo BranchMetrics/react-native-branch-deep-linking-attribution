@@ -15,10 +15,10 @@ Pod::Spec.new do |s|
                      'rt2zz' => 'zack@root-two.com',
                      'Jimmy Dee' => 'jgvdthree@gmail.com'
                    }
-  s.license      = spec['description']
-  s.homepage     = spec['description']
+  s.license      = spec['license']
+  s.homepage     = spec['homepage']
   s.platform     = :ios, "7.0"
-  s.source       = { spec['repository']['type'] => spec['repository']['type'] }
+  s.source       = { spec['repository']['type'].to_sym => spec['repository']['url'].sub(/^[a-z]+\+/, '') }
   s.source_files = 'ios/*'
-  s.dependency 'Branch', '>= 0.12.24'
+  s.dependency 'Branch', '>= 0.12.30'
 end
