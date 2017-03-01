@@ -139,10 +139,9 @@ NSString *requestEndpoint;
             }
             
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (callback)
-                callback(serverResponse, error);
-        });
+		//	Don't call on the main queue since it might be blocked.
+        if (callback)
+            callback(serverResponse, error);
     };
     
     NSURLConnectionCompletionHandler connectionHandler = ^void(NSURLResponse *response, NSData *responseData, NSError *error) {
@@ -294,11 +293,15 @@ NSString *requestEndpoint;
 }
 - (void)updateDeviceInfoToMutableDictionary:(NSMutableDictionary *)dict {
     BNCDeviceInfo *deviceInfo  = [BNCDeviceInfo getInstance];
-   
-    if (deviceInfo.hardwareId && deviceInfo.hardwareIdType) {
-        dict[BRANCH_REQUEST_KEY_HARDWARE_ID] = deviceInfo.hardwareId;
-        dict[BRANCH_REQUEST_KEY_HARDWARE_ID_TYPE] = deviceInfo.hardwareIdType;
-        dict[BRANCH_REQUEST_KEY_IS_HARDWARE_ID_REAL] = @(deviceInfo.isRealHardwareId);
+
+    NSString *hardwareId = [deviceInfo.hardwareId copy];
+    NSString *hardwareIdType = [deviceInfo.hardwareIdType copy];
+    NSNumber *isRealHardwareId = @(deviceInfo.isRealHardwareId);
+
+    if (hardwareId && hardwareIdType && isRealHardwareId) {
+        dict[BRANCH_REQUEST_KEY_HARDWARE_ID] = hardwareId;
+        dict[BRANCH_REQUEST_KEY_HARDWARE_ID_TYPE] = hardwareIdType;
+        dict[BRANCH_REQUEST_KEY_IS_HARDWARE_ID_REAL] = isRealHardwareId;
     }
     
     [self safeSetValue:deviceInfo.vendorId forKey:BRANCH_REQUEST_KEY_IOS_VENDOR_ID onDict:dict];
