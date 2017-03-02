@@ -113,12 +113,12 @@ RCT_EXPORT_MODULE();
     return linkProperties;
 }
 
-- (BranchUniversalObject *)findUniversalObjectWithCanonicalIdentifier:(NSString *)canonicalIdentifier
+- (BranchUniversalObject *)findUniversalObjectWithIdentifier:(NSString *)identifier
 {
-    BranchUniversalObject *universalObject = self.universalObjectMap[canonicalIdentifier];
+    BranchUniversalObject *universalObject = self.universalObjectMap[identifier];
 
     if (!universalObject) {
-        RCTLogError(@"BranchUniversalObject for canonicalIdentifier %@ not found", canonicalIdentifier);
+        RCTLogError(@"BranchUniversalObject for identifier %@ not found", identifier);
     }
 
     return universalObject;
@@ -174,14 +174,14 @@ RCT_EXPORT_METHOD(
 }
 
 RCT_EXPORT_METHOD(
-                  showShareSheet:(NSString *)canonicalIdentifier
+                  showShareSheet:(NSString *)identifier
                   withShareOptions:(NSDictionary *)shareOptionsMap
                   withLinkProperties:(NSDictionary *)linkPropertiesMap
                   withControlParams:(NSDictionary *)controlParamsMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ){
-    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithCanonicalIdentifier:canonicalIdentifier];
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier];
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableDictionary *mutableControlParams = controlParamsMap.mutableCopy;
         if (shareOptionsMap && shareOptionsMap[@"emailSubject"]) {
@@ -212,11 +212,11 @@ RCT_EXPORT_METHOD(
 }
 
 RCT_EXPORT_METHOD(
-                  registerView:(NSString *)canonicalIdentifier
+                  registerView:(NSString *)identifier
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithCanonicalIdentifier:canonicalIdentifier];
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier];
     [branchUniversalObject registerViewWithCallback:^(NSDictionary *params, NSError *error) {
         if (!error) {
             resolve([NSNull null]);
@@ -227,13 +227,13 @@ RCT_EXPORT_METHOD(
 }
 
 RCT_EXPORT_METHOD(
-                  generateShortUrl:(NSString *)canonicalIdentifier
+                  generateShortUrl:(NSString *)identifier
                   withLinkProperties:(NSDictionary *)linkPropertiesMap
                   withControlParams:(NSDictionary *)controlParamsMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithCanonicalIdentifier:canonicalIdentifier];
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier];
     BranchLinkProperties *linkProperties = [self createLinkProperties:linkPropertiesMap withControlParams:controlParamsMap];
     
     [branchUniversalObject getShortUrlWithLinkProperties:linkProperties andCallback:^(NSString *url, NSError *error) {
@@ -247,11 +247,11 @@ RCT_EXPORT_METHOD(
 }
 
 RCT_EXPORT_METHOD(
-                  listOnSpotlight:(NSString *)canonicalIdentifier
+                  listOnSpotlight:(NSString *)identifier
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithCanonicalIdentifier:canonicalIdentifier];
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier];
     [branchUniversalObject listOnSpotlightWithCallback:^(NSString *string, NSError *error) {
         if (!error) {
             NSDictionary *data = @{@"result":string};
@@ -354,28 +354,18 @@ RCT_EXPORT_METHOD(
 
 RCT_EXPORT_METHOD(
                   createUniversalObject:(NSDictionary *)universalObjectProperties
+                  resolver:(RCTPromiseResolveBlock)resolve
 ) {
-    NSString *canonicalIdentifier = universalObjectProperties[@"canonicalIdentifier"];
-
-    // missing canonicalIdentifier is handled in the JS method that calls this.
-    assert(canonicalIdentifier);
-
-    // TODO: Should this guard use promise rejection?
-    if (self.universalObjectMap[canonicalIdentifier]) {
-        // This can easily happen if BUO.release() is not called in JS before createBranchUniversalObject() is called again.
-        // TODO: Might want to verify that that params haven't changed.
-        RCTLogWarn(@"BranchUniversalObject with canonicalIdentifier %@ already exists.", canonicalIdentifier);
-        return;
-    }
-
     BranchUniversalObject *universalObject = [[BranchUniversalObject alloc] initWithMap:universalObjectProperties];
-    self.universalObjectMap[canonicalIdentifier] = universalObject;
+    NSString *identifier = [NSUUID UUID].UUIDString;
+    self.universalObjectMap[identifier] = universalObject;
+    resolve(@{@"ident": identifier});
 }
 
 RCT_EXPORT_METHOD(
-                  releaseUniversalObject:(NSString *)canonicalIdentifier
+                  releaseUniversalObject:(NSString *)identifier
                   ) {
-    [self.universalObjectMap removeObjectForKey:canonicalIdentifier];
+    [self.universalObjectMap removeObjectForKey:identifier];
 }
 
 @end
