@@ -10,6 +10,9 @@
 @interface RNBranch()
 @property (nonatomic, readonly) UIViewController *currentViewController;
 @property (nonatomic) NSMutableDictionary<NSString *, BranchUniversalObject *> *universalObjectMap;
+@property (nonatomic) NSDictionary *initSessionWithLaunchOptionsResult;
+@property (nonatomic) NSString *sourceUrl;
+@property (nonatomic) Branch *branchInstance;
 @end
 
 #pragma mark - RNBranch implementation
@@ -17,9 +20,6 @@
 @implementation RNBranch
 
 NSString * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWithLaunchOptionsFinished";
-static NSDictionary *initSessionWithLaunchOptionsResult;
-static NSString* sourceUrl;
-static Branch *branchInstance;
 
 @synthesize bridge = _bridge;
 
@@ -28,36 +28,36 @@ RCT_EXPORT_MODULE();
 #pragma mark - Class methods
 
 + (void)useTestInstance {
-    branchInstance = [Branch getTestInstance];
+    self.branchInstance = [Branch getTestInstance];
 }
 
 //Called by AppDelegate.m -- stores initSession result in static variables and raises initSessionFinished event that's captured by the RNBranch instance to emit it to React Native
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
-    if (!branchInstance) {
-        branchInstance = [Branch getInstance];
+    if (!self.branchInstance) {
+        self.branchInstance = [Branch getInstance];
     }
-    [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+    [self.branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSString *errorMessage = error.localizedDescription;
         
-        initSessionWithLaunchOptionsResult = @{
+        self.initSessionWithLaunchOptionsResult = @{
                                                @"params": params && params[@"~id"] ? params : [NSNull null],
                                                @"error": errorMessage ?: [NSNull null],
-                                               @"uri": sourceUrl ?: [NSNull null]
+                                               @"uri": self.sourceUrl ?: [NSNull null]
                                                };
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult];
+        [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:self.initSessionWithLaunchOptionsResult];
     }];
 }
 
 + (BOOL)handleDeepLink:(NSURL *)url {
-    sourceUrl = url.absoluteString ?: [NSNull null];
-    BOOL handled = [branchInstance handleDeepLink:url];
+    self.sourceUrl = url.absoluteString ?: [NSNull null];
+    BOOL handled = [self.branchInstance handleDeepLink:url];
     return handled;
 }
 
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity {
-    sourceUrl = userActivity.webpageURL.absoluteString ?: [NSNull null];
-    return [branchInstance continueUserActivity:userActivity];
+    self.sourceUrl = userActivity.webpageURL.absoluteString ?: [NSNull null];
+    return [self.branchInstance continueUserActivity:userActivity];
 }
 
 #pragma mark - Object lifecycle
@@ -65,9 +65,11 @@ RCT_EXPORT_MODULE();
 - (instancetype)init {
     self = [super init];
 
-    _universalObjectMap = [NSMutableDictionary dictionary];
+    if (self) {
+        _universalObjectMap = [NSMutableDictionary dictionary];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:initSessionWithLaunchOptionsFinishedEventName object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:initSessionWithLaunchOptionsFinishedEventName object:nil];
+    }
     
     return self;
 }
@@ -126,47 +128,47 @@ RCT_EXPORT_METHOD(
                   redeemInitSessionResult:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ){
-    resolve(initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]);
-    initSessionWithLaunchOptionsResult = [NSNull null];
-    sourceUrl = [NSNull null];
+    resolve(self.initSessionWithLaunchOptionsResult ? self.initSessionWithLaunchOptionsResult : [NSNull null]);
+    self.initSessionWithLaunchOptionsResult = [NSNull null];
+    self.sourceUrl = nil;
 }
 
 RCT_EXPORT_METHOD(
                   setDebug
                   ){
-    [branchInstance setDebug];
+    [self.branchInstance setDebug];
 }
 
 RCT_EXPORT_METHOD(
                   getLatestReferringParams:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ){
-    resolve([branchInstance getLatestReferringParams]);
+    resolve([self.branchInstance getLatestReferringParams]);
 }
 
 RCT_EXPORT_METHOD(
                   getFirstReferringParams:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ){
-    resolve([branchInstance getFirstReferringParams]);
+    resolve([self.branchInstance getFirstReferringParams]);
 }
 
 RCT_EXPORT_METHOD(
                   setIdentity:(NSString *)identity
                   ){
-    [branchInstance setIdentity:identity];
+    [self.branchInstance setIdentity:identity];
 }
 
 RCT_EXPORT_METHOD(
                   logout
                   ){
-    [branchInstance logout];
+    [self.branchInstance logout];
 }
 
 RCT_EXPORT_METHOD(
                   userCompletedAction:(NSString *)event withState:(NSDictionary *)appState
                   ){
-    [branchInstance userCompletedAction:event withState:appState];
+    [self.branchInstance userCompletedAction:event withState:appState];
 }
 
 RCT_EXPORT_METHOD(
@@ -269,7 +271,7 @@ RCT_EXPORT_METHOD(
     NSString *stage = linkPropertiesMap[@"stage"];
     NSArray *tags = linkPropertiesMap[@"tags"];
     
-    [branchInstance getShortURLWithParams:linkPropertiesMap
+    [self.branchInstance getShortURLWithParams:linkPropertiesMap
                                   andTags:tags
                                andChannel:channel
                                andFeature:feature
@@ -287,7 +289,7 @@ RCT_EXPORT_METHOD(
                   loadRewards:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    [branchInstance loadRewardsWithCallback:^(BOOL changed, NSError *error) {
+    [self.branchInstance loadRewardsWithCallback:^(BOOL changed, NSError *error) {
         if(!error) {
             int credits = (int)[branchInstance getCredits];
             resolve(@{@"credits": @(credits)});
@@ -305,7 +307,7 @@ RCT_EXPORT_METHOD(
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
     if (bucket) {
-        [branchInstance redeemRewards:amount forBucket:bucket callback:^(BOOL changed, NSError *error) {
+        [self.branchInstance redeemRewards:amount forBucket:bucket callback:^(BOOL changed, NSError *error) {
             if (!error) {
                 resolve(@{@"changed": @(changed)});
             } else {
@@ -314,7 +316,7 @@ RCT_EXPORT_METHOD(
             }
         }];
     } else {
-        [branchInstance redeemRewards:amount callback:^(BOOL changed, NSError *error) {
+        [self.branchInstance redeemRewards:amount callback:^(BOOL changed, NSError *error) {
             if (!error) {
                 resolve(@{@"changed": @(changed)});
             } else {
@@ -329,7 +331,7 @@ RCT_EXPORT_METHOD(
                   getCreditHistory:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    [branchInstance getCreditHistoryWithCallback:^(NSArray *list, NSError *error) {
+    [self.branchInstance getCreditHistoryWithCallback:^(NSArray *list, NSError *error) {
         if (!error) {
             resolve(list);
         } else {
