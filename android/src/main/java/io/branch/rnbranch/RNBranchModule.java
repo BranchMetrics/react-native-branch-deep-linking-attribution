@@ -39,6 +39,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   private static Activity mActivity = null;
   private static Branch mBranch = null;
 
+  private HashMap<String, BranchUniversalObject> mUniversalObjectMap = new HashMap<>();
+
   public static void initSession(final Uri uri, Activity reactActivity) {
     mBranch = Branch.getInstance(reactActivity.getApplicationContext());
     mActivity = reactActivity;
@@ -104,6 +106,22 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     return REACT_MODULE_NAME;
   }
 
+    @ReactMethod
+    public void createUniversalObject(ReadableMap universalObjectMap, Promise promise) {
+        String ident = UUID.randomUUID().toString();
+        BranchUniversalObject universalObject = createBranchUniversalObject(universalObjectMap);
+        mUniversalObjectMap.put(ident, universalObject);
+
+        WritableMap response = new WritableNativeMap();
+        response.putString("ident", ident);
+        promise.resolve(response);
+    }
+
+    @ReactMethod
+    public void releaseUniversalObject(String ident) {
+        mUniversalObjectMap.remove(ident);
+    }
+
   @ReactMethod
   public void redeemInitSessionResult(Promise promise) {
     promise.resolve(convertJsonToMap(initSessionResult));
@@ -147,7 +165,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void showShareSheet(ReadableMap branchUniversalObjectMap, ReadableMap shareOptionsMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, Promise promise) {
+  public void showShareSheet(String ident, ReadableMap shareOptionsMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, Promise promise) {
     Context context = getReactApplicationContext();
 
     Handler mainHandler = new Handler(context.getMainLooper());
@@ -155,13 +173,14 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     Runnable myRunnable = new Runnable() {
       Promise mPm;
       Context mContext;
-      ReadableMap shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap, controlParamsMap;
+      ReadableMap shareOptionsMap, linkPropertiesMap, controlParamsMap;
+        String ident;
 
-      private Runnable init(ReadableMap _shareOptionsMap, ReadableMap _branchUniversalObjectMap, ReadableMap _linkPropertiesMap, ReadableMap _controlParamsMap, Promise promise, Context context) {
+      private Runnable init(ReadableMap _shareOptionsMap, String _ident, ReadableMap _linkPropertiesMap, ReadableMap _controlParamsMap, Promise promise, Context context) {
         mPm = promise;
         mContext = context;
         shareOptionsMap = _shareOptionsMap;
-        branchUniversalObjectMap = _branchUniversalObjectMap;
+        ident = _ident;
         linkPropertiesMap = _linkPropertiesMap;
         controlParamsMap = _controlParamsMap;
         return this;
@@ -179,7 +198,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
           .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
           .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK);
 
-        BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
+        BranchUniversalObject branchUniversalObject = findUniversalObject(ident);
 
         LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
 
@@ -231,23 +250,23 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
           }
         }.init(mPm));
       }
-    }.init(shareOptionsMap, branchUniversalObjectMap, linkPropertiesMap, controlParamsMap, promise, context);
+    }.init(shareOptionsMap, ident, linkPropertiesMap, controlParamsMap, promise, context);
 
     mainHandler.post(myRunnable);
   }
 
   @ReactMethod
-  public void registerView(ReadableMap branchUniversalObjectMap, Promise promise) {
-    BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
+  public void registerView(String ident, Promise promise) {
+    BranchUniversalObject branchUniversalObject = findUniversalObject(ident);
     branchUniversalObject.registerView();
     promise.resolve(null);
   }
 
   @ReactMethod
-  public void generateShortUrl(ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, final Promise promise) {
+  public void generateShortUrl(String ident, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, final Promise promise) {
     LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
 
-    BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
+    BranchUniversalObject branchUniversalObject = findUniversalObject(ident);
 
     branchUniversalObject.generateShortUrl(mActivity, linkProperties, new BranchLinkCreateListener() {
       @Override
@@ -290,6 +309,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     return linkProperties;
   }
+
+    public BranchUniversalObject findUniversalObject(String ident) {
+        return mUniversalObjectMap.get(ident);
+    }
 
   public BranchUniversalObject createBranchUniversalObject(ReadableMap branchUniversalObjectMap) {
     BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
