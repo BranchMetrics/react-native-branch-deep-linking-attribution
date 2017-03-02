@@ -343,15 +343,6 @@ RCT_EXPORT_METHOD(
     }];
 }
 
-/*
- * TODO: Should this be reference-counted? It's not hard to imagine an app creating multiple instances of BUO
- * in different code units and holding on to them. For example, a view that shows general information about some
- * content could display a modal view with details about the same content. When routing the link, it would
- * probably show the general view. Maybe there would be the same share option from both views, however, and a
- * dev might call registerView() in each one. Properly calling release() in each place would make a reference
- * count necessary in order for things to work after dismissing the modal.
- */
-
 RCT_EXPORT_METHOD(
                   createUniversalObject:(NSDictionary *)universalObjectProperties
                   resolver:(RCTPromiseResolveBlock)resolve
