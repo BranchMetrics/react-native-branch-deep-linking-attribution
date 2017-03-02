@@ -11,7 +11,7 @@
 @property (nonatomic, readonly) UIViewController *currentViewController;
 @property (nonatomic) NSMutableDictionary<NSString *, BranchUniversalObject *> *universalObjectMap;
 @property (nonatomic) NSDictionary *initSessionWithLaunchOptionsResult;
-@property (nonatomic) NSString *sourceUrl;
+@property (nonatomic) NSURL *sourceUrl;
 @property (nonatomic) Branch *branchInstance;
 @end
 
@@ -33,6 +33,8 @@ RCT_EXPORT_MODULE();
 
 //Called by AppDelegate.m -- stores initSession result in static variables and raises initSessionFinished event that's captured by the RNBranch instance to emit it to React Native
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
+    self.sourceUrl = launchOptions[UIApplicationLaunchOptionsURLKey];
+
     if (!self.branchInstance) {
         self.branchInstance = [Branch getInstance];
     }
@@ -42,7 +44,7 @@ RCT_EXPORT_MODULE();
         self.initSessionWithLaunchOptionsResult = @{
                                                @"params": params && params[@"~id"] ? params : [NSNull null],
                                                @"error": errorMessage ?: [NSNull null],
-                                               @"uri": self.sourceUrl ?: [NSNull null]
+                                               @"uri": self.sourceUrl.absoluteString ?: [NSNull null]
                                                };
         
         [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:self.initSessionWithLaunchOptionsResult];
@@ -50,13 +52,13 @@ RCT_EXPORT_MODULE();
 }
 
 + (BOOL)handleDeepLink:(NSURL *)url {
-    self.sourceUrl = url.absoluteString ?: [NSNull null];
+    self.sourceUrl = url;
     BOOL handled = [self.branchInstance handleDeepLink:url];
     return handled;
 }
 
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity {
-    self.sourceUrl = userActivity.webpageURL.absoluteString ?: [NSNull null];
+    self.sourceUrl = userActivity.webpageURL;
     return [self.branchInstance continueUserActivity:userActivity];
 }
 
