@@ -32,6 +32,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public static final String REACT_MODULE_NAME = "RNBranch";
     private static final String NATIVE_INIT_SESSION_FINISHED_EVENT = "onInitSessionFinished";
     private static final String RN_INIT_SESSION_EVENT = "RNBranch.initSessionSuccess";
+    private static final String IDENT_FIELD_NAME = "+ident";
 
     private static JSONObject initSessionResult = null;
     private BroadcastReceiver mInitSessionEventReceiver = null;
@@ -113,7 +114,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         mUniversalObjectMap.put(ident, universalObject);
 
         WritableMap response = new WritableNativeMap();
-        response.putString("ident", ident);
+        response.putString(IDENT_FIELD_NAME, ident);
         promise.resolve(response);
     }
 
@@ -198,7 +199,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                         .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
                         .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK);
 
-                BranchUniversalObject branchUniversalObject = findUniversalObject(ident);
+                BranchUniversalObject branchUniversalObject = findUniversalObjectOrReject(ident, mPm);
+                if (branchUniversalObject == null) {
+                    return;
+                }
 
                 LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
 
@@ -257,7 +261,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void registerView(String ident, Promise promise) {
-        BranchUniversalObject branchUniversalObject = findUniversalObject(ident);
+        BranchUniversalObject branchUniversalObject = findUniversalObjectOrReject(ident, promise);
+        if (branchUniversalObject == null) {
+             return;
+        }
+
         branchUniversalObject.registerView();
         promise.resolve(null);
     }
@@ -266,7 +274,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void generateShortUrl(String ident, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, final Promise promise) {
         LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
 
-        BranchUniversalObject branchUniversalObject = findUniversalObject(ident);
+        BranchUniversalObject branchUniversalObject = findUniversalObjectOrReject(ident, promise);
+        if (branchUniversalObject == null) {
+            return;
+        }
 
         branchUniversalObject.generateShortUrl(mActivity, linkProperties, new BranchLinkCreateListener() {
             @Override
@@ -310,8 +321,19 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         return linkProperties;
     }
 
-    public BranchUniversalObject findUniversalObject(String ident) {
-        return mUniversalObjectMap.get(ident);
+    private BranchUniversalObject findUniversalObjectOrReject(final String ident, final Promise promise) {
+        BranchUniversalObject universalObject = mUniversalObjectMap.get(ident);
+
+        // This is extremely unlikely and basically a logic error.
+        if (universalObject == null) {
+            final String errorMessage = "BranchUniversalObject not found for ident " + ident;
+
+            promise.reject(errorMessage);
+
+            Log.e(REACT_CLASS, errorMessage);
+        }
+
+        return universalObject;
     }
 
     public BranchUniversalObject createBranchUniversalObject(ReadableMap branchUniversalObjectMap) {
