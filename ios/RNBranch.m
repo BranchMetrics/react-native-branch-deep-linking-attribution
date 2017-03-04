@@ -19,7 +19,8 @@
 
 @implementation RNBranch
 
-NSString * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWithLaunchOptionsFinished";
+NSString const * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWithLaunchOptionsFinished";
+NSString const * const IdentFieldName = @"ident";
 
 @synthesize bridge = _bridge;
 
@@ -113,12 +114,14 @@ RCT_EXPORT_MODULE();
     return linkProperties;
 }
 
-- (BranchUniversalObject *)findUniversalObjectWithIdentifier:(NSString *)identifier
+- (BranchUniversalObject *)findUniversalObjectWithIdentifier:(NSString *)identifier rejecter:(RCTPromiseRejectBlock)reject
 {
     BranchUniversalObject *universalObject = self.universalObjectMap[identifier];
 
     if (!universalObject) {
-        RCTLogError(@"BranchUniversalObject for identifier %@ not found", identifier);
+        NSString *errorMessage = [NSString stringWithFormat:@"BranchUniversalObject for identifier %@ not found", identifier];
+        RCTLogError(errorMessage);
+        reject(errorMessage);
     }
 
     return universalObject;
@@ -179,9 +182,11 @@ RCT_EXPORT_METHOD(
                   withLinkProperties:(NSDictionary *)linkPropertiesMap
                   withControlParams:(NSDictionary *)controlParamsMap
                   resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(__unused RCTPromiseRejectBlock)reject
+                  rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier];
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier rejecter:reject];
+    if (!branchUniversalObject) return;
+
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableDictionary *mutableControlParams = controlParamsMap.mutableCopy;
         if (shareOptionsMap && shareOptionsMap[@"emailSubject"]) {
@@ -216,7 +221,9 @@ RCT_EXPORT_METHOD(
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier];
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier rejecter:reject];
+    if (!branchUniversalObject) return;
+
     [branchUniversalObject registerViewWithCallback:^(NSDictionary *params, NSError *error) {
         if (!error) {
             resolve([NSNull null]);
@@ -233,7 +240,9 @@ RCT_EXPORT_METHOD(
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier];
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier rejecter:reject];
+    if (!branchUniversalObject) return;
+
     BranchLinkProperties *linkProperties = [self createLinkProperties:linkPropertiesMap withControlParams:controlParamsMap];
     
     [branchUniversalObject getShortUrlWithLinkProperties:linkProperties andCallback:^(NSString *url, NSError *error) {
@@ -251,7 +260,9 @@ RCT_EXPORT_METHOD(
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ){
-    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier];
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdentifier:identifier rejecter:reject];
+    if (!branchUniversalObject) return;
+
     [branchUniversalObject listOnSpotlightWithCallback:^(NSString *string, NSError *error) {
         if (!error) {
             NSDictionary *data = @{@"result":string};
@@ -350,7 +361,7 @@ RCT_EXPORT_METHOD(
     BranchUniversalObject *universalObject = [[BranchUniversalObject alloc] initWithMap:universalObjectProperties];
     NSString *identifier = [NSUUID UUID].UUIDString;
     self.universalObjectMap[identifier] = universalObject;
-    resolve(@{@"ident": identifier});
+    resolve(@{IdentFieldName: identifier});
 }
 
 RCT_EXPORT_METHOD(

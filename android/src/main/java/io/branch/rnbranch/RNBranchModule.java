@@ -32,7 +32,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public static final String REACT_MODULE_NAME = "RNBranch";
     private static final String NATIVE_INIT_SESSION_FINISHED_EVENT = "onInitSessionFinished";
     private static final String RN_INIT_SESSION_EVENT = "RNBranch.initSessionSuccess";
-    private static final String IDENT_FIELD_NAME = "+ident";
+    private static final String IDENT_FIELD_NAME = "ident";
 
     private static JSONObject initSessionResult = null;
     private BroadcastReceiver mInitSessionEventReceiver = null;
