@@ -11,7 +11,7 @@ export default async function createBranchUniversalObject(identifier, options = 
     ...options
   }
 
-  let { ident } = await RNBranch.createUniversalObject(branchUniversalObject)
+  const { ident } = await RNBranch.createUniversalObject(branchUniversalObject)
 
   return {
     showShareSheet(shareOptions = {}, linkProperties = {}, controlParams = {}) {
