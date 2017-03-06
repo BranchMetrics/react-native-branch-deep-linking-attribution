@@ -33,6 +33,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static final String NATIVE_INIT_SESSION_FINISHED_EVENT = "onInitSessionFinished";
     private static final String RN_INIT_SESSION_EVENT = "RNBranch.initSessionSuccess";
     private static final String IDENT_FIELD_NAME = "ident";
+    public static final String UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE = "RNBranchUniversalObjectNotFound";
 
     private static JSONObject initSessionResult = null;
     private BroadcastReceiver mInitSessionEventReceiver = null;
@@ -326,9 +327,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
         // This is extremely unlikely and basically a logic error.
         if (universalObject == null) {
-            final String errorMessage = "BranchUniversalObject not found for ident " + ident;
+            final String errorMessage = "BranchUniversalObject not found for ident " + ident + ". Do not reuse a BUO after calling release() in JS. Create a new instance instead.";
 
-            promise.reject(errorMessage);
+            promise.reject(UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE, errorMessage);
 
             Log.e(REACT_CLASS, errorMessage);
         }

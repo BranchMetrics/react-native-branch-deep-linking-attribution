@@ -125,15 +125,15 @@ RCT_EXPORT_MODULE();
 
     // This is extremely unlikely and amounts to a logic error.
     if (!universalObject) {
-        NSString *errorMessage = [NSString stringWithFormat:@"BranchUniversalObject for ident %@ not found", ident];
+        NSString *errorMessage = [NSString stringWithFormat:@"BranchUniversalObject for ident %@ not found. Do not reuse a BUO after calling release() in JS. Create a new instance instead.", ident];
 
         NSError *error = [NSError errorWithDomain:RNBranchErrorDomain
                                              code:RNBranchUniversalObjectNotFoundError
                                          userInfo:@{IdentFieldName : ident,
-                                                     NSLocalizedDescriptionKey: errorMessage
-                                                     }];
+                                                    NSLocalizedDescriptionKey: errorMessage
+                                                    }];
         
-        RCTLogError(@"%@", error.debugDescription);
+        RCTLogError(@"%@", error.localizedDescription);
 
         reject(@"RNBranch::Error", errorMessage, error);
     }
