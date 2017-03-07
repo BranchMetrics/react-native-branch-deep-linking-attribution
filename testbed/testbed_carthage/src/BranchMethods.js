@@ -20,6 +20,7 @@ class BranchMethods extends Component {
   createBranchUniversalObject = async () => {
     try {
       let result = await branch.createBranchUniversalObject('abc', defaultBUO)
+      if (this.buo) this.buo.release()
       this.buo = result
       console.log('createBranchUniversalObject', result)
       this.addResult('success', 'createBranchUniversalObject', result)
