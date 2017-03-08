@@ -4,6 +4,7 @@
 #import <React/RCTLog.h>
 #import "BranchLinkProperties+RNBranch.h"
 #import "BranchUniversalObject+RNBranch.h"
+#import "RNBranchAgingDictionary.h"
 
 static NSDictionary *initSessionWithLaunchOptionsResult;
 static NSURL *sourceUrl;
@@ -20,7 +21,7 @@ static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 
 @interface RNBranch()
 @property (nonatomic, readonly) UIViewController *currentViewController;
-@property (nonatomic) NSMutableDictionary<NSString *, BranchUniversalObject *> *universalObjectMap;
+@property (nonatomic) RNBranchAgingDictionary<NSString *, BranchUniversalObject *> *universalObjectMap;
 @end
 
 #pragma mark - RNBranch implementation
@@ -74,7 +75,7 @@ RCT_EXPORT_MODULE();
     self = [super init];
 
     if (self) {
-        _universalObjectMap = [NSMutableDictionary dictionary];
+        _universalObjectMap = [RNBranchAgingDictionary dictionaryWithTtl:3600.0];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:initSessionWithLaunchOptionsFinishedEventName object:nil];
     }
