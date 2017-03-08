@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class RNBranchAgingItem;
-
 @interface RNBranchAgingDictionary<KeyType, ObjectType> : NSObject
 
 @property (nonatomic, readonly) NSTimeInterval ttl;
