@@ -32,7 +32,7 @@
     return self;
 }
 
-#pragma mark - Overrides from superclass
+#pragma mark - Methods from NSMutableDictionary
 
 - (void)setObject:(id)anObject forKey:(id<NSCopying>)aKey
 {

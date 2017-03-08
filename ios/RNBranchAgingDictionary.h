@@ -12,9 +12,13 @@
 
 @property (nonatomic, readonly) NSTimeInterval ttl;
 
+#pragma mark - Object lifecycle
+
 - (instancetype)initWithTtl:(NSTimeInterval)ttl NS_DESIGNATED_INITIALIZER;
 
 + (instancetype)dictionaryWithTtl:(NSTimeInterval)ttl;
+
+#pragma mark - Methods from NSMutableDictionary
 
 - (void)setObject:(ObjectType)object forKey:(KeyType<NSCopying>)key;
 - (void)setObject:(ObjectType)object forKeyedSubscript:(KeyType<NSCopying>)key;
