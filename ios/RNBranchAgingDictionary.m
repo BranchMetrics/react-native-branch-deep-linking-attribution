@@ -6,8 +6,6 @@
 //  Copyright © 2017 Branch Metrics. All rights reserved.
 //
 
-#import <React/RCTLog.h>
-
 #import "RNBranchAgingDictionary.h"
 #import "RNBranchAgingItem.h"
 
@@ -80,8 +78,6 @@
 - (void)ageItems
 {
     NSTimeInterval now = [NSDate date].timeIntervalSince1970;
-    NSUInteger numItems = self.dictionary.count;
-    RCTLog(@"%lu items in dictionary", (unsigned long)numItems);
 
     for (NSString *key in self.dictionary.allKeys) {
         RNBranchAgingItem *item = [self.dictionary objectForKey:key];
