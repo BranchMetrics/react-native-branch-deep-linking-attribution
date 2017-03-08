@@ -65,13 +65,12 @@
 {
     [self ageItems];
 
-    RNBranchAgingItem *item = [[RNBranchAgingItem alloc] initWithItem:obj];
-    [self.dictionary setObject:item forKeyedSubscript:key];
+    self.dictionary[key] = [[RNBranchAgingItem alloc] initWithItem:obj];
 }
 
 - (id)itemForKey:(id)key
 {
-    RNBranchAgingItem *item = [self.dictionary objectForKey:key];
+    RNBranchAgingItem *item = self.dictionary[key];
     return item.item;
 }
 
@@ -79,8 +78,10 @@
 {
     NSTimeInterval now = [NSDate date].timeIntervalSince1970;
 
-    for (NSString *key in self.dictionary.allKeys) {
-        RNBranchAgingItem *item = [self.dictionary objectForKey:key];
+    NSArray<NSString *> *keys = self.dictionary.allKeys; // copy of allKeys
+
+    for (NSString *key in keys) {
+        RNBranchAgingItem *item = self.dictionary[key];
         if ((now - item.accessTime) >= self.ttl) {
             [self.dictionary removeObjectForKey:key];
         }
