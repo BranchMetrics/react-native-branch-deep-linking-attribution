@@ -7,7 +7,7 @@ import java.util.Iterator;
  * Created by jdee on 3/8/17.
  */
 
-public class AgingHash<KeyType, ValueType> extends Object {
+public class AgingHash<KeyType, ValueType> {
     private long mTtl;
     private HashMap<KeyType, AgingItem<ValueType>> mHash = new HashMap<>();
 

@@ -4,7 +4,7 @@ package io.branch.rnbranch;
  * Created by jdee on 3/8/17.
  */
 
-public class AgingItem<ValueType> extends Object {
+public class AgingItem<ValueType> {
     private long mAccessTime = System.currentTimeMillis();
     private ValueType mItem = null;
 
