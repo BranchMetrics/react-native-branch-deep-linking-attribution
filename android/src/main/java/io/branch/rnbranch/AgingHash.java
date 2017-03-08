@@ -8,11 +8,15 @@ import java.util.Iterator;
  */
 
 public class AgingHash<KeyType, ValueType> {
-    private long mTtl;
+    private long mTtlMillis;
     private HashMap<KeyType, AgingItem<ValueType>> mHash = new HashMap<>();
 
-    public AgingHash(long ttl) {
-        mTtl = ttl;
+    public AgingHash(long ttlMillis) {
+        mTtlMillis = ttlMillis;
+    }
+
+    public long getTtlMillis() {
+        return mTtlMillis;
     }
 
     public void put(KeyType key, ValueType value) {
@@ -40,7 +44,7 @@ public class AgingHash<KeyType, ValueType> {
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
             AgingItem<ValueType> item = (AgingItem) pair.getValue();
-            if (now - item.getAccessTime() >= mTtl) {
+            if (now - item.getAccessTime() >= mTtlMillis) {
                 it.remove();
             }
         }
