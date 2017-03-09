@@ -46,16 +46,13 @@ export default async function createBranchUniversalObject(identifier, options = 
 
     tryFunction(func, ident, ...args) {
       return func(ident, ...args).catch((error) => {
-        console.error("Error code = " + error.code)
         if (error.code != "RNBranch::Error::BUONotFound") {
           throw error
-          console.log("rethrew error")
         }
 
         return RNBranch.createUniversalObject(branchUniversalObject)
       })
       .then((response) => {
-        console.info("Created new BUO with ident " + response.ident)
         this.ident = response.ident
         return func(response.ident, ...args)
       })

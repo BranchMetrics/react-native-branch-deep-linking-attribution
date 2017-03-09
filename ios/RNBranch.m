@@ -134,8 +134,6 @@ RCT_EXPORT_MODULE();
                                                     NSLocalizedDescriptionKey: errorMessage
                                                     }];
         
-        RCTLogError(@"%@", error.localizedDescription);
-
         reject(@"RNBranch::Error::BUONotFound", errorMessage, error);
     }
     
@@ -394,8 +392,6 @@ RCT_EXPORT_METHOD(
     NSString *identifier = [NSUUID UUID].UUIDString;
     self.universalObjectMap[identifier] = universalObject;
     NSDictionary *response = @{IdentFieldName: identifier};
-
-    // RCTLogInfo(@"Created BUO. Returning response: %@", response);
 
     resolve(response);
 }
