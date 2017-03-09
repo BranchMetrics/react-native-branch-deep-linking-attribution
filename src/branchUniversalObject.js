@@ -14,6 +14,7 @@ export default async function createBranchUniversalObject(identifier, options = 
   const { ident } = await RNBranch.createUniversalObject(branchUniversalObject)
 
   return {
+    ident: ident,
     showShareSheet(shareOptions = {}, linkProperties = {}, controlParams = {}) {
       shareOptions = {
         title: options.title || '',
@@ -27,20 +28,32 @@ export default async function createBranchUniversalObject(identifier, options = 
         ...linkProperties,
       }
 
-      return RNBranch.showShareSheet(ident, shareOptions, linkProperties, controlParams)
+      return RNBranch.showShareSheet(this.ident, shareOptions, linkProperties, controlParams)
     },
     registerView() {
-      return RNBranch.registerView(ident)
+      return RNBranch.registerView(this.ident)
     },
-    generateShortUrl(linkProperties = {}, controlParams = {}) {
-      return RNBranch.generateShortUrl(ident, linkProperties, controlParams)
+    async generateShortUrl(linkProperties = {}, controlParams = {}) {
+      // try {
+      return RNBranch.generateShortUrl(this.ident, linkProperties, controlParams)
+      .catch (async (error) => {
+        console.error("Error code = " + error.code)
+        if (error.code != "RNBranch::Error::BUONotFound") {
+          throw error
+        }
+
+        let { newIdent } = await RNBranch.createUniversalObject(branchUniversalObject)
+        this.ident = newIdent
+        console.info("Created new BUO with ident " + newIdent)
+        return RNBranch.generateShortUrl(newIdent, linkProperties, controlParams)
+      })
     },
     listOnSpotlight() {
       if (Platform.OS !== 'ios') return Promise.resolve()
-      return RNBranch.listOnSpotlight(ident)
+      return RNBranch.listOnSpotlight(this.ident)
     },
     release() {
-      RNBranch.releaseUniversalObject(ident)
+      RNBranch.releaseUniversalObject(this.ident)
     }
   }
 }

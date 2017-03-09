@@ -136,7 +136,7 @@ RCT_EXPORT_MODULE();
         
         RCTLogError(@"%@", error.localizedDescription);
 
-        reject(@"RNBranch::Error", errorMessage, error);
+        reject(@"RNBranch::Error::BUONotFound", errorMessage, error);
     }
     
     return universalObject;
