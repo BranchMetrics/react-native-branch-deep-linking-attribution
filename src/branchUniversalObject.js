@@ -28,32 +28,37 @@ export default async function createBranchUniversalObject(identifier, options = 
         ...linkProperties,
       }
 
-      return RNBranch.showShareSheet(this.ident, shareOptions, linkProperties, controlParams)
+      return this.tryFunction(RNBranch.showShareSheet, this.ident, shareOptions, linkProperties, controlParams)
     },
     registerView() {
-      return RNBranch.registerView(this.ident)
+      return this.tryFunction(RNBranch.registerView, this.ident)
     },
-    async generateShortUrl(linkProperties = {}, controlParams = {}) {
-      // try {
-      return RNBranch.generateShortUrl(this.ident, linkProperties, controlParams)
-      .catch (async (error) => {
-        console.error("Error code = " + error.code)
-        if (error.code != "RNBranch::Error::BUONotFound") {
-          throw error
-        }
-
-        let { newIdent } = await RNBranch.createUniversalObject(branchUniversalObject)
-        this.ident = newIdent
-        console.info("Created new BUO with ident " + newIdent)
-        return RNBranch.generateShortUrl(newIdent, linkProperties, controlParams)
-      })
+    generateShortUrl(linkProperties = {}, controlParams = {}) {
+      return this.tryFunction(RNBranch.generateShortUrl, this.ident, linkProperties, controlParams)
     },
     listOnSpotlight() {
       if (Platform.OS !== 'ios') return Promise.resolve()
-      return RNBranch.listOnSpotlight(this.ident)
+      return this.tryFunction(RNBranch.listOnSpotlight, this.ident)
     },
     release() {
       RNBranch.releaseUniversalObject(this.ident)
+    },
+
+    tryFunction(func, ident, ...args) {
+      return func(ident, ...args).catch((error) => {
+        console.error("Error code = " + error.code)
+        if (error.code != "RNBranch::Error::BUONotFound") {
+          throw error
+          console.log("rethrew error")
+        }
+
+        return RNBranch.createUniversalObject(branchUniversalObject)
+      })
+      .then((response) => {
+        console.info("Created new BUO with ident " + response.ident)
+        this.ident = response.ident
+        return func(response.ident, ...args)
+      })
     }
   }
 }
