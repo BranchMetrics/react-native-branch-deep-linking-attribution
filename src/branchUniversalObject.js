@@ -2,7 +2,7 @@ import { NativeModules, Platform } from 'react-native'
 
 const { RNBranch } = NativeModules
 
-export default function createBranchUniversalObject(identifier, options = {}) {
+export default async function createBranchUniversalObject(identifier, options = {}) {
   if (typeof identifier !== 'string') throw new Error('react-native-branch: identifier must be a string')
 
   const branchUniversalObject = {
@@ -10,6 +10,8 @@ export default function createBranchUniversalObject(identifier, options = {}) {
     canonicalIdentifier: identifier,
     ...options
   }
+
+  const { ident } = await RNBranch.createUniversalObject(branchUniversalObject)
 
   return {
     showShareSheet(shareOptions = {}, linkProperties = {}, controlParams = {}) {
@@ -25,17 +27,20 @@ export default function createBranchUniversalObject(identifier, options = {}) {
         ...linkProperties,
       }
 
-      return RNBranch.showShareSheet(branchUniversalObject, shareOptions, linkProperties, controlParams)
+      return RNBranch.showShareSheet(ident, shareOptions, linkProperties, controlParams)
     },
     registerView() {
-      return RNBranch.registerView(branchUniversalObject)
+      return RNBranch.registerView(ident)
     },
     generateShortUrl(linkProperties = {}, controlParams = {}) {
-      return RNBranch.generateShortUrl(branchUniversalObject, linkProperties, controlParams)
+      return RNBranch.generateShortUrl(ident, linkProperties, controlParams)
     },
     listOnSpotlight() {
       if (Platform.OS !== 'ios') return Promise.resolve()
-      return RNBranch.listOnSpotlight(branchUniversalObject)
+      return RNBranch.listOnSpotlight(ident)
+    },
+    release() {
+      RNBranch.releaseUniversalObject(ident)
     }
   }
 }
