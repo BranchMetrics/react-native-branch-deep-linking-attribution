@@ -24,7 +24,6 @@ class BranchMethods extends Component {
       this.buo = result
       console.log('createBranchUniversalObject', result)
       this.addResult('success', 'createBranchUniversalObject', result)
-      this.buo.release()
     } catch (err) {
       console.log('createBranchUniversalObject err', err.toString())
       this.addResult('error', 'createBranchUniversalObject', err.toString())
