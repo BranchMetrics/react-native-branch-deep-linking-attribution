@@ -4,6 +4,7 @@
 #import <React/RCTLog.h>
 #import "BranchLinkProperties+RNBranch.h"
 #import "BranchUniversalObject+RNBranch.h"
+#import "RNBranchAgingDictionary.h"
 
 static NSDictionary *initSessionWithLaunchOptionsResult;
 static NSURL *sourceUrl;
@@ -20,7 +21,7 @@ static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 
 @interface RNBranch()
 @property (nonatomic, readonly) UIViewController *currentViewController;
-@property (nonatomic) NSMutableDictionary<NSString *, BranchUniversalObject *> *universalObjectMap;
+@property (nonatomic) RNBranchAgingDictionary<NSString *, BranchUniversalObject *> *universalObjectMap;
 @end
 
 #pragma mark - RNBranch implementation
@@ -74,7 +75,7 @@ RCT_EXPORT_MODULE();
     self = [super init];
 
     if (self) {
-        _universalObjectMap = [NSMutableDictionary dictionary];
+        _universalObjectMap = [RNBranchAgingDictionary dictionaryWithTtl:3600.0];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:initSessionWithLaunchOptionsFinishedEventName object:nil];
     }
@@ -133,9 +134,7 @@ RCT_EXPORT_MODULE();
                                                     NSLocalizedDescriptionKey: errorMessage
                                                     }];
         
-        RCTLogError(@"%@", error.localizedDescription);
-
-        reject(@"RNBranch::Error", errorMessage, error);
+        reject(@"RNBranch::Error::BUONotFound", errorMessage, error);
     }
     
     return universalObject;
@@ -143,6 +142,7 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - Methods exported to React Native
 
+#pragma mark redeemInitSessionResult
 RCT_EXPORT_METHOD(
                   redeemInitSessionResult:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
@@ -152,12 +152,14 @@ RCT_EXPORT_METHOD(
     sourceUrl = nil;
 }
 
+#pragma mark setDebug
 RCT_EXPORT_METHOD(
                   setDebug
                   ) {
     [branchInstance setDebug];
 }
 
+#pragma mark getLatestReferringParams
 RCT_EXPORT_METHOD(
                   getLatestReferringParams:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
@@ -165,6 +167,7 @@ RCT_EXPORT_METHOD(
     resolve([branchInstance getLatestReferringParams]);
 }
 
+#pragma mark getFirstReferringParams
 RCT_EXPORT_METHOD(
                   getFirstReferringParams:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
@@ -172,24 +175,28 @@ RCT_EXPORT_METHOD(
     resolve([branchInstance getFirstReferringParams]);
 }
 
+#pragma mark setIdentity
 RCT_EXPORT_METHOD(
                   setIdentity:(NSString *)identity
                   ) {
     [branchInstance setIdentity:identity];
 }
 
+#pragma mark logout
 RCT_EXPORT_METHOD(
                   logout
                   ) {
     [branchInstance logout];
 }
 
+#pragma mark userCompletedAction
 RCT_EXPORT_METHOD(
                   userCompletedAction:(NSString *)event withState:(NSDictionary *)appState
                   ) {
     [branchInstance userCompletedAction:event withState:appState];
 }
 
+#pragma mark showShareSheet
 RCT_EXPORT_METHOD(
                   showShareSheet:(NSString *)identifier
                   withShareOptions:(NSDictionary *)shareOptionsMap
@@ -230,6 +237,7 @@ RCT_EXPORT_METHOD(
     });
 }
 
+#pragma mark registerView
 RCT_EXPORT_METHOD(
                   registerView:(NSString *)identifier
                   resolver:(RCTPromiseResolveBlock)resolve
@@ -247,6 +255,7 @@ RCT_EXPORT_METHOD(
     }];
 }
 
+#pragma mark generateShortUrl
 RCT_EXPORT_METHOD(
                   generateShortUrl:(NSString *)identifier
                   withLinkProperties:(NSDictionary *)linkPropertiesMap
@@ -269,6 +278,7 @@ RCT_EXPORT_METHOD(
     }];
 }
 
+#pragma mark listOnSpotlight
 RCT_EXPORT_METHOD(
                   listOnSpotlight:(NSString *)identifier
                   resolver:(RCTPromiseResolveBlock)resolve
@@ -288,6 +298,7 @@ RCT_EXPORT_METHOD(
 }
 
 // @TODO can this be removed? legacy, short url should be created from BranchUniversalObject
+#pragma mark getShortUrl
 RCT_EXPORT_METHOD(
                   getShortUrl:(NSDictionary *)linkPropertiesMap
                   resolver:(RCTPromiseResolveBlock)resolve
@@ -312,6 +323,7 @@ RCT_EXPORT_METHOD(
                               }];
 }
 
+#pragma mark loadRewards
 RCT_EXPORT_METHOD(
                   loadRewards:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
@@ -327,6 +339,7 @@ RCT_EXPORT_METHOD(
     }];
 }
 
+#pragma mark redeemRewards
 RCT_EXPORT_METHOD(
                   redeemRewards:(NSInteger *)amount
                   inBucket:(NSString *)bucket
@@ -354,6 +367,7 @@ RCT_EXPORT_METHOD(
     }
 }
 
+#pragma mark getCreditHistory
 RCT_EXPORT_METHOD(
                   getCreditHistory:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
@@ -368,6 +382,7 @@ RCT_EXPORT_METHOD(
     }];
 }
 
+#pragma mark createUniversalObject
 RCT_EXPORT_METHOD(
                   createUniversalObject:(NSDictionary *)universalObjectProperties
                   resolver:(RCTPromiseResolveBlock)resolve
@@ -376,9 +391,12 @@ RCT_EXPORT_METHOD(
     BranchUniversalObject *universalObject = [[BranchUniversalObject alloc] initWithMap:universalObjectProperties];
     NSString *identifier = [NSUUID UUID].UUIDString;
     self.universalObjectMap[identifier] = universalObject;
-    resolve(@{IdentFieldName: identifier});
+    NSDictionary *response = @{IdentFieldName: identifier};
+
+    resolve(response);
 }
 
+#pragma mark releaseUniversalObject
 RCT_EXPORT_METHOD(
                   releaseUniversalObject:(NSString *)identifier
                   ) {
