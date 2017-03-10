@@ -48,8 +48,10 @@ NSString * const BRANCH_PREFS_KEY_ANALYTICS_MANIFEST = @"bnc_branch_analytics_ma
 static NSString * const BNC_BRANCH_FABRIC_APP_KEY_KEY = @"branch_key";
 
 @interface BNCPreferenceHelper () {
-    NSString *_lastSystemBuildVersion;
-    NSString *_browserUserAgentString;
+    NSOperationQueue *_persistPrefsQueue;
+    NSString         *_lastSystemBuildVersion;
+    NSString         *_browserUserAgentString;
+    NSString         *_branchAPIURL;
 }
 
 @property (strong, nonatomic) NSMutableDictionary *persistenceDict;
@@ -124,6 +126,11 @@ static NSString * const BNC_BRANCH_FABRIC_APP_KEY_KEY = @"branch_key";
     return preferenceHelper;
 }
 
+
+/*
+
+    This creates one global queue.  Not so desirable.
+
 - (NSOperationQueue *)persistPrefsQueue {
     static NSOperationQueue *persistPrefsQueue;
     static dispatch_once_t persistOnceToken;
@@ -134,6 +141,26 @@ static NSString * const BNC_BRANCH_FABRIC_APP_KEY_KEY = @"branch_key";
     });
 
     return persistPrefsQueue;
+}
+*/
+
+- (NSOperationQueue *)persistPrefsQueue {
+    @synchronized (self) {
+        if (_persistPrefsQueue)
+            return _persistPrefsQueue;
+        _persistPrefsQueue = [[NSOperationQueue alloc] init];
+        _persistPrefsQueue.maxConcurrentOperationCount = 1;
+        return _persistPrefsQueue;
+    }
+}
+
+- (void) save {
+    //  Flushes preference queue to persistence.
+    [_persistPrefsQueue waitUntilAllOperationsAreFinished];
+}
+
+- (void) dealloc {
+    [self save];
 }
 
 #pragma mark - Debug methods
@@ -154,8 +181,25 @@ static NSString * const BNC_BRANCH_FABRIC_APP_KEY_KEY = @"branch_key";
     }
 }
 
+- (void) setBranchAPIURL:(NSString*)branchAPIURL_ {
+    @synchronized (self) {
+        _branchAPIURL = [branchAPIURL_ copy];
+    }
+}
+
+- (NSString*) branchAPIURL {
+    @synchronized (self) {
+        if (!_branchAPIURL) {
+            _branchAPIURL = [BNC_API_BASE_URL copy];
+        }
+        return _branchAPIURL;
+    }
+}
+
 - (NSString *)getAPIBaseURL {
-    return [NSString stringWithFormat:@"%@/%@/", BNC_API_BASE_URL, BNC_API_VERSION];
+    @synchronized (self) {
+        return [NSString stringWithFormat:@"%@/%@/", self.branchAPIURL, BNC_API_VERSION];
+    }
 }
 
 - (NSString *)getAPIURL:(NSString *) endpoint {
@@ -163,10 +207,13 @@ static NSString * const BNC_BRANCH_FABRIC_APP_KEY_KEY = @"branch_key";
 }
 
 - (NSString *)getEndpointFromURL:(NSString *)url {
-    NSUInteger index = BNC_API_BASE_URL.length;
-    return [url substringFromIndex:index];
+    NSString *APIBase = self.branchAPIURL;
+    if ([url hasPrefix:APIBase]) {
+        NSUInteger index = APIBase.length;
+        return [url substringFromIndex:index];
+    }
+    return @"";
 }
-
 
 #pragma mark - Preference Storage
 
@@ -705,10 +752,10 @@ static NSString * const BNC_BRANCH_FABRIC_APP_KEY_KEY = @"branch_key";
             [self logWarning:@"Can't create preferences data."];
             return;
         }
+        NSURL *prefsURL = self.class.URLForPrefsFile;
         NSBlockOperation *newPersistOp = [NSBlockOperation blockOperationWithBlock:^ {
             NSError *error = nil;
-            [data writeToURL:self.class.URLForPrefsFile
-                options:NSDataWritingAtomic error:&error];
+            [data writeToURL:prefsURL options:NSDataWritingAtomic error:&error];
             if (error) {
                 [self logWarning:
                     [NSString stringWithFormat:
@@ -843,7 +890,8 @@ static NSString * const BNC_BRANCH_FABRIC_APP_KEY_KEY = @"branch_key";
 }
 
 + (void) moveOldPrefsFile {
-    NSURL *oldURL = [NSURL fileURLWithPath:self.prefsFile_deprecated];
+    NSString* oldPath = self.prefsFile_deprecated;
+    NSURL *oldURL = (oldPath) ? [NSURL fileURLWithPath:self.prefsFile_deprecated] : nil;
     NSURL *newURL = [self URLForPrefsFile];
 
     if (!oldURL || !newURL) { return; }
