@@ -565,7 +565,7 @@ void ForceCategoriesToLoad() {
                     NSMutableDictionary *testDetails = [[NSMutableDictionary alloc] init];
                     [testDetails setObject:[NSNumber numberWithBool:YES] forKey:@"iad-attribution"];
                     [testDetails setObject:[NSNumber numberWithInteger:1234567890] forKey:@"iad-campaign-id"];
-                    [testDetails setObject:@"CampaignName" forKey:@"iad-campaign-name"];
+                    [testDetails setObject:@"DebugAppleSearchAdsCampaignName" forKey:@"iad-campaign-name"];
                     [testDetails setObject:@"2016-09-09T01:33:17Z" forKey:@"iad-click-date"];
                     [testDetails setObject:@"2016-09-09T01:33:17Z" forKey:@"iad-conversion-date"];
                     [testDetails setObject:[NSNumber numberWithInteger:1234567890] forKey:@"iad-creative-id"];
@@ -1139,17 +1139,50 @@ void ForceCategoriesToLoad() {
     [self processNextQueueItem];
 }
 
-- (NSString *)generateShortUrl:(NSArray *)tags andAlias:(NSString *)alias andType:(BranchLinkType)type andMatchDuration:(NSUInteger)duration andChannel:(NSString *)channel andFeature:(NSString *)feature andStage:(NSString *)stage andCampaign:(NSString *)campaign andParams:(NSDictionary *)params ignoreUAString:(NSString *)ignoreUAString forceLinkCreation:(BOOL)forceLinkCreation {
+- (NSString *)generateShortUrl:(NSArray *)tags
+                      andAlias:(NSString *)alias
+                       andType:(BranchLinkType)type
+              andMatchDuration:(NSUInteger)duration
+                    andChannel:(NSString *)channel
+                    andFeature:(NSString *)feature
+                      andStage:(NSString *)stage
+                   andCampaign:(NSString *)campaign
+                     andParams:(NSDictionary *)params
+                ignoreUAString:(NSString *)ignoreUAString
+             forceLinkCreation:(BOOL)forceLinkCreation {
+
     NSString *shortURL = nil;
     
-    BNCLinkData *linkData = [self prepareLinkDataFor:tags andAlias:alias andType:type andMatchDuration:duration andChannel:channel andFeature:feature andStage:stage andCampaign:campaign andParams:params ignoreUAString:ignoreUAString];
+    BNCLinkData *linkData =
+        [self prepareLinkDataFor:tags
+            andAlias:alias
+             andType:type
+    andMatchDuration:duration
+          andChannel:channel
+          andFeature:feature
+            andStage:stage
+         andCampaign:campaign
+           andParams:params
+      ignoreUAString:ignoreUAString];
     
-    // If an ignore UA string is present, we always get a new url. Otherwise, if we've already seen this request, use the cached version
+    // If an ignore UA string is present, we always get a new url.
+    // Otherwise, if we've already seen this request, use the cached version.
     if (!ignoreUAString && [self.linkCache objectForKey:linkData]) {
         shortURL = [self.linkCache objectForKey:linkData];
-    }
-    else {
-        BranchShortUrlSyncRequest *req = [[BranchShortUrlSyncRequest alloc] initWithTags:tags alias:alias type:type matchDuration:duration channel:channel feature:feature stage:stage campaign:campaign params:params linkData:linkData linkCache:self.linkCache];
+    } else {
+        BranchShortUrlSyncRequest *req =
+            [[BranchShortUrlSyncRequest alloc]
+                initWithTags:tags
+                alias:alias
+                type:type
+                matchDuration:duration
+                channel:channel
+                feature:feature
+                stage:stage
+                campaign:campaign
+                params:params
+                linkData:linkData
+                linkCache:self.linkCache];
         
         if (self.isInitialized) {
             [self.preferenceHelper log:FILE_NAME line:LINE_NUM message:@"Created custom url synchronously"];
@@ -1160,11 +1193,12 @@ void ForceCategoriesToLoad() {
             if (shortURL) {
                 [self.linkCache setObject:shortURL forKey:linkData];
             }
-        }
-        else {
+        } else {
             if (forceLinkCreation) {
                 if (self.branchKey) {
-                    return [BranchShortUrlSyncRequest createLinkFromBranchKey:self.branchKey tags:tags alias:alias type:type matchDuration:duration channel:channel feature:feature stage:stage params:params];
+                    return [BranchShortUrlSyncRequest createLinkFromBranchKey:self.branchKey
+                        tags:tags alias:alias type:type matchDuration:duration
+                            channel:channel feature:feature stage:stage params:params];
                 }
             }
             NSLog(@"Branch SDK Error: making request before init succeeded!");
@@ -1174,13 +1208,29 @@ void ForceCategoriesToLoad() {
     return shortURL;
 }
 
-- (NSString *)generateLongURLWithParams:(NSDictionary *)params andChannel:(NSString *)channel andTags:(NSArray *)tags andFeature:(NSString *)feature andStage:(NSString *)stage andAlias:(NSString *)alias {
+- (NSString *)generateLongURLWithParams:(NSDictionary *)params
+                             andChannel:(NSString *)channel
+                                andTags:(NSArray *)tags
+                             andFeature:(NSString *)feature
+                               andStage:(NSString *)stage
+                               andAlias:(NSString *)alias {
+
     NSString *baseLongUrl = [NSString stringWithFormat:@"%@/a/%@", BNC_LINK_URL, self.branchKey];
     
-    return [self longUrlWithBaseUrl:baseLongUrl params:params tags:tags feature:feature channel:nil stage:stage alias:alias duration:0 type:BranchLinkTypeUnlimitedUse];
+    return [self longUrlWithBaseUrl:baseLongUrl params:params tags:tags feature:feature
+        channel:nil stage:stage alias:alias duration:0 type:BranchLinkTypeUnlimitedUse];
 }
 
-- (NSString *)longUrlWithBaseUrl:(NSString *)baseUrl params:(NSDictionary *)params tags:(NSArray *)tags feature:(NSString *)feature channel:(NSString *)channel stage:(NSString *)stage alias:(NSString *)alias duration:(NSUInteger)duration type:(BranchLinkType)type {
+- (NSString *)longUrlWithBaseUrl:(NSString *)baseUrl
+                          params:(NSDictionary *)params
+                            tags:(NSArray *)tags
+                         feature:(NSString *)feature
+                         channel:(NSString *)channel
+                           stage:(NSString *)stage
+                           alias:(NSString *)alias
+                        duration:(NSUInteger)duration
+                            type:(BranchLinkType)type {
+
     NSMutableString *longUrl = [[NSMutableString alloc] initWithFormat:@"%@?", baseUrl];
     
     for (NSString *tag in tags) {
@@ -1216,7 +1266,17 @@ void ForceCategoriesToLoad() {
     return longUrl;
 }
 
-- (BNCLinkData *)prepareLinkDataFor:(NSArray *)tags andAlias:(NSString *)alias andType:(BranchLinkType)type andMatchDuration:(NSUInteger)duration andChannel:(NSString *)channel andFeature:(NSString *)feature andStage:(NSString *)stage andCampaign:(NSString *)campaign andParams:(NSDictionary *)params ignoreUAString:(NSString *)ignoreUAString {
+- (BNCLinkData *)prepareLinkDataFor:(NSArray *)tags
+                           andAlias:(NSString *)alias
+                            andType:(BranchLinkType)type
+                   andMatchDuration:(NSUInteger)duration
+                         andChannel:(NSString *)channel
+                         andFeature:(NSString *)feature
+                           andStage:(NSString *)stage
+                        andCampaign:(NSString *)campaign
+                          andParams:(NSDictionary *)params
+                     ignoreUAString:(NSString *)ignoreUAString {
+                     
     BNCLinkData *post = [[BNCLinkData alloc] init];
     
     [post setupType:type];
@@ -1266,7 +1326,7 @@ void ForceCategoriesToLoad() {
         
         BranchContentDiscoverer *contentDiscoverer = [BranchContentDiscoverer getInstance];
         if (contentDiscoverer) {
-            [contentDiscoverer stopContentDiscoveryTask];
+            [contentDiscoverer stopDiscoveryTask];
         }
         
         if (self.preferenceHelper.sessionID && ![self.requestQueue containsClose]) {
@@ -1290,68 +1350,93 @@ void ForceCategoriesToLoad() {
     }
 }
 
+void BNCPerformBlockOnMainThreadSync(dispatch_block_t block) {
+    if ([NSThread isMainThread]) {
+        block();
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), block);
+    }
+}
+
+void BNCPerformBlockOnMainThread(dispatch_block_t block) {
+    dispatch_async(dispatch_get_main_queue(), block);
+}
+
+- (void) processRequest:(BNCServerRequest*)req response:(BNCServerResponse*)response error:(NSError*)error {
+    // If the request was successful, or was a bad user request, continue processing.
+    if (!error || error.code == BNCBadRequestError || error.code == BNCDuplicateResourceError) {
+
+        BNCPerformBlockOnMainThreadSync(^{ [req processResponse:response error:error]; });
+
+        [self.requestQueue dequeue];
+        self.networkCount = 0;
+        [self processNextQueueItem];
+    }
+    // On network problems, or Branch down, call the other callbacks and stop processing.
+    else {
+        // First, gather all the requests to fail
+        NSMutableArray *requestsToFail = [[NSMutableArray alloc] init];
+        for (int i = 0; i < self.requestQueue.size; i++) {
+            BNCServerRequest *request = [self.requestQueue peekAt:i];
+            if (request) {
+                [requestsToFail addObject:request];
+            }
+        }
+
+        // Next, remove all the requests that should not be replayed. Note, we do this before
+        // calling callbacks, in case any of the callbacks try to kick off another request, which
+        // could potentially start another request (and call these callbacks again)
+        for (BNCServerRequest *request in requestsToFail) {
+            if (![request isKindOfClass:[BranchUserCompletedActionRequest class]] &&
+                ![request isKindOfClass:[BranchSetIdentityRequest class]]) {
+                [self.requestQueue remove:request];
+            }
+        }
+
+        // Then, set the network count to zero, indicating that requests can be started again
+        self.networkCount = 0;
+
+        // Finally, call all the requests callbacks with the error
+        for (BNCServerRequest *request in requestsToFail) {
+            BNCPerformBlockOnMainThreadSync(^ { [request processResponse:nil error:error]; });
+        }
+    }
+}
+
 - (void)processNextQueueItem {
     dispatch_semaphore_wait(self.processing_sema, DISPATCH_TIME_FOREVER);
     
     if (self.networkCount == 0 && self.requestQueue.size > 0 && !self.preferenceHelper.shouldWaitForInit) {
         self.networkCount = 1;
         dispatch_semaphore_signal(self.processing_sema);
-        
         BNCServerRequest *req = [self.requestQueue peek];
         
         if (req) {
-            BNCServerCallback callback = ^(BNCServerResponse *response, NSError *error) {
-                // If the request was successful, or was a bad user request, continue processing.
-                if (!error || error.code == BNCBadRequestError || error.code == BNCDuplicateResourceError) {
-                    [req processResponse:response error:error];
-                    
-                    [self.requestQueue dequeue];
-                    self.networkCount = 0;
-                    [self processNextQueueItem];
-                }
-                // On network problems, or Branch down, call the other callbacks and stop processing.
-                else {
-                    // First, gather all the requests to fail
-                    NSMutableArray *requestsToFail = [[NSMutableArray alloc] init];
-                    for (int i = 0; i < self.requestQueue.size; i++) {
-                        BNCServerRequest *request = [self.requestQueue peekAt:i];
-                        if (request) {
-                            [requestsToFail addObject:request];
-                        }                        
-                    }
-                    
-                    // Next, remove all the requests that should not be replayed. Note, we do this before calling callbacks, in case any
-                    // of the callbacks try to kick off another request, which could potentially start another request (and call these callbacks again)
-                    for (BNCServerRequest *request in requestsToFail) {
-                        if (![request isKindOfClass:[BranchUserCompletedActionRequest class]] && ![request isKindOfClass:[BranchSetIdentityRequest class]]) {
-                            [self.requestQueue remove:request];
-                        }
-                    }
-                    
-                    // Then, set the network count to zero, indicating that requests can be started again
-                    self.networkCount = 0;
-                    
-                    // Finally, call all the requests callbacks with the error
-                    for (BNCServerRequest *request in requestsToFail) {
-                        [request processResponse:nil error:error];
-                    }
-                }
-            };
-            
+
             if (![req isKindOfClass:[BranchInstallRequest class]] && !self.preferenceHelper.identityID) {
                 NSLog(@"[Branch Error] User session has not been initialized!");
-                [req processResponse:nil error:[NSError errorWithDomain:BNCErrorDomain code:BNCInitError userInfo:@{ NSLocalizedDescriptionKey: @"Branch User Session has not been initialized" }]];
+                BNCPerformBlockOnMainThreadSync(^{
+                    [req processResponse:nil error:[NSError errorWithDomain:BNCErrorDomain code:BNCInitError
+                        userInfo:@{ NSLocalizedDescriptionKey: @"Branch User Session has not been initialized" }]];
+                });
                 return;
             }
-            else if (![req isKindOfClass:[BranchOpenRequest class]] && (!self.preferenceHelper.deviceFingerprintID || !self.preferenceHelper.sessionID)) {
+            else if (![req isKindOfClass:[BranchOpenRequest class]] &&
+                (!self.preferenceHelper.deviceFingerprintID || !self.preferenceHelper.sessionID)) {
                 NSLog(@"[Branch Error] Missing session items!");
-                [req processResponse:nil error:[NSError errorWithDomain:BNCErrorDomain code:BNCInitError userInfo:@{ NSLocalizedDescriptionKey: @"Branch User Session has not been initialized" }]];
+                BNCPerformBlockOnMainThreadSync(^{
+                    [req processResponse:nil error:[NSError errorWithDomain:BNCErrorDomain code:BNCInitError
+                        userInfo:@{ NSLocalizedDescriptionKey: @"Branch User Session has not been initialized" }]];
+                });
                 return;
             }
 
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
             dispatch_async(queue, ^ {
-                [req makeRequest:self.bServerInterface key:self.branchKey callback:callback];
+                [req makeRequest:self.bServerInterface key:self.branchKey callback:
+                    ^(BNCServerResponse* response, NSError* error) {
+                        [self processRequest:req response:response error:error];
+                }];
             });
         }
     }
@@ -1383,7 +1468,11 @@ void ForceCategoriesToLoad() {
             self.sessionInitWithParamsCallback([self getLatestReferringParams], nil);
         }
         else if (self.sessionInitWithBranchUniversalObjectCallback) {
-            self.sessionInitWithBranchUniversalObjectCallback([self getLatestReferringBranchUniversalObject], [self getLatestReferringBranchLinkProperties], nil);
+            self.sessionInitWithBranchUniversalObjectCallback(
+                [self getLatestReferringBranchUniversalObject],
+                [self getLatestReferringBranchLinkProperties],
+                nil
+            );
         }
     }
 }
@@ -1411,7 +1500,7 @@ void ForceCategoriesToLoad() {
 			}
 		});
     };
-    
+
     if ([BNCSystemObserver getOSVersion].integerValue >= 9 && self.useCookieBasedMatching) {
         [[BNCStrongMatchHelper strongMatchHelper] createStrongMatchWithBranchKey:self.branchKey];
     }
@@ -1435,7 +1524,11 @@ void ForceCategoriesToLoad() {
             self.sessionInitWithParamsCallback(latestReferringParams, nil);
         }
         else if (self.sessionInitWithBranchUniversalObjectCallback) {
-            self.sessionInitWithBranchUniversalObjectCallback([self getLatestReferringBranchUniversalObject], [self getLatestReferringBranchLinkProperties], nil);
+            self.sessionInitWithBranchUniversalObjectCallback(
+                [self getLatestReferringBranchUniversalObject],
+                [self getLatestReferringBranchLinkProperties],
+                nil
+            );
         }
     }
     
@@ -1455,7 +1548,8 @@ void ForceCategoriesToLoad() {
                 [branchSharingController configureControlWithData:latestReferringParams];
             }
             else {
-                [self.preferenceHelper log:FILE_NAME line:LINE_NUM message:@"[Branch Warning] View controller does not implement configureControlWithData:"];
+                [self.preferenceHelper log:FILE_NAME line:LINE_NUM message:
+                    @"[Branch Warning] View controller does not implement configureControlWithData:"];
             }
             branchSharingController.deepLinkingCompletionDelegate = self;
             self.deepLinkPresentingController = [[[UIApplicationClass sharedApplication].delegate window] rootViewController];
