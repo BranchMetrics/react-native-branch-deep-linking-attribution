@@ -11,9 +11,10 @@ export default async function createBranchUniversalObject(identifier, options = 
     ...options
   }
 
-  const { ident } = await RNBranch.createUniversalObject(branchUniversalObject)
+  let { ident } = await RNBranch.createUniversalObject(branchUniversalObject)
 
   return {
+    ident: ident,
     showShareSheet(shareOptions = {}, linkProperties = {}, controlParams = {}) {
       shareOptions = {
         title: options.title || '',
@@ -27,20 +28,34 @@ export default async function createBranchUniversalObject(identifier, options = 
         ...linkProperties,
       }
 
-      return RNBranch.showShareSheet(ident, shareOptions, linkProperties, controlParams)
+      return this.tryFunction(RNBranch.showShareSheet, shareOptions, linkProperties, controlParams)
     },
     registerView() {
-      return RNBranch.registerView(ident)
+      return this.tryFunction(RNBranch.registerView)
     },
     generateShortUrl(linkProperties = {}, controlParams = {}) {
-      return RNBranch.generateShortUrl(ident, linkProperties, controlParams)
+      return this.tryFunction(RNBranch.generateShortUrl, linkProperties, controlParams)
     },
     listOnSpotlight() {
       if (Platform.OS !== 'ios') return Promise.resolve()
-      return RNBranch.listOnSpotlight(ident)
+      return this.tryFunction(RNBranch.listOnSpotlight)
     },
     release() {
-      RNBranch.releaseUniversalObject(ident)
+      RNBranch.releaseUniversalObject(this.ident)
+    },
+
+    tryFunction(func, ...args) {
+      return func(this.ident, ...args).catch((error) => {
+        if (error.code != "RNBranch::Error::BUONotFound") {
+          throw error
+        }
+
+        return RNBranch.createUniversalObject(branchUniversalObject)
+      })
+      .then((response) => {
+        this.ident = response.ident
+        return func(response.ident, ...args)
+      })
     }
   }
 }
