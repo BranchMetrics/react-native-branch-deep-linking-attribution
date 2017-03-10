@@ -11,7 +11,7 @@ export default async function createBranchUniversalObject(identifier, options = 
     ...options
   }
 
-  const { ident } = await RNBranch.createUniversalObject(branchUniversalObject)
+  let { ident } = await RNBranch.createUniversalObject(branchUniversalObject)
 
   return {
     ident: ident,
