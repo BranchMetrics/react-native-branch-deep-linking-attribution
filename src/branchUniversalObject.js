@@ -28,33 +28,32 @@ export default async function createBranchUniversalObject(identifier, options = 
         ...linkProperties,
       }
 
-      return this.tryFunction(RNBranch.showShareSheet, shareOptions, linkProperties, controlParams)
+      return this._tryFunction(RNBranch.showShareSheet, shareOptions, linkProperties, controlParams)
     },
     registerView() {
-      return this.tryFunction(RNBranch.registerView)
+      return this._tryFunction(RNBranch.registerView)
     },
     generateShortUrl(linkProperties = {}, controlParams = {}) {
-      return this.tryFunction(RNBranch.generateShortUrl, linkProperties, controlParams)
+      return this._tryFunction(RNBranch.generateShortUrl, linkProperties, controlParams)
     },
     listOnSpotlight() {
       if (Platform.OS !== 'ios') return Promise.resolve()
-      return this.tryFunction(RNBranch.listOnSpotlight)
+      return this._tryFunction(RNBranch.listOnSpotlight)
     },
     release() {
       RNBranch.releaseUniversalObject(this.ident)
     },
 
-    tryFunction(func, ...args) {
+    _tryFunction(func, ...args) {
       return func(this.ident, ...args).catch((error) => {
         if (error.code != "RNBranch::Error::BUONotFound") {
           throw error
         }
 
-        return RNBranch.createUniversalObject(branchUniversalObject)
-      })
-      .then((response) => {
-        this.ident = response.ident
-        return func(response.ident, ...args)
+        return RNBranch.createUniversalObject(branchUniversalObject).then((response) => {
+          this.ident = response.ident
+          return func(response.ident, ...args)
+        })
       })
     }
   }
