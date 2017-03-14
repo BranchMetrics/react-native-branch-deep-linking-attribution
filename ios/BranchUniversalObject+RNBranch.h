@@ -16,4 +16,6 @@
 
 - (instancetype)initWithMap:(NSDictionary *)map;
 
+- (void)userCompletedAction:(NSString *)action withState:(NSDictionary *)state;
+
 @end
