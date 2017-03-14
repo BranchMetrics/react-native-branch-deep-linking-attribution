@@ -210,6 +210,21 @@ RCT_EXPORT_METHOD(
     resolve(NSNull.null);
 }
 
+#pragma mark userCompletedActionOnUniversalObject
+RCT_EXPORT_METHOD(
+                  userCompletedActionOnUniversalObject:(NSString *)identifier
+                  event:(NSString *)event
+                  state:(NSDictionary *)state
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject
+                  ) {
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdent:identifier rejecter:reject];
+    if (!branchUniversalObject) return;
+
+    [branchUniversalObject rnbranchUserCompletedAction:event withState:state];
+    resolve(NSNull.null);
+}
+
 #pragma mark showShareSheet
 RCT_EXPORT_METHOD(
                   showShareSheet:(NSString *)identifier
