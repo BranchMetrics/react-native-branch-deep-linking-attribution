@@ -27,10 +27,6 @@ class Branch {
   _patientInitSessionObservers = [];
   _debug = false;
 
-  static get RegisterViewEvent() {
-    return RegisterViewEvent
-  }
-
   constructor(options = {}) {
     if (options.debug) this._debug = true
 
