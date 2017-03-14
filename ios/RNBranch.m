@@ -196,6 +196,20 @@ RCT_EXPORT_METHOD(
     [branchInstance userCompletedAction:event withState:appState];
 }
 
+#pragma mark userCompletedActionOnUniversalObject
+RCT_EXPORT_METHOD(
+                  userCompletedActionOnUniversalObject:(NSString *)identifier
+                  event:(NSString *)event
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject
+) {
+    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdent:identifier rejecter:reject];
+    if (!branchUniversalObject) return;
+
+    [branchUniversalObject userCompletedAction:event];
+    resolve(nil);
+}
+
 #pragma mark showShareSheet
 RCT_EXPORT_METHOD(
                   showShareSheet:(NSString *)identifier

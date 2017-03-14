@@ -40,6 +40,9 @@ export default async function createBranchUniversalObject(identifier, options = 
       if (Platform.OS !== 'ios') return Promise.resolve()
       return this._tryFunction(RNBranch.listOnSpotlight)
     },
+    userCompletedAction(event) {
+      return this._tryFunction(RNBranch.userCompletedActionOnUniversalObject, event)
+    },
     release() {
       RNBranch.releaseUniversalObject(this.ident)
     },
