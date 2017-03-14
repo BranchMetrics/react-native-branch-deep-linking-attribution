@@ -101,8 +101,15 @@
  * Until the native SDK supports this, the following is largely lifted from BUO.m.
  */
 
-- (void)userCompletedAction:(NSString *)action withState:(NSDictionary *)state
+- (void)rnbranchUserCompletedAction:(NSString *)action withState:(NSDictionary *)state
 {
+    // Anticipate that the native SDK will support this.
+    SEL sdkMethod = @selector(userCompletedAction:withState:);
+    if ([self respondsToSelector:sdkMethod]) {
+        [self performSelector:sdkMethod withObject:action withObject:state];
+        return;
+    }
+
     NSMutableDictionary *actionPayload = [[NSMutableDictionary alloc] init];
     NSDictionary *linkParams = [self getParamsForServerRequest];
     if (self.canonicalIdentifier && linkParams) {
