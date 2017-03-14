@@ -30,6 +30,7 @@ export default async function createBranchUniversalObject(identifier, options = 
 
       return this._tryFunction(RNBranch.showShareSheet, shareOptions, linkProperties, controlParams)
     },
+    // deprecated in favor of userCompletedAction(RegisterViewEvent)
     registerView() {
       return this._tryFunction(RNBranch.registerView)
     },
@@ -39,6 +40,9 @@ export default async function createBranchUniversalObject(identifier, options = 
     listOnSpotlight() {
       if (Platform.OS !== 'ios') return Promise.resolve()
       return this._tryFunction(RNBranch.listOnSpotlight)
+    },
+    userCompletedAction(event) {
+      return this._tryFunction(RNBranch.userCompletedActionOnUniversalObject, event)
     },
     release() {
       RNBranch.releaseUniversalObject(this.ident)

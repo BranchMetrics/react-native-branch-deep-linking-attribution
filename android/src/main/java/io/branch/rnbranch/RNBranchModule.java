@@ -168,6 +168,15 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void userCompletedActionOnUniversalObject(String ident, String event, Promise promise) {
+        BranchUniversalObject universalObject = findUniversalObjectOrReject(ident, promise);
+        if (universalObject == null) return;
+
+        universalObject.userCompletedAction(event);
+        promise.resolve(null);
+    }
+
+    @ReactMethod
     public void showShareSheet(String ident, ReadableMap shareOptionsMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, Promise promise) {
         Context context = getReactApplicationContext();
 
