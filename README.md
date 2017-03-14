@@ -55,7 +55,12 @@ Please see the Branch [SDK Integration Guide](https://dev.branch.io/getting-star
 
 ## Usage
 ```js
-import branch from 'react-native-branch'
+import branch, { AddToWishlistEvent,
+  PurchasedEvent,
+  PurchaseInitiatedEvent,
+  RegisterViewEvent,
+  ShareCompletedEvent,
+  ShareInitiatedEvent } from 'react-native-branch'
 
 // Subscribe to incoming links (both Branch & non-Branch)
 // bundle = object with: {params, error, uri}
@@ -71,14 +76,19 @@ branch.setIdentity('theUserId')
 branch.userCompletedAction('Purchased Item', {item: 123})
 branch.logout()
 
-let branchUniversalObject = branch.createBranchUniversalObject('canonicalIdentifier', {metadata: {prop1: 'test', prop2: 'abc'}, title: 'Cool Content!', contentDescription: 'Cool Content Description'})
+let branchUniversalObject = branch.createBranchUniversalObject('canonicalIdentifier', {
+  automaticallyListOnSpotlight: true,
+  metadata: {prop1: 'test', prop2: 'abc'},
+  title: 'Cool Content!',
+  contentDescription: 'Cool Content Description'})
+let actionResult = await branchUniversalObject.userCompletedAction(RegisterViewEvent)
 
 let shareOptions = { messageHeader: 'Check this out', messageBody: 'No really, check this out!' }
 let linkProperties = { feature: 'share', channel: 'RNApp' }
 let controlParams = { $desktop_url: 'http://example.com/home', $ios_url: 'http://example.com/ios' }
 let {channel, completed, error} = await branchUniversalObject.showShareSheet(shareOptions, linkProperties, controlParams)
 let {url} = await branchUniversalObject.generateShortUrl(linkProperties, controlParams)
-let viewResult = await branchUniversalObject.registerView()
+let viewResult = await branchUniversalObject.registerView() // deprecated. use userCompletedAction(RegisterViewEvent) instead.
 let spotlightResult = await branchUniversalObject.listOnSpotlight()
 
 let rewards = await branch.loadRewards()

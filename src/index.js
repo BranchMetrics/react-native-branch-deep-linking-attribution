@@ -12,6 +12,13 @@ const INIT_SESSION_SUCCESS = 'RNBranch.initSessionSuccess'
 const INIT_SESSION_ERROR = 'RNBranch.initSessionError'
 const INIT_SESSION_TTL = 5000
 
+export const AddToWishlistEvent = "Add to Wishlist"
+export const PurchasedEvent = "Purchased"
+export const PurchaseInitiatedEvent = "Purchase Started"
+export const RegisterViewEvent = "View"
+export const ShareCompletedEvent = "Share Completed"
+export const ShareInitiatedEvent = "Share Started"
+
 class Branch {
   _launchTime = new Date().getTime();
   _initSessionResult = null;
