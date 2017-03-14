@@ -42,18 +42,6 @@ class BranchMethods extends Component {
     }
   }
 
-  registerView = async () => {
-    if (!this.buo) await this.createBranchUniversalObject()
-    try {
-      let result = await this.buo.registerView()
-      console.log('registerView', result)
-      this.addResult('success', 'registerView', result)
-    } catch (err) {
-      console.log('registerView err', err.toString())
-      this.addResult('error', 'registerView', err.toString())
-    }
-  }
-
   listOnSpotlight = async () => {
     if (!this.buo) await this.createBranchUniversalObject()
     try {
@@ -150,15 +138,14 @@ class BranchMethods extends Component {
         <Text style={styles.header}>METHODS</Text>
         <ScrollView style={styles.buttonsContainer}>
           <Button onPress={this.createBranchUniversalObject}>createBranchUniversalObject</Button>
+          <Button onPress={this.userCompletedAction}>userCompletedAction</Button>
           <Button onPress={this.generateShortUrl}>generateShortUrl</Button>
-          <Button onPress={this.registerView}>registerView</Button>
           <Button onPress={this.listOnSpotlight}>listOnSpotlight</Button>
           <Button onPress={this.showShareSheet}>showShareSheet</Button>
           <Button onPress={this.redeemRewards.bind(this, '')}>redeemRewards</Button>
           <Button onPress={this.redeemRewards.bind(this, 'testBucket')}>redeemRewards (with bucket)</Button>
           <Button onPress={this.loadRewards}>loadRewards</Button>
           <Button onPress={this.getCreditHistory}>getCreditHistory</Button>
-          <Button onPress={this.userCompletedAction}>userCompletedAction</Button>
         </ScrollView>
       </View>
     )

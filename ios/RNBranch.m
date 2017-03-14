@@ -207,7 +207,7 @@ RCT_EXPORT_METHOD(
     if (!branchUniversalObject) return;
 
     [branchUniversalObject userCompletedAction:event];
-    resolve(nil);
+    resolve(NSNull.null);
 }
 
 #pragma mark showShareSheet
