@@ -81,7 +81,7 @@ let branchUniversalObject = branch.createBranchUniversalObject('canonicalIdentif
   metadata: {prop1: 'test', prop2: 'abc'},
   title: 'Cool Content!',
   contentDescription: 'Cool Content Description'})
-let actionResult = branchUniversalObject.userCompletedAction(RegisterViewEvent)
+let actionResult = await branchUniversalObject.userCompletedAction(RegisterViewEvent)
 
 let shareOptions = { messageHeader: 'Check this out', messageBody: 'No really, check this out!' }
 let linkProperties = { feature: 'share', channel: 'RNApp' }
