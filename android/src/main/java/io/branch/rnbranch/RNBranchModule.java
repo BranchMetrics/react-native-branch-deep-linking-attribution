@@ -168,11 +168,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void userCompletedActionOnUniversalObject(String ident, String event, Promise promise) {
+    public void userCompletedActionOnUniversalObject(String ident, String event, ReadableMap state, Promise promise) {
         BranchUniversalObject universalObject = findUniversalObjectOrReject(ident, promise);
         if (universalObject == null) return;
 
-        universalObject.userCompletedAction(event);
+        universalObject.userCompletedAction(event, convertMapToParams(state));
         promise.resolve(null);
     }
 
@@ -335,9 +335,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private BranchUniversalObject findUniversalObjectOrReject(final String ident, final Promise promise) {
         BranchUniversalObject universalObject = mUniversalObjectMap.get(ident);
 
-        // This is extremely unlikely and basically a logic error.
         if (universalObject == null) {
-            final String errorMessage = "BranchUniversalObject not found for ident " + ident + ". Do not reuse a BUO after calling release() in JS. Create a new instance instead.";
+            final String errorMessage = "BranchUniversalObject not found for ident " + ident + ".";
             promise.reject(UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE, errorMessage);
         }
 
@@ -692,5 +691,29 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             }
         }
         return array;
+    }
+
+    // Convert an arbitrary ReadableMap to a string-string hash of custom params for userCompletedAction.
+    private static HashMap<String, String> convertMapToParams(ReadableMap map) {
+        if (map == null) return null;
+
+        HashMap<String, String> hash = new HashMap<>();
+
+        ReadableMapKeySetIterator iterator = map.keySetIterator();
+        while (iterator.hasNextKey()) {
+            String key = iterator.nextKey();
+            switch (map.getType(key)) {
+                case String:
+                    hash.put(key, map.getString(key));
+                case Boolean:
+                    hash.put(key, "" + map.getBoolean(key));
+                case Number:
+                    hash.put(key, "" + map.getDouble(key));
+                default:
+                    Log.w(REACT_CLASS, "Unsupported data type in params, ignoring");
+            }
+        }
+
+        return hash;
     }
 }

@@ -55,12 +55,14 @@ Please see the Branch [SDK Integration Guide](https://dev.branch.io/getting-star
 
 ## Usage
 ```js
-import branch, { AddToWishlistEvent,
+import branch, {
+  AddToWishlistEvent,
   PurchasedEvent,
   PurchaseInitiatedEvent,
   RegisterViewEvent,
   ShareCompletedEvent,
-  ShareInitiatedEvent } from 'react-native-branch'
+  ShareInitiatedEvent
+} from 'react-native-branch'
 
 // Subscribe to incoming links (both Branch & non-Branch)
 // bundle = object with: {params, error, uri}
@@ -82,6 +84,7 @@ let branchUniversalObject = branch.createBranchUniversalObject('canonicalIdentif
   title: 'Cool Content!',
   contentDescription: 'Cool Content Description'})
 let actionResult = await branchUniversalObject.userCompletedAction(RegisterViewEvent)
+let customActionResult = await branchUniversalObject.userCompletedAction('Custom Action', { key: 'value' })
 
 let shareOptions = { messageHeader: 'Check this out', messageBody: 'No really, check this out!' }
 let linkProperties = { feature: 'share', channel: 'RNApp' }

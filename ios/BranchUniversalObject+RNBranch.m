@@ -8,6 +8,8 @@
 
 #import <React/RCTLog.h>
 
+#import <Branch/BranchConstants.h>
+
 #import "BranchUniversalObject+RNBranch.h"
 #import "NSObject+RNBranch.h"
 #import "RNBranchProperty.h"
@@ -91,6 +93,69 @@
     }
 
     self.expirationDate = [NSDate dateWithTimeIntervalSince1970:timegm(&expiration)];
+}
+
+#pragma mark - Code to support userCompletedAction:withState:
+
+/*
+ * Until the native SDK supports this, the following is largely lifted from BUO.m.
+ */
+
+- (void)rnbranchUserCompletedAction:(NSString *)action withState:(NSDictionary *)state
+{
+    // Anticipate that the native SDK will support this.
+    SEL sdkMethod = @selector(userCompletedAction:withState:);
+    if ([self respondsToSelector:sdkMethod]) {
+        [self performSelector:sdkMethod withObject:action withObject:state];
+        return;
+    }
+
+    NSMutableDictionary *actionPayload = [[NSMutableDictionary alloc] init];
+    NSDictionary *linkParams = [self getParamsForServerRequest];
+    if (self.canonicalIdentifier && linkParams) {
+        actionPayload[BNCCanonicalIdList] = @[self.canonicalIdentifier];
+        actionPayload[self.canonicalIdentifier] = linkParams;
+
+        // Add in custom params
+        [actionPayload addEntriesFromDictionary:state];
+
+        [[Branch getInstance] userCompletedAction:action withState:actionPayload];
+        if (self.automaticallyListOnSpotlight && [action isEqualToString:BNCRegisterViewEvent])
+            [self listOnSpotlight];
+    }
+}
+
+- (NSDictionary *)getParamsForServerRequest {
+    NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
+    [self safeSetValue:self.canonicalIdentifier forKey:BRANCH_LINK_DATA_KEY_CANONICAL_IDENTIFIER onDict:temp];
+    [self safeSetValue:self.canonicalUrl forKey:BRANCH_LINK_DATA_KEY_CANONICAL_URL onDict:temp];
+    [self safeSetValue:self.title forKey:BRANCH_LINK_DATA_KEY_OG_TITLE onDict:temp];
+    [self safeSetValue:self.contentDescription forKey:BRANCH_LINK_DATA_KEY_OG_DESCRIPTION onDict:temp];
+    [self safeSetValue:self.imageUrl forKey:BRANCH_LINK_DATA_KEY_OG_IMAGE_URL onDict:temp];
+    if (self.contentIndexMode == ContentIndexModePrivate) {
+        [self safeSetValue:@(0) forKey:BRANCH_LINK_DATA_KEY_PUBLICLY_INDEXABLE onDict:temp];
+    }
+    else {
+        [self safeSetValue:@(1) forKey:BRANCH_LINK_DATA_KEY_PUBLICLY_INDEXABLE onDict:temp];
+    }
+    [self safeSetValue:self.keywords forKey:BRANCH_LINK_DATA_KEY_KEYWORDS onDict:temp];
+    [self safeSetValue:@(1000 * [self.expirationDate timeIntervalSince1970]) forKey:BRANCH_LINK_DATA_KEY_CONTENT_EXPIRATION_DATE onDict:temp];
+    [self safeSetValue:self.type forKey:BRANCH_LINK_DATA_KEY_CONTENT_TYPE onDict:temp];
+    [self safeSetValue:self.currency forKey:BNCPurchaseCurrency onDict:temp];
+    if (self.price) {
+        // have to add if statement because safeSetValue only accepts objects so even if self.price is not set
+        // a valid NSNumber object will be created and the request will have amount:0 in all cases.
+        [self safeSetValue:[NSNumber numberWithFloat:self.price] forKey:BNCPurchaseAmount onDict:temp];
+    }
+
+    [temp addEntriesFromDictionary:[self.metadata copy]];
+    return [temp copy];
+}
+
+- (void)safeSetValue:(NSObject *)value forKey:(NSString *)key onDict:(NSMutableDictionary *)dict {
+    if (value) {
+        dict[key] = value;
+    }
 }
 
 @end
