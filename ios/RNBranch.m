@@ -124,9 +124,8 @@ RCT_EXPORT_MODULE();
 {
     BranchUniversalObject *universalObject = self.universalObjectMap[ident];
 
-    // This is extremely unlikely and amounts to a logic error.
     if (!universalObject) {
-        NSString *errorMessage = [NSString stringWithFormat:@"BranchUniversalObject for ident %@ not found. Do not reuse a BUO after calling release() in JS. Create a new instance instead.", ident];
+        NSString *errorMessage = [NSString stringWithFormat:@"BranchUniversalObject for ident %@ not found.", ident];
 
         NSError *error = [NSError errorWithDomain:RNBranchErrorDomain
                                              code:RNBranchUniversalObjectNotFoundError
