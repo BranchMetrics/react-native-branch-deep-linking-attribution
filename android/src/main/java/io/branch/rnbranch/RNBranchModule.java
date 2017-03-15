@@ -335,9 +335,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private BranchUniversalObject findUniversalObjectOrReject(final String ident, final Promise promise) {
         BranchUniversalObject universalObject = mUniversalObjectMap.get(ident);
 
-        // This is extremely unlikely and basically a logic error.
         if (universalObject == null) {
-            final String errorMessage = "BranchUniversalObject not found for ident " + ident + ". Do not reuse a BUO after calling release() in JS. Create a new instance instead.";
+            final String errorMessage = "BranchUniversalObject not found for ident " + ident + ".";
             promise.reject(UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE, errorMessage);
         }
 
