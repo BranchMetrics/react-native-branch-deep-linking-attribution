@@ -55,12 +55,14 @@ Please see the Branch [SDK Integration Guide](https://dev.branch.io/getting-star
 
 ## Usage
 ```js
-import branch, { AddToWishlistEvent,
+import branch, {
+  AddToWishlistEvent,
   PurchasedEvent,
   PurchaseInitiatedEvent,
   RegisterViewEvent,
   ShareCompletedEvent,
-  ShareInitiatedEvent } from 'react-native-branch'
+  ShareInitiatedEvent
+} from 'react-native-branch'
 
 // Subscribe to incoming links (both Branch & non-Branch)
 // bundle = object with: {params, error, uri}
