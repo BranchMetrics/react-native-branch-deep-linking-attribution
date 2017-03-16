@@ -35,7 +35,23 @@
 2017-02-24  Version 0.9.5
 
   * Improved support for manual installation of Branch SDK
+  * Fix for non-Branch links with Universal Links on iOS
 
 2017-02-24  Version 1.0.5
 
   * Improved support for manual installation of Branch SDK
+  * Fix for non-Branch links with Universal Links on iOS
+
+2017-03-16  Version 0.9.6
+
+  * Corrected a react-native version limitation in the build.gradle to ensure the version from node_modules is used.
+
+2017-03-16  Version 1.1.0
+
+  * This release introduces a userCompletedAction() method on the Branch Universal Object. The registerView() method
+  is deprecated in favor of userCompletedAction(RegisterViewEvent).
+  * The createBranchUniversalObject() method now allocates native resources supporting the BUO. These are eventually
+  cleaned up when unused for some time. An optional release() method is also provided to ensure they are released
+  immediately, e.g. when componentWillUnmount() is called.
+  * Corrected a react-native version limitation in the build.gradle to ensure the version from node_modules is used.
+  * The native iOS dependencies for the testbed apps were update to 0.13.5.

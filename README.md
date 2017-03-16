@@ -157,11 +157,13 @@ Register a user action with Branch.
 Create a branch universal object.  
 **canonicalIdentifier** the unique identifier for the content.  
 **universalObjectOptions** options for universal object as defined [below](#universalobjectoptions).
-Returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, `showShareSheet`, `userCompletedAction` and `release`.
+Returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, `showShareSheet`, `userCompletedAction` (v1.1.0) and `release` (v1.1.0).
 
 ##### The following methods are available on the resulting branchUniversalObject:
 
 ###### <a id='usercompletedaction'></a>[- userCompletedAction(event, state = {}): null](#usercompletedaction)
+
+_Introduced in version 1.1.0_
 
 Report a user action for this Branch Universal Object instance. Create a Branch Universal Object on page load and call `userCompletedAction(RegisterViewEvent)`.
 
@@ -202,6 +204,8 @@ universalObject.userCompletedAction(RegisterViewEvent)
 The `automaticallyListOnSpotlight` property is ignored on Android.
 
 ##### <a id='release'></a>[- release()](#release)
+_Introduced in version 1.1.0_
+
 (Optional) Immediately release native resources used by this Branch Universal Object instance. Those resources will eventually be removed if they are unused for some time, but you can also call `release()` when a BUO is no longer used, e.g. in `componentWillUnmount()`. (See the [testbed](./testbed) apps in this repo.)
 
 ##### <a id='useractions'></a>[Register User Actions On An Object](#useractions)
