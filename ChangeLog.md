@@ -54,4 +54,4 @@
   cleaned up when unused for some time. An optional release() method is also provided to ensure they are released
   immediately, e.g. when componentWillUnmount() is called.
   * Corrected a react-native version limitation in the build.gradle to ensure the version from node_modules is used.
-  * The native iOS dependencies for the testbed apps were update to 0.13.5.
+  * The native iOS dependencies for the testbed apps were updated to 0.13.5.
