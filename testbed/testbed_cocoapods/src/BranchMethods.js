@@ -17,6 +17,11 @@ class BranchMethods extends Component {
     results: [],
   }
 
+  componentWillUnmount() {
+    if (!this.buo) return
+    this.buo.release()
+  }
+
   createBranchUniversalObject = async () => {
     try {
       let result = await branch.createBranchUniversalObject('abc', defaultBUO)
