@@ -2,7 +2,7 @@
 
 This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK. This SDK will help you handle iOS Universal Links, Android App Links and deferred deep links, do install attribution and much more!
 
-**react-native v0.40 support** is available in version 1.0.0. This is a non-backwards compatible update. If you need to stay on react-native <0.40 please fix your package.json version to react-native-branch@0.9. See [Updating to 1.0.0](./docs/updating-1.0.0.md) for details. Note that some build steps differ between 0.9 and 1.0. These are highlighted
+**react-native v0.40 support** is available in version 1.x. This is a non-backwards compatible update. If you need to stay on react-native <0.40 please fix your package.json version to react-native-branch@0.9. See [Updating to 1.0.0](./docs/updating-1.0.0.md) for details. Note that some build steps differ between 0.9 and 1.x. These are highlighted
 where applicable.
 
 **v0.8.0** If you have overridden `onStop` in MainActivity.java be sure *not* to invoke `RNBranchModule.onStop()`.
@@ -83,15 +83,14 @@ let branchUniversalObject = branch.createBranchUniversalObject('canonicalIdentif
   metadata: {prop1: 'test', prop2: 'abc'},
   title: 'Cool Content!',
   contentDescription: 'Cool Content Description'})
-let actionResult = await branchUniversalObject.userCompletedAction(RegisterViewEvent)
-let customActionResult = await branchUniversalObject.userCompletedAction('Custom Action', { key: 'value' })
+branchUniversalObject.userCompletedAction(RegisterViewEvent)
+branchUniversalObject.userCompletedAction('Custom Action', { key: 'value' })
 
 let shareOptions = { messageHeader: 'Check this out', messageBody: 'No really, check this out!' }
 let linkProperties = { feature: 'share', channel: 'RNApp' }
 let controlParams = { $desktop_url: 'http://example.com/home', $ios_url: 'http://example.com/ios' }
 let {channel, completed, error} = await branchUniversalObject.showShareSheet(shareOptions, linkProperties, controlParams)
 let {url} = await branchUniversalObject.generateShortUrl(linkProperties, controlParams)
-let viewResult = await branchUniversalObject.registerView() // deprecated. use userCompletedAction(RegisterViewEvent) instead.
 let spotlightResult = await branchUniversalObject.listOnSpotlight()
 
 // optional: release native resources right away when finished with this BUO.
@@ -158,7 +157,7 @@ Register a user action with Branch.
 Create a branch universal object.  
 **canonicalIdentifier** the unique identifier for the content.  
 **universalObjectOptions** options for universal object as defined [below](#universalobjectoptions).
-Returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, `showShareSheet` and `userCompletedAction`.
+Returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, `showShareSheet`, `userCompletedAction` and `release`.
 
 ##### The following methods are available on the resulting branchUniversalObject:
 
@@ -201,6 +200,9 @@ universalObject.userCompletedAction(RegisterViewEvent)
 ```
 
 The `automaticallyListOnSpotlight` property is ignored on Android.
+
+##### <a id='release'></a>[- release()](#release)
+(Optional) Immediately release native resources used by this Branch Universal Object instance. Those resources will eventually be removed if they are unused for some time, but you can also call `release()` when a BUO is no longer used, e.g. in `componentWillUnmount()`. (See the [testbed](./testbed) apps in this repo.)
 
 ##### <a id='useractions'></a>[Register User Actions On An Object](#useractions)
 
