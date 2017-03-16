@@ -94,6 +94,9 @@ let {url} = await branchUniversalObject.generateShortUrl(linkProperties, control
 let viewResult = await branchUniversalObject.registerView() // deprecated. use userCompletedAction(RegisterViewEvent) instead.
 let spotlightResult = await branchUniversalObject.listOnSpotlight()
 
+// optional: release native resources right away when finished with this BUO.
+branchUniversalObject.release()
+
 let rewards = await branch.loadRewards()
 let redeemResult = await branch.redeemRewards(amount, bucket)
 let creditHistory = await branch.getCreditHistory()
@@ -154,11 +157,21 @@ Register a user action with Branch.
 ###### <a id='createbranchuniversalobject'></a>[createBranchUniversalObject(canonicalIdentifier, universalObjectOptions): object](#createbranchuniversalobject)
 Create a branch universal object.  
 **canonicalIdentifier** the unique identifier for the content.  
-**universalObjectOptions** options for universal object as defined [below][#universalobjectoptions].
-Returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, and `showShareSheet`.  
+**universalObjectOptions** options for universal object as defined [below](#universalobjectoptions).
+Returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, `showShareSheet` and `userCompletedAction`.
 
 ##### The following methods are available on the resulting branchUniversalObject:
-###### <a id='showsharesheet'></a>[- showsharesheet(shareOptions, linkProperties, controlParams): object](#showsharesheet)  
+
+###### <a id='usercompletedaction'></a>[- userCompletedAction(event, state = {}): null](#usercompletedaction)
+
+Report a user action for this Branch Universal Object instance. Create a Branch Universal Object on page load and call `userCompletedAction(RegisterViewEvent)`.
+
+**event** an event name string, either one of the standard events defined by the SDK (as defined [below](#useractions)) or a custom event name.  
+**state** an optional object with string properties representing custom application state
+
+Returns null.
+
+###### <a id='showsharesheet'></a>[- showShareSheet(shareOptions, linkProperties, controlParams): object](#showsharesheet)
 **shareOptions** as defined [below](#shareoptions)  
 **linkProperties** as defined [below](#linkproperties)  
 **controlParams** as defined [below](#controlparams)  
@@ -170,10 +183,46 @@ Returns an object with `{ channel, completed, error }`
 Returns an object with `{ url }`  
 
 ######  <a id='registerview'></a>[- registerView()](#registerview)
-Register a view for this universal object.
+Register a view for this universal object. **Deprecated**: Use `userCompletedAction(RegisterViewEvent)` instead.
 
 ######  <a id='listonspotlight'></a>[- listOnSpotlight()](#listonspotlight)
-List the univeral object in spotlight (ios only).
+List the universal object on Spotlight (iOS only). **Note**: The recommended way to list an item on Spotlight is to use the `automaticallyListOnSpotlight` property with `createBranchUniversalObject` and then call `userCompletedAction(RegisterViewEvent)`, e.g.
+
+```js
+import branch, { RegisterViewEvent } from 'react-native-branch'
+
+let universalObject = branch.createBranchUniversalObject('abc', {
+  automaticallyListOnSpotlight: true,
+  title: 'Item title',
+  contentDescription: 'Item description',
+  contentImageUrl: 'https://example.com/image.png'
+})
+universalObject.userCompletedAction(RegisterViewEvent)
+```
+
+The `automaticallyListOnSpotlight` property is ignored on Android.
+
+##### <a id='useractions'></a>[Register User Actions On An Object](#useractions)
+
+We've added a series of custom events that you'll want to start tracking for rich analytics and targeting. Here's a list below with a sample snippet that calls the register view event.
+
+| Event | Description
+| ----- | ---
+| RegisterViewEvent | User viewed the object
+| AddToWishlistEvent | User added the object to their wishlist
+| AddToCartEvent | User added object to cart
+| PurchaseInitiatedEvent | User started to check out
+| PurchasedEvent | User purchased the item
+| ShareInitiatedEvent | User started to share the object
+| ShareCompletedEvent | User completed a share
+
+```js
+import branch, { RegisterViewEvent } from 'react-native-branch'
+let universalObject = branch.createUniversalObject('abc', {})
+universalObject.userCompletedAction(RegisterViewEvent)
+```
+
+Note that `registerView()` is deprecated in favor of `userCompletedAction(RegisterViewEvent)`.
 
 ###### <a id='universalobjectoptions'></a>[universalObjectOptions object](#universalobjectoptions)
 An object of options for the branchUniversalObject.  
