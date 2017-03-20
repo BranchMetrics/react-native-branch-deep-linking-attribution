@@ -8,8 +8,6 @@
 
 #import <React/RCTLog.h>
 
-#import <Branch/BranchConstants.h>
-
 #import "BranchUniversalObject+RNBranch.h"
 #import "NSObject+RNBranch.h"
 #import "RNBranchProperty.h"
@@ -100,6 +98,17 @@
 /*
  * Until the native SDK supports this, the following is largely lifted from BUO.m.
  */
+
+//* From BranchConstants.h
+static NSString * const BRANCH_LINK_DATA_KEY_CANONICAL_IDENTIFIER = @"$canonical_identifier";
+static NSString * const BRANCH_LINK_DATA_KEY_CANONICAL_URL = @"$canonical_url";
+static NSString * const BRANCH_LINK_DATA_KEY_OG_TITLE = @"$og_title";
+static NSString * const BRANCH_LINK_DATA_KEY_OG_DESCRIPTION = @"$og_description";
+static NSString * const BRANCH_LINK_DATA_KEY_OG_IMAGE_URL = @"$og_image_url";
+static NSString * const BRANCH_LINK_DATA_KEY_PUBLICLY_INDEXABLE = @"$publicly_indexable";
+static NSString * const BRANCH_LINK_DATA_KEY_KEYWORDS = @"$keywords";
+static NSString * const BRANCH_LINK_DATA_KEY_CONTENT_EXPIRATION_DATE = @"$exp_date";
+static NSString * const BRANCH_LINK_DATA_KEY_CONTENT_TYPE = @"$content_type";
 
 - (void)rnbranchUserCompletedAction:(NSString *)action withState:(NSDictionary *)state
 {
