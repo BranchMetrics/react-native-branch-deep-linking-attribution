@@ -78,7 +78,7 @@ branch.setIdentity('theUserId')
 branch.userCompletedAction('Purchased Item', {item: 123})
 branch.logout()
 
-let branchUniversalObject = branch.createBranchUniversalObject('canonicalIdentifier', {
+let branchUniversalObject = await branch.createBranchUniversalObject('canonicalIdentifier', {
   automaticallyListOnSpotlight: true,
   metadata: {prop1: 'test', prop2: 'abc'},
   title: 'Cool Content!',
