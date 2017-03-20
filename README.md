@@ -2,6 +2,18 @@
 
 This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK. This SDK will help you handle iOS Universal Links, Android App Links and deferred deep links, do install attribution and much more!
 
+**v1.1.0** The `createBranchUniversalObject` method is now async, so be sure to use `await` or handle the promise resolution, e.g.
+```js
+let buo = await branch.createBranchUniversalObject(...)
+```
+or
+```js
+branch.createBranchUniversalObject(...).then((buo) => {
+  this.buo = buo
+})
+```
+This method does not throw.
+
 **react-native v0.40 support** is available in version 1.x. This is a non-backwards compatible update. If you need to stay on react-native <0.40 please fix your package.json version to react-native-branch@0.9. See [Updating to 1.0.0](./docs/updating-1.0.0.md) for details. Note that some build steps differ between 0.9 and 1.x. These are highlighted
 where applicable.
 
@@ -153,11 +165,11 @@ Logout the current user.
 Register a user action with Branch.  
 
 ## Branch Universal Object
-###### <a id='createbranchuniversalobject'></a>[createBranchUniversalObject(canonicalIdentifier, universalObjectOptions): object](#createbranchuniversalobject)
+###### <a id='createbranchuniversalobject'></a>[createBranchUniversalObject(canonicalIdentifier, universalObjectOptions): Promise](#createbranchuniversalobject)
 Create a branch universal object.  
 **canonicalIdentifier** the unique identifier for the content.  
 **universalObjectOptions** options for universal object as defined [below](#universalobjectoptions).
-Returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, `showShareSheet`, `userCompletedAction` (v1.1.0) and `release` (v1.1.0).
+Returns a promise. On resolution, the promise returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, `showShareSheet`, `userCompletedAction` (v1.1.0) and `release` (v1.1.0). This method does not throw.
 
 ##### The following methods are available on the resulting branchUniversalObject:
 
@@ -192,7 +204,7 @@ List the universal object on Spotlight (iOS only). **Note**: The recommended way
 ```js
 import branch, { RegisterViewEvent } from 'react-native-branch'
 
-let universalObject = branch.createBranchUniversalObject('abc', {
+let universalObject = await branch.createBranchUniversalObject('abc', {
   automaticallyListOnSpotlight: true,
   title: 'Item title',
   contentDescription: 'Item description',
@@ -224,7 +236,7 @@ We've added a series of custom events that you'll want to start tracking for ric
 
 ```js
 import branch, { RegisterViewEvent } from 'react-native-branch'
-let universalObject = branch.createUniversalObject('abc', {})
+let universalObject = await branch.createUniversalObject('abc', {})
 universalObject.userCompletedAction(RegisterViewEvent)
 ```
 
