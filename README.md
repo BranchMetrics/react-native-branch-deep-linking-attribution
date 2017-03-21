@@ -168,7 +168,7 @@ Register a user action with Branch.
 ###### <a id='createbranchuniversalobject'></a>[createBranchUniversalObject(canonicalIdentifier, universalObjectOptions): Promise](#createbranchuniversalobject)
 Create a branch universal object.  
 **canonicalIdentifier** the unique identifier for the content.  
-**universalObjectOptions** options for universal object as defined [below](#universalobjectoptions).
+**universalObjectOptions** options for universal object as defined [below](#universalobjectoptions).  
 Returns a promise. On resolution, the promise returns an object with methods `generateShortUrl`, `registerView`, `listOnSpotlight`, `showShareSheet`, `userCompletedAction` (v1.1.0) and `release` (v1.1.0). This method does not throw.
 
 ##### The following methods are available on the resulting branchUniversalObject:

@@ -55,3 +55,13 @@
   immediately, e.g. when componentWillUnmount() is called.
   * Corrected a react-native version limitation in the build.gradle to ensure the version from node_modules is used.
   * The native iOS dependencies for the testbed apps were updated to 0.13.5.
+
+2017-03-21  Version 0.9.7
+
+  * Decrease buildToolsVersion to 23.0.1 in build.gradle
+
+2017-03-21  Version 1.1.1
+
+  * Decrease buildToolsVersion to 23.0.1 in build.gradle
+  * Fixed broken Carthage build (#128)
+  * Updated README to reflect async createBranchUniversalObject method.
