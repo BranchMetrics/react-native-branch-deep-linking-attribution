@@ -14,6 +14,7 @@
 		7B6377631E831BF6009227D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B6377611E831BF6009227D1 /* Main.storyboard */; };
 		7B6377651E831BF6009227D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B6377641E831BF6009227D1 /* Assets.xcassets */; };
 		7B6377681E831BF6009227D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B6377661E831BF6009227D1 /* LaunchScreen.storyboard */; };
+		7B6377C91E834150009227D1 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 7B6377C81E834150009227D1 /* main.jsbundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,8 @@
 		7B6377641E831BF6009227D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B6377671E831BF6009227D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B6377691E831BF6009227D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B6377961E833F57009227D1 /* testbed_native_ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = testbed_native_ios.entitlements; sourceTree = "<group>"; };
+		7B6377C81E834150009227D1 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		8E214B899E1861D89268F2CE /* Pods-testbed_native_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testbed_native_ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-testbed_native_ios/Pods-testbed_native_ios.debug.xcconfig"; sourceTree = "<group>"; };
 		AD34805037249BCBEA51DB6A /* libPods-testbed_native_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-testbed_native_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7AE53FD155ABDCFC1404DD7 /* Pods-testbed_native_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testbed_native_ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-testbed_native_ios/Pods-testbed_native_ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,6 +85,8 @@
 		7B6377571E831BF6009227D1 /* testbed_native_ios */ = {
 			isa = PBXGroup;
 			children = (
+				7B6377C81E834150009227D1 /* main.jsbundle */,
+				7B6377961E833F57009227D1 /* testbed_native_ios.entitlements */,
 				7B63775B1E831BF6009227D1 /* AppDelegate.h */,
 				7B63775C1E831BF6009227D1 /* AppDelegate.m */,
 				7B63775E1E831BF6009227D1 /* ViewController.h */,
@@ -116,6 +121,7 @@
 				7B6377531E831BF6009227D1 /* Resources */,
 				432D7FE72F818BEEA0AF688F /* [CP] Embed Pods Frameworks */,
 				6EE8306372A9EE4CAC94AD78 /* [CP] Copy Pods Resources */,
+				7B6377C71E834105009227D1 /* Bundle React Native code and images */,
 			);
 			buildRules = (
 			);
@@ -137,7 +143,13 @@
 				TargetAttributes = {
 					7B6377541E831BF6009227D1 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = RAARD2VX57;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -167,6 +179,7 @@
 				7B6377681E831BF6009227D1 /* LaunchScreen.storyboard in Resources */,
 				7B6377651E831BF6009227D1 /* Assets.xcassets in Resources */,
 				7B6377631E831BF6009227D1 /* Main.storyboard in Resources */,
+				7B6377C91E834150009227D1 /* main.jsbundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +230,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-testbed_native_ios/Pods-testbed_native_ios-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		7B6377C71E834105009227D1 /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\nnode_modules/react-native/packager/react-native-xcode.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -348,12 +375,14 @@
 			baseConfigurationReference = 8E214B899E1861D89268F2CE /* Pods-testbed_native_ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = testbed_native_ios/testbed_native_ios.entitlements;
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphoneos*]" = disable;
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
+				DEVELOPMENT_TEAM = RAARD2VX57;
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.testbed-native-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "info.dubsar.TestBed-ReactNative";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -363,10 +392,12 @@
 			baseConfigurationReference = F7AE53FD155ABDCFC1404DD7 /* Pods-testbed_native_ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = testbed_native_ios/testbed_native_ios.entitlements;
 				DEBUG_ACTIVITY_MODE = "";
+				DEVELOPMENT_TEAM = RAARD2VX57;
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.testbed-native-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "info.dubsar.TestBed-ReactNative";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

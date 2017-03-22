@@ -52,13 +52,12 @@ RCT_EXPORT_MODULE();
     [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSString *errorMessage = error.localizedDescription;
 
-        initSessionWithLaunchOptionsResult = @{
-                                               RNBranchLinkOpenedNotificationParamsKey: params && params[@"~id"] ? params : [NSNull null],
-                                               RNBranchLinkOpenedNotificationErrorKey: errorMessage ?: [NSNull null],
-                                               RNBranchLinkOpenedNotificationUriKey: sourceUrl.absoluteString ?: [NSNull null]
-                                               };
+        NSMutableDictionary *result = [NSMutableDictionary dictionary];
+        if (error) result[RNBranchLinkOpenedNotificationErrorKey] = error;
+        if (params) result[RNBranchLinkOpenedNotificationParamsKey] = params;
+        if (sourceUrl) result[RNBranchLinkOpenedNotificationUriKey] = sourceUrl;
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:initSessionWithLaunchOptionsResult];
+        [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:result];
     }];
 }
 
@@ -103,16 +102,24 @@ RCT_EXPORT_MODULE();
 }
 
 - (void) onInitSessionFinished:(NSNotification*) notification {
-    NSDictionary *notificationObject = notification.userInfo;
+    NSURL *uri = notification.userInfo[RNBranchLinkOpenedNotificationUriKey];
+    NSError *error = notification.userInfo[RNBranchLinkOpenedNotificationErrorKey];
+    NSDictionary *params = notification.userInfo[RNBranchLinkOpenedNotificationParamsKey];
+
+    initSessionWithLaunchOptionsResult = @{
+                                         RNBranchLinkOpenedNotificationErrorKey: error.localizedDescription ?: NSNull.null,
+                                         RNBranchLinkOpenedNotificationParamsKey: params[@"~id"] ? params : NSNull.null,
+                                         RNBranchLinkOpenedNotificationUriKey: uri.absoluteString ?: NSNull.null
+                                         };
 
     // If there is an error, fire error event
-    if (notificationObject[@"error"] != [NSNull null]) {
-        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionError" body:notificationObject];
+    if (error) {
+        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionError" body:initSessionWithLaunchOptionsResult];
     }
 
     // otherwise notify the session is finished
     else {
-        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionSuccess" body:notificationObject];
+        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionSuccess" body:initSessionWithLaunchOptionsResult];
     }
 }
 

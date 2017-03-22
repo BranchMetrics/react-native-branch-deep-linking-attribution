@@ -6,6 +6,7 @@
 //  Copyright © 2017 Branch Metrics. All rights reserved.
 //
 
+#import <React/RCTLog.h>
 #import <react-native-branch/RNBranch.h>
 
 #import "AppDelegate.h"
@@ -32,18 +33,18 @@
 
 - (void)linkOpened:(NSNotification *)notification
 {
-    NSString *error = notification.userInfo[RNBranchLinkOpenedNotificationErrorKey];
-    NSString *params = notification.userInfo[RNBranchLinkOpenedNotificationParamsKey];
-    NSString *uri = notification.userInfo[RNBranchLinkOpenedNotificationUriKey];
+    NSError *error = notification.userInfo[RNBranchLinkOpenedNotificationErrorKey];
+    NSDictionary *params = notification.userInfo[RNBranchLinkOpenedNotificationParamsKey];
+    NSURL *uri = notification.userInfo[RNBranchLinkOpenedNotificationUriKey];
 
-    NSLog(@"Received %@", notification.name);
+    RCTLog(@"Received %@", notification.name);
 
     if (error) {
-        NSLog(@"Error opening Branch link: %@", error);
+        RCTLogError(@"Error opening Branch link: %@", error.localizedDescription);
         return;
     }
 
-    NSLog(@"uri: %@, params: %@", uri, params);
+    RCTLog(@"uri: %@, params: %@", uri, params);
 
     // Now route to the appropriate view
 }
