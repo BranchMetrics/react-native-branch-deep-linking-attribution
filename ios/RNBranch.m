@@ -6,11 +6,15 @@
 #import "BranchUniversalObject+RNBranch.h"
 #import "RNBranchAgingDictionary.h"
 
+NSString * const RNBranchLinkOpenedNotification = @"RNBranchLinkOpenedNotification";
+NSString * const RNBranchLinkOpenedNotificationErrorKey = @"error";
+NSString * const RNBranchLinkOpenedNotificationParamsKey = @"params";
+NSString * const RNBranchLinkOpenedNotificationUriKey = @"uri";
+
 static NSDictionary *initSessionWithLaunchOptionsResult;
 static NSURL *sourceUrl;
 static Branch *branchInstance;
 
-static NSString * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWithLaunchOptionsFinished";
 static NSString * const IdentFieldName = @"ident";
 
 // These are only really exposed to the JS layer, so keep them internal for now.
@@ -49,12 +53,12 @@ RCT_EXPORT_MODULE();
         NSString *errorMessage = error.localizedDescription;
 
         initSessionWithLaunchOptionsResult = @{
-                                               @"params": params && params[@"~id"] ? params : [NSNull null],
-                                               @"error": errorMessage ?: [NSNull null],
-                                               @"uri": sourceUrl.absoluteString ?: [NSNull null]
+                                               RNBranchLinkOpenedNotificationParamsKey: params && params[@"~id"] ? params : [NSNull null],
+                                               RNBranchLinkOpenedNotificationErrorKey: errorMessage ?: [NSNull null],
+                                               RNBranchLinkOpenedNotificationUriKey: sourceUrl.absoluteString ?: [NSNull null]
                                                };
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult];
+        [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:initSessionWithLaunchOptionsResult];
     }];
 }
 
@@ -77,7 +81,7 @@ RCT_EXPORT_MODULE();
     if (self) {
         _universalObjectMap = [RNBranchAgingDictionary dictionaryWithTtl:3600.0];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:initSessionWithLaunchOptionsFinishedEventName object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:RNBranchLinkOpenedNotification object:nil];
     }
 
     return self;
@@ -99,7 +103,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (void) onInitSessionFinished:(NSNotification*) notification {
-    id notificationObject = notification.object;
+    NSDictionary *notificationObject = notification.userInfo;
 
     // If there is an error, fire error event
     if (notificationObject[@"error"] != [NSNull null]) {

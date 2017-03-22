@@ -1,6 +1,11 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
 
+extern NSString * const RNBranchLinkOpenedNotification;
+extern NSString * const RNBranchLinkOpenedNotificationErrorKey;
+extern NSString * const RNBranchLinkOpenedNotificationParamsKey;
+extern NSString * const RNBranchLinkOpenedNotificationUriKey;
+
 @interface RNBranch : NSObject <RCTBridgeModule>
 
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable;

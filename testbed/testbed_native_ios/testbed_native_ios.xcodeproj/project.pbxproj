@@ -348,6 +348,9 @@
 			baseConfigurationReference = 8E214B899E1861D89268F2CE /* Pods-testbed_native_ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_ACTIVITY_MODE = "";
+				"DEBUG_ACTIVITY_MODE[sdk=iphoneos*]" = disable;
+				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.testbed-native-ios";
@@ -360,6 +363,7 @@
 			baseConfigurationReference = F7AE53FD155ABDCFC1404DD7 /* Pods-testbed_native_ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_ACTIVITY_MODE = "";
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.testbed-native-ios";
