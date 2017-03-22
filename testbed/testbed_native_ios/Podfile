@@ -1,0 +1,5 @@
+pod "React", path: "node_modules/react-native", subspecs: [ "Core", "RCTAnimation", "RCTImage", "RCTText", "RCTNetwork", "RCTWebSocket" ]
+pod "react-native-branch", path: "node_modules/react-native-branch"
+pod "Branch-SDK", path: "node_modules/react-native-branch/ios"
+
+target "testbed_native_ios"
