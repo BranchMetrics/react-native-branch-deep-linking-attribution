@@ -2918,8 +2918,9 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
-"react-native-branch@file:../..":
-  version "1.0.6"
+react-native-branch@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-1.1.1.tgz#6c330be833eca06b50034afb01dd6a4f1c8b595b"
 
 react-native@^0.42.0:
   version "0.42.0"

@@ -1,6 +1,6 @@
 # testbed_native_ios
 
-This app illustrates how to integrate the react-native-branch SDK into a React Native component within an existing native iOS app.
+This app illustrates how to integrate the react-react-native-branch@2.0.0-beta.1-branch SDK into a React Native component within an existing native iOS app.
 
 The app was produced following the methodology outlined in these tutorials:
 

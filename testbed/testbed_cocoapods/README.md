@@ -1,28 +1,7 @@
-# testbed sample app
+# testbed_cocoapods
 
-## Building for iOS
+This app was built with react-native-branch@1.1.1 using CocoaPods to integrate the iOS SDK.
 
-Install dependencies from NPM using:
+## Building
 
-```bash
-npm install
-```
-
-or
-
-```bash
-yarn
-```
-
-Then simply build and run the Xcode project or use
-
-```bash
-react-native run-ios
-```
-
-There is no need to install the Branch SDK via `pod install` or
-another method. It is included in the ios/Pods subdirectory.
-
-## Building for Android
-
-*Work in progress*
+Just run `npm install` or `yarn` to install Node dependencies in node_modules. There is no need to install or run CocoaPods. The native dependencies are checked into the repo.
