@@ -143,7 +143,6 @@
 				TargetAttributes = {
 					7B6377541E831BF6009227D1 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = RAARD2VX57;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.SafariKeychain = {
@@ -379,10 +378,10 @@
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphoneos*]" = disable;
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
-				DEVELOPMENT_TEAM = RAARD2VX57;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "info.dubsar.TestBed-ReactNative";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.testbed-native-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -394,10 +393,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = testbed_native_ios/testbed_native_ios.entitlements;
 				DEBUG_ACTIVITY_MODE = "";
-				DEVELOPMENT_TEAM = RAARD2VX57;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "info.dubsar.TestBed-ReactNative";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.testbed-native-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
