@@ -6,11 +6,15 @@
 #import "BranchUniversalObject+RNBranch.h"
 #import "RNBranchAgingDictionary.h"
 
+NSString * const RNBranchLinkOpenedNotification = @"RNBranchLinkOpenedNotification";
+NSString * const RNBranchLinkOpenedNotificationErrorKey = @"error";
+NSString * const RNBranchLinkOpenedNotificationParamsKey = @"params";
+NSString * const RNBranchLinkOpenedNotificationUriKey = @"uri";
+
 static NSDictionary *initSessionWithLaunchOptionsResult;
 static NSURL *sourceUrl;
 static Branch *branchInstance;
 
-static NSString * const initSessionWithLaunchOptionsFinishedEventName = @"initSessionWithLaunchOptionsFinished";
 static NSString * const IdentFieldName = @"ident";
 
 // These are only really exposed to the JS layer, so keep them internal for now.
@@ -48,13 +52,12 @@ RCT_EXPORT_MODULE();
     [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSString *errorMessage = error.localizedDescription;
 
-        initSessionWithLaunchOptionsResult = @{
-                                               @"params": params && params[@"~id"] ? params : [NSNull null],
-                                               @"error": errorMessage ?: [NSNull null],
-                                               @"uri": sourceUrl.absoluteString ?: [NSNull null]
-                                               };
+        NSMutableDictionary *result = [NSMutableDictionary dictionary];
+        if (error) result[RNBranchLinkOpenedNotificationErrorKey] = error;
+        if (params) result[RNBranchLinkOpenedNotificationParamsKey] = params;
+        if (sourceUrl) result[RNBranchLinkOpenedNotificationUriKey] = sourceUrl;
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:initSessionWithLaunchOptionsFinishedEventName object:initSessionWithLaunchOptionsResult];
+        [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:result];
     }];
 }
 
@@ -77,7 +80,7 @@ RCT_EXPORT_MODULE();
     if (self) {
         _universalObjectMap = [RNBranchAgingDictionary dictionaryWithTtl:3600.0];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:initSessionWithLaunchOptionsFinishedEventName object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitSessionFinished:) name:RNBranchLinkOpenedNotification object:nil];
     }
 
     return self;
@@ -99,16 +102,24 @@ RCT_EXPORT_MODULE();
 }
 
 - (void) onInitSessionFinished:(NSNotification*) notification {
-    id notificationObject = notification.object;
+    NSURL *uri = notification.userInfo[RNBranchLinkOpenedNotificationUriKey];
+    NSError *error = notification.userInfo[RNBranchLinkOpenedNotificationErrorKey];
+    NSDictionary *params = notification.userInfo[RNBranchLinkOpenedNotificationParamsKey];
+
+    initSessionWithLaunchOptionsResult = @{
+                                         RNBranchLinkOpenedNotificationErrorKey: error.localizedDescription ?: NSNull.null,
+                                         RNBranchLinkOpenedNotificationParamsKey: params[@"~id"] ? params : NSNull.null,
+                                         RNBranchLinkOpenedNotificationUriKey: uri.absoluteString ?: NSNull.null
+                                         };
 
     // If there is an error, fire error event
-    if (notificationObject[@"error"] != [NSNull null]) {
-        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionError" body:notificationObject];
+    if (error) {
+        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionError" body:initSessionWithLaunchOptionsResult];
     }
 
     // otherwise notify the session is finished
     else {
-        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionSuccess" body:notificationObject];
+        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionSuccess" body:initSessionWithLaunchOptionsResult];
     }
 }
 

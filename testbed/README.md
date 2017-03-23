@@ -2,27 +2,12 @@
 
 There are two working examples in this directory:
 
-[testbed_carthage](./testbed_carthage)
+### [testbed_simple](./testbed_simple)
 
-[testbed_cocoapods](./testbed_cocoapods)
+This app illustrates the simplest means of integrating react-native-branch into a React Native app.
 
-These differ by the method used to install the Branch SDK for iOS.
+### [testbed_native_ios](./testbed_native_ios)
 
-To build and run any of them, you must first change to that directory
-and install dependencies from NPM, e.g.:
+This app illustrates how to integrate the react-native-branch SDK into a React Native component within an existing native iOS app.
 
-```bash
-cd testbed_cocoapods
-npm install
-```
-
-Or
-
-```bash
-cd testbed_carthage
-yarn
-```
-
-Having installed the NPM dependencies, you can simply use
-`react-native run-ios` (or `react-native run-android`). The dependencies
-from CocoaPods and Carthage for iOS are already present.
+See each app for further details, including build instructions.

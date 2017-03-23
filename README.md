@@ -1,6 +1,15 @@
 # Branch Metrics React Native SDK Reference
 
+[![build status](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking.svg?style=flat-square)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
+[![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
+
 This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK. This SDK will help you handle iOS Universal Links, Android App Links and deferred deep links, do install attribution and much more!
+
+## 2.0.0 beta
+
+Version 2.0.0-beta.1 is now available in NPM with a simplified SDK integration process. See [Release 2.0.0](./docs/Release-2.0.0.md) for details.
 
 **v1.1.0** The `createBranchUniversalObject` method is now async, so be sure to use `await` or handle the promise resolution, e.g.
 ```js
@@ -19,12 +28,9 @@ where applicable.
 
 **v0.8.0** If you have overridden `onStop` in MainActivity.java be sure *not* to invoke `RNBranchModule.onStop()`.
 
-[![build status](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking.svg?style=flat-square)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
-[![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
-[![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
-
 ## Installation
+
+For beta version 2.0.0 see [Release 2.0.0](./docs/release-2.0.0). These instructions are for 0.9 and 1.x.
 
 1. `npm install --save react-native-branch`
 2. `react-native link react-native-branch` **or** link the project [manually](./docs/installation.md#manual-linking)
