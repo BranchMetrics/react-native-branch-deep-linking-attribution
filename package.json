@@ -63,12 +63,12 @@
     "babel-polyfill": "^6.7.4",
     "eslint": "^2.7.0",
     "eslint-config-rackt": "^1.1.1",
+    "mockery": "*",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
     "react-native": "^0.40.0",
     "react-native-mock": "^0.3.0",
-    "underscore": "*",
-    "mockery": "*",
-    "sinon": "*"
+    "sinon": "*",
+    "underscore": "*"
   }
 }
