@@ -65,3 +65,13 @@
   * Decrease buildToolsVersion to 23.0.1 in build.gradle
   * Fixed broken Carthage build (#128)
   * Updated README to reflect async createBranchUniversalObject method.
+
+2017-03-23  Version 2.0.0-beta.1
+
+  * Reduce the number of manual steps required to get started.
+  * Remove any need for CocoaPods, Carthage or manual iOS SDK installation in a React Native app.
+  * Pin to specific versions of the native SDKs to avoid issues arising from version mismatches.
+  * Fully support integration of react-native-branch in a React Native component within a native
+    app that also uses the native Branch SDK.
+
+  See [Release 2.0.0](https://github.com/BranchMetrics/react-native-branch-deep-linking/blob/master/docs/Release-2.0.0.md) for more details.
