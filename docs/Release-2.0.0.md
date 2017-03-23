@@ -1,12 +1,8 @@
 # Release 2.0.0
 
-## Current version
-
-**2.0.0-beta.1**
-
 ## Goals
 
-The main motives behind this release are:
+The main motives behind this release are to:
 
 - Reduce the number of manual steps required to get started.
 - Remove any need for CocoaPods, Carthage or manual iOS SDK installation in a React Native app.
@@ -30,7 +26,9 @@ Further plans for 2.0.0:
 - A Branch-SDK podspec is included in the NPM module for use in native apps that use the React pod from node_modules.
 - Two new testbed apps are available:
   + testbed_simple illustrates the simplest way to integrate the SDK using `react-native link`.
-  + testbed_native_ios illustrates including `react-native-branch` in a React Native component within a native app.
+  + testbed_native_ios illustrates including `react-native-branch` in a React Native component within a native iOS app.
+
+There have so far been no API changes in 2.0.0.
 
 ## SDK Integration
 
@@ -40,6 +38,8 @@ Further plans for 2.0.0:
 npm install --save react-native-branch@2.0.0-beta.1
 react-native link react-native-branch
 ```
+
+Then follow the [setup instructions](./setup.md).
 
 There's no need for CocoaPods or Carthage. The testbed_simple app was built this way.
 
@@ -51,6 +51,7 @@ pod "React", path: "node_modules/react-native"
 pod "react-native-branch", path: "node_modules/react-native-branch"
 pod "Branch-SDK", path: "node_modules/react-native-branch/ios"
 ```
+Run `pod install`. Then follow the [setup instructions](./setup.md).
 
 The testbed_native_ios app was built this way.
 

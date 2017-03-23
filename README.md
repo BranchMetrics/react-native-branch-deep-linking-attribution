@@ -1,15 +1,15 @@
 # Branch Metrics React Native SDK Reference
 
+[![build status](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking.svg?style=flat-square)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
+[![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
+
 This is a repository of our open source React Native SDK. Huge shoutout to our friends at [Dispatcher, Inc.](https://dispatchertrucking.com) for their help in compiling the initial version of this SDK. This SDK will help you handle iOS Universal Links, Android App Links and deferred deep links, do install attribution and much more!
 
 ## 2.0.0 beta
 
 Version 2.0.0-beta.1 is now available in NPM with a simplified SDK integration process. See [Release 2.0.0](./docs/Release-2.0.0.md) for details.
-
-[![build status](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking.svg?style=flat-square)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
-[![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
-[![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat-square)](https://www.npmjs.com/package/react-native-branch)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
 
 **v1.1.0** The `createBranchUniversalObject` method is now async, so be sure to use `await` or handle the promise resolution, e.g.
 ```js
@@ -30,10 +30,12 @@ where applicable.
 
 ## Installation
 
+For beta version 2.0.0 see [Release 2.0.0](./docs/release-2.0.0). These instructions are for 0.9 and 1.x.
+
 1. `npm install --save react-native-branch`
 2. `react-native link react-native-branch` **or** link the project [manually](./docs/installation.md#manual-linking)
-3. (0.9 & 1.x) Add `pod 'Branch'` to your ios/Podfile ([details](./docs/installation.md#cocoa-pods))
-4. (0.9 & 1.x) `cd ios; pod install --repo-update`
+3. Add `pod 'Branch'` to your ios/Podfile ([details](./docs/installation.md#cocoa-pods))
+4. `cd ios; pod install --repo-update`
 5. Follow the [setup instructions](./docs/setup.md)
 
 Note that CocoaPods 1.x no longer automatically updates pod repositories automatically on `pod install`. To make sure
