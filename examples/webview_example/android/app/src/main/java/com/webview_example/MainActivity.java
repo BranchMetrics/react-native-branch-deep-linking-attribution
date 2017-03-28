@@ -1,6 +1,10 @@
 package com.webview_example;
 
+import android.content.Intent;
+
 import com.facebook.react.ReactActivity;
+
+import io.branch.rnbranch.*;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +15,17 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "webview_example";
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        RNBranchModule.initSession(this.getIntent().getData(), this);
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 }
