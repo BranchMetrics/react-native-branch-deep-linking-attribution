@@ -27,6 +27,7 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_feebgAAhbH9Tv85H5wLQhpdaefiZv5Dv" />
     </application>
 
 </manifest>

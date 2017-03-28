@@ -32,7 +32,10 @@ export default class App extends Component {
             if (!route.url) {
               return <ArticleList navigator={navigator} />
             }
-            return <Article url={route.url} navigator={navigator} />
+            return <Article
+              title={route.title}
+              url={route.url}
+              navigator={navigator} />
           }}
       />
     )
