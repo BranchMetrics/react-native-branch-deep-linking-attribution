@@ -61,12 +61,15 @@
         return;
     }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     if ([contentIndexingMode isEqualToString:@"private"]) {
         [self performSelector:selector withObject:@(ContentIndexModePrivate)];
     }
     else if ([contentIndexingMode isEqualToString:@"public"]) {
         [self performSelector:selector withObject:@(ContentIndexModePublic)];
     }
+#pragma clang diagnostic pop
     else {
         RCTLogWarn(@"Invalid value \"%@\" for \"contentIndexingMode\". Supported values are \"public\" and \"private\".", contentIndexingMode);
     }
@@ -115,7 +118,10 @@ static NSString * const BRANCH_LINK_DATA_KEY_CONTENT_TYPE = @"$content_type";
     // Anticipate that the native SDK will support this.
     SEL sdkMethod = @selector(userCompletedAction:withState:);
     if ([self respondsToSelector:sdkMethod]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [self performSelector:sdkMethod withObject:action withObject:state];
+#pragma clang diagnostic pop
         return;
     }
 

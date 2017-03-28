@@ -28,4 +28,9 @@
     return self;
 }
 
+- (instancetype)init
+{
+    @throw nil;
+}
+
 @end

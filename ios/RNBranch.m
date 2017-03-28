@@ -50,8 +50,6 @@ RCT_EXPORT_MODULE();
         branchInstance = [Branch getInstance];
     }
     [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-        NSString *errorMessage = error.localizedDescription;
-
         NSMutableDictionary *result = [NSMutableDictionary dictionary];
         if (error) result[RNBranchLinkOpenedNotificationErrorKey] = error;
         if (params) result[RNBranchLinkOpenedNotificationParamsKey] = params;
@@ -158,7 +156,7 @@ RCT_EXPORT_METHOD(
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
     resolve(initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]);
-    initSessionWithLaunchOptionsResult = [NSNull null];
+    initSessionWithLaunchOptionsResult = nil;
     sourceUrl = nil;
 }
 
@@ -380,7 +378,7 @@ RCT_EXPORT_METHOD(
 
 #pragma mark redeemRewards
 RCT_EXPORT_METHOD(
-                  redeemRewards:(NSInteger *)amount
+                  redeemRewards:(NSInteger)amount
                   inBucket:(NSString *)bucket
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject

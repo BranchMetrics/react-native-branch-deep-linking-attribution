@@ -10,9 +10,10 @@
 
 @interface RNBranchAgingItem : NSObject
 
-@property (nonatomic, readonly) id item;
+@property (nonatomic, readonly, nonnull) id item;
 @property (nonatomic, readonly) NSTimeInterval accessTime;
 
-- (instancetype) initWithItem:(id)item NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nullable)init NS_UNAVAILABLE;
+- (instancetype _Nonnull) initWithItem:(id _Nonnull)item NS_DESIGNATED_INITIALIZER;
 
 @end
