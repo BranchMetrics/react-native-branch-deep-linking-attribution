@@ -14,10 +14,10 @@ export default class Article extends Component {
   buo = null
 
   async componentWillMount() {
-    this.buo = await branch.createBranchUniversalObject("planet:" + this.props.title, {
+    this.buo = await branch.createBranchUniversalObject("planet:" + this.props.route.title, {
       automaticallyListOnSpotlight: true, // ignored on Android
-      canonicalUrl: this.props.url,
-      title: this.props.title
+      canonicalUrl: this.props.route.url,
+      title: this.props.route.title
     })
     this.buo.userCompletedAction(RegisterViewEvent)
     console.log("Created Branch Universal Object.")
@@ -33,7 +33,7 @@ export default class Article extends Component {
       <View
         style={styles.container} >
         <WebView
-          source={{uri: this.props.url}} />
+          source={{uri: this.props.route.url}} />
         <Button
           title="Share"
           onPress={() => this.onShare()} />
@@ -43,13 +43,14 @@ export default class Article extends Component {
 
   async onShare() {
     let { channel, completed, error } = await this.buo.showShareSheet({
-      messageHeader: "The Planet " + this.props.title,
-      messageBody: "Read about the planet " + this.props.title + "."
+      emailSubject: "The Planet " + this.props.route.title,
+      messageBody: "Read about the planet " + this.props.route.title + ".",
+      messageHeader: "The Planet " + this.props.route.title
     }, {
       feature: "share",
       channel: "RNApp"
     }, {
-      $desktop_url: this.props.url
+      $desktop_url: this.props.route.url
     })
 
     if (error) {
