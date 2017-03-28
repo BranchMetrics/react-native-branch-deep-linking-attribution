@@ -14,10 +14,11 @@ export default class Article extends Component {
   buo = null
 
   async componentWillMount() {
-    this.buo = await branch.createBranchUniversalObject("planet:" + this.props.route.title, {
+    this.buo = await branch.createBranchUniversalObject("planet/" + this.props.route.title, {
       automaticallyListOnSpotlight: true, // ignored on Android
       canonicalUrl: this.props.route.url,
-      title: this.props.route.title
+      title: this.props.route.title,
+      contentImageUrl: this.props.route.image
     })
     this.buo.userCompletedAction(RegisterViewEvent)
     console.log("Created Branch Universal Object.")

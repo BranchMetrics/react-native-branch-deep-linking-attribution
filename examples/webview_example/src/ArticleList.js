@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, ListView, StyleSheet } from 'react-native'
+import { Button, Image, ListView, StyleSheet, View } from 'react-native'
 
 import Article from './Article'
 
@@ -17,15 +17,15 @@ class ArticleList extends Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {
       dataSource: ds.cloneWithRows([
-        { title: 'Mercury', url: 'https://en.wikipedia.org/wiki/Mercury_(planet)' },
-        { title: 'Venus', url: 'https://en.wikipedia.org/wiki/Venus' },
-        { title: 'Earth', url: 'https://en.wikipedia.org/wiki/Earth' },
-        { title: 'Mars', url: 'https://en.wikipedia.org/wiki/Mars' },
-        { title: 'Jupiter', url: 'https://en.wikipedia.org/wiki/Jupiter' },
-        { title: 'Saturn', url: 'https://en.wikipedia.org/wiki/Saturn' },
-        { title: 'Uranus', url: 'https://en.wikipedia.org/wiki/Uranus' },
-        { title: 'Neptune', url: 'https://en.wikipedia.org/wiki/Neptune' },
-        { title: 'Pluto', url: 'https://en.wikipedia.org/wiki/Pluto' },
+        { title: 'Mercury', url: 'https://en.wikipedia.org/wiki/Mercury_(planet)', image: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Mercury_in_color_-_Prockter07-edit1.jpg' },
+        { title: 'Venus', url: 'https://en.wikipedia.org/wiki/Venus', image: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg' },
+        { title: 'Earth', url: 'https://en.wikipedia.org/wiki/Earth', image: 'https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg' },
+        { title: 'Mars', url: 'https://en.wikipedia.org/wiki/Mars', image: 'https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg' },
+        { title: 'Jupiter', url: 'https://en.wikipedia.org/wiki/Jupiter', image: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg' },
+        { title: 'Saturn', url: 'https://en.wikipedia.org/wiki/Saturn', image: 'https://en.wikipedia.org/wiki/Saturn#/media/File:Saturn_during_Equinox.jpg' },
+        { title: 'Uranus', url: 'https://en.wikipedia.org/wiki/Uranus', image: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg' },
+        { title: 'Neptune', url: 'https://en.wikipedia.org/wiki/Neptune', image: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg' },
+        { title: 'Pluto', url: 'https://en.wikipedia.org/wiki/Pluto', image: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Nh-pluto-in-true-color_2x_JPEG-edit-frame.jpg' },
       ]),
     }
   }
@@ -36,10 +36,16 @@ class ArticleList extends Component {
         style={styles.container}
         dataSource={this.state.dataSource}
         renderRow={(data) =>
-          <Button
-            title={data.title}
-            onPress={() => { this._showArticle(data) }}>
-          </Button>}
+          <View
+            style={{flex: 1, flexDirection: 'row'}}>
+            <Image
+              style={{width: 80, height: 80}}
+              source={{uri: data.image}}/>
+            <Button
+              title={data.title}
+              onPress={() => { this._showArticle(data) }}>
+            </Button>
+          </View>}
       />
     )
   }

@@ -19,14 +19,22 @@ export default class App extends Component {
         return
       }
 
+      if (bundle.uri) console.log(bundle.uri + " opened via Branch")
+
       if (!bundle.params) return
+
+      console.log("Branch link params:")
+      for (var param in bundle.params) {
+        console.log(" " + param + ": " + bundle.params[param])
+      }
 
       // Get title and url for route
       let title = bundle.params.$og_title
       let url = bundle.params.$canonical_url
+      let image = bundle.params.$og_image_url
 
       // Now push the view for this URL
-      this.navigator.push({ title: title, url: url })
+      this.navigator.push({ title: title, url: url, image: image })
     })
   }
 
@@ -37,7 +45,7 @@ export default class App extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{ title: "Planets", url: null }}
+        initialRoute={{ title: "The Planets", url: null }}
         navigationBar={
            <Navigator.NavigationBar
              routeMapper={{
