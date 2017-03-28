@@ -21,6 +21,12 @@
     }
     return self;
 }
+
+- (instancetype)init
+{
+    @throw nil;
+}
+
 - (id)item
 {
     _accessTime = [NSDate date].timeIntervalSince1970;

@@ -32,6 +32,11 @@
     return self;
 }
 
+- (instancetype)init
+{
+    @throw nil;
+}
+
 #pragma mark - Methods from NSMutableDictionary
 
 - (void)setObject:(id)anObject forKey:(id<NSCopying>)aKey
