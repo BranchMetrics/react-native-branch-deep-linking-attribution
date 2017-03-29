@@ -1,13 +1,30 @@
 import React, { Component } from 'react'
-import { Button, StyleSheet, View, WebView } from 'react-native'
+import { StyleSheet, Text, TouchableHighlight, View, WebView } from 'react-native'
 
 import branch, { RegisterViewEvent } from 'react-native-branch'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 64,
+    flexDirection: 'column',
+    marginTop: 64
   },
+  webView: {
+    flex: 0.85
+  },
+  button: {
+    backgroundColor: '#cceeee',
+    borderColor: '#2266aa',
+    borderTopWidth: 1,
+    flex: 0.15,
+    justifyContent: 'center'
+  },
+  buttonText: {
+    color: '#2266aa',
+    fontSize: 23,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  }
 })
 
 export default class Article extends Component {
@@ -21,7 +38,7 @@ export default class Article extends Component {
       contentImageUrl: this.props.route.image
     })
     this.buo.userCompletedAction(RegisterViewEvent)
-    console.log("Created Branch Universal Object.")
+    console.log("Created Branch Universal Object and logged RegisterViewEvent.")
   }
 
   componentWillUnmount() {
@@ -34,10 +51,16 @@ export default class Article extends Component {
       <View
         style={styles.container} >
         <WebView
+          style={styles.webView}
           source={{uri: this.props.route.url}} />
-        <Button
-          title="Share"
-          onPress={() => this.onShare()} />
+        <TouchableHighlight
+          onPress={() => this.onShare()}
+          style={styles.button} >
+          <Text
+            style={styles.buttonText}>
+            Share
+          </Text>
+        </TouchableHighlight>
       </View>
     )
   }

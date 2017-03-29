@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Image, ListView, StyleSheet, View } from 'react-native'
+import { Text, Image, ListView, StyleSheet, TouchableHighlight, View } from 'react-native'
 
 import Article from './Article'
 
@@ -22,7 +22,7 @@ class ArticleList extends Component {
         { title: 'Earth', url: 'https://en.wikipedia.org/wiki/Earth', image: 'https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg' },
         { title: 'Mars', url: 'https://en.wikipedia.org/wiki/Mars', image: 'https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg' },
         { title: 'Jupiter', url: 'https://en.wikipedia.org/wiki/Jupiter', image: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg' },
-        { title: 'Saturn', url: 'https://en.wikipedia.org/wiki/Saturn', image: 'https://en.wikipedia.org/wiki/Saturn#/media/File:Saturn_during_Equinox.jpg' },
+        { title: 'Saturn', url: 'https://en.wikipedia.org/wiki/Saturn', image: 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Saturn-27-03-04.jpeg' },
         { title: 'Uranus', url: 'https://en.wikipedia.org/wiki/Uranus', image: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg' },
         { title: 'Neptune', url: 'https://en.wikipedia.org/wiki/Neptune', image: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg' },
         { title: 'Pluto', url: 'https://en.wikipedia.org/wiki/Pluto', image: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Nh-pluto-in-true-color_2x_JPEG-edit-frame.jpg' },
@@ -36,16 +36,19 @@ class ArticleList extends Component {
         style={styles.container}
         dataSource={this.state.dataSource}
         renderRow={(data) =>
-          <View
-            style={{flex: 1, flexDirection: 'row'}}>
-            <Image
-              style={{width: 80, height: 80}}
-              source={{uri: data.image}}/>
-            <Button
-              title={data.title}
-              onPress={() => { this._showArticle(data) }}>
-            </Button>
-          </View>}
+          <TouchableHighlight
+            onPress={() => { this._showArticle(data) }}>
+            <View
+              style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <Image
+                style={{width: 80, height: 80}}
+                source={{uri: data.image}}/>
+              <Text
+                style={{fontWeight: 'bold', fontSize: 17, margin: 20}}>
+                {data.title}
+              </Text>
+            </View>
+          </TouchableHighlight>}
       />
     )
   }

@@ -61,7 +61,12 @@ export default class App extends Component {
                 RightButton: (route, navigator, index, navState) => {
                   return <View />
                 },
-                Title: (route, navigator, index, navState) => { return (<Text>{route.title}</Text>) },
+                Title: (route, navigator, index, navState) => { return (
+                  <Text
+                    style={{fontSize: 23, fontWeight: 'bold'}}>
+                    {route.title}
+                  </Text>
+                ) },
              }}
            />
          }
