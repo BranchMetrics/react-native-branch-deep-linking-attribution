@@ -20,7 +20,7 @@ end
 
 #### Creating a New Podfile
 If you do not already have a Podfile in your ios directory, you can create one with `cd ios; pod init`. Then add `pod 'Branch'` to your target. Or you
-can copy the simple Podfile from the [testbed_cocoapods](../testbed/testbed_cocoapods/ios/Podfile) sample app
+can copy the simple Podfile from the [testbed_cocoapods](../examples/testbed_cocoapods/ios/Podfile) sample app
 and modify it for your target(s), e.g.:
 ```Ruby
 use_frameworks!

@@ -224,7 +224,7 @@ The `automaticallyListOnSpotlight` property is ignored on Android.
 ##### <a id='release'></a>[- release()](#release)
 _Introduced in version 1.1.0_
 
-(Optional) Immediately release native resources used by this Branch Universal Object instance. Those resources will eventually be removed if they are unused for some time, but you can also call `release()` when a BUO is no longer used, e.g. in `componentWillUnmount()`. (See the [testbed](./testbed) apps in this repo.)
+(Optional) Immediately release native resources used by this Branch Universal Object instance. Those resources will eventually be removed if they are unused for some time, but you can also call `release()` when a BUO is no longer used, e.g. in `componentWillUnmount()`. (See the [example apps](./examples) in this repo.)
 
 ##### <a id='useractions'></a>[Register User Actions On An Object](#useractions)
 
