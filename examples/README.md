@@ -1,28 +1,38 @@
-# testbed applications
+# Example applications
 
-There are several working examples in this directory:
+There are several working examples in this directory.
 
 See each app for further details, including build instructions.
 
-## 1.1 (production)
+## [webview_example app](./webview_example)
+
+This is a realistic example of a content-sharing app that includes link routing and follows best practices.
+It uses the current version of the SDK (2.0.0-beta.1), but the React Native code will also work with 1.1.
+
+## testbed apps
+
+The testbed apps all include the same React Native application code. They differ by which versions of the SDK
+they use and how React Native is integrated at the native level.
+
+### 1.1 (production)
 
 These two apps illustrate integrating the production
 SDK release. They differ only by how the iOS native SDK
 is integrated, using Carthage or CocoaPods.
 
-### [testbed_carthage](./testbed_carthage)
+#### [testbed_carthage](./testbed_carthage)
 
-### [testbed_cocoapods](./testbed_cocoapods)
+#### [testbed_cocoapods](./testbed_cocoapods)
 
-## 2.0 (beta)
+### 2.0 (beta)
 
 These apps illustrate integrating the 2.0 beta release,
 without need for Carthage, CocoaPods or manual installation.
 
-### [testbed_simple](./testbed_simple)
+#### [testbed_simple](./testbed_simple)
 
 This app illustrates the simplest means of integrating react-native-branch into a React Native app, using `react-native link`.
 
-### [testbed_native_ios](./testbed_native_ios)
+#### [testbed_native_ios](./testbed_native_ios)
 
 This app illustrates how to integrate the react-native-branch SDK into a React Native component within an existing native iOS app using the React, react-native-branch and Branch-SDK pods from node_modules.
