@@ -27,5 +27,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.0'
+    compile "com.facebook.react:react-native:+" // From node_modules.
+    compile project(':react-native-branch')
+    androidTestCompile 'com.google.code.findbugs:jsr305:3.0.0'
     testCompile 'junit:junit:4.12'
 }
