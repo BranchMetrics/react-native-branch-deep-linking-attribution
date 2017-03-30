@@ -15,10 +15,13 @@ import com.facebook.react.ReactRootView;
 import com.facebook.react.common.LifecycleState;
 import com.facebook.react.shell.MainReactPackage;
 
+import io.branch.rnbranch.RNBranchPackage;
+
 public class MainActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler{
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
     private static final int OVERLAY_PERMISSION_REQ_CODE = 1;
+    private static final String MAIN_ACTIVITY = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
                 .setBundleAssetName("index.android.bundle")
                 .setJSMainModuleName("index.android")
                 .addPackage(new MainReactPackage())
+                .addPackage(new RNBranchPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
@@ -98,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
         if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (!Settings.canDrawOverlays(this)) {
-                    Log.e("Overlays not enabled");
+                    Log.e(MAIN_ACTIVITY, "Overlays not enabled");
                 }
             }
         }
