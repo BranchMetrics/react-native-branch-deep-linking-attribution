@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
         super.onDestroy();
 
         if (mReactInstanceManager != null) {
-            mReactInstanceManager.onHostDestroy();
+            mReactInstanceManager.onHostDestroy(this);
         }
     }
 
@@ -112,11 +112,11 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
     @Override
     protected void onStart() {
         super.onStart();
-        RNBranchModule.initSession(this.getIntent().getData(), this);
+        RNBranchModule.initSession(getIntent().getData(), this);
     }
 
     @Override
     public void onNewIntent(Intent intent) {
-        this.setIntent(intent);
+        setIntent(intent);
     }
 }
