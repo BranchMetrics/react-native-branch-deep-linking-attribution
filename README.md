@@ -9,7 +9,9 @@ This is a repository of our open source React Native SDK. Huge shoutout to our f
 
 ## 2.0.0 beta
 
-Version 2.0.0-beta.1 is now available in NPM with a simplified SDK integration process. See [Release 2.0.0](./docs/Release-2.0.0.md) for details.
+[Release 2.0.0]: ./docs/Release-2.0.0.md
+
+Version 2.0.0-beta.1 is now available in NPM with a simplified SDK integration process. See [Release 2.0.0] for details.
 
 **v1.1.0** The `createBranchUniversalObject` method is now async, so be sure to use `await` or handle the promise resolution, e.g.
 ```js
@@ -30,7 +32,7 @@ where applicable.
 
 ## Installation
 
-For beta version 2.0.0 see [Release 2.0.0](./docs/release-2.0.0). These instructions are for 0.9 and 1.x.
+For beta version 2.0.0 see [Release 2.0.0]. These instructions are for 0.9 and 1.x.
 
 1. `npm install --save react-native-branch`
 2. `react-native link react-native-branch` **or** link the project [manually](./docs/installation.md#manual-linking)
@@ -47,9 +49,9 @@ If you are new to react-native or CocoaPods, read below for more details:
 - [If you do not know what a Podfile is](./docs/installation.md#creating-a-new-podfile)
 
 ### Carthage
-[carthage]: https://github.com/Carthage/Carthage
+[Carthage]: https://github.com/Carthage/Carthage
 
-If you would prefer to use [Carthage](carthage), you can skip steps 3 & 4 above and instead add the following to your `Cartfile`:
+If you would prefer to use [Carthage], you can skip steps 3 & 4 above and instead add the following to your `Cartfile`:
 
 `github "BranchMetrics/ios-branch-deep-linking"`
 
@@ -57,7 +59,7 @@ Then run:
 
 `carthage update`
 
-If you're unfamiliar with how to add a framework to your project with [Carthage](carthage), you can [learn more here](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application). You will need to maually link the framework by adding it to the "Linked Frameworks and Libraries" section of your target settings, and copy it by adding it to the "Input Files" section of your `carthage copy-frameworks` build phase.
+If you're unfamiliar with how to add a framework to your project with [Carthage], you can [learn more here](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application). You will need to maually link the framework by adding it to the "Linked Frameworks and Libraries" section of your target settings, and copy it by adding it to the "Input Files" section of your `carthage copy-frameworks` build phase.
 
 ## Next Steps
 In order to get full Branch support you will need to setup your ios and android projects accordingly:
