@@ -15,7 +15,7 @@ import com.facebook.react.ReactRootView;
 import com.facebook.react.common.LifecycleState;
 import com.facebook.react.shell.MainReactPackage;
 
-import io.branch.rnbranch.RNBranchPackage;
+import io.branch.rnbranch.*;
 
 public class MainActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler{
     private ReactRootView mReactRootView;
@@ -106,5 +106,17 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
                 }
             }
         }
+    }
+
+    // Override onStart, onNewIntent:
+    @Override
+    protected void onStart() {
+        super.onStart();
+        RNBranchModule.initSession(this.getIntent().getData(), this);
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
     }
 }
