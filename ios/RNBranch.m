@@ -229,7 +229,7 @@ RCT_EXPORT_METHOD(
     BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdent:identifier rejecter:reject];
     if (!branchUniversalObject) return;
 
-    [branchUniversalObject rnbranchUserCompletedAction:event withState:state];
+    [branchUniversalObject userCompletedAction:event withState:state];
     resolve(NSNull.null);
 }
 
