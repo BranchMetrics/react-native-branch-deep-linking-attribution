@@ -34,19 +34,18 @@ class Branch {
     nativeEventEmitter.addListener(INIT_SESSION_SUCCESS, this._onInitSessionResult)
     nativeEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult)
 
-    this._processInitSession()
+    this._initializeCache()
+  }
 
+  /*** RNBranch Deep Linking ***/
+  async _initializeCache() {
     // void cache after TTL expires
     setTimeout(() => {
       this._initSessionResult = null
     }, INIT_SESSION_TTL)
-  }
 
-  /*** RNBranch Deep Linking ***/
-  async _processInitSession() {
     // retrieve the last initSession if it exists
-    let result = await RNBranch.redeemInitSessionResult()
-    if (result) this._onInitSessionResult(result)
+    this._initSessionResult = await RNBranch.redeemInitSessionResult()
   }
 
   _onInitSessionResult = (result) => {
