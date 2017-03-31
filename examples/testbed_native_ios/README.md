@@ -19,10 +19,3 @@ pod install
 ```
 
 Note that since all pods are taken from node_modules, the `--repo-update` argument to `pod install` is unnecessary.
-
-Also be sure to start the React packager manually unless you are packaging `main.jsbundle` in the app
-(see ViewController.m).
-
-```bash
-react-native start
-```
