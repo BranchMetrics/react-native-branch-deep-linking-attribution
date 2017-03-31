@@ -175,6 +175,10 @@
 		7B7C4D541E66343F00A27265 /* FABKitProtocol.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC11E6633CA00A27265 /* FABKitProtocol.h */; };
 		7B7C4D551E66343F00A27265 /* Fabric+FABKits.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC21E6633CA00A27265 /* Fabric+FABKits.h */; };
 		7B7C4D561E66343F00A27265 /* Fabric.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC31E6633CA00A27265 /* Fabric.h */; };
+		7BCFE4291E8DEE41009927C9 /* BNCDebug.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322921E8DDC84009B3BF6 /* BNCDebug.h */; };
+		7BCFE42A1E8DEE41009927C9 /* BNCLog.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322941E8DDC84009B3BF6 /* BNCLog.h */; };
+		7BCFE42B1E8DEE41009927C9 /* BranchShareLink.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322961E8DDC84009B3BF6 /* BranchShareLink.h */; };
+		7BCFE42C1E8DEE41009927C9 /* NSString+Branch.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322981E8DDC84009B3BF6 /* NSString+Branch.h */; };
 		7BE575131E205B8600C936E2 /* RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 148030EE1CCDF9FA004ABEA4 /* RNBranch.m */; };
 /* End PBXBuildFile section */
 
@@ -196,6 +200,10 @@
 			dstPath = include/Branch;
 			dstSubfolderSpec = 16;
 			files = (
+				7BCFE4291E8DEE41009927C9 /* BNCDebug.h in Copy Branch SDK Headers */,
+				7BCFE42A1E8DEE41009927C9 /* BNCLog.h in Copy Branch SDK Headers */,
+				7BCFE42B1E8DEE41009927C9 /* BranchShareLink.h in Copy Branch SDK Headers */,
+				7BCFE42C1E8DEE41009927C9 /* NSString+Branch.h in Copy Branch SDK Headers */,
 				7B7C4D231E66343F00A27265 /* BNCCallbacks.h in Copy Branch SDK Headers */,
 				7B7C4D241E66343F00A27265 /* BNCCommerceEvent.h in Copy Branch SDK Headers */,
 				7B7C4D251E66343F00A27265 /* BNCConfig.h in Copy Branch SDK Headers */,
