@@ -21,10 +21,7 @@ export const ShareInitiatedEvent = "Share Started"
 
 class Branch {
   _launchTime = new Date().getTime();
-  _initSessionResult = null;
-  _lastParams = null;
   _listeners = [];
-  _patientInitSessionObservers = [];
   _debug = false;
 
   constructor(options = {}) {
@@ -33,46 +30,29 @@ class Branch {
     // listen for initSession results and errors.
     nativeEventEmitter.addListener(INIT_SESSION_SUCCESS, this._onInitSessionResult)
     nativeEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult)
-
-    this._initializeCache()
   }
 
   /*** RNBranch Deep Linking ***/
-  async _initializeCache() {
-    // void cache after TTL expires
-    setTimeout(() => {
-      this._initSessionResult = null
-    }, INIT_SESSION_TTL)
-
-    // retrieve the last initSession if it exists
-    this._initSessionResult = await RNBranch.redeemInitSessionResult()
-  }
-
   _onInitSessionResult = (result) => {
     // redeem the result so it can be cleared from the native cache
     RNBranch.redeemInitSessionResult()
 
-    // Cache up to the TTL
-    if (this._timeSinceLaunch() < INIT_SESSION_TTL) {
-      this._initSessionResult = result
-    }
-
     if (this._debug && !result) console.log('## Branch: received null result in _onInitSessionResult')
 
-    this._patientInitSessionObservers.forEach((cb) => cb(result))
     this._listeners.forEach(cb => cb(result))
-
-    this._lastParams = result && result.params || {}
-    this._patientInitSessionObservers = []
   };
 
-  getInitSession(cb) {
-    if(this._initSessionResult) return cb(this._initSessionResult)
-    this._patientInitSessionObservers.push(cb)
-  }
-
   subscribe(listener) {
-    if (this._initSessionResult) listener(this._initSessionResult)
+    /*
+     * If this is within the INIT_SESSION_TTL, get the cached value from the native layer (asynchronously).
+     * If none, the listener is not called. If there is a cached value, it is passed to the listener.
+     */
+    if (this._timeSinceLaunch() < INIT_SESSION_TTL) {
+      RNBranch.redeemInitSessionResult().then((result) => {
+        if (result) listener(result)
+      })
+    }
+
     this._listeners.push(listener)
     const unsubscribe = () => {
       let index = this._listeners.indexOf(listener)
