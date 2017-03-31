@@ -15,6 +15,14 @@
 		7B1D335B1E410DD200755B98 /* NSObject+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D33531E410DD200755B98 /* NSObject+RNBranch.m */; };
 		7B1D335C1E410DD200755B98 /* RNBranchProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1D33541E410DD200755B98 /* RNBranchProperty.h */; };
 		7B1D335D1E410DD300755B98 /* RNBranchProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D33551E410DD200755B98 /* RNBranchProperty.m */; };
+		7B2322B81E8DDC84009B3BF6 /* BNCDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2322921E8DDC84009B3BF6 /* BNCDebug.h */; };
+		7B2322B91E8DDC84009B3BF6 /* BNCDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2322931E8DDC84009B3BF6 /* BNCDebug.m */; };
+		7B2322BA1E8DDC84009B3BF6 /* BNCLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2322941E8DDC84009B3BF6 /* BNCLog.h */; };
+		7B2322BB1E8DDC84009B3BF6 /* BNCLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2322951E8DDC84009B3BF6 /* BNCLog.m */; };
+		7B2322BC1E8DDC84009B3BF6 /* BranchShareLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2322961E8DDC84009B3BF6 /* BranchShareLink.h */; };
+		7B2322BD1E8DDC84009B3BF6 /* BranchShareLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2322971E8DDC84009B3BF6 /* BranchShareLink.m */; };
+		7B2322BE1E8DDC84009B3BF6 /* NSString+Branch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2322981E8DDC84009B3BF6 /* NSString+Branch.h */; };
+		7B2322BF1E8DDC84009B3BF6 /* NSString+Branch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2322991E8DDC84009B3BF6 /* NSString+Branch.m */; };
 		7B3B27501E707CD7003ABDF4 /* RNBranchAgingItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3B274E1E707CD7003ABDF4 /* RNBranchAgingItem.h */; };
 		7B3B27511E707CD7003ABDF4 /* RNBranchAgingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B274F1E707CD7003ABDF4 /* RNBranchAgingItem.m */; };
 		7B3B27541E707CF5003ABDF4 /* RNBranchAgingDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3B27521E707CF5003ABDF4 /* RNBranchAgingDictionary.h */; };
@@ -257,6 +265,18 @@
 		7B1D33531E410DD200755B98 /* NSObject+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RNBranch.m"; sourceTree = "<group>"; };
 		7B1D33541E410DD200755B98 /* RNBranchProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchProperty.h; sourceTree = "<group>"; };
 		7B1D33551E410DD200755B98 /* RNBranchProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchProperty.m; sourceTree = "<group>"; };
+		7B2322921E8DDC84009B3BF6 /* BNCDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNCDebug.h; sourceTree = "<group>"; };
+		7B2322931E8DDC84009B3BF6 /* BNCDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNCDebug.m; sourceTree = "<group>"; };
+		7B2322941E8DDC84009B3BF6 /* BNCLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNCLog.h; sourceTree = "<group>"; };
+		7B2322951E8DDC84009B3BF6 /* BNCLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNCLog.m; sourceTree = "<group>"; };
+		7B2322961E8DDC84009B3BF6 /* BranchShareLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchShareLink.h; sourceTree = "<group>"; };
+		7B2322971E8DDC84009B3BF6 /* BranchShareLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchShareLink.m; sourceTree = "<group>"; };
+		7B2322981E8DDC84009B3BF6 /* NSString+Branch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Branch.h"; sourceTree = "<group>"; };
+		7B2322991E8DDC84009B3BF6 /* NSString+Branch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Branch.m"; sourceTree = "<group>"; };
+		7B3B274E1E707CD7003ABDF4 /* RNBranchAgingItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchAgingItem.h; sourceTree = "<group>"; };
+		7B3B274F1E707CD7003ABDF4 /* RNBranchAgingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchAgingItem.m; sourceTree = "<group>"; };
+		7B3B27521E707CF5003ABDF4 /* RNBranchAgingDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchAgingDictionary.h; sourceTree = "<group>"; };
+		7B3B27531E707CF5003ABDF4 /* RNBranchAgingDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchAgingDictionary.m; sourceTree = "<group>"; };
 		7B7C4C641E6633C900A27265 /* BNCCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNCCallbacks.h; sourceTree = "<group>"; };
 		7B7C4C651E6633C900A27265 /* BNCCommerceEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNCCommerceEvent.h; sourceTree = "<group>"; };
 		7B7C4C661E6633C900A27265 /* BNCCommerceEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNCCommerceEvent.m; sourceTree = "<group>"; };
@@ -351,12 +371,6 @@
 		7B7C4CC11E6633CA00A27265 /* FABKitProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FABKitProtocol.h; sourceTree = "<group>"; };
 		7B7C4CC21E6633CA00A27265 /* Fabric+FABKits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Fabric+FABKits.h"; sourceTree = "<group>"; };
 		7B7C4CC31E6633CA00A27265 /* Fabric.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fabric.h; sourceTree = "<group>"; };
-		7B3B274E1E707CD7003ABDF4 /* RNBranchAgingItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchAgingItem.h; sourceTree = "<group>"; };
-		7B3B274F1E707CD7003ABDF4 /* RNBranchAgingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchAgingItem.m; sourceTree = "<group>"; };
-		7B3B27521E707CF5003ABDF4 /* RNBranchAgingDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchAgingDictionary.h; sourceTree = "<group>"; };
-		7B3B27531E707CF5003ABDF4 /* RNBranchAgingDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchAgingDictionary.m; sourceTree = "<group>"; };
-		7B3FCB961E20675B008E38E2 /* libBranch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBranch.a; path = "/Users/jdee/branch/react-native-sandbox/testbed/ios/Pods/../build/Debug-iphoneos/Branch/libBranch.a"; sourceTree = "<absolute>"; };
-		7BA33EBB1E25AD6D00C61D15 /* Branch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Branch.framework; path = "$(PODS_CONFIGURATION_BUILD_DIR)/Branch/Branch.framework"; sourceTree = "<group>"; };
 		B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libreact-native-branch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -383,6 +397,14 @@
 		7B7C4C631E6633C900A27265 /* Branch-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				7B2322921E8DDC84009B3BF6 /* BNCDebug.h */,
+				7B2322931E8DDC84009B3BF6 /* BNCDebug.m */,
+				7B2322941E8DDC84009B3BF6 /* BNCLog.h */,
+				7B2322951E8DDC84009B3BF6 /* BNCLog.m */,
+				7B2322961E8DDC84009B3BF6 /* BranchShareLink.h */,
+				7B2322971E8DDC84009B3BF6 /* BranchShareLink.m */,
+				7B2322981E8DDC84009B3BF6 /* NSString+Branch.h */,
+				7B2322991E8DDC84009B3BF6 /* NSString+Branch.m */,
 				7B7C4C641E6633C900A27265 /* BNCCallbacks.h */,
 				7B7C4C651E6633C900A27265 /* BNCCommerceEvent.h */,
 				7B7C4C661E6633C900A27265 /* BNCCommerceEvent.m */,
@@ -539,11 +561,13 @@
 				7B7C4D1B1E6633CA00A27265 /* PromoViewHandler.h in Headers */,
 				7B7C4D201E6633CA00A27265 /* Fabric+FABKits.h in Headers */,
 				7B7C4D111E6633CA00A27265 /* BranchSetIdentityRequest.h in Headers */,
+				7B2322B81E8DDC84009B3BF6 /* BNCDebug.h in Headers */,
 				7B7C4D1E1E6633CA00A27265 /* FABAttributes.h in Headers */,
 				7B7C4D1F1E6633CA00A27265 /* FABKitProtocol.h in Headers */,
 				7B7C4D011E6633CA00A27265 /* BranchCloseRequest.h in Headers */,
 				7B7C4CE31E6633CA00A27265 /* BNCXcode7Support.h in Headers */,
 				7B3B27501E707CD7003ABDF4 /* RNBranchAgingItem.h in Headers */,
+				7B2322BA1E8DDC84009B3BF6 /* BNCLog.h in Headers */,
 				7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */,
 				7B7C4CC41E6633CA00A27265 /* BNCCallbacks.h in Headers */,
 				7B7C4CE11E6633CA00A27265 /* BNCSystemObserver.h in Headers */,
@@ -552,6 +576,7 @@
 				7B7C4CF01E6633CA00A27265 /* BranchContentPathProperties.h in Headers */,
 				7B7C4D131E6633CA00A27265 /* BranchShortUrlRequest.h in Headers */,
 				7B7C4CEC1E6633CA00A27265 /* BranchContentDiscoverer.h in Headers */,
+				7B2322BE1E8DDC84009B3BF6 /* NSString+Branch.h in Headers */,
 				7B7C4CDB1E6633CA00A27265 /* BNCServerRequestQueue.h in Headers */,
 				7B7C4CCB1E6633CA00A27265 /* BNCDeviceInfo.h in Headers */,
 				7B7C4CD51E6633CA00A27265 /* BNCLinkData.h in Headers */,
@@ -561,6 +586,7 @@
 				7B7C4CEE1E6633CA00A27265 /* BranchContentDiscoveryManifest.h in Headers */,
 				7B1D33581E410DD200755B98 /* BranchUniversalObject+RNBranch.h in Headers */,
 				7B7C4CE81E6633CA00A27265 /* BranchActivityItemProvider.h in Headers */,
+				7B2322BC1E8DDC84009B3BF6 /* BranchShareLink.h in Headers */,
 				7B7C4CFF1E6633CA00A27265 /* BNCServerRequest.h in Headers */,
 				7B7C4D1C1E6633CA00A27265 /* ANSCompatibility.h in Headers */,
 				7B7C4D191E6633CA00A27265 /* BranchUserCompletedActionRequest.h in Headers */,
@@ -656,7 +682,9 @@
 				7B7C4CCA1E6633CA00A27265 /* BNCContentDiscoveryManager.m in Sources */,
 				7B7C4D1A1E6633CA00A27265 /* BranchUserCompletedActionRequest.m in Sources */,
 				7B7C4CFA1E6633CA00A27265 /* BranchView.m in Sources */,
+				7B2322BD1E8DDC84009B3BF6 /* BranchShareLink.m in Sources */,
 				7B7C4CCC1E6633CA00A27265 /* BNCDeviceInfo.m in Sources */,
+				7B2322BB1E8DDC84009B3BF6 /* BNCLog.m in Sources */,
 				7B7C4CF61E6633CA00A27265 /* BranchLinkProperties.m in Sources */,
 				7B7C4D141E6633CA00A27265 /* BranchShortUrlRequest.m in Sources */,
 				7B3B27551E707CF5003ABDF4 /* RNBranchAgingDictionary.m in Sources */,
@@ -678,12 +706,14 @@
 				7B7C4D181E6633CA00A27265 /* BranchSpotlightUrlRequest.m in Sources */,
 				7B3B27511E707CD7003ABDF4 /* RNBranchAgingItem.m in Sources */,
 				7BE575131E205B8600C936E2 /* RNBranch.m in Sources */,
+				7B2322BF1E8DDC84009B3BF6 /* NSString+Branch.m in Sources */,
 				7B7C4CE21E6633CA00A27265 /* BNCSystemObserver.m in Sources */,
 				7B7C4CE91E6633CA00A27265 /* BranchActivityItemProvider.m in Sources */,
 				7B7C4D021E6633CA00A27265 /* BranchCloseRequest.m in Sources */,
 				7B7C4CE41E6633CA00A27265 /* BNCXcode7Support.m in Sources */,
 				7B7C4CD41E6633CA00A27265 /* BNCLinkCache.m in Sources */,
 				7B7C4D061E6633CA00A27265 /* BranchInstallRequest.m in Sources */,
+				7B2322B91E8DDC84009B3BF6 /* BNCDebug.m in Sources */,
 				7B7C4CDA1E6633CA00A27265 /* BNCServerInterface.m in Sources */,
 				7B7C4CED1E6633CA00A27265 /* BranchContentDiscoverer.m in Sources */,
 				7B7C4CFE1E6633CA00A27265 /* NSMutableDictionary+Branch.m in Sources */,
