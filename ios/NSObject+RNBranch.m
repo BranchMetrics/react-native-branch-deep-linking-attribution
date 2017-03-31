@@ -34,15 +34,9 @@
             continue;
         }
         
-        SEL setterSelector = property.setterSelector;
-        if (![self respondsToSelector:setterSelector]) {
-            RCTLogWarn(@"\"%@\" is not supported by the installed version of the native Branch SDK for objects of type %@. Please update to the current release using \"pod update\" or \"carthage update\".", key, NSStringFromClass(self.class));
-            continue;
-        }
-        
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [self performSelector:setterSelector withObject:value];
+        [self performSelector:property.setterSelector withObject:value];
 #pragma clang diagnostic pop
     }
 }

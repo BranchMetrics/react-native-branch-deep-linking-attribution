@@ -54,22 +54,12 @@
 
 - (void)setContentIndexingMode:(NSString *)contentIndexingMode
 {
-    SEL selector = @selector(setContentIndexMode:);
-
-    if (![self respondsToSelector:selector]) {
-        RCTLogWarn(@"\"contentIndexingMode\" is not supported by the installed version of the native Branch SDK for objects of type BranchUniversalObject. Please update to the current release using \"pod update\" or \"carthage update\".");
-        return;
-    }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     if ([contentIndexingMode isEqualToString:@"private"]) {
-        [self performSelector:selector withObject:@(ContentIndexModePrivate)];
+        self.contentIndexMode = ContentIndexModePrivate;
     }
     else if ([contentIndexingMode isEqualToString:@"public"]) {
-        [self performSelector:selector withObject:@(ContentIndexModePublic)];
+        self.contentIndexMode = ContentIndexModePrivate;
     }
-#pragma clang diagnostic pop
     else {
         RCTLogWarn(@"Invalid value \"%@\" for \"contentIndexingMode\". Supported values are \"public\" and \"private\".", contentIndexingMode);
     }
