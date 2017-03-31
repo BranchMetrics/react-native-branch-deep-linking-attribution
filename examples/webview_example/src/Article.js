@@ -35,7 +35,8 @@ export default class Article extends Component {
       automaticallyListOnSpotlight: true, // ignored on Android
       canonicalUrl: this.props.route.url,
       title: this.props.route.title,
-      contentImageUrl: this.props.route.image
+      contentImageUrl: this.props.route.image,
+      contentIndexingMode: 'public' // for Spotlight indexing
     })
     this.buo.userCompletedAction(RegisterViewEvent)
     console.log("Created Branch Universal Object and logged RegisterViewEvent.")
