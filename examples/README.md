@@ -33,6 +33,10 @@ without need for Carthage, CocoaPods or manual installation.
 
 This app illustrates the simplest means of integrating react-native-branch into a React Native app, using `react-native link`.
 
+#### [testbed_native_android](./testbed_native_android)
+
+This app illustrates how to integrate the react-native-branch SDK into a React Native component within an existing native Android app.
+
 #### [testbed_native_ios](./testbed_native_ios)
 
 This app illustrates how to integrate the react-native-branch SDK into a React Native component within an existing native iOS app using the React, react-native-branch and Branch-SDK pods from node_modules.
