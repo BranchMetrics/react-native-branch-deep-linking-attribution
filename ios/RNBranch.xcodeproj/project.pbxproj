@@ -175,6 +175,10 @@
 		7B7C4D541E66343F00A27265 /* FABKitProtocol.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC11E6633CA00A27265 /* FABKitProtocol.h */; };
 		7B7C4D551E66343F00A27265 /* Fabric+FABKits.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC21E6633CA00A27265 /* Fabric+FABKits.h */; };
 		7B7C4D561E66343F00A27265 /* Fabric.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC31E6633CA00A27265 /* Fabric.h */; };
+		7BCFE4291E8DEE41009927C9 /* BNCDebug.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322921E8DDC84009B3BF6 /* BNCDebug.h */; };
+		7BCFE42A1E8DEE41009927C9 /* BNCLog.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322941E8DDC84009B3BF6 /* BNCLog.h */; };
+		7BCFE42B1E8DEE41009927C9 /* BranchShareLink.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322961E8DDC84009B3BF6 /* BranchShareLink.h */; };
+		7BCFE42C1E8DEE41009927C9 /* NSString+Branch.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322981E8DDC84009B3BF6 /* NSString+Branch.h */; };
 		7BE575131E205B8600C936E2 /* RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 148030EE1CCDF9FA004ABEA4 /* RNBranch.m */; };
 /* End PBXBuildFile section */
 
@@ -196,6 +200,10 @@
 			dstPath = include/Branch;
 			dstSubfolderSpec = 16;
 			files = (
+				7BCFE4291E8DEE41009927C9 /* BNCDebug.h in Copy Branch SDK Headers */,
+				7BCFE42A1E8DEE41009927C9 /* BNCLog.h in Copy Branch SDK Headers */,
+				7BCFE42B1E8DEE41009927C9 /* BranchShareLink.h in Copy Branch SDK Headers */,
+				7BCFE42C1E8DEE41009927C9 /* NSString+Branch.h in Copy Branch SDK Headers */,
 				7B7C4D231E66343F00A27265 /* BNCCallbacks.h in Copy Branch SDK Headers */,
 				7B7C4D241E66343F00A27265 /* BNCCommerceEvent.h in Copy Branch SDK Headers */,
 				7B7C4D251E66343F00A27265 /* BNCConfig.h in Copy Branch SDK Headers */,
@@ -742,7 +750,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CARTHAGE_ROOT = "$(SRCROOT)/../../../ios/Carthage";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -761,11 +768,6 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(CARTHAGE_ROOT)/Build/iOS",
-					"$(PODS_CONFIGURATION_BUILD_DIR)/Branch",
-					"$(SRCROOT)/../../../ios/**",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -780,13 +782,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(PODS_ROOT)/Headers/Public";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PODS_BUILD_DIR = "$(BUILD_DIR)";
-				PODS_CONFIGURATION_BUILD_DIR = "$PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				PODS_ROOT = "$(SRCROOT)/../../../ios/Pods";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -796,7 +794,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CARTHAGE_ROOT = "$(SRCROOT)/../../../ios/Carthage";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -815,11 +812,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(CARTHAGE_ROOT)/Build/iOS",
-					"$(PODS_CONFIGURATION_BUILD_DIR)/Branch",
-					"$(SRCROOT)/../../../ios/**",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -828,12 +820,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(PODS_ROOT)/Headers/Public";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PODS_BUILD_DIR = "$(BUILD_DIR)";
-				PODS_CONFIGURATION_BUILD_DIR = "$PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				PODS_ROOT = "$(SRCROOT)/../../../ios/Pods";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;

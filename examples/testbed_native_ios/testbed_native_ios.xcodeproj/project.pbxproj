@@ -115,6 +115,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B63776C1E831BF6009227D1 /* Build configuration list for PBXNativeTarget "testbed_native_ios" */;
 			buildPhases = (
+				7BCFE45D1E8DF139009927C9 /* Start React Packager */,
 				102A8B840B294107CFC27091 /* [CP] Check Pods Manifest.lock */,
 				7B6377511E831BF6009227D1 /* Sources */,
 				7B6377521E831BF6009227D1 /* Frameworks */,
@@ -243,6 +244,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\nnode_modules/react-native/packager/react-native-xcode.sh";
+		};
+		7BCFE45D1E8DF139009927C9 /* Start React Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Start React Packager";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\nif nc -w 5 -z localhost 8081 ; then\nif ! curl -s \"http://localhost:8081/status\" | grep -q \"packager-status:running\" ; then\necho \"Port 8081 already in use, packager is either not running or not running correctly\"\nexit 2\nfi\nelse\nopen \"$SRCROOT/node_modules/react-native/packager/launchPackager.command\" || echo \"Can't start packager automatically\"\nfi\nfi";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

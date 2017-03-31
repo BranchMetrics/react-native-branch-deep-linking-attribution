@@ -12,10 +12,6 @@
 
 @interface BranchUniversalObject(RNBranch)
 
-- (void)setContentIndexingMode:(NSString *)contentIndexingMode;
-
 - (instancetype)initWithMap:(NSDictionary *)map;
-
-- (void)rnbranchUserCompletedAction:(NSString *)action withState:(NSDictionary *)state;
 
 @end
