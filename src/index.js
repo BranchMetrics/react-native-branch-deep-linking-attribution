@@ -35,7 +35,6 @@ class Branch {
     if (this._timeSinceLaunch() < INIT_SESSION_TTL) {
       RNBranch.redeemInitSessionResult().then((result) => {
         if (result) {
-          this._dumpParams(result)
           listener(result)
         }
       })
