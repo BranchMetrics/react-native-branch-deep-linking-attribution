@@ -156,8 +156,6 @@ RCT_EXPORT_METHOD(
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
     resolve(initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]);
-    initSessionWithLaunchOptionsResult = nil;
-    sourceUrl = nil;
 }
 
 #pragma mark setDebug
