@@ -21,26 +21,11 @@ export const ShareInitiatedEvent = "Share Started"
 
 class Branch {
   _launchTime = new Date().getTime();
-  _listeners = [];
   _debug = false;
 
   constructor(options = {}) {
     if (options.debug) this._debug = true
-
-    // listen for initSession results and errors.
-    nativeEventEmitter.addListener(INIT_SESSION_SUCCESS, this._onInitSessionResult)
-    nativeEventEmitter.addListener(INIT_SESSION_ERROR, this._onInitSessionResult)
   }
-
-  /*** RNBranch Deep Linking ***/
-  _onInitSessionResult = (result) => {
-    // redeem the result so it can be cleared from the native cache
-    RNBranch.redeemInitSessionResult()
-
-    if (this._debug && !result) console.log('## Branch: received null result in _onInitSessionResult')
-
-    this._listeners.forEach(cb => cb(result))
-  };
 
   subscribe(listener) {
     /*
@@ -49,15 +34,21 @@ class Branch {
      */
     if (this._timeSinceLaunch() < INIT_SESSION_TTL) {
       RNBranch.redeemInitSessionResult().then((result) => {
-        if (result) listener(result)
+        if (result) {
+          this._dumpParams(result)
+          listener(result)
+        }
       })
     }
 
-    this._listeners.push(listener)
+    nativeEventEmitter.addListener(INIT_SESSION_SUCCESS, listener)
+    nativeEventEmitter.addListener(INIT_SESSION_ERROR, listener)
+
     const unsubscribe = () => {
-      let index = this._listeners.indexOf(listener)
-      this._listeners.splice(index, 1)
+      nativeEventEmitter.removeListener(INIT_SESSION_SUCCESS, listener)
+      nativeEventEmitter.removeListener(INIT_SESSION_ERROR, listener)
     }
+
     return unsubscribe
   }
 
