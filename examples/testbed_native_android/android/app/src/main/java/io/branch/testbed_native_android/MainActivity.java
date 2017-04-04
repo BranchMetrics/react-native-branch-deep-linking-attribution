@@ -1,10 +1,14 @@
 package io.branch.testbed_native_android;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,6 +19,9 @@ import com.facebook.react.ReactRootView;
 import com.facebook.react.common.LifecycleState;
 import com.facebook.react.shell.MainReactPackage;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.branch.rnbranch.*;
 
 public class MainActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler{
@@ -22,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
     private ReactInstanceManager mReactInstanceManager;
     private static final int OVERLAY_PERMISSION_REQ_CODE = 1;
     private static final String MAIN_ACTIVITY = "MainActivity";
+    private BroadcastReceiver mBroadcastReceiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
                 startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
             }
         }
+
+        subscribeToBranchLinks();
     }
 
     @Override
@@ -118,5 +128,42 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
     @Override
     public void onNewIntent(Intent intent) {
         setIntent(intent);
+    }
+
+    private void subscribeToBranchLinks() {
+        // Catch link open events. Also transmitted to branch.subscribe in JS.
+        mBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String jsonResult = intent.getStringExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_RESULT);
+                if (jsonResult == null) {
+                    Log.w(MAIN_ACTIVITY, "NATIVE_INIT_SESSION_FINISHED_EVENT_RESULT extra not found");
+                    return;
+                }
+
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonResult);
+                    String error = jsonObject.getString(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR);
+                    if (error != null) {
+                        Log.e(MAIN_ACTIVITY, "Error opening Branch link: " + error);
+                        return;
+                    }
+
+                    String uri = jsonObject.getString(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_URI);
+                    if (uri != null) {
+                        Log.d(MAIN_ACTIVITY, uri + " opened via Branch");
+                    }
+
+                    JSONObject params = jsonObject.getJSONObject(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS);
+                    if (params != null) {
+                        Log.d(MAIN_ACTIVITY, "params: " + params);
+                    }
+                }
+                catch (JSONException e) {
+                    Log.w(MAIN_ACTIVITY, e.getMessage());
+                }
+            }
+        };
+        LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver, new IntentFilter(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT));
     }
 }

@@ -30,7 +30,11 @@ import java.util.*;
 public class RNBranchModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "RNBranch";
     public static final String REACT_MODULE_NAME = "RNBranch";
-    private static final String NATIVE_INIT_SESSION_FINISHED_EVENT = "onInitSessionFinished";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT = "io.branch.rnbranch.RNBranchModule.onInitSessionFinished";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_RESULT = "result";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS = "params";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR = "error";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_URI = "uri";
     private static final String RN_INIT_SESSION_EVENT = "RNBranch.initSessionSuccess";
     private static final String IDENT_FIELD_NAME = "ident";
     public static final String UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE = "RNBranch::Error::BUONotFound";
@@ -57,16 +61,18 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 Log.d(REACT_CLASS, "onInitFinished");
                 JSONObject result = new JSONObject();
                 try{
-                    result.put("params", referringParams != null && referringParams.has("~id") ? referringParams : JSONObject.NULL);
-                    result.put("error", error != null ? error.getMessage() : JSONObject.NULL);
-                    result.put("uri", uri != null ? uri.toString() : JSONObject.NULL);
+                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS, referringParams != null && referringParams.has("~id") ? referringParams : JSONObject.NULL);
+                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR, error != null ? error.getMessage() : JSONObject.NULL);
+                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, uri != null ? uri.toString() : JSONObject.NULL);
                 } catch(JSONException ex) {
                     try {
                         result.put("error", "Failed to convert result to JSONObject: " + ex.getMessage());
                     } catch(JSONException k) {}
                 }
                 initSessionResult = result;
-                LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT));
+                Intent broadcastIntent = new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT);
+                broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_RESULT, result.toString());
+                LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(broadcastIntent);
             }
 
             private Branch.BranchReferralInitListener init(Activity activity) {
