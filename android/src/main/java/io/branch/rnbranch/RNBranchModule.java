@@ -31,7 +31,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "RNBranch";
     public static final String REACT_MODULE_NAME = "RNBranch";
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT = "io.branch.rnbranch.RNBranchModule.onInitSessionFinished";
-    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_RESULT = "result";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_BRANCH_UNIVERSAL_OBJECT = "branch_universal_object";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES = "link_properties";
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS = "params";
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR = "error";
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_URI = "uri";
@@ -70,14 +71,43 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                     } catch(JSONException k) {}
                 }
                 initSessionResult = result;
-                Intent broadcastIntent = new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT);
-                broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_RESULT, result.toString());
-                LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(broadcastIntent);
+
+                generateLocalBroadcast(referringParams, uri, error);
             }
 
             private Branch.BranchReferralInitListener init(Activity activity) {
                 mmActivity = activity;
                 return this;
+            }
+
+            private void generateLocalBroadcast(JSONObject referringParams, Uri uri, BranchError error) {
+                Intent broadcastIntent = new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT);
+
+                if (referringParams != null) {
+                    broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS, referringParams.toString());
+
+                    BranchUniversalObject branchUniversalObject = BranchUniversalObject.createInstance(referringParams);
+                    // BranchUniversalObject branchUniversalObject = BranchUniversalObject.getReferredBranchUniversalObject();
+                    if (branchUniversalObject != null) {
+                        broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_BRANCH_UNIVERSAL_OBJECT, branchUniversalObject);
+                    }
+
+                    // Can this be constructed with local state?
+                    LinkProperties linkProperties = LinkProperties.getReferredLinkProperties();
+                    if (linkProperties != null) {
+                        broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES, linkProperties);
+                    }
+                }
+
+                if (uri != null) {
+                    broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, uri.toString());
+                }
+
+                if (error != null) {
+                    broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR, error.getMessage());
+                }
+
+                LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(broadcastIntent);
             }
         }.init(reactActivity), uri, reactActivity);
     }
@@ -86,6 +116,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         super(reactContext);
         forwardInitSessionFinishedEventToReactNative(reactContext);
     }
+
 
     private void forwardInitSessionFinishedEventToReactNative(ReactApplicationContext reactContext) {
         mInitSessionEventReceiver = new BroadcastReceiver() {

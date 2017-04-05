@@ -22,6 +22,8 @@ import com.facebook.react.shell.MainReactPackage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.branch.indexing.BranchUniversalObject;
+import io.branch.referral.util.LinkProperties;
 import io.branch.rnbranch.*;
 
 public class MainActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler{
@@ -137,35 +139,34 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
         mBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                String jsonResult = intent.getStringExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_RESULT);
-                if (jsonResult == null) {
-                    Log.w(MAIN_ACTIVITY, "NATIVE_INIT_SESSION_FINISHED_EVENT_RESULT extra not found");
+                String error = intent.getStringExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR);
+                if (error != null) {
+                    Log.e(MAIN_ACTIVITY, "Error opening Branch link: " + error);
                     return;
                 }
 
+                BranchUniversalObject branchUniversalObject = intent.getParcelableExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_BRANCH_UNIVERSAL_OBJECT);
+                LinkProperties linkProperties = intent.getParcelableExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES);
+                String uri = intent.getStringExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_URI);
+                String jsonParams = intent.getStringExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS);
+
+                Log.d(MAIN_ACTIVITY, uri + " opened via Branch");
+
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonResult);
-
-                    if (!jsonObject.isNull(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR)) {
-                        String error = jsonObject.getString(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR);
-                        Log.e(MAIN_ACTIVITY, "Error opening Branch link: " + error);
-                        return;
+                    JSONObject params = new JSONObject(jsonParams);
+                    if (params != null) {
+                        Log.d(MAIN_ACTIVITY, "params = " + params);
                     }
-
-                    if (!jsonObject.isNull(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_URI)) {
-                        String uri = jsonObject.getString(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_URI);
-                        Log.d(MAIN_ACTIVITY, uri + " opened via Branch");
-                    }
-
-                    if (!jsonObject.isNull(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS)) {
-                        JSONObject params = jsonObject.getJSONObject(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS);
-                        Log.d(MAIN_ACTIVITY, "params: " + params);
-                    }
-
-                    // Now consult the uri/params and route to the appropriate activity.
                 }
                 catch (JSONException e) {
                     Log.w(MAIN_ACTIVITY, e.getMessage());
+                }
+
+                if (branchUniversalObject != null) {
+                    Log.d(MAIN_ACTIVITY, "BranchUniversalObject = " + branchUniversalObject);
+                }
+                if (linkProperties != null) {
+                    Log.d(MAIN_ACTIVITY, "LinkProperties = " + linkProperties);
                 }
             }
         };
