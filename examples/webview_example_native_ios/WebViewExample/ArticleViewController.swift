@@ -45,7 +45,6 @@ class ArticleViewController: UIViewController {
         self.rootView = rootView
 
         RCTLog("rootView.appProperties = \(rootView.appProperties ?? [:])")
-        rootView.appProperties = planetData.reactNativeRoute
 
         view.addSubview(rootView)
         rootView.translatesAutoresizingMaskIntoConstraints = false
@@ -64,6 +63,5 @@ class ArticleViewController: UIViewController {
         RCTLog("viewWillAppear:")
 
         RCTLog("rootView.appProperties = \(rootView.appProperties)")
-        rootView.appProperties = planetData.reactNativeRoute
     }
 }
