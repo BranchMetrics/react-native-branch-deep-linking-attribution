@@ -30,30 +30,7 @@ const styles = StyleSheet.create({
 export default class Article extends Component {
   buo = null
 
-  constructor() {
-    super()
-    console.log("In constructor: ")
-    this._dumpProps(this.props)
-  }
-
-  _dumpProps(props) {
-    console.log("Props: " + JSON.stringify(props))
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log("In componentWillReceiveProps:")
-    console.log("this.props: ")
-    this._dumpProps(this.props)
-    console.log("Next props: ")
-    this._dumpProps(nextProps)
-  }
-
   async componentWillMount() {
-    console.log("in componentWillMount:")
-    this._dumpProps(this.props)
-
-    if (!this.props.route) return
-
     this.buo = await branch.createBranchUniversalObject("planet/" + this.props.route.title, {
       automaticallyListOnSpotlight: true, // ignored on Android
       canonicalUrl: this.props.route.url,
@@ -71,10 +48,7 @@ export default class Article extends Component {
   }
 
   render() {
-    console.log("in render:")
-    this._dumpProps(this.props)
     return (
-      this.props.route ?
       <View
         style={styles.container} >
         <WebView
@@ -88,14 +62,11 @@ export default class Article extends Component {
             Share
           </Text>
         </TouchableHighlight>
-      </View> :
-      <View/>
+      </View>
     )
   }
 
   async onShare() {
-    if (!this.props.route) return
-
     let { channel, completed, error } = await this.buo.showShareSheet({
       emailSubject: "The Planet " + this.props.route.title,
       messageBody: "Read about the planet " + this.props.route.title + ".",

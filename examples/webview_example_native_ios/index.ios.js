@@ -10,7 +10,7 @@ import Article from './src/Article'
 
 export default class webview_example_native_ios extends Component {
   render() {
-    return <Article />
+    return <Article route={this.props.route}/>
   }
 }
 
