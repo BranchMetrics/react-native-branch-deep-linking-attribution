@@ -5,6 +5,8 @@ extern NSString * const RNBranchLinkOpenedNotification;
 extern NSString * const RNBranchLinkOpenedNotificationErrorKey;
 extern NSString * const RNBranchLinkOpenedNotificationParamsKey;
 extern NSString * const RNBranchLinkOpenedNotificationUriKey;
+extern NSString * const RNBranchLinkOpenedNotificationBranchUniversalObjectKey;
+extern NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey;
 
 @interface RNBranch : NSObject <RCTBridgeModule>
 
