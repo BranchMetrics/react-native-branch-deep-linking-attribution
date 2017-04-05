@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
                 }
 
                 if (branchUniversalObject != null) {
-                    Log.d(MAIN_ACTIVITY, "BranchUniversalObject = " + branchUniversalObject);
+                    Log.d(MAIN_ACTIVITY, "BranchUniversalObject: canonicalIdentifier = " + branchUniversalObject.getCanonicalIdentifier());
                 }
                 if (linkProperties != null) {
                     Log.d(MAIN_ACTIVITY, "LinkProperties = " + linkProperties);
