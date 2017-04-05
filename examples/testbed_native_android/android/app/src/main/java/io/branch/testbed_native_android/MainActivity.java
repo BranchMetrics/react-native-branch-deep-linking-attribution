@@ -88,7 +88,9 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
         if (mReactInstanceManager != null) {
             mReactInstanceManager.onHostDestroy(this);
         }
-    }
+
+        unsubscribeFromBranchLinks();
+   }
 
     @Override
     public void onBackPressed() {
@@ -143,21 +145,24 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
 
                 try {
                     JSONObject jsonObject = new JSONObject(jsonResult);
-                    String error = jsonObject.getString(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR);
-                    if (error != null) {
+
+                    if (!jsonObject.isNull(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR)) {
+                        String error = jsonObject.getString(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR);
                         Log.e(MAIN_ACTIVITY, "Error opening Branch link: " + error);
                         return;
                     }
 
-                    String uri = jsonObject.getString(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_URI);
-                    if (uri != null) {
+                    if (!jsonObject.isNull(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_URI)) {
+                        String uri = jsonObject.getString(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_URI);
                         Log.d(MAIN_ACTIVITY, uri + " opened via Branch");
                     }
 
-                    JSONObject params = jsonObject.getJSONObject(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS);
-                    if (params != null) {
+                    if (!jsonObject.isNull(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS)) {
+                        JSONObject params = jsonObject.getJSONObject(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS);
                         Log.d(MAIN_ACTIVITY, "params: " + params);
                     }
+
+                    // Now consult the uri/params and route to the appropriate activity.
                 }
                 catch (JSONException e) {
                     Log.w(MAIN_ACTIVITY, e.getMessage());
@@ -165,5 +170,11 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
             }
         };
         LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver, new IntentFilter(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT));
+    }
+
+    private void unsubscribeFromBranchLinks() {
+        if (mBroadcastReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
+        }
     }
 }
