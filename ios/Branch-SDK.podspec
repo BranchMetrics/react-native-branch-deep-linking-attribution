@@ -19,7 +19,6 @@ Use the Branch SDK (branch.io) to create and power the links that point back to 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
   s.header_dir = "Branch"
-  s.module_name = "Branch"
 
   s.subspec 'Core' do |core|
     core.source_files = "Branch-SDK/Branch-SDK/*.{h,m}", "Branch-SDK/Branch-SDK/Requests/*.{h,m}", "Branch-SDK/Fabric/*.h"
