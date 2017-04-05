@@ -10,6 +10,8 @@ NSString * const RNBranchLinkOpenedNotification = @"RNBranchLinkOpenedNotificati
 NSString * const RNBranchLinkOpenedNotificationErrorKey = @"error";
 NSString * const RNBranchLinkOpenedNotificationParamsKey = @"params";
 NSString * const RNBranchLinkOpenedNotificationUriKey = @"uri";
+NSString * const RNBranchLinkOpenedNotificationBranchUniversalObjectKey = @"branch_universal_object";
+NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey = @"link_properties";
 
 static NSDictionary *initSessionWithLaunchOptionsResult;
 static NSURL *sourceUrl;
@@ -52,7 +54,17 @@ RCT_EXPORT_MODULE();
     [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSMutableDictionary *result = [NSMutableDictionary dictionary];
         if (error) result[RNBranchLinkOpenedNotificationErrorKey] = error;
-        if (params) result[RNBranchLinkOpenedNotificationParamsKey] = params;
+        if (params) {
+            result[RNBranchLinkOpenedNotificationParamsKey] = params;
+
+            if (params[@"~id"]) {
+                BranchUniversalObject *branchUniversalObject = [BranchUniversalObject getBranchUniversalObjectFromDictionary:params];
+                if (branchUniversalObject) result[RNBranchLinkOpenedNotificationBranchUniversalObjectKey] = branchUniversalObject;
+
+                BranchLinkProperties *linkProperties = [BranchLinkProperties getBranchLinkPropertiesFromDictionary:params];
+                if (linkProperties) result[RNBranchLinkOpenedNotificationLinkPropertiesKey] = linkProperties;
+            }
+        }
         if (sourceUrl) result[RNBranchLinkOpenedNotificationUriKey] = sourceUrl;
 
         [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:result];

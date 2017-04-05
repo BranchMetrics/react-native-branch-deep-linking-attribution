@@ -115,8 +115,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B63776C1E831BF6009227D1 /* Build configuration list for PBXNativeTarget "testbed_native_ios" */;
 			buildPhases = (
-				7BCFE45D1E8DF139009927C9 /* Start React Packager */,
 				102A8B840B294107CFC27091 /* [CP] Check Pods Manifest.lock */,
+				7BCFE45D1E8DF139009927C9 /* Start React Packager */,
 				7B6377511E831BF6009227D1 /* Sources */,
 				7B6377521E831BF6009227D1 /* Frameworks */,
 				7B6377531E831BF6009227D1 /* Resources */,
@@ -144,6 +144,7 @@
 				TargetAttributes = {
 					7B6377541E831BF6009227D1 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = R63EM248DP;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.SafariKeychain = {
@@ -394,10 +395,10 @@
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphoneos*]" = disable;
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.testbed-native-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -409,10 +410,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = testbed_native_ios/testbed_native_ios.entitlements;
 				DEBUG_ACTIVITY_MODE = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.testbed-native-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

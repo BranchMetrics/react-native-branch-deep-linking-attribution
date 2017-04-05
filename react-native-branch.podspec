@@ -19,6 +19,6 @@ Pod::Spec.new do |s|
   s.homepage     = spec['homepage']
   s.platform     = :ios, "7.0"
   s.source       = { spec['repository']['type'].to_sym => spec['repository']['url'].sub(/^[a-z]+\+/, '') }
-  s.source_files = 'ios/*'
+  s.source_files = [ "ios/*.h", "ios/*.m"]
   s.dependency 'Branch-SDK'
 end
