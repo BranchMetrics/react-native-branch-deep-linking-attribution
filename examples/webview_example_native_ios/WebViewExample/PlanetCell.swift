@@ -66,7 +66,6 @@ class PlanetCell: UITableViewCell {
         contentView.addConstraint(contentView.leftAnchor.constraint(equalTo: thumbnailImageView.leftAnchor))
         contentView.addConstraint(thumbnailImageView.rightAnchor.constraint(equalTo: label.leftAnchor, constant: -margin))
         contentView.addConstraint(contentView.rightAnchor.constraint(equalTo: label.rightAnchor, constant: -margin))
-
         
         /*
          * Make contentView fill its superview.
