@@ -100,11 +100,11 @@
 				7B5C79231E95A6BC002FE942 /* RCTSwiftLog.h */,
 				7B5C79241E95A6BC002FE942 /* RCTSwiftLog.m */,
 				7B132B5B1E8D878E006FB28F /* Style.swift */,
+				7B5C791A1E958580002FE942 /* WebViewExample-BridgingHeader.h */,
 				7B3B97871E8C1B650089C04B /* Main.storyboard */,
 				7B3B978A1E8C1B650089C04B /* Assets.xcassets */,
 				7B3B978C1E8C1B650089C04B /* LaunchScreen.storyboard */,
 				7B3B978F1E8C1B650089C04B /* Info.plist */,
-				7B5C791A1E958580002FE942 /* WebViewExample-BridgingHeader.h */,
 			);
 			path = WebViewExample;
 			sourceTree = "<group>";
