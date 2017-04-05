@@ -15,8 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - UIApplicationDelegate methods
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        RCTLogInfo("application launched")
+
         // Store the NavigationController for later link routing.
         navigationController = window?.rootViewController as? NavigationController
+
+        ReactBridge.start(launchOptions: launchOptions)
 
         // Initialize Branch SDK
         NotificationCenter.default.addObserver(self, selector: #selector(routeURLFromBranch), name: NSNotification.Name.RNBranchLinkOpened, object: nil)

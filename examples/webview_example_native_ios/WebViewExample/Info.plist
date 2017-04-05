@@ -41,5 +41,16 @@
 	</array>
 	<key>branch_key</key>
 	<string>key_live_feebgAAhbH9Tv85H5wLQhpdaefiZv5Dv</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>

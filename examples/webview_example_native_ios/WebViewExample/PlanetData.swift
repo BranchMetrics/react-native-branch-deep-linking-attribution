@@ -20,7 +20,19 @@ struct PlanetData {
 
     /// (Optional) URL for a Spotlight preview image
     let image: URL?
+    
+    // MARK: - Derived properties
 
+    /// Route for a RN Article component
+    var reactNativeRoute: [ AnyHashable : Any ] {
+        let route: [ String : Any ] = [
+            "title": title,
+            "url": url.absoluteString,
+            "image": image?.absoluteString ?? NSNull()
+        ]
+        return [ "route" : route ]
+    }
+    
     // MARK: - Struct lifecycle
 
     /**

@@ -7,6 +7,9 @@
 //
 
 #import <Branch/Branch.h>
+#import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <react-native-branch/RNBranch.h>
+
+#import "RCTSwiftLog.h"

@@ -17,6 +17,9 @@
 		7B3B979A1E8C23AA0089C04B /* PlanetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B97991E8C23AA0089C04B /* PlanetData.swift */; };
 		7B3B979C1E8C267E0089C04B /* PlanetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B979B1E8C267E0089C04B /* PlanetCell.swift */; };
 		7B3B97AA1E8C31A60089C04B /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B97A91E8C31A60089C04B /* ArticleViewController.swift */; };
+		7B5C79201E959B53002FE942 /* ReactBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C791F1E959B53002FE942 /* ReactBridge.swift */; };
+		7B5C79251E95A6BC002FE942 /* RCTSwiftLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C79241E95A6BC002FE942 /* RCTSwiftLog.m */; };
+		7B5C79271E95A946002FE942 /* RCTLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C79261E95A946002FE942 /* RCTLog.swift */; };
 		BCFFAA02AA5FE70A7CA6A745 /* libPods-WebViewExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BAD020E8EE7D2116B4ABB44 /* libPods-WebViewExample.a */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +41,10 @@
 		7B3B97A91E8C31A60089C04B /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		7B3B97AD1E8C40400089C04B /* WebViewExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WebViewExample.entitlements; sourceTree = "<group>"; };
 		7B5C791A1E958580002FE942 /* WebViewExample-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WebViewExample-BridgingHeader.h"; sourceTree = "<group>"; };
+		7B5C791F1E959B53002FE942 /* ReactBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactBridge.swift; sourceTree = "<group>"; };
+		7B5C79231E95A6BC002FE942 /* RCTSwiftLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTSwiftLog.h; sourceTree = "<group>"; };
+		7B5C79241E95A6BC002FE942 /* RCTSwiftLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTSwiftLog.m; sourceTree = "<group>"; };
+		7B5C79261E95A946002FE942 /* RCTLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTLog.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +95,10 @@
 				7B3B97951E8C21510089C04B /* NavigationController.swift */,
 				7B3B979B1E8C267E0089C04B /* PlanetCell.swift */,
 				7B3B97991E8C23AA0089C04B /* PlanetData.swift */,
+				7B5C791F1E959B53002FE942 /* ReactBridge.swift */,
+				7B5C79261E95A946002FE942 /* RCTLog.swift */,
+				7B5C79231E95A6BC002FE942 /* RCTSwiftLog.h */,
+				7B5C79241E95A6BC002FE942 /* RCTSwiftLog.m */,
 				7B132B5B1E8D878E006FB28F /* Style.swift */,
 				7B3B97871E8C1B650089C04B /* Main.storyboard */,
 				7B3B978A1E8C1B650089C04B /* Assets.xcassets */,
@@ -266,12 +277,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B5C79201E959B53002FE942 /* ReactBridge.swift in Sources */,
 				7B3B97981E8C21F60089C04B /* ArticleListViewController.swift in Sources */,
 				7B3B97AA1E8C31A60089C04B /* ArticleViewController.swift in Sources */,
 				7B3B979C1E8C267E0089C04B /* PlanetCell.swift in Sources */,
 				7B3B979A1E8C23AA0089C04B /* PlanetData.swift in Sources */,
 				7B3B97961E8C21510089C04B /* NavigationController.swift in Sources */,
 				7B132B5C1E8D878E006FB28F /* Style.swift in Sources */,
+				7B5C79251E95A6BC002FE942 /* RCTSwiftLog.m in Sources */,
+				7B5C79271E95A946002FE942 /* RCTLog.swift in Sources */,
 				7B3B97841E8C1B650089C04B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,6 +336,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_ACTIVITY_MODE = "";
+				"DEBUG_ACTIVITY_MODE[sdk=iphoneos*]" = disable;
+				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -374,6 +391,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_ACTIVITY_MODE = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
