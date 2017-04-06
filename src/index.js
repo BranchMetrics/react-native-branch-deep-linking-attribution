@@ -20,16 +20,6 @@ class Branch {
 
   constructor(options = {}) {
     if (options.debug) this._debug = true
-
-    console.log("INIT_SESSION_SUCCESS = " + RNBranch.INIT_SESSION_SUCCESS)
-    console.log("INIT_SESSION_ERROR = " + RNBranch.INIT_SESSION_ERROR)
-
-    nativeEventEmitter.addListener(RNBranch.INIT_SESSION_SUCCESS, (payload) => {
-      console.log("Received INIT_SESSION_SUCCESS with payload " + JSON.stringify(payload))
-    })
-    nativeEventEmitter.addListener(RNBranch.INIT_SESSION_ERROR, (payload) => {
-      console.log("Received INIT_SESSION_ERROR with payload " + JSON.stringify(payload))
-    })
   }
 
   subscribe(listener) {
