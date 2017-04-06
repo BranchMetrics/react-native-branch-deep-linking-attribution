@@ -4,10 +4,15 @@ There are several working examples in this directory.
 
 See each app for further details, including build instructions.
 
-## [webview_example app](./webview_example)
+## webview_example apps
 
-This is a realistic example of a content-sharing app that includes link routing and follows best practices.
-It uses the current version of the SDK (2.0.0-beta.1), but the React Native code will also work with 1.1.
+These apps are realistic examples of a content-sharing app that includes link routing and follows best practices.
+It uses the current version of the SDK (2.0.0-beta.1). The React Native code will also work with 1.1 for webview_example.
+The webview_example_native_ios app requires 2.0.
+
+### [webview_example](./webview_example)
+
+### [webview_example_native_ios](./webview_example_ios)
 
 ## testbed apps
 
