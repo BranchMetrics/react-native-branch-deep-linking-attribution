@@ -44,9 +44,9 @@ EXTERNAL SOURCES:
     :path: node_modules/react-native-branch
 
 SPEC CHECKSUMS:
-  Branch-SDK: ee97917831a2ec9925b083647c96703030e8531d
+  Branch-SDK: 99eeacc0c7b816185258ad9de5c9027c3ffcb53d
   React: 2b10c07d947dea71c144a33764e9162ed81e3825
-  react-native-branch: 2676744d12ecdbb209939ef52c62472d0b998e55
+  react-native-branch: ee16cdf24cdc296049136155026598633413c70a
 
 PODFILE CHECKSUM: 3100dd614cc4960c9b35a5748993b3ca4251f6a3
 
