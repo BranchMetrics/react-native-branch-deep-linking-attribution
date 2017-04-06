@@ -11,9 +11,22 @@
 #import "RNBranch.h"
 #import "RNBranchEventEmitter.h"
 
+@interface RNBranchEventEmitter()
+@property (nonatomic) BOOL hasListeners;
+@end
+
 @implementation RNBranchEventEmitter
 
 RCT_EXPORT_MODULE();
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _hasListeners = NO;
+    }
+    return self;
+}
 
 - (NSArray<NSString *> *)supportedEvents {
     return @[kRNBranchInitSessionSuccess,
@@ -22,7 +35,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (void)startObserving {
-    RCTLog(@"[RNBranchEventEmitter startObserving]");
+    self.hasListeners = YES;
     for (NSString *event in [self supportedEvents]) {
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(handleNotification:)
@@ -33,6 +46,7 @@ RCT_EXPORT_MODULE();
 
 - (void)stopObserving {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.hasListeners = NO;
 }
 
 # pragma mark - Public
@@ -56,6 +70,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (void)handleNotification:(NSNotification *)notification {
+    if (!self.hasListeners) return;
     [self sendEventWithName:notification.name body:notification.userInfo];
 }
 
