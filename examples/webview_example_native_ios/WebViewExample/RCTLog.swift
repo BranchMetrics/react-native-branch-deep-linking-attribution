@@ -7,26 +7,21 @@
 //
 
 func RCTLogError(_ message: String, _ file: String=#file, _ line: UInt=#line) {
-    let fileName = file.components(separatedBy: "/").last!
-    RCTSwiftLog.error("[\(fileName):\(line)] \(message)")
+    RCTSwiftLog.error(message, file: file, line: line)
 }
 
 func RCTLogWarn(_ message: String, _ file: String=#file, _ line: UInt=#line) {
-    let fileName = file.components(separatedBy: "/").last!
-    RCTSwiftLog.warn("[\(fileName):\(line)] \(message)")
+    RCTSwiftLog.warn(message, file: file, line: line)
 }
 
 func RCTLogInfo(_ message: String, _ file: String=#file, _ line: UInt=#line) {
-    let fileName = file.components(separatedBy: "/").last!
-    RCTSwiftLog.info("[\(fileName):\(line)] \(message)")
+    RCTSwiftLog.info(message, file: file, line: line)
 }
 
 func RCTLog(_ message: String, _ file: String=#file, _ line: UInt=#line) {
-    let fileName = file.components(separatedBy: "/").last!
-    RCTSwiftLog.log("[\(fileName):\(line)] \(message)")
+    RCTSwiftLog.log(message, file: file, line: line)
 }
 
 func RCTLogTrace(_ message: String, _ file: String=#file, _ line: UInt=#line) {
-    let fileName = file.components(separatedBy: "/").last!
-    RCTSwiftLog.trace("[\(fileName):\(line)] \(message)")
+    RCTSwiftLog.trace(message, file: file, line: line)
 }
