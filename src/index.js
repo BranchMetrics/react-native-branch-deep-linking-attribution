@@ -4,12 +4,10 @@ import { NativeModules, NativeAppEventEmitter, DeviceEventEmitter, Platform } fr
 // Both are technically supported on Android -- but I chose to follow the suggested route by the documentation to minimize the risk of this code breaking with a future release
 // in case NativeAppEventEmitter ever got deprecated on Android
 const nativeEventEmitter = Platform.OS === 'ios' ? NativeAppEventEmitter : DeviceEventEmitter
-const { RNBranch } = NativeModules
+const { RNBranch, RNBranchEventEmitter } = NativeModules
 
 import createBranchUniversalObject from './branchUniversalObject'
 
-const INIT_SESSION_SUCCESS = 'RNBranch.initSessionSuccess'
-const INIT_SESSION_ERROR = 'RNBranch.initSessionError'
 const INIT_SESSION_TTL = 5000
 
 export const AddToWishlistEvent = "Add to Wishlist"
@@ -40,8 +38,8 @@ class Branch {
       })
     }
 
-    nativeEventEmitter.addListener(INIT_SESSION_SUCCESS, listener)
-    nativeEventEmitter.addListener(INIT_SESSION_ERROR, listener)
+    nativeEventEmitter.addListener(RNBranchEventEmitter.INIT_SESSION_SUCCESS, listener)
+    nativeEventEmitter.addListener(RNBranchEventEmitter.INIT_SESSION_ERROR, listener)
 
     const unsubscribe = () => {
       nativeEventEmitter.removeListener(INIT_SESSION_SUCCESS, listener)

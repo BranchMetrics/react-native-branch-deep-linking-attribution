@@ -5,6 +5,7 @@
 #import "BranchLinkProperties+RNBranch.h"
 #import "BranchUniversalObject+RNBranch.h"
 #import "RNBranchAgingDictionary.h"
+#import "RNBranchEventEmitter.h"
 
 NSString * const RNBranchLinkOpenedNotification = @"RNBranchLinkOpenedNotification";
 NSString * const RNBranchLinkOpenedNotificationErrorKey = @"error";
@@ -124,12 +125,12 @@ RCT_EXPORT_MODULE();
 
     // If there is an error, fire error event
     if (error) {
-        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionError" body:initSessionWithLaunchOptionsResult];
+        [RNBranchEventEmitter initSessionDidEncounterErrorWithPayload:initSessionWithLaunchOptionsResult];
     }
 
     // otherwise notify the session is finished
     else {
-        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionSuccess" body:initSessionWithLaunchOptionsResult];
+        [RNBranchEventEmitter initSessionDidSucceedWithPayload:initSessionWithLaunchOptionsResult];
     }
 }
 
