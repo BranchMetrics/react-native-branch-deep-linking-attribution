@@ -14,7 +14,6 @@
 		7B6377631E831BF6009227D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B6377611E831BF6009227D1 /* Main.storyboard */; };
 		7B6377651E831BF6009227D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B6377641E831BF6009227D1 /* Assets.xcassets */; };
 		7B6377681E831BF6009227D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B6377661E831BF6009227D1 /* LaunchScreen.storyboard */; };
-		7B6377C91E834150009227D1 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 7B6377C81E834150009227D1 /* main.jsbundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 		7B6377671E831BF6009227D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B6377691E831BF6009227D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B6377961E833F57009227D1 /* testbed_native_ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = testbed_native_ios.entitlements; sourceTree = "<group>"; };
-		7B6377C81E834150009227D1 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		8E214B899E1861D89268F2CE /* Pods-testbed_native_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testbed_native_ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-testbed_native_ios/Pods-testbed_native_ios.debug.xcconfig"; sourceTree = "<group>"; };
 		AD34805037249BCBEA51DB6A /* libPods-testbed_native_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-testbed_native_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7AE53FD155ABDCFC1404DD7 /* Pods-testbed_native_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testbed_native_ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-testbed_native_ios/Pods-testbed_native_ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 		7B6377571E831BF6009227D1 /* testbed_native_ios */ = {
 			isa = PBXGroup;
 			children = (
-				7B6377C81E834150009227D1 /* main.jsbundle */,
 				7B6377961E833F57009227D1 /* testbed_native_ios.entitlements */,
 				7B63775B1E831BF6009227D1 /* AppDelegate.h */,
 				7B63775C1E831BF6009227D1 /* AppDelegate.m */,
@@ -115,8 +112,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B63776C1E831BF6009227D1 /* Build configuration list for PBXNativeTarget "testbed_native_ios" */;
 			buildPhases = (
-				7BCFE45D1E8DF139009927C9 /* Start React Packager */,
 				102A8B840B294107CFC27091 /* [CP] Check Pods Manifest.lock */,
+				7BCFE45D1E8DF139009927C9 /* Start React Packager */,
 				7B6377511E831BF6009227D1 /* Sources */,
 				7B6377521E831BF6009227D1 /* Frameworks */,
 				7B6377531E831BF6009227D1 /* Resources */,
@@ -144,6 +141,7 @@
 				TargetAttributes = {
 					7B6377541E831BF6009227D1 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = R63EM248DP;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.SafariKeychain = {
@@ -179,7 +177,6 @@
 				7B6377681E831BF6009227D1 /* LaunchScreen.storyboard in Resources */,
 				7B6377651E831BF6009227D1 /* Assets.xcassets in Resources */,
 				7B6377631E831BF6009227D1 /* Main.storyboard in Resources */,
-				7B6377C91E834150009227D1 /* main.jsbundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,10 +391,10 @@
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphoneos*]" = disable;
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.testbed-native-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -409,10 +406,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = testbed_native_ios/testbed_native_ios.entitlements;
 				DEBUG_ACTIVITY_MODE = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.testbed-native-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
