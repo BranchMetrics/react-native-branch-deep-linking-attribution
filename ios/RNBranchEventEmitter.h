@@ -11,7 +11,7 @@
 
 @interface RNBranchEventEmitter : RCTEventEmitter<RCTBridgeModule>
 
-+ (void)initSessionDidSucceedWithPayload:(NSDictionary *)payload;
-+ (void)initSessionDidEncounterErrorWithPayload:(NSDictionary *)payload;
++ (void)initSessionDidSucceedWithPayload:(NSDictionary<NSString *, id> *)payload;
++ (void)initSessionDidEncounterErrorWithPayload:(NSDictionary<NSString *, id> *)payload;
 
 @end

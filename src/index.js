@@ -1,10 +1,7 @@
-import { NativeModules, NativeAppEventEmitter, DeviceEventEmitter, Platform } from 'react-native'
+import { NativeModules, NativeEventEmitter, DeviceEventEmitter, Platform } from 'react-native'
 
-// According to the React Native docs from 0.21, NativeAppEventEmitter is used for native iOS modules to emit events. DeviceEventEmitter is used for native Android modules.
-// Both are technically supported on Android -- but I chose to follow the suggested route by the documentation to minimize the risk of this code breaking with a future release
-// in case NativeAppEventEmitter ever got deprecated on Android
-const nativeEventEmitter = Platform.OS === 'ios' ? NativeAppEventEmitter : DeviceEventEmitter
 const { RNBranch, RNBranchEventEmitter } = NativeModules
+const nativeEventEmitter = Platform.OS === 'ios' ? new NativeEventEmitter(RNBranchEventEmitter) : DeviceEventEmitter
 
 import createBranchUniversalObject from './branchUniversalObject'
 
@@ -23,6 +20,16 @@ class Branch {
 
   constructor(options = {}) {
     if (options.debug) this._debug = true
+
+    console.log("INIT_SESSION_SUCCESS = " + RNBranch.INIT_SESSION_SUCCESS)
+    console.log("INIT_SESSION_ERROR = " + RNBranch.INIT_SESSION_ERROR)
+
+    nativeEventEmitter.addListener(RNBranch.INIT_SESSION_SUCCESS, (payload) => {
+      console.log("Received INIT_SESSION_SUCCESS with payload " + JSON.stringify(payload))
+    })
+    nativeEventEmitter.addListener(RNBranch.INIT_SESSION_ERROR, (payload) => {
+      console.log("Received INIT_SESSION_ERROR with payload " + JSON.stringify(payload))
+    })
   }
 
   subscribe(listener) {
@@ -38,12 +45,12 @@ class Branch {
       })
     }
 
-    nativeEventEmitter.addListener(RNBranchEventEmitter.INIT_SESSION_SUCCESS, listener)
-    nativeEventEmitter.addListener(RNBranchEventEmitter.INIT_SESSION_ERROR, listener)
+    const successSubscription = nativeEventEmitter.addListener(RNBranch.INIT_SESSION_SUCCESS, listener)
+    const errorSubscription = nativeEventEmitter.addListener(RNBranch.INIT_SESSION_ERROR, listener)
 
     const unsubscribe = () => {
-      nativeEventEmitter.removeListener(INIT_SESSION_SUCCESS, listener)
-      nativeEventEmitter.removeListener(INIT_SESSION_ERROR, listener)
+      successSubscription.remove()
+      errorSubscription.remove()
     }
 
     return unsubscribe

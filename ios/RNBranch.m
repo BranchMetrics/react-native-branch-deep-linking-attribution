@@ -14,6 +14,10 @@ NSString * const RNBranchLinkOpenedNotificationUriKey = @"uri";
 NSString * const RNBranchLinkOpenedNotificationBranchUniversalObjectKey = @"branch_universal_object";
 NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey = @"link_properties";
 
+// Notification/Event Names
+NSString * const kRNBranchInitSessionSuccess = @"RNBranch.initSessionSuccess";
+NSString * const kRNBranchInitSessionError = @"RNBranch.initSessionError";
+
 static NSDictionary *initSessionWithLaunchOptionsResult;
 static NSURL *sourceUrl;
 static Branch *branchInstance;
@@ -38,6 +42,12 @@ static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 @synthesize bridge = _bridge;
 
 RCT_EXPORT_MODULE();
+
+- (NSDictionary<NSString *, NSString *> *)constantsToExport {
+    return @{ @"INIT_SESSION_SUCCESS": kRNBranchInitSessionSuccess,
+              @"INIT_SESSION_ERROR": kRNBranchInitSessionError,
+              };
+}
 
 #pragma mark - Class methods
 

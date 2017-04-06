@@ -6,29 +6,23 @@
 //
 //
 
-#import "RNBranchEventEmitter.h"
+#import <React/RCTLog.h>
 
-// Notification/Event Names
-NSString *const kInitSessionSuccess = @"RNBranchEventEmitter/initSessionSuccess";
-NSString *const kInitSessionError = @"RNBranchEventEmitter/initSessionError";
+#import "RNBranch.h"
+#import "RNBranchEventEmitter.h"
 
 @implementation RNBranchEventEmitter
 
 RCT_EXPORT_MODULE();
 
-- (NSDictionary<NSString *, NSString *> *)constantsToExport {
-    return @{ @"INIT_SESSION_SUCCESS": kInitSessionSuccess,
-              @"INIT_SESSION_ERROR": kInitSessionError,
-              };
-}
-
 - (NSArray<NSString *> *)supportedEvents {
-    return @[kInitSessionSuccess,
-             kInitSessionError
+    return @[kRNBranchInitSessionSuccess,
+             kRNBranchInitSessionError
              ];
 }
 
 - (void)startObserving {
+    RCTLog(@"[RNBranchEventEmitter startObserving]");
     for (NSString *event in [self supportedEvents]) {
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(handleNotification:)
@@ -45,19 +39,17 @@ RCT_EXPORT_MODULE();
 
 + (void)initSessionDidSucceedWithPayload:(NSDictionary *)payload
 {
-    [self postNotificationName:kInitSessionSuccess withPayload:payload];
+    [self postNotificationName:kRNBranchInitSessionSuccess withPayload:payload];
 }
 
 + (void)initSessionDidEncounterErrorWithPayload:(NSDictionary *)payload
 {
-    [self postNotificationName:kInitSessionError withPayload:payload];
+    [self postNotificationName:kRNBranchInitSessionError withPayload:payload];
 }
 
 # pragma mark - Private
 
-+ (void)postNotificationName:(NSString *)name withPayload:(NSObject *)object {
-    NSDictionary<NSString *, id> *payload = @{@"payload": object};
-    
++ (void)postNotificationName:(NSString *)name withPayload:(NSDictionary<NSString *, id> *)payload {
     [[NSNotificationCenter defaultCenter] postNotificationName:name
                                                         object:self
                                                       userInfo:payload];
