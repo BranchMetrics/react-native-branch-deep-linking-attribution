@@ -26,7 +26,7 @@ PODS:
   - React/yoga (0.41.2)
 
 DEPENDENCIES:
-  - Branch-SDK (from `../../ios`)
+  - Branch-SDK (from `node_modules/react-native-branch/ios`)
   - react-native-branch (from `node_modules/react-native-branch`)
   - React/Core (from `node_modules/react-native`)
   - React/RCTAnimation (from `node_modules/react-native`)
@@ -37,7 +37,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   Branch-SDK:
-    :path: "../../ios"
+    :path: node_modules/react-native-branch/ios
   React:
     :path: node_modules/react-native
   react-native-branch:
@@ -48,6 +48,6 @@ SPEC CHECKSUMS:
   React: 2b10c07d947dea71c144a33764e9162ed81e3825
   react-native-branch: ee16cdf24cdc296049136155026598633413c70a
 
-PODFILE CHECKSUM: 403e6448178c5b0c7ee5546067b9560fd6978918
+PODFILE CHECKSUM: 624acf12aec858488ec2eb9c69ef56e129b49ac9
 
 COCOAPODS: 1.2.0
