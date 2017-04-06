@@ -1,7 +1,10 @@
 import { NativeModules, NativeEventEmitter, DeviceEventEmitter, Platform } from 'react-native'
 
 const { RNBranch, RNBranchEventEmitter } = NativeModules
-const nativeEventEmitter = Platform.OS === 'ios' ? new NativeEventEmitter(RNBranchEventEmitter) : DeviceEventEmitter
+const nativeEventEmitter = Platform.select({
+  android: DeviceEventEmitter,
+  ios: new NativeEventEmitter(RNBranchEventEmitter)
+})
 
 import createBranchUniversalObject from './branchUniversalObject'
 
