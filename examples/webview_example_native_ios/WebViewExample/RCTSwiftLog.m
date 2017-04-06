@@ -12,29 +12,29 @@
 
 @implementation RCTSwiftLog
 
-+ (void)info:(NSString *)message
++ (void)info:(NSString *)message file:(NSString *)file line:(NSUInteger)line
 {
-    RCTLogInfo(@"%@", message);
+    _RCTLogNativeInternal(RCTLogLevelInfo, file.UTF8String, (int)line, @"%@", message);
 }
 
-+ (void)warn:(NSString *)message
++ (void)warn:(NSString *)message file:(NSString *)file line:(NSUInteger)line
 {
-    RCTLogWarn(@"%@", message);
+    _RCTLogNativeInternal(RCTLogLevelWarning, file.UTF8String, (int)line, @"%@", message);
 }
 
-+ (void)error:(NSString *)message
++ (void)error:(NSString *)message file:(NSString *)file line:(NSUInteger)line
 {
-    RCTLogError(@"%@", message);
+    _RCTLogNativeInternal(RCTLogLevelError, file.UTF8String, (int)line, @"%@", message);
 }
 
-+ (void)log:(NSString *)message
++ (void)log:(NSString *)message file:(NSString *)file line:(NSUInteger)line
 {
-    RCTLog(@"%@", message);
+    _RCTLogNativeInternal(RCTLogLevelInfo, file.UTF8String, (int)line, @"%@", message);
 }
 
-+ (void)trace:(NSString *)message
++ (void)trace:(NSString *)message file:(NSString *)file line:(NSUInteger)line
 {
-    RCTLogTrace(@"%@", message);
+    _RCTLogNativeInternal(RCTLogLevelTrace, file.UTF8String, (int)line, @"%@", message);
 }
 
 @end
