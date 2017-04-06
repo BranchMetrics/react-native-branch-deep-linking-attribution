@@ -12,7 +12,11 @@ The webview_example_native_ios app requires 2.0.
 
 ### [webview_example](./webview_example)
 
+This is a pure React Native app that integrates the react-native-branch NPM module.
+
 ### [webview_example_native_ios](./webview_example_ios)
+
+This is a Swift app that integrates the Branch SDK and the react-native-branch NPM module in a React Native component.
 
 ## testbed apps
 
