@@ -5,6 +5,7 @@
 #import "BranchLinkProperties+RNBranch.h"
 #import "BranchUniversalObject+RNBranch.h"
 #import "RNBranchAgingDictionary.h"
+#import "RNBranchEventEmitter.h"
 
 NSString * const RNBranchLinkOpenedNotification = @"RNBranchLinkOpenedNotification";
 NSString * const RNBranchLinkOpenedNotificationErrorKey = @"error";
@@ -12,6 +13,10 @@ NSString * const RNBranchLinkOpenedNotificationParamsKey = @"params";
 NSString * const RNBranchLinkOpenedNotificationUriKey = @"uri";
 NSString * const RNBranchLinkOpenedNotificationBranchUniversalObjectKey = @"branch_universal_object";
 NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey = @"link_properties";
+
+// Notification/Event Names
+NSString * const kRNBranchInitSessionSuccess = @"RNBranch.initSessionSuccess";
+NSString * const kRNBranchInitSessionError = @"RNBranch.initSessionError";
 
 static NSDictionary *initSessionWithLaunchOptionsResult;
 static NSURL *sourceUrl;
@@ -37,6 +42,12 @@ static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 @synthesize bridge = _bridge;
 
 RCT_EXPORT_MODULE();
+
+- (NSDictionary<NSString *, NSString *> *)constantsToExport {
+    return @{ @"INIT_SESSION_SUCCESS": kRNBranchInitSessionSuccess,
+              @"INIT_SESSION_ERROR": kRNBranchInitSessionError,
+              };
+}
 
 #pragma mark - Class methods
 
@@ -124,12 +135,12 @@ RCT_EXPORT_MODULE();
 
     // If there is an error, fire error event
     if (error) {
-        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionError" body:initSessionWithLaunchOptionsResult];
+        [RNBranchEventEmitter initSessionDidEncounterErrorWithPayload:initSessionWithLaunchOptionsResult];
     }
 
     // otherwise notify the session is finished
     else {
-        [self.bridge.eventDispatcher sendAppEventWithName:@"RNBranch.initSessionSuccess" body:initSessionWithLaunchOptionsResult];
+        [RNBranchEventEmitter initSessionDidSucceedWithPayload:initSessionWithLaunchOptionsResult];
     }
 }
 
