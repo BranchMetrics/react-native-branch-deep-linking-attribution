@@ -9,3 +9,8 @@ React.NativeModules.RNBranch = {
     })
   }
 }
+
+// This only has to exist to be passed to the NativeEventEmitter
+// constructor.
+React.NativeModules.RNBranchEventEmitter = {
+}

@@ -36,7 +36,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS = "params";
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR = "error";
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_URI = "uri";
-    private static final String RN_INIT_SESSION_EVENT = "RNBranch.initSessionSuccess";
+    private static final String RN_INIT_SESSION_SUCCESS_EVENT = "RNBranch.initSessionSuccess";
+    private static final String RN_INIT_SESSION_ERROR_EVENT = "RNBranch.initSessionError";
+    private static final String INIT_SESSION_SUCCESS = "INIT_SESSION_SUCCESS";
+    private static final String INIT_SESSION_ERROR = "INIT_SESSION_ERROR";
     private static final String IDENT_FIELD_NAME = "ident";
     public static final String UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE = "RNBranch::Error::BUONotFound";
     private static final long AGING_HASH_TTL = 3600000;
@@ -119,6 +122,14 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         forwardInitSessionFinishedEventToReactNative(reactContext);
     }
 
+    @javax.annotation.Nullable
+    @Override
+    public Map<String, Object> getConstants() {
+        final Map<String, Object> constants = new HashMap<>();
+        constants.put(INIT_SESSION_SUCCESS, RN_INIT_SESSION_SUCCESS_EVENT);
+        constants.put(INIT_SESSION_ERROR, RN_INIT_SESSION_ERROR_EVENT);
+        return constants;
+    }
 
     private void forwardInitSessionFinishedEventToReactNative(ReactApplicationContext reactContext) {
         mInitSessionEventReceiver = new BroadcastReceiver() {
@@ -126,7 +137,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onReceive(Context context, Intent intent) {
-                mBranchModule.sendRNEvent(RN_INIT_SESSION_EVENT, convertJsonToMap(initSessionResult));
+                final String eventName = initSessionResult.has("error") ? RN_INIT_SESSION_ERROR_EVENT : RN_INIT_SESSION_SUCCESS_EVENT;
+                mBranchModule.sendRNEvent(eventName, convertJsonToMap(initSessionResult));
             }
 
             private BroadcastReceiver init(RNBranchModule branchModule) {

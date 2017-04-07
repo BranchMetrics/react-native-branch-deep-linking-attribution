@@ -26,8 +26,24 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+
+          <!-- Custom URI intent-filter -->
           <intent-filter>
               <data android:scheme="branchtest" android:host="open" />
+              <action android:name="android.intent.action.VIEW" />
+              <category android:name="android.intent.category.DEFAULT" />
+              <category android:name="android.intent.category.BROWSABLE" />
+          </intent-filter>
+          
+          <!-- App Link intent-filters -->
+          <intent-filter>
+              <data android:scheme="https" android:host="bnctestbed.app.link" />
+              <action android:name="android.intent.action.VIEW" />
+              <category android:name="android.intent.category.DEFAULT" />
+              <category android:name="android.intent.category.BROWSABLE" />
+          </intent-filter>
+          <intent-filter>
+              <data android:scheme="https" android:host="bnctestbed-alternate.app.link" />
               <action android:name="android.intent.action.VIEW" />
               <category android:name="android.intent.category.DEFAULT" />
               <category android:name="android.intent.category.BROWSABLE" />

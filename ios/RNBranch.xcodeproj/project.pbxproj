@@ -175,6 +175,8 @@
 		7B7C4D541E66343F00A27265 /* FABKitProtocol.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC11E6633CA00A27265 /* FABKitProtocol.h */; };
 		7B7C4D551E66343F00A27265 /* Fabric+FABKits.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC21E6633CA00A27265 /* Fabric+FABKits.h */; };
 		7B7C4D561E66343F00A27265 /* Fabric.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC31E6633CA00A27265 /* Fabric.h */; };
+		7B9654551E96E328009C3CEE /* RNBranchEventEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9654531E96E328009C3CEE /* RNBranchEventEmitter.h */; };
+		7B9654561E96E328009C3CEE /* RNBranchEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9654541E96E328009C3CEE /* RNBranchEventEmitter.m */; };
 		7BCFE4291E8DEE41009927C9 /* BNCDebug.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322921E8DDC84009B3BF6 /* BNCDebug.h */; };
 		7BCFE42A1E8DEE41009927C9 /* BNCLog.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322941E8DDC84009B3BF6 /* BNCLog.h */; };
 		7BCFE42B1E8DEE41009927C9 /* BranchShareLink.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322961E8DDC84009B3BF6 /* BranchShareLink.h */; };
@@ -379,6 +381,8 @@
 		7B7C4CC11E6633CA00A27265 /* FABKitProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FABKitProtocol.h; sourceTree = "<group>"; };
 		7B7C4CC21E6633CA00A27265 /* Fabric+FABKits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Fabric+FABKits.h"; sourceTree = "<group>"; };
 		7B7C4CC31E6633CA00A27265 /* Fabric.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fabric.h; sourceTree = "<group>"; };
+		7B9654531E96E328009C3CEE /* RNBranchEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchEventEmitter.h; sourceTree = "<group>"; };
+		7B9654541E96E328009C3CEE /* RNBranchEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchEventEmitter.m; sourceTree = "<group>"; };
 		B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libreact-native-branch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -542,6 +546,8 @@
 				7B3B27531E707CF5003ABDF4 /* RNBranchAgingDictionary.m */,
 				7B3B274E1E707CD7003ABDF4 /* RNBranchAgingItem.h */,
 				7B3B274F1E707CD7003ABDF4 /* RNBranchAgingItem.m */,
+				7B9654531E96E328009C3CEE /* RNBranchEventEmitter.h */,
+				7B9654541E96E328009C3CEE /* RNBranchEventEmitter.m */,
 				7B1D33541E410DD200755B98 /* RNBranchProperty.h */,
 				7B1D33551E410DD200755B98 /* RNBranchProperty.m */,
 				B3A3CC371C5B0A070016AC52 /* Products */,
@@ -617,6 +623,7 @@
 				7B7C4CDD1E6633CA00A27265 /* BNCServerResponse.h in Headers */,
 				7B7C4CF21E6633CA00A27265 /* BranchCSSearchableItemAttributeSet.h in Headers */,
 				7B7C4CE61E6633CA00A27265 /* Branch.h in Headers */,
+				7B9654551E96E328009C3CEE /* RNBranchEventEmitter.h in Headers */,
 				7B7C4D051E6633CA00A27265 /* BranchInstallRequest.h in Headers */,
 				7B7C4CD71E6633CA00A27265 /* BNCPreferenceHelper.h in Headers */,
 				7B7C4CFD1E6633CA00A27265 /* NSMutableDictionary+Branch.h in Headers */,
@@ -736,6 +743,7 @@
 				7B7C4CD81E6633CA00A27265 /* BNCPreferenceHelper.m in Sources */,
 				7B7C4CEF1E6633CA00A27265 /* BranchContentDiscoveryManifest.m in Sources */,
 				7B7C4D081E6633CA00A27265 /* BranchLoadRewardsRequest.m in Sources */,
+				7B9654561E96E328009C3CEE /* RNBranchEventEmitter.m in Sources */,
 				7B7C4CE71E6633CA00A27265 /* Branch.m in Sources */,
 				7B7C4CD21E6633CA00A27265 /* BNCFabricAnswers.m in Sources */,
 				7B7C4CC81E6633CA00A27265 /* BNCConfig.m in Sources */,
