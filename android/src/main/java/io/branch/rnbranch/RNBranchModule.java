@@ -90,13 +90,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                     broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS, referringParams.toString());
 
                     if (referringParams.has("~id")) {
-                        BranchUniversalObject branchUniversalObject = BranchUniversalObject.createInstance(referringParams);
-                        // BranchUniversalObject branchUniversalObject = BranchUniversalObject.getReferredBranchUniversalObject();
+                        BranchUniversalObject branchUniversalObject = BranchUniversalObject.getReferredBranchUniversalObject();
                         if (branchUniversalObject != null) {
                             broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_BRANCH_UNIVERSAL_OBJECT, branchUniversalObject);
                         }
 
-                        // TODO: Can this be constructed with local state?
                         LinkProperties linkProperties = LinkProperties.getReferredLinkProperties();
                         if (linkProperties != null) {
                             broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES, linkProperties);
