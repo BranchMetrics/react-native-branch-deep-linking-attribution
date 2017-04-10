@@ -1,9 +1,9 @@
 PODS:
-  - Branch-SDK (0.14.9):
-    - Branch-SDK/Core (= 0.14.9)
-    - Branch-SDK/without-IDFA (= 0.14.9)
-  - Branch-SDK/Core (0.14.9)
-  - Branch-SDK/without-IDFA (0.14.9)
+  - Branch-SDK (0.14.12):
+    - Branch-SDK/Core (= 0.14.12)
+    - Branch-SDK/without-IDFA (= 0.14.12)
+  - Branch-SDK/Core (0.14.12)
+  - Branch-SDK/without-IDFA (0.14.12)
   - react-native-branch (2.0.0-beta.1):
     - Branch-SDK
   - React/Core (0.41.2):
@@ -44,7 +44,7 @@ EXTERNAL SOURCES:
     :path: node_modules/react-native-branch
 
 SPEC CHECKSUMS:
-  Branch-SDK: 99eeacc0c7b816185258ad9de5c9027c3ffcb53d
+  Branch-SDK: 8a59b08daa0b283cd1bf0fd4842a521885e35ae6
   React: 2b10c07d947dea71c144a33764e9162ed81e3825
   react-native-branch: ee16cdf24cdc296049136155026598633413c70a
 
