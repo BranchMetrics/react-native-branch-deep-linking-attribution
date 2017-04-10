@@ -1,14 +1,10 @@
 package io.branch.testbed_native_android;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -19,10 +15,8 @@ import com.facebook.react.ReactRootView;
 import com.facebook.react.common.LifecycleState;
 import com.facebook.react.shell.MainReactPackage;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import io.branch.indexing.BranchUniversalObject;
+import io.branch.referral.BranchError;
 import io.branch.referral.util.LinkProperties;
 import io.branch.rnbranch.*;
 
@@ -31,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
     private ReactInstanceManager mReactInstanceManager;
     private static final int OVERLAY_PERMISSION_REQ_CODE = 1;
     private static final String MAIN_ACTIVITY = "MainActivity";
-    private BroadcastReceiver mBroadcastReceiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
                 startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
             }
         }
-
-        subscribeToBranchLinks();
     }
 
     @Override
@@ -90,8 +81,6 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
         if (mReactInstanceManager != null) {
             mReactInstanceManager.onHostDestroy(this);
         }
-
-        unsubscribeFromBranchLinks();
    }
 
     @Override
@@ -126,56 +115,32 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
     @Override
     protected void onStart() {
         super.onStart();
-        RNBranchModule.initSession(getIntent().getData(), this);
-    }
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        setIntent(intent);
-    }
-
-    private void subscribeToBranchLinks() {
-        // Catch link open events. Also transmitted to branch.subscribe in JS.
-        mBroadcastReceiver = new BroadcastReceiver() {
+        RNBranchModule.initSession(getIntent().getData(), this, new RNBranchInitListener() {
             @Override
-            public void onReceive(Context context, Intent intent) {
-                String error = intent.getStringExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR);
+            public void onInitFinished(Uri uri, BranchUniversalObject branchUniversalObject, LinkProperties linkProperties, BranchError error) {
                 if (error != null) {
-                    Log.e(MAIN_ACTIVITY, "Error opening Branch link: " + error);
+                    Log.e(MAIN_ACTIVITY, "Error opening Branch link: " + error.getMessage());
                     return;
                 }
 
-                BranchUniversalObject branchUniversalObject = intent.getParcelableExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_BRANCH_UNIVERSAL_OBJECT);
-                LinkProperties linkProperties = intent.getParcelableExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES);
-                String uri = intent.getStringExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_URI);
-                String jsonParams = intent.getStringExtra(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS);
-
-                Log.d(MAIN_ACTIVITY, uri + " opened via Branch");
-
-                try {
-                    JSONObject params = new JSONObject(jsonParams);
-                    if (params != null) {
-                        Log.d(MAIN_ACTIVITY, "params = " + params);
-                    }
+                Log.d(MAIN_ACTIVITY, "Branch initSession successfully returned");
+                if (uri != null) {
+                    Log.d(MAIN_ACTIVITY, "uri: " + uri);
                 }
-                catch (JSONException e) {
-                    Log.w(MAIN_ACTIVITY, e.getMessage());
-                }
-
                 if (branchUniversalObject != null) {
                     Log.d(MAIN_ACTIVITY, "BranchUniversalObject: canonicalIdentifier = " + branchUniversalObject.getCanonicalIdentifier());
                 }
                 if (linkProperties != null) {
                     Log.d(MAIN_ACTIVITY, "LinkProperties = " + linkProperties);
                 }
+
+                // Now inspect uri, BUO, LinkProperties to route the link.
             }
-        };
-        LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver, new IntentFilter(RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT));
+        });
     }
 
-    private void unsubscribeFromBranchLinks() {
-        if (mBroadcastReceiver != null) {
-            LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
-        }
+    @Override
+    public void onNewIntent(Intent intent) {
+        setIntent(intent);
     }
 }

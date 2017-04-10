@@ -46,11 +46,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private static JSONObject initSessionResult = null;
     private BroadcastReceiver mInitSessionEventReceiver = null;
+    private static RNBranchInitListener initListener = null;
 
     private static Activity mActivity = null;
     private static Branch mBranch = null;
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
+
+    public static void initSession(final Uri uri, Activity reactActivity, RNBranchInitListener anInitListener) {
+        initListener = anInitListener;
+        initSession(uri, reactActivity);
+    }
 
     public static void initSession(final Uri uri, Activity reactActivity) {
         mBranch = Branch.getInstance(reactActivity.getApplicationContext());
@@ -75,7 +81,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 }
                 initSessionResult = result;
 
-                generateLocalBroadcast(referringParams, uri, error);
+                BranchUniversalObject branchUniversalObject =  BranchUniversalObject.getReferredBranchUniversalObject();
+                LinkProperties linkProperties = LinkProperties.getReferredLinkProperties();
+
+                initListener.onInitFinished(uri, branchUniversalObject, linkProperties, error);
+                generateLocalBroadcast(referringParams, uri, branchUniversalObject, linkProperties, error);
             }
 
             private Branch.BranchReferralInitListener init(Activity activity) {
@@ -83,23 +93,23 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 return this;
             }
 
-            private void generateLocalBroadcast(JSONObject referringParams, Uri uri, BranchError error) {
+            private void generateLocalBroadcast(JSONObject referringParams,
+                                                Uri uri,
+                                                BranchUniversalObject branchUniversalObject,
+                                                LinkProperties linkProperties,
+                                                BranchError error) {
                 Intent broadcastIntent = new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT);
 
                 if (referringParams != null) {
                     broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS, referringParams.toString());
+                }
 
-                    if (referringParams.has("~id")) {
-                        BranchUniversalObject branchUniversalObject = BranchUniversalObject.getReferredBranchUniversalObject();
-                        if (branchUniversalObject != null) {
-                            broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_BRANCH_UNIVERSAL_OBJECT, branchUniversalObject);
-                        }
+                if (branchUniversalObject != null) {
+                    broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_BRANCH_UNIVERSAL_OBJECT, branchUniversalObject);
+                }
 
-                        LinkProperties linkProperties = LinkProperties.getReferredLinkProperties();
-                        if (linkProperties != null) {
-                            broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES, linkProperties);
-                        }
-                    }
+                if (linkProperties != null) {
+                    broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES, linkProperties);
                 }
 
                 if (uri != null) {
