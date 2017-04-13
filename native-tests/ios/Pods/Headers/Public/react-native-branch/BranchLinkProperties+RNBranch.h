@@ -1,0 +1,1 @@
+../../../../../../ios/BranchLinkProperties+RNBranch.h

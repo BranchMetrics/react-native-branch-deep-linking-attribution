@@ -1,0 +1,8 @@
+fastlane_version "2.26.1"
+
+default_platform :ios
+
+desc "Run iOS unit tests"
+lane :test_ios do
+  scan
+end

@@ -1,0 +1,8 @@
+platform :ios, "8.0"
+
+pod "React", path: "../../node_modules/react-native"
+pod "react-native-branch", path: "../.."
+pod "Branch-SDK", path: "../../ios"
+
+target "NativeTests"
+target "NativeTestsTests"
