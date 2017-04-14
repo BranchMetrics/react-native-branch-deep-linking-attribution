@@ -24,6 +24,7 @@ can copy the simple Podfile from the [testbed_cocoapods](../examples/testbed_coc
 and modify it for your target(s), e.g.:
 ```Ruby
 use_frameworks!
+platform :ios, "8.0"
 
 pod "Branch"
 
