@@ -75,7 +75,8 @@ export default class Article extends Component {
       feature: "share",
       channel: "RNApp"
     }, {
-      $desktop_url: this.props.route.url
+      $desktop_url: this.props.route.url,
+      $ios_deepview: "branch_default"
     })
 
     if (error) {

@@ -18,6 +18,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(linkOpened:) name:RNBranchLinkOpenedNotification object:nil];
+
+#ifdef DEBUG
+    [RNBranch useTestInstance];
+#endif // DEBUG
     [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
     return YES;
 }
