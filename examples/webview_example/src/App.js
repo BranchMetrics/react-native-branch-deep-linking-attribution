@@ -11,27 +11,22 @@ export default class App extends Component {
   navigator = null
 
   componentWillMount() {
-    this._unsubscribeFromBranch = branch.subscribe((bundle) => {
-      if (!bundle) return
-
-      if (bundle.error) {
-        console.error("Error opening Branch link: " + bundle.error)
+    this._unsubscribeFromBranch = branch.subscribe(({ error, params, uri }) => {
+      if (error) {
+        console.error("Error opening Branch link: " + error)
         return
       }
 
-      if (bundle.uri) console.log(bundle.uri + " opened via Branch")
+      if (uri) console.log(uri + " opened via Branch")
 
-      if (!bundle.params) return
+      if (!params) return
 
-      console.log("Branch link params:")
-      for (var param in bundle.params) {
-        console.log(" " + param + ": " + bundle.params[param])
-      }
+      console.log("Branch link params: " + JSON.stringify(params))
 
       // Get title and url for route
-      let title = bundle.params.$og_title
-      let url = bundle.params.$canonical_url
-      let image = bundle.params.$og_image_url
+      let title = params.$og_title
+      let url = params.$canonical_url
+      let image = params.$og_image_url
 
       // Now push the view for this URL
       this.navigator.push({ title: title, url: url, image: image })
