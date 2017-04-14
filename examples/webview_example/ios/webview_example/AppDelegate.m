@@ -18,6 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#ifdef DEBUG
+  [RNBranch useTestInstance];
+#endif // DEBUG
+
   [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
 
   NSURL *jsCodeLocation;

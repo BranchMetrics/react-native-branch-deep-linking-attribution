@@ -24,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Initialize Branch SDK
         NotificationCenter.default.addObserver(self, selector: #selector(routeURLFromBranch), name: NSNotification.Name.RNBranchLinkOpened, object: nil)
+
+        #if DEBUG
+            RNBranch.useTestInstance()
+        #endif
         RNBranch.initSession(launchOptions: launchOptions, isReferrable: true)
         
         return true

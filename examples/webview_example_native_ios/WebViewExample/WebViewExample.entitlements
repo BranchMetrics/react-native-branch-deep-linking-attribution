@@ -6,6 +6,8 @@
 	<array>
 		<string>applinks:bnctestbed.app.link</string>
 		<string>applinks:bnctestbed-alternate.app.link</string>
+		<string>applinks:bnctestbed.test-app.link</string>
+		<string>applinks:bnctestbed-alternate.test-app.link</string>
 	</array>
 </dict>
 </plist>
