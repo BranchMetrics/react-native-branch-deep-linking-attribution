@@ -19,9 +19,9 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(linkOpened:) name:RNBranchLinkOpenedNotification object:nil];
 
-#ifdef DEBUG
+#ifdef USE_BRANCH_TEST_INSTANCE
     [RNBranch useTestInstance];
-#endif // DEBUG
+#endif // USE_BRANCH_TEST_INSTANCE
     [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
     return YES;
 }

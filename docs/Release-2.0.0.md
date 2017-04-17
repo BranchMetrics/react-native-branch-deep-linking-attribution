@@ -32,7 +32,9 @@ There have so far been no API changes in 2.0.0.
 
 ## SDK Integration
 
-### Simple
+### Initial installation
+
+#### Simple
 
 ```bash
 npm install --save react-native-branch@2.0.0-beta.1
@@ -43,18 +45,48 @@ Then follow the [setup instructions](./setup.md).
 
 There's no need for CocoaPods or Carthage. The testbed_simple app was built this way.
 
-### In a native app using the React pod
+#### In a native app using the React pod
 
 Add both the `react-native-branch` and `Branch-SDK` pods to your Podfile like this:
 ```Ruby
-pod "React", path: "node_modules/react-native"
-pod "react-native-branch", path: "node_modules/react-native-branch"
-pod "Branch-SDK", path: "node_modules/react-native-branch/ios"
+pod "React", path: "../node_modules/react-native"
+pod "react-native-branch", path: "../node_modules/react-native-branch"
+pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"
 ```
 Run `pod install`. Then follow the [setup instructions](./setup.md).
 
-The testbed_native_ios app was built this way.
+Note that the location of node_modules relative to your Podfile may vary. The example above assumes the iOS app is under the ios subdirectory.
 
-### If you added CocoaPods to your app only for the Branch SDK
+The testbed_native_ios and webview_example_native_ios apps were built this way.
 
-You can remove CocoaPods entirely from your app using the [pod deintegrate](https://guides.cocoapods.org/terminal/commands.html#pod_deintegrate) command.
+### Existing apps updating to 2.0
+
+#### Remove the Branch SDK from your project
+
+##### CocoaPods
+
+###### Apps built using react-native link
+
+Remove "Branch" from your Podfile. Run `pod install` after updating the Podfile. This is
+necessary to regenerate the Pods project without the Branch pod.
+
+If you added CocoaPods to your project just for the Branch pod, you can remove CocoaPods entirely from your app using the [pod deintegrate](https://guides.cocoapods.org/terminal/commands.html#pod_deintegrate) command.
+
+###### Using the React pod
+
+Replace `pod "Branch"` in your Podfile with `pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"`.
+```Ruby
+pod "React", path: "../node_modules/react-native"
+pod "react-native-branch", path: "../node_modules/react-native-branch"
+pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"
+```
+
+Run `pod install` after making this change.
+
+##### Carthage
+
+Remove Branch.framework from your app's dependencies. Also remove Branch.framework from your `carthage copy-frameworks` build phase.
+
+##### Manually installed
+
+Remove Branch.framework from your app's dependencies.
