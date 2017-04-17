@@ -1,5 +1,25 @@
+# Use macOS with XCode 8.3
+os: osx
+osx_image: xcode8.3
+
+# Use Node 7.x and yarn
 language: node_js
 node_js:
-  - "5.0.0"
+  - "7"
+cache: yarn
+
+install:
+# Set up RVM, RubyGems, Bundler
+  - gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+  - rvm get head
+  - rvm install 2.3.4
+  - rvm use 2.3.4 --default
+  - gem update --system
+  - gem install bundler
+  - bundle install
+# Install NPM deps
+  - yarn
+
 script:
+  - bundle exec fastlane test_ios
   - npm test
