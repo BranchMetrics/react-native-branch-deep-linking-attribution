@@ -28,6 +28,11 @@ xcode-select --install
 </tr>
 </table>
 # Available Actions
+### test_android
+```
+fastlane test_android
+```
+Run Android unit tests
 ### test_ios
 ```
 fastlane test_ios

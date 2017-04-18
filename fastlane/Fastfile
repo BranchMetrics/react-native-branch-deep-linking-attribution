@@ -2,6 +2,11 @@ fastlane_version "2.26.1"
 
 default_platform :ios
 
+desc "Run Android unit tests"
+lane :test_android do
+  gradle task: "test", project_dir: "native-tests/android"
+end
+
 desc "Run iOS unit tests"
 lane :test_ios do
   scan
