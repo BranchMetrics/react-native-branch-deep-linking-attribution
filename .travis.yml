@@ -21,6 +21,7 @@ install:
   - yarn
 
 script:
-  - bundle exec fastlane test_android
+  # Requires Android SDK
+  # - bundle exec fastlane test_android
   - bundle exec fastlane test_ios
   - npm test
