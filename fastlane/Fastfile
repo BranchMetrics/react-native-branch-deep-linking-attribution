@@ -2,6 +2,13 @@ fastlane_version "2.26.1"
 
 default_platform :ios
 
+desc "Run Android unit tests"
+lane :test_android do
+  # for development on a Mac. Override with the env. var.
+  ENV['ANDROID_HOME'] ||= "#{ENV['HOME']}/Library/Android/sdk"
+  gradle task: "test", project_dir: "native-tests/android"
+end
+
 desc "Run iOS unit tests"
 lane :test_ios do
   scan
