@@ -38,4 +38,26 @@
                [RNBranchProperty propertyWithSetterSelector:@selector(setTags:) type:NSArray.class]]);
 }
 
+- (void)testInitialization
+{
+    BranchLinkProperties *properties = [[BranchLinkProperties alloc] initWithMap:@{
+                                                                                   @"alias" : @"alias",
+                                                                                   @"campaign" : @"campaign",
+                                                                                   @"channel" : @"channel",
+                                                                                   @"feature" : @"feature",
+                                                                                   @"stage" : @"stage",
+                                                                                   @"tags" : @[ @"tag1", @"tag2" ]
+                                                                                   }];
+
+    XCTAssertEqual(@"alias", properties.alias);
+    XCTAssertEqual(@"campaign", properties.campaign);
+    XCTAssertEqual(@"channel", properties.channel);
+    XCTAssertEqual(@"feature", properties.feature);
+    XCTAssertEqual(@"stage", properties.stage);
+
+    XCTAssertEqual(2, properties.tags.count);
+    XCTAssertEqual(@"tag1", properties.tags[0]);
+    XCTAssertEqual(@"tag2", properties.tags[1]);
+}
+
 @end
