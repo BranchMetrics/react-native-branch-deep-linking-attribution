@@ -2,6 +2,11 @@ machine:
   ruby:
     version: 2.4.0
 
+dependencies:
+  override:
+    - yarn
+    - bundle install
+
 test:
   override:
     - bundle exec fastlane test_android
