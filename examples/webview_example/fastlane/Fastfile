@@ -1,0 +1,10 @@
+fastlane_version "2.27"
+
+desc "Update Branch configuration"
+lane :update_branch do
+  setup_branch(
+    xcodeproj: "ios/webview_example.xcodeproj",
+    update_bundle_and_team_ids: true,
+    remove_existing_domains: true
+  )
+end
