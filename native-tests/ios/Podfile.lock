@@ -4,6 +4,7 @@ PODS:
     - Branch-SDK/without-IDFA (= 0.14.12)
   - Branch-SDK/Core (0.14.12)
   - Branch-SDK/without-IDFA (0.14.12)
+  - OCMock (3.4)
   - React (0.40.0):
     - React/Core (= 0.40.0)
   - react-native-branch (2.0.0-beta.1):
@@ -18,6 +19,7 @@ PODS:
 
 DEPENDENCIES:
   - Branch-SDK (from `../../ios`)
+  - OCMock
   - React (from `../../node_modules/react-native`)
   - react-native-branch (from `../..`)
 
@@ -31,9 +33,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Branch-SDK: 8a59b08daa0b283cd1bf0fd4842a521885e35ae6
+  OCMock: 35ae71d6a8fcc1b59434d561d1520b9dd4f15765
   React: 6dfb2f72edb1d74a800127ae157af038646673ce
   react-native-branch: ee16cdf24cdc296049136155026598633413c70a
 
-PODFILE CHECKSUM: ffaa5847f8eb5c73e4f4592fcf4c352b2593725e
+PODFILE CHECKSUM: 38c9ba4338cf3098a1ff4a9fe36f9b780d46f8f0
 
 COCOAPODS: 1.2.1
