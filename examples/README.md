@@ -34,7 +34,7 @@ export BRANCH_APP_LINK_SUBDOMAIN=myapp # myapp.app.link
 export BRANCH_DOMAINS=example.com # for custom domains
 bundle install
 cd webview_example
-bundle exec fastlane setup_branch
+bundle exec fastlane update_branch
 ```
 
 The plugin crawls the Branch-generated apple-app-site-association file for the domain to get the
