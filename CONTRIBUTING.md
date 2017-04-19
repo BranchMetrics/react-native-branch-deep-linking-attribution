@@ -33,6 +33,8 @@ bundle exec fastlane test_android
 bundle exec fastlane test_ios
 ```
 
+There is also a `runAllTests` script at the repository root for convenience, which also runs `npm test`.
+
 Notes on native unit tests and Fastlane:
 
 - CI uses Ruby 2.4.0. There is no specific Ruby requirement, but it's best to use a fairly current version.
