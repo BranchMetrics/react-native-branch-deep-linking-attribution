@@ -1,32 +1,6 @@
-# https://circleci.com/docs/1.0/rvm-cache-ruby-binaries/
 machine:
-  post:
-    - "echo Removing project .rvmrc, contents were: &&
-        cat $CIRCLE_PROJECT_REPONAME/.rvmrc"
-    - "rm $CIRCLE_PROJECT_REPONAME/.rvmrc"
-
-    - "echo Removing project .ruby-version, contents were: &&
-      cat $CIRCLE_PROJECT_REPONAME/.ruby-version"
-    - "rm $CIRCLE_PROJECT_REPONAME/.ruby-version"
-
-    - |
-      if [[ -e ~/rvm_binaries/ruby-2.4.0.tar.bz2 ]]
-      then
-        rvm mount ~/rvm_binaries/ruby-2.4.0.tar.bz2
-      else
-        mkdir -p ~/rvm_binaries
-        rvm install 2.4.0
-        cd ~/rvm_binaries && rvm prepare 2.4.0
-      fi
-    - rvm --default use 2.4.0
-    - gem update --system
-    - gem install bundler
-    - bundle install
-
-dependencies:
-  cache_directories:
-    - ~/rvm_binaries
-
+  ruby:
+    version: 2.4.0
 
 test:
   override:
