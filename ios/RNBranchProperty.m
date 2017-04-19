@@ -33,4 +33,12 @@
     @throw nil;
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:self.class]) return NO;
+
+    RNBranchProperty *other = object;
+    return self.setterSelector == other.setterSelector && self.type == other.type;
+}
+
 @end
