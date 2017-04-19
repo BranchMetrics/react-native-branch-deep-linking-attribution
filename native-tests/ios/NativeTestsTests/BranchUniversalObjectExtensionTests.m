@@ -18,14 +18,14 @@
 
 @implementation BranchUniversalObjectExtensionTests
 
+#pragma mark - General tests
+
 - (void)testFieldMapping
 {
     NSDictionary<NSString *, RNBranchProperty *> *supportedProperties = BranchUniversalObject.supportedProperties;
     
     XCTAssertEqual(12, supportedProperties.count);
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
     XCTAssert([supportedProperties[@"automaticallyListOnSpotlight"] isEqual:
                [RNBranchProperty propertyWithSetterSelector:@selector(setAutomaticallyListOnSpotlightWithNumber:) type:NSNumber.class]]);
     XCTAssert([supportedProperties[@"canonicalUrl"] isEqual:
@@ -50,7 +50,104 @@
                [RNBranchProperty propertyWithSetterSelector:@selector(setTitle:) type:NSString.class]]);
     XCTAssert([supportedProperties[@"type"] isEqual:
                [RNBranchProperty propertyWithSetterSelector:@selector(setType:) type:NSString.class]]);
-#pragma clang diagnostic pop
+}
+
+- (void)testInitialization
+{
+    NSString *expirationDate = @"2018-04-18T00:00:00";
+    BranchUniversalObject *buo = [[BranchUniversalObject alloc] initWithMap:@{ @"canonicalIdentifier": @"abc",
+                                                                               @"automaticallyListOnSpotlight": @(YES),
+                                                                               @"canonicalUrl": @"canonicalUrl",
+                                                                               @"contentDescription": @"contentDescription",
+                                                                               @"contentImageUrl": @"contentImageUrl",
+                                                                               @"contentIndexingMode": @"public",
+                                                                               @"currency": @"currency",
+                                                                               @"expirationDate": expirationDate,
+                                                                               @"keywords": @[@"keyword1", @"keyword2"],
+                                                                               @"metadata": @{@"key1": @"value1", @"key2": @"value2"},
+                                                                               @"title": @"title",
+                                                                               @"type": @"type"
+                                                                               }];
+
+    struct tm expiration;
+    strptime(expirationDate.UTF8String, "%Y-%m-%dT%H:%M:%S", &expiration);
+    NSTimeInterval expectedExpiration = timegm(&expiration);
+
+    XCTAssertEqual(@"abc", buo.canonicalIdentifier);
+    XCTAssert(buo.automaticallyListOnSpotlight);
+    XCTAssertEqual(@"canonicalUrl", buo.canonicalUrl);
+    XCTAssertEqual(@"contentDescription", buo.contentDescription);
+    XCTAssertEqual(@"contentImageUrl", buo.imageUrl);
+    XCTAssertEqual(ContentIndexModePublic, buo.contentIndexMode);
+    XCTAssertEqual(@"currency", buo.currency);
+    XCTAssertEqual(expectedExpiration, buo.expirationDate.timeIntervalSince1970);
+
+    XCTAssertEqual(2, buo.keywords.count);
+    XCTAssertEqual(@"keyword1", buo.keywords[0]);
+    XCTAssertEqual(@"keyword2", buo.keywords[1]);
+
+    XCTAssertEqual(2, buo.metadata.allKeys.count);
+    XCTAssertEqual(@"value1", buo.metadata[@"key1"]);
+    XCTAssertEqual(@"value2", buo.metadata[@"key2"]);
+
+    XCTAssertEqual(@"title", buo.title);
+    XCTAssertEqual(@"type", buo.type);
+}
+
+#pragma mark - Content indexing mode
+
+- (void)testPublicContentIndexingMode
+{
+    BranchUniversalObject *buo = [[BranchUniversalObject alloc] init];
+    [buo setContentIndexingMode:@"public"];
+    XCTAssertEqual(ContentIndexModePublic, buo.contentIndexMode);
+}
+
+- (void)testPrivateContentIndexingMode
+{
+    BranchUniversalObject *buo = [[BranchUniversalObject alloc] init];
+    [buo setContentIndexingMode:@"private"];
+    XCTAssertEqual(ContentIndexModePrivate, buo.contentIndexMode);
+}
+
+#pragma mark - Automatically list on spotlight
+
+- (void)testAutomaticallyListOnSpotlightYes
+{
+    BranchUniversalObject *buo = [[BranchUniversalObject alloc] init];
+    [buo setAutomaticallyListOnSpotlightWithNumber:@(YES)];
+    XCTAssert(buo.automaticallyListOnSpotlight);
+}
+
+- (void)testAutomaticallyListOnSpotlightNo
+{
+    BranchUniversalObject *buo = [[BranchUniversalObject alloc] init];
+    [buo setAutomaticallyListOnSpotlightWithNumber:@(NO)];
+    XCTAssertFalse(buo.automaticallyListOnSpotlight);
+}
+
+#pragma mark - Expiration date
+
+- (void)testExpirationDate
+{
+    BranchUniversalObject *buo = [[BranchUniversalObject alloc] init];
+    NSString *expirationDate = @"2018-04-18T00:00:00";
+    [buo setExpirationDateWithString:expirationDate];
+    
+    struct tm expiration;
+    strptime(expirationDate.UTF8String, "%Y-%m-%dT%H:%M:%S", &expiration);
+    NSTimeInterval expected = timegm(&expiration);
+
+    XCTAssertEqual(expected, buo.expirationDate.timeIntervalSince1970);
+}
+
+#pragma mark - Price
+
+- (void)testPrice
+{
+    BranchUniversalObject *buo = [[BranchUniversalObject alloc] init];
+    [buo setPriceWithNumber:@(1.0)];
+    XCTAssertEqual(1.0, buo.price);
 }
 
 @end
