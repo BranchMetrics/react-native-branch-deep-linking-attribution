@@ -19,7 +19,15 @@ module Fastlane
         xcodeproj = Xcodeproj::Project.open params[:xcodeproj]
 
         helper.add_keys_to_info_plist xcodeproj, live_key, test_key
-        helper.add_universal_links_to_project xcodeproj, domains
+        helper.add_universal_links_to_project xcodeproj, domains, params[:remove_existing_domains]
+
+        if params[:update_bundle_and_team_ids]
+          helper.update_team_and_bundle_ids_from_aasa_file(xcodeproj, domains.first)
+        end
+
+        xcodeproj.save
+      rescue => e
+        UI.user_error! "Error in SetupBranchAction: #{e.message}"
       end
 
       def self.description
@@ -65,7 +73,19 @@ module Fastlane
                                   env_name: "BRANCH_APP_LINK_SUBDOMAIN",
                                description: "app.link subdomain",
                                   optional: true,
-                                      type: String)
+                                      type: String),
+          FastlaneCore::ConfigItem.new(key: :update_bundle_and_team_ids,
+                                  env_name: "BRANCH_UPDATE_BUNDLE_AND_TEAM_IDS",
+                               description: "If set to true, updates the bundle and team identifiers to match the AASA file",
+                                  optional: true,
+                             default_value: false,
+                                 is_string: false),
+          FastlaneCore::ConfigItem.new(key: :remove_existing_domains,
+                                  env_name: "BRANCH_REMOVE_EXISTING_DOMAINS",
+                               description: "If set to true, removes any existing UL domains before adding Branch domains",
+                                  optional: true,
+                             default_value: false,
+                                 is_string: false)
         ]
       end
 

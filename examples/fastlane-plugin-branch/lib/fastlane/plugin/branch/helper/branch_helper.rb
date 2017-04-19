@@ -61,7 +61,7 @@ module Fastlane
           Plist::Emit.save_plist info_plist, release_info_plist_path
         end
 
-        def add_universal_links_to_project(project, domains)
+        def add_universal_links_to_project(project, domains, remove_existing)
           # find the first application target
           target = project.targets.find { |t| !t.extension_target_type? && !t.test_target_type? }
 
@@ -83,15 +83,17 @@ module Fastlane
             # Add the file to the project
             project.new_file relative_entitlements_path
 
-            project.save
-
             entitlements = {}
             current_domains = []
           else
             entitlements_path = File.join project_parent, relative_entitlements_path
             # Raises
             entitlements = Plist.parse_xml entitlements_path
-            current_domains = entitlements["com.apple.developer.associated-domains"]
+            if remove_existing
+              current_domains = []
+            else
+              current_domains = entitlements["com.apple.developer.associated-domains"]
+            end
           end
 
           current_domains += domains.map { |d| "applinks:#{d}"}
@@ -100,6 +102,39 @@ module Fastlane
           entitlements["com.apple.developer.associated-domains"] = all_domains
 
           Plist::Emit.save_plist entitlements, entitlements_path
+        end
+
+        def update_team_and_bundle_ids_from_aasa_file(project, domain)
+          team_and_bundle = team_and_bundle_ids_from_aasa_file domain
+          update_team_and_bundle_ids project, *team_and_bundle
+        end
+
+        def team_and_bundle_ids_from_aasa_file(domain)
+          file = JSON.parse Net::HTTP.get(domain, "/apple-app-site-association")
+          identifier = file["applinks"]["details"][0]["appID"]
+          team = identifier.sub /\..*$/, ""
+          bundle = identifier.sub /^[^.]*\./, ""
+          [ team, bundle ]
+        end
+
+        def update_team_and_bundle_ids(project, team, bundle)
+          # find the first application target
+          target = project.targets.find { |t| !t.extension_target_type? && !t.test_target_type? }
+
+          raise "No application target found" if target.nil?
+
+          target.build_configurations.each do |config|
+            config.build_settings["PRODUCT_BUNDLE_IDENTIFIER"] = bundle
+            config.build_settings["DEVELOPMENT_TEAM"] = team
+          end
+
+          # also update the team in the first test target
+          target = project.targets.find { |t| t.test_target_type? }
+          return if target.nil?
+
+          target.build_configurations.each do |config|
+            config.build_settings["DEVELOPMENT_TEAM"] = team
+          end
         end
       end
     end
