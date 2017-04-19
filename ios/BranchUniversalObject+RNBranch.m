@@ -58,7 +58,7 @@
         self.contentIndexMode = ContentIndexModePrivate;
     }
     else if ([contentIndexingMode isEqualToString:@"public"]) {
-        self.contentIndexMode = ContentIndexModePrivate;
+        self.contentIndexMode = ContentIndexModePublic;
     }
     else {
         RCTLogWarn(@"Invalid value \"%@\" for \"contentIndexingMode\". Supported values are \"public\" and \"private\".", contentIndexingMode);
