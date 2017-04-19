@@ -1,3 +1,4 @@
+require "nokogiri"
 require "plist"
 
 module Fastlane
