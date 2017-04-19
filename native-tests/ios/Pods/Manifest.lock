@@ -1,0 +1,42 @@
+PODS:
+  - Branch-SDK (0.14.12):
+    - Branch-SDK/Core (= 0.14.12)
+    - Branch-SDK/without-IDFA (= 0.14.12)
+  - Branch-SDK/Core (0.14.12)
+  - Branch-SDK/without-IDFA (0.14.12)
+  - OCMock (3.4)
+  - React (0.40.0):
+    - React/Core (= 0.40.0)
+  - react-native-branch (2.0.0-beta.1):
+    - Branch-SDK
+  - React/Core (0.40.0):
+    - React/cxxreact
+    - React/yoga
+  - React/cxxreact (0.40.0):
+    - React/jschelpers
+  - React/jschelpers (0.40.0)
+  - React/yoga (0.40.0)
+
+DEPENDENCIES:
+  - Branch-SDK (from `../../ios`)
+  - OCMock
+  - React (from `../../node_modules/react-native`)
+  - react-native-branch (from `../..`)
+
+EXTERNAL SOURCES:
+  Branch-SDK:
+    :path: "../../ios"
+  React:
+    :path: "../../node_modules/react-native"
+  react-native-branch:
+    :path: "../.."
+
+SPEC CHECKSUMS:
+  Branch-SDK: 8a59b08daa0b283cd1bf0fd4842a521885e35ae6
+  OCMock: 35ae71d6a8fcc1b59434d561d1520b9dd4f15765
+  React: 6dfb2f72edb1d74a800127ae157af038646673ce
+  react-native-branch: ee16cdf24cdc296049136155026598633413c70a
+
+PODFILE CHECKSUM: 8b9dbe40d9d801b8aa636187bd99fc854cb446b0
+
+COCOAPODS: 1.2.1

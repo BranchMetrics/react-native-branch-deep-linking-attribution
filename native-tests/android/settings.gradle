@@ -1,0 +1,2 @@
+include ':app', ':react-native-branch'
+project(':react-native-branch').projectDir = new File(rootProject.projectDir, '../../android')

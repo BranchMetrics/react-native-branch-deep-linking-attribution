@@ -21,6 +21,35 @@ Before submitting a PR, test the new functionality or bugfix in android & ios, a
 
 All contributions must pass `eslint` and `npm test` before being accepted.
 
+#### Native Unit Tests
+
+All contributions must also pass native unit testing. The native tests depend on the native React source
+from node_modules. To run the native unit tests:
+
+```
+yarn
+bundle install
+bundle exec fastlane test_android
+bundle exec fastlane test_ios
+```
+
+Notes on native unit tests and Fastlane:
+
+- CI uses Ruby 2.4.0. There is no specific Ruby requirement, but it's best to use a fairly current version.
+- The Android tests require the `ANDROID_HOME` environment variable to be properly set to point to the location of the
+  Android SDK. If not set, the `test_android` lane will set it to `~/Library/Android/sdk`, which is the default location
+  on a Mac. Either:
+  ```
+  export ANDROID_HOME=/path/to/android/sdk
+  bundle exec fastlane test_android
+  ```
+  or
+  ```
+  ANDROID_HOME=/path/to/android/sdk bundle exec fastlane test_android
+  ```
+- The iOS tests must be run on macOS with Xcode 8 installed.
+- You can also run the native unit tests in Android Studio or Xcode if you prefer, using the projects under native-tests. You must install the NPM dependencies for this repo first.
+
 ### Docs
 
 Improvements to the documentation are always welcome. In the docs we abide by typographic rules, so instead of ' you should use ’. Same goes for “ ” and dashes (—) where appropriate. These rules only apply to the text, not to code blocks.
