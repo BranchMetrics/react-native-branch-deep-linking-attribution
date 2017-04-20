@@ -8,7 +8,7 @@ const nativeEventEmitter = Platform.select({
 
 import createBranchUniversalObject from './branchUniversalObject'
 
-const INIT_SESSION_TTL = 5000
+export const DEFAULT_INIT_SESSION_TTL = 5000
 
 export const AddToWishlistEvent = "Add to Wishlist"
 export const PurchasedEvent = "Purchased"
@@ -18,6 +18,8 @@ export const ShareCompletedEvent = "Share Completed"
 export const ShareInitiatedEvent = "Share Started"
 
 class Branch {
+  initSessionTtl = DEFAULT_INIT_SESSION_TTL;
+
   _launchTime = new Date().getTime();
   _debug = false;
 
@@ -30,7 +32,7 @@ class Branch {
      * If this is within the INIT_SESSION_TTL, get the cached value from the native layer (asynchronously).
      * If none, the listener is not called. If there is a cached value, it is passed to the listener.
      */
-    if (this._timeSinceLaunch() < INIT_SESSION_TTL) {
+    if (this._timeSinceLaunch() < this.initSessionTtl) {
       RNBranch.redeemInitSessionResult().then((result) => {
         if (result) {
           listener(result)
