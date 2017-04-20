@@ -1,10 +1,6 @@
 import { NativeModules, NativeEventEmitter, DeviceEventEmitter, Platform } from 'react-native'
 
 const { RNBranch, RNBranchEventEmitter } = NativeModules
-const nativeEventEmitter = Platform.select({
-  android: DeviceEventEmitter,
-  ios: new NativeEventEmitter(RNBranchEventEmitter)
-})
 
 import createBranchUniversalObject from './branchUniversalObject'
 
@@ -18,6 +14,10 @@ export const ShareCompletedEvent = "Share Completed"
 export const ShareInitiatedEvent = "Share Started"
 
 class Branch {
+  nativeEventEmitter = Platform.select({
+    android: DeviceEventEmitter,
+    ios: new NativeEventEmitter(RNBranchEventEmitter)
+  })
   initSessionTtl = DEFAULT_INIT_SESSION_TTL;
 
   _launchTime = new Date().getTime();
@@ -74,13 +74,13 @@ class Branch {
   }
 
   _addListener(listener) {
-    nativeEventEmitter.addListener(RNBranch.INIT_SESSION_SUCCESS, listener)
-    nativeEventEmitter.addListener(RNBranch.INIT_SESSION_ERROR, listener)
+    this.nativeEventEmitter.addListener(RNBranch.INIT_SESSION_SUCCESS, listener)
+    this.nativeEventEmitter.addListener(RNBranch.INIT_SESSION_ERROR, listener)
   }
 
   _removeListener(listener) {
-    nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_SUCCESS, listener)
-    nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_ERROR, listener)
+    this.nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_SUCCESS, listener)
+    this.nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_ERROR, listener)
   }
 
   /*** RNBranch singleton methods ***/
