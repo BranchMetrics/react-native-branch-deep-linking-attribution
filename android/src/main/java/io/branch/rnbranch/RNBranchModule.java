@@ -19,10 +19,12 @@ import com.facebook.react.bridge.ReadableMap;
 import io.branch.referral.*;
 import io.branch.referral.Branch.BranchLinkCreateListener;
 import io.branch.referral.util.*;
+import io.branch.referral.Branch;
 import io.branch.indexing.*;
 
 import org.json.*;
 
+import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -30,7 +32,12 @@ import java.util.*;
 public class RNBranchModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "RNBranch";
     public static final String REACT_MODULE_NAME = "RNBranch";
-    private static final String NATIVE_INIT_SESSION_FINISHED_EVENT = "onInitSessionFinished";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT = "io.branch.rnbranch.RNBranchModule.onInitSessionFinished";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_BRANCH_UNIVERSAL_OBJECT = "branch_universal_object";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES = "link_properties";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS = "params";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR = "error";
+    public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_URI = "uri";
     private static final String RN_INIT_SESSION_SUCCESS_EVENT = "RNBranch.initSessionSuccess";
     private static final String RN_INIT_SESSION_ERROR_EVENT = "RNBranch.initSessionError";
     private static final String INIT_SESSION_SUCCESS = "INIT_SESSION_SUCCESS";
@@ -41,11 +48,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private static JSONObject initSessionResult = null;
     private BroadcastReceiver mInitSessionEventReceiver = null;
+    private static WeakReference<Branch.BranchUniversalReferralInitListener> initListener = null;
 
     private static Activity mActivity = null;
     private static Branch mBranch = null;
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
+
+    public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
+        initListener = new WeakReference<>(anInitListener);
+        initSession(uri, reactActivity);
+    }
 
     public static void initSession(final Uri uri, Activity reactActivity) {
         mBranch = Branch.getInstance(reactActivity.getApplicationContext());
@@ -60,21 +73,59 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 Log.d(REACT_CLASS, "onInitFinished");
                 JSONObject result = new JSONObject();
                 try{
-                    result.put("params", referringParams != null && referringParams.has("~id") ? referringParams : JSONObject.NULL);
-                    result.put("error", error != null ? error.getMessage() : JSONObject.NULL);
-                    result.put("uri", uri != null ? uri.toString() : JSONObject.NULL);
+                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS, referringParams != null && referringParams.has("~id") ? referringParams : JSONObject.NULL);
+                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR, error != null ? error.getMessage() : JSONObject.NULL);
+                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, uri != null ? uri.toString() : JSONObject.NULL);
                 } catch(JSONException ex) {
                     try {
                         result.put("error", "Failed to convert result to JSONObject: " + ex.getMessage());
                     } catch(JSONException k) {}
                 }
                 initSessionResult = result;
-                LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT));
+
+                BranchUniversalObject branchUniversalObject =  BranchUniversalObject.getReferredBranchUniversalObject();
+                LinkProperties linkProperties = LinkProperties.getReferredLinkProperties();
+
+                Branch.BranchUniversalReferralInitListener listener = initListener.get();
+                if (listener != null) {
+                    listener.onInitFinished(branchUniversalObject, linkProperties, error);
+                }
+                generateLocalBroadcast(referringParams, uri, branchUniversalObject, linkProperties, error);
             }
 
             private Branch.BranchReferralInitListener init(Activity activity) {
                 mmActivity = activity;
                 return this;
+            }
+
+            private void generateLocalBroadcast(JSONObject referringParams,
+                                                Uri uri,
+                                                BranchUniversalObject branchUniversalObject,
+                                                LinkProperties linkProperties,
+                                                BranchError error) {
+                Intent broadcastIntent = new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT);
+
+                if (referringParams != null) {
+                    broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS, referringParams.toString());
+                }
+
+                if (branchUniversalObject != null) {
+                    broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_BRANCH_UNIVERSAL_OBJECT, branchUniversalObject);
+                }
+
+                if (linkProperties != null) {
+                    broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES, linkProperties);
+                }
+
+                if (uri != null) {
+                    broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, uri.toString());
+                }
+
+                if (error != null) {
+                    broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR, error.getMessage());
+                }
+
+                LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(broadcastIntent);
             }
         }.init(reactActivity), uri, reactActivity);
     }

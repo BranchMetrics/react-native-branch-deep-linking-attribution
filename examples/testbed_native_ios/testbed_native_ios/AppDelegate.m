@@ -9,6 +9,8 @@
 #import <React/RCTLog.h>
 #import <react-native-branch/RNBranch.h>
 
+#import <Branch/Branch.h>
+
 #import "AppDelegate.h"
 
 @implementation AppDelegate
@@ -40,6 +42,8 @@
     NSError *error = notification.userInfo[RNBranchLinkOpenedNotificationErrorKey];
     NSDictionary *params = notification.userInfo[RNBranchLinkOpenedNotificationParamsKey];
     NSURL *uri = notification.userInfo[RNBranchLinkOpenedNotificationUriKey];
+    BranchUniversalObject *branchUniversalObject = notification.userInfo[RNBranchLinkOpenedNotificationBranchUniversalObjectKey];
+    BranchLinkProperties *linkProperties = notification.userInfo[RNBranchLinkOpenedNotificationLinkPropertiesKey];
 
     RCTLog(@"Received %@", notification.name);
 
@@ -49,6 +53,8 @@
     }
 
     RCTLog(@"uri: %@, params: %@", uri, params);
+    RCTLog(@"BranchUniversalObject = %@", branchUniversalObject);
+    RCTLog(@"BranchLinkProperties = %@", linkProperties);
 
     // Now route to the appropriate view
 }

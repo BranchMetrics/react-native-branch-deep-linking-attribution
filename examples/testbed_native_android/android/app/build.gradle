@@ -10,6 +10,16 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //* Fix issue with libgnustl_shared.so: http://stackoverflow.com/a/41245455/875725
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+
+        packagingOptions {
+            exclude "lib/arm64-v8a/libgnustl_shared.so"
+        }
+        // */
     }
     buildTypes {
         release {
@@ -24,9 +34,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:25.3.0'
+    compile 'com.android.support:design:25.3.1'
     compile "com.facebook.react:react-native:+" // From node_modules.
     compile project(':react-native-branch')
     androidTestCompile 'com.google.code.findbugs:jsr305:3.0.0'
