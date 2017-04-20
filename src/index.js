@@ -35,15 +35,33 @@ class Branch {
         if (result) {
           listener(result)
         }
+
+        /*
+         * https://github.com/BranchMetrics/react-native-branch-deep-linking/issues/79
+         *
+         * By waiting until redeemInitSessionResult() returns, we roughly simulate a
+         * synchronous call to the native layer.
+         *
+         * Note that this is equivalent to
+         *
+         * let result = await RNBranch.redeemInitSessionResult()
+         * if (result) listener(result)
+         * this._addListener(listener)
+         *
+         * But by using then(), the subscribe method does not have to be async.
+         * This way, we don't add event listeners until the listener has received the
+         * initial cached value, which essentially eliminates all possibility of
+         * getting the same event twice.
+         */
+         this._addListener(listener)
       })
     }
-
-    const successSubscription = nativeEventEmitter.addListener(RNBranch.INIT_SESSION_SUCCESS, listener)
-    const errorSubscription = nativeEventEmitter.addListener(RNBranch.INIT_SESSION_ERROR, listener)
+    else {
+      this._addListener(listener)
+    }
 
     const unsubscribe = () => {
-      successSubscription.remove()
-      errorSubscription.remove()
+      this._removeListener(listener)
     }
 
     return unsubscribe
@@ -51,6 +69,16 @@ class Branch {
 
   _timeSinceLaunch() {
     return new Date().getTime() - this._launchTime
+  }
+
+  _addListener(listener) {
+    nativeEventEmitter.addListener(RNBranch.INIT_SESSION_SUCCESS, listener)
+    nativeEventEmitter.addListener(RNBranch.INIT_SESSION_ERROR, listener)
+  }
+
+  _removeListener(listener) {
+    nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_SUCCESS, listener)
+    nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_ERROR, listener)
   }
 
   /*** RNBranch singleton methods ***/
