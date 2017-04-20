@@ -6,12 +6,12 @@ import createBranchUniversalObject from './branchUniversalObject'
 
 export const DEFAULT_INIT_SESSION_TTL = 5000
 
-export const AddToWishlistEvent = "Add to Wishlist"
-export const PurchasedEvent = "Purchased"
-export const PurchaseInitiatedEvent = "Purchase Started"
-export const RegisterViewEvent = "View"
-export const ShareCompletedEvent = "Share Completed"
-export const ShareInitiatedEvent = "Share Started"
+export const AddToWishlistEvent = 'Add to Wishlist'
+export const PurchasedEvent = 'Purchased'
+export const PurchaseInitiatedEvent = 'Purchase Started'
+export const RegisterViewEvent = 'View'
+export const ShareCompletedEvent = 'Share Completed'
+export const ShareInitiatedEvent = 'Share Started'
 
 class Branch {
   nativeEventEmitter = Platform.select({
@@ -55,7 +55,7 @@ class Branch {
          * initial cached value, which essentially eliminates all possibility of
          * getting the same event twice.
          */
-         this._addListener(listener)
+        this._addListener(listener)
       })
     }
     else {

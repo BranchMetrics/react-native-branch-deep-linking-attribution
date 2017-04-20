@@ -50,7 +50,7 @@ export default async function createBranchUniversalObject(identifier, options = 
 
     _tryFunction(func, ...args) {
       return func(this.ident, ...args).catch((error) => {
-        if (error.code != "RNBranch::Error::BUONotFound") {
+        if (error.code != 'RNBranch::Error::BUONotFound') {
           throw error
         }
 

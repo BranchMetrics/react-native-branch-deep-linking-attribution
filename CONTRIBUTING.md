@@ -19,7 +19,7 @@ Before submitting a PR, test the new functionality or bugfix in android & ios, a
 
 ### Testing and Linting
 
-All contributions must pass `eslint` and `npm test` before being accepted.
+All contributions must pass `npm run lint` and `npm test` before being accepted.
 
 #### Native Unit Tests
 
@@ -33,7 +33,7 @@ bundle exec fastlane test_android
 bundle exec fastlane test_ios
 ```
 
-There is also a `runAllTests` script at the repository root for convenience, which also runs `npm test`.
+There is also a `runAllTests` script at the repository root for convenience, which also runs `npm run lint` and `npm test`.
 
 Notes on native unit tests and Fastlane:
 

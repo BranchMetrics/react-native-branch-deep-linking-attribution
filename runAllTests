@@ -30,6 +30,7 @@ bundle install
 
 bundle exec fastlane test_android
 bundle exec fastlane test_ios
+npm run lint
 npm test
 
 exit 0
