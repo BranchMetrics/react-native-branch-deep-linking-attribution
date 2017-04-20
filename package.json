@@ -11,6 +11,7 @@
     "react-native-branch.podspec"
   ],
   "scripts": {
+    "lint": "eslint src test",
     "test": "ava"
   },
   "ava": {

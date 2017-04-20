@@ -20,10 +20,10 @@ test('subscribe does not return init session beyond the TTL', t => {
   branch.initSessionTtl = 0 // disable the cache check in this test
 
   return new Promise((resolve, reject) => {
-    var listenerWasCalled = false
+    let listenerWasCalled = false
     branch.subscribe(({ error, params, uri }) => {
       listenerWasCalled = true
-      reject("subscribe listener should not be called")
+      reject('subscribe listener should not be called')
     })
 
     setTimeout(() => {
@@ -61,7 +61,7 @@ test.serial('subscribe does not add an event listener within the TTL until redee
     branch.subscribe(({error, params, uri}) => {})
 
     setTimeout(() => {
-      this.listenerAdded ? resolve() : reject("listener was not added")
+      this.listenerAdded ? resolve() : reject('listener was not added')
 
       emitter.addListener = originalAddListener
       RNBranch.redeemInitSessionResult = originalRedeemInitSessionResult
@@ -85,7 +85,7 @@ test.serial('after the TTL, subscribe adds a listener and does not call redeemIn
   // Modify RNBranch.redeemInitSessionResult to check whether it is called at all
   const originalRedeemInitSessionResult = RNBranch.redeemInitSessionResult
   RNBranch.redeemInitSessionResult = () => {
-    t.fail("redeemInitSessionResult should not be called")
+    t.fail('redeemInitSessionResult should not be called')
     return new Promise((resolve, reject) => {
       resolve({})
     })
@@ -97,7 +97,7 @@ test.serial('after the TTL, subscribe adds a listener and does not call redeemIn
     branch.subscribe(({error, params, uri}) => {})
 
     setTimeout(() => {
-      this.listenerAdded ? resolve() : reject("listener was not added")
+      this.listenerAdded ? resolve() : reject('listener was not added')
 
       emitter.addListener = originalAddListener
       RNBranch.redeemInitSessionResult = originalRedeemInitSessionResult

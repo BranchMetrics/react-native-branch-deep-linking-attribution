@@ -24,4 +24,5 @@ script:
   # Requires Android SDK
   # - bundle exec fastlane test_android
   - bundle exec fastlane test_ios
+  - npm run lint
   - npm test
