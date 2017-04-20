@@ -23,6 +23,7 @@ import io.branch.indexing.*;
 
 import org.json.*;
 
+import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -46,7 +47,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private static JSONObject initSessionResult = null;
     private BroadcastReceiver mInitSessionEventReceiver = null;
-    private static RNBranchInitListener initListener = null;
+    private static WeakReference<RNBranchInitListener> initListener = null;
 
     private static Activity mActivity = null;
     private static Branch mBranch = null;
@@ -54,7 +55,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
     public static void initSession(final Uri uri, Activity reactActivity, RNBranchInitListener anInitListener) {
-        initListener = anInitListener;
+        initListener = new WeakReference<>(anInitListener);
         initSession(uri, reactActivity);
     }
 
@@ -84,7 +85,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 BranchUniversalObject branchUniversalObject =  BranchUniversalObject.getReferredBranchUniversalObject();
                 LinkProperties linkProperties = LinkProperties.getReferredLinkProperties();
 
-                initListener.onInitFinished(uri, branchUniversalObject, linkProperties, error);
+                RNBranchInitListener listener = initListener.get();
+                if (listener != null) {
+                    listener.onInitFinished(uri, branchUniversalObject, linkProperties, error);
+                }
                 generateLocalBroadcast(referringParams, uri, branchUniversalObject, linkProperties, error);
             }
 
