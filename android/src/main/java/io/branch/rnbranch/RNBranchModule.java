@@ -19,6 +19,7 @@ import com.facebook.react.bridge.ReadableMap;
 import io.branch.referral.*;
 import io.branch.referral.Branch.BranchLinkCreateListener;
 import io.branch.referral.util.*;
+import io.branch.referral.Branch;
 import io.branch.indexing.*;
 
 import org.json.*;
@@ -47,14 +48,14 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private static JSONObject initSessionResult = null;
     private BroadcastReceiver mInitSessionEventReceiver = null;
-    private static WeakReference<RNBranchInitListener> initListener = null;
+    private static WeakReference<Branch.BranchUniversalReferralInitListener> initListener = null;
 
     private static Activity mActivity = null;
     private static Branch mBranch = null;
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
-    public static void initSession(final Uri uri, Activity reactActivity, RNBranchInitListener anInitListener) {
+    public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
         initListener = new WeakReference<>(anInitListener);
         initSession(uri, reactActivity);
     }
@@ -85,9 +86,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 BranchUniversalObject branchUniversalObject =  BranchUniversalObject.getReferredBranchUniversalObject();
                 LinkProperties linkProperties = LinkProperties.getReferredLinkProperties();
 
-                RNBranchInitListener listener = initListener.get();
+                Branch.BranchUniversalReferralInitListener listener = initListener.get();
                 if (listener != null) {
-                    listener.onInitFinished(uri, branchUniversalObject, linkProperties, error);
+                    listener.onInitFinished(branchUniversalObject, linkProperties, error);
                 }
                 generateLocalBroadcast(referringParams, uri, branchUniversalObject, linkProperties, error);
             }

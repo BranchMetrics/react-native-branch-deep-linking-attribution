@@ -18,6 +18,7 @@ import com.facebook.react.shell.MainReactPackage;
 import io.branch.indexing.BranchUniversalObject;
 import io.branch.referral.BranchError;
 import io.branch.referral.util.LinkProperties;
+import io.branch.referral.Branch;
 import io.branch.rnbranch.*;
 
 public class MainActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler{
@@ -115,18 +116,15 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
     @Override
     protected void onStart() {
         super.onStart();
-        RNBranchModule.initSession(getIntent().getData(), this, new RNBranchInitListener() {
+        RNBranchModule.initSession(getIntent().getData(), this, new Branch.BranchUniversalReferralInitListener() {
             @Override
-            public void onInitFinished(Uri uri, BranchUniversalObject branchUniversalObject, LinkProperties linkProperties, BranchError error) {
+            public void onInitFinished(BranchUniversalObject branchUniversalObject, LinkProperties linkProperties, BranchError error) {
                 if (error != null) {
                     Log.e(MAIN_ACTIVITY, "Error opening Branch link: " + error.getMessage());
                     return;
                 }
 
                 Log.d(MAIN_ACTIVITY, "Branch initSession successfully returned");
-                if (uri != null) {
-                    Log.d(MAIN_ACTIVITY, "uri: " + uri);
-                }
                 if (branchUniversalObject != null) {
                     Log.d(MAIN_ACTIVITY, "BranchUniversalObject: canonicalIdentifier = " + branchUniversalObject.getCanonicalIdentifier());
                 }
