@@ -11,6 +11,10 @@
 #import "RNBranch.h"
 #import "RNBranchEventEmitter.h"
 
+// Notification/Event Names
+NSString * const kRNBranchInitSessionSuccess = @"RNBranch.initSessionSuccess";
+NSString * const kRNBranchInitSessionError = @"RNBranch.initSessionError";
+
 @interface RNBranchEventEmitter()
 @property (nonatomic) BOOL hasListeners;
 @end

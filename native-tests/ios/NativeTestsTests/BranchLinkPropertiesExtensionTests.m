@@ -1,5 +1,5 @@
 //
-//  BranchLinkPropertiesTests.m
+//  BranchLinkPropertiesExtensionTests.m
 //  NativeTests
 //
 //  Created by Jimmy Dee on 4/18/17.
@@ -12,11 +12,11 @@
 #import <react-native-branch/BranchLinkProperties+RNBranch.h>
 #import <react-native-branch/RNBranchProperty.h>
 
-@interface BranchLinkPropertiesTests : XCTestCase
+@interface BranchLinkPropertiesExtensionTests : XCTestCase
 
 @end
 
-@implementation BranchLinkPropertiesTests
+@implementation BranchLinkPropertiesExtensionTests
 
 - (void)testFieldMapping
 {

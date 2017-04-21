@@ -16,7 +16,8 @@
 		7B7C90E31EA6E07C005B470E /* NSObjectExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C90E21EA6E07C005B470E /* NSObjectExtensionTests.m */; };
 		7B7C90E51EA6E496005B470E /* BranchUniversalObjectExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C90E41EA6E496005B470E /* BranchUniversalObjectExtensionTests.m */; };
 		7B7C90E71EA6E71E005B470E /* RNBranchPropertyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C90E61EA6E71E005B470E /* RNBranchPropertyTests.m */; };
-		7B7C90E91EA6EC8C005B470E /* BranchLinkPropertiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C90E81EA6EC8C005B470E /* BranchLinkPropertiesTests.m */; };
+		7B7C90E91EA6EC8C005B470E /* BranchLinkPropertiesExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C90E81EA6EC8C005B470E /* BranchLinkPropertiesExtensionTests.m */; };
+		7BAD46FB1EAA66E700080008 /* RNBranchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD46FA1EAA66E700080008 /* RNBranchTests.m */; };
 		7BCEC8B01E9FE59A00271263 /* RNBranchAgingDictionaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCEC8AF1E9FE59A00271263 /* RNBranchAgingDictionaryTests.m */; };
 		DE336E58F740599D27E8A89C /* libPods-NativeTestsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FDF1BD18E75D3D23CEB8AFF0 /* libPods-NativeTestsTests.a */; };
 		E3358048CB314A416B25FC42 /* libPods-NativeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82030DF006224ED018AB53F3 /* libPods-NativeTests.a */; };
@@ -50,7 +51,8 @@
 		7B7C90E21EA6E07C005B470E /* NSObjectExtensionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectExtensionTests.m; sourceTree = "<group>"; };
 		7B7C90E41EA6E496005B470E /* BranchUniversalObjectExtensionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchUniversalObjectExtensionTests.m; sourceTree = "<group>"; };
 		7B7C90E61EA6E71E005B470E /* RNBranchPropertyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchPropertyTests.m; sourceTree = "<group>"; };
-		7B7C90E81EA6EC8C005B470E /* BranchLinkPropertiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchLinkPropertiesTests.m; sourceTree = "<group>"; };
+		7B7C90E81EA6EC8C005B470E /* BranchLinkPropertiesExtensionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchLinkPropertiesExtensionTests.m; sourceTree = "<group>"; };
+		7BAD46FA1EAA66E700080008 /* RNBranchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchTests.m; sourceTree = "<group>"; };
 		7BCEC8AF1E9FE59A00271263 /* RNBranchAgingDictionaryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchAgingDictionaryTests.m; sourceTree = "<group>"; };
 		82030DF006224ED018AB53F3 /* libPods-NativeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NativeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC315A7D8A410E2C48CFEEA /* Pods-NativeTestsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeTestsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NativeTestsTests/Pods-NativeTestsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,11 +138,12 @@
 		7B23B67E1E9FDCEB006CEE75 /* NativeTestsTests */ = {
 			isa = PBXGroup;
 			children = (
-				7B7C90E81EA6EC8C005B470E /* BranchLinkPropertiesTests.m */,
+				7B7C90E81EA6EC8C005B470E /* BranchLinkPropertiesExtensionTests.m */,
 				7B7C90E41EA6E496005B470E /* BranchUniversalObjectExtensionTests.m */,
 				7B7C90E21EA6E07C005B470E /* NSObjectExtensionTests.m */,
 				7BCEC8AF1E9FE59A00271263 /* RNBranchAgingDictionaryTests.m */,
 				7B7C90E61EA6E71E005B470E /* RNBranchPropertyTests.m */,
+				7BAD46FA1EAA66E700080008 /* RNBranchTests.m */,
 				7B23B6811E9FDCEB006CEE75 /* Info.plist */,
 			);
 			path = NativeTestsTests;
@@ -369,10 +372,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B7C90E71EA6E71E005B470E /* RNBranchPropertyTests.m in Sources */,
-				7B7C90E91EA6EC8C005B470E /* BranchLinkPropertiesTests.m in Sources */,
+				7B7C90E91EA6EC8C005B470E /* BranchLinkPropertiesExtensionTests.m in Sources */,
 				7BCEC8B01E9FE59A00271263 /* RNBranchAgingDictionaryTests.m in Sources */,
 				7B7C90E31EA6E07C005B470E /* NSObjectExtensionTests.m in Sources */,
 				7B7C90E51EA6E496005B470E /* BranchUniversalObjectExtensionTests.m in Sources */,
+				7BAD46FB1EAA66E700080008 /* RNBranchTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

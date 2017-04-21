@@ -2,7 +2,16 @@ import test from 'ava'
 import React from 'react-native'
 const { RNBranch } = React.NativeModules
 
-import branch, { DEFAULT_INIT_SESSION_TTL } from '../src/index.js'
+import branch, {
+  AddToCartEvent,
+  AddToWishlistEvent,
+  PurchasedEvent,
+  PurchaseInitiatedEvent,
+  RegisterViewEvent,
+  ShareCompletedEvent,
+  ShareInitiatedEvent,
+  DEFAULT_INIT_SESSION_TTL
+} from '../src/index.js'
 
 test.beforeEach(() => {
   branch.initSessionTtl = DEFAULT_INIT_SESSION_TTL
@@ -104,4 +113,33 @@ test.serial('after the TTL, subscribe adds a listener and does not call redeemIn
     }, 100)
   })
 
+})
+
+// constant mapping
+test('AddToCartEvent is correct', t => {
+  t.is(RNBranch.ADD_TO_CART_EVENT, AddToCartEvent)
+})
+
+test('AddToWishlistEvent is correct', t => {
+  t.is(RNBranch.ADD_TO_WISHLIST_EVENT, AddToWishlistEvent)
+})
+
+test('PurchasedEvent is correct', t => {
+  t.is(RNBranch.PURCHASED_EVENT, PurchasedEvent)
+})
+
+test('PurchaseInitiatedEvent is correct', t => {
+  t.is(RNBranch.PURCHASE_INITIATED_EVENT, PurchaseInitiatedEvent)
+})
+
+test('RegisterViewEvent is correct', t => {
+  t.is(RNBranch.REGISTER_VIEW_EVENT, RegisterViewEvent)
+})
+
+test('ShareCompletedEvent is correct', t => {
+  t.is(RNBranch.SHARE_COMPLETED_EVENT, ShareCompletedEvent)
+})
+
+test('ShareInitiatedEvent is correct', t => {
+  t.is(RNBranch.SHARE_INITIATED_EVENT, ShareInitiatedEvent)
 })
