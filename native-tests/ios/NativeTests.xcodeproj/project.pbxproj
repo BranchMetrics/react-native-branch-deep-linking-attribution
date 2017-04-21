@@ -8,16 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		7B23B6671E9FDCEA006CEE75 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B23B6661E9FDCEA006CEE75 /* main.m */; };
-		7B23B66A1E9FDCEA006CEE75 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B23B6691E9FDCEA006CEE75 /* AppDelegate.m */; };
-		7B23B66D1E9FDCEB006CEE75 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B23B66C1E9FDCEB006CEE75 /* ViewController.m */; };
-		7B23B6701E9FDCEB006CEE75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B23B66E1E9FDCEB006CEE75 /* Main.storyboard */; };
-		7B23B6721E9FDCEB006CEE75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B23B6711E9FDCEB006CEE75 /* Assets.xcassets */; };
-		7B23B6751E9FDCEB006CEE75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B23B6731E9FDCEB006CEE75 /* LaunchScreen.storyboard */; };
 		7B7C90E31EA6E07C005B470E /* NSObjectExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C90E21EA6E07C005B470E /* NSObjectExtensionTests.m */; };
 		7B7C90E51EA6E496005B470E /* BranchUniversalObjectExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C90E41EA6E496005B470E /* BranchUniversalObjectExtensionTests.m */; };
 		7B7C90E71EA6E71E005B470E /* RNBranchPropertyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C90E61EA6E71E005B470E /* RNBranchPropertyTests.m */; };
 		7B7C90E91EA6EC8C005B470E /* BranchLinkPropertiesExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C90E81EA6EC8C005B470E /* BranchLinkPropertiesExtensionTests.m */; };
 		7BAD46FB1EAA66E700080008 /* RNBranchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD46FA1EAA66E700080008 /* RNBranchTests.m */; };
+		7BAD46FE1EAA779D00080008 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD46FD1EAA779D00080008 /* AppDelegate.m */; };
 		7BCEC8B01E9FE59A00271263 /* RNBranchAgingDictionaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCEC8AF1E9FE59A00271263 /* RNBranchAgingDictionaryTests.m */; };
 		DE336E58F740599D27E8A89C /* libPods-NativeTestsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FDF1BD18E75D3D23CEB8AFF0 /* libPods-NativeTestsTests.a */; };
 		E3358048CB314A416B25FC42 /* libPods-NativeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82030DF006224ED018AB53F3 /* libPods-NativeTests.a */; };
@@ -38,13 +34,6 @@
 		525D0BB38E8DFEDF9864FC5F /* Pods-NativeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NativeTests/Pods-NativeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7B23B6621E9FDCEA006CEE75 /* NativeTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B23B6661E9FDCEA006CEE75 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7B23B6681E9FDCEA006CEE75 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		7B23B6691E9FDCEA006CEE75 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7B23B66B1E9FDCEA006CEE75 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		7B23B66C1E9FDCEB006CEE75 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		7B23B66F1E9FDCEB006CEE75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7B23B6711E9FDCEB006CEE75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7B23B6741E9FDCEB006CEE75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B23B6761E9FDCEB006CEE75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B23B67B1E9FDCEB006CEE75 /* NativeTestsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NativeTestsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B23B6811E9FDCEB006CEE75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,6 +42,8 @@
 		7B7C90E61EA6E71E005B470E /* RNBranchPropertyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchPropertyTests.m; sourceTree = "<group>"; };
 		7B7C90E81EA6EC8C005B470E /* BranchLinkPropertiesExtensionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchLinkPropertiesExtensionTests.m; sourceTree = "<group>"; };
 		7BAD46FA1EAA66E700080008 /* RNBranchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchTests.m; sourceTree = "<group>"; };
+		7BAD46FC1EAA779D00080008 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7BAD46FD1EAA779D00080008 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7BCEC8AF1E9FE59A00271263 /* RNBranchAgingDictionaryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchAgingDictionaryTests.m; sourceTree = "<group>"; };
 		82030DF006224ED018AB53F3 /* libPods-NativeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NativeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC315A7D8A410E2C48CFEEA /* Pods-NativeTestsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeTestsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NativeTestsTests/Pods-NativeTestsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -114,13 +105,8 @@
 		7B23B6641E9FDCEA006CEE75 /* NativeTests */ = {
 			isa = PBXGroup;
 			children = (
-				7B23B6681E9FDCEA006CEE75 /* AppDelegate.h */,
-				7B23B6691E9FDCEA006CEE75 /* AppDelegate.m */,
-				7B23B66B1E9FDCEA006CEE75 /* ViewController.h */,
-				7B23B66C1E9FDCEB006CEE75 /* ViewController.m */,
-				7B23B66E1E9FDCEB006CEE75 /* Main.storyboard */,
-				7B23B6711E9FDCEB006CEE75 /* Assets.xcassets */,
-				7B23B6731E9FDCEB006CEE75 /* LaunchScreen.storyboard */,
+				7BAD46FC1EAA779D00080008 /* AppDelegate.h */,
+				7BAD46FD1EAA779D00080008 /* AppDelegate.m */,
 				7B23B6761E9FDCEB006CEE75 /* Info.plist */,
 				7B23B6651E9FDCEA006CEE75 /* Supporting Files */,
 			);
@@ -248,9 +234,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B23B6751E9FDCEB006CEE75 /* LaunchScreen.storyboard in Resources */,
-				7B23B6721E9FDCEB006CEE75 /* Assets.xcassets in Resources */,
-				7B23B6701E9FDCEB006CEE75 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,8 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B23B66D1E9FDCEB006CEE75 /* ViewController.m in Sources */,
-				7B23B66A1E9FDCEA006CEE75 /* AppDelegate.m in Sources */,
+				7BAD46FE1EAA779D00080008 /* AppDelegate.m in Sources */,
 				7B23B6671E9FDCEA006CEE75 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -389,25 +371,6 @@
 			targetProxy = 7B23B67C1E9FDCEB006CEE75 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		7B23B66E1E9FDCEB006CEE75 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7B23B66F1E9FDCEB006CEE75 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		7B23B6731E9FDCEB006CEE75 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7B23B6741E9FDCEB006CEE75 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7B23B6821E9FDCEB006CEE75 /* Debug */ = {
