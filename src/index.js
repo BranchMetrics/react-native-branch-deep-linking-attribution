@@ -6,12 +6,13 @@ import createBranchUniversalObject from './branchUniversalObject'
 
 export const DEFAULT_INIT_SESSION_TTL = 5000
 
-export const AddToWishlistEvent = 'Add to Wishlist'
-export const PurchasedEvent = 'Purchased'
-export const PurchaseInitiatedEvent = 'Purchase Started'
-export const RegisterViewEvent = 'View'
-export const ShareCompletedEvent = 'Share Completed'
-export const ShareInitiatedEvent = 'Share Started'
+export const AddToCartEvent = RNBranch.ADD_TO_CART_EVENT
+export const AddToWishlistEvent = RNBranch.ADD_TO_WISHLIST_EVENT
+export const PurchasedEvent = RNBranch.PURCHASED_EVENT
+export const PurchaseInitiatedEvent = RNBranch.PURCHASE_INITIATED_EVENT
+export const RegisterViewEvent = RNBranch.REGISTER_VIEW_EVENT
+export const ShareCompletedEvent = RNBranch.SHARE_COMPLETED_EVENT
+export const ShareInitiatedEvent = RNBranch.SHARE_INITIATED_EVENT
 
 class Branch {
   nativeEventEmitter = Platform.select({

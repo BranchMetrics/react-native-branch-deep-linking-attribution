@@ -14,10 +14,6 @@ NSString * const RNBranchLinkOpenedNotificationUriKey = @"uri";
 NSString * const RNBranchLinkOpenedNotificationBranchUniversalObjectKey = @"branch_universal_object";
 NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey = @"link_properties";
 
-// Notification/Event Names
-NSString * const kRNBranchInitSessionSuccess = @"RNBranch.initSessionSuccess";
-NSString * const kRNBranchInitSessionError = @"RNBranch.initSessionError";
-
 static NSDictionary *initSessionWithLaunchOptionsResult;
 static NSURL *sourceUrl;
 static Branch *branchInstance;
@@ -44,9 +40,20 @@ static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 RCT_EXPORT_MODULE();
 
 - (NSDictionary<NSString *, NSString *> *)constantsToExport {
-    return @{ @"INIT_SESSION_SUCCESS": kRNBranchInitSessionSuccess,
-              @"INIT_SESSION_ERROR": kRNBranchInitSessionError,
-              };
+    return @{
+             // RN events transmitted to JS by event emitter
+             @"INIT_SESSION_SUCCESS": kRNBranchInitSessionSuccess,
+             @"INIT_SESSION_ERROR": kRNBranchInitSessionError,
+
+             // constants for use with userCompletedAction
+             @"ADD_TO_CART_EVENT": BNCAddToCartEvent,
+             @"ADD_TO_WISHLIST_EVENT": BNCAddToWishlistEvent,
+             @"PURCHASED_EVENT": BNCPurchasedEvent,
+             @"PURCHASE_INITIATED_EVENT": BNCPurchaseInitiatedEvent,
+             @"REGISTER_VIEW_EVENT": BNCRegisterViewEvent,
+             @"SHARE_COMPLETED_EVENT": BNCShareCompletedEvent,
+             @"SHARE_INITIATED_EVENT": BNCShareInitiatedEvent
+             };
 }
 
 #pragma mark - Class methods
