@@ -42,6 +42,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static final String RN_INIT_SESSION_ERROR_EVENT = "RNBranch.initSessionError";
     private static final String INIT_SESSION_SUCCESS = "INIT_SESSION_SUCCESS";
     private static final String INIT_SESSION_ERROR = "INIT_SESSION_ERROR";
+    private static final String ADD_TO_CART_EVENT = "ADD_TO_CART_EVENT";
+    private static final String ADD_TO_WISHLIST_EVENT = "ADD_TO_WISHLIST_EVENT";
+    private static final String PURCHASED_EVENT = "PURCHASED_EVENT";
+    private static final String PURCHASE_INITIATED_EVENT = "PURCHASE_INITIATED_EVENT";
+    private static final String REGISTER_VIEW_EVENT = "REGISTER_VIEW_EVENT";
+    private static final String SHARE_COMPLETED_EVENT = "SHARE_COMPLETED_EVENT";
+    private static final String SHARE_INITIATED_EVENT = "SHARE_INITIATED_EVENT";
     private static final String IDENT_FIELD_NAME = "ident";
     public static final String UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE = "RNBranch::Error::BUONotFound";
     private static final long AGING_HASH_TTL = 3600000;
@@ -139,8 +146,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     @Override
     public Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
+        // RN events transmitted to JS
         constants.put(INIT_SESSION_SUCCESS, RN_INIT_SESSION_SUCCESS_EVENT);
         constants.put(INIT_SESSION_ERROR, RN_INIT_SESSION_ERROR_EVENT);
+        // Constants for use with userCompletedAction
+        constants.put(ADD_TO_CART_EVENT, BranchEvent.ADD_TO_CART);
+        constants.put(ADD_TO_WISHLIST_EVENT, BranchEvent.ADD_TO_WISH_LIST);
+        constants.put(PURCHASED_EVENT, BranchEvent.PURCHASED);
+        constants.put(PURCHASE_INITIATED_EVENT, BranchEvent.PURCHASE_STARTED);
+        constants.put(REGISTER_VIEW_EVENT, BranchEvent.VIEW);
+        constants.put(SHARE_COMPLETED_EVENT, BranchEvent.SHARE_COMPLETED);
+        constants.put(SHARE_INITIATED_EVENT, BranchEvent.SHARE_STARTED);
         return constants;
     }
 
