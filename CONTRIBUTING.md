@@ -34,6 +34,7 @@ bundle exec fastlane test_ios
 ```
 
 There is also a `runAllTests` script at the repository root for convenience, which also runs `npm run lint` and `npm test`.
+This script requires macOS because it runs the iOS tests.
 
 Notes on native unit tests and Fastlane:
 
@@ -51,6 +52,9 @@ Notes on native unit tests and Fastlane:
   ```
 - The iOS tests must be run on macOS with Xcode 8 installed.
 - You can also run the native unit tests in Android Studio or Xcode if you prefer, using the projects under native-tests. You must install the NPM dependencies for this repo first.
+- There is no need to run `pod install` or even install CocoaPods in order to run the unit tests.
+- If you don't have access to macOS and are not changing anything in the iOS codebase, there is no need to
+  run the iOS unit tests. They will run in CI. If anything fails the error will be reported there.
 
 ### Docs
 
