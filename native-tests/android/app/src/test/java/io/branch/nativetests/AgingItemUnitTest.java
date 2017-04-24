@@ -31,9 +31,15 @@ public class AgingItemUnitTest {
     public void testAccessTime() {
         String value = "abc";
 
-        long beforeInitialization = System.currentTimeMillis();
         AgingItem<String> item = new AgingItem<>(value);
         long afterInitialization = System.currentTimeMillis();
+
+        try {
+            Thread.sleep(10);
+        }
+        catch (Exception e) {
+            fail("Failed to sleep for 10 ms: " + e.getMessage());
+        }
 
         item.get();
         long afterAccess = System.currentTimeMillis();

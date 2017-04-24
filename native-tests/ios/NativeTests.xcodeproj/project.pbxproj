@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B1D14B71EAE62A500A0BC26 /* RNBranchAgingItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D14B61EAE62A500A0BC26 /* RNBranchAgingItemTests.m */; };
 		7B23B6671E9FDCEA006CEE75 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B23B6661E9FDCEA006CEE75 /* main.m */; };
 		7B7C90E31EA6E07C005B470E /* NSObjectExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C90E21EA6E07C005B470E /* NSObjectExtensionTests.m */; };
 		7B7C90E51EA6E496005B470E /* BranchUniversalObjectExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C90E41EA6E496005B470E /* BranchUniversalObjectExtensionTests.m */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		392B02218804C2D13A35994D /* Pods-NativeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NativeTests/Pods-NativeTests.release.xcconfig"; sourceTree = "<group>"; };
 		525D0BB38E8DFEDF9864FC5F /* Pods-NativeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NativeTests/Pods-NativeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7B1D14B61EAE62A500A0BC26 /* RNBranchAgingItemTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchAgingItemTests.m; sourceTree = "<group>"; };
 		7B23B6621E9FDCEA006CEE75 /* NativeTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B23B6661E9FDCEA006CEE75 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B23B6761E9FDCEB006CEE75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				7B7C90E41EA6E496005B470E /* BranchUniversalObjectExtensionTests.m */,
 				7B7C90E21EA6E07C005B470E /* NSObjectExtensionTests.m */,
 				7BCEC8AF1E9FE59A00271263 /* RNBranchAgingDictionaryTests.m */,
+				7B1D14B61EAE62A500A0BC26 /* RNBranchAgingItemTests.m */,
 				7B7C90E61EA6E71E005B470E /* RNBranchPropertyTests.m */,
 				7BAD46FA1EAA66E700080008 /* RNBranchTests.m */,
 				7B23B6811E9FDCEB006CEE75 /* Info.plist */,
@@ -355,6 +358,7 @@
 			files = (
 				7B7C90E71EA6E71E005B470E /* RNBranchPropertyTests.m in Sources */,
 				7B7C90E91EA6EC8C005B470E /* BranchLinkPropertiesExtensionTests.m in Sources */,
+				7B1D14B71EAE62A500A0BC26 /* RNBranchAgingItemTests.m in Sources */,
 				7BCEC8B01E9FE59A00271263 /* RNBranchAgingDictionaryTests.m in Sources */,
 				7B7C90E31EA6E07C005B470E /* NSObjectExtensionTests.m in Sources */,
 				7B7C90E51EA6E496005B470E /* BranchUniversalObjectExtensionTests.m in Sources */,

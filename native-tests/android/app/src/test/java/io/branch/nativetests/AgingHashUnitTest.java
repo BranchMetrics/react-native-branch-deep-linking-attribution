@@ -32,7 +32,7 @@ public class AgingHashUnitTest {
         AgingHash<String, String> hash = new AgingHash<>(3600000);
         hash.put("key", "value");
 
-        // get() returns null if the key is present and has not expired.
+        // get() returns a value if the key is present and has not expired.
         assertEquals(hash.get("key"), "value");
     }
 
@@ -42,7 +42,7 @@ public class AgingHashUnitTest {
         hash.put("key", "value");
         hash.remove("key");
 
-        // get() returns null after a remove() is called with the same key.
+        // get() returns null after remove() is called with the same key.
         assertNull(hash.get("key"));
     }
 
@@ -54,7 +54,7 @@ public class AgingHashUnitTest {
         try {
             Thread.sleep(10);
         } catch(Exception e) {
-            fail("Failed to sleep for 10 ms");
+            fail("Failed to sleep for 10 ms: " + e.getMessage());
         }
 
         // Deletes expired keys on insertion
