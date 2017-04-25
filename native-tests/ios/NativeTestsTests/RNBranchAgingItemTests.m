@@ -18,8 +18,9 @@
 
 - (void)testInitialization
 {
+    NSString *expected = @"abc";
     NSTimeInterval beforeInitialization = [NSDate date].timeIntervalSince1970;
-    RNBranchAgingItem *item = [[RNBranchAgingItem alloc] initWithItem:@"abc"];
+    RNBranchAgingItem *item = [[RNBranchAgingItem alloc] initWithItem:expected];
     NSTimeInterval afterInitialization = [NSDate date].timeIntervalSince1970;
 
     // Access time initialized to initialization time.
@@ -27,12 +28,13 @@
     XCTAssertLessThanOrEqual(item.accessTime, afterInitialization);
 
     // item property returns the constructor argument.
-    XCTAssertEqual(@"abc", item.item);
+    XCTAssertEqual(expected, item.item);
 }
 
 - (void)testAccessTime
 {
-    RNBranchAgingItem *item = [[RNBranchAgingItem alloc] initWithItem:@"abc"];
+    NSString *expected = @"abc";
+    RNBranchAgingItem *item = [[RNBranchAgingItem alloc] initWithItem:expected];
     NSTimeInterval afterInitialization = [NSDate date].timeIntervalSince1970;
 
     usleep(10000); // sleep for 10 ms
@@ -45,7 +47,7 @@
     XCTAssertLessThanOrEqual(item.accessTime, afterAccess);
 
     // Avoid a complaint about an unused variable.
-    XCTAssertEqual(@"abc", value);
+    XCTAssertEqual(expected, value);
 }
 
 @end

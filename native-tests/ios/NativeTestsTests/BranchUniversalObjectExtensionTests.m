@@ -73,25 +73,25 @@
     strptime(expirationDate.UTF8String, "%Y-%m-%dT%H:%M:%S", &expiration);
     NSTimeInterval expectedExpiration = timegm(&expiration);
 
-    XCTAssertEqual(@"abc", buo.canonicalIdentifier);
+    XCTAssertEqualObjects(@"abc", buo.canonicalIdentifier);
     XCTAssert(buo.automaticallyListOnSpotlight);
-    XCTAssertEqual(@"canonicalUrl", buo.canonicalUrl);
-    XCTAssertEqual(@"contentDescription", buo.contentDescription);
-    XCTAssertEqual(@"contentImageUrl", buo.imageUrl);
+    XCTAssertEqualObjects(@"canonicalUrl", buo.canonicalUrl);
+    XCTAssertEqualObjects(@"contentDescription", buo.contentDescription);
+    XCTAssertEqualObjects(@"contentImageUrl", buo.imageUrl);
     XCTAssertEqual(ContentIndexModePublic, buo.contentIndexMode);
-    XCTAssertEqual(@"currency", buo.currency);
+    XCTAssertEqualObjects(@"currency", buo.currency);
     XCTAssertEqual(expectedExpiration, buo.expirationDate.timeIntervalSince1970);
 
     XCTAssertEqual(2, buo.keywords.count);
-    XCTAssertEqual(@"keyword1", buo.keywords[0]);
-    XCTAssertEqual(@"keyword2", buo.keywords[1]);
+    XCTAssertEqualObjects(@"keyword1", buo.keywords[0]);
+    XCTAssertEqualObjects(@"keyword2", buo.keywords[1]);
 
     XCTAssertEqual(2, buo.metadata.allKeys.count);
-    XCTAssertEqual(@"value1", buo.metadata[@"key1"]);
-    XCTAssertEqual(@"value2", buo.metadata[@"key2"]);
+    XCTAssertEqualObjects(@"value1", buo.metadata[@"key1"]);
+    XCTAssertEqualObjects(@"value2", buo.metadata[@"key2"]);
 
-    XCTAssertEqual(@"title", buo.title);
-    XCTAssertEqual(@"type", buo.type);
+    XCTAssertEqualObjects(@"title", buo.title);
+    XCTAssertEqualObjects(@"type", buo.type);
 }
 
 #pragma mark - Content indexing mode
