@@ -106,3 +106,7 @@
   * Added an experimental Fastlane plugin to set up example apps for iOS without using Xcode
     to make it easy to run them on a device and test link routing.
   * Greatly expanded CI and unit testing, including native unit tests, for improved stability.
+
+2017-04-26  Version 2.0.0-beta.3
+
+  * This release fixes an Android crash introduced in 2.0.0-beta.2. (#187)
