@@ -93,9 +93,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 BranchUniversalObject branchUniversalObject =  BranchUniversalObject.getReferredBranchUniversalObject();
                 LinkProperties linkProperties = LinkProperties.getReferredLinkProperties();
 
-                Branch.BranchUniversalReferralInitListener listener = initListener.get();
-                if (listener != null) {
-                    listener.onInitFinished(branchUniversalObject, linkProperties, error);
+                if (initListener != null) {
+                    Branch.BranchUniversalReferralInitListener listener = initListener.get();
+                    if (listener != null) listener.onInitFinished(branchUniversalObject, linkProperties, error);
                 }
                 generateLocalBroadcast(referringParams, uri, branchUniversalObject, linkProperties, error);
             }
