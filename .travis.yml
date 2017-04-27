@@ -12,8 +12,8 @@ install:
 # Set up RVM, RubyGems, Bundler
   - gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
   - rvm get head
-  - rvm install 2.4.0
-  - rvm use 2.4.0 --default
+  - rvm install 2.3.3
+  - rvm use 2.3.3 --default
   - gem update --system
   - gem install bundler
   - bundle install
