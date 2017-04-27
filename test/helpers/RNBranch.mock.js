@@ -47,7 +47,7 @@ React.NativeModules.RNBranchEventEmitter = {
   })
 
  */
-const mockedMethods = []
+let mockedMethods = []
 
 export function mock(object: Object, methodName: String, mockMethod: Function) {
   const originalMethod = object[methodName]
