@@ -49,15 +49,15 @@
                                                                                    @"tags" : @[ @"tag1", @"tag2" ]
                                                                                    }];
 
-    XCTAssertEqual(@"alias", properties.alias);
-    XCTAssertEqual(@"campaign", properties.campaign);
-    XCTAssertEqual(@"channel", properties.channel);
-    XCTAssertEqual(@"feature", properties.feature);
-    XCTAssertEqual(@"stage", properties.stage);
+    XCTAssertEqualObjects(@"alias", properties.alias);
+    XCTAssertEqualObjects(@"campaign", properties.campaign);
+    XCTAssertEqualObjects(@"channel", properties.channel);
+    XCTAssertEqualObjects(@"feature", properties.feature);
+    XCTAssertEqualObjects(@"stage", properties.stage);
 
     XCTAssertEqual(2, properties.tags.count);
-    XCTAssertEqual(@"tag1", properties.tags[0]);
-    XCTAssertEqual(@"tag2", properties.tags[1]);
+    XCTAssertEqualObjects(@"tag1", properties.tags[0]);
+    XCTAssertEqualObjects(@"tag2", properties.tags[1]);
 }
 
 @end

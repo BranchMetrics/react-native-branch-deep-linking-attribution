@@ -40,7 +40,7 @@
 {
     [self.testClass setSupportedPropertiesWithMap:@{ @"foo": @"bar" }];
 
-    XCTAssertEqual(@"bar", self.testClass.foo);
+    XCTAssertEqualObjects(@"bar", self.testClass.foo);
 }
 
 - (void)testUnsupportedProperty

@@ -35,15 +35,16 @@
 {
     RNBranchAgingDictionary *dictionary = [RNBranchAgingDictionary dictionaryWithTtl:3600.0];
 
-    dictionary[@"key1"] = @"value1";
-    [dictionary setObject:@"value2" forKey:@"key2"];
+    NSString *value1 = @"value1", *value2 = @"value2";
+    dictionary[@"key1"] = value1;
+    [dictionary setObject:value2 forKey:@"key2"];
 
     // access returns a value if the key is present and has not expired.
-    XCTAssertEqual(@"value1", dictionary[@"key1"]);
-    XCTAssertEqual(@"value1", [dictionary objectForKey:@"key1"]);
+    XCTAssertEqual(value1, dictionary[@"key1"]);
+    XCTAssertEqual(value1, [dictionary objectForKey:@"key1"]);
 
-    XCTAssertEqual(@"value2", dictionary[@"key2"]);
-    XCTAssertEqual(@"value2", [dictionary objectForKey:@"key2"]);
+    XCTAssertEqual(value2, dictionary[@"key2"]);
+    XCTAssertEqual(value2, [dictionary objectForKey:@"key2"]);
 }
 
 - (void)testRemoval
