@@ -23,3 +23,45 @@ React.NativeModules.RNBranch = {
 // constructor.
 React.NativeModules.RNBranchEventEmitter = {
 }
+
+/*
+ * Ad hoc mocking mechanism. Example:
+ *
+
+  import { mock, unmock } from './helpers/RNBranch.mock'
+
+  test.afterEach(() => {
+    unmock() // restores all mocked methods to original values
+  })
+
+  test('example test', t => {
+    this.listenerWasAdded = false
+
+    mock(eventEmitter, 'addListener', (event, listener) => {
+      this.listenerWasAdded = true
+    })
+
+    eventEmitter.addListener('EventName', (event) => {})
+
+    t.true(this.listenerWasAdded)
+  })
+
+ */
+const mockedMethods = []
+
+export function mock(object: Object, methodName: String, mockMethod: Function) {
+  const originalMethod = object[methodName]
+  if (typeof(originalMethod) != 'function') {
+    console.warn(methodName + ' is not a method on ' + object)
+    return
+  }
+  object[methodName] = mockMethod
+  mockedMethods.push({object: object, method: methodName, original: originalMethod})
+}
+
+export function unmock() {
+  mockedMethods.forEach((m) => {
+    m.object[m.method] = m.original
+  })
+  mockedMethods = []
+}

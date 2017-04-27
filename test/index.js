@@ -1,5 +1,6 @@
 import test from 'ava'
 import React from 'react-native'
+import { mock, unmock } from './helpers/RNBranch.mock'
 const { RNBranch } = React.NativeModules
 
 import branch, {
@@ -15,6 +16,10 @@ import branch, {
 
 test.beforeEach(() => {
   branch.initSessionTtl = DEFAULT_INIT_SESSION_TTL
+})
+
+test.afterEach(() => {
+  unmock()
 })
 
 test('subscribe returns init session', t => {
@@ -48,32 +53,26 @@ test.serial('subscribe does not add an event listener within the TTL until redee
    */
 
   // Modify the NativeEventEmitter used by branch to track whether a listener has been added
-  const emitter = branch.nativeEventEmitter
   this.listenerAdded = false
-  const originalAddListener = emitter.addListener
-  emitter.addListener = (event, listener) => {
+  mock(branch.nativeEventEmitter, 'addListener', (event, listener) => {
     this.listenerAdded = true
-  }
+  })
 
   // Modify RNBranch.redeemInitSessionResult to check whether a listener has been added
-  const originalRedeemInitSessionResult = RNBranch.redeemInitSessionResult
-  RNBranch.redeemInitSessionResult = () => {
+  mock(RNBranch, 'redeemInitSessionResult', () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         t.false(this.listenerAdded)
         resolve({error: null, params: null, uri: null})
       }, 100)
     })
-  }
+  })
 
   return new Promise((resolve, reject) => {
     branch.subscribe(({error, params, uri}) => {})
 
     setTimeout(() => {
       this.listenerAdded ? resolve() : reject('listener was not added')
-
-      emitter.addListener = originalAddListener
-      RNBranch.redeemInitSessionResult = originalRedeemInitSessionResult
     }, 200)
   })
 })
@@ -84,21 +83,18 @@ test.serial('after the TTL, subscribe adds a listener and does not call redeemIn
    */
 
   // Modify the NativeEventEmitter used by branch to track whether a listener was added
-  const emitter = branch.nativeEventEmitter
   this.listenerAdded = false
-  const originalAddListener = emitter.addListener
-  emitter.addListener = (event, listener) => {
+  mock(branch.nativeEventEmitter, 'addListener', (event, listener) => {
     this.listenerAdded = true
-  }
+  })
 
   // Modify RNBranch.redeemInitSessionResult to check whether it is called at all
-  const originalRedeemInitSessionResult = RNBranch.redeemInitSessionResult
-  RNBranch.redeemInitSessionResult = () => {
+  mock(RNBranch, 'redeemInitSessionResult', () => {
     t.fail('redeemInitSessionResult should not be called')
     return new Promise((resolve, reject) => {
       resolve({})
     })
-  }
+  })
 
   branch.initSessionTtl = 0 // disable the cache check in this test
 
@@ -107,9 +103,6 @@ test.serial('after the TTL, subscribe adds a listener and does not call redeemIn
 
     setTimeout(() => {
       this.listenerAdded ? resolve() : reject('listener was not added')
-
-      emitter.addListener = originalAddListener
-      RNBranch.redeemInitSessionResult = originalRedeemInitSessionResult
     }, 100)
   })
 
