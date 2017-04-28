@@ -4,11 +4,15 @@ After [installing](./installation.md) Branch, you will need to set up your andro
 **Note:** When using `react-native` < 0.40 and `react-native-branch` 0.9, specify imports without a path prefix, e.g. `#import "RNBranch.h"` instead of `#import <react-native-branch/RNBranch.h>`.
 
 #### iOS project
-1. Modify AppDelegate.m as follows:
+
+Modify your AppDelegate as follows:
+
+##### Objective-C
+In AppDelegate.m
     ```objective-c
     #import <react-native-branch/RNBranch.h> // at the top
 
-    // Initialize the Branch Session at the top of existing didFinishLaunchingWithOptions
+    // Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
     - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     {
       // Uncomment this line to use the test key instead of the live one.
@@ -20,7 +24,7 @@ After [installing](./installation.md) Branch, you will need to set up your andro
     }
 
     // Add the openURL and continueUserActivity functions
-    - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
       if (![RNBranch handleDeepLink:url]) {
         // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
       }
@@ -31,6 +35,38 @@ After [installing](./installation.md) Branch, you will need to set up your andro
       return [RNBranch continueUserActivity:userActivity];
     }
     ```
+##### Swift
+
+Note that React Native does not support using frameworks for native modules, so Swift `import` statements
+cannot be be used. Instead your app will require a [bridging header](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html) in order to use any Objective-C dependency in Swift.
+
+Add `#import <react-native-branch/RNBranch.h>` to your Bridging header.
+
+In AppDelegate.swift:
+```Swift
+// Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
+func application(_ application: UIApplication, didFinishLaunchingWithOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    // Uncomment this line to use the test key instead of the live one.
+    // RNBranch.useTestInstance()
+    RNBranch.initSession(launchOptions: launchOptions, isReferrable: true) // <-- add this
+
+    //...
+}
+
+// Add the openURL and continueUserActivity functions
+func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    return RNBranch.handleDeepLink(url)
+}
+
+func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+    return RNBranch.continue(userActivity)
+}
+```
+
+These instructions are for Swift 3. Please note that Swift 2 is deprecated.
+
+After modifying your AppDelegate:
+
 1. [Add a String entry branch_key](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project) with your Branch key to your info.plist
 
 2. [Register a URI Scheme for Direct Deep Linking](https://dev.branch.io/references/ios_sdk/#register-a-uri-scheme-direct-deep-linking-optional-but-recommended) (optional but recommended)
