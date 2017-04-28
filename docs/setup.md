@@ -9,32 +9,34 @@ Modify your AppDelegate as follows:
 
 ##### Objective-C
 In AppDelegate.m
-    ```objective-c
-    #import <react-native-branch/RNBranch.h> // at the top
 
-    // Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
-    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-    {
-      // Uncomment this line to use the test key instead of the live one.
-      // [RNBranch useTestInstance]
-      [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES]; // <-- add this
+```objective-c
+#import <react-native-branch/RNBranch.h> // at the top
 
-      NSURL *jsCodeLocation;
-      //...
-    }
+// Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // Uncomment this line to use the test key instead of the live one.
+    // [RNBranch useTestInstance]
+    [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES]; // <-- add this
 
-    // Add the openURL and continueUserActivity functions
-    - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-      if (![RNBranch handleDeepLink:url]) {
+    NSURL *jsCodeLocation;
+    //...
+}
+
+// Add the openURL and continueUserActivity functions
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    if (![RNBranch handleDeepLink:url]) {
         // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
-      }
-      return YES;
+        return YES;
     }
+}
 
-    - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
-      return [RNBranch continueUserActivity:userActivity];
-    }
-    ```
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
+    return [RNBranch continueUserActivity:userActivity];
+}
+```
+
 ##### Swift
 
 Note that React Native does not support using frameworks for native modules, so Swift `import` statements
