@@ -4,6 +4,7 @@ PODS:
     - Branch-SDK/without-IDFA (= 0.14.12)
   - Branch-SDK/Core (0.14.12)
   - Branch-SDK/without-IDFA (0.14.12)
+  - Cartography (1.1.0)
   - React (0.42.3):
     - React/Core (= 0.42.3)
   - react-native-branch (2.0.0-beta.3):
@@ -26,35 +27,40 @@ PODS:
     - React/Core
   - React/RCTWebSocket (0.42.3):
     - React/Core
+  - TextAttributes (1.0)
   - Yoga (0.42.3.React)
 
 DEPENDENCIES:
-  - Branch-SDK (from `../../ios`)
-  - react-native-branch (from `../..`)
+  - Branch-SDK (from `node_modules/react-native-branch/ios`)
+  - Cartography
+  - react-native-branch (from `node_modules/react-native-branch`)
   - React/Core (from `node_modules/react-native`)
   - React/RCTAnimation (from `node_modules/react-native`)
   - React/RCTImage (from `node_modules/react-native`)
   - React/RCTNetwork (from `node_modules/react-native`)
   - React/RCTText (from `node_modules/react-native`)
   - React/RCTWebSocket (from `node_modules/react-native`)
+  - TextAttributes
   - Yoga (from `node_modules/react-native/ReactCommon/yoga`)
 
 EXTERNAL SOURCES:
   Branch-SDK:
-    :path: "../../ios"
+    :path: node_modules/react-native-branch/ios
   React:
     :path: node_modules/react-native
   react-native-branch:
-    :path: "../.."
+    :path: node_modules/react-native-branch
   Yoga:
     :path: node_modules/react-native/ReactCommon/yoga
 
 SPEC CHECKSUMS:
   Branch-SDK: 8a59b08daa0b283cd1bf0fd4842a521885e35ae6
+  Cartography: '0538ccb4044acbbda2266335fc58cb4228794d90'
   React: 35e039680feacd0563677d49ba410112d2748559
   react-native-branch: 55612ff46bcddee14cd40eb654f8fdb81ebc69b8
+  TextAttributes: 45b2713a1d174c377d320b51129c304eac381638
   Yoga: 86ce777665c8259b94ef8dbea76b84634237f4ea
 
-PODFILE CHECKSUM: 261dbdbee08821601a1ae150e8db647241256f68
+PODFILE CHECKSUM: ff5cb10c67a9a0ef7df94f442f04233d68ebaa16
 
 COCOAPODS: 1.2.1
