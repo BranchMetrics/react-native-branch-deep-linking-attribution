@@ -6,6 +6,8 @@
 //  Copyright © 2017 Branch Metrics. All rights reserved.
 //
 
+import Cartography
+import TextAttributes
 import UIKit
 
 /**
@@ -55,27 +57,36 @@ class PlanetCell: UITableViewCell {
          * Put the square image at the left. Center the label vertically
          * to the right with the same margin on all sides.
          */
-        contentView.addConstraint(contentView.centerYAnchor.constraint(equalTo: thumbnailImageView.centerYAnchor))
-        contentView.addConstraint(contentView.heightAnchor.constraint(equalTo: thumbnailImageView.heightAnchor))
-        
-        contentView.addConstraint(contentView.centerYAnchor.constraint(equalTo: label.centerYAnchor))
-        contentView.addConstraint(contentView.heightAnchor.constraint(greaterThanOrEqualTo: label.heightAnchor, constant: 2 * margin))
-        
-        thumbnailImageView.addConstraint(thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailImageView.heightAnchor))
-        
-        contentView.addConstraint(contentView.leftAnchor.constraint(equalTo: thumbnailImageView.leftAnchor))
-        contentView.addConstraint(thumbnailImageView.rightAnchor.constraint(equalTo: label.leftAnchor, constant: -margin))
-        contentView.addConstraint(contentView.rightAnchor.constraint(equalTo: label.rightAnchor, constant: -margin))
-        
+        constrain(thumbnailImageView, label) {
+            image, title in
+            let superview = image.superview!
+            
+            image.centerY == superview.centerY
+            image.height == superview.height
+            
+            title.centerY == superview.centerY
+            title.height <= superview.height - 2 * margin
+            
+            image.height == image.width
+            
+            image.left == superview.left
+            image.right == title.left - margin
+            title.right == superview.right - margin
+        }
+
         /*
          * Make contentView fill its superview.
          */
-        addConstraint(centerXAnchor.constraint(equalTo: contentView.centerXAnchor))
-        addConstraint(centerYAnchor.constraint(equalTo: contentView.centerYAnchor))
-        addConstraint(widthAnchor.constraint(equalTo: contentView.widthAnchor))
-        addConstraint(heightAnchor.constraint(equalTo: contentView.heightAnchor))
+        constrain(contentView) {
+            view in
+            let superview = view.superview!
+            view.centerX == superview.centerX
+            view.centerY == superview.centerY
+            view.width == superview.width
+            view.height == superview.height
+        }
     }
-    
+
     private func updatePlanetData() {
         defer {
             setNeedsLayout()
@@ -89,13 +100,11 @@ class PlanetCell: UITableViewCell {
 
         thumbnailImageView.image = UIImage(named: planetData.title)
 
-        let font = UIFont(name: Style.boldFontName, size: Style.rowFontSize)
-        let attributes: [String: Any] = [
-            NSFontAttributeName: font!,
-            NSKernAttributeName: 1.2
-        ]
+        let attributes = TextAttributes()
+            .font(name: Style.boldFontName, size: Style.rowFontSize)
+            .alignment(.left)
+            .kern(1.2)
 
         label.attributedText = NSAttributedString(string: planetData.title, attributes: attributes)
-        label.textAlignment = .left
     }
 }

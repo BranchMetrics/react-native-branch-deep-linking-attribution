@@ -1,5 +1,10 @@
+# RN supports iOS 8+
 platform :ios, "8.0"
 
+# Necessary to use Swift pods
+use_frameworks!
+
+# Import the React pod and required subspecs from node_modules
 pod "React",
   path: "node_modules/react-native",
   subspecs: %w{
@@ -10,8 +15,27 @@ pod "React",
     RCTNetwork
     RCTWebSocket
   }
-pod "react-native-branch", path: "node_modules/react-native-branch"
-pod "Branch-SDK", path: "node_modules/react-native-branch/ios"
 
+# From https://facebook.github.io/react-native/docs/integration-with-existing-apps.html#podfile
+# Explicitly include Yoga if you are using RN >= 0.42.0
+pod "Yoga", path: "node_modules/react-native/ReactCommon/yoga"
+
+# ----- Begin Branch SDK additions -----
+# Import react-native-branch and Branch pods from node_modules
+pod "react-native-branch", path: "node_modules/react-native-branch"
+
+# If you already have pod "Branch" in your Podfile, replace it with this. Note the name of the pod
+# in node_modules is "Branch-SDK", not "Branch"
+pod "Branch-SDK", path: "node_modules/react-native-branch/ios"
+# ----- End Branch SDK additions -----
+
+# Convenient pods for app development
+pod "Cartography"
+pod "TextAttributes"
+
+# Specify the app target and any other targets that require these dependencies
 target "WebViewExample"
+
+# Add custom configurations
+# https://github.com/BranchMetrics/react-native-branch-deep-linking/blob/master/docs/branch-environments.md#step-7-update-podfile
 project "WebViewExample", "Test-Debug" => :debug, "Test-Release" => :release

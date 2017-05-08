@@ -6,6 +6,8 @@
 //  Copyright © 2017 Branch Metrics. All rights reserved.
 //
 
+import Cartography
+import React
 import UIKit
 
 /**
@@ -17,7 +19,6 @@ class ArticleViewController: UIViewController {
     // MARK: - Stored properties
 
     let planetData: PlanetData
-    var rootView: RCTRootView!
 
     // MARK: - Object lifecycle
 
@@ -42,26 +43,15 @@ class ArticleViewController: UIViewController {
                 return
         }
 
-        self.rootView = rootView
-
-        RCTLog("rootView.appProperties = \(rootView.appProperties ?? [:])")
-
         view.addSubview(rootView)
         rootView.translatesAutoresizingMaskIntoConstraints = false
 
-        view.addConstraint(view.centerXAnchor.constraint(equalTo: rootView.centerXAnchor))
-        view.addConstraint(view.centerYAnchor.constraint(equalTo: rootView.centerYAnchor))
-        view.addConstraint(view.widthAnchor.constraint(equalTo: rootView.widthAnchor))
-        view.addConstraint(view.heightAnchor.constraint(equalTo: rootView.heightAnchor))
-
-        assert(self.rootView != nil)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        RCTLog("viewWillAppear:")
-
-        RCTLog("rootView.appProperties = \(rootView.appProperties)")
+        constrain(rootView) {
+            let superview = $0.superview!
+            $0.centerX == superview.centerX
+            $0.centerY == superview.centerY
+            $0.width   == superview.width
+            $0.height  == superview.height
+        }
     }
 }

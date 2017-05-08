@@ -21,4 +21,5 @@ Pod::Spec.new do |s|
   s.source       = { spec['repository']['type'].to_sym => spec['repository']['url'].sub(/^[a-z]+\+/, '') }
   s.source_files = [ "ios/*.h", "ios/*.m"]
   s.dependency 'Branch-SDK'
+  s.dependency 'React' # to ensure the correct build order
 end

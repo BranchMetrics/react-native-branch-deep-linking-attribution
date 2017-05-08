@@ -457,6 +457,13 @@
 			remoteGlobalIDString = A561198B7669F579C29FC6864AE4991F;
 			remoteInfo = OCMock;
 		};
+		7F85B11E0529A6B8C7040FD0C5158CBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EB9A5F3AB655F8D9803768B8AA8287F5;
+			remoteInfo = React;
+		};
 		9FEF1A7A9D1DFFCA10F0CEA48C46F15F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -2180,6 +2187,7 @@
 			);
 			dependencies = (
 				75182BA466383D0F519AFDF2697F413C /* PBXTargetDependency */,
+				77B313C3100C3274BABB61C8C2EC0102 /* PBXTargetDependency */,
 			);
 			name = "react-native-branch";
 			productName = "react-native-branch";
@@ -2501,6 +2509,12 @@
 			name = "Branch-SDK";
 			target = 973D11E51DE753D42447436921CF29C1 /* Branch-SDK */;
 			targetProxy = 9FEF1A7A9D1DFFCA10F0CEA48C46F15F /* PBXContainerItemProxy */;
+		};
+		77B313C3100C3274BABB61C8C2EC0102 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = React;
+			target = EB9A5F3AB655F8D9803768B8AA8287F5 /* React */;
+			targetProxy = 7F85B11E0529A6B8C7040FD0C5158CBC /* PBXContainerItemProxy */;
 		};
 		924A953413BB3790B7751F8A20131EB1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

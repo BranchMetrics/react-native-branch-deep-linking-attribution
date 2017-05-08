@@ -18,7 +18,7 @@ The app was produced following the methodology outlined in these tutorials:
 - https://facebook.github.io/react-native/docs/integration-with-existing-apps.html
 - https://www.raywenderlich.com/136047/react-native-existing-app
 
-In particular, it uses the `React`, `react-native-branch` and `Branch-SDK` pods from node_modules.
+In particular, it uses the `React`, `Yoga`, `react-native-branch` and `Branch-SDK` pods from node_modules.
 
 ## Building
 

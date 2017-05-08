@@ -6,6 +6,7 @@
 //  Copyright © 2017 Branch Metrics. All rights reserved.
 //
 
+import Cartography
 import UIKit
 
 /**
@@ -32,11 +33,14 @@ class ArticleListViewController: UIViewController, UITableViewDelegate, UITableV
 
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addConstraint(view.centerXAnchor.constraint(equalTo: tableView.centerXAnchor))
-        view.addConstraint(view.centerYAnchor.constraint(equalTo: tableView.centerYAnchor))
-        view.addConstraint(view.widthAnchor.constraint(equalTo: tableView.widthAnchor))
-        view.addConstraint(view.heightAnchor.constraint(equalTo: tableView.heightAnchor))
+        constrain(tableView) {
+            view in
+            let superview = view.superview!
+            view.centerX == superview.centerX
+            view.centerY == superview.centerY
+            view.width == superview.width
+            view.height == superview.height
+        }
 
         tableView.register(PlanetCell.self, forCellReuseIdentifier: PlanetCell.identifier)
     }

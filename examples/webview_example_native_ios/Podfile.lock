@@ -4,29 +4,35 @@ PODS:
     - Branch-SDK/without-IDFA (= 0.14.12)
   - Branch-SDK/Core (0.14.12)
   - Branch-SDK/without-IDFA (0.14.12)
-  - react-native-branch (2.0.0-beta.2):
+  - Cartography (1.1.0)
+  - React (0.42.3):
+    - React/Core (= 0.42.3)
+  - react-native-branch (2.0.0-beta.3):
     - Branch-SDK
-  - React/Core (0.41.2):
+    - React
+  - React/Core (0.42.3):
     - React/cxxreact
-    - React/yoga
-  - React/cxxreact (0.41.2):
+    - Yoga (= 0.42.3.React)
+  - React/cxxreact (0.42.3):
     - React/jschelpers
-  - React/jschelpers (0.41.2)
-  - React/RCTAnimation (0.41.2):
+  - React/jschelpers (0.42.3)
+  - React/RCTAnimation (0.42.3):
     - React/Core
-  - React/RCTImage (0.41.2):
+  - React/RCTImage (0.42.3):
     - React/Core
     - React/RCTNetwork
-  - React/RCTNetwork (0.41.2):
+  - React/RCTNetwork (0.42.3):
     - React/Core
-  - React/RCTText (0.41.2):
+  - React/RCTText (0.42.3):
     - React/Core
-  - React/RCTWebSocket (0.41.2):
+  - React/RCTWebSocket (0.42.3):
     - React/Core
-  - React/yoga (0.41.2)
+  - TextAttributes (1.0)
+  - Yoga (0.42.3.React)
 
 DEPENDENCIES:
   - Branch-SDK (from `node_modules/react-native-branch/ios`)
+  - Cartography
   - react-native-branch (from `node_modules/react-native-branch`)
   - React/Core (from `node_modules/react-native`)
   - React/RCTAnimation (from `node_modules/react-native`)
@@ -34,6 +40,8 @@ DEPENDENCIES:
   - React/RCTNetwork (from `node_modules/react-native`)
   - React/RCTText (from `node_modules/react-native`)
   - React/RCTWebSocket (from `node_modules/react-native`)
+  - TextAttributes
+  - Yoga (from `node_modules/react-native/ReactCommon/yoga`)
 
 EXTERNAL SOURCES:
   Branch-SDK:
@@ -42,12 +50,17 @@ EXTERNAL SOURCES:
     :path: node_modules/react-native
   react-native-branch:
     :path: node_modules/react-native-branch
+  Yoga:
+    :path: node_modules/react-native/ReactCommon/yoga
 
 SPEC CHECKSUMS:
   Branch-SDK: 8a59b08daa0b283cd1bf0fd4842a521885e35ae6
-  React: 2b10c07d947dea71c144a33764e9162ed81e3825
-  react-native-branch: d5261b13e3fa54894e859f9edb0e7ce8d44d432c
+  Cartography: '0538ccb4044acbbda2266335fc58cb4228794d90'
+  React: 35e039680feacd0563677d49ba410112d2748559
+  react-native-branch: 55612ff46bcddee14cd40eb654f8fdb81ebc69b8
+  TextAttributes: 45b2713a1d174c377d320b51129c304eac381638
+  Yoga: 86ce777665c8259b94ef8dbea76b84634237f4ea
 
-PODFILE CHECKSUM: 328b3cdda96fceae6fb7c820762f6c1dc30060a4
+PODFILE CHECKSUM: fd506971c878619106ebbf5149d44f474404dc7a
 
 COCOAPODS: 1.2.1

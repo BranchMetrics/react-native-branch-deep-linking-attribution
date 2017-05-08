@@ -6,6 +6,9 @@
 //  Copyright © 2017 Branch Metrics. All rights reserved.
 //
 
+import UIKit
+import react_native_branch
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
