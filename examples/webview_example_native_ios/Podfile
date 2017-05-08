@@ -1,4 +1,5 @@
 platform :ios, "8.0"
+use_frameworks!
 
 pod "React",
   path: "node_modules/react-native",
@@ -10,8 +11,9 @@ pod "React",
     RCTNetwork
     RCTWebSocket
   }
-pod "react-native-branch", path: "node_modules/react-native-branch"
-pod "Branch-SDK", path: "node_modules/react-native-branch/ios"
+pod "Yoga", path: "node_modules/react-native/ReactCommon/yoga"
+pod "react-native-branch", path: "../.."
+pod "Branch-SDK", path: "../../ios"
 
 target "WebViewExample"
 project "WebViewExample", "Test-Debug" => :debug, "Test-Release" => :release

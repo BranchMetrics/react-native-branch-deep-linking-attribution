@@ -6,6 +6,9 @@
 //  Copyright © 2017 Branch Metrics. All rights reserved.
 //
 
+import Branch
+import Foundation
+
 /**
  * Struct to represent data for a WebView and Spotlight.
  */

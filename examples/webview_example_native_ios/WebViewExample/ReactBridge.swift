@@ -6,7 +6,8 @@
 //  Copyright © 2017 Branch Metrics. All rights reserved.
 //
 
-import Foundation
+import React
+import UIKit
 
 struct ReactBridge {
     static func start(launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {

@@ -20,12 +20,11 @@
 		7B5C79201E959B53002FE942 /* ReactBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C791F1E959B53002FE942 /* ReactBridge.swift */; };
 		7B5C79251E95A6BC002FE942 /* RCTSwiftLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C79241E95A6BC002FE942 /* RCTSwiftLog.m */; };
 		7B5C79271E95A946002FE942 /* RCTLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C79261E95A946002FE942 /* RCTLog.swift */; };
-		BCFFAA02AA5FE70A7CA6A745 /* libPods-WebViewExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BAD020E8EE7D2116B4ABB44 /* libPods-WebViewExample.a */; };
+		9DAD2FE7A1CEA90F3A3E6367 /* Pods_WebViewExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1F71C7570D66540364CE97A /* Pods_WebViewExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2C98E56F8491559BB0741AAF /* Pods-WebViewExample.test-release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewExample.test-release.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample.test-release.xcconfig"; sourceTree = "<group>"; };
-		5BAD020E8EE7D2116B4ABB44 /* libPods-WebViewExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebViewExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D6117909230007A384D2046 /* Pods-WebViewExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample.release.xcconfig"; sourceTree = "<group>"; };
 		73F43B2C303E9BF5A6714F1B /* Pods-WebViewExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample.debug.xcconfig"; sourceTree = "<group>"; };
 		7B132B5B1E8D878E006FB28F /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
@@ -47,6 +46,7 @@
 		7B5C79241E95A6BC002FE942 /* RCTSwiftLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTSwiftLog.m; sourceTree = "<group>"; };
 		7B5C79261E95A946002FE942 /* RCTLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTLog.swift; sourceTree = "<group>"; };
 		A14C7B96994ECEB8E6C5DB86 /* Pods-WebViewExample.test-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewExample.test-debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample.test-debug.xcconfig"; sourceTree = "<group>"; };
+		D1F71C7570D66540364CE97A /* Pods_WebViewExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WebViewExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCFFAA02AA5FE70A7CA6A745 /* libPods-WebViewExample.a in Frameworks */,
+				9DAD2FE7A1CEA90F3A3E6367 /* Pods_WebViewExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +64,7 @@
 		3AFB5C04BFAF3CFD5D3B84F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5BAD020E8EE7D2116B4ABB44 /* libPods-WebViewExample.a */,
+				D1F71C7570D66540364CE97A /* Pods_WebViewExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
