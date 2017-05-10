@@ -110,3 +110,11 @@
 2017-04-26  Version 2.0.0-beta.3
 
   * This release fixes an Android crash introduced in 2.0.0-beta.2. (#187)
+  * Includes native SDKs 0.14.12 (iOS), 2.6.1 (Android).
+
+2017-05-10  Version 2.0.0-beta.4
+
+  * This release restores the React dependency to the react-native-branch podspec for full
+    Swift support.
+  * Improvements to webview_example_native_ios to take advantage of full Swift support.
+  * Includes native SDKs 0.14.12 (iOS), 2.6.1 (Android).
