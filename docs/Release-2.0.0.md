@@ -16,19 +16,34 @@ production. Please open issues in this repo with any questions or problems.
 Further plans for 2.0.0:
 
 - Provide a script to automate project configuration changes, such as adding a Branch key and setting up Universal Link/App Link domains.
-- Provide a testbed_native_android illustrating integration into an existing Android app.
+- Review/flesh out the native API for link routing on both platforms.
+- Consistent error codes across the two platforms.
 - TBD
 
 ## Changes
 
-- The native iOS SDK source (version 0.13.5) is now included in the RNBranch project and is no longer a required external dependency.
-- A jar file (version 2.5.9) is included for the Android SDK.
+- The native iOS SDK source (version 0.14.12) is now included in the RNBranch project and is no longer a required external dependency.
+- A jar file (version 2.6.1) is included for the Android SDK.
 - A Branch-SDK podspec is included in the NPM module for use in native apps that use the React pod from node_modules.
-- Two new testbed apps are available:
+- Five new testbed apps are available:
   + testbed_simple illustrates the simplest way to integrate the SDK using `react-native link`.
   + testbed_native_ios illustrates including `react-native-branch` in a React Native component within a native iOS app.
+  + testbed_native_android illustrates including `react-native-branch` in a React Native component within a native Android app.
+  + webview_example is a realistic example of SDK integration following best practices.
+  + webview_example_native_ios is a realistic example of SDK integration in a React Native component within a Swift app.
 
-There have so far been no API changes in 2.0.0.
+### JS API changes
+
+Added missing `AddToCartEvent`, which was listed in the docs but not present in the SDK.
+
+### iOS API changes
+
+An `RNBranchLinkOpenedNotification` was added to allow link routing in native apps that integrate `react-native-branch`.
+See testbed_native_ios and webview_example_native_ios for examples.
+
+### Android API changes
+
+An overload of `Branch.initSession` was introduced that accepts a `Branch.BranchUniversalReferralInitListener` to allow link routing in native apps that integrate `react-native-branch`. An `RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT` local broadcast is also available for the same purpose. See testbed_native_android for an example.
 
 ## SDK Integration
 
@@ -37,7 +52,7 @@ There have so far been no API changes in 2.0.0.
 #### Simple
 
 ```bash
-npm install --save react-native-branch@2.0.0-beta.1
+npm install --save react-native-branch@2.0.0-beta.4
 react-native link react-native-branch
 ```
 
@@ -50,6 +65,8 @@ There's no need for CocoaPods or Carthage. The testbed_simple app was built this
 Add both the `react-native-branch` and `Branch-SDK` pods to your Podfile like this:
 ```Ruby
 pod "React", path: "../node_modules/react-native"
+# The following line is necessary with use_frameworks! or RN >= 0.42.
+pod "Yoga", path: "../node_modules/react-native/ReactCommon/yoga"
 pod "react-native-branch", path: "../node_modules/react-native-branch"
 pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"
 ```
@@ -77,6 +94,8 @@ If you added CocoaPods to your project just for the Branch pod, you can remove C
 Replace `pod "Branch"` in your Podfile with `pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"`.
 ```Ruby
 pod "React", path: "../node_modules/react-native"
+# The following line is necessary with use_frameworks! or RN >= 0.42.
+pod "Yoga", path: "../node_modules/react-native/ReactCommon/yoga"
 pod "react-native-branch", path: "../node_modules/react-native-branch"
 pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"
 ```
