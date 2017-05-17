@@ -15,7 +15,6 @@ NSString * const RNBranchLinkOpenedNotificationBranchUniversalObjectKey = @"bran
 NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey = @"link_properties";
 
 static NSDictionary *initSessionWithLaunchOptionsResult;
-static NSURL *sourceUrl;
 static Branch *branchInstance;
 
 static NSString * const IdentFieldName = @"ident";
@@ -62,41 +61,46 @@ RCT_EXPORT_MODULE();
     branchInstance = [Branch getTestInstance];
 }
 
-//Called by AppDelegate.m -- stores initSession result in static variables and raises initSessionFinished event that's captured by the RNBranch instance to emit it to React Native
+//Called by AppDelegate.m -- stores initSession result in static variables and posts RNBranchLinkOpened event that's captured by the RNBranch instance to emit it to React Native
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
-    sourceUrl = launchOptions[UIApplicationLaunchOptionsURLKey];
-
     if (!branchInstance) {
         branchInstance = [Branch getInstance];
     }
+
     [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSMutableDictionary *result = [NSMutableDictionary dictionary];
         if (error) result[RNBranchLinkOpenedNotificationErrorKey] = error;
         if (params) {
             result[RNBranchLinkOpenedNotificationParamsKey] = params;
+            BOOL clickedBranchLink = params[@"+clicked_branch_link"];
 
-            if (params[@"~id"]) {
+            if (clickedBranchLink) {
                 BranchUniversalObject *branchUniversalObject = [BranchUniversalObject getBranchUniversalObjectFromDictionary:params];
                 if (branchUniversalObject) result[RNBranchLinkOpenedNotificationBranchUniversalObjectKey] = branchUniversalObject;
 
                 BranchLinkProperties *linkProperties = [BranchLinkProperties getBranchLinkPropertiesFromDictionary:params];
                 if (linkProperties) result[RNBranchLinkOpenedNotificationLinkPropertiesKey] = linkProperties;
+
+                if (params[@"~referring_link"]) {
+                    result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"~referring_link"]];
+                }
+            }
+            else if (params[@"+non_branch_link"]) {
+                result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"+non_branch_link"]];
             }
         }
-        if (sourceUrl) result[RNBranchLinkOpenedNotificationUriKey] = sourceUrl;
 
         [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:result];
     }];
 }
 
+// TODO: Eliminate these now that sourceUrl is gone.
 + (BOOL)handleDeepLink:(NSURL *)url {
-    sourceUrl = url;
     BOOL handled = [branchInstance handleDeepLink:url];
     return handled;
 }
 
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity {
-    sourceUrl = userActivity.webpageURL;
     return [branchInstance continueUserActivity:userActivity];
 }
 
@@ -135,10 +139,10 @@ RCT_EXPORT_MODULE();
     NSDictionary *params = notification.userInfo[RNBranchLinkOpenedNotificationParamsKey];
 
     initSessionWithLaunchOptionsResult = @{
-                                         RNBranchLinkOpenedNotificationErrorKey: error.localizedDescription ?: NSNull.null,
-                                         RNBranchLinkOpenedNotificationParamsKey: params[@"~id"] ? params : NSNull.null,
-                                         RNBranchLinkOpenedNotificationUriKey: uri.absoluteString ?: NSNull.null
-                                         };
+                                           RNBranchLinkOpenedNotificationErrorKey: error.localizedDescription ?: NSNull.null,
+                                           RNBranchLinkOpenedNotificationParamsKey: params ?: NSNull.null,
+                                           RNBranchLinkOpenedNotificationUriKey: uri.absoluteString ?: NSNull.null
+                                           };
 
     // If there is an error, fire error event
     if (error) {
@@ -171,7 +175,7 @@ RCT_EXPORT_MODULE();
                                          userInfo:@{IdentFieldName : ident,
                                                     NSLocalizedDescriptionKey: errorMessage
                                                     }];
-        
+
         reject(@"RNBranch::Error::BUONotFound", errorMessage, error);
     }
     
@@ -185,7 +189,7 @@ RCT_EXPORT_METHOD(
                   redeemInitSessionResult:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
-    resolve(initSessionWithLaunchOptionsResult ? initSessionWithLaunchOptionsResult : [NSNull null]);
+    resolve(initSessionWithLaunchOptionsResult ?: [NSNull null]);
 }
 
 #pragma mark setDebug
