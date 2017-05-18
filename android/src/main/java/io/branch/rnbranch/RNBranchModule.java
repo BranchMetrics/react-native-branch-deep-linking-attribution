@@ -25,6 +25,8 @@ import io.branch.indexing.*;
 import org.json.*;
 
 import java.lang.ref.WeakReference;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -79,10 +81,22 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
                 Log.d(REACT_CLASS, "onInitFinished");
                 JSONObject result = new JSONObject();
+                Uri referringUri = null;
                 try{
-                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS, referringParams != null && referringParams.has("~id") ? referringParams : JSONObject.NULL);
+                    final boolean clickedBranchLink = referringParams.getBoolean("+clicked_branch_link");
+                    String referringLink;
+                    if (clickedBranchLink) {
+                        referringLink = referringParams.getString("~referring_link");
+                    }
+                    else {
+                        referringLink = referringParams.getString("+non_branch_link");
+                    }
+
+                    if (referringLink != null) referringUri = Uri.parse(referringLink);
+
+                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS, referringParams);
                     result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR, error != null ? error.getMessage() : JSONObject.NULL);
-                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, uri != null ? uri.toString() : JSONObject.NULL);
+                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, referringLink != null ? referringLink : JSONObject.NULL);
                 } catch(JSONException ex) {
                     try {
                         result.put("error", "Failed to convert result to JSONObject: " + ex.getMessage());
@@ -97,7 +111,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                     Branch.BranchUniversalReferralInitListener listener = initListener.get();
                     if (listener != null) listener.onInitFinished(branchUniversalObject, linkProperties, error);
                 }
-                generateLocalBroadcast(referringParams, uri, branchUniversalObject, linkProperties, error);
+                generateLocalBroadcast(referringParams, referringUri, branchUniversalObject, linkProperties, error);
             }
 
             private Branch.BranchReferralInitListener init(Activity activity) {
