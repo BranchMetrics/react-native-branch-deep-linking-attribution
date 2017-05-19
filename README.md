@@ -86,9 +86,8 @@ import branch, {
 } from 'react-native-branch'
 
 // Subscribe to incoming links (both Branch & non-Branch)
-// bundle = object with: {params, error, uri}
-branch.subscribe((bundle) => {
-  if (bundle && bundle.params && !bundle.error) {
+branch.subscribe(({ error, params }) => {
+  if (params && !error) {
   	// grab deep link data and route appropriately.
   }
 })
@@ -125,7 +124,10 @@ let creditHistory = await branch.getCreditHistory()
 ## Linking
 ###### <a id='subscribe'></a>[subscribe(listener)](#subscribe)
 **listener** (function)  
-Adds a change listener. Listener takes 1 argument with the shape `{ params, uri, error}`. The listener will be called for all incoming links. Branch links will have [params](#params), plain deep links will only have a uri.  
+Adds a change listener. Listener takes 1 argument with the shape `{ params, error}`. The listener will be called for all incoming links as well as some other events, like initialization. If `error` is null, the `params` will always be non-null. Non-Branch links will have a `+non_branch_link` parameter. Branch links will have standard parameters. There is
+also a deprecated `uri` parameter that will be removed in a future release. For Branch links, it has the same
+value as the `~referring_link` parameter. For non-Branch links, it has the same value as the `+non_branch_link`
+parameter.
 
 ###### <a id='getlatestreferringparams'></a>[getLatestReferringParams(): Promise](#getlatestreferringparams)
 Returns a promise that resolves to the most recent referring [params](#params). Because params come in asynchronously, in most cases it is better to use the `subscribe` method to receive the params as soon as they are available.
