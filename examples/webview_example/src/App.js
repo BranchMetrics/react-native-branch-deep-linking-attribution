@@ -11,15 +11,11 @@ export default class App extends Component {
   navigator = null
 
   componentWillMount() {
-    this._unsubscribeFromBranch = branch.subscribe(({ error, params, uri }) => {
+    this._unsubscribeFromBranch = branch.subscribe(({ error, params }) => {
       if (error) {
         console.error("Error opening Branch link: " + error)
         return
       }
-
-      if (uri) console.log(uri + " opened via Branch")
-
-      if (!params) return
 
       console.log("Branch link params: " + JSON.stringify(params))
 
