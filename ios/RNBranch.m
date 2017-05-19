@@ -57,6 +57,11 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - Class methods
 
++ (void)setDebug
+{
+    [branchInstance setDebug];
+}
+
 + (void)useTestInstance {
     branchInstance = [Branch getTestInstance];
 }

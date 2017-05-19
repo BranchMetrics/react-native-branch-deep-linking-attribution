@@ -167,6 +167,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }.init(reactActivity), uri, reactActivity);
     }
 
+    public static void setDebug() {
+        mBranch.setDebug();
+    }
+
     public RNBranchModule(ReactApplicationContext reactContext) {
         super(reactContext);
         forwardInitSessionFinishedEventToReactNative(reactContext);

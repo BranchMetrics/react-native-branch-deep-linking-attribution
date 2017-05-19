@@ -14,5 +14,6 @@ extern NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey;
 + (BOOL)handleDeepLink:(NSURL *)url;
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity;
 + (void)useTestInstance;
++ (void)setDebug;
 
 @end
