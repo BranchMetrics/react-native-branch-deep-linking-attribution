@@ -85,7 +85,7 @@ class Branch {
   }
 
   /*** RNBranch singleton methods ***/
-  setDebug = RNBranch.setDebug
+  setDebug = () => { throw "setDebug() is not supported in the RN SDK. For a solution in native code, please see https://github.com/BranchMetrics/react-native-branch-deep-linking/blob/master/docs/setDebug.md." }
   getLatestReferringParams = RNBranch.getLatestReferringParams
   getFirstReferringParams = RNBranch.getFirstReferringParams
   setIdentity = (identity) => RNBranch.setIdentity(identity)

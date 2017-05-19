@@ -178,7 +178,7 @@ RCT_EXPORT_MODULE();
 
         reject(@"RNBranch::Error::BUONotFound", errorMessage, error);
     }
-    
+
     return universalObject;
 }
 
@@ -190,13 +190,6 @@ RCT_EXPORT_METHOD(
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
     resolve(initSessionWithLaunchOptionsResult ?: [NSNull null]);
-}
-
-#pragma mark setDebug
-RCT_EXPORT_METHOD(
-                  setDebug
-                  ) {
-    [branchInstance setDebug];
 }
 
 #pragma mark getLatestReferringParams
