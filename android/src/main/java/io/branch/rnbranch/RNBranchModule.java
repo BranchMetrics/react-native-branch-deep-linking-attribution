@@ -58,7 +58,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static WeakReference<Branch.BranchUniversalReferralInitListener> initListener = null;
 
     private static Activity mActivity = null;
-    private static Branch mBranch = null;
+    private static boolean mUseDebug = false;
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
@@ -68,9 +68,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     public static void initSession(final Uri uri, Activity reactActivity) {
-        mBranch = Branch.getInstance(reactActivity.getApplicationContext());
+        Branch branch = Branch.getInstance(reactActivity.getApplicationContext());
+
+        if (mUseDebug) branch.setDebug();
+
         mActivity = reactActivity;
-        mBranch.initSession(new Branch.BranchReferralInitListener(){
+        branch.initSession(new Branch.BranchReferralInitListener(){
 
             private Activity mmActivity = null;
 
@@ -168,7 +171,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     public static void setDebug() {
-        mBranch.setDebug();
+        mUseDebug = true;
     }
 
     public RNBranchModule(ReactApplicationContext reactContext) {
