@@ -25,8 +25,6 @@ import io.branch.indexing.*;
 import org.json.*;
 
 import java.lang.ref.WeakReference;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
