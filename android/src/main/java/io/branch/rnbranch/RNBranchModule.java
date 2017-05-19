@@ -81,13 +81,31 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 JSONObject result = new JSONObject();
                 Uri referringUri = null;
                 try{
-                    final boolean clickedBranchLink = referringParams.getBoolean("+clicked_branch_link");
-                    String referringLink;
+                    boolean clickedBranchLink = false;
+                    // getXXX throws. It's OK for these to be missing.
+                    try {
+                        clickedBranchLink = referringParams.getBoolean("+clicked_branch_link");
+                    }
+                    catch (JSONException e) {
+
+                    }
+
+                    String referringLink = null;
                     if (clickedBranchLink) {
-                        referringLink = referringParams.getString("~referring_link");
+                        try {
+                            referringLink = referringParams.getString("~referring_link");
+                        }
+                        catch (JSONException e) {
+
+                        }
                     }
                     else {
-                        referringLink = referringParams.getString("+non_branch_link");
+                        try {
+                            referringLink = referringParams.getString("+non_branch_link");
+                        }
+                        catch (JSONException e) {
+
+                        }
                     }
 
                     if (referringLink != null) referringUri = Uri.parse(referringLink);
