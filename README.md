@@ -11,7 +11,7 @@ This is a repository of our open source React Native SDK. Huge shoutout to our f
 
 [Release 2.0.0]: ./docs/Release-2.0.0.md
 
-Version 2.0.0-beta.4 is now available in NPM with a simplified SDK integration process. See [Release 2.0.0] for details.
+Version 2.0.0-beta.5 is now available in NPM with a simplified SDK integration process. See [Release 2.0.0] for details.
 
 **v1.1.0** The `createBranchUniversalObject` method is now async, so be sure to use `await` or handle the promise resolution, e.g.
 ```js

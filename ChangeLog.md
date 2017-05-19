@@ -118,3 +118,14 @@
     Swift support.
   * Improvements to webview_example_native_ios to take advantage of full Swift support.
   * Includes native SDKs 0.14.12 (iOS), 2.6.1 (Android).
+
+2017-05-19  Version 2.0.0-beta.5
+
+  * This release disables the unsupportable `setDebug()` method and provides new native methods to
+    take its place. See https://rnbranch.app.link/hGj7E61EhD for details.
+  * Removed the filter in the native layers that was passing null `params` to the `branch.subscribe` callback.
+    Now `params` will never be null in the callback. Non-Branch links are
+    available using the `+non_branch_link` parameter, like the rest of Branch's SDKs. See in particular the
+    webview_example for updated usage. The `uri` parameter still exists, and its behavior is largely unchanged, but
+    it should now be considered deprecated and will be removed in a future release.
+  * Includes native SDKs 0.14.12 (iOS), 2.8.0 (Android).

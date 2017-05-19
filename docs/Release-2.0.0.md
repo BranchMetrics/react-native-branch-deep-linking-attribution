@@ -22,8 +22,10 @@ Further plans for 2.0.0:
 
 ## Changes
 
+### Building, configuration and examples
+
 - The native iOS SDK source (version 0.14.12) is now included in the RNBranch project and is no longer a required external dependency.
-- A jar file (version 2.6.1) is included for the Android SDK.
+- A jar file (version 2.8.0) is included for the Android SDK.
 - A Branch-SDK podspec is included in the NPM module for use in native apps that use the React pod from node_modules.
 - Five new testbed apps are available:
   + testbed_simple illustrates the simplest way to integrate the SDK using `react-native link`.
@@ -34,7 +36,14 @@ Further plans for 2.0.0:
 
 ### JS API changes
 
-Added missing `AddToCartEvent`, which was listed in the docs but not present in the SDK.
+- Added missing `AddToCartEvent`, which was listed in the docs but not present in the SDK.
+- Disabled `setDebug()`, which has never worked and is unsupportable. See https://rnbranch.app.link/hGj7E61EhD
+  for details.
+- Removed the filter in the native layers that was passing null `params` to the `branch.subscribe` callback.
+  Now `params` will never be null in the callback. Non-Branch links are
+  available using the `+non_branch_link` parameter, like the rest of Branch's SDKs. See in particular the
+  webview_example for updated usage. The `uri` parameter still exists, and its behavior is largely unchanged, but
+  it should now be considered deprecated and will be removed in a future release.
 
 ### iOS API changes
 
@@ -52,7 +61,7 @@ An overload of `Branch.initSession` was introduced that accepts a `Branch.Branch
 #### Simple
 
 ```bash
-npm install --save react-native-branch@2.0.0-beta.4
+npm install --save react-native-branch@2.0.0-beta.5
 react-native link react-native-branch
 ```
 
