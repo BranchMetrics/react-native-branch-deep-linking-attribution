@@ -2,7 +2,7 @@ import branch from 'react-native-branch'
 
 console.info("Subscribing to Branch links")
 
-branch.subscribe(({ error, params, uri }) => {
+branch.subscribe(({ error, params }) => {
   if (error) {
     console.error("Error from Branch: " + error)
     return
@@ -11,6 +11,4 @@ branch.subscribe(({ error, params, uri }) => {
   console.info("Received link response from Branch")
 
   console.log("params: " + JSON.stringify(params))
-
-  console.log("URI: " + uri)
 })
