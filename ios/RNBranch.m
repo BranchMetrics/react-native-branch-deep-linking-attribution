@@ -70,6 +70,7 @@ RCT_EXPORT_MODULE();
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
     if (!branchInstance) {
         branchInstance = [Branch getInstance];
+	[branchInstance delayInitToCheckForSearchAds];
     }
 
     [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
