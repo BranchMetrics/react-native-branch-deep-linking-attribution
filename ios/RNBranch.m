@@ -57,9 +57,35 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - Class methods
 
++ (void)setupInstance
+{
+    if (!branchInstance) {
+        branchInstance = [Branch getInstance];
+    }
+}
+
 + (void)setDebug
 {
+    [self setupInstance];
     [branchInstance setDebug];
+}
+
++ (void)delayInitToCheckForSearchAds
+{
+    [self setupInstance];
+    [branchInstance delayInitToCheckForSearchAds];
+}
+
++ (void)setAppleSearchAdsDebugMode
+{
+    [self setupInstance];
+    [branchInstance setAppleSearchAdsDebugMode];
+}
+
++ (void)setRequestMetadataKey:(NSString *)key value:(NSObject *)value
+{
+    [self setupInstance];
+    [branchInstance setRequestMetadataKey:key value:value];
 }
 
 + (void)useTestInstance {
@@ -68,9 +94,7 @@ RCT_EXPORT_MODULE();
 
 //Called by AppDelegate.m -- stores initSession result in static variables and posts RNBranchLinkOpened event that's captured by the RNBranch instance to emit it to React Native
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
-    if (!branchInstance) {
-        branchInstance = [Branch getInstance];
-    }
+    [self setupInstance];
 
     [branchInstance initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSMutableDictionary *result = [NSMutableDictionary dictionary];
