@@ -8,7 +8,8 @@
     "docs",
     "android",
     "ios",
-    "react-native-branch.podspec"
+    "react-native-branch.podspec",
+    "scripts"
   ],
   "scripts": {
     "lint": "eslint src test",
@@ -75,5 +76,10 @@
     "react-native-mock": "^0.3.0",
     "sinon": "*",
     "underscore": "*"
+  },
+  "rnpm": {
+    "commands": {
+      "postlink": "node ./node_modules/react-native-branch/scripts/addBranchConfig.js"
+    }
   }
 }
