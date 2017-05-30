@@ -1,6 +1,6 @@
 {
   "name": "react-native-branch",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.6",
   "summary": "Branch Metrics React Native SDK",
   "requires_arc": true,
   "authors": {
@@ -8,7 +8,7 @@
     "Jimmy Dee": "jgvdthree@gmail.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/BranchMetrics/react-native-branch",
+  "homepage": "https://github.com/BranchMetrics/react-native-branch-deep-linking",
   "platforms": {
     "ios": "7.0"
   },
