@@ -1,13 +1,13 @@
 PODS:
-  - Branch-SDK (0.14.12):
-    - Branch-SDK/Core (= 0.14.12)
-    - Branch-SDK/without-IDFA (= 0.14.12)
-  - Branch-SDK/Core (0.14.12)
-  - Branch-SDK/without-IDFA (0.14.12)
+  - Branch-SDK (0.15.3):
+    - Branch-SDK/Core (= 0.15.3)
+    - Branch-SDK/without-IDFA (= 0.15.3)
+  - Branch-SDK/Core (0.15.3)
+  - Branch-SDK/without-IDFA (0.15.3)
   - Cartography (1.1.0)
   - React (0.42.3):
     - React/Core (= 0.42.3)
-  - react-native-branch (2.0.0-beta.3):
+  - react-native-branch (2.0.0-beta.6):
     - Branch-SDK
     - React
   - React/Core (0.42.3):
@@ -54,10 +54,10 @@ EXTERNAL SOURCES:
     :path: node_modules/react-native/ReactCommon/yoga
 
 SPEC CHECKSUMS:
-  Branch-SDK: 8a59b08daa0b283cd1bf0fd4842a521885e35ae6
+  Branch-SDK: 07641c651b8cf3aaee9e250785377e37a2099950
   Cartography: '0538ccb4044acbbda2266335fc58cb4228794d90'
   React: 35e039680feacd0563677d49ba410112d2748559
-  react-native-branch: 55612ff46bcddee14cd40eb654f8fdb81ebc69b8
+  react-native-branch: 986b869e807976b340d7e799b32d09c82afc5cde
   TextAttributes: 45b2713a1d174c377d320b51129c304eac381638
   Yoga: 86ce777665c8259b94ef8dbea76b84634237f4ea
 
