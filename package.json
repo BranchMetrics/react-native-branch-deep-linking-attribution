@@ -1,6 +1,6 @@
 {
   "name": "react-native-branch",
-  "version": "2.0.0-beta.6",
+  "version": "2.0.0-beta.7",
   "description": "Branch Metrics React Native SDK",
   "main": "src/index.js",
   "files": [
