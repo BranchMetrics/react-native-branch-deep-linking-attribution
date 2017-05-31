@@ -129,3 +129,9 @@
     webview_example for updated usage. The `uri` parameter still exists, and its behavior is largely unchanged, but
     it should now be considered deprecated and will be removed in a future release.
   * Includes native SDKs 0.14.12 (iOS), 2.8.0 (Android).
+
+2017-05-30  Version 2.0.0-beta.6
+
+  * This release adds some native wrapper methods to simplify certain native code changes that cannot
+    be supported in JS.
+  * Includes native SDKs 0.15.3 (iOS), 2.8.0 (Android).

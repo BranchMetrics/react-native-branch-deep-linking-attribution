@@ -61,7 +61,7 @@ An overload of `Branch.initSession` was introduced that accepts a `Branch.Branch
 #### Simple
 
 ```bash
-npm install --save react-native-branch@2.0.0-beta.5
+npm install --save react-native-branch@2.0.0-beta.6
 react-native link react-native-branch
 ```
 
