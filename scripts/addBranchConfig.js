@@ -26,15 +26,19 @@ function addBranchConfigToProjects(projectName) {
       return
     }
 
-    // path relative to project
-    file = project.addFile('$(SRCROOT)/../../branch.json', projectName)
-    if (!file) {
-      console.error('Failed to add file to project')
+    var groupKey = getGroupKeyByName(project, projectName)
+    if (!groupKey) {
+      console.error('Could not find key for group ' + projectName)
       return
     }
 
-    // doesn't work (assumes Resources group. either have to create it or find a different way.)
-    // project.addToPbxResourcesBuildPhase(file)
+    // path relative to group
+    file = project.addFile('../branch.json', groupKey)
+    if (!file) {
+      // TODO: Can get here if the file is already in the project
+      console.error('Failed to add file to project')
+      return
+    }
 
     console.log('added file to project: ' + JSON.stringify(file))
 
@@ -47,4 +51,17 @@ function addBranchConfigToProjects(projectName) {
   })
 }
 
+function getGroupKeyByName(project, groupName) {
+  var objects = project.hash.project.objects['PBXGroup']
+  var groupKey = null
+  for (var key in objects) {
+    var name = objects[key].name
+    if (name != groupName) continue
+    groupKey = key
+    break
+  }
+  return groupKey
+}
+
+// TODO: Get project name
 addBranchConfigToProjects('TestProject')
