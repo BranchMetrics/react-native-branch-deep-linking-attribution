@@ -40,7 +40,12 @@ function addBranchConfigToProjects(projectName) {
       return
     }
 
-    console.log('added file to project: ' + JSON.stringify(file))
+    file.uuid = project.generateUuid()
+    file.target = getTargetKeyByName(project, projectName)
+    correctForPath(file, project, projectName)
+
+    project.addToPbxBuildFileSection(file)
+    project.addToPbxResourcesBuildPhase(file)
 
     if (fs.writeFileSync(projectPbxprojName, project.writeSync()) <= 0) {
       console.error('error writing updated project')
@@ -61,6 +66,29 @@ function getGroupKeyByName(project, groupName) {
     break
   }
   return groupKey
+}
+
+function getTargetKeyByName(project, targetName) {
+  var targets = project.pbxNativeTargetSection()
+  console.log('Found targets ' + JSON.stringify(targets))
+  var targetKey = null
+  for (var key in targets) {
+    var name = targets[key].name
+    if (name != targetName) continue
+    targetKey = key
+    break
+  }
+
+  return targetKey
+}
+
+function correctForPath(file, project, group) {
+    var r_group_dir = new RegExp('^' + group + '[\\\\/]');
+
+    if (project.pbxGroupByName(group).path)
+        file.path = file.path.replace(r_group_dir, '');
+
+    return file;
 }
 
 // TODO: Get project name
