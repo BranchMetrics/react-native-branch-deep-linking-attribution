@@ -70,7 +70,6 @@ function getGroupKeyByName(project, groupName) {
 
 function getTargetKeyByName(project, targetName) {
   var targets = project.pbxNativeTargetSection()
-  console.log('Found targets ' + JSON.stringify(targets))
   var targetKey = null
   for (var key in targets) {
     var name = targets[key].name
