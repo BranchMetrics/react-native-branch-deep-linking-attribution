@@ -15,12 +15,6 @@ function removeBranchConfigFromProjects(projectName) {
       return
     }
 
-    var groupKey = util.getGroupKeyByName(project, projectName)
-    if (!groupKey) {
-      console.error('Could not find key for group ' + projectName)
-      return
-    }
-
     var file = project.removeFile('../branch.json', {})
     if (!file) {
       console.warn('Did not find branch.json in project')
@@ -28,6 +22,12 @@ function removeBranchConfigFromProjects(projectName) {
 
     file.target = util.getTargetKeyByName(project, projectName)
     util.correctForPath(file, project, projectName)
+
+    var groupKey = util.getGroupKeyByName(project, projectName)
+    if (!groupKey) {
+      console.error('Could not find key for group ' + projectName)
+      return
+    }
 
     project.removeFromPbxBuildFileSection(file)
     project.removeFromPbxResourcesBuildPhase(file)
