@@ -1,26 +1,19 @@
 function getGroupKeyByName(project, groupName) {
   var objects = project.hash.project.objects['PBXGroup']
-  var groupKey = null
   for (var key in objects) {
     var name = objects[key].name
-    if (name != groupName) continue
-    groupKey = key
-    break
+    if (name == groupName) return key
   }
-  return groupKey
+  return null
 }
 
 function getTargetKeyByName(project, targetName) {
   var targets = project.pbxNativeTargetSection()
-  var targetKey = null
   for (var key in targets) {
     var name = targets[key].name
-    if (name != targetName) continue
-    targetKey = key
-    break
+    if (name == targetName) return key
   }
-
-  return targetKey
+  return null
 }
 
 function correctForPath(file, project, group) {
