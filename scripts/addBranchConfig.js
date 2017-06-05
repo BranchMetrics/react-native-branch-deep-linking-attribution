@@ -1,5 +1,3 @@
-// var addFileToProject = require('react-native/local-cli/link/ios/addFileToProject')
-// var getGroup = require('react-native/local-cli/link/ios/getGroup')
 var fs = require('fs')
 var util = require('./util')
 var xcode = require('xcode')

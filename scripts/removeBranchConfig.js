@@ -18,6 +18,7 @@ function removeBranchConfigFromProjects(projectName) {
     var file = project.removeFile('../branch.json', {})
     if (!file) {
       console.warn('Did not find branch.json in project')
+      return
     }
 
     file.target = util.getTargetKeyByName(project, projectName)
