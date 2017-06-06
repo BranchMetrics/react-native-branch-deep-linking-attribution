@@ -839,6 +839,11 @@
 		B3A3CC401C5B0A070016AC52 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(CARTHAGE_ROOT)/Build/iOS",
+					"$(PODS_CONFIGURATION_BUILD_DIR)/Branch",
+					"$(SRCROOT)/../../../ios",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "react-native-branch";
 				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/$(PRODUCT_NAME)";
@@ -848,6 +853,11 @@
 		B3A3CC411C5B0A070016AC52 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(CARTHAGE_ROOT)/Build/iOS",
+					"$(PODS_CONFIGURATION_BUILD_DIR)/Branch",
+					"$(SRCROOT)/../../../ios",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "react-native-branch";
 				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/$(PRODUCT_NAME)";
