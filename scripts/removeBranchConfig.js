@@ -3,10 +3,10 @@ var util = require('./util')
 var xcode = require('xcode')
 
 function removeBranchConfigFromProjects(projectName) {
+  util.removeBranchJsonFromAndroidAssetsFolder()
+
   var xcodeprojName = './ios/' + projectName + '.xcodeproj'
   var projectPbxprojName = xcodeprojName + '/project.pbxproj'
-
-  console.log('updating project ' + xcodeprojName)
 
   var project = xcode.project(projectPbxprojName)
   project.parse(function(error) {

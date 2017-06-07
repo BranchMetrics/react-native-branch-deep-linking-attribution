@@ -114,10 +114,31 @@ function ensureAndroidAssetsFolder(callback) {
   }
 }
 
+function removeBranchJsonFromAndroidAssetsFolder() {
+  var branchJsonPath = './android/app/src/main/assets/branch.json'
+  try {
+    var stats = fs.lstatSync(branchJsonPath)
+  }
+  catch (error) {
+    if (error.code != 'ENOENT') throw error
+    // Not present. Quietly do nothing.
+    return
+  }
+
+  if (!stats.isSymbolicLink()) {
+    console.warn(branchJsonPath + ' is not a symbolic link. Not removing.')
+    return
+  }
+
+  fs.unlink(branchJsonPath)
+  console.log('removed branch.json from Android project.')
+}
+
 module.exports = {
   addBranchJsonToAndroidAssetsFolder: addBranchJsonToAndroidAssetsFolder,
   correctForPath: correctForPath,
   findXcodeProjectName: findXcodeProjectName,
   getGroupKeyByName: getGroupKeyByName,
-  getTargetKeyByName: getTargetKeyByName
+  getTargetKeyByName: getTargetKeyByName,
+  removeBranchJsonFromAndroidAssetsFolder: removeBranchJsonFromAndroidAssetsFolder
 }

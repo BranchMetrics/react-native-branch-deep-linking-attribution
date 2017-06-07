@@ -4,19 +4,14 @@ var xcode = require('xcode')
 
 function addBranchConfigToProjects(projectName) {
   if (!fs.existsSync('./branch.json')) {
-    console.log('branch.json does not exist')
     return
   }
-
-  console.log('branch.json found')
 
   util.addBranchJsonToAndroidAssetsFolder()
 
   // add to Xcode project files to be included in bundle
   var xcodeprojName = './ios/' + projectName + '.xcodeproj'
   var projectPbxprojName = xcodeprojName + '/project.pbxproj'
-
-  console.log('updating project ' + xcodeprojName)
 
   var project = xcode.project(projectPbxprojName)
   project.parse(function(error) {
