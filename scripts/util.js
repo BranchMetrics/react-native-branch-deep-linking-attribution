@@ -91,7 +91,7 @@ function addBranchJsonToAndroidAssetsFolder() {
   }
 }
 
-function ensureAndroidAssetsFolder(callback) {
+function ensureAndroidAssetsFolder() {
   var srcDir = './android/app/src/main'
   var assetsDir = srcDir + '/assets'
 
