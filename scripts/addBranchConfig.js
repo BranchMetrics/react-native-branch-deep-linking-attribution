@@ -55,5 +55,10 @@ function addBranchConfigToProjects(projectName) {
   })
 }
 
-// TODO: Get project name
-addBranchConfigToProjects('TestProject')
+var projectName = util.findXcodeProjectName()
+if (!projectName) {
+  console.error('could not find an Xcode project')
+  return
+}
+
+addBranchConfigToProjects(projectName)

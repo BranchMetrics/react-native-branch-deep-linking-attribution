@@ -43,4 +43,10 @@ function removeBranchConfigFromProjects(projectName) {
   })
 }
 
-removeBranchConfigFromProjects('TestProject')
+var projectName = util.findXcodeProjectName()
+if (!projectName) {
+  console.error('could not find an Xcode project')
+  return
+}
+
+removeBranchConfigFromProjects(projectName)
