@@ -5,6 +5,7 @@
 #import "BranchLinkProperties+RNBranch.h"
 #import "BranchUniversalObject+RNBranch.h"
 #import "RNBranchAgingDictionary.h"
+#import "RNBranchConfig.h"
 #import "RNBranchEventEmitter.h"
 
 NSString * const RNBranchLinkOpenedNotification = @"RNBranchLinkOpenedNotification";
@@ -60,7 +61,14 @@ RCT_EXPORT_MODULE();
 + (void)setupInstance
 {
     if (!branchInstance) {
+        RNBranchConfig *config = [RNBranchConfig instance];
+
         branchInstance = [Branch getInstance];
+
+        if (config.debugMode) {
+            RCTLog(@"debugMode set in branch.json. Calling setDebug.");
+            [branchInstance setDebug];
+        }
     }
 }
 
