@@ -10,7 +10,7 @@ function addBranchConfigToProjects(projectName) {
 
   console.log('branch.json found')
 
-  // TODO: symlink into Android project
+  util.addBranchJsonToAndroidAssetsFolder()
 
   // add to Xcode project files to be included in bundle
   var xcodeprojName = './ios/' + projectName + '.xcodeproj'
