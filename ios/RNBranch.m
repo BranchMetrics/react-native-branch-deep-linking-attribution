@@ -44,7 +44,21 @@ RCT_EXPORT_MODULE();
     static Branch *instance;
     static dispatch_once_t once = 0;
     dispatch_once(&once, ^{
-        instance = useTestInstance ? [Branch getTestInstance] : [Branch getInstance];
+        RNBranchConfig *config = RNBranchConfig.instance;
+
+        // YES if either [RNBranch useTestInstance] was called or useTestInstance: true is present in branch.json.
+        BOOL usingTestInstance = useTestInstance || config.useTestInstance;
+        NSString *key = usingTestInstance ? config.testKey : config.liveKey;
+
+        if (key) {
+            // Override the Info.plist if these are present.
+            RCTLog(@"Using Branch key %@ from branch.json", key);
+            instance = [Branch getInstance: key];
+        }
+        else {
+            instance = usingTestInstance ? [Branch getTestInstance] : [Branch getInstance];
+        }
+
         [self setupBranchInstance:instance];
     });
     return instance;
@@ -52,7 +66,8 @@ RCT_EXPORT_MODULE();
 
 + (void)setupBranchInstance:(Branch *)instance
 {
-    if (RNBranchConfig.instance.debugMode) {
+    RNBranchConfig *config = RNBranchConfig.instance;
+    if (config.debugMode) {
         [instance setDebug];
     }
 }

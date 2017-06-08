@@ -11,6 +11,9 @@
 #import "RNBranchConfig.h"
 
 NSString * _Nonnull const RNBranchConfigDebugModeOption = @"debugMode";
+NSString * _Nonnull const RNBranchConfigLiveKeyOption = @"liveKey";
+NSString * _Nonnull const RNBranchConfigTestKeyOption = @"testKey";
+NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstance";
 
 @interface RNBranchConfig()
 @property (nonatomic) NSDictionary *configuration;
@@ -70,6 +73,22 @@ NSString * _Nonnull const RNBranchConfigDebugModeOption = @"debugMode";
 {
     NSNumber *number = self[RNBranchConfigDebugModeOption];
     return number.boolValue;
+}
+
+- (BOOL)useTestInstance
+{
+    NSNumber *number = self[RNBranchConfigUseTestInstanceOption];
+    return number.boolValue;
+}
+
+- (NSString *)liveKey
+{
+    return self[RNBranchConfigLiveKeyOption];
+}
+
+- (NSString *)testKey
+{
+    return self[RNBranchConfigTestKeyOption];
 }
 
 - (id)objectForKey:(NSString *)key
