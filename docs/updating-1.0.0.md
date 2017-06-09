@@ -1,10 +1,26 @@
 # Updating to 1.0.0
 
+## Branch API changes
+
+The method `createBranchUniversalObject` no longer returns an object as in react-native-branch version 0.9.x, instead it returns a **promise**.
+
+Change your code to handle the promise returned.
+
+```Javascript
+// Version 0.9.x
+let branchUniversalObject = branch.createBranchUniversalObject('canonicalIdentifier', {metadata: {prop1: 'test', prop2: 'abc'}, title: 'Cool Content!', contentDescription: 'Cool Content Description'}
+
+// Version 1.1.0
+let branchUniversalObject = await branch.createBranchUniversalObject('canonicalIdentifier', {metadata: {prop1: 'test', prop2: 'abc'}, title: 'Cool Content!', contentDescription: 'Cool Content Description'}
+```
+
+## React changes
+
 Version 1.0.0 of react-native-branch requires version 0.40.0 or later
 of react-native. You will need to make some changes to the native iOS
 project in order to build:
 
-## Imports
+### Imports
 
 Change `#import "RNBranch.h"` to `#import <react-native-branch/RNBranch.h>`
 in AppDelegate.m. The native React library also requires similar changes for
@@ -15,7 +31,7 @@ headers, for example:
 #import <react-native-branch/RNBranch.h>
 ```
 
-## Library name
+### Library name
 
 Change the name of the library in Linked Frameworks and Libraries to
 `libreact-native-branch.a` instead of `libRNBranch.a`:
