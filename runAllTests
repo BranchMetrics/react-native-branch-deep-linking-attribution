@@ -20,6 +20,7 @@ fi
 PATH=${PATH}:/usr/local/bin
 
 if [[ -s "`which yarn`" ]] ; then
+  HAVE_YARN=1
   yarn
 else
   echo "yarn not detected. Using npm install."
@@ -30,7 +31,13 @@ bundle install
 
 bundle exec fastlane test_android
 bundle exec fastlane test_ios
-npm run lint
-npm test
+
+if [[ "$HAVE_YARN" = 1 ]] ; then
+  yarn lint
+  yarn test
+else
+  npm run lint
+  npm test
+fi
 
 exit 0
