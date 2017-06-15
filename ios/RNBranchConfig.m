@@ -17,6 +17,8 @@ NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstanc
 
 @interface RNBranchConfig()
 @property (nonatomic) NSDictionary *configuration;
+@property (nonatomic, readonly) NSData *configFileContents;
+@property (nonatomic) NSURL *configFileURL;
 @end
 
 @implementation RNBranchConfig
@@ -35,6 +37,7 @@ NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstanc
 {
     self = [super init];
     if (self) {
+        [self findConfigFile];
         [self loadConfigFile];
     }
     return self;
@@ -42,19 +45,10 @@ NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstanc
 
 - (void)loadConfigFile
 {
-    NSURL *configFileURL = [[NSBundle mainBundle] URLForResource:@"branch" withExtension:@"json"];
-    if (!configFileURL) {
-        RCTLog(@"Could not find branch.json in app bundle.");
-        return;
-    }
+    NSData *data = self.configFileContents;
+    if (!data) return;
 
     NSError *error;
-    NSData *data = [NSData dataWithContentsOfURL:configFileURL options:0 error:&error];
-    if (!data || error) {
-        RCTLogError(@"Failed to load branch.json. Error: %@", error.localizedDescription);
-        return;
-    }
-
     id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     if (!object || error) {
         RCTLogError(@"Failed to parse branch.json. Error: %@", error.localizedDescription);
@@ -67,6 +61,44 @@ NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstanc
     }
 
     self.configuration = object;
+}
+
+- (NSData *)configFileContents
+{
+    if (!self.configFileURL) return nil;
+    RCTLogInfo(@"Loading %@", self.configFileURL.pathComponents.lastObject);
+
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfURL:self.configFileURL options:0 error:&error];
+    if (!data || error) {
+        RCTLogError(@"Failed to load %@. Error: %@", self.configFileURL, error.localizedDescription);
+        return nil;
+    }
+    return data;
+}
+
+- (void)findConfigFile
+{
+    if (self.configFileURL) return;
+
+    NSURL *configFileURL;
+    NSBundle *mainBundle = NSBundle.mainBundle;
+#ifdef DEBUG
+    configFileURL = [mainBundle URLForResource:@"branch.debug" withExtension:@"json"] ?: [mainBundle URLForResource:@"branch" withExtension:@"json"];
+    if (!configFileURL) {
+        RCTLogInfo(@"Could not find branch.debug.json or branch.json in app bundle.");
+        return;
+    }
+#else
+    configFileURL = [mainBundle URLForResource:@"branch" withExtension:@"json"];
+    if (!configFileURL) {
+        // probably suppressed in a Release build anyway
+        RCTLogInfo(@"Could not find branch.json in app bundle.");
+        return;
+    }
+#endif // DEBUG
+
+    self.configFileURL = configFileURL;
 }
 
 - (BOOL)debugMode
