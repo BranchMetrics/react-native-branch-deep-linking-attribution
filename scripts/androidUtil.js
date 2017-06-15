@@ -1,25 +1,35 @@
 var fs = require('fs')
 
 function addBranchConfigToAndroidAssetsFolder() {
-  // throws on failure
-  ensureAndroidAssetsFolder()
+  if (fs.existsSync('./branch.json')) {
+    ensureAndroidAssetsFolder('main')
+    addSymbolicLink('../../../../../branch.json', './android/app/src/main/assets/branch.json')
+  }
 
-  var branchJsonPath = './android/app/src/main/assets/branch.json'
-  var branchJsonLinkPath = '../../../../../branch.json'
+  // branch.debug.json will be available as branch.json in debug builds
+  if (fs.existsSync('./branch.debug.json')) {
+    ensureAndroidAssetsFolder('debug')
+    addSymbolicLink('../../../../../branch.debug.json', './android/app/src/debug/assets/branch.json')
+  }
+
+  console.log('Added Branch configuration to android project')
+}
+
+function addSymbolicLink(linkPath, path) {
   try {
-    var stats = fs.lstatSync(branchJsonPath)
+    var stats = fs.lstatSync(path)
     if (stats && stats.isSymbolicLink()) {
-      var dest = fs.readlinkSync(branchJsonPath)
-      if (dest == branchJsonLinkPath) {
-        console.warn('branch.json already present in Android app')
+      var dest = fs.readlinkSync(path)
+      if (dest == linkPath) {
+        console.warn(path + ' already present in Android app')
         return
       }
 
-      console.error(branchJsonPath + ' is a link to ' + branchJsonLinkPath + '.')
+      console.error(path + ' is a link to ' + linkPath + '.')
       return
     }
     if (stats) {
-      console.error(branchJsonPath + ' exists and is not a symbolic link.')
+      console.error(path + ' exists and is not a symbolic link.')
       return
     }
   }
@@ -29,32 +39,42 @@ function addBranchConfigToAndroidAssetsFolder() {
     // ./android/app/src/main/assets exists and is a directory.
     // ./android/app/src/main/assets/branch.json does not exist.
     // create the symlink
-    fs.symlinkSync(branchJsonLinkPath, branchJsonPath)
-    console.log('Added branch.json to Android project.')
+    fs.symlinkSync(linkPath, path)
   }
 }
 
-function ensureAndroidAssetsFolder() {
-  var srcDir = './android/app/src/main'
-  var assetsDir = srcDir + '/assets'
+function ensureAndroidAssetsFolder(buildType) {
+  ensureDirectory('./android/app/src/' + buildType + '/assets')
+}
 
+function ensureDirectory(path) {
+  console.log('verifying existence of directory ' + path)
   try {
-    var stats = fs.statSync(assetsDir)
-    if (!stats.isDirectory()) {
-      throw(assetsDir + ' exists and is not a directory.')
-    }
-  }
-  catch (error) {
-    if (error.code != 'ENOENT') throw error
-
-    var stats = fs.statSync(srcDir)
+    var stats = fs.statSync(path)
 
     if (!stats.isDirectory()) {
       throw(srcDir + ' exists and is not a directory.')
     }
 
-    fs.mkdirSync(assetsDir, 0o777)
+    console.log(path + ' exists and is a directory')
   }
+  catch (error) {
+    if (error.code != 'ENOENT') throw error
+
+    var parent = dirname(path)
+    console.log(path + ' does not exist. parent is ' + parent)
+
+    var parent = dirname(path)
+    if (parent !== path) ensureDirectory(parent)
+
+    fs.mkdirSync(path, 0o777)
+  }
+}
+
+function dirname(path) {
+  if (!path.match(/\//)) return path
+
+  return /^(.*)\/[^/]+$/.exec(path)[1]
 }
 
 function removeBranchConfigFromAndroidAssetsFolder() {
