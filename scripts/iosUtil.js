@@ -2,7 +2,7 @@ var fs = require('fs')
 var xcode = require('xcode')
 
 function addBranchConfigToXcodeProject() {
-  var projectName = util.findXcodeProjectName()
+  var projectName = findXcodeProjectName()
   if (!projectName) {
     console.error('could not find an Xcode project')
     return
@@ -19,7 +19,7 @@ function addBranchConfigToXcodeProject() {
       return
     }
 
-    var groupKey = util.getGroupKeyByName(project, projectName)
+    var groupKey = getGroupKeyByName(project, projectName)
     if (!groupKey) {
       console.error('Could not find key for group ' + projectName)
       return
@@ -34,8 +34,8 @@ function addBranchConfigToXcodeProject() {
     }
 
     file.uuid = project.generateUuid()
-    file.target = util.getTargetKeyByName(project, projectName)
-    util.correctForPath(file, project, projectName)
+    file.target = getTargetKeyByName(project, projectName)
+    correctForPath(file, project, projectName)
 
     project.addToPbxBuildFileSection(file)
     project.addToPbxResourcesBuildPhase(file)
@@ -48,8 +48,9 @@ function addBranchConfigToXcodeProject() {
     console.info('Added branch.json to project ' + xcodeprojName)
   })
 }
+
 function removeBranchConfigFromXcodeProject() {
-  var projectName = util.findXcodeProjectName()
+  var projectName = findXcodeProjectName()
   if (!projectName) {
     console.error('could not find an Xcode project')
     return
@@ -71,10 +72,10 @@ function removeBranchConfigFromXcodeProject() {
       return
     }
 
-    file.target = util.getTargetKeyByName(project, projectName)
-    util.correctForPath(file, project, projectName)
+    file.target = getTargetKeyByName(project, projectName)
+    correctForPath(file, project, projectName)
 
-    var groupKey = util.getGroupKeyByName(project, projectName)
+    var groupKey = getGroupKeyByName(project, projectName)
     if (!groupKey) {
       console.error('Could not find key for group ' + projectName)
       return
