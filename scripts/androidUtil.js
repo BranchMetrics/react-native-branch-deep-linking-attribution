@@ -1,6 +1,6 @@
 var fs = require('fs')
 
-function addBranchJsonToAndroidAssetsFolder() {
+function addBranchConfigToAndroidAssetsFolder() {
   // throws on failure
   ensureAndroidAssetsFolder()
 
@@ -57,7 +57,7 @@ function ensureAndroidAssetsFolder() {
   }
 }
 
-function removeBranchJsonFromAndroidAssetsFolder() {
+function removeBranchConfigFromAndroidAssetsFolder() {
   var branchJsonPath = './android/app/src/main/assets/branch.json'
   try {
     var stats = fs.lstatSync(branchJsonPath)
@@ -78,6 +78,6 @@ function removeBranchJsonFromAndroidAssetsFolder() {
 }
 
 module.exports = {
-  addBranchJsonToAndroidAssetsFolder: addBranchJsonToAndroidAssetsFolder,
-  removeBranchJsonFromAndroidAssetsFolder: removeBranchJsonFromAndroidAssetsFolder
+  addBranchConfigToAndroidAssetsFolder: addBranchConfigToAndroidAssetsFolder,
+  removeBranchConfigFromAndroidAssetsFolder: removeBranchConfigFromAndroidAssetsFolder
 }
