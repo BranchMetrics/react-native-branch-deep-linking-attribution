@@ -8,7 +8,6 @@ function addBranchConfigToXcodeProject() {
     return
   }
 
-  // add to Xcode project files to be included in bundle
   var xcodeprojName = './ios/' + projectName + '.xcodeproj'
   var projectPbxprojName = xcodeprojName + '/project.pbxproj'
 
@@ -19,33 +18,22 @@ function addBranchConfigToXcodeProject() {
       return
     }
 
-    var groupKey = getGroupKeyByName(project, projectName)
-    if (!groupKey) {
-      console.error('Could not find key for group ' + projectName)
-      return
+    if (fs.existsSync('./branch.json')) {
+      // path relative to group
+      includePathInProject(project, projectName, '../branch.json')
     }
 
-    // path relative to group
-    file = project.addFile('../branch.json', groupKey)
-    if (!file) {
-      // TODO: Can get here if the file is already in the project
-      console.error('Failed to add file to project')
-      return
+    if (fs.existsSync('./branch.debug.json')) {
+      // path relative to group
+      includePathInProject(project, projectName, '../branch.debug.json')
     }
-
-    file.uuid = project.generateUuid()
-    file.target = getTargetKeyByName(project, projectName)
-    correctForPath(file, project, projectName)
-
-    project.addToPbxBuildFileSection(file)
-    project.addToPbxResourcesBuildPhase(file)
 
     if (fs.writeFileSync(projectPbxprojName, project.writeSync()) <= 0) {
       console.error('error writing updated project')
       return
     }
 
-    console.info('Added branch.json to project ' + xcodeprojName)
+    console.info('Added Branch configuration to project ' + xcodeprojName)
   })
 }
 
@@ -66,32 +54,61 @@ function removeBranchConfigFromXcodeProject() {
       return
     }
 
-    var file = project.removeFile('../branch.json', {})
-    if (!file) {
-      console.warn('Did not find branch.json in project')
-      return
-    }
-
-    file.target = getTargetKeyByName(project, projectName)
-    correctForPath(file, project, projectName)
-
-    var groupKey = getGroupKeyByName(project, projectName)
-    if (!groupKey) {
-      console.error('Could not find key for group ' + projectName)
-      return
-    }
-
-    project.removeFromPbxBuildFileSection(file)
-    project.removeFromPbxResourcesBuildPhase(file)
-    project.removeFromPbxGroup(file, groupKey)
+    // paths relative to group
+    removePathFromProject(project, projectName, '../branch.json')
+    removePathFromProject(project, projectName, '../branch.debug.json')
 
     if (fs.writeFileSync(projectPbxprojName, project.writeSync()) <= 0) {
       console.error('error writing updated project')
       return
     }
 
-    console.info('Removed branch.json from project ' + xcodeprojName)
+    console.info('Removed Branch configuration from project ' + xcodeprojName)
   })
+}
+
+function includePathInProject(project, groupName, path) {
+  var groupKey = getGroupKeyByName(project, groupName)
+  if (!groupKey) {
+      console.error('Could not find key for group ' + groupName)
+      return
+  }
+
+  // path relative to group
+  var file = project.addFile(path, groupKey)
+  if (!file) {
+    // TODO: Can get here if the file is already in the project
+    console.error('Failed to add file to project')
+    return
+  }
+
+  file.uuid = project.generateUuid()
+  file.target = getTargetKeyByName(project, groupName)
+  correctForPath(file, project, groupName)
+
+  project.addToPbxBuildFileSection(file)
+  project.addToPbxResourcesBuildPhase(file)
+}
+
+function removePathFromProject(project, groupName, path) {
+  var file = project.removeFile(path, {})
+  if (!file) {
+    console.warn('Did not find ' + path + ' in project')
+    return
+  }
+
+  file.target = getTargetKeyByName(project, groupName)
+  correctForPath(file, project, groupName)
+
+  var groupKey = getGroupKeyByName(project, groupName)
+  if (!groupKey) {
+    console.error('Could not find key for group ' + groupName)
+    return
+  }
+
+  project.removeFromPbxBuildFileSection(file)
+  project.removeFromPbxResourcesBuildPhase(file)
+  project.removeFromPbxGroup(file, groupKey)
 }
 
 function getGroupKeyByName(project, groupName) {
