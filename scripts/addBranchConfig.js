@@ -1,59 +1,10 @@
+var androidUtil = require('./androidUtil')
 var fs = require('fs')
-var util = require('./util')
-var xcode = require('xcode')
+var iosUtil = require('./iosUtil')
 
-function addBranchConfigToProjects(projectName) {
-  if (!fs.existsSync('./branch.json')) {
-    return
-  }
-
-  util.addBranchJsonToAndroidAssetsFolder()
-
-  // add to Xcode project files to be included in bundle
-  var xcodeprojName = './ios/' + projectName + '.xcodeproj'
-  var projectPbxprojName = xcodeprojName + '/project.pbxproj'
-
-  var project = xcode.project(projectPbxprojName)
-  project.parse(function(error) {
-    if (error) {
-      console.error('Error loading ' + xcodeprojName)
-      return
-    }
-
-    var groupKey = util.getGroupKeyByName(project, projectName)
-    if (!groupKey) {
-      console.error('Could not find key for group ' + projectName)
-      return
-    }
-
-    // path relative to group
-    file = project.addFile('../branch.json', groupKey)
-    if (!file) {
-      // TODO: Can get here if the file is already in the project
-      console.error('Failed to add file to project')
-      return
-    }
-
-    file.uuid = project.generateUuid()
-    file.target = util.getTargetKeyByName(project, projectName)
-    util.correctForPath(file, project, projectName)
-
-    project.addToPbxBuildFileSection(file)
-    project.addToPbxResourcesBuildPhase(file)
-
-    if (fs.writeFileSync(projectPbxprojName, project.writeSync()) <= 0) {
-      console.error('error writing updated project')
-      return
-    }
-
-    console.info('Added branch.json to project ' + xcodeprojName)
-  })
-}
-
-var projectName = util.findXcodeProjectName()
-if (!projectName) {
-  console.error('could not find an Xcode project')
+if (!fs.existsSync('./branch.json')) {
   return
 }
 
-addBranchConfigToProjects(projectName)
+androidUtil.addBranchJsonToAndroidAssetsFolder()
+iosUtil.addBranchConfigToXcodeProject()
