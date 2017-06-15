@@ -48,21 +48,15 @@ function ensureAndroidAssetsFolder(buildType) {
 }
 
 function ensureDirectory(path) {
-  console.log('verifying existence of directory ' + path)
   try {
     var stats = fs.statSync(path)
 
     if (!stats.isDirectory()) {
       throw(srcDir + ' exists and is not a directory.')
     }
-
-    console.log(path + ' exists and is a directory')
   }
   catch (error) {
     if (error.code != 'ENOENT') throw error
-
-    var parent = dirname(path)
-    console.log(path + ' does not exist. parent is ' + parent)
 
     var parent = dirname(path)
     if (parent !== path) ensureDirectory(parent)
