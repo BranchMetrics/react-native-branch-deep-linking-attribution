@@ -1,4 +1,5 @@
 var fs = require('fs')
+var log = require('npmlog')
 
 function addBranchConfigToAndroidAssetsFolder() {
   if (fs.existsSync('./branch.json')) {
@@ -12,7 +13,7 @@ function addBranchConfigToAndroidAssetsFolder() {
     addSymbolicLink('../../../../../branch.debug.json', './android/app/src/debug/assets/branch.json')
   }
 
-  console.log('Added Branch configuration to android project')
+  log.info('Added Branch configuration to android project')
 }
 
 function addSymbolicLink(linkPath, path) {
@@ -21,15 +22,15 @@ function addSymbolicLink(linkPath, path) {
     if (stats && stats.isSymbolicLink()) {
       var dest = fs.readlinkSync(path)
       if (dest == linkPath) {
-        console.warn(path + ' already present in Android app')
+        log.warn(path + ' already present in Android app')
         return
       }
 
-      console.error(path + ' is a link to ' + linkPath + '.')
+      log.error(path + ' is a link to ' + linkPath + '.')
       return
     }
     if (stats) {
-      console.error(path + ' exists and is not a symbolic link.')
+      log.error(path + ' exists and is not a symbolic link.')
       return
     }
   }
@@ -41,6 +42,24 @@ function addSymbolicLink(linkPath, path) {
     // create the symlink
     fs.symlinkSync(linkPath, path)
   }
+}
+
+function removeSymbolicLink(path) {
+  try {
+    var stats = fs.lstatSync(path)
+  }
+  catch (error) {
+    if (error.code != 'ENOENT') throw error
+    // Not present. Quietly do nothing.
+    return
+  }
+
+  if (!stats.isSymbolicLink()) {
+    log.warn(path + ' is not a symbolic link. Not removing.')
+    return
+  }
+
+  fs.unlink(path)
 }
 
 function ensureAndroidAssetsFolder(buildType) {
@@ -72,23 +91,9 @@ function dirname(path) {
 }
 
 function removeBranchConfigFromAndroidAssetsFolder() {
-  var branchJsonPath = './android/app/src/main/assets/branch.json'
-  try {
-    var stats = fs.lstatSync(branchJsonPath)
-  }
-  catch (error) {
-    if (error.code != 'ENOENT') throw error
-    // Not present. Quietly do nothing.
-    return
-  }
-
-  if (!stats.isSymbolicLink()) {
-    console.warn(branchJsonPath + ' is not a symbolic link. Not removing.')
-    return
-  }
-
-  fs.unlink(branchJsonPath)
-  console.log('removed branch.json from Android project.')
+  removeSymbolicLink('./android/app/src/main/assets/branch.json')
+  removeSymbolicLink('./android/app/src/debug/assets/branch.json')
+  log.info('removed Branch configuration from Android project.')
 }
 
 module.exports = {

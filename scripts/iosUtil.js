@@ -1,10 +1,11 @@
 var fs = require('fs')
+var log = require('npmlog')
 var xcode = require('xcode')
 
 function addBranchConfigToXcodeProject() {
   var projectName = findXcodeProjectName()
   if (!projectName) {
-    console.error('could not find an Xcode project')
+    log.error('could not find an Xcode project')
     return
   }
 
@@ -14,7 +15,7 @@ function addBranchConfigToXcodeProject() {
   var project = xcode.project(projectPbxprojName)
   project.parse(function(error) {
     if (error) {
-      console.error('Error loading ' + xcodeprojName)
+      log.error('Error loading ' + xcodeprojName)
       return
     }
 
@@ -29,18 +30,18 @@ function addBranchConfigToXcodeProject() {
     }
 
     if (fs.writeFileSync(projectPbxprojName, project.writeSync()) <= 0) {
-      console.error('error writing updated project')
+      log.error('error writing updated project')
       return
     }
 
-    console.info('Added Branch configuration to project ' + xcodeprojName)
+    log.info('Added Branch configuration to project ' + xcodeprojName)
   })
 }
 
 function removeBranchConfigFromXcodeProject() {
   var projectName = findXcodeProjectName()
   if (!projectName) {
-    console.error('could not find an Xcode project')
+    log.error('could not find an Xcode project')
     return
   }
 
@@ -50,7 +51,7 @@ function removeBranchConfigFromXcodeProject() {
   var project = xcode.project(projectPbxprojName)
   project.parse(function(error) {
     if (error) {
-      console.error('Error loading ' + xcodeprojName)
+      log.error('Error loading ' + xcodeprojName)
       return
     }
 
@@ -59,18 +60,18 @@ function removeBranchConfigFromXcodeProject() {
     removePathFromProject(project, projectName, '../branch.debug.json')
 
     if (fs.writeFileSync(projectPbxprojName, project.writeSync()) <= 0) {
-      console.error('error writing updated project')
+      log.error('error writing updated project')
       return
     }
 
-    console.info('Removed Branch configuration from project ' + xcodeprojName)
+    log.info('Removed Branch configuration from project ' + xcodeprojName)
   })
 }
 
 function includePathInProject(project, groupName, path) {
   var groupKey = getGroupKeyByName(project, groupName)
   if (!groupKey) {
-      console.error('Could not find key for group ' + groupName)
+      log.error('Could not find key for group ' + groupName)
       return
   }
 
@@ -78,7 +79,7 @@ function includePathInProject(project, groupName, path) {
   var file = project.addFile(path, groupKey)
   if (!file) {
     // TODO: Can get here if the file is already in the project
-    console.error('Failed to add file to project')
+    log.error('Failed to add file to project')
     return
   }
 
@@ -93,7 +94,7 @@ function includePathInProject(project, groupName, path) {
 function removePathFromProject(project, groupName, path) {
   var file = project.removeFile(path, {})
   if (!file) {
-    console.warn('Did not find ' + path + ' in project')
+    log.warn('Did not find ' + path + ' in project')
     return
   }
 
@@ -102,7 +103,7 @@ function removePathFromProject(project, groupName, path) {
 
   var groupKey = getGroupKeyByName(project, groupName)
   if (!groupKey) {
-    console.error('Could not find key for group ' + groupName)
+    log.error('Could not find key for group ' + groupName)
     return
   }
 
