@@ -59,12 +59,15 @@ In the `Info.plist` for your project, make the `branch_key` a dictionary instead
 Simply add the following file to your Android project as `android/app/src/debug/AndroidManifest.xml`:
 
 ```xml
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.example.mypackage">
    <application>
        <meta-data android:name="io.branch.sdk.TestMode" android:value="true" /> <!-- Set to true to use Branch_Test_Key -->
    </application>
 </manifest>
 ```
+
+Replace `com.example.mypackage` with the package name from your main AndroidManifest.xml.
 
 By default, the Branch SDK uses the live key. If you prefer, you can add a similar file with `android:value="false"` as `android/app/src/release/AndroidManifest.xml`, but this
 is not necessary.
@@ -109,10 +112,6 @@ android {
     defaultConfig { ... }
     buildTypes { ... }
     productFlavors {
-        prod {
-            applicationIdSuffix ".prod"
-            versionNameSuffix "-prod"
-        }
         stage {
             applicationIdSuffix ".stage"
             versionNameSuffix "-stage"
@@ -125,18 +124,20 @@ Now add the following file as `android/app/src/<productFlavor>/AndroidManifest.x
 that uses the test key, e.g. `android/app/src/stage/AndroidManifest.xml`:
 
 ```xml
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.example.mypackage">
    <application>
        <meta-data android:name="io.branch.sdk.TestMode" android:value="true" /> <!-- Set to true to use Branch_Test_Key -->
    </application>
 </manifest>
 ```
 
-By default, the Branch SDK uses the live key. If you prefer, you can add a similar file with `android:value="false"` as `android/app/src/prod/AndroidManifest.xml`, but this
-is not necessary.
+Replace `com.example.mypackage` with the package name from your main AndroidManifest.xml.
+
+By default (for the main product flavor), the Branch SDK uses the live key.
 
 You can also specify settings for combinations of build type and product flavor, e.g. in
-`android/app/src/prodDebug/AndroidManifest.xml` or `android/app/src/stageRelease/AndroidManifest.xml`.
+`android/app/src/stageDebug/AndroidManifest.xml` or `android/app/src/stageRelease/AndroidManifest.xml`.
 
 See the [Android documentation](https://developer.android.com/studio/build/build-variants.html) for more details on configuring Android build variants.
 
