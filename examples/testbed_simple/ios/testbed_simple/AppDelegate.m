@@ -43,7 +43,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-  if (![RNBranch handleDeepLink:url]) {
+  if (![RNBranch.branch application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
     // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
   }
   return YES;
