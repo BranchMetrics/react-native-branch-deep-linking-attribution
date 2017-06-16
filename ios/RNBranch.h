@@ -8,6 +8,8 @@ extern NSString * _Nonnull const RNBranchLinkOpenedNotificationUriKey;
 extern NSString * _Nonnull const RNBranchLinkOpenedNotificationBranchUniversalObjectKey;
 extern NSString * _Nonnull const RNBranchLinkOpenedNotificationLinkPropertiesKey;
 
+@class Branch;
+
 @interface RNBranch : NSObject <RCTBridgeModule>
 
 + (void)initSessionWithLaunchOptions:(NSDictionary * _Nullable)launchOptions isReferrable:(BOOL)isReferrable;
@@ -21,5 +23,7 @@ extern NSString * _Nonnull const RNBranchLinkOpenedNotificationLinkPropertiesKey
 + (void)delayInitToCheckForSearchAds;
 + (void)setAppleSearchAdsDebugMode;
 + (void)setRequestMetadataKey:(NSString * _Nonnull)key value:(NSObject * _Nonnull)value;
+
++ (Branch * _Nonnull)branch;
 
 @end

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B1CBF301EE8B4C6002E5D0D /* RNBranchConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1CBF2E1EE8B4C6002E5D0D /* RNBranchConfig.h */; };
+		7B1CBF311EE8B4C6002E5D0D /* RNBranchConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1CBF2F1EE8B4C6002E5D0D /* RNBranchConfig.m */; };
 		7B1D33561E410DD200755B98 /* BranchLinkProperties+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1D334E1E410DD200755B98 /* BranchLinkProperties+RNBranch.h */; };
 		7B1D33571E410DD200755B98 /* BranchLinkProperties+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D334F1E410DD200755B98 /* BranchLinkProperties+RNBranch.m */; };
 		7B1D33581E410DD200755B98 /* BranchUniversalObject+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1D33501E410DD200755B98 /* BranchUniversalObject+RNBranch.h */; };
@@ -267,6 +269,8 @@
 /* Begin PBXFileReference section */
 		148030ED1CCDF9FA004ABEA4 /* RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranch.h; sourceTree = "<group>"; };
 		148030EE1CCDF9FA004ABEA4 /* RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranch.m; sourceTree = "<group>"; };
+		7B1CBF2E1EE8B4C6002E5D0D /* RNBranchConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchConfig.h; sourceTree = "<group>"; };
+		7B1CBF2F1EE8B4C6002E5D0D /* RNBranchConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchConfig.m; sourceTree = "<group>"; };
 		7B1D334E1E410DD200755B98 /* BranchLinkProperties+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchLinkProperties+RNBranch.h"; sourceTree = "<group>"; };
 		7B1D334F1E410DD200755B98 /* BranchLinkProperties+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BranchLinkProperties+RNBranch.m"; sourceTree = "<group>"; };
 		7B1D33501E410DD200755B98 /* BranchUniversalObject+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchUniversalObject+RNBranch.h"; sourceTree = "<group>"; };
@@ -546,6 +550,8 @@
 				7B3B27531E707CF5003ABDF4 /* RNBranchAgingDictionary.m */,
 				7B3B274E1E707CD7003ABDF4 /* RNBranchAgingItem.h */,
 				7B3B274F1E707CD7003ABDF4 /* RNBranchAgingItem.m */,
+				7B1CBF2E1EE8B4C6002E5D0D /* RNBranchConfig.h */,
+				7B1CBF2F1EE8B4C6002E5D0D /* RNBranchConfig.m */,
 				7B9654531E96E328009C3CEE /* RNBranchEventEmitter.h */,
 				7B9654541E96E328009C3CEE /* RNBranchEventEmitter.m */,
 				7B1D33541E410DD200755B98 /* RNBranchProperty.h */,
@@ -615,6 +621,7 @@
 				7B7C4D071E6633CA00A27265 /* BranchLoadRewardsRequest.h in Headers */,
 				7B7C4CEA1E6633CA00A27265 /* BranchConstants.h in Headers */,
 				7B7C4CF51E6633CA00A27265 /* BranchLinkProperties.h in Headers */,
+				7B1CBF301EE8B4C6002E5D0D /* RNBranchConfig.h in Headers */,
 				7B1D335C1E410DD200755B98 /* RNBranchProperty.h in Headers */,
 				7B1D335A1E410DD200755B98 /* NSObject+RNBranch.h in Headers */,
 				7B7C4D0D1E6633CA00A27265 /* BranchRedeemRewardsRequest.h in Headers */,
@@ -664,7 +671,7 @@
 		B3A3CC2E1C5B0A070016AC52 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Branch Metrics";
 				TargetAttributes = {
 					B3A3CC351C5B0A070016AC52 = {
@@ -695,6 +702,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B7C4CCA1E6633CA00A27265 /* BNCContentDiscoveryManager.m in Sources */,
+				7B1CBF311EE8B4C6002E5D0D /* RNBranchConfig.m in Sources */,
 				7B7C4D1A1E6633CA00A27265 /* BranchUserCompletedActionRequest.m in Sources */,
 				7B7C4CFA1E6633CA00A27265 /* BranchView.m in Sources */,
 				7B2322BD1E8DDC84009B3BF6 /* BranchShareLink.m in Sources */,
@@ -767,8 +775,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -811,8 +821,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

@@ -3,9 +3,9 @@ package com.testbed_simple;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.branch.rnbranch.RNBranchPackage;
 
 import io.branch.referral.Branch;
-import io.branch.rnbranch.RNBranchPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;

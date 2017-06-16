@@ -10,8 +10,11 @@ cache: yarn
 
 install:
 # Set up RVM, RubyGems, Bundler
-  - gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-  - rvm get head
+  # Skip RVM update for now because keys.gnupg.net unreachable in Travis.
+  # TODO: Fix Travis caching issues. Or hope Circle provides support for
+  # Android on OS X soon.
+  # - gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+  # - rvm get head
   - rvm install 2.3.3
   - rvm use 2.3.3 --default
   - gem update --system

@@ -70,6 +70,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public static void initSession(final Uri uri, Activity reactActivity) {
         Branch branch = Branch.getInstance(reactActivity.getApplicationContext());
 
+        RNBranchConfig config = new RNBranchConfig(reactActivity);
+        if (config.getDebugMode()) {
+            Log.d(REACT_CLASS, "debugMode true in branch.json. calling setDebug().");
+            branch.setDebug();
+        }
+
         if (mUseDebug) branch.setDebug();
 
         mActivity = reactActivity;
