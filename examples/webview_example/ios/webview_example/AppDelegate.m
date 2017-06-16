@@ -44,7 +44,7 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-  return [RNBranch handleDeepLink:url] || [[UIApplication sharedApplication] openURL:url];
+  return [RNBranch.branch application:app openURL:url options:options] || [[UIApplication sharedApplication] openURL:url];
 }
 
 - (BOOL)application:(UIApplication *)app continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
