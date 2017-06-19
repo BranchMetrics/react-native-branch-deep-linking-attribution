@@ -4,12 +4,13 @@
   "description": "Branch Metrics React Native SDK",
   "main": "src/index.js",
   "files": [
-    "src",
-    "docs",
     "android",
+    "branch.example.json",
+    "docs",
     "ios",
     "react-native-branch.podspec",
-    "scripts"
+    "scripts",
+    "src"
   ],
   "scripts": {
     "lint": "eslint src test",
