@@ -135,3 +135,7 @@
   * This release adds some native wrapper methods to simplify certain native code changes that cannot
     be supported in JS.
   * Includes native SDKs 0.15.3 (iOS), 2.8.0 (Android).
+
+2017-06-19  Version 2.0.0-beta.7
+  * This release adds support for an optional `branch.json` configuration file. See https://rnbranch.app.link/branch-json for details.
+  * Includes native SDKs 0.15.3 (iOS), 2.9.0 (Android).

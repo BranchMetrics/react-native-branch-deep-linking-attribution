@@ -8,6 +8,10 @@ it is too late to call it. This is likely to change in a future release.
 For now, it is necessary to make the call directly in native code on both
 platforms.
 
+As of 2.0.0-beta.7, it is also possible to call `setDebug` using the `debugMode`
+parameter in the `branch.json` configuration file. See
+https://rnbranch.app.link/branch-json for details.
+
 #### iOS
 
 ##### Objective-C

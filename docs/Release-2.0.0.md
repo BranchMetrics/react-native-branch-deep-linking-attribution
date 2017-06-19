@@ -1,38 +1,20 @@
 # Release 2.0.0
 
-## Goals
-
-The main motives behind this release are to:
-
-- Reduce the number of manual steps required to get started.
-- Remove any need for CocoaPods, Carthage or manual iOS SDK installation in a React Native app.
-- Pin to specific versions of the native SDKs to avoid issues arising from version mismatches.
-- Fully support integration of react-native-branch in a React Native component within a native
-  app that also uses the native Branch SDK.
-
-These changes are fairly radical, so we're eager to get feedback before rolling this out to
-production. Please open issues in this repo with any questions or problems.
-
-Further plans for 2.0.0:
-
-- Provide a script to automate project configuration changes, such as adding a Branch key and setting up Universal Link/App Link domains.
-- Review/flesh out the native API for link routing on both platforms.
-- Consistent error codes across the two platforms.
-- TBD
-
 ## Changes
 
 ### Building, configuration and examples
 
-- The native iOS SDK source (version 0.14.12) is now included in the RNBranch project and is no longer a required external dependency.
-- A jar file (version 2.8.0) is included for the Android SDK.
+- The native iOS SDK source is now included in the RNBranch project and is no longer a required external dependency.
+- A jar file is included for the Android SDK.
 - A Branch-SDK podspec is included in the NPM module for use in native apps that use the React pod from node_modules.
-- Five new testbed apps are available:
+- Five new example apps are available:
   + testbed_simple illustrates the simplest way to integrate the SDK using `react-native link`.
   + testbed_native_ios illustrates including `react-native-branch` in a React Native component within a native iOS app.
   + testbed_native_android illustrates including `react-native-branch` in a React Native component within a native Android app.
   + webview_example is a realistic example of SDK integration following best practices.
   + webview_example_native_ios is a realistic example of SDK integration in a React Native component within a Swift app.
+- An optional `branch.json` file may be added to an app to control certain Branch configuration
+  parameters. If presetnt, it is automatically integrated when using `react-native link`.
 
 ### JS API changes
 
