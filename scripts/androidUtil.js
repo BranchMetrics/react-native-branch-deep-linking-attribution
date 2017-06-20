@@ -1,5 +1,5 @@
-var fs = require('fs')
-var log = require('npmlog')
+const fs = require('fs')
+const log = require('npmlog')
 
 log.heading = 'react-native-branch'
 
@@ -20,9 +20,9 @@ function addBranchConfigToAndroidAssetsFolder() {
 
 function addSymbolicLink(linkPath, path) {
   try {
-    var stats = fs.lstatSync(path)
+    const stats = fs.lstatSync(path)
     if (stats && stats.isSymbolicLink()) {
-      var dest = fs.readlinkSync(path)
+      const dest = fs.readlinkSync(path)
       if (dest == linkPath) {
         log.warn(path + ' already present in Android app')
         return
@@ -48,16 +48,16 @@ function addSymbolicLink(linkPath, path) {
 
 function removeSymbolicLink(path) {
   try {
-    var stats = fs.lstatSync(path)
+    const stats = fs.lstatSync(path)
+
+    if (!stats.isSymbolicLink()) {
+      log.warn(path + ' is not a symbolic link. Not removing.')
+      return
+    }
   }
   catch (error) {
     if (error.code != 'ENOENT') throw error
     // Not present. Quietly do nothing.
-    return
-  }
-
-  if (!stats.isSymbolicLink()) {
-    log.warn(path + ' is not a symbolic link. Not removing.')
     return
   }
 
@@ -70,7 +70,7 @@ function ensureAndroidAssetsFolder(buildType) {
 
 function ensureDirectory(path) {
   try {
-    var stats = fs.statSync(path)
+    const stats = fs.statSync(path)
 
     if (!stats.isDirectory()) {
       throw(srcDir + ' exists and is not a directory.')
@@ -79,7 +79,7 @@ function ensureDirectory(path) {
   catch (error) {
     if (error.code != 'ENOENT') throw error
 
-    var parent = dirname(path)
+    const parent = dirname(path)
     if (parent !== path) ensureDirectory(parent)
 
     fs.mkdirSync(path, 0o777)

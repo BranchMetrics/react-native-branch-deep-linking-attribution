@@ -1,7 +1,7 @@
-var androidUtil = require('./androidUtil')
-var fs = require('fs')
-var log = require('npmlog')
-var iosUtil = require('./iosUtil')
+const androidUtil = require('./androidUtil')
+const fs = require('fs')
+const log = require('npmlog')
+const iosUtil = require('./iosUtil')
 
 log.heading = 'react-native-branch'
 
