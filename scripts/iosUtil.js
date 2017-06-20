@@ -2,6 +2,8 @@ var fs = require('fs')
 var log = require('npmlog')
 var xcode = require('xcode')
 
+log.heading = 'react-native-branch'
+
 function addBranchConfigToXcodeProject() {
   var projectName = findXcodeProjectName()
   if (!projectName) {

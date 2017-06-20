@@ -1,6 +1,8 @@
 var fs = require('fs')
 var log = require('npmlog')
 
+log.heading = 'react-native-branch'
+
 function addBranchConfigToAndroidAssetsFolder() {
   if (fs.existsSync('./branch.json')) {
     ensureAndroidAssetsFolder('main')
@@ -93,7 +95,7 @@ function dirname(path) {
 function removeBranchConfigFromAndroidAssetsFolder() {
   removeSymbolicLink('./android/app/src/main/assets/branch.json')
   removeSymbolicLink('./android/app/src/debug/assets/branch.json')
-  log.info('removed Branch configuration from Android project.')
+  log.info('Removed Branch configuration from Android project.')
 }
 
 module.exports = {
