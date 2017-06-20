@@ -95,7 +95,7 @@ function dirname(path) {
 function removeBranchConfigFromAndroidAssetsFolder() {
   removeSymbolicLink('./android/app/src/main/assets/branch.json')
   removeSymbolicLink('./android/app/src/debug/assets/branch.json')
-  log.info('Removed Branch configuration from Android project.')
+  log.info('Removed Branch configuration from Android project')
 }
 
 module.exports = {
