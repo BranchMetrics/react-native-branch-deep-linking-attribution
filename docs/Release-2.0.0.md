@@ -32,6 +32,46 @@
 An `RNBranchLinkOpenedNotification` was added to allow link routing in native apps that integrate `react-native-branch`.
 See testbed_native_ios and webview_example_native_ios for examples.
 
+The `[RNBranch handleDeepLink:]` method is deprecated. Instead, please use the relevant methods on
+the `RNBranch.branch` singleton: `[RNBranch.branch application:openURL:sourceApplication:annotation:]` or `[RNBranch.branch application:openURL:options:]`, depending which method you are using in your `AppDelegate`.
+
+_Objective-C_
+```Obj-C
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [RNBranch.branch application:app openURL:url options:options];
+}
+```
+
+_Swift_
+```Swift
+func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    return RNBranch.branch.application(app, open: url, options: options)
+}
+```
+
+**OR**
+
+_Objective-C_
+```Obj-C
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [RNBranch.branch application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+}
+```
+
+_Swift_
+```Swift
+func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+    return RNBranch.branch.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+}
+```
+
+Note that the second method in UIApplicationDelegate is deprecated as of iOS 9 and should be
+replaced with the first if possible. If you don't have either of these methods in your app yet,
+use the first one: `[AppDelegate application:openURL:options:]`. The examples above assume
+only Branch integration. Your implementation may look different if you have integrated other
+linking SDKs such as Linking or Facebook.
+
 ### Android API changes
 
 An overload of `Branch.initSession` was introduced that accepts a `Branch.BranchUniversalReferralInitListener` to allow link routing in native apps that integrate `react-native-branch`. An `RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT` local broadcast is also available for the same purpose. See testbed_native_android for an example.
