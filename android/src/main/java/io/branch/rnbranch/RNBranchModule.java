@@ -442,7 +442,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private static Branch setupBranch(Context context) {
         RNBranchConfig config = new RNBranchConfig(context);
-        String branchKey = config.getUseTestInstance() ? config.getTestKey() : config.getLiveKey();
+        String branchKey = config.getBranchKey();
+        if (branchKey == null) branchKey = config.getUseTestInstance() ? config.getTestKey() : config.getLiveKey();
+
         /*
          * This differs a little from iOS. If you add "useTestInstance": true to branch.json but
          * don't add the testKey, on iOS, it will use the test key from the Info.plist if configured.

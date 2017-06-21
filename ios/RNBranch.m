@@ -49,11 +49,10 @@ RCT_EXPORT_MODULE();
 
             // YES if either [RNBranch useTestInstance] was called or useTestInstance: true is present in branch.json.
             BOOL usingTestInstance = useTestInstance || config.useTestInstance;
-            NSString *key = usingTestInstance ? config.testKey : config.liveKey;
+            NSString *key = config.branchKey ?: usingTestInstance ? config.testKey : config.liveKey;
 
             if (key) {
                 // Override the Info.plist if these are present.
-                RCTLog(@"Using Branch key %@ from branch.json", key);
                 instance = [Branch getInstance: key];
             }
             else {

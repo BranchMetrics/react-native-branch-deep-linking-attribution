@@ -73,6 +73,20 @@ public class RNBranchConfig {
     }
 
     @Nullable
+    public String getBranchKey() {
+        if (mConfiguration == null) return null;
+
+        try {
+            if (!mConfiguration.has("branchKey")) return null;
+            return mConfiguration.getString("branchKey");
+        }
+        catch (JSONException exception) {
+            Log.e(TAG, "Error parsing branch.json: " + exception.getMessage());
+            return null;
+        }
+    }
+
+    @Nullable
     public String getLiveKey() {
         if (mConfiguration == null) return null;
 

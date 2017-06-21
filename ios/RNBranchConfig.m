@@ -11,6 +11,7 @@
 #import "RNBranchConfig.h"
 
 NSString * _Nonnull const RNBranchConfigDebugModeOption = @"debugMode";
+NSString * _Nonnull const RNBranchConfigBranchKeyOption = @"branchKey";
 NSString * _Nonnull const RNBranchConfigLiveKeyOption = @"liveKey";
 NSString * _Nonnull const RNBranchConfigTestKeyOption = @"testKey";
 NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstance";
@@ -127,6 +128,11 @@ NSString * _Nonnull const RNBranchConfigAppleSearchAdsDebugModeOption = @"appleS
 {
     NSNumber *number = self[RNBranchConfigAppleSearchAdsDebugModeOption];
     return number.boolValue;
+}
+
+- (NSString *)branchKey
+{
+    return self[RNBranchConfigBranchKeyOption];
 }
 
 - (NSString *)liveKey
