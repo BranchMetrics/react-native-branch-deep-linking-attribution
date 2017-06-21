@@ -22,13 +22,17 @@ function addBranchConfigToXcodeProject() {
       return
     }
 
-    if (fs.existsSync(path.join('.', 'branch.json'))) {
-      // path relative to group
+    if (fs.existsSync(path.join('.', 'branch.ios.json'))) {
+      includePathInProject(project, projectName, path.join('..', 'branch.ios.json'))
+    }
+    else if (fs.existsSync(path.join('.', 'branch.json'))) {
       includePathInProject(project, projectName, path.join('..', 'branch.json'))
     }
 
-    if (fs.existsSync(path.join('.', 'branch.debug.json'))) {
-      // path relative to group
+    if (fs.existsSync(path.join('.', 'branch.ios.debug.json'))) {
+      includePathInProject(project, projectName, path.join('..', 'branch.ios.debug.json'))
+    }
+    else if (fs.existsSync(path.join('.', 'branch.debug.json'))) {
       includePathInProject(project, projectName, path.join('..', 'branch.debug.json'))
     }
 
@@ -61,6 +65,8 @@ function removeBranchConfigFromXcodeProject() {
     // paths relative to group
     removePathFromProject(project, projectName, path.join('..', 'branch.json'))
     removePathFromProject(project, projectName, path.join('..', 'branch.debug.json'))
+    removePathFromProject(project, projectName, path.join('..', 'branch.ios.json'))
+    removePathFromProject(project, projectName, path.join('..', 'branch.ios.debug.json'))
 
     if (fs.writeFileSync(projectPbxprojPath, project.writeSync()) <= 0) {
       log.error('error writing updated project')
