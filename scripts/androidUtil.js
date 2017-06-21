@@ -5,14 +5,24 @@ const path = require('path')
 log.heading = 'react-native-branch'
 
 function addBranchConfigToAndroidAssetsFolder() {
-  if (fs.existsSync('./branch.json')) {
+  if (fs.existsSync(path.join('.', 'branch.android.json'))) {
+    ensureAndroidAssetsFolder('main')
+    addSymbolicLink(path.join('..', '..', '..', '..', '..', 'branch.android.json'),
+      path.join('.', 'android', 'app', 'src', 'main', 'assets', 'branch.json'))
+  }
+  else if (fs.existsSync(path.join('.', 'branch.json'))) {
     ensureAndroidAssetsFolder('main')
     addSymbolicLink(path.join('..', '..', '..', '..', '..', 'branch.json'),
       path.join('.', 'android', 'app', 'src', 'main', 'assets', 'branch.json'))
   }
 
-  // branch.debug.json will be available as branch.json in debug builds
-  if (fs.existsSync('./branch.debug.json')) {
+  // branch[.android].debug.json will be available as branch.json in debug builds
+  if (fs.existsSync(path.join('.', 'branch.android.debug.json'))) {
+    ensureAndroidAssetsFolder('debug')
+    addSymbolicLink(path.join('..', '..', '..', '..', '..', 'branch.android.debug.json'),
+      path.join('.', 'android', 'app', 'src', 'debug', 'assets', 'branch.json'))
+  }
+  else if (fs.existsSync('./branch.debug.json')) {
     ensureAndroidAssetsFolder('debug')
     addSymbolicLink(path.join('..', '..', '..', '..', '..', 'branch.debug.json'),
       path.join('.', 'android', 'app', 'src', 'debug', 'assets', 'branch.json'))

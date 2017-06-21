@@ -86,22 +86,27 @@ NSString * _Nonnull const RNBranchConfigAppleSearchAdsDebugModeOption = @"appleS
 {
     if (self.configFileURL) return;
 
-    NSURL *configFileURL;
+    __block NSURL *configFileURL;
     NSBundle *mainBundle = NSBundle.mainBundle;
+    NSArray *filesToCheck =
+    @[
 #ifdef DEBUG
-    configFileURL = [mainBundle URLForResource:@"branch.debug" withExtension:@"json"] ?: [mainBundle URLForResource:@"branch" withExtension:@"json"];
+      @"branch.ios.debug",
+      @"branch.debug",
+#endif // DEBUG
+      @"branch.ios",
+      @"branch"
+      ];
+
+    [filesToCheck enumerateObjectsUsingBlock:^(NSString *  _Nonnull file, NSUInteger idx, BOOL * _Nonnull stop) {
+        configFileURL = [mainBundle URLForResource:file withExtension:@"json"];
+        *stop = (configFileURL != nil);
+    }];
+
     if (!configFileURL) {
-        RCTLogInfo(@"Could not find branch.debug.json or branch.json in app bundle.");
-        return;
-    }
-#else
-    configFileURL = [mainBundle URLForResource:@"branch" withExtension:@"json"];
-    if (!configFileURL) {
-        // probably suppressed in a Release build anyway
         RCTLogInfo(@"Could not find branch.json in app bundle.");
         return;
     }
-#endif // DEBUG
 
     self.configFileURL = configFileURL;
 }
