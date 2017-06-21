@@ -13,6 +13,7 @@ extern NSString * _Nonnull const RNBranchConfigLiveKeyOption;
 extern NSString * _Nonnull const RNBranchConfigTestKeyOption;
 extern NSString * _Nonnull const RNBranchConfigUseTestInstanceOption;
 extern NSString * _Nonnull const RNBranchConfigDelayInitToCheckForSearchAdsOption;
+extern NSString * _Nonnull const RNBranchConfigAppleSearchAdsDebugModeOption;
 
 @interface RNBranchConfig : NSObject
 
@@ -23,6 +24,7 @@ extern NSString * _Nonnull const RNBranchConfigDelayInitToCheckForSearchAdsOptio
 @property (nonatomic, readonly, nullable) NSString *testKey;
 @property (nonatomic, readonly) BOOL useTestInstance;
 @property (nonatomic, readonly) BOOL delayInitToCheckForSearchAds;
+@property (nonatomic, readonly) BOOL appleSearchAdsDebugMode;
 
 - (nullable id)objectForKey:(NSString * _Nonnull)key;
 - (nullable id)objectForKeyedSubscript:(NSString * _Nonnull)key;
