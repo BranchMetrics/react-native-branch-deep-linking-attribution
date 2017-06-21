@@ -48,10 +48,30 @@ Add `branch.json` to your Xcode project using File > Add Files to "MyProject.xco
 Also add it to the Copy Bundle Resources build phase for each application target in
 the project that uses the Branch SDK.
 
-## Configurations for debug and release builds
+## Branch configuration per build type and platform
 
 It is possible to include different versions of the configuration for debug and release
-builds.
+builds as well as for iOS and Android. The following files will be used, in order.
+
+### Android debug
+- branch.android.debug.json
+- branch.debug.json
+- branch.android.json
+- branch.json
+
+### Android release
+- branch.android.json
+- branch.json
+
+### iOS debug
+- branch.ios.debug.json
+- branch.debug.json
+- branch.ios.json
+- branch.json
+
+### iOS release
+- branch.ios.json
+- branch.json
 
 ### Using react-native link
 
