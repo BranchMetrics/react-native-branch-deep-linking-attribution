@@ -1,5 +1,6 @@
 const fs = require('fs')
 const log = require('npmlog')
+const path = require('path')
 const xcode = require('xcode')
 
 log.heading = 'react-native-branch'
@@ -11,32 +12,32 @@ function addBranchConfigToXcodeProject() {
     return
   }
 
-  const xcodeprojName = './ios/' + projectName + '.xcodeproj'
-  const projectPbxprojName = xcodeprojName + '/project.pbxproj'
+  const xcodeprojPath = path.join('.', 'ios', projectName + '.xcodeproj')
+  const projectPbxprojPath = path.join(xcodeprojPath, 'project.pbxproj')
 
-  const project = xcode.project(projectPbxprojName)
+  const project = xcode.project(projectPbxprojPath)
   project.parse(function(error) {
     if (error) {
-      log.error('Error loading ' + xcodeprojName)
+      log.error('Error loading ' + xcodeprojPath)
       return
     }
 
-    if (fs.existsSync('./branch.json')) {
+    if (fs.existsSync(path.join('.', 'branch.json'))) {
       // path relative to group
-      includePathInProject(project, projectName, '../branch.json')
+      includePathInProject(project, projectName, path.join('..', 'branch.json'))
     }
 
-    if (fs.existsSync('./branch.debug.json')) {
+    if (fs.existsSync(path.join('.', 'branch.debug.json'))) {
       // path relative to group
-      includePathInProject(project, projectName, '../branch.debug.json')
+      includePathInProject(project, projectName, path.join('..', 'branch.debug.json'))
     }
 
-    if (fs.writeFileSync(projectPbxprojName, project.writeSync()) <= 0) {
+    if (fs.writeFileSync(projectPbxprojPath, project.writeSync()) <= 0) {
       log.error('error writing updated project')
       return
     }
 
-    log.info('Added Branch configuration to project ' + xcodeprojName)
+    log.info('Added Branch configuration to project ' + xcodeprojPath)
   })
 }
 
@@ -47,26 +48,26 @@ function removeBranchConfigFromXcodeProject() {
     return
   }
 
-  const xcodeprojName = './ios/' + projectName + '.xcodeproj'
-  const projectPbxprojName = xcodeprojName + '/project.pbxproj'
+  const xcodeprojPath = path.join('.', 'ios', projectName + '.xcodeproj')
+  const projectPbxprojPath = path.join(xcodeprojPath, 'project.pbxproj')
 
-  const project = xcode.project(projectPbxprojName)
+  const project = xcode.project(projectPbxprojPath)
   project.parse(function(error) {
     if (error) {
-      log.error('Error loading ' + xcodeprojName)
+      log.error('Error loading ' + xcodeprojPath)
       return
     }
 
     // paths relative to group
-    removePathFromProject(project, projectName, '../branch.json')
-    removePathFromProject(project, projectName, '../branch.debug.json')
+    removePathFromProject(project, projectName, path.join('..', 'branch.json'))
+    removePathFromProject(project, projectName, path.join('..', 'branch.debug.json'))
 
-    if (fs.writeFileSync(projectPbxprojName, project.writeSync()) <= 0) {
+    if (fs.writeFileSync(projectPbxprojPath, project.writeSync()) <= 0) {
       log.error('error writing updated project')
       return
     }
 
-    log.info('Removed Branch configuration from project ' + xcodeprojName)
+    log.info('Removed Branch configuration from project ' + xcodeprojPath)
   })
 }
 
@@ -143,7 +144,7 @@ function correctForPath(file, project, group) {
 
 function findXcodeProjectName() {
   // look for a .xcodeproj directory under ios
-  files = fs.readdirSync('./ios')
+  files = fs.readdirSync(path.join('.', 'ios'))
 
   const regex = /^([^/]+)\.xcodeproj$/
 
@@ -152,7 +153,7 @@ function findXcodeProjectName() {
       return false
     }
 
-    stats = fs.statSync('./ios/' + filename)
+    stats = fs.statSync(path.join('.', 'ios', filename))
 
     return stats.isDirectory()
   })

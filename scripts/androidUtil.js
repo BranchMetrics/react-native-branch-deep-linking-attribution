@@ -1,18 +1,21 @@
 const fs = require('fs')
 const log = require('npmlog')
+const path = require('path')
 
 log.heading = 'react-native-branch'
 
 function addBranchConfigToAndroidAssetsFolder() {
   if (fs.existsSync('./branch.json')) {
     ensureAndroidAssetsFolder('main')
-    addSymbolicLink('../../../../../branch.json', './android/app/src/main/assets/branch.json')
+    addSymbolicLink(path.join('..', '..', '..', '..', '..', 'branch.json'),
+      path.join('.', 'android', 'app', 'src', 'main', 'assets', 'branch.json'))
   }
 
   // branch.debug.json will be available as branch.json in debug builds
   if (fs.existsSync('./branch.debug.json')) {
     ensureAndroidAssetsFolder('debug')
-    addSymbolicLink('../../../../../branch.debug.json', './android/app/src/debug/assets/branch.json')
+    addSymbolicLink(path.join('..', '..', '..', '..', '..', 'branch.debug.json'),
+      path.join('.', 'android', 'app', 'src', 'debug', 'assets', 'branch.json'))
   }
 
   log.info('Added Branch configuration to android project')
@@ -65,7 +68,7 @@ function removeSymbolicLink(path) {
 }
 
 function ensureAndroidAssetsFolder(buildType) {
-  ensureDirectory('./android/app/src/' + buildType + '/assets')
+  ensureDirectory(path.join('.', 'android', 'app', 'src', buildType, 'assets'))
 }
 
 function ensureDirectory(path) {
@@ -87,15 +90,34 @@ function ensureDirectory(path) {
 }
 
 function dirname(path) {
-  if (!path.match(/\//)) return path
+  if (!path.search(path.sep)) return path
 
-  return /^(.*)\/[^/]+$/.exec(path)[1]
+  const components = path.split(path.sep)
+  components.splice(components.count - 1, 1)
+  return components.join(path.sep)
 }
 
 function removeBranchConfigFromAndroidAssetsFolder() {
-  removeSymbolicLink('./android/app/src/main/assets/branch.json')
-  removeSymbolicLink('./android/app/src/debug/assets/branch.json')
+  removeSymbolicLink(path.join('.', 'android', 'app', 'src', 'main', 'assets', 'branch.json'))
+  removeSymbolicLink(path.join('.', 'android', 'app', 'src', 'debug', 'assets', 'branch.json'))
   log.info('Removed Branch configuration from Android project')
+}
+
+function androidPackageName() {
+  const path = path.join('.', 'android', 'app', 'src', 'main', 'AndroidManifest.xml')
+  manifest = fs.readFileSync(path)
+  const regex = /package=["']([A-Za-z\.0-9])["']/
+  if (!manifest.match(regex)) throw 'package name not found in ' + path
+  return regex.exec(manifest)[1]
+}
+
+function androidPackageDir() {
+  return path.join('.', 'android', 'app', 'src', 'main', 'java', androidPackageName().replace(/\./, path.sep))
+}
+
+function replaceBranchGetAutoinstnace() {
+  const packageDir = androidPackageDir()
+  source = fs.readFileSync(path.join())
 }
 
 module.exports = {
