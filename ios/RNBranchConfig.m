@@ -14,6 +14,7 @@ NSString * _Nonnull const RNBranchConfigDebugModeOption = @"debugMode";
 NSString * _Nonnull const RNBranchConfigLiveKeyOption = @"liveKey";
 NSString * _Nonnull const RNBranchConfigTestKeyOption = @"testKey";
 NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstance";
+NSString * _Nonnull const RNBranchConfigDelayInitToCheckForSearchAdsOption = @"delayInitToCheckForSearchAds";
 
 @interface RNBranchConfig()
 @property (nonatomic) NSDictionary *configuration;
@@ -112,6 +113,12 @@ NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstanc
 - (BOOL)useTestInstance
 {
     NSNumber *number = self[RNBranchConfigUseTestInstanceOption];
+    return number.boolValue;
+}
+
+- (BOOL)delayInitToCheckForSearchAds
+{
+    NSNumber *number = self[RNBranchConfigDelayInitToCheckForSearchAdsOption];
     return number.boolValue;
 }
 
