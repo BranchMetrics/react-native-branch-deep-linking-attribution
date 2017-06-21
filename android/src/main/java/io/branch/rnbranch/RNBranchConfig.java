@@ -50,6 +50,7 @@ public class RNBranchConfig {
         if (mConfiguration == null) return null;
 
         try {
+            if (!mConfiguration.has(key)) return null;
             return mConfiguration.get(key);
         }
         catch (JSONException exception) {
@@ -62,7 +63,63 @@ public class RNBranchConfig {
         if (mConfiguration == null) return false;
 
         try {
+            if (!mConfiguration.has("debugMode")) return false;
             return mConfiguration.getBoolean("debugMode");
+        }
+        catch (JSONException exception) {
+            Log.e(TAG, "Error parsing branch.json: " + exception.getMessage());
+            return false;
+        }
+    }
+
+    @Nullable
+    public String getBranchKey() {
+        if (mConfiguration == null) return null;
+
+        try {
+            if (!mConfiguration.has("branchKey")) return null;
+            return mConfiguration.getString("branchKey");
+        }
+        catch (JSONException exception) {
+            Log.e(TAG, "Error parsing branch.json: " + exception.getMessage());
+            return null;
+        }
+    }
+
+    @Nullable
+    public String getLiveKey() {
+        if (mConfiguration == null) return null;
+
+        try {
+            if (!mConfiguration.has("liveKey")) return null;
+            return mConfiguration.getString("liveKey");
+        }
+        catch (JSONException exception) {
+            Log.e(TAG, "Error parsing branch.json: " + exception.getMessage());
+            return null;
+        }
+    }
+
+    @Nullable
+    public String getTestKey() {
+        if (mConfiguration == null) return null;
+
+        try {
+            if (!mConfiguration.has("testKey")) return null;
+            return mConfiguration.getString("testKey");
+        }
+        catch (JSONException exception) {
+            Log.e(TAG, "Error parsing branch.json: " + exception.getMessage());
+            return null;
+        }
+    }
+
+    public boolean getUseTestInstance() {
+        if (mConfiguration == null) return false;
+
+        try {
+            if (!mConfiguration.has("useTestInstance")) return false;
+            return mConfiguration.getBoolean("useTestInstance");
         }
         catch (JSONException exception) {
             Log.e(TAG, "Error parsing branch.json: " + exception.getMessage());

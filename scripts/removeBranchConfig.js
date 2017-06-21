@@ -1,5 +1,5 @@
-var androidUtil = require('./androidUtil')
-var iosUtil = require('./iosUtil')
+const androidUtil = require('./androidUtil')
+const iosUtil = require('./iosUtil')
 
 androidUtil.removeBranchConfigFromAndroidAssetsFolder()
 iosUtil.removeBranchConfigFromXcodeProject()

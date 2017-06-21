@@ -41,7 +41,7 @@ RCT_EXPORT_MODULE();
 
 + (Branch *)branch
 {
-    @synchronized(self.class) {
+    @synchronized(self) {
         static Branch *instance;
         static dispatch_once_t once = 0;
         dispatch_once(&once, ^{
@@ -49,11 +49,10 @@ RCT_EXPORT_MODULE();
 
             // YES if either [RNBranch useTestInstance] was called or useTestInstance: true is present in branch.json.
             BOOL usingTestInstance = useTestInstance || config.useTestInstance;
-            NSString *key = usingTestInstance ? config.testKey : config.liveKey;
+            NSString *key = config.branchKey ?: usingTestInstance ? config.testKey : config.liveKey;
 
             if (key) {
                 // Override the Info.plist if these are present.
-                RCTLog(@"Using Branch key %@ from branch.json", key);
                 instance = [Branch getInstance: key];
             }
             else {
@@ -71,6 +70,12 @@ RCT_EXPORT_MODULE();
     RNBranchConfig *config = RNBranchConfig.instance;
     if (config.debugMode) {
         [instance setDebug];
+    }
+    if (config.delayInitToCheckForSearchAds) {
+        [instance delayInitToCheckForSearchAds];
+    }
+    if (config.appleSearchAdsDebugMode) {
+        [instance setAppleSearchAdsDebugMode];
     }
 }
 

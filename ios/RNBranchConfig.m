@@ -11,9 +11,12 @@
 #import "RNBranchConfig.h"
 
 NSString * _Nonnull const RNBranchConfigDebugModeOption = @"debugMode";
+NSString * _Nonnull const RNBranchConfigBranchKeyOption = @"branchKey";
 NSString * _Nonnull const RNBranchConfigLiveKeyOption = @"liveKey";
 NSString * _Nonnull const RNBranchConfigTestKeyOption = @"testKey";
 NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstance";
+NSString * _Nonnull const RNBranchConfigDelayInitToCheckForSearchAdsOption = @"delayInitToCheckForSearchAds";
+NSString * _Nonnull const RNBranchConfigAppleSearchAdsDebugModeOption = @"appleSearchAdsDebugMode";
 
 @interface RNBranchConfig()
 @property (nonatomic) NSDictionary *configuration;
@@ -25,12 +28,14 @@ NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstanc
 
 + (RNBranchConfig * _Nonnull)instance
 {
-    static RNBranchConfig *_instance;
-    static dispatch_once_t once = 0;
-    dispatch_once(&once, ^{
-        _instance = [[RNBranchConfig alloc] init];
-    });
-    return _instance;
+    @synchronized(self) {
+        static RNBranchConfig *_instance;
+        static dispatch_once_t once = 0;
+        dispatch_once(&once, ^{
+            _instance = [[RNBranchConfig alloc] init];
+        });
+        return _instance;
+    }
 }
 
 - (instancetype)init
@@ -111,6 +116,23 @@ NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstanc
 {
     NSNumber *number = self[RNBranchConfigUseTestInstanceOption];
     return number.boolValue;
+}
+
+- (BOOL)delayInitToCheckForSearchAds
+{
+    NSNumber *number = self[RNBranchConfigDelayInitToCheckForSearchAdsOption];
+    return number.boolValue;
+}
+
+- (BOOL)appleSearchAdsDebugMode
+{
+    NSNumber *number = self[RNBranchConfigAppleSearchAdsDebugModeOption];
+    return number.boolValue;
+}
+
+- (NSString *)branchKey
+{
+    return self[RNBranchConfigBranchKeyOption];
 }
 
 - (NSString *)liveKey
