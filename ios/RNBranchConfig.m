@@ -25,12 +25,14 @@ NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstanc
 
 + (RNBranchConfig * _Nonnull)instance
 {
-    static RNBranchConfig *_instance;
-    static dispatch_once_t once = 0;
-    dispatch_once(&once, ^{
-        _instance = [[RNBranchConfig alloc] init];
-    });
-    return _instance;
+    @synchronized(self) {
+        static RNBranchConfig *_instance;
+        static dispatch_once_t once = 0;
+        dispatch_once(&once, ^{
+            _instance = [[RNBranchConfig alloc] init];
+        });
+        return _instance;
+    }
 }
 
 - (instancetype)init

@@ -41,7 +41,7 @@ RCT_EXPORT_MODULE();
 
 + (Branch *)branch
 {
-    @synchronized(self.class) {
+    @synchronized(self) {
         static Branch *instance;
         static dispatch_once_t once = 0;
         dispatch_once(&once, ^{

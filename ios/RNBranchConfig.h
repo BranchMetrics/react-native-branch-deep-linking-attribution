@@ -15,6 +15,7 @@ extern NSString * _Nonnull const RNBranchConfigUseTestInstanceOption;
 
 @interface RNBranchConfig : NSObject
 
+@property (class, readonly, nonnull) RNBranchConfig *instance;
 @property (nonatomic, readonly, nullable) NSURL *configFileURL;
 @property (nonatomic, readonly) BOOL debugMode;
 @property (nonatomic, readonly, nullable) NSString *liveKey;
@@ -23,7 +24,5 @@ extern NSString * _Nonnull const RNBranchConfigUseTestInstanceOption;
 
 - (nullable id)objectForKey:(NSString * _Nonnull)key;
 - (nullable id)objectForKeyedSubscript:(NSString * _Nonnull)key;
-
-+ (RNBranchConfig * _Nonnull)instance;
 
 @end
