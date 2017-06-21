@@ -60,8 +60,6 @@ export function mock(object: Object, methodName: String, mockMethod: Function) {
 }
 
 export function unmock() {
-  mockedMethods.forEach((m) => {
-    m.object[m.method] = m.original
-  })
+  mockedMethods.forEach(({object, method, original}) => object[method] = original)
   mockedMethods = []
 }
