@@ -12,7 +12,7 @@ certain methods in the native SDKs that must be called before the native SDK ini
 ## Add the files to your project
 
 Be sure to commit `branch.json` and `branch.debug.json` to source control after adding
-them to your project.
+them to your project (after running `react-native link`).
 
 ### Using react-native link
 
@@ -74,6 +74,12 @@ of `branch.json`.
 |key|description|type|
 |---|---|---|
 |debugMode|If true, `setDebug` will be called in the native SDK, enabling testing of install events.|Boolean|
+|branchKey|If set, the specified key overrides all other settings, including the Info.plist, AndroidManifest.xml and the liveKey and testKey settings here.|String|
+|liveKey|If branchKey is not set and useTestInstance is false or absent, this key will be used to override the keys from the Info.plist and AndroidManifest.xml|String|
+|testKey|If branchKey is not set and useTestInstance is true, this key will be used to override the keys from the Info.plist and AndroidManifest.xml|String|
+|useTestInstance|If branchKey is not set and useTestInstance is true, the testKey from branch.json will be used if present. If branchKey and testKey are not set: On iOS, the test key from the Info.plist will be used, if present. On Android, the io.branch.sdk.TestMode metadata key will determine which instance is used.|Boolean|
+|appleSearchAdsDebugMode|If true, `setAppleSearchAdsDebugMode` will be called on the iOS Branch instance. Ignored on Android.|Boolean|
+|delayInitToCheckForSearchAds|If true, `delayInitToCheckForSearchAds` will be called on the iOS Branch instance. Ignored on Android.|Boolean|
 
 ## Example
 
@@ -81,6 +87,11 @@ See [branch.example.json](https://github.com/BranchMetrics/react-native-branch-d
 
 ```json
 {
-  "debugMode": true
+    "debugMode": true,
+    "liveKey": "key_live_xxxx",
+    "testKey": "key_test_yyyy",
+    "useTestInstance": true,
+    "delayInitToCheckForSearchAds": true,
+    "appleSearchAdsDebugMode": true
 }
 ```
