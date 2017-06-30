@@ -80,10 +80,10 @@ An overload of `Branch.initSession` was introduced that accepts a `Branch.Branch
 
 ### Initial installation
 
-#### Simple
+#### Simple (iOS or Android)
 
 ```bash
-npm install --save react-native-branch@2.0.0-beta.6
+npm install --save react-native-branch@2.0.0-beta.7
 react-native link react-native-branch
 ```
 
@@ -91,7 +91,7 @@ Then follow the [setup instructions](./setup.md).
 
 There's no need for CocoaPods or Carthage. The testbed_simple app was built this way.
 
-#### In a native app using the React pod
+#### In a native iOS app using the React pod
 
 Add both the `react-native-branch` and `Branch-SDK` pods to your Podfile like this:
 ```Ruby
@@ -109,7 +109,32 @@ The testbed_native_ios and webview_example_native_ios apps were built this way.
 
 ### Existing apps updating to 2.0
 
-#### Remove the Branch SDK from your project
+#### Update your app/build.gradle (Android)
+
+The Branch SDK is now included as a jar file in the NPM module. Open the `android/app/build.gradle` file
+in your project. Remove:
+
+```gradle
+compile 'io.branch.sdk.android:library:2.+'
+```
+
+And add this line if not already present:
+
+```gradle
+compile fileTree(dir: 'libs', include: ['*.jar'])
+```
+
+The result should be something like
+```gradle
+dependencies {
+    compile project(':react-native-branch')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:appcompat-v7:23.0.1"
+    compile "com.facebook.react:react-native:+"  // From node_modules
+}
+```
+
+#### Remove the Branch SDK from your project (iOS)
 
 ##### CocoaPods
 
