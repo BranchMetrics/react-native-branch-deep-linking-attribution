@@ -125,11 +125,6 @@ function androidPackageDir() {
   return path.join('.', 'android', 'app', 'src', 'main', 'java', androidPackageName().replace(/\./, path.sep))
 }
 
-function replaceBranchGetAutoinstnace() {
-  const packageDir = androidPackageDir()
-  source = fs.readFileSync(path.join())
-}
-
 module.exports = {
   addBranchConfigToAndroidAssetsFolder: addBranchConfigToAndroidAssetsFolder,
   removeBranchConfigFromAndroidAssetsFolder: removeBranchConfigFromAndroidAssetsFolder
