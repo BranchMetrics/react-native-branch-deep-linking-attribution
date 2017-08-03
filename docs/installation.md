@@ -78,6 +78,28 @@ include ':react-native-branch', ':app'
 project(':react-native-branch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-branch/android')
 ```
 android/app/build.gradle
+
+**2.0.0-beta.8:**
+
+_Using RN >= 0.47_
+```gradle
+dependencies {
+    ...
+    debugCompile project(path: ':react-native-branch', configuration: 'latestDebug')
+    releaseCompile project(path: ':react-native-branch', configuration: 'latestRelease')
+}
+```
+
+_Using RN < 0.47 (>= 0.40)_
+```gradle
+dependencies {
+    ...
+    debugCompile project(path: ':react-native-branch', configuration: 'legacyDebug')
+    releaseCompile project(path: ':react-native-branch', configuration: 'legacyRelease')
+}
+```
+
+**Older versions:**
 ```gradle
 dependencies {
     ...

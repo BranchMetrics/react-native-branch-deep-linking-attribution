@@ -3,6 +3,7 @@ package com.webview_example;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+
 import io.branch.rnbranch.RNBranchPackage;
 
 import io.branch.referral.Branch;

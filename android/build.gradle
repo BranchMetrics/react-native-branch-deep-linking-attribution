@@ -8,16 +8,24 @@ repositories {
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.1'
-
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
+    productFlavors {
+        legacy {
+        }
+        latest {
+        }
+    }
+    publishNonDefault true
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+' // From node_modules
-    compile files('libs/Branch-2.10.1.jar') // From node_modules
+    compile 'com.facebook.react:react-native:+'
+    // From node_modules
+    compile files('libs/Branch-2.10.1.jar')
+    // From node_modules
 }

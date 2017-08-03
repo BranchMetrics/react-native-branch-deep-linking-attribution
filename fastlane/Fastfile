@@ -6,7 +6,8 @@ desc "Run Android unit tests"
 lane :test_android do
   # for development on a Mac. Override with the env. var.
   ENV['ANDROID_HOME'] ||= "#{ENV['HOME']}/Library/Android/sdk"
-  gradle task: "test", project_dir: "native-tests/android"
+  gradle task: "testDebug", project_dir: "native-tests/android"
+  gradle task: "testRelease", project_dir: "native-tests/android"
 end
 
 desc "Run iOS unit tests"
