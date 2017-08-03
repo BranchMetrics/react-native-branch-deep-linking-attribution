@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 
-import io.branch.rnbranch.RNBranchLegacyPackage;
+import io.branch.rnbranch.RNBranchPackage;
 
 import io.branch.referral.Branch;
 import com.facebook.react.ReactNativeHost;
@@ -27,7 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNBranchLegacyPackage()
+            new RNBranchPackage()
       );
     }
   };
