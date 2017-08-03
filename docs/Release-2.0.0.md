@@ -76,6 +76,10 @@ linking SDKs such as Linking or Facebook.
 
 An overload of `Branch.initSession` was introduced that accepts a `Branch.BranchUniversalReferralInitListener` to allow link routing in native apps that integrate `react-native-branch`. An `RNBranchModule.NATIVE_INIT_SESSION_FINISHED_EVENT` local broadcast is also available for the same purpose. See testbed_native_android for an example.
 
+As of 2.0.0-beta.8, two distinct flavors of the SDK are available to support different versions
+of RN: `latest` for RN >= 0.47 and `legacy` for RN >= 0.40, < 0.47. This requires a change to the app's
+build.gradle (TODO: automation).
+
 ## SDK Integration
 
 ### Initial installation
@@ -89,7 +93,20 @@ react-native link react-native-branch
 
 Then follow the [setup instructions](./setup.md).
 
-There's no need for CocoaPods or Carthage. The testbed_simple app was built this way.
+There's no need for CocoaPods or Carthage (iOS). The testbed_simple and
+webview_example apps were built this way.
+
+##### Android
+
+Replace `compile project(':react-native-branch')` in the app's build.gradle
+with the following two lines:
+
+```gradle
+debugCompile project(path: ':react-native-branch', configuration: 'latestDebug')
+releaseCompile project(path: ':react-native-branch', configuration: 'latestRelease')
+```
+
+Substitute `legacy` for `latest` in both lines if using RN < 0.47. (TODO: Automation.)
 
 #### In a native iOS app using the React pod
 
@@ -124,10 +141,27 @@ And add this line if not already present:
 compile fileTree(dir: 'libs', include: ['*.jar'])
 ```
 
+If you're using 2.0.0-beta.8 or later, replace `compile project(':react-native-branch')`
+with the following two lines:
+
+```gradle
+debugCompile project(path: ':react-native-branch', configuration: 'latestDebug')
+releaseCompile project(path: ':react-native-branch', configuration: 'latestRelease')
+```
+
+The `latest` flavor is for RN >= 0.47. If using RN < 0.47 (>= 0.40), substitute 'legacy'
+for `latest`, i.e.:
+
+```gradle
+debugCompile project(path: ':react-native-branch', configuration: 'legacyDebug')
+releaseCompile project(path: ':react-native-branch', configuration: 'legacyRelease')
+```
+
 The result should be something like
 ```gradle
 dependencies {
-    compile project(':react-native-branch')
+    debugCompile project(path: ':react-native-branch', configuration: 'latestDebug')
+    releaseCompile project(path: ':react-native-branch', configuration: 'latestRelease')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
