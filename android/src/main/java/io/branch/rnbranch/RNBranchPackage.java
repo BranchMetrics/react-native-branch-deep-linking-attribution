@@ -20,7 +20,7 @@ public class RNBranchPackage implements ReactPackage {
     return modules;
   }
 
-  @Override
+  // Depreciated RN 0.47
   public List<Class<? extends JavaScriptModule>> createJSModules() {
   	return Collections.emptyList();
   }
