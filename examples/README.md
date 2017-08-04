@@ -10,7 +10,7 @@ See each app for further details, including build instructions.
 [webview_example]: ./webview_example
 [webview_example_native_ios]: ./webview_example_native_ios
 
-## Automatically set up iOS Branch configuration (experimental)
+## Automatically set up iOS Branch configuration with Fastlane
 
 To run any of the 2.0 iOS examples ([testbed_native_ios], [testbed_simple], [webview_example], [webview_example_native_ios]) on a device,
 you can use Fastlane to set the following Branch-related configuration parameters without changing settings manually
@@ -38,8 +38,8 @@ bundle exec fastlane update_branch
 ```
 
 The plugin crawls the Branch-generated apple-app-site-association file for the domain to get the
-team and bundle identifiers that you entered in the Branch Dashboard. Both the live and test keys
-are required.
+team and bundle identifiers that you entered in the Branch Dashboard. The live or test key is required.
+Both are not required, but both may be supplied to set up both environments.
 
 ## webview_example apps
 

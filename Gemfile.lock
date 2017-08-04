@@ -1,9 +1,11 @@
-PATH
-  remote: examples/fastlane-plugin-branch
+GIT
+  remote: https://github.com/BranchMetrics/fastlane-plugin-branch
+  revision: 340b439c90abc3d3b78ee666f9ceb8b66b368279
   specs:
     fastlane-plugin-branch (0.1.0)
+      nokogiri
       plist
-      xcodeproj (~> 1.4)
+      xcodeproj
 
 GEM
   remote: https://rubygems.org/
@@ -150,6 +152,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_magick (4.5.1)
+    mini_portile2 (2.2.0)
     minitest (5.10.3)
     molinillo (0.5.7)
     multi_json (1.12.1)
@@ -161,6 +164,8 @@ GEM
       connection_pool (~> 2.2)
     net-http-pipeline (1.0.1)
     netrc (0.7.8)
+    nokogiri (1.8.0)
+      mini_portile2 (~> 2.2.0)
     os (0.9.6)
     plist (3.3.0)
     public_suffix (2.0.5)
