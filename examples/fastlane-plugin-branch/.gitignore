@@ -1,8 +1,0 @@
-*.gem
-
-## Documentation cache and generated files:
-/.yardoc/
-/_yardoc/
-/doc/
-/rdoc/
-fastlane/report.xml

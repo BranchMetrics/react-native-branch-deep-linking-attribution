@@ -1,0 +1,6 @@
+framework module TextAttributes {
+  umbrella header "TextAttributes-umbrella.h"
+
+  export *
+  module * { export * }
+}
