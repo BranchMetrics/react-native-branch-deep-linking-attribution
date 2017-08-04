@@ -140,3 +140,8 @@
   * This release adds support for an optional `branch.json` configuration file. See https://rnbranch.app.link/branch-json for details.
   * Deprecated `[RNBranch handleDeepLink:]`. See https://rnbranch.app.link/version-2#ios-api-changes for details.
   * Includes native SDKs 0.15.3 (iOS), 2.9.0 (Android).
+
+2017-08-04  Version 2.0.0-beta.8
+  * Support for RN >= 0.47 (#231).
+  * Added support for platform-specific branch.json.
+  * Includes native SDKs 0.16.2 (iOS), 2.10.3 (Android).

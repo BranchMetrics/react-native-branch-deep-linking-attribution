@@ -11,7 +11,7 @@ This is a repository of our open source React Native SDK. Huge shoutout to our f
 
 [Release 2.0.0]: ./docs/Release-2.0.0.md
 
-Version 2.0.0-beta.7 is now available in NPM with a simplified SDK integration process. See [Release 2.0.0] for details.
+Version 2.0.0-beta.8 is now available in NPM with a simplified SDK integration process. See [Release 2.0.0] for details.
 
 **branch.json** It is now possible to control certain features of the Branch SDK using an optional
 configuration file in your project. See https://rnbranch.app.link/branch-json for details.
