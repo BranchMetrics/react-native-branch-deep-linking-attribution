@@ -26,6 +26,14 @@ module Fastlane
             mode: :append,
             text: "\n  s.header_dir       = \"Branch\""
           )
+
+          other_action.apply_patch(
+            files: "#{ios_subdir}/Branch-SDK.podspec",
+            regexp: %r{(['"]Branch-SDK/)},
+            mode: :replace,
+            text: '\1Branch-SDK/',
+            global: true
+          )
         end
 
         def available_options
