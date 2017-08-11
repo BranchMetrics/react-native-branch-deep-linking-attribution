@@ -24,7 +24,7 @@ module Fastlane
           branch_sdk_podspec_path = File.join ios_subdir, "Branch-SDK.podspec"
 
           # Copy the podspec from the submodule
-          `cp #{ios_subdir}/Branch-SDK/Branch.podspec #{branch_sdk_podspec_path}`
+          `cp #{ios_subdir}/native-sdk/Branch.podspec #{branch_sdk_podspec_path}`
           UI.user_error! "Unable to update #{branch_sdk_podspec_path}" unless $?.exitstatus == 0
 
           # Change the pod name to Branch-SDK
@@ -43,25 +43,15 @@ module Fastlane
             text: "\n  s.header_dir       = \"Branch\""
           )
 
-          # Add an additional Branch-SDK/ path component to all paths to account for the submodule
-          other_action.apply_patch(
-            files: branch_sdk_podspec_path,
-            regexp: %r{(['"]Branch-SDK/)},
-            mode: :replace,
-            text: '\1Branch-SDK/',
-            global: true
-          )
-
           UI.message "Updated #{ios_subdir}/Branch-SDK.podspec"
         end
 
         def adjust_rnbranch_xcodeproj(ios_subdir)
           project = Xcodeproj::Project.open File.join(ios_subdir, "RNBranch.xcodeproj")
-          ios_subdir_pathname = Pathname.new ios_subdir
+          # ios_subdir_pathname = Pathname.new ios_subdir
 
           Dir[File.expand_path "Branch-SDK/**/*.h", ios_subdir].each do |header|
-            relative_path = Pathname.new(header).relative_path_from(ios_subdir_pathname).to_s
-            next if project.files.find { |f| f.name =~ /#{relative_path}$/ }
+            next if project.files.find { |f| f.real_path.to_s == header }
             UI.message "New header file: #{header}"
           end
         end
