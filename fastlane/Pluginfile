@@ -1,2 +1,2 @@
 gem "fastlane-plugin-branch"
-gem 'fastlane-plugin-patch', path: "../../jdee/fastlane-plugin-patch"
+gem 'fastlane-plugin-patch'
