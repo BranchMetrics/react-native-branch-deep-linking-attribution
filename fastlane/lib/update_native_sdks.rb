@@ -7,7 +7,7 @@ module Fastlane
         UI = FastlaneCore::UI
 
         def run(params)
-          # TODO: Update submodules
+          update_submodules
 
           # TODO: Android
 
@@ -18,6 +18,16 @@ module Fastlane
 
         def available_options
           []
+        end
+
+        def update_submodules
+          %w{ios/native-sdk}.each do |folder|
+            Dir.chdir(folder) do
+              `git checkout master`
+              `git pull origin master`
+              checkout_last_git_tag
+            end
+          end
         end
 
         def update_branch_podspec_from_submodule(ios_subdir)
@@ -43,7 +53,7 @@ module Fastlane
             text: "\n  s.header_dir       = \"Branch\""
           )
 
-          UI.message "Updated #{ios_subdir}/Branch-SDK.podspec"
+          UI.message "Updated ios/Branch-SDK.podspec"
         end
 
         def adjust_rnbranch_xcodeproj(ios_subdir)
@@ -126,6 +136,11 @@ module Fastlane
 
         def source_build_phase
           @project.targets.first.source_build_phase
+        end
+
+        def checkout_last_git_tag
+          commit = `git rev-list --tags='[0-9]*.[0-9]*.[0-9]*' --max-count=1`
+          `git checkout #{commit}`
         end
       end
     end
