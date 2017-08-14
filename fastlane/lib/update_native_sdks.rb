@@ -21,11 +21,12 @@ module Fastlane
         end
 
         def update_submodules
-          %w{ios/native-sdk}.each do |folder|
+          %w{android/native-sdk ios/native-sdk}.each do |folder|
             Dir.chdir(folder) do
-              `git checkout master`
-              `git pull origin master`
+              `git checkout -q master`
+              `git pull -q origin master`
               checkout_last_git_tag
+              UI.message "Updated submodule in #{folder}"
             end
           end
         end
@@ -140,7 +141,7 @@ module Fastlane
 
         def checkout_last_git_tag
           commit = `git rev-list --tags='[0-9]*.[0-9]*.[0-9]*' --max-count=1`
-          `git checkout #{commit}`
+          `git checkout -q #{commit}`
         end
       end
     end
