@@ -9,7 +9,8 @@ module Fastlane
         def run(params)
           update_submodules
 
-          # TODO: Android
+          android_subdir = File.expand_path 'android', '.'
+          update_android_jar android_subdir
 
           ios_subdir = File.expand_path 'ios', '.'
           update_branch_podspec_from_submodule ios_subdir
@@ -21,6 +22,7 @@ module Fastlane
         end
 
         def update_submodules
+          UI.message "Updating native SDK submodules..."
           %w{android/native-sdk ios/native-sdk}.each do |folder|
             Dir.chdir(folder) do
               `git checkout -q master`
@@ -29,6 +31,28 @@ module Fastlane
               UI.message "Updated submodule in #{folder}"
             end
           end
+        end
+
+        def update_android_jar(android_subdir)
+          jar = Dir['android/native-sdk/Branch*.jar'].reject { |j| j =~ /core/ }.first
+          version = jar.sub(/^.*Branch-/, '').sub(/\.jar$/, '')
+
+          return if File.exist? "#{android_subdir}/libs/Branch-#{version}.jar"
+
+          # Remove the old and add the new (symlink)
+          Dir.chdir("#{android_subdir}/libs") do
+            `git rm -fq Branch-*.jar`
+            `ln -s ../../native-sdk/Branch-#{version}.jar`
+            `git add -q Branch-#{version}.jar`
+          end
+
+          # Patch build.gradle
+          other_action.apply_patch(
+            files: "#{android_subdir}/build.gradle",
+            mode: :replace,
+            regexp: /Branch-.*\.jar/,
+            text: "Branch-#{version}.jar"
+          )
         end
 
         def update_branch_podspec_from_submodule(ios_subdir)
