@@ -93,6 +93,7 @@ module Fastlane
           # check_file_refs
 
           @project.save
+          UI.message "Updated ios/RNBranch.xcodeproj"
         end
 
         def ensure_group_at_path(pathname)
