@@ -64,14 +64,11 @@ module Fastlane
             file_basename = File.basename filename
             file = group.new_file file_basename
 
-            UI.message "adding #{file.path} in #{group.name}: #{file.source_tree}"
-            build_file =
-              if filename =~ /\.h$/
-                copy_branch_sdk_headers_build_phase.add_file_reference file
-              else
-                source_build_phase.add_file_reference file
-              end
-            UI.message "  build_file = #{build_file.display_name}, #{build_file.isa}, #{build_file.uuid}"
+            if filename =~ /\.h$/
+              copy_branch_sdk_headers_build_phase.add_file_reference file
+            else
+              source_build_phase.add_file_reference file
+            end
           end
 
           # check_file_refs
