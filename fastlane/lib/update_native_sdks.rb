@@ -188,7 +188,7 @@ module Fastlane
 
         def yarn(folder)
           Dir.chdir(folder) do
-            UI.message "Running yarn in #{folder}..."
+            UI.message "Running yarn in #{folder} ..."
             `yarn -s`
             UI.message "Done"
           end
