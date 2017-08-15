@@ -1,1 +1,1 @@
-../../../../../node_modules/react-native-branch/ios/Branch-SDK/Branch-SDK/Requests/BranchRegisterViewRequest.h
+../../../../../node_modules/react-native-branch/ios/Branch-SDK/Branch-SDK/Networking/Requests/BranchRegisterViewRequest.h

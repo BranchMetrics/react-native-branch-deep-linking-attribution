@@ -1,1 +1,1 @@
-../../../../../node_modules/react-native-branch/ios/Branch-SDK/Branch-SDK/Requests/BranchCreditHistoryRequest.h
+../../../../../node_modules/react-native-branch/ios/Branch-SDK/Branch-SDK/Networking/Requests/BranchCreditHistoryRequest.h

@@ -1,1 +1,1 @@
-../../../../../../../ios/Branch-SDK/Branch-SDK/Requests/BranchRedeemRewardsRequest.h
+../../../../../../../ios/Branch-SDK/Branch-SDK/Networking/Requests/BranchRedeemRewardsRequest.h

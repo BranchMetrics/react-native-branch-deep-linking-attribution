@@ -1,1 +1,1 @@
-../../../../../../../ios/Branch-SDK/Branch-SDK/BNCServerInterface.h
+../../../../../../../ios/Branch-SDK/Branch-SDK/Networking/BNCServerInterface.h
