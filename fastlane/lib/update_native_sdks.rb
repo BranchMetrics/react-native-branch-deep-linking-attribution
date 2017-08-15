@@ -64,11 +64,11 @@ module Fastlane
 
           # Remove the old and add the new
           Dir.chdir("#{@android_subdir}/libs") do
-            old_jar = Dir['Branch*.jar'].first
+            old_jars = Dir['Branch*.jar']
             `cp #{jar_path} .`
-            `git rm -f #{old_jar}`
+            `git add Branch-#{version}.jar`
+            `git rm -f #{old_jars.join ' '}`
           end
-          other_action.git_add path: "./android/libs/Branch-#{version}.jar"
 
           # Patch build.gradle
           other_action.apply_patch(
