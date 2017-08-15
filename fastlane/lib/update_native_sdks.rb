@@ -60,7 +60,7 @@ module Fastlane
           # Remove the old and add the new (symlink)
           Dir.chdir("#{android_subdir}/libs") do
             `git rm -f Branch-*.jar`
-            `ln -s ../../native-sdk/Branch-#{version}.jar`
+            File.symlink "../native-tests/Branch-#{version}.jar", "./Branch-#{version}.jar"
             `git add Branch-#{version}.jar`
           end
 
