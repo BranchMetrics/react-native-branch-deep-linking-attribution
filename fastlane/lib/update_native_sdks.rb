@@ -15,10 +15,16 @@ module Fastlane
           ios_subdir = File.expand_path 'ios', '.'
           update_branch_podspec_from_submodule ios_subdir
           adjust_rnbranch_xcodeproj ios_subdir
+
+          commit
         end
 
         def available_options
           []
+        end
+
+        def commit
+          `git commit -a -m'[Fastlane] Branch native SDK update`
         end
 
         def update_submodules
