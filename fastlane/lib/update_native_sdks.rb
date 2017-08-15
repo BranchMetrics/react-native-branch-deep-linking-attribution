@@ -16,7 +16,19 @@ module Fastlane
           update_branch_podspec_from_submodule ios_subdir
           adjust_rnbranch_xcodeproj ios_subdir
 
-          commit
+          %w{
+            examples/testbed_native_ios
+            examples/webview_example_native_ios
+            .
+          }.each { |f| yarn f }
+
+          %w{
+            examples/testbed_native_ios
+            examples/webview_example_native_ios
+            native-tests/ios
+          }.each { |f| pod_install f }
+
+          # commit
         end
 
         def available_options
@@ -47,9 +59,9 @@ module Fastlane
 
           # Remove the old and add the new (symlink)
           Dir.chdir("#{android_subdir}/libs") do
-            `git rm -fq Branch-*.jar`
+            `git rm -f Branch-*.jar`
             `ln -s ../../native-sdk/Branch-#{version}.jar`
-            `git add -q Branch-#{version}.jar`
+            `git add Branch-#{version}.jar`
           end
 
           # Patch build.gradle
@@ -172,6 +184,22 @@ module Fastlane
         def checkout_last_git_tag
           commit = `git rev-list --tags='[0-9]*.[0-9]*.[0-9]*' --max-count=1`
           `git checkout -q #{commit}`
+        end
+
+        def yarn(folder)
+          Dir.chdir(folder) do
+            UI.message "Running yarn in #{folder}..."
+            `yarn -s`
+            UI.message "Done"
+          end
+        end
+
+        def pod_install(folder)
+          Dir.chdir(folder) do
+            `bundle exec pod install --silent`
+            `git add .`
+            UI.message "pod install complete in #{folder}"
+          end
         end
       end
     end
