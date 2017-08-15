@@ -24,7 +24,7 @@ module Fastlane
         end
 
         def commit
-          `git commit -a -m'[Fastlane] Branch native SDK update`
+          `git commit -a -m'[Fastlane] Branch native SDK update'`
         end
 
         def update_submodules
