@@ -66,7 +66,7 @@ module Fastlane
           # Remove the old and add the new
           Dir.chdir("#{@android_subdir}/libs") do
             `git rm -f Branch-*.jar`
-            `cp ../../native-sdks/android/Branch-#{version}.jar .`
+            `cp #{jar} .`
             `git add Branch-#{version}.jar`
           end
 
