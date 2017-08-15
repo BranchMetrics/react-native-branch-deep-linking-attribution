@@ -48,7 +48,7 @@ module Fastlane
           %w{native-sdks/android native-sdks/ios}.each do |folder|
             Dir.chdir(folder) do
               `git checkout -q master`
-              `git pull -q origin master`
+              `git pull --tags -q origin master`
               checkout_last_git_tag
               UI.message "Updated submodule in #{folder}"
             end
