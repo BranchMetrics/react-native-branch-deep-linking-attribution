@@ -32,7 +32,7 @@ module Fastlane
             native-tests/ios
           }.each { |f| pod_install f }
 
-          # commit
+          commit
         end
 
         def available_options
@@ -66,8 +66,8 @@ module Fastlane
           Dir.chdir("#{@android_subdir}/libs") do
             old_jar = Dir['Branch*.jar'].first
             `cp #{jar_path} .`
-            `git add Branch-#{version}.jar`
             `git rm -f #{old_jar}`
+            `git add .`
           end
 
           # Patch build.gradle
