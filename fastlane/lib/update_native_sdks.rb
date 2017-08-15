@@ -9,13 +9,16 @@ module Fastlane
         def run(params)
           update_submodules
 
-          android_subdir = File.expand_path 'android', '.'
-          update_android_jar android_subdir
+          @android_subdir = File.expand_path 'android', '.'
+          @ios_subdir = File.expand_path 'ios', '.'
 
-          ios_subdir = File.expand_path 'ios', '.'
-          update_ios_branch_source ios_subdir
-          update_branch_podspec_from_submodule ios_subdir
-          adjust_rnbranch_xcodeproj ios_subdir
+          # Update embedded Android SDK
+          update_android_jar
+
+          # Update embedded iOS SDK
+          update_ios_branch_source
+          update_branch_podspec_from_submodule
+          adjust_rnbranch_xcodeproj
 
 =begin
           %w{
@@ -44,7 +47,7 @@ module Fastlane
 
         def update_submodules
           UI.message "Updating native SDK submodules..."
-          %w{android/native-sdk ios/native-sdk}.each do |folder|
+          %w{native-sdks/android native-sdks/ios}.each do |folder|
             Dir.chdir(folder) do
               `git checkout -q master`
               `git pull -q origin master`
@@ -54,36 +57,39 @@ module Fastlane
           end
         end
 
-        def update_android_jar(android_subdir)
-          jar = Dir['android/native-sdk/Branch*.jar'].reject { |j| j =~ /core/ }.first
+        def update_android_jar
+          jar = Dir['native-sdks/android/Branch*.jar'].reject { |j| j =~ /core/ }.first
           version = jar.sub(/^.*Branch-/, '').sub(/\.jar$/, '')
 
-          return if File.exist? "#{android_subdir}/libs/Branch-#{version}.jar"
+          return if File.exist? "#{@android_subdir}/libs/Branch-#{version}.jar"
 
-          # Remove the old and add the new (symlink)
-          Dir.chdir("#{android_subdir}/libs") do
+          # Remove the old and add the new
+          Dir.chdir("#{@android_subdir}/libs") do
             `git rm -f Branch-*.jar`
-            File.symlink "../native-tests/Branch-#{version}.jar", "./Branch-#{version}.jar"
+            `cp ../../native-sdks/android/Branch-#{version}.jar .`
             `git add Branch-#{version}.jar`
           end
 
           # Patch build.gradle
           other_action.apply_patch(
-            files: "#{android_subdir}/build.gradle",
+            files: "#{@android_subdir}/build.gradle",
             mode: :replace,
             regexp: /Branch-.*\.jar/,
             text: "Branch-#{version}.jar"
           )
         end
 
-        def update_ios_branch_source(ios_subdir)
+        def update_ios_branch_source
+          `git rm -fr ios/Branch-SDK`
+          `cp -r native-sdks/ios/Branch-SDK ios`
+          `git add ios/Branch-SDK`
         end
 
-        def update_branch_podspec_from_submodule(ios_subdir)
+        def update_branch_podspec_from_submodule
           branch_sdk_podspec_path = "#{ios_subdir}/Branch-SDK.podspec"
 
           # Copy the podspec from the submodule
-          `cp #{ios_subdir}/native-sdk/Branch.podspec #{branch_sdk_podspec_path}`
+          `cp native-sdks/ios/Branch.podspec #{branch_sdk_podspec_path}`
           UI.user_error! "Unable to update #{branch_sdk_podspec_path}" unless $?.exitstatus == 0
 
           # Change the pod name to Branch-SDK
@@ -105,16 +111,14 @@ module Fastlane
           UI.message "Updated ios/Branch-SDK.podspec"
         end
 
-        def adjust_rnbranch_xcodeproj(ios_subdir)
+        def adjust_rnbranch_xcodeproj
           @project = Xcodeproj::Project.open "#{ios_subdir}/RNBranch.xcodeproj"
-          ios_subdir_pathname = Pathname.new ios_subdir
+          ios_subdir_pathname = Pathname.new @ios_subdir
 
           # 1. Find all SDK .h, .m files and add any not already in the project.
-          Dir[File.expand_path "#{ios_subdir}/Branch-SDK/**/*.[hm]", ios_subdir].each do |filename|
-            # Avoid TestBed and tests. (alternatives: parse the podspec for the source_files or
-            # restructure the ios repo so that the SDK is well separated)
+          Dir[File.expand_path "#{@ios_subdir}/Branch-SDK/**/*.[hm]", @ios_subdir].each do |filename|
             # Ignore any files already in the project.
-            next if filename =~ /Test/ || @project.files.find { |f| f.real_path.to_s == filename }
+            next if @project.files.find { |f| f.real_path.to_s == filename }
 
             # New file. Look for the group.
             group_pathname = Pathname.new(File.dirname(filename)).relative_path_from(ios_subdir_pathname)
