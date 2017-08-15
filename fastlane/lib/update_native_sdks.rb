@@ -86,7 +86,7 @@ module Fastlane
         end
 
         def update_branch_podspec_from_submodule
-          branch_sdk_podspec_path = "#{ios_subdir}/Branch-SDK.podspec"
+          branch_sdk_podspec_path = "#{@ios_subdir}/Branch-SDK.podspec"
 
           # Copy the podspec from the submodule
           `cp native-sdks/ios/Branch.podspec #{branch_sdk_podspec_path}`
@@ -112,7 +112,7 @@ module Fastlane
         end
 
         def adjust_rnbranch_xcodeproj
-          @project = Xcodeproj::Project.open "#{ios_subdir}/RNBranch.xcodeproj"
+          @project = Xcodeproj::Project.open "#{@ios_subdir}/RNBranch.xcodeproj"
           ios_subdir_pathname = Pathname.new @ios_subdir
 
           # 1. Find all SDK .h, .m files and add any not already in the project.
