@@ -1,11 +1,11 @@
 PODS:
-  - Branch-SDK (0.16.2):
-    - Branch-SDK/Core (= 0.16.2)
-  - Branch-SDK/Core (0.16.2)
+  - Branch-SDK (0.17.7):
+    - Branch-SDK/Core (= 0.17.7)
+  - Branch-SDK/Core (0.17.7)
   - OCMock (3.4)
   - React (0.43.1):
     - React/Core (= 0.43.1)
-  - react-native-branch (2.0.0-beta.8):
+  - react-native-branch (2.0.0-rc.1):
     - Branch-SDK
     - React
   - React/Core (0.43.1):
@@ -34,12 +34,12 @@ EXTERNAL SOURCES:
     :path: ../../node_modules/react-native/ReactCommon/yoga
 
 SPEC CHECKSUMS:
-  Branch-SDK: b410a9cead68c1b67b9585ce68d8642ea13df60a
+  Branch-SDK: cf00273fd364902bbec3a1fba3fd7150b10ef578
   OCMock: 35ae71d6a8fcc1b59434d561d1520b9dd4f15765
   React: c28b1a7b7510eda68c58ed1bd22e85a76ef4f819
-  react-native-branch: f7cd1bbc891f1a6cd7e4a193428f64729b7db944
+  react-native-branch: 91886c8998c4abccca9acf1d5cc88420ee600701
   Yoga: f3e6a7a683f55875a5bf521e4dc2a8511ebc7f0d
 
 PODFILE CHECKSUM: 965caaeb92ef244aba06c04762387dce51799eca
 
-COCOAPODS: 1.3.0
+COCOAPODS: 1.3.1

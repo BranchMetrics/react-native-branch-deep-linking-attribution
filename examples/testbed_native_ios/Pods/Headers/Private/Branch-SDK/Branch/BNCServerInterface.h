@@ -1,1 +1,1 @@
-../../../../../node_modules/react-native-branch/ios/Branch-SDK/Branch-SDK/BNCServerInterface.h
+../../../../../node_modules/react-native-branch/ios/Branch-SDK/Branch-SDK/Networking/BNCServerInterface.h

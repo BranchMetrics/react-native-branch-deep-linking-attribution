@@ -38,6 +38,8 @@ node_modules
 # Auto-generated Xcode files
 *.xcuserstate
 *.xcuserdatad
+project.xcworkspace
+xcuserdata
 
 # OS X garbage
 *.DS_Store

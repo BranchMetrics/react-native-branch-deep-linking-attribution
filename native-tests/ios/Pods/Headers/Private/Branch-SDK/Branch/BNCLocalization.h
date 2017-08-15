@@ -1,0 +1,1 @@
+../../../../../../../ios/Branch-SDK/Branch-SDK/BNCLocalization.h

@@ -1,1 +1,1 @@
-../../../../../../../ios/Branch-SDK/Branch-SDK/BNCServerResponse.h
+../../../../../../../ios/Branch-SDK/Branch-SDK/Networking/BNCServerResponse.h

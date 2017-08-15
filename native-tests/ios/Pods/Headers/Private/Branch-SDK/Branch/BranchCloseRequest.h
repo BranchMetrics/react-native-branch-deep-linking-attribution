@@ -1,1 +1,1 @@
-../../../../../../../ios/Branch-SDK/Branch-SDK/Requests/BranchCloseRequest.h
+../../../../../../../ios/Branch-SDK/Branch-SDK/Networking/Requests/BranchCloseRequest.h

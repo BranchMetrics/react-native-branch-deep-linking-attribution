@@ -1,1 +1,1 @@
-../../../../../node_modules/react-native-branch/ios/Branch-SDK/Branch-SDK/BNCServerRequestQueue.h
+../../../../../node_modules/react-native-branch/ios/Branch-SDK/Branch-SDK/Networking/BNCServerRequestQueue.h

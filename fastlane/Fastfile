@@ -1,3 +1,5 @@
+require './lib/update_native_sdks'
+
 fastlane_version "2.26.1"
 
 default_platform :ios
@@ -12,4 +14,9 @@ end
 desc "Run iOS unit tests"
 lane :test_ios do
   scan
+end
+
+desc "Update native SDKs"
+lane :native_update do
+  update_native_sdks
 end

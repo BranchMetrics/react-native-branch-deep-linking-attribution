@@ -1,1 +1,1 @@
-../../../../../../../ios/Branch-SDK/Branch-SDK/BNCServerRequestQueue.h
+../../../../../../../ios/Branch-SDK/Branch-SDK/Networking/BNCServerRequestQueue.h
