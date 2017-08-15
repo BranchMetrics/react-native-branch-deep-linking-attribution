@@ -68,7 +68,7 @@ module Fastlane
             `cp #{jar_path} .`
             `git rm -f #{old_jar}`
           end
-          other_action.git_add path: "android/libs"
+          other_action.git_add path: "./android/libs/Branch-#{version}.jar"
 
           # Patch build.gradle
           other_action.apply_patch(
