@@ -16,6 +16,7 @@ module Fastlane
           update_branch_podspec_from_submodule ios_subdir
           adjust_rnbranch_xcodeproj ios_subdir
 
+=begin
           %w{
             examples/testbed_native_ios
             examples/webview_example_native_ios
@@ -27,6 +28,7 @@ module Fastlane
             examples/webview_example_native_ios
             native-tests/ios
           }.each { |f| pod_install f }
+=end
 
           # commit
         end
@@ -189,7 +191,7 @@ module Fastlane
         def yarn(folder)
           Dir.chdir(folder) do
             UI.message "Running yarn in #{folder} ..."
-            `yarn -s`
+            `yarn -s > /dev/null 2>&1`
             UI.message "Done"
           end
         end
