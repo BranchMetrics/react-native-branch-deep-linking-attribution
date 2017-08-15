@@ -13,6 +13,7 @@ module Fastlane
           update_android_jar android_subdir
 
           ios_subdir = File.expand_path 'ios', '.'
+          update_ios_branch_source ios_subdir
           update_branch_podspec_from_submodule ios_subdir
           adjust_rnbranch_xcodeproj ios_subdir
 
@@ -73,6 +74,9 @@ module Fastlane
             regexp: /Branch-.*\.jar/,
             text: "Branch-#{version}.jar"
           )
+        end
+
+        def update_ios_branch_source(ios_subdir)
         end
 
         def update_branch_podspec_from_submodule(ios_subdir)
