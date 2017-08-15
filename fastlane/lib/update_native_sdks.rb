@@ -20,7 +20,6 @@ module Fastlane
           update_branch_podspec_from_submodule
           adjust_rnbranch_xcodeproj
 
-=begin
           %w{
             examples/testbed_native_ios
             examples/webview_example_native_ios
@@ -32,7 +31,6 @@ module Fastlane
             examples/webview_example_native_ios
             native-tests/ios
           }.each { |f| pod_install f }
-=end
 
           # commit
         end
@@ -60,14 +58,16 @@ module Fastlane
         def update_android_jar
           jar = Dir['native-sdks/android/Branch*.jar'].reject { |j| j =~ /core/ }.first
           version = jar.sub(/^.*Branch-/, '').sub(/\.jar$/, '')
+          jar_path = File.expand_path jar, '.'
 
           return if File.exist? "#{@android_subdir}/libs/Branch-#{version}.jar"
 
           # Remove the old and add the new
           Dir.chdir("#{@android_subdir}/libs") do
-            `git rm -f Branch-*.jar`
-            `cp #{File.expand_path jar, '.'} .`
+            old_jar = Dir['Branch*.jar'].first
+            `cp #{jar_path} .`
             `git add Branch-#{version}.jar`
+            `git rm -f #{old_jar}`
           end
 
           # Patch build.gradle
@@ -80,7 +80,7 @@ module Fastlane
         end
 
         def update_ios_branch_source
-          `git rm -fr ios/Branch-SDK`
+          `git rm -fr ios/Branch-SDK` if File.exist? 'ios/Branch-SDK'
           `cp -r native-sdks/ios/Branch-SDK ios`
           `git add ios/Branch-SDK`
         end
