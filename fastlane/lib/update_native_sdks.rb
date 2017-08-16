@@ -113,6 +113,8 @@ module Fastlane
 
         def adjust_rnbranch_xcodeproj
           @project = Xcodeproj::Project.open "#{@ios_subdir}/RNBranch.xcodeproj"
+          # check_file_refs
+
           ios_subdir_pathname = Pathname.new @ios_subdir
 
           # 1. Find all SDK .h, .m files and add any not already in the project.
@@ -124,29 +126,20 @@ module Fastlane
             group_pathname = Pathname.new(File.dirname(filename)).relative_path_from(ios_subdir_pathname)
             group = ensure_group_at_path group_pathname
 
-            file_basename = File.basename filename
-            file = group.new_file file_basename
+            file = group.new_file filename
 
             if filename =~ /\.h$/
-              copy_branch_sdk_headers_build_phase.add_file_reference file
+              copy_branch_sdk_headers_build_phase.add_file_reference file, true
+              headers_build_phase.add_file_reference file, true
             else
-              source_build_phase.add_file_reference file
+              source_build_phase.add_file_reference file, true
             end
           end
 
           # check_file_refs
 
           # 2. Make sure all files in the project still exist. Remove those that do not.
-          @project.files.each do |file|
-            next if File.exist? file.real_path
-            # file.remove_from_project # results in nil file_ref in build phases
-            file.parent.children.delete file
-            if file.path =~ /\.h$/
-              copy_branch_sdk_headers_build_phase.remove_file_reference file
-            else
-              source_build_phase.remove_file_reference file
-            end
-          end
+          remove_dangling_references @project.main_group
 
           # check_file_refs
 
@@ -169,6 +162,26 @@ module Fastlane
           parent.new_group basename.to_s, basename.to_s
         end
 
+        def remove_dangling_references(group)
+          to_delete = []
+          group.children.each do |child|
+            if child.isa == "PBXGroup"
+              remove_dangling_references child
+            elsif child.isa == "PBXFileReference"
+              next if File.exist? child.real_path
+              if child.path =~ /\.h$/
+                copy_branch_sdk_headers_build_phase.remove_file_reference child
+                headers_build_phase.remove_file_reference child
+              else
+                source_build_phase.remove_file_reference child
+              end
+              to_delete << child
+            end
+          end
+
+          to_delete.each { |f| f.parent.children.delete f }
+        end
+
         def remove_empty_groups(group)
           group.groups.each { |g| remove_empty_groups g }
           group.remove_from_project if group.empty?
@@ -185,6 +198,10 @@ module Fastlane
         def copy_branch_sdk_headers_build_phase
           target = @project.targets.first
           target.build_phases.find { |phase| phase.respond_to?(:name) && phase.name == "Copy Branch SDK Headers" }
+        end
+
+        def headers_build_phase
+          @project.targets.first.headers_build_phase
         end
 
         def source_build_phase
