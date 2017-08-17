@@ -145,3 +145,7 @@
   * Support for RN >= 0.47 (#231).
   * Added support for platform-specific branch.json.
   * Includes native SDKs 0.16.2 (iOS), 2.10.3 (Android).
+
+2016-08-17  Version 2.0.0-rc.1
+  * (Internal) Native SDK updates are now automated.
+  * Includes native SDKs 0.17.9 (iOS), 2.11.1 (Android).
