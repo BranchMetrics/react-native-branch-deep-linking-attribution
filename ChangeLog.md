@@ -149,3 +149,8 @@
 2016-08-17  Version 2.0.0-rc.1
   * (Internal) Native SDK updates are now automated.
   * Includes native SDKs 0.17.9 (iOS), 2.11.1 (Android).
+
+2016-08-21  Version 2.0.0-rc.2
+  * Fixed automation bug that generated an RNBranch.xcodeproj that failed with `react-native link`.
+  * Regenerated RNBranch.xcodeproj to fix `react-native link` bug (#239).
+  * Includes native SDKs 0.17.9 (iOS), 2.11.1 (Android).
