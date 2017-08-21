@@ -138,13 +138,15 @@ module Fastlane
 
           # check_file_refs
 
+          top_group = @project['Branch-SDK']
+
           # 2. Make sure all files in the project still exist. Remove those that do not.
-          remove_dangling_references @project.main_group
+          remove_dangling_references top_group
 
           # check_file_refs
 
           # 3. Remove any empty groups from the project
-          remove_empty_groups @project.main_group
+          remove_empty_groups top_group
 
           # check_file_refs
 
