@@ -136,7 +136,7 @@ After modifying your AppDelegate:
 3. [Register for Google Play Install Referrer](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#register-for-google-play-install-referrer). The "receiver" element needs to be added to the "application" node in AndroidManifest.xml
 
 4. [Register a URI scheme](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#register-a-uri-scheme)
-- The "intent-filter" element needs to be added to the activity node, whose android:name is "com.yourAppName.MainActivity". This node is in the "application" node.
+- The "intent-filter" element needs to be added to the activity node whose android:name is "com.yourAppName.MainActivity". This node is in the "application" node.
 - If you already have an intent-filter tag, this has to be added as an additional one.
 - Make sure to replace "yourApp" with the scheme you specified in the Branch dashboard.
 
