@@ -200,7 +200,7 @@ If you are using the `React` pod in a native app with `use_frameworks!`, you may
 a Swift import:
 
 ```Swift
-import react-native-branch
+import react_native_branch
 ```
 
 In AppDelegate.swift:
