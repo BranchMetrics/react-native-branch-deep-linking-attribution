@@ -10,7 +10,7 @@ export default class App extends Component {
   _unsubscribeFromBranch = null
   navigator = null
 
-  componentWillMount() {
+  componentDidMount() {
     this._unsubscribeFromBranch = branch.subscribe(({ error, params }) => {
       if (error) {
         console.error("Error from Branch: " + error)
@@ -32,7 +32,10 @@ export default class App extends Component {
   }
 
   componentWillUnmount() {
-    if (this._unsubscribeFromBranch) this._unsubscribeFromBranch()
+    if (this._unsubscribeFromBranch) {
+      this._unsubscribeFromBranch()
+      this._unsubscribeFromBranch = null
+    }
   }
 
   render() {
