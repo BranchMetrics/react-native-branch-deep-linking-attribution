@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 export default class Article extends Component {
   buo = null
 
-  async componentWillMount() {
+  async componentDidMount() {
     this.buo = await branch.createBranchUniversalObject("planet/" + this.props.route.title, {
       automaticallyListOnSpotlight: true, // ignored on Android
       canonicalUrl: this.props.route.url,
@@ -45,6 +45,7 @@ export default class Article extends Component {
   componentWillUnmount() {
     if (!this.buo) return
     this.buo.release()
+    this.buo = null
   }
 
   render() {
