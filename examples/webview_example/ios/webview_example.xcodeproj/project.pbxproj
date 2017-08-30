@@ -36,6 +36,8 @@
 		2DCD954D1E0B4F2C00145EB5 /* webview_exampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* webview_exampleTests.m */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		7BAA94CE1F57608000C57B54 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94CD1F57608000C57B54 /* CoreSpotlight.framework */; };
+		7BAA95031F57632800C57B54 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94ED1F5760F200C57B54 /* AdSupport.framework */; };
+		7BAA95041F57633100C57B54 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94EF1F5760FA00C57B54 /* SafariServices.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		AA8672A99CFA4DDA859E91F8 /* libreact-native-branch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E701F464B742F4826AA73F /* libreact-native-branch.a */; };
 		C9882AD89BCF4A4596207F76 /* branch.debug.json in Resources */ = {isa = PBXBuildFile; fileRef = 792CF918D8A949C59E650130 /* branch.debug.json */; };
@@ -315,6 +317,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BAA95041F57633100C57B54 /* SafariServices.framework in Frameworks */,
+				7BAA95031F57632800C57B54 /* AdSupport.framework in Frameworks */,
 				7BAA94CE1F57608000C57B54 /* CoreSpotlight.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,

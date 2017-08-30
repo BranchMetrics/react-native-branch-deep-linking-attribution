@@ -21,6 +21,8 @@
 		7B5C79251E95A6BC002FE942 /* RCTSwiftLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C79241E95A6BC002FE942 /* RCTSwiftLog.m */; };
 		7B5C79271E95A946002FE942 /* RCTLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C79261E95A946002FE942 /* RCTLog.swift */; };
 		7BAA94F21F57622500C57B54 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94F11F57622500C57B54 /* CoreSpotlight.framework */; };
+		7BAA94F41F57631700C57B54 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94F31F57631700C57B54 /* AdSupport.framework */; };
+		7BAA94F61F57631C00C57B54 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94F51F57631C00C57B54 /* SafariServices.framework */; };
 		9DAD2FE7A1CEA90F3A3E6367 /* Pods_WebViewExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1F71C7570D66540364CE97A /* Pods_WebViewExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +49,8 @@
 		7B5C79241E95A6BC002FE942 /* RCTSwiftLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTSwiftLog.m; sourceTree = "<group>"; };
 		7B5C79261E95A946002FE942 /* RCTLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTLog.swift; sourceTree = "<group>"; };
 		7BAA94F11F57622500C57B54 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
+		7BAA94F31F57631700C57B54 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		7BAA94F51F57631C00C57B54 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		A14C7B96994ECEB8E6C5DB86 /* Pods-WebViewExample.test-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewExample.test-debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample.test-debug.xcconfig"; sourceTree = "<group>"; };
 		D1F71C7570D66540364CE97A /* Pods_WebViewExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WebViewExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -56,6 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BAA94F61F57631C00C57B54 /* SafariServices.framework in Frameworks */,
+				7BAA94F41F57631700C57B54 /* AdSupport.framework in Frameworks */,
 				7BAA94F21F57622500C57B54 /* CoreSpotlight.framework in Frameworks */,
 				9DAD2FE7A1CEA90F3A3E6367 /* Pods_WebViewExample.framework in Frameworks */,
 			);
@@ -67,6 +73,8 @@
 		3AFB5C04BFAF3CFD5D3B84F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BAA94F51F57631C00C57B54 /* SafariServices.framework */,
+				7BAA94F31F57631700C57B54 /* AdSupport.framework */,
 				7BAA94F11F57622500C57B54 /* CoreSpotlight.framework */,
 				D1F71C7570D66540364CE97A /* Pods_WebViewExample.framework */,
 			);
