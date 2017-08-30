@@ -39,4 +39,4 @@ buck-out/
 android/app/libs
 android/keystores/debug.keystore
 report.*
-/fastlane/README.md
+*/fastlane/README.md
