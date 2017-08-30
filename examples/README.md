@@ -25,20 +25,19 @@ Once this is done, you can deploy the app on a device and open Universal Links i
 
 To use this tool:
 
-```bash
-export BRANCH_LIVE_KEY=key_live_xxxx
-export BRANCH_TEST_KEY=key_test_yyyy
-export BRANCH_APP_LINK_SUBDOMAIN=myapp # myapp.app.link
-# OR
-export BRANCH_DOMAINS=example.com # for custom domains
-bundle install
-cd webview_example
-bundle exec fastlane update_branch
-```
-
-The plugin crawls the Branch-generated apple-app-site-association file for the domain to get the
-team and bundle identifiers that you entered in the Branch Dashboard. The live or test key is required.
-Both are not required, but both may be supplied to set up both environments.
+1. Edit the [Branchfile](./Branchfile) in this directory to use the correct parameters for your app from the
+    Branch Dashboard.
+2. To update any example app, e.g. `webview_example`:
+    ```bash
+    bundle install
+    cd webview_example
+    bundle exec fastlane update_branch
+    ```
+    Now the project is set up to use your app parameters, including your team and bundle identifiers.
+3. iOS projects: Validate the Universal Link configuration:
+    ```bash
+    bundle exec fastlane validate
+    ```
 
 ## webview_example apps
 

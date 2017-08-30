@@ -1,0 +1,9 @@
+fastlane_version "2.27"
+
+desc "Update Branch configuration"
+lane :update_branch do
+  setup_branch(
+    android_project_path: "android",
+    remove_existing_domains: true
+  )
+end
