@@ -292,18 +292,12 @@ RCT_EXPORT_METHOD(
                   sendCommerceEvent:(NSString *)revenue
                   metadata:(NSDictionary *)metadata
                   resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject
+                  rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
     BNCCommerceEvent *commerceEvent = [BNCCommerceEvent new];
     commerceEvent.revenue = [NSDecimalNumber decimalNumberWithString:revenue];
-    [self.class.branch sendCommerceEvent:commerceEvent metadata:metadata withCompletion:^(NSDictionary *response, NSError *error) {
-        if (error) {
-            reject(@"RNBranch::Error::sendCommerceEvent", error.localizedDescription, error);
-            return;
-        }
-
-        resolve(response);
-    }];
+    [self.class.branch sendCommerceEvent:commerceEvent metadata:metadata withCompletion:nil];
+    resolve(NSNull.null);
 }
 
 #pragma mark userCompletedActionOnUniversalObject
