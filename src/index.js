@@ -92,6 +92,7 @@ class Branch {
   logout = RNBranch.logout
   userCompletedAction = (event, state = {}) => RNBranch.userCompletedAction(event, state)
   getShortUrl = RNBranch.getShortUrl
+  sendCommerceEvent = RNBranch.sendCommerceEvent
 
   /*** Referral Methods ***/
   redeemRewards = (amount, bucket) => RNBranch.redeemRewards(amount, bucket)

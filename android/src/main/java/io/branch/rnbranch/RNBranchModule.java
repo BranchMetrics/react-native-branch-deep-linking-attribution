@@ -285,6 +285,22 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void sendCommerceEvent(String revenue, ReadableMap metadata, final Promise promise) throws JSONException {
+        Branch branch = Branch.getInstance();
+
+        CommerceEvent commerceEvent = new CommerceEvent();
+        commerceEvent.setRevenue(Double.parseDouble(revenue));
+
+        JSONObject jsonMetadata = null;
+        if (metadata != null) {
+            jsonMetadata = convertMapToJson(metadata);
+        }
+
+        branch.sendCommerceEvent(commerceEvent, jsonMetadata, null);
+        promise.resolve(null);
+    }
+
+    @ReactMethod
     public void showShareSheet(String ident, ReadableMap shareOptionsMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, Promise promise) {
         Context context = getReactApplicationContext();
 
