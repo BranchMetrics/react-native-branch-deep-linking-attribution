@@ -13,7 +13,7 @@ ___
 ## React Native Reference
 
 1. External resources
-  + [Full integration guide](https://dev.branch.io/getting-started/sdk-integration-guide/guide/react/)
+  + [Full integration guide](https://docs.branch.io/pages/apps/react-native/#configure-app)
   + [Change log](https://github.com/BranchMetrics/react-native-branch-deep-linking/blob/master/ChangeLog.md)
   + [Support portal](http://support.branch.io)
 
@@ -236,7 +236,7 @@ done even if you used `react-native link`.
 // ...
 
 // import Branch and RNBranch
-import io.branch.rnbranch.*;
+import io.branch.rnbranch.RNBranchPackage;
 import io.branch.referral.Branch;
 
 //...
@@ -290,12 +290,12 @@ public class MainActivity extends ReactActivity {
 
 After modifying your AppDelegate:
 
-1. [Add a String entry branch_key](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project) with your Branch key to your info.plist
+1. [Add a Dictionary or String entry branch_key](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project) with your Branch key to your info.plist
 
 2. [Configure for Universal Linking](https://dev.branch.io/references/ios_sdk/#support-universal-linking-ios-9)
 
 3. If using a custom domain in the Branch Dashboard or one or more non-Branch domains, [add the `branch_universal_link_domains`
-   key to your Info.plist](https://dev.branch.io/getting-started/universal-app-links/advanced/ios/#custom-continueuseractivity-configuration).
+    key to your Info.plist](https://dev.branch.io/getting-started/universal-app-links/advanced/ios/#custom-continueuseractivity-configuration).
 
 ### Android Project Setup
 
@@ -765,7 +765,7 @@ branchUniversalObject.userCompletedAction(RegisterViewEvent)
 or
 
 ```js
-import branch, { RegisterViewEvent } from 'react-native-branch'
+import branch from 'react-native-branch'
 
 let branchUniversalObject = await branch.createBranchUniversalObject(...)
 
