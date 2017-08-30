@@ -154,3 +154,9 @@
   * Fixed automation bug that generated an RNBranch.xcodeproj that failed with `react-native link`.
   * Regenerated RNBranch.xcodeproj to fix `react-native link` bug (#239).
   * Includes native SDKs 0.17.9 (iOS), 2.11.1 (Android).
+
+2016-08-30  Version 2.0.0
+  * Added sendCommerceEvent method.
+  * Complete rewrite of the README.
+  * Removed the peerDependency on `react`.
+  * Includes native SDKs 0.17.10 (iOS), 2.12.0 (Android).
