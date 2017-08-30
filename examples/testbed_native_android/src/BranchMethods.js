@@ -118,7 +118,7 @@ class BranchMethods extends Component {
 
   sendCommerceEvent = async() => {
     try {
-      let result = await branch.sendCommerceEvent("20.00", {"key": "value"})
+      let result = await branch.sendCommerceEvent(20.00, {"key": "value"})
 
       console.log('sendCommerceEvent', result)
       this.addResult('success', 'sendCommerceEvent', result)

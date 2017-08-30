@@ -580,7 +580,7 @@ branch.sendCommerceEvent(revenue, metadata)
 
 ##### Parameters
 
-**revenue**: A decimal number represented as a string, e.g. "20.00"
+**revenue**: A decimal number represented as a string or a float, e.g. "20.00" or 20.00
 **metadata**: (Optional) Metadata to associate with this event. Keys must be strings.
 
 #### Example
