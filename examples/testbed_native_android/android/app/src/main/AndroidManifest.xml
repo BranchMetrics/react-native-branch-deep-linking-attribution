@@ -1,51 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.branch.testbed_native_android">
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:launchMode="singleTask">
+<?xml version='1.0' encoding='UTF-8'?> 
+<manifest xmlns:android='http://schemas.android.com/apk/res/android' package='io.branch.testbed_native_android'>
+    <uses-permission android:name='android.permission.INTERNET'/>
+    <application android:allowBackup='true' android:icon='@mipmap/ic_launcher' android:label='@string/app_name' android:roundIcon='@mipmap/ic_launcher_round' android:supportsRtl='true' android:theme='@style/AppTheme'>
+        <activity android:name='.MainActivity' android:label='@string/app_name' android:theme='@style/Theme.AppCompat.Light.NoActionBar' android:launchMode='singleTask'>
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name='android.intent.action.MAIN'/>
+                <category android:name='android.intent.category.LAUNCHER'/>
             </intent-filter>
-
             <!-- Branch intent-filter -->
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- App Links -->
-                <data android:scheme="https" android:host="bnctestbed-alternate.app.link" />
-                <data android:scheme="https" android:host="bnctestbed.app.link" />
-                <data android:scheme="https" android:host="bnctestbed-alternate.test-app.link" />
-                <data android:scheme="https" android:host="bnctestbed.test-app.link" />
-                <!-- Custom URI scheme -->
-                <data android:scheme="branchtest" android:host="open" />
+            <intent-filter android:autoverify='true'>
+                <action android:name='android.intent.action.VIEW'/>
+                <category android:name='android.intent.category.DEFAULT'/>
+                <category android:name='android.intent.category.BROWSABLE'/>
+                <data android:scheme='myurischeme' android:host='open'/>
+                <data android:scheme='https' android:host='wujv.app.link'/>
+                <data android:scheme='https' android:host='wujv-alternate.app.link'/>
+                <data android:scheme='https' android:host='wujv.test-app.link'/>
+                <data android:scheme='https' android:host='wujv-alternate.test-app.link'/>
             </intent-filter>
-         </activity>
-        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-
-        <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
+        </activity>
+        <activity android:name='com.facebook.react.devsupport.DevSettingsActivity'/>
+        <receiver android:name='io.branch.referral.InstallListener' android:exported='true'>
             <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
+                <action android:name='com.android.vending.INSTALL_REFERRER'/>
             </intent-filter>
         </receiver>
-
         <!-- Branch keys -->
-        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_feebgAAhbH9Tv85H5wLQhpdaefiZv5Dv" />
-        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_hdcBLUy1xZ1JD0tKg7qrLcgirFmPPVJc" />
+        <meta-data android:name='io.branch.sdk.BranchKey' android:value='key_live_dczvWn3zrK8575YRe07IgjblAAmfx51S'/>
+        <meta-data android:name='io.branch.sdk.BranchKey.test' android:value='key_test_fbqC9k2BqS68Y1XQi7YVjakhCxomD6Z9'/>
     </application>
-
 </manifest>

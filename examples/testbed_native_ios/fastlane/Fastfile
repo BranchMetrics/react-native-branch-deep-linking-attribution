@@ -8,3 +8,8 @@ lane :update_branch do
     remove_existing_domains: true
   )
 end
+
+desc "Validate Universal Links in iOS project"
+lane :validate do
+  validate_universal_links xcodeproj: "testbed_native_ios.xcodeproj"
+end

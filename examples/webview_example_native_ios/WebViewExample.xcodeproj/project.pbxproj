@@ -169,7 +169,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7B3B977B1E8C1B650089C04B /* Build configuration list for PBXProject "WebViewExample" */;
+			buildConfigurationList = 7B3B977B1E8C1B650089C04B /* Build configuration list for PBXProject "WebviewExample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -390,7 +390,7 @@
 				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = WebViewExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
+				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -462,7 +462,7 @@
 				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = WebViewExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
+				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -579,7 +579,7 @@
 				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = WebViewExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
+				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -595,7 +595,7 @@
 				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = WebViewExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
+				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -605,7 +605,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7B3B977B1E8C1B650089C04B /* Build configuration list for PBXProject "WebViewExample" */ = {
+		7B3B977B1E8C1B650089C04B /* Build configuration list for PBXProject "WebviewExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7B3B97901E8C1B650089C04B /* Debug */,

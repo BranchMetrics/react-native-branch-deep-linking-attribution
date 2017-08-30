@@ -1008,6 +1008,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = R63EM248DP;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1038,6 +1039,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = R63EM248DP;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-branch/ios/**",
@@ -1078,7 +1080,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
+				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
 				PRODUCT_NAME = testbed_simple;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1102,7 +1104,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.sdk.Branch-TestBed";
+				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
 				PRODUCT_NAME = testbed_simple;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
