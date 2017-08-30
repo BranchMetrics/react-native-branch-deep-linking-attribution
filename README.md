@@ -1,23 +1,19 @@
 # Branch Metrics React Native SDK Reference
 
-[![build status](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking.svg?style=flat)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
+[![CircleCI](https://circleci.com/gh/BranchMetrics/react-native-branch-deep-linking.svg?style=svg)](https://circleci.com/gh/BranchMetrics/react-native-branch-deep-linking)
+[![Travis](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking.svg?style=flat)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
 [![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat)](https://www.npmjs.com/package/react-native-branch)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat)](https://www.npmjs.com/package/react-native-branch)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/LICENSE)
 
 This is a repository of our open source React Native SDK. The information presented here serves as a reference manual for the SDK. See the table of contents below for a complete list of the content featured in this document.
 
-### Draft
-
-Please note that this is a draft of the new reference manual. Some updates will follow before the
-production release of 2.0.0.
-
 ___
 
 ## React Native Reference
 
 1. External resources
-  + [Full integration guide](https://dev.branch.io/getting-started/sdk-integration-guide/guide/react/)
+  + [Full integration guide](https://docs.branch.io/pages/apps/react-native/#configure-app)
   + [Change log](https://github.com/BranchMetrics/react-native-branch-deep-linking/blob/master/ChangeLog.md)
   + [Support portal](http://support.branch.io)
 
@@ -137,6 +133,8 @@ pod "react-native-branch", path: "../node_modules/react-native-branch"
 pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"
 ```
 
+The location of `node_modules` relative to your `Podfile` may vary.
+
 Run `pod install` after making this change.
 
 ##### Carthage
@@ -229,12 +227,16 @@ These instructions are for Swift 3. Please note that Swift 2 is deprecated.
 
 ### Android project
 
-Add RNBranchPackage to packages list in MainApplication.java (`android/app/src/[...]/MainApplication.java`)
+Add RNBranchPackage to packages list in `getPackages()` MainApplication.java (`android/app/src/[...]/MainApplication.java`).
+Note that this is automatically done if you used `react-native link`.
+
+Also add a call to `Branch.getAutoinstance()` in `onCreate()` in the same source file. This has to be
+done even if you used `react-native link`.
 ```java
 // ...
 
 // import Branch and RNBranch
-import io.branch.rnbranch.*;
+import io.branch.rnbranch.RNBranchPackage;
 import io.branch.referral.Branch;
 
 //...
@@ -256,7 +258,8 @@ import io.branch.referral.Branch;
     }
 ```
 
-Override onStart and onNewIntent in MainActivity.java to handle Branch links (`android/app/src/[...]/MainActivity.java`)
+Override onStart and onNewIntent in MainActivity.java to handle Branch links (`android/app/src/[...]/MainActivity.java`).
+This has to be done regardless whether you used `react-native link`.
 ```java
 import io.branch.rnbranch.*; // <-- add this
 import android.content.Intent; // <-- and this
@@ -287,12 +290,12 @@ public class MainActivity extends ReactActivity {
 
 After modifying your AppDelegate:
 
-1. [Add a String entry branch_key](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project) with your Branch key to your info.plist
+1. [Add a Dictionary or String entry branch_key](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project) with your Branch key to your info.plist
 
 2. [Configure for Universal Linking](https://dev.branch.io/references/ios_sdk/#support-universal-linking-ios-9)
 
 3. If using a custom domain in the Branch Dashboard or one or more non-Branch domains, [add the `branch_universal_link_domains`
-   key to your Info.plist](https://dev.branch.io/getting-started/universal-app-links/advanced/ios/#custom-continueuseractivity-configuration).
+    key to your Info.plist](https://dev.branch.io/getting-started/universal-app-links/advanced/ios/#custom-continueuseractivity-configuration).
 
 ### Android Project Setup
 
@@ -762,7 +765,7 @@ branchUniversalObject.userCompletedAction(RegisterViewEvent)
 or
 
 ```js
-import branch, { RegisterViewEvent } from 'react-native-branch'
+import branch from 'react-native-branch'
 
 let branchUniversalObject = await branch.createBranchUniversalObject(...)
 
