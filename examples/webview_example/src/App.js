@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Navigator, StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
+import { Navigator } from 'react-native-deprecated-custom-components'
 
 import branch from 'react-native-branch'
 
