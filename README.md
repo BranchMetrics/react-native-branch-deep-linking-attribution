@@ -227,7 +227,11 @@ These instructions are for Swift 3. Please note that Swift 2 is deprecated.
 
 ### Android project
 
-Add RNBranchPackage to packages list in MainApplication.java (`android/app/src/[...]/MainApplication.java`)
+Add RNBranchPackage to packages list in `getPackages()` MainApplication.java (`android/app/src/[...]/MainApplication.java`).
+Note that this is automatically done if you used `react-native link`.
+
+Also add a call to `Branch.getAutoinstance()` in `onCreate()` in the same source file. This has to be
+done even if you used `react-native link`.
 ```java
 // ...
 
@@ -254,7 +258,8 @@ import io.branch.referral.Branch;
     }
 ```
 
-Override onStart and onNewIntent in MainActivity.java to handle Branch links (`android/app/src/[...]/MainActivity.java`)
+Override onStart and onNewIntent in MainActivity.java to handle Branch links (`android/app/src/[...]/MainActivity.java`).
+This has to be done regardless whether you used `react-native link`.
 ```java
 import io.branch.rnbranch.*; // <-- add this
 import android.content.Intent; // <-- and this
