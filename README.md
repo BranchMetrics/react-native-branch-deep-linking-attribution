@@ -589,7 +589,7 @@ branch.sendCommerceEvent(revenue, metadata)
 import branch from 'react-native-branch'
 
 branch.sendCommerceEvent("20.00")
-branch.sendCommerceEvent("50.00", {key1: "value1", key2: "value2"})
+branch.sendCommerceEvent(50, {key1: "value1", key2: "value2"})
 ```
 
 ## Branch Universal Object (for deep links, content analytics and indexing)
