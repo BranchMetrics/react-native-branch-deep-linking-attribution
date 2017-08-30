@@ -737,6 +737,9 @@ when `userCompletedAction` is called. There is also a `listOnSpotlight()` method
 Object that can be used for this purpose. Note that this method and the
 `automaticallyListOnSpotlight` property are ignored on Android.
 
+**Note**: Listing on Spotlight requires adding `CoreSpotlight.framework` to your
+Xcode project.
+
 #### Method
 
 ```js
