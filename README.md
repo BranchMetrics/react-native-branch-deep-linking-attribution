@@ -8,11 +8,6 @@
 
 This is a repository of our open source React Native SDK. The information presented here serves as a reference manual for the SDK. See the table of contents below for a complete list of the content featured in this document.
 
-### Draft
-
-Please note that this is a draft of the new reference manual. Some updates will follow before the
-production release of 2.0.0.
-
 ___
 
 ## React Native Reference
