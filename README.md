@@ -37,6 +37,7 @@ ___
   + [Setting the user id for tracking influencers](#persistent-identities)
   + [Logging a user out](#logout)
   + [Tracking custom events](#register-custom-events)
+  + [Sending commerce events](#commerce-events)
 
 4. Branch Universal Objects
   + [Instantiate a Branch Universal Object](#branch-universal-object)
@@ -565,6 +566,30 @@ branch.userCompletedAction(event, params)
 import branch from 'react-native-branch'
 
 branch.userCompletedAction('Level Complete', {level: 'Level 1'})
+```
+
+### Commerce events
+
+Use the `branch.sendCommerceEvent` method to record commerce events.
+
+#### Method
+
+```js
+branch.sendCommerceEvent(revenue, metadata)
+```
+
+##### Parameters
+
+**revenue**: A decimal number represented as a string or a float, e.g. "20.00" or 20.00
+**metadata**: (Optional) Metadata to associate with this event. Keys must be strings.
+
+#### Example
+
+```js
+import branch from 'react-native-branch'
+
+branch.sendCommerceEvent("20.00")
+branch.sendCommerceEvent(50, {key1: "value1", key2: "value2"})
 ```
 
 ## Branch Universal Object (for deep links, content analytics and indexing)

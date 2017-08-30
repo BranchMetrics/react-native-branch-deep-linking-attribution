@@ -56,9 +56,10 @@ RCT_EXPORT_MODULE();
                 instance = [Branch getInstance: key];
             }
             else {
-                instance = usingTestInstance ? [Branch getTestInstance] : [Branch getInstance];
+                [Branch setUseTestBranchKey:usingTestInstance];
+                instance = [Branch getInstance];
             }
-            
+
             [self setupBranchInstance:instance];
         });
         return instance;
@@ -284,6 +285,19 @@ RCT_EXPORT_METHOD(
                   userCompletedAction:(NSString *)event withState:(NSDictionary *)appState
                   ) {
     [self.class.branch userCompletedAction:event withState:appState];
+}
+
+#pragma mark sendCommerceEvent
+RCT_EXPORT_METHOD(
+                  sendCommerceEvent:(NSString *)revenue
+                  metadata:(NSDictionary *)metadata
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject
+                  ) {
+    BNCCommerceEvent *commerceEvent = [BNCCommerceEvent new];
+    commerceEvent.revenue = [NSDecimalNumber decimalNumberWithString:revenue];
+    [self.class.branch sendCommerceEvent:commerceEvent metadata:metadata withCompletion:nil];
+    resolve(NSNull.null);
 }
 
 #pragma mark userCompletedActionOnUniversalObject

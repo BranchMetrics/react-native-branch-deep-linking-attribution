@@ -116,6 +116,18 @@ class BranchMethods extends Component {
     }
   }
 
+  sendCommerceEvent = async() => {
+    try {
+      let result = await branch.sendCommerceEvent(20.00, {"key": "value"})
+
+      console.log('sendCommerceEvent', result)
+      this.addResult('success', 'sendCommerceEvent', result)
+    } catch (err) {
+      console.log('sendCommerceEvent err', err.toString())
+      this.addResult('error', 'sendCommerceEvent', err.toString())
+    }
+  }
+
   addResult(type, slug, payload) {
     let result = { type, slug, payload }
     this.setState({
@@ -144,6 +156,7 @@ class BranchMethods extends Component {
         <ScrollView style={styles.buttonsContainer}>
           <Button onPress={this.createBranchUniversalObject}>createBranchUniversalObject</Button>
           <Button onPress={this.userCompletedAction}>userCompletedAction</Button>
+          <Button onPress={this.sendCommerceEvent}>sendCommerceEvent</Button>
           <Button onPress={this.generateShortUrl}>generateShortUrl</Button>
           <Button onPress={this.listOnSpotlight}>listOnSpotlight</Button>
           <Button onPress={this.showShareSheet}>showShareSheet</Button>
