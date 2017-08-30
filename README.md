@@ -1,6 +1,7 @@
 # Branch Metrics React Native SDK Reference
 
-[![build status](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking.svg?style=flat)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
+[![CircleCI](https://circleci.com/gh/BranchMetrics/react-native-branch-deep-linking.svg?style=svg)](https://circleci.com/gh/BranchMetrics/react-native-branch-deep-linking)
+[![Travis](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking.svg?style=flat)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
 [![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat)](https://www.npmjs.com/package/react-native-branch)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat)](https://www.npmjs.com/package/react-native-branch)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/LICENSE)
@@ -136,6 +137,8 @@ pod "Yoga", path: "../node_modules/react-native/ReactCommon/yoga"
 pod "react-native-branch", path: "../node_modules/react-native-branch"
 pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"
 ```
+
+The location of `node_modules` relative to your `Podfile` may vary.
 
 Run `pod install` after making this change.
 
