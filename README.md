@@ -13,7 +13,7 @@ ___
 ## React Native Reference
 
 1. External resources
-  + [Full integration guide](https://docs.branch.io/pages/apps/react-native/#configure-app)
+  + [Full integration guide](https://docs.branch.io/pages/apps/react-native/)
   + [Change log](https://github.com/BranchMetrics/react-native-branch-deep-linking/blob/master/ChangeLog.md)
   + [Support portal](http://support.branch.io)
 
