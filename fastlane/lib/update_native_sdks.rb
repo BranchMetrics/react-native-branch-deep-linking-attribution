@@ -71,7 +71,7 @@ module Fastlane
           end
 
           # Patch build.gradle
-          other_action.apply_patch(
+          other_action.patch(
             files: "#{@android_subdir}/build.gradle",
             mode: :replace,
             regexp: /Branch-.*\.jar/,
@@ -93,7 +93,7 @@ module Fastlane
           UI.user_error! "Unable to update #{branch_sdk_podspec_path}" unless $?.exitstatus == 0
 
           # Change the pod name to Branch-SDK
-          other_action.apply_patch(
+          other_action.patch(
             files: branch_sdk_podspec_path,
             regexp: /(s\.name\s*)= "Branch"/,
             mode: :replace,
@@ -101,7 +101,7 @@ module Fastlane
           )
 
           # Add s.header_dir = "Branch" (also determines the module name)
-          other_action.apply_patch(
+          other_action.patch(
             files: branch_sdk_podspec_path,
             regexp: /s.requires_arc.*$/,
             mode: :append,

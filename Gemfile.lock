@@ -68,7 +68,7 @@ GEM
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     fastimage (2.1.0)
-    fastlane (2.54.4)
+    fastlane (2.55.0)
       CFPropertyList (>= 2.3, < 3.0.0)
       addressable (>= 2.3, < 3.0.0)
       babosa (>= 1.0.2, < 2.0.0)
@@ -101,10 +101,10 @@ GEM
       xcodeproj (>= 1.5.0, < 2.0.0)
       xcpretty (>= 0.2.4, < 1.0.0)
       xcpretty-travis-formatter (>= 0.0.3)
-    fastlane-plugin-branch (0.2.1)
+    fastlane-plugin-branch (0.3.0)
       plist
       xcodeproj
-    fastlane-plugin-patch (0.2.0)
+    fastlane-plugin-patch (0.3.0)
     ffi (1.9.18)
     fourflusher (2.0.1)
     fuzzy_match (2.0.4)
