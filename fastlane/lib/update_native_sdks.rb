@@ -32,7 +32,7 @@ module Fastlane
             native-tests/ios
           }.each { |f| pod_install f }
 
-          commit
+          commit if params[:commit]
         end
 
         def available_options
