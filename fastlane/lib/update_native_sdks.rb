@@ -7,7 +7,7 @@ module Fastlane
         UI = FastlaneCore::UI
 
         def run(params)
-          update_submodules
+          update_submodules params
 
           @android_subdir = File.expand_path 'android', '.'
           @ios_subdir = File.expand_path 'ios', '.'
@@ -32,24 +32,45 @@ module Fastlane
             native-tests/ios
           }.each { |f| pod_install f }
 
-          commit
+          commit if params[:commit]
         end
 
         def available_options
-          []
+          [
+            FastlaneCore::ConfigItem.new(key: :android_checkout,
+                                 description: "A commit, tag or branch to check out in the Android SDK instead of the latest tag",
+                                     optional: true,
+                                         type: String),
+            FastlaneCore::ConfigItem.new(key: :ios_checkout,
+                                 description: "A commit, tag or branch to checkout out in the iOS SDK instead of the latest tag",
+                                     optional: true,
+                                         type: String),
+            FastlaneCore::ConfigItem.new(key: :commit,
+                                 description: "Determines whether to commit the result to SCM",
+                                    optional: true,
+                               default_value: true,
+                                   is_string: false)
+          ]
         end
 
         def commit
           `git commit -a -m'[Fastlane] Branch native SDK update'`
         end
 
-        def update_submodules
+        def update_submodules(params)
           UI.message "Updating native SDK submodules..."
-          %w{native-sdks/android native-sdks/ios}.each do |folder|
+          ['android', 'ios'].each do |platform|
+            folder = "native-sdks/#{platform}"
             Dir.chdir(folder) do
               `git checkout -q master`
               `git pull --tags -q origin master`
-              checkout_last_git_tag
+              key = "#{platform}_checkout".to_sym
+              commit = params[key]
+              if commit
+                `git checkout -q #{commit}`
+              else
+                checkout_last_git_tag
+              end
               UI.message "Updated submodule in #{folder}"
             end
           end
