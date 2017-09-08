@@ -428,6 +428,23 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         });
     }
 
+    @ReactMethod
+    public void openURL(String url, ReadableMap options) {
+        if (mActivity == null) {
+            // initSession is called before JS loads. This probably indicates failure to call initSession
+            // in an activity.
+            Log.e(REACT_CLASS, "Branch native Android SDK not initialized in openURL");
+            return;
+        }
+
+        Intent intent = new Intent(mActivity, mActivity.getClass());
+        intent.putExtra("branch", url);
+        intent.putExtra("branch_force_new_session", true);
+
+        if (options.getBoolean("newActivity")) mActivity.finish();
+        mActivity.startActivity(intent);
+    }
+
     public static LinkProperties createLinkProperties(ReadableMap linkPropertiesMap, @Nullable ReadableMap controlParams){
         LinkProperties linkProperties = new LinkProperties();
         if (linkPropertiesMap.hasKey("alias")) linkProperties.setAlias(linkPropertiesMap.getString("alias"));
@@ -548,6 +565,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 String metadataKey = iterator.nextKey();
                 Object metadataObject = getReadableMapObjectForKey(metadataMap, metadataKey);
                 branchUniversalObject.addContentMetadata(metadataKey, metadataObject.toString());
+                HashMap<String, String> metadata = branchUniversalObject.getMetadata();
             }
         }
 
