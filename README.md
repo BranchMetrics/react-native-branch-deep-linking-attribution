@@ -179,6 +179,7 @@ In AppDelegate.m
         // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
         return YES;
     }
+    return NO;
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
