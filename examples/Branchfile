@@ -10,6 +10,9 @@
 
 # -----
 
+patch_source false
+add_sdk false
+
 # Branch configuration defaults
 
 live_key "key_live_dczvWn3zrK8575YRe07IgjblAAmfx51S"
