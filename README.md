@@ -314,6 +314,12 @@ After modifying your AppDelegate:
 
 6. Add your Branch key to AndroidManifest: Inside of application node add `<meta-data android:name="io.branch.sdk.BranchKey" android:value="your_branch_key" />`
 
+7. Add the following to your `android/app/proguard-rules.pro` file:
+
+```
+-dontwarn io.branch.**
+```
+
 Please see the Branch [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
 
 ### Automated setup using Fastlane
