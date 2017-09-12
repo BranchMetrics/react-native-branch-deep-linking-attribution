@@ -39,6 +39,11 @@ To use this tool:
     bundle exec fastlane validate
     ```
 
+## browser_example
+
+This app demonstrates use of the `branch.openURL` method to build a Branch link browser that loads Branch
+links using the SDK to resolve the links rather than web redirects.
+
 ## webview_example apps
 
 These apps are realistic examples of a content-sharing app that includes link routing and follows best practices.
