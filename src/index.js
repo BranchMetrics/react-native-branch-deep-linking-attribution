@@ -95,6 +95,12 @@ class Branch {
   sendCommerceEvent = (revenue, metadata) => {
     return RNBranch.sendCommerceEvent('' + revenue, metadata)
   }
+  openURL = (url, options = {}) => {
+    return Platform.select({
+      android: () => RNBranch.openURL(url, options),
+      ios: () => RNBranch.openURL(url)
+    })()
+  }
 
   /*** Referral Methods ***/
   redeemRewards = (amount, bucket) => RNBranch.redeemRewards(amount, bucket)

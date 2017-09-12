@@ -24,6 +24,7 @@ static NSString * const IdentFieldName = @"ident";
 static NSString * const RNBranchErrorDomain = @"RNBranchErrorDomain";
 static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 
+
 #pragma mark - Private RNBranch declarations
 
 @interface RNBranch()
@@ -278,6 +279,13 @@ RCT_EXPORT_METHOD(
                   logout
                   ) {
     [self.class.branch logout];
+}
+
+#pragma mark openURL
+RCT_EXPORT_METHOD(
+                  openURL:(NSString *)urlString
+                  ) {
+    [self.class.branch handlePushNotification: @{@"branch": urlString}];
 }
 
 #pragma mark userCompletedAction

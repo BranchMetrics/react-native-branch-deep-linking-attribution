@@ -34,6 +34,7 @@ ___
   + [Logging a user out](#logout)
   + [Tracking custom events](#register-custom-events)
   + [Sending commerce events](#commerce-events)
+  + [Programmatic deep linking](#programmatic-deep-linking)
 
 4. Branch Universal Objects
   + [Instantiate a Branch Universal Object](#branch-universal-object)
@@ -599,6 +600,57 @@ import branch from 'react-native-branch'
 
 branch.sendCommerceEvent("20.00")
 branch.sendCommerceEvent(50, {key1: "value1", key2: "value2"})
+```
+
+### Programmatic deep linking
+
+The Branch SDK automatically triggers the `branch.subscribe` callback whenever a
+link is received in the app via App Links, Universal Links or custom URI schemes.
+There may be other cases where you want to trigger a link open programmatically,
+e.g. from a push notification or a QR reader. Use the `branch.openURL` method
+to trigger an open of a Branch link from anywhere in your app. In the case of
+native apps integrating an RN component, this will also trigger the native
+deep link handler callback.
+
+**Note**: This method does nothing if passed a link that is not recognized by
+the SDK. Non-Branch links may be passed for any domain that is configured for the
+app. This method does not pass the URL to the operating system or a browser.
+
+**Android note**: If not using the `newActivity` option, it is necessary to move
+the call to the `RNBranch.initSession` method to the main activity's `onResume`
+method instead of `onStart`:
+
+```java
+@Override
+protected void onResume() {
+  super.onResume();
+  RNBranch.initSession(getIntent().getData(), this);
+}
+```
+
+#### Method
+
+```js
+branch.openURL(url, options)
+```
+
+##### Parameters
+
+**url**: A String containing a Branch link  
+**options**: (Optional) An object with keys to supply option values (see below)
+
+##### Options
+
+**newActivity**: (Android) Finish the current activity before opening the link.
+Results in a new activity window. Ignored on iOS.
+
+#### Example
+
+```js
+import branch from 'react-native-branch'
+
+branch.openURL("https://myapp.app.link/xyz")
+branch.openURL("https://myapp.app.link/xyz", {newActivity: true})
 ```
 
 ## Branch Universal Object (for deep links, content analytics and indexing)

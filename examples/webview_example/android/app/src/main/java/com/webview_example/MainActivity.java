@@ -20,7 +20,7 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        RNBranchModule.initSession(this.getIntent().getData(), this);
+        RNBranchModule.initSession(getIntent().getData(), this);
     }
 
     @Override
