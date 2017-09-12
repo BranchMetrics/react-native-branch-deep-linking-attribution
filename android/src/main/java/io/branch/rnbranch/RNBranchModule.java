@@ -441,7 +441,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         intent.putExtra("branch", url);
         intent.putExtra("branch_force_new_session", true);
 
-        if (options.getBoolean("newActivity")) mActivity.finish();
+        if (options.hasKey("newActivity") && options.getBoolean("newActivity")) mActivity.finish();
         mActivity.startActivity(intent);
     }
 

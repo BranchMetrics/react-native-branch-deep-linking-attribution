@@ -285,7 +285,7 @@ RCT_EXPORT_METHOD(
 RCT_EXPORT_METHOD(
                   openURL:(NSString *)urlString
                   ) {
-    [self.class.branch handlePushNotification: @{@"branch": urlString}];
+    [self.class.branch handleDeepLinkWithNewSession:[NSURL URLWithString:urlString]];
 }
 
 #pragma mark userCompletedAction
