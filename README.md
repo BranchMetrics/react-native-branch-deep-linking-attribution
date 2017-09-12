@@ -23,6 +23,7 @@ ___
   + [Updating from an earlier SDK version](#updating-from-an-earlier-version)
   + [Register for Branch key](#register-your-app)
   + [Project setup](#setup)
+  + [Example apps](#example-apps)
 
 3. Branch general methods
   + [Register a subscriber](#register-a-subscriber)
@@ -177,14 +178,28 @@ In AppDelegate.m
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     if (![RNBranch.branch application:app openURL:url options:options]) {
         // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
-        return YES;
     }
+    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
     return [RNBranch continueUserActivity:userActivity];
 }
 ```
+
+Note: Some applications may use `application:openURL:sourceApplication:annotiation:` instead of `application:openURL:options:`.
+
+```objective-c
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if (![RNBranch.branch application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
+        // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
+    }
+    return YES;
+}
+```
+
+If you do not yet have either method in your app, prefer the first (`application:openURL:options:`), which
+will be supplied by autocompletion in Xcode.
 
 #### Swift
 
@@ -333,7 +348,7 @@ for details.
 
 ## Example apps
 
-There are five example apps in this repo. See the [examples](./examples) subdirectory for more details.
+There are six example apps in this repo. See the [examples](./examples) subdirectory for more details.
 
 ## SDK Documentation
 
