@@ -466,12 +466,18 @@ RCT_EXPORT_METHOD(
 
 #pragma mark loadRewards
 RCT_EXPORT_METHOD(
-                  loadRewards:(RCTPromiseResolveBlock)resolve
+                  loadRewards:(NSString *)bucket
+                  resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ) {
     [self.class.branch loadRewardsWithCallback:^(BOOL changed, NSError *error) {
         if(!error) {
-            int credits = (int)[self.class.branch getCredits];
+            int credits = 0;
+            if (bucket) {
+                credits = (int)[self.class.branch getCreditsForBucket:bucket];
+            } else {
+                credits = (int)[self.class.branch getCredits];
+            }
             resolve(@{@"credits": @(credits)});
         } else {
             RCTLogError(@"Load Rewards Error: %@", error.localizedDescription);
