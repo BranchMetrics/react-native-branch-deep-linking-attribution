@@ -585,9 +585,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void loadRewards(Promise promise)
+    public void loadRewards(String bucket, Promise promise)
     {
-        Branch.getInstance().loadRewards(new LoadRewardsListener(promise));
+        Branch.getInstance().loadRewards(new LoadRewardsListener(bucket, promise));
     }
 
     @ReactMethod
@@ -648,16 +648,23 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     protected class LoadRewardsListener implements Branch.BranchReferralStateChangedListener
     {
+        private String _bucket;
         private Promise _promise;
 
-        public LoadRewardsListener(Promise promise) {
+        public LoadRewardsListener(String bucket, Promise promise) {
+            this._bucket = bucket;
             this._promise = promise;
         }
 
         @Override
         public void onStateChanged(boolean changed, BranchError error) {
             if (error == null) {
-                int credits = Branch.getInstance().getCredits();
+                int credits = 0;
+                if (this._bucket == null) {
+                  credits = Branch.getInstance().getCredits();
+                } else {
+                  credits = Branch.getInstance().getCreditsForBucket(this._bucket);
+                }
                 WritableMap map = new WritableNativeMap();
                 map.putInt("credits", credits);
                 this._promise.resolve(map);
