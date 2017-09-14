@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableHighlight, View, WebView } from 'react-native'
 
+// Step 5: Import branch and RegisterViewEvent
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -26,6 +28,12 @@ const styles = StyleSheet.create({
 })
 
 export default class Article extends Component {
+  // Step 6: Add buo property
+
+  // Step 7: Add componentDidMount
+
+  // Step 8: Add componentWillUnmount
+
   render() {
     return (
       <View
@@ -46,6 +54,6 @@ export default class Article extends Component {
   }
 
   async onShare() {
-    // TODO
+    // Step 9: Implement onShare
   }
 }

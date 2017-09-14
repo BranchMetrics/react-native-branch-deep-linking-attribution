@@ -1,5 +1,7 @@
 package com.webview_tutorial;
 
+// Step 1: Add Branch import
+
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
@@ -36,5 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+
+    // Step 2: Add call to Branch.getAutoInstance
   }
 }

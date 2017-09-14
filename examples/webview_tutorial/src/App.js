@@ -2,11 +2,15 @@ import React, { Component } from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
 import { Navigator } from 'react-native-deprecated-custom-components'
 
+// Step 1: import branch
+
 import ArticleList from './ArticleList'
 import Article from './Article'
 
 export default class App extends Component {
   navigator = null
+
+  // Step 2: Add _unsubscribeFromBranch property
 
   render() {
     return (

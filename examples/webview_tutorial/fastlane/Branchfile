@@ -10,7 +10,7 @@
 
 # -----
 
-patch_source true
+patch_source false
 add_sdk false
 
 # Branch configuration defaults
