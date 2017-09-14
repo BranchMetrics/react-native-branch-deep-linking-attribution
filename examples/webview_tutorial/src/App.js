@@ -12,6 +12,10 @@ export default class App extends Component {
 
   // Step 2: Add _unsubscribeFromBranch property
 
+  // Step 3: Add componentDidMount
+
+  // Step 4: Add componentWillUnmount
+
   render() {
     return (
       <Navigator

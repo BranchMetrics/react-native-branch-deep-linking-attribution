@@ -82,6 +82,55 @@ From the Dashboard, you need:
     }
     ```
 
+    The complete AppDelegate should look like this:
+
+    ```Objective-C
+    #import "AppDelegate.h"
+
+    #import <React/RCTBundleURLProvider.h>
+    #import <React/RCTRootView.h>
+
+    // Step 1: Add RNBranch import
+
+    #import <react-native-branch/RNBranc.h>
+
+    @implementation AppDelegate
+
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+    {
+      // Step 2: Add call to [RNBranch initSessionWithLaunchOptions:isReferrable:]
+    #ifdef DEBUG
+      [RNBranch useTestInstance];
+    #endif // DEBUG
+      [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
+
+      NSURL *jsCodeLocation;
+
+      jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+
+      RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
+                                                          moduleName:@"webview_tutorial"
+                                                   initialProperties:nil
+                                                       launchOptions:launchOptions];
+      rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+
+      self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+      UIViewController *rootViewController = [UIViewController new];
+      rootViewController.view = rootView;
+      self.window.rootViewController = rootViewController;
+      [self.window makeKeyAndVisible];
+      return YES;
+    }
+
+    // Step 3: Add application:continueUserActivity:restorationHandler: method
+    - (BOOL)application:(UIApplication *)app continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
+    {
+      return [RNBranch.branch continueUserActivity:userActivity];
+    }
+
+    @end
+    ```
+
 4. In Xcode, change the bundle identifier to the correct bundle identifier for your Branch app. Also
     change the code signing settings to use your signing team.
 
@@ -103,6 +152,57 @@ From the Dashboard, you need:
 
     ```Java
     Branch.getAutoInstance(this);
+    ```
+
+    The complete MainApplication should look like this:
+
+    ```Java
+    package com.webview_tutorial;
+
+    // Step 1: Add Branch import
+    import io.branch.referral.Branch;
+
+    import android.app.Application;
+
+    import com.facebook.react.ReactApplication;
+    import com.facebook.react.ReactNativeHost;
+    import com.facebook.react.ReactPackage;
+    import com.facebook.react.shell.MainReactPackage;
+    import com.facebook.soloader.SoLoader;
+
+    import java.util.Arrays;
+    import java.util.List;
+
+    public class MainApplication extends Application implements ReactApplication {
+
+      private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+          return BuildConfig.DEBUG;
+        }
+
+        @Override
+        protected List<ReactPackage> getPackages() {
+          return Arrays.<ReactPackage>asList(
+              new MainReactPackage()
+          );
+        }
+      };
+
+      @Override
+      public ReactNativeHost getReactNativeHost() {
+        return mReactNativeHost;
+      }
+
+      @Override
+      public void onCreate() {
+        super.onCreate();
+        SoLoader.init(this, /* native exopackage */ false);
+
+        // Step 2: Add call to Branch.getAutoInstance
+        Branch.getAutoInstance(this);
+      }
+    }
     ```
 
 3. Open the `android/app/src/main/java/com/webview_tutorial/MainActivity.java` file in Android Studio
@@ -130,6 +230,45 @@ From the Dashboard, you need:
     protected void onNewIntent(Intent intent) {
         super.onNewIntent();
         setIntent(intent);
+    }
+    ```
+
+    The complete MainActivity should look like this:
+
+    ```Java
+    package com.webview_tutorial;
+
+    // Step 3: Import RNBranchModule and Android Intent class
+    import io.branch.rnbranch.RNBranchModule;
+    import android.content.Intent;
+
+    import com.facebook.react.ReactActivity;
+
+    public class MainActivity extends ReactActivity {
+
+        /**
+         * Returns the name of the main component registered from JavaScript.
+         * This is used to schedule rendering of the component.
+         */
+        @Override
+        protected String getMainComponentName() {
+            return "webview_tutorial";
+        }
+
+        // Step 4: Add onStart method
+        @Override
+        protected void onStart() {
+            super.onStart();
+            RNBranchModule.initSession(getIntent().getData(), this);
+        }
+
+        // Step 5: Add onNewIntent method
+        @Override
+        protected void onNewIntent(Intent intent) {
+            super.onNewIntent();
+            setIntent(intent);
+        }
+
     }
     ```
 
@@ -173,6 +312,60 @@ From the Dashboard, you need:
 
     Replace `key_live_xxxx` and `key_test_yyyy` with your Branch live and test keys from the
     Branch Dashboard.
+
+    The complete main manifest should look like this:
+
+    ```xml
+    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+         package="com.webview_tutorial"
+         android:versionCode="1"
+         android:versionName="1.0">
+
+         <uses-permission android:name="android.permission.INTERNET" />
+         <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+         <uses-sdk
+             android:minSdkVersion="16"
+             android:targetSdkVersion="22" />
+
+         <application
+             android:name=".MainApplication"
+             android:allowBackup="true"
+             android:label="@string/app_name"
+             android:icon="@mipmap/ic_launcher"
+             android:theme="@style/AppTheme"
+             android:launchMode="singleTask">
+             <!-- Step 6: Add singleTask to the MainActivity above -->
+             <activity
+                 android:name=".MainActivity"
+                 android:label="@string/app_name"
+                 android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+                 android:windowSoftInputMode="adjustResize">
+                 <intent-filter>
+                     <action android:name="android.intent.action.MAIN" />
+                     <category android:name="android.intent.category.LAUNCHER" />
+                 </intent-filter>
+                 <!-- Step 7: Add intent-filters -->
+                 <!-- Branch intent-filter -->
+                 <intent-filter android:autoVerify='true'>
+                     <action android:name='android.intent.action.VIEW'/>
+                     <category android:name='android.intent.category.DEFAULT'/>
+                     <category android:name='android.intent.category.BROWSABLE'/>
+                     <data android:scheme='https' android:host='yourapp.app.link'/>
+                     <data android:scheme='https' android:host='yourapp-alternate.app.link'/>
+                     <data android:scheme='https' android:host='yourapp.test-app.link'/>
+                     <data android:scheme='https' android:host='yourapp-alternate.test-app.link'/>
+                 </intent-filter>
+             </activity>
+             <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+             <!-- Step 8: Add Branch keys -->
+             <!-- Branch keys -->
+             <meta-data android:name='io.branch.sdk.BranchKey' android:value='key_live_xxxx'/>
+             <meta-data android:name='io.branch.sdk.BranchKey.test' android:value='key_test_yyyy'/>
+         </application>
+
+    </manifest>
+    ```
 
 9. Add a file called `android/app/src/debug/AndroidManifest.xml` with the following contents:
 
@@ -233,6 +426,97 @@ From the Dashboard, you need:
       if (this._unsubscribeFromBranch) {
         this._unsubscribeFromBranch()
         this._unsubscribeFromBranch = null
+      }
+    }
+    ```
+
+    The complete App class should look like this:
+
+    ```js
+    import React, { Component } from 'react'
+    import { Button, StyleSheet, Text, View } from 'react-native'
+    import { Navigator } from 'react-native-deprecated-custom-components'
+
+    // Step 1: import branch
+    import branch from 'react-native-branch'
+
+    import ArticleList from './ArticleList'
+    import Article from './Article'
+
+    export default class App extends Component {
+      navigator = null
+
+      // Step 2: Add _unsubscribeFromBranch property
+      _unsubscribeFromBranch = null
+
+      // Step 3: Add componentDidMount
+      componentDidMount() {
+        this._unsubscribeFromBranch = branch.subscribe(({ error, params }) => {
+          if (error) {
+            console.error("Error from Branch: " + error)
+            return
+          }
+
+          console.log("Branch params: " + JSON.stringify(params))
+
+          if (!params['+clicked_branch_link']) return
+
+          // Get title and url for route
+          let title = params.$og_title
+          let url = params.$canonical_url
+          let image = params.$og_image_url
+
+          // Now push the view for this URL
+          this.navigator.push({ title: title, url: url, image: image })
+        })
+      }
+
+      // Step 4: Add componentWillUnmount
+      componentWillUnmount() {
+        if (this._unsubscribeFromBranch) {
+          this._unsubscribeFromBranch()
+          this._unsubscribeFromBranch = null
+        }
+      }
+
+      render() {
+        return (
+          <Navigator
+            initialRoute={{ title: "The Planets", url: null }}
+            navigationBar={
+               <Navigator.NavigationBar
+                 routeMapper={{
+                    LeftButton: (route, navigator, index, navState) => {
+                      if (route.url) return (
+                        <Button
+                          onPress={() => {navigator.pop()}}
+                          title={"Back"} />
+                      )
+
+                      return <View />
+                    },
+                    RightButton: (route, navigator, index, navState) => {
+                      return <View />
+                    },
+                    Title: (route, navigator, index, navState) => { return (
+                      <Text
+                        style={{fontSize: 23, fontWeight: 'bold'}}>
+                        {route.title}
+                      </Text>
+                    ) },
+                 }}
+               />
+             }
+            renderScene={(route, navigator) => {
+              // hack
+              this.navigator = navigator
+
+              if (!route.url) {
+                return <ArticleList navigator={navigator} />
+              }
+              return <Article route={route} />
+            }} />
+        )
       }
     }
     ```
@@ -298,4 +582,104 @@ From the Dashboard, you need:
     }
 
     console.log("Share to " + channel + " completed: " + completed)
+    ```
+
+    The complete Article class should look like this:
+
+    ```js
+    import React, { Component } from 'react'
+    import { StyleSheet, Text, TouchableHighlight, View, WebView } from 'react-native'
+
+    // Step 5: Import branch and RegisterViewEvent
+    import branch, { RegisterViewEvent } from 'react-native-branch'
+
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        flexDirection: 'column',
+        marginTop: 64
+      },
+      webView: {
+        flex: 0.85
+      },
+      button: {
+        backgroundColor: '#cceeee',
+        borderColor: '#2266aa',
+        borderTopWidth: 1,
+        flex: 0.15,
+        justifyContent: 'center'
+      },
+      buttonText: {
+        color: '#2266aa',
+        fontSize: 23,
+        fontWeight: 'bold',
+        textAlign: 'center'
+      }
+    })
+
+    export default class Article extends Component {
+      // Step 6: Add buo property
+      buo = null
+
+      // Step 7: Add componentDidMount
+      async componentDidMount() {
+        this.buo = await branch.createBranchUniversalObject("planet/" + this.props.route.title, {
+          automaticallyListOnSpotlight: true, // ignored on Android
+          canonicalUrl: this.props.route.url,
+          title: this.props.route.title,
+          contentImageUrl: this.props.route.image,
+          contentIndexingMode: 'public' // for Spotlight indexing
+        })
+        this.buo.userCompletedAction(RegisterViewEvent)
+        console.log("Created Branch Universal Object and logged RegisterViewEvent.")
+      }
+
+      // Step 8: Add componentWillUnmount
+      componentWillUnmount() {
+        if (!this.buo) return
+        this.buo.release()
+        this.buo = null
+      }
+
+      render() {
+        return (
+          <View
+            style={styles.container} >
+            <WebView
+              style={styles.webView}
+              source={{uri: this.props.route.url}} />
+            <TouchableHighlight
+              onPress={() => this.onShare()}
+              style={styles.button} >
+              <Text
+                style={styles.buttonText}>
+                Share
+              </Text>
+            </TouchableHighlight>
+          </View>
+        )
+      }
+
+      async onShare() {
+        // Step 9: Implement onShare
+        let { channel, completed, error } = await this.buo.showShareSheet({
+          emailSubject: "The Planet " + this.props.route.title,
+          messageBody: "Read about the planet " + this.props.route.title + ".",
+          messageHeader: "The Planet " + this.props.route.title
+        }, {
+          feature: "share",
+          channel: "RNApp"
+        }, {
+          $desktop_url: this.props.route.url,
+          $ios_deepview: "branch_default"
+        })
+
+        if (error) {
+          console.error("Error sharing via Branch: " + error)
+          return
+        }
+
+        console.log("Share to " + channel + " completed: " + completed)
+      }
+    }
     ```
