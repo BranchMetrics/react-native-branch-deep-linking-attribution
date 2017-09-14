@@ -1029,8 +1029,12 @@ you will need to make an asynchronous call to retrieve the balance.
 #### Method
 
 ```js
-branch.loadRewards()
+branch.loadRewards(bucket)
 ```
+
+##### Parameters
+
+**bucket**: (Optional) The bucket to get the credit balance for
 
 ##### Return
 
@@ -1039,7 +1043,7 @@ branch.loadRewards()
 ```js
 import branch from 'react-native-branch'
 
-let rewards = await branch.loadRewards()
+let rewards = await branch.loadRewards(bucket)
 ```
 
 ### Redeem All or Some of the Reward Balance (Store State)
