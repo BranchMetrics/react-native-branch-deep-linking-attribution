@@ -237,8 +237,8 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
     ```Java
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent();
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         setIntent(intent);
     }
     ```
@@ -274,8 +274,8 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
         // Step 5: Add onNewIntent method
         @Override
-        protected void onNewIntent(Intent intent) {
-            super.onNewIntent();
+        public void onNewIntent(Intent intent) {
+            super.onNewIntent(intent);
             setIntent(intent);
         }
 
@@ -297,15 +297,14 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 7. Add `intent-filters` to the MainActivity in the Android manifest using your Branch domains:
 
     ```xml
-    <!-- Branch intent-filter -->
     <intent-filter android:autoVerify='true'>
-        <action android:name='android.intent.action.VIEW'/>
-        <category android:name='android.intent.category.DEFAULT'/>
-        <category android:name='android.intent.category.BROWSABLE'/>
-        <data android:scheme='https' android:host='yourapp.app.link'/>
-        <data android:scheme='https' android:host='yourapp-alternate.app.link'/>
-        <data android:scheme='https' android:host='yourapp.test-app.link'/>
-        <data android:scheme='https' android:host='yourapp-alternate.test-app.link'/>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="https" android:host="yourapp.app.link"/>
+        <data android:scheme="https" android:host="yourapp-alternate.app.link"/>
+        <data android:scheme="https" android:host="yourapp.test-app.link"/>
+        <data android:scheme="https" android:host="yourapp-alternate.test-app.link"/>
     </intent-filter>
     ```
 
@@ -316,8 +315,8 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
     ```xml
     <!-- Branch keys -->
-    <meta-data android:name='io.branch.sdk.BranchKey' android:value='key_live_xxxx'/>
-    <meta-data android:name='io.branch.sdk.BranchKey.test' android:value='key_test_yyyy'/>
+    <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_xxxx"/>
+    <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_yyyy"/>
     ```
 
     Replace `key_live_xxxx` and `key_test_yyyy` with your Branch live and test keys from the
@@ -388,6 +387,12 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
         </application>
 
     </manifest>
+    ```
+
+10. Open the file `android/app/proguard-rules.pro` and add the following line at the end:
+
+    ```proguard
+    -dontwarn io.branch.**
     ```
 
 ## React Native setup
