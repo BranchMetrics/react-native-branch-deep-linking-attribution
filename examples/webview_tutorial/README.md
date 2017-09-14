@@ -1,5 +1,16 @@
 # webview_tutorial
 
+This tutorial starts with a simple content app that does not use Branch. The main
+view shows a list of the planets. Select any row in the list to see the Wikipedia
+page for that planet in a web view with a Share button. The Share button is
+initially unimplemented.
+
+![webview_tutorial_main](./webview_tutorial_main.png)
+![webview_tutorial_article](./webview_tutorial_article.png)
+
+In the course of the tutorial, you will add the `react-native-branch` SDK to
+this app and implement sharing and deep link routing using Branch.
+
 ## Prerequisites
 
 Make sure your app is set up in the [Branch Dashboard](https://dashboard.branch.io).
