@@ -20,6 +20,8 @@ From the Dashboard, you need:
   - The domains used with these keys
   - The bundle identifier associated with your app in the Dashboard (iOS only)
 
+Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
+
 ## Installation
 
 1. Add the react-native-branch SDK.
@@ -131,12 +133,20 @@ From the Dashboard, you need:
     @end
     ```
 
-4. In Xcode, change the bundle identifier to the correct bundle identifier for your Branch app. Also
+4. In Xcode, change the bundle identifier to the correct bundle identifier for your Branch app
+    (see the [Branch Dashboard](https://dashboard.branch.io)). Also
     change the code signing settings to use your signing team.
+
+    ![Bundle identifier](http://i.imgur.com/BHAQIQf.png)
 
 5. In Xcode, add your Branch keys to the Info.plist as a dictionary.
 
-6. In Xcode, add your Branch domains to the application's associated domains.
+    ![Branch keys](https://raw.githubusercontent.com/BranchMetrics/ios-branch-deep-linking/master/docs/images/branch-multi-key-plist.png)
+
+6. In Xcode, add your Branch domains to the application's associated domains. Be sure to
+    prefix each domain with `applinks:`.
+
+    ![Associated domains](http://i.imgur.com/67t6hSY.png)
 
 ## Android setup
 
@@ -683,3 +693,19 @@ From the Dashboard, you need:
       }
     }
     ```
+
+## Build and run
+
+The app now includes a complete Branch integration. Try it out with
+
+```bash
+react-native run-android
+```
+
+or
+
+```bash
+react-native run-ios
+```
+
+or just open the projects in Android Studio or Xcode, build and run.
