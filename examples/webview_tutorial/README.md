@@ -96,7 +96,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
     // Step 1: Add RNBranch import
 
-    #import <react-native-branch/RNBranc.h>
+    #import <react-native-branch/RNBranch.h>
 
     @implementation AppDelegate
 
@@ -551,7 +551,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     buo = null
     ```
 
-7. Create a Branch Universal Object in the `componentDidMount` class and register a view
+7. Create a Branch Universal Object in the `componentDidMount` method and register a view
     event. Add the following method to the Article class:
 
     ```js
