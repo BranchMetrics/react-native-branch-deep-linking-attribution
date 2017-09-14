@@ -709,3 +709,8 @@ react-native run-ios
 ```
 
 or just open the projects in Android Studio or Xcode, build and run.
+
+Select any article and then press the Share button. Use it to share the content in any
+way you like, e.g. mail yourself a link or copy it and paste it into the Notes app.
+Open any link generated in the app. The app will be launched, and the appropriate content
+will be displayed.
