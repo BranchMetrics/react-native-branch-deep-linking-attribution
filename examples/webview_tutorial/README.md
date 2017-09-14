@@ -9,7 +9,9 @@ initially unimplemented.
 ![webview_tutorial_article](./webview_tutorial_article.png)
 
 In the course of the tutorial, you will add the `react-native-branch` SDK to
-this app and implement sharing and deep link routing using Branch.
+this app and implement sharing and deep link routing using Branch. The finished
+product will be essentially the same as the complete `webview_example` in this
+repo.
 
 ## Prerequisites
 
@@ -719,3 +721,12 @@ Select any article and then press the Share button. Use it to share the content 
 way you like, e.g. mail yourself a link or copy it and paste it into the Notes app.
 Open any link generated in the app. The app will be launched, and the appropriate content
 will be displayed.
+
+## Notes
+
+The following are not included yet in this tutorial.
+
+- Setting up and handling URI schemes
+- Setting up custom Branch domains or non-Branch domains
+- Handling non-Branch domains
+- Using a single Branch key
