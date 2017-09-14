@@ -348,7 +348,8 @@ for details.
 
 ## Example apps
 
-There are six example apps in this repo. See the [examples](./examples) subdirectory for more details.
+There are six example apps in this repo, including a [tutorial app](./examples/webview_tutorial).
+See the [examples](./examples) subdirectory for more details.
 
 ## SDK Documentation
 

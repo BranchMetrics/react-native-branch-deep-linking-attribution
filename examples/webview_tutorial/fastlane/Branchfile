@@ -1,0 +1,26 @@
+# Edit the configuration below.
+# Change to any example project folder and run fastlane update_branch.
+
+# bundle install
+# cd webview_example
+# bundle exec fastlane update_branch
+
+# iOS projects: Also validate the Universal Link configuration with
+# bundle exec fastlane validate
+
+# -----
+
+patch_source false
+add_sdk false
+
+# Branch configuration defaults
+
+live_key "key_live_dczvWn3zrK8575YRe07IgjblAAmfx51S"
+test_key "key_test_fbqC9k2BqS68Y1XQi7YVjakhCxomD6Z9"
+app_link_subdomain "wujv"
+
+# Use instead of app_link_subdomain for custom domains:
+# domains %w{example.com www.example.com}
+
+# Android only
+uri_scheme "myurischeme"
