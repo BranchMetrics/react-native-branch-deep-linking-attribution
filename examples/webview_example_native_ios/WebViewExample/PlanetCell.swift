@@ -7,7 +7,7 @@
 //
 
 import Cartography
-import TextAttributes
+// import TextAttributes
 import UIKit
 
 /**
@@ -100,11 +100,19 @@ class PlanetCell: UITableViewCell {
 
         thumbnailImageView.image = UIImage(named: planetData.title)
 
+        /*
         let attributes = TextAttributes()
             .font(name: Style.boldFontName, size: Style.rowFontSize)
             .alignment(.left)
             .kern(1.2)
+        // */
+        let font = UIFont(name: Style.boldFontName, size: Style.rowFontSize)!
+        let attributes: [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey.font: font,
+            NSAttributedStringKey.kern: 1.2
+            ]
 
         label.attributedText = NSAttributedString(string: planetData.title, attributes: attributes)
+        label.textAlignment = .left
     }
 }

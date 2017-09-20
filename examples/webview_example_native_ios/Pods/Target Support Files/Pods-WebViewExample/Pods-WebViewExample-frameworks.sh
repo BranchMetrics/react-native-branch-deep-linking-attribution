@@ -105,7 +105,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Branch-SDK/Branch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Cartography/Cartography.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React/React.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/TextAttributes/TextAttributes.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-branch/react_native_branch.framework"
 fi
@@ -113,7 +112,6 @@ if [[ "$CONFIGURATION" == "Test-Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Branch-SDK/Branch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Cartography/Cartography.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React/React.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/TextAttributes/TextAttributes.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-branch/react_native_branch.framework"
 fi
@@ -121,7 +119,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Branch-SDK/Branch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Cartography/Cartography.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React/React.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/TextAttributes/TextAttributes.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-branch/react_native_branch.framework"
 fi
@@ -129,7 +126,6 @@ if [[ "$CONFIGURATION" == "Test-Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Branch-SDK/Branch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Cartography/Cartography.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React/React.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/TextAttributes/TextAttributes.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-branch/react_native_branch.framework"
 fi
