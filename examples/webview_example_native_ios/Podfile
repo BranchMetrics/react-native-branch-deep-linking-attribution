@@ -31,7 +31,7 @@ pod "Branch-SDK", path: "node_modules/react-native-branch/ios"
 
 # Convenient pods for app development
 pod "Cartography"
-pod "TextAttributes"
+# pod "TextAttributes"
 
 # Specify the app target and any other targets that require these dependencies
 target "WebViewExample"

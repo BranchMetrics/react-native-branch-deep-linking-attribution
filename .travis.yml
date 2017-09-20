@@ -1,6 +1,6 @@
-# Use macOS with XCode 8.3
+# Use macOS with XCode 9
 os: osx
-osx_image: xcode8.3
+osx_image: xcode9
 
 # Use Node 7.x and yarn
 language: node_js
@@ -10,13 +10,8 @@ cache: yarn
 
 install:
 # Set up RVM, RubyGems, Bundler
-  # Skip RVM update for now because keys.gnupg.net unreachable in Travis.
-  # TODO: Fix Travis caching issues. Or hope Circle provides support for
-  # Android on OS X soon.
-  # - gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-  # - rvm get head
-  - rvm install 2.3.3
-  - rvm use 2.3.3 --default
+  - rvm install 2.4.1
+  - rvm use 2.4.1 --default
   - gem update --system
   - gem install bundler
   - bundle install

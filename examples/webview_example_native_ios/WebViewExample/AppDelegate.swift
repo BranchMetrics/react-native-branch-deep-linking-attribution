@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Branch link routing
 
-    func routeURLFromBranch(_ notification: NSNotification) {
+    @objc func routeURLFromBranch(_ notification: NSNotification) {
         guard let buo = notification.userInfo?[RNBranchLinkOpenedNotificationBranchUniversalObjectKey] as? BranchUniversalObject,
             let planetData = PlanetData(branchUniversalObject: buo) else { return }
 
