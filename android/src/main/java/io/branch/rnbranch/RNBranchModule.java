@@ -418,11 +418,18 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             @Override
             public void onLinkCreate(String url, BranchError error) {
                 Log.d(REACT_CLASS, "onLinkCreate " + url);
+                if (error != null) {
+                    if (error.getErrorCode() == BranchError.ERR_BRANCH_DUPLICATE_URL) {
+                        promise.reject("RNBranch::Error::DuplicateResourceError", error.getMessage());
+                    }
+                    else {
+                        promise.reject("RNBranch::Error", error.getMessage());
+                    }
+                    return;
+                }
+
                 WritableMap map = new WritableNativeMap();
                 map.putString("url", url);
-                if (error != null) {
-                    map.putString("error", error.toString());
-                }
                 promise.resolve(map);
             }
         });
