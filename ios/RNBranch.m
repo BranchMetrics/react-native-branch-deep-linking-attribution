@@ -413,8 +413,12 @@ RCT_EXPORT_METHOD(
         if (!error) {
             RCTLogInfo(@"RNBranch Success");
             resolve(@{ @"url": url });
-        } else {
-            reject([NSString stringWithFormat: @"%lu", (long)error.code], error.localizedDescription, error);
+        }
+        else if (error.code == BNCDuplicateResourceError) {
+            reject(@"RNBranch::Error::DuplicateResourceError", error.localizedDescription, error);
+        }
+        else {
+            reject(@"RNBranch::Error", error.localizedDescription, error);
         }
     }];
 }
