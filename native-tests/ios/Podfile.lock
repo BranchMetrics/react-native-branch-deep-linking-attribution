@@ -1,7 +1,7 @@
 PODS:
-  - Branch-SDK (0.18.8):
-    - Branch-SDK/Core (= 0.18.8)
-  - Branch-SDK/Core (0.18.8)
+  - Branch-SDK (0.19.5):
+    - Branch-SDK/Core (= 0.19.5)
+  - Branch-SDK/Core (0.19.5)
   - OCMock (3.4)
   - React (0.43.1):
     - React/Core (= 0.43.1)
@@ -34,7 +34,7 @@ EXTERNAL SOURCES:
     :path: ../../node_modules/react-native/ReactCommon/yoga
 
 SPEC CHECKSUMS:
-  Branch-SDK: 32cc6464f8a5bc19d9c29fae47d0ed5c9205defb
+  Branch-SDK: 379726bfaf479d1941f76a39ade8ce015aff1d19
   OCMock: 35ae71d6a8fcc1b59434d561d1520b9dd4f15765
   React: c28b1a7b7510eda68c58ed1bd22e85a76ef4f819
   react-native-branch: 5f922076c1001cb8b827e5b94c2f8321e74e09a0
