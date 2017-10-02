@@ -36,9 +36,10 @@ ___
   + [Tracking custom events](#register-custom-events)
   + [Sending commerce events](#commerce-events)
   + [Programmatic deep linking](#programmatic-deep-linking)
+  + [Debug mode and Apple Search Ads attribution](#debug-mode-and-apple-search-ads-attribution)
 
 4. Branch Universal Objects
-  + [Instantiate a Branch Universal Object](#branch-universal-object)
+  + [Instantiate a Branch Universal Object](#create-branch-universal-object)
   + [Register user actions on an object](#register-user-actions-on-an-object)
   + [List content on Spotlight](#list-content-on-spotlight)
   + [Configuring link properties](#link-properties-parameters)
@@ -63,6 +64,8 @@ Note that the `react-native-branch` module requires `react-native` >= 0.40.
 3. `react-native link react-native-branch`
 4. Follow the [setup instructions](#setup).
 
+___
+
 ### Native iOS app using the React pod
 
 Only follow these instructions if you are already using the React pod from node_modules. This is usually
@@ -77,6 +80,8 @@ done in native apps that integrate React Native components.
 2. Run `pod install` to regenerate the Pods project with these new dependencies.
 2. (Optional) Add a branch.json file to the your app project. See https://rnbranch.app.link/branch-json.
 4. Follow the [setup instructions](#setup).
+
+___
 
 ### Updating from an earlier version
 
@@ -147,13 +152,20 @@ Remove Branch.framework from your app's dependencies. Also remove Branch.framewo
 
 Remove Branch.framework from your app's dependencies.
 
+___
+
 ### Register Your App
 
 You can sign up for your own app id at [https://dashboard.branch.io](https://dashboard.branch.io).
 
+___
+
 ## Setup
 
-### iOS project
+- [iOS Setup](#ios-setup)
+- [Android Setup](#android-setup)
+
+### iOS Setup
 
 Modify your AppDelegate as follows:
 
@@ -239,9 +251,22 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 }
 ```
 
-These instructions are for Swift 3. Please note that Swift 2 is deprecated.
+These instructions are for Swift 3 and 4.
 
-### Android project
+### iOS Project Configuration
+
+After modifying your AppDelegate:
+
+1. [Add a Dictionary or String entry branch_key](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project) with your Branch key to your info.plist
+
+2. [Configure for Universal Linking](https://dev.branch.io/references/ios_sdk/#support-universal-linking-ios-9)
+
+3. If using a custom domain in the Branch Dashboard or one or more non-Branch domains, [add the `branch_universal_link_domains`
+    key to your Info.plist](https://dev.branch.io/getting-started/universal-app-links/advanced/ios/#custom-continueuseractivity-configuration).
+
+___
+
+### Android Setup
 
 Add RNBranchPackage to packages list in `getPackages()` MainApplication.java (`android/app/src/[...]/MainApplication.java`).
 Note that this is automatically done if you used `react-native link`.
@@ -302,18 +327,7 @@ public class MainActivity extends ReactActivity {
 }
 ```
 
-### iOS Project Setup
-
-After modifying your AppDelegate:
-
-1. [Add a Dictionary or String entry branch_key](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project) with your Branch key to your info.plist
-
-2. [Configure for Universal Linking](https://dev.branch.io/references/ios_sdk/#support-universal-linking-ios-9)
-
-3. If using a custom domain in the Branch Dashboard or one or more non-Branch domains, [add the `branch_universal_link_domains`
-    key to your Info.plist](https://dev.branch.io/getting-started/universal-app-links/advanced/ios/#custom-continueuseractivity-configuration).
-
-### Android Project Setup
+### Android Project Configuration
 
 1. [Configure AndroidManifest.xml](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#configure-manifest). Be sure to set `android:launchMode="singleTask"` on your main activity.
 
@@ -338,18 +352,14 @@ After modifying your AppDelegate:
 
 Please see the Branch [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
 
-### Automated setup using Fastlane
-
-<a href="https://docs.fastlane.tools" target="_blank"><img src="https://github.com/fastlane/fastlane/blob/master/fastlane/assets/fastlane_text.png?raw=true" alt="Fastlane" width="200" /></a>
-
-Alternately, you can automatically perform all project configuration setup using Fastlane.
-See the [Branch Fastlane plugin](https://github.com/BranchMetrics/fastlane-plugin-branch)
-for details.
+___
 
 ## Example apps
 
 There are six example apps in this repo, including a [tutorial app](./examples/webview_tutorial).
 See the [examples](./examples) subdirectory for more details.
+
+___
 
 ## SDK Documentation
 
@@ -421,6 +431,8 @@ branch.subscribe(({ error, params }) => {
 })
 ```
 
+___
+
 ### Unregister a subscriber
 
 The return value of `branch.subscribe` is a function that cancels the
@@ -448,6 +460,8 @@ class MyApp extends Component {
   }
 }
 ```
+
+___
 
 ### Adjust cached link TTL
 
@@ -479,6 +493,8 @@ branch.subscribe({ error, params } => {
 })
 ```
 
+___
+
 ### Retrieve session (install or open) params
 
 These session parameters will be available at any point later on with this command. If no parameters are available then Branch will return an empty dictionary. This refreshes with every new session (app installs AND app opens).
@@ -502,6 +518,8 @@ import branch from 'react-native-branch'
 
 const latestParams = await branch.getLatestReferringParams()
 ```
+
+___
 
 ### Retrieve Install (Install Only) Parameters
 
@@ -527,6 +545,8 @@ import branch from 'react-native-branch'
 const latestParams = await branch.getFirstReferringParams()
 ```
 
+___
+
 ### Persistent Identities
 
 Often, you might have your own user IDs, or want referral and event data to persist across platforms or uninstall/reinstall. It's helpful if you know your users access your service from different devices. This where we introduce the concept of an 'identity'.
@@ -549,6 +569,8 @@ import branch from 'react-native-branch'
 branch.setIdentity('theUserId')
 ```
 
+___
+
 ### Logout
 
 If you provide a logout function in your app, be sure to clear the user when the logout completes. This will ensure that all the stored parameters get cleared and all events are properly attributed to the right identity.
@@ -568,6 +590,8 @@ import branch from 'react-native-branch'
 
 branch.logout()
 ```
+
+___
 
 ### Register custom events
 
@@ -594,6 +618,8 @@ import branch from 'react-native-branch'
 branch.userCompletedAction('Level Complete', {level: 'Level 1'})
 ```
 
+___
+
 ### Commerce events
 
 Use the `branch.sendCommerceEvent` method to record commerce events.
@@ -617,6 +643,8 @@ import branch from 'react-native-branch'
 branch.sendCommerceEvent("20.00")
 branch.sendCommerceEvent(50, {key1: "value1", key2: "value2"})
 ```
+
+___
 
 ### Programmatic deep linking
 
@@ -669,6 +697,104 @@ branch.openURL("https://myapp.app.link/xyz")
 branch.openURL("https://myapp.app.link/xyz", {newActivity: true})
 ```
 
+___
+
+### Debug mode and Apple Search Ads attribution
+
+Certain methods in the native SDKs cannot be easily exposed to JavaScript, because
+they must be called before the native SDKs initialize, which happens well before
+JavaScript finishes loading. To use these methods, two options are available.
+
+- Add a [branch.json](./docs/branch.json.md) file to your project.
+
+    This allows you to enable debug mode (to simulate install events on both
+    Android and iOS), Apple Search Ads attribution and Apple Search Ads debug
+    mode from a configuration file.
+
+- Add native iOS and Android method calls to your project.
+
+    + [Debug mode (simulated install events)](./docs/setDebug.md)
+    + [Apple Search Ads attribution](https://github.com/BranchMetrics/ios-branch-deep-linking#apple-search-ads)
+
+___
+
+
+## Referral System Rewarding Functionality
+
+### Get Reward Balance
+
+Reward balances change randomly on the backend when certain actions are taken (defined by your rules), so
+you will need to make an asynchronous call to retrieve the balance.
+
+#### Method
+
+```js
+branch.loadRewards(bucket)
+```
+
+##### Parameters
+
+**bucket**: (Optional) The bucket to get the credit balance for
+
+##### Return
+
+#### Example
+
+```js
+import branch from 'react-native-branch'
+
+let rewards = await branch.loadRewards(bucket)
+```
+
+___
+
+### Redeem All or Some of the Reward Balance (Store State)
+
+Redeeming credits allows users to cash in the credits they've earned. Upon successful redemption, the user's balance will be updated reflecting the deduction.
+
+#### Method
+
+```js
+branch.redeemRewards(amount, bucket)
+```
+
+##### Parameters
+
+**amount**: The amount to redeem  
+**bucket**: (Optional) The bucket to redeem from
+
+#### Example
+
+```js
+import branch from 'react-native-branch'
+
+let redeemResult = await branch.redeemRewards(amount, bucket)
+```
+
+___
+
+### Get Credit History
+
+This call will retrieve the entire history of credits and redemptions from the individual user.
+
+#### Method
+
+```js
+branch.getCreditHistory()
+```
+
+##### Return
+
+A promise. On resolution, the promise returns an array containing the current user's credit history.
+
+#### Example
+
+```js
+let creditHistory = await branch.getCreditHistory()
+```
+
+___
+
 ## Branch Universal Object (for deep links, content analytics and indexing)
 
 The Branch Universal Object represents an item of content in your app, e.g. an article,
@@ -690,38 +816,9 @@ Practices to _avoid_:
 3. Don't wait to initialize the object until you conveniently need a link.
 4. Don't create many objects at once and register views in a loop.
 
-#### Params object
+___
 
-The params object is returned by various linking methods including subscribe, getLatestReferringParams, and getFirstReferringParams. Params will contain any data associated with the Branch link that was clicked before the app session began.  
-
-Branch returns explicit parameters every time. Here is a list, and a description of what each represents.  
-* `~` denotes analytics  
-* `+` denotes information added by Branch
-
-| **Parameter** | **Meaning**
-| --- | ---
-| ~channel | The channel on which the link was shared, specified at link creation time
-| ~feature | The feature, such as `invite` or `share`, specified at link creation time
-| ~tags | Any tags, specified at link creation time
-| ~campaign | The campaign the link is associated with, specified at link creation time
-| ~stage | The stage, specified at link creation time
-| ~creation_source | Where the link was created ('API', 'Dashboard', 'SDK', 'iOS SDK', 'Android SDK', or 'Web SDK')
-| ~referring_link | The referring link that drove the install/open, if present
-| ~id | Automatically generated 18 digit ID number for the link that drove the install/open, if present
-| +match_guaranteed | True or false as to whether the match was made with 100% accuracy
-| +referrer | The referrer for the link click, if a link was clicked
-| +phone_number | The phone number of the user, if the user texted himself/herself the app
-| +is_first_session | Denotes whether this is the first session (install) or any other session (open)
-| +clicked_branch_link | Denotes whether or not the user clicked a Branch link that triggered this session
-| +click_timestamp | Epoch timestamp of when the click occurred
-| +url | The full URL of the link that drove the install/open, if present (e.g. bnc.lt/m/abcde12345)
-
-See also [Deep Link Routing](https://dev.branch.io/getting-started/deep-link-routing/guide/react/#branch-provided-data-parameters-in-callback)
-on the Branch documentation site for more information.
-
-Any additional data attached to the Branch link will be available unprefixed.
-
-### Branch Universal Object
+### Create Branch Universal Object
 
 To create a Branch Universal Object, use the `branch.createBranchUniversalObject` method. Note
 that unlike the underlying SDKs, all parameters to the Branch Universal Object must be supplied
@@ -757,6 +854,8 @@ let branchUniversalObject = await branch.createBranchUniversalObject('canonicalI
   title: 'Cool Content!',
   contentDescription: 'Cool Content Description'})
 ```
+
+___
 
 ### Register user actions on an object
 
@@ -846,6 +945,8 @@ let branchUniversalObject = await branch.createBranchUniversalObject(...)
 branchUniversalObject.listOnSpotlight()
 ```
 
+___
+
 ### Shortened Links
 
 Once you've created your `Branch Universal Object`, which is the reference to the content you're interested in, you can then get a link back to it with the mechanisms described below.
@@ -881,6 +982,8 @@ let controlParams = { $desktop_url: 'http://example.com/home', $ios_url: 'http:/
 
 let {url} = await branchUniversalObject.generateShortUrl(linkProperties, controlParams)
 ```
+
+___
 
 ### Share sheet
 
@@ -938,6 +1041,8 @@ let shareOptions = { messageHeader: 'Check this out', messageBody: 'No really, c
 let {channel, completed, error} = await branchUniversalObject.showShareSheet(shareOptions, linkProperties, controlParams)
 ```
 
+___
+
 ### Releasing native resources
 
 The Branch Universal Object is a construct in the underlying native SDK that is
@@ -975,6 +1080,8 @@ class CustomComponent extends Component {
 }
 ```
 
+___
+
 #### Branch Universal Object Properties
 
 |         Key                  | TYPE   |             DESCRIPTION                                |
@@ -992,6 +1099,8 @@ class CustomComponent extends Component {
 | title                        | String | The object title                                       |
 | type                         | String | MIME type for this content                             |
 
+___
+
 #### Link Properties Parameters
 
 |    KEY   |   TYPE   |          MEANING
@@ -1002,6 +1111,8 @@ class CustomComponent extends Component {
 | feature  | `string` | This is the feature of your app that the link might be associated with. eg: if you had built a referral program, you would label links with the feature `referral`
 | stage    | `string` | Use this to categorize the progress or category of a user when the link was generated. For example, if you had an invite system accessible on level 1, level 3 and 5, you could differentiate links generated at each level with this parameter
 | tags     | `array`  | This is a free form entry with unlimited values. Use it to organize your link data with labels that don’t fit within the bounds of the above
+
+___
 
 ### Control parameters
 
@@ -1020,72 +1131,35 @@ All Branch control parameters are supported. See [here](https://dev.branch.io/ge
 | $blackberry_url    | `string` | Change the redirect endpoint for Blackberry OS
 | $windows_phone_url | `string` | Change the redirect endpoint for Windows OS
 
-## Referral System Rewarding Functionality
+___
 
-### Get Reward Balance
+#### Params object
 
-Reward balances change randomly on the backend when certain actions are taken (defined by your rules), so
-you will need to make an asynchronous call to retrieve the balance.
+The params object is returned by various linking methods including subscribe, getLatestReferringParams, and getFirstReferringParams. Params will contain any data associated with the Branch link that was clicked before the app session began.  
 
-#### Method
+Branch returns explicit parameters every time. Here is a list, and a description of what each represents.  
+* `~` denotes analytics  
+* `+` denotes information added by Branch
 
-```js
-branch.loadRewards(bucket)
-```
+| **Parameter** | **Meaning**
+| --- | ---
+| ~channel | The channel on which the link was shared, specified at link creation time
+| ~feature | The feature, such as `invite` or `share`, specified at link creation time
+| ~tags | Any tags, specified at link creation time
+| ~campaign | The campaign the link is associated with, specified at link creation time
+| ~stage | The stage, specified at link creation time
+| ~creation_source | Where the link was created ('API', 'Dashboard', 'SDK', 'iOS SDK', 'Android SDK', or 'Web SDK')
+| ~referring_link | The referring link that drove the install/open, if present
+| ~id | Automatically generated 18 digit ID number for the link that drove the install/open, if present
+| +match_guaranteed | True or false as to whether the match was made with 100% accuracy
+| +referrer | The referrer for the link click, if a link was clicked
+| +phone_number | The phone number of the user, if the user texted himself/herself the app
+| +is_first_session | Denotes whether this is the first session (install) or any other session (open)
+| +clicked_branch_link | Denotes whether or not the user clicked a Branch link that triggered this session
+| +click_timestamp | Epoch timestamp of when the click occurred
+| +url | The full URL of the link that drove the install/open, if present (e.g. bnc.lt/m/abcde12345)
 
-##### Parameters
+See also [Deep Link Routing](https://dev.branch.io/getting-started/deep-link-routing/guide/react/#branch-provided-data-parameters-in-callback)
+on the Branch documentation site for more information.
 
-**bucket**: (Optional) The bucket to get the credit balance for
-
-##### Return
-
-#### Example
-
-```js
-import branch from 'react-native-branch'
-
-let rewards = await branch.loadRewards(bucket)
-```
-
-### Redeem All or Some of the Reward Balance (Store State)
-
-Redeeming credits allows users to cash in the credits they've earned. Upon successful redemption, the user's balance will be updated reflecting the deduction.
-
-#### Method
-
-```js
-branch.redeemRewards(amount, bucket)
-```
-
-##### Parameters
-
-**amount**: The amount to redeem  
-**bucket**: (Optional) The bucket to redeem from
-
-#### Example
-
-```js
-import branch from 'react-native-branch'
-
-let redeemResult = await branch.redeemRewards(amount, bucket)
-```
-
-### Get Credit History
-
-This call will retrieve the entire history of credits and redemptions from the individual user.
-
-#### Method
-
-```js
-branch.getCreditHistory()
-```
-
-##### Return
-
-A promise. On resolution, the promise returns an array containing the current user's credit history.
-
-#### Example
-
-```js
-let creditHistory = await branch.getCreditHistory()
-```
+Any additional data attached to the Branch link will be available unprefixed.
