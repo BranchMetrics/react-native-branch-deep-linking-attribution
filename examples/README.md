@@ -27,8 +27,7 @@ Once this is done, you can deploy the app on a device and open Universal Links i
 
 To use this tool:
 
-1. Edit the [Branchfile](./Branchfile) in this directory to use the correct parameters for your app from the
-    Branch Dashboard.
+1. Edit the Branchfile in the fastlane subdirectory of any example you wish to use, e.g. [webview_example/fastlane/Branchfile](./webview_example/fastlane/Branchfile)
 2. To update any example app, e.g. `webview_example`:
     ```bash
     bundle install
