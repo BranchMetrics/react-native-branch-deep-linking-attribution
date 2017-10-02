@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, TextInput, TouchableHighlight, View, WebView } from 'react-native'
+import { StyleSheet, Text, TextInput, View, WebView } from 'react-native'
 
 import branch, { RegisterViewEvent } from 'react-native-branch'
 
@@ -14,13 +14,6 @@ const styles = StyleSheet.create({
   },
   webView: {
     flex: 0.77
-  },
-  button: {
-    backgroundColor: '#cceeee',
-    borderColor: '#2266aa',
-    borderTopWidth: 1,
-    flex: 0.15,
-    justifyContent: 'center'
   },
   buttonText: {
     color: '#2266aa',
@@ -85,14 +78,6 @@ export default class App extends Component {
           style={styles.webView}
           source={{uri: this.state.url}}
           onLoad={this.registerView.bind(this)} />
-        <TouchableHighlight
-          onPress={() => this.onShare()}
-          style={styles.button} >
-          <Text
-            style={styles.buttonText}>
-            Share
-          </Text>
-        </TouchableHighlight>
       </View>
     )
   }
@@ -113,26 +98,5 @@ export default class App extends Component {
     })
     this.buo.userCompletedAction(RegisterViewEvent)
     console.log("Created Branch Universal Object and logged RegisterViewEvent.")
-  }
-
-  async onShare() {
-    let { channel, completed, error } = await this.buo.showShareSheet({
-      emailSubject: "The Planet " + this.props.route.title,
-      messageBody: "Read about the planet " + this.props.route.title + ".",
-      messageHeader: "The Planet " + this.props.route.title
-    }, {
-      feature: "share",
-      channel: "RNApp"
-    }, {
-      $desktop_url: this.props.route.url,
-      $ios_deepview: "branch_default"
-    })
-
-    if (error) {
-      console.error("Error sharing via Branch: " + error)
-      return
-    }
-
-    console.log("Share to " + channel + " completed: " + completed)
   }
 }
