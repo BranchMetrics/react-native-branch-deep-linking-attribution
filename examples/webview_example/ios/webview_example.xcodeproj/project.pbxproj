@@ -1215,7 +1215,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.webview-example";
 				PRODUCT_NAME = webview_example;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1240,7 +1240,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.webview-example";
 				PRODUCT_NAME = webview_example;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
