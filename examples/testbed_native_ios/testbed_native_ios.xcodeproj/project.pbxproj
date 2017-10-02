@@ -370,7 +370,7 @@
 				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.testbed-native-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Test-Release";
@@ -442,7 +442,7 @@
 				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.testbed-native-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Test-Debug";
@@ -561,7 +561,7 @@
 				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.testbed-native-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -576,7 +576,7 @@
 				DEVELOPMENT_TEAM = R63EM248DP;
 				INFOPLIST_FILE = testbed_native_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.testbed-native-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -4,10 +4,10 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:branchwebview.app.link</string>
-		<string>applinks:branchwebview-alternate.app.link</string>
-		<string>applinks:branchwebview.test-app.link</string>
-		<string>applinks:branchwebview-alternate.test-app.link</string>
+		<string>applinks:7z2z.app.link</string>
+		<string>applinks:7z2z-alternate.app.link</string>
+		<string>applinks:7z2z.test-app.link</string>
+		<string>applinks:7z2z-alternate.test-app.link</string>
 	</array>
 </dict>
 </plist>
