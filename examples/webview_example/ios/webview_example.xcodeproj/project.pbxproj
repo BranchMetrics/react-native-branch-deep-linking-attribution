@@ -34,14 +34,15 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* webview_exampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* webview_exampleTests.m */; };
+		515230447418480AAF75F167 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 5DBD04D895524843B7795703 /* branch.json */; };
 		7BAA94CE1F57608000C57B54 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94CD1F57608000C57B54 /* CoreSpotlight.framework */; };
 		7BAA95031F57632800C57B54 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94ED1F5760F200C57B54 /* AdSupport.framework */; };
 		7BAA95041F57633100C57B54 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94EF1F5760FA00C57B54 /* SafariServices.framework */; };
 		7BFFF2891F72C6C000805CBD /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		AA8672A99CFA4DDA859E91F8 /* libreact-native-branch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E701F464B742F4826AA73F /* libreact-native-branch.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		C9882AD89BCF4A4596207F76 /* branch.debug.json in Resources */ = {isa = PBXBuildFile; fileRef = 792CF918D8A949C59E650130 /* branch.debug.json */; };
+		C4A7903116334B1CB3234250 /* libreact-native-branch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EC1E5096054781BF29A8E3 /* libreact-native-branch.a */; };
+		D32FC2E25BFE4E71AD88A3B3 /* branch.debug.json in Resources */ = {isa = PBXBuildFile; fileRef = 861AE8E589E54963B94AFF6D /* branch.debug.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -262,9 +263,9 @@
 			remoteGlobalIDString = 3D383D621EBD27B9005632C8;
 			remoteInfo = "double-conversion-tvOS";
 		};
-		7BAA94651F57321200C57B54 /* PBXContainerItemProxy */ = {
+		7BAE42251F82C1CE003C64BF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = A87EEEF52AF84B8283D19A55 /* RNBranch.xcodeproj */;
+			containerPortal = 577751D1CB70429DBF2259B7 /* RNBranch.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = B3A3CC361C5B0A070016AC52;
 			remoteInfo = RNBranch;
@@ -295,6 +296,7 @@
 		00E356EE1AD99517003FC87E /* webview_exampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = webview_exampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* webview_exampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = webview_exampleTests.m; sourceTree = "<group>"; };
+		11EC1E5096054781BF29A8E3 /* libreact-native-branch.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libreact-native-branch.a"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* webview_example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = webview_example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -307,16 +309,16 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* webview_example-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "webview_example-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* webview_example-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "webview_example-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		577751D1CB70429DBF2259B7 /* RNBranch.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBranch.xcodeproj; path = "../node_modules/react-native-branch/ios/RNBranch.xcodeproj"; sourceTree = "<group>"; };
+		5DBD04D895524843B7795703 /* branch.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = branch.json; path = ../branch.json; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		68E701F464B742F4826AA73F /* libreact-native-branch.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libreact-native-branch.a"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		792CF918D8A949C59E650130 /* branch.debug.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = branch.debug.json; path = ../branch.debug.json; sourceTree = "<group>"; };
 		7BAA94CD1F57608000C57B54 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		7BAA94ED1F5760F200C57B54 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		7BAA94EF1F5760FA00C57B54 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		7BC69F431EA12D87000B04CE /* webview_example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = webview_example.entitlements; path = webview_example/webview_example.entitlements; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		A87EEEF52AF84B8283D19A55 /* RNBranch.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBranch.xcodeproj; path = "../node_modules/react-native-branch/ios/RNBranch.xcodeproj"; sourceTree = "<group>"; };
+		861AE8E589E54963B94AFF6D /* branch.debug.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = branch.debug.json; path = ../branch.debug.json; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -348,7 +350,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				AA8672A99CFA4DDA859E91F8 /* libreact-native-branch.a in Frameworks */,
+				C4A7903116334B1CB3234250 /* libreact-native-branch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,7 +467,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				792CF918D8A949C59E650130 /* branch.debug.json */,
+				5DBD04D895524843B7795703 /* branch.json */,
+				861AE8E589E54963B94AFF6D /* branch.debug.json */,
 			);
 			name = webview_example;
 			sourceTree = "<group>";
@@ -510,17 +513,9 @@
 		7B9D031B1F71E1BD007D527C /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				68E701F464B742F4826AA73F /* libreact-native-branch.a */,
+				11EC1E5096054781BF29A8E3 /* libreact-native-branch.a */,
 			);
 			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		7BAA943D1F57321200C57B54 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7BAA94661F57321200C57B54 /* libreact-native-branch.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		7BAA94CC1F57608000C57B54 /* Frameworks */ = {
@@ -531,6 +526,14 @@
 				7BAA94CD1F57608000C57B54 /* CoreSpotlight.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7BAE42221F82C1CE003C64BF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BAE42261F82C1CE003C64BF /* libreact-native-branch.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -548,7 +551,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				A87EEEF52AF84B8283D19A55 /* RNBranch.xcodeproj */,
+				577751D1CB70429DBF2259B7 /* RNBranch.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -678,7 +681,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 900;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -766,8 +769,8 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = 7BAA943D1F57321200C57B54 /* Products */;
-					ProjectRef = A87EEEF52AF84B8283D19A55 /* RNBranch.xcodeproj */;
+					ProductGroup = 7BAE42221F82C1CE003C64BF /* Products */;
+					ProjectRef = 577751D1CB70429DBF2259B7 /* RNBranch.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -984,11 +987,11 @@
 			remoteRef = 7BAA94621F57321200C57B54 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7BAA94661F57321200C57B54 /* libreact-native-branch.a */ = {
+		7BAE42261F82C1CE003C64BF /* libreact-native-branch.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libreact-native-branch.a";
-			remoteRef = 7BAA94651F57321200C57B54 /* PBXContainerItemProxy */;
+			remoteRef = 7BAE42251F82C1CE003C64BF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		832341B51AAA6A8300B99B32 /* libRCTText.a */ = {
@@ -1021,7 +1024,8 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				C9882AD89BCF4A4596207F76 /* branch.debug.json in Resources */,
+				515230447418480AAF75F167 /* branch.json in Resources */,
+				D32FC2E25BFE4E71AD88A3B3 /* branch.debug.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
