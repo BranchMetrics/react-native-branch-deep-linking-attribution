@@ -5,8 +5,8 @@ deep links rather than a web redirect. It accomplishes this using the
 `branch.openURL` method.
 
 To test it in a simulator or emulator without modification, enter the following
-URL in the text input: https://wujv.test-app.link/pguRzO2ihG. The webview will
-load the Wikipedia page for the planet Neptune.
+URL in the text input: https://b8e9.test-app.link/browser. The webview will
+load the following Wikipedia page: https://en.wikipedia.org/wiki/Web_browser.
 
 ## Building
 
