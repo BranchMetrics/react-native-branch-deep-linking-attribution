@@ -13,11 +13,11 @@
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="myurischeme" android:host="open"/>
-                <data android:scheme="https" android:host="branchwebview.app.link"/>
-                <data android:scheme="https" android:host="branchwebview-alternate.app.link"/>
-                <data android:scheme="https" android:host="branchwebview.test-app.link"/>
-                <data android:scheme="https" android:host="branchwebview-alternate.test-app.link"/>
+                <data android:scheme="rntestbed" android:host="open"/>
+                <data android:scheme="https" android:host="zjef.app.link"/>
+                <data android:scheme="https" android:host="zjef-alternate.app.link"/>
+                <data android:scheme="https" android:host="zjef.test-app.link"/>
+                <data android:scheme="https" android:host="zjef-alternate.test-app.link"/>
             </intent-filter>
         </activity>
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
@@ -27,7 +27,7 @@
             </intent-filter>
         </receiver>
         <!-- Branch keys -->
-        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_dczvWn3zrK8575YRe07IgjblAAmfx51S"/>
-        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_fbqC9k2BqS68Y1XQi7YVjakhCxomD6Z9"/>
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_jnFOgSy0CLIEbPhiS980ccdoxznE8aou"/>
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_epyPpLw3zPQqdHklHXY5jfmkAyat5cbm"/>
     </application>
 </manifest>

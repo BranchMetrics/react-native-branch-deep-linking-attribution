@@ -1152,7 +1152,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.testbed-simple";
 				PRODUCT_NAME = testbed_simple;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1176,7 +1176,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.branch.sdk.WebViewExample;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.testbed-simple";
 				PRODUCT_NAME = testbed_simple;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
