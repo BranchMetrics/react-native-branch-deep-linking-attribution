@@ -160,3 +160,11 @@
   * Complete rewrite of the README.
   * Removed the peerDependency on `react`.
   * Includes native SDKs 0.17.10 (iOS), 2.12.0 (Android).
+
+2015-10-02  Version 2.1.0
+  * Added an openURL method for programmatic deep linking from anywhere in an app (e.g., a QR reader).
+  * Allow loading rewards from different buckets via an optional argument to loadRewards().
+  * Return RNBranch::Error::DuplicateResourceError in case of an existing alias.
+  * Further rework of the README.
+  * Introduced a tutorial app.
+  * Includes native SDKs 0.19.5 (iOS), 2.12.1 (Android).
