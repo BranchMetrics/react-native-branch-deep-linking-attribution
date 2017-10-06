@@ -1234,21 +1234,21 @@ This requires a native method call that must be made before JS has loaded. There
     [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
     ```
 
-    ### Using getLatestReferringParams to handle link opens
+### Using getLatestReferringParams to handle link opens
 
-    The `getLatestReferringParams` method is essentially a synchronous method that retrieves the latest
-    referring link parameters stored by the native SDK. However, React Native does not support synchronous
-    calls to native code from JavaScript, so the method returns a promise. You must `await` the response
-    or use `then` to receive the result. The same remarks apply to the `getFirstReferringParams` method.
-    However, this is only a restriction of React Native. The purpose of `getLatestReferringParams` is to
-    retrieve those parameters one time. The promise will only return one result. It will not continue
-    to return results when links are opened or wait for a link to be opened. This method is not intended
-    to notify the app when a link has been opened.
+The `getLatestReferringParams` method is essentially a synchronous method that retrieves the latest
+referring link parameters stored by the native SDK. However, React Native does not support synchronous
+calls to native code from JavaScript, so the method returns a promise. You must `await` the response
+or use `then` to receive the result. The same remarks apply to the `getFirstReferringParams` method.
+However, this is only a restriction of React Native. The purpose of `getLatestReferringParams` is to
+retrieve those parameters one time. The promise will only return one result. It will not continue
+to return results when links are opened or wait for a link to be opened. This method is not intended
+to notify the app when a link has been opened.
 
-    To receive notification whenever a link is opened, _including at app launch_, call
-    `branch.subscribe`. The callback to this method will return any initial link that launched the
-    app and all subsequent link opens. There is no need to call `getLatestReferringParams` at app
-    launch to check for an initial link. Use `branch.subscribe` to handle all link opens.
+To receive notification whenever a link is opened, _including at app launch_, call
+`branch.subscribe`. The callback to this method will return any initial link that launched the
+app and all subsequent link opens. There is no need to call `getLatestReferringParams` at app
+launch to check for an initial link. Use `branch.subscribe` to handle all link opens.
 
 ### General troubleshooting
 
