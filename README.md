@@ -176,7 +176,7 @@ Modify your AppDelegate as follows:
 In AppDelegate.m
 
 ```objective-c
-#import <react-native-branch/RNBranch.h> // at the top
+#import "RNBranch.h" // at the top
 
 // Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
