@@ -490,7 +490,7 @@ the initial link from app launch. Defaults to 5000.
 ```js
 import branch from 'react-native-branch'
 
-branch.initSessionTTL = 10000
+branch.initSessionTtl = 10000
 branch.subscribe({ error, params } => {
   // ...
 })
