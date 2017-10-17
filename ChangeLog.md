@@ -146,25 +146,31 @@
   * Added support for platform-specific branch.json.
   * Includes native SDKs 0.16.2 (iOS), 2.10.3 (Android).
 
-2016-08-17  Version 2.0.0-rc.1
+2017-08-17  Version 2.0.0-rc.1
   * (Internal) Native SDK updates are now automated.
   * Includes native SDKs 0.17.9 (iOS), 2.11.1 (Android).
 
-2016-08-21  Version 2.0.0-rc.2
+2017-08-21  Version 2.0.0-rc.2
   * Fixed automation bug that generated an RNBranch.xcodeproj that failed with `react-native link`.
   * Regenerated RNBranch.xcodeproj to fix `react-native link` bug (#239).
   * Includes native SDKs 0.17.9 (iOS), 2.11.1 (Android).
 
-2016-08-30  Version 2.0.0
+2017-08-30  Version 2.0.0
   * Added sendCommerceEvent method.
   * Complete rewrite of the README.
   * Removed the peerDependency on `react`.
   * Includes native SDKs 0.17.10 (iOS), 2.12.0 (Android).
 
-2015-10-02  Version 2.1.0
+2017-10-02  Version 2.1.0
   * Added an openURL method for programmatic deep linking from anywhere in an app (e.g., a QR reader).
   * Allow loading rewards from different buckets via an optional argument to loadRewards().
   * Return RNBranch::Error::DuplicateResourceError in case of an existing alias.
   * Further rework of the README.
   * Introduced a tutorial app.
   * Includes native SDKs 0.19.5 (iOS), 2.12.1 (Android).
+
+2017-10-17  Version 2.1.1
+  * Fix for +non_branch_link issue on Android (#216).
+  * Suppress some warnings with Xcode 9.
+  * Added a troubleshooting section to the README.
+  * Includes native SDKs 0.19.5 (iOS), 2.12.2 (Android).
