@@ -159,9 +159,12 @@ RCT_EXPORT_MODULE();
     return handled;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity {
     return [self.branch continueUserActivity:userActivity];
 }
+#pragma clang diagnostic pop
 
 #pragma mark - Object lifecycle
 
@@ -186,8 +189,13 @@ RCT_EXPORT_MODULE();
 - (UIViewController *)currentViewController
 {
     UIViewController *current = [UIApplication sharedApplication].keyWindow.rootViewController;
-    while (current.presentedViewController && ![current.presentedViewController isKindOfClass:UIAlertController.class]) {
-        current = current.presentedViewController;
+    if (@available(iOS 8.0, *)) {
+        while (current.presentedViewController && ![current.presentedViewController isKindOfClass:UIAlertController.class]) {
+            current = current.presentedViewController;
+        }
+    } else {
+        // RN Requires iOS 8. Nothing to do here. Still.
+        while (current.presentedViewController) current = current.presentedViewController;
     }
     return current;
 }
