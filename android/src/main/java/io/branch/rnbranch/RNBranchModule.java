@@ -201,7 +201,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onReceive(Context context, Intent intent) {
-                final String eventName = initSessionResult.has("error") ? RN_INIT_SESSION_ERROR_EVENT : RN_INIT_SESSION_SUCCESS_EVENT;
+                final boolean hasError = (initSessionResult.has("error") && !initSessionResult.isNull("error"));
+                final String eventName = hasError ? RN_INIT_SESSION_ERROR_EVENT : RN_INIT_SESSION_SUCCESS_EVENT;
                 mBranchModule.sendRNEvent(eventName, convertJsonToMap(initSessionResult));
             }
 
