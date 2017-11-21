@@ -69,6 +69,7 @@ module Fastlane
           ['android', 'ios'].each do |platform|
             folder = "native-sdks/#{platform}"
             Dir.chdir(folder) do
+              UI.message "Updating submodule in #{folder}"
               sh "git checkout -q master"
               sh "git pull --tags -q" # Pull all available branch refs so anything can be checked out
               key = "#{platform}_checkout".to_sym
@@ -193,7 +194,6 @@ module Fastlane
         end
 
         def remove_dangling_references(group)
-=begin
           to_delete = []
           group.children.each do |child|
             if child.isa == "PBXGroup"
@@ -211,8 +211,6 @@ module Fastlane
           end
 
           to_delete.each { |f| f.parent.children.delete f }
-=end
-          group.children.each(&:remove_from_project)
         end
 
         def remove_empty_groups(group)
@@ -244,14 +242,6 @@ module Fastlane
         def checkout_last_git_tag
           commit = `git rev-list --tags='[0-9]*.[0-9]*.[0-9]*' --max-count=1`
           sh "git checkout -q #{commit}"
-        end
-
-        def yarn(folder)
-          Dir.chdir(folder) do
-            UI.message "Running yarn in #{folder} ..."
-            sh "yarn -s > /dev/null 2>&1"
-            UI.success "Done"
-          end
         end
       end
     end
