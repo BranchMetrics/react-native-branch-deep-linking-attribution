@@ -22,7 +22,7 @@ module Fastlane
             examples/testbed_native_ios
             examples/webview_example_native_ios
             .
-          }.each { |f| yarn f }
+          }.each { |f| other_action.yarn package_path: File.join("..", f, "package.json") }
 
           %w{
             examples/testbed_native_ios
@@ -30,12 +30,12 @@ module Fastlane
             native-tests/ios
           }.each do |folder|
             other_action.cocoapods(
-              # relative to fastlane folder
+              # relative to fastlane folder when using other_action
               podfile: File.join("..", folder, "Podfile"),
               silent: true,
               use_bundle_exec: true
             )
-            sh "git add #{folder.shellescape}"
+            other_action.git_add(File.join("..", folder))
           end
 
           commit if params[:commit]
@@ -110,7 +110,7 @@ module Fastlane
         def update_ios_branch_source
           sh "git rm -frq ios/Branch-SDK" if File.exist? "ios/Branch-SDK"
           sh "cp -r native-sdks/ios/Branch-SDK ios"
-          sh "git add ios/Branch-SDK"
+          other_action.git_add path: File.join("..", "ios", "Branch-SDK")
         end
 
         def update_branch_podspec_from_submodule
