@@ -27,7 +27,7 @@ else
   npm install
 fi
 
-bundle install
+bundle check || bundle install
 
 bundle exec fastlane test_android
 bundle exec fastlane test_ios
