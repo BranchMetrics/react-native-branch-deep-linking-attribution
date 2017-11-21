@@ -5,6 +5,8 @@ module Fastlane
     class UpdateNativeSdksAction < Action
       class << self
         def run(params)
+          @params = params
+
           update_submodules params
 
           @android_subdir = File.expand_path 'android', '.'
@@ -55,8 +57,20 @@ module Fastlane
                                  description: "Determines whether to commit the result to SCM",
                                     optional: true,
                                default_value: true,
-                                   is_string: false)
-          ]
+                                   is_string: false),
+            FastlaneCore::ConfigItem.new(key: :verbose,
+                                 description: "Generate verbose output",
+                                    optional: true,
+                               default_value: false,
+                                   is_string: false)          ]
+        end
+
+        def verbose?
+          @params[:verbose]
+        end
+
+        def git_q_flag
+          verbose? ? "" : " -q"
         end
 
         def commit
@@ -70,13 +84,13 @@ module Fastlane
             folder = "native-sdks/#{platform}"
             Dir.chdir(folder) do
               UI.message "Updating submodule in #{folder}"
-              sh "git checkout -q master"
-              sh "git pull --tags -q" # Pull all available branch refs so anything can be checked out
+              sh "git checkout#{git_q_flag} master"
+              sh "git pull --tags#{git_q_flag}" # Pull all available branch refs so anything can be checked out
               key = "#{platform}_checkout".to_sym
               commit = params[key]
 
               if commit
-                sh "git checkout -q #{commit}"
+                sh "git checkout#{git_q_flag} #{commit}"
                 version = commit
               else
                 version = checkout_last_git_tag
@@ -247,7 +261,7 @@ module Fastlane
         def checkout_last_git_tag
           commit = `git rev-list --tags='[0-9]*.[0-9]*.[0-9]*' --max-count=1`
           tag = `git tag --contains #{commit}`.chomp
-          sh "git checkout -q #{tag}"
+          sh "git checkout#{git_q_flag} #{tag}"
           tag
         end
       end
