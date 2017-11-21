@@ -4,8 +4,6 @@ module Fastlane
   module Actions
     class UpdateNativeSdksAction < Action
       class << self
-        UI = FastlaneCore::UI
-
         def run(params)
           update_submodules params
 
@@ -54,20 +52,21 @@ module Fastlane
         end
 
         def commit
-          `git commit -a -m'[Fastlane] Branch native SDK update'`
+          sh "git commit -a -m'[Fastlane] Branch native SDK update'"
         end
 
         def update_submodules(params)
           UI.message "Updating native SDK submodules..."
+          sh "git submodule update --init" # In case not present
           ['android', 'ios'].each do |platform|
             folder = "native-sdks/#{platform}"
             Dir.chdir(folder) do
-              `git checkout -q master`
-              `git pull --tags -q origin master`
+              sh "git checkout -q master"
+              sh "git pull --tags -q" # Pull all available branch refs so anything can be checked out
               key = "#{platform}_checkout".to_sym
               commit = params[key]
               if commit
-                `git checkout -q #{commit}`
+                sh "git checkout -q #{commit}"
               else
                 checkout_last_git_tag
               end
@@ -86,9 +85,9 @@ module Fastlane
           # Remove the old and add the new
           Dir.chdir("#{@android_subdir}/libs") do
             old_jars = Dir['Branch*.jar']
-            `cp #{jar_path} .`
-            `git add Branch-#{version}.jar`
-            `git rm -f #{old_jars.join ' '}`
+            sh "cp #{jar_path} ."
+            sh "git add Branch-#{version}.jar"
+            sh "git rm -f #{old_jars.join ' '}"
           end
 
           # Patch build.gradle
@@ -101,16 +100,16 @@ module Fastlane
         end
 
         def update_ios_branch_source
-          `git rm -fr ios/Branch-SDK` if File.exist? 'ios/Branch-SDK'
-          `cp -r native-sdks/ios/Branch-SDK ios`
-          `git add ios/Branch-SDK`
+          sh "git rm -fr ios/Branch-SDK` if File.exist? 'ios/Branch-SDK"
+          sh "cp -r native-sdks/ios/Branch-SDK ios"
+          sh "git add ios/Branch-SDK"
         end
 
         def update_branch_podspec_from_submodule
           branch_sdk_podspec_path = "#{@ios_subdir}/Branch-SDK.podspec"
 
           # Copy the podspec from the submodule
-          `cp native-sdks/ios/Branch.podspec #{branch_sdk_podspec_path}`
+          sh "cp native-sdks/ios/Branch.podspec #{branch_sdk_podspec_path}"
           UI.user_error! "Unable to update #{branch_sdk_podspec_path}" unless $?.exitstatus == 0
 
           # Change the pod name to Branch-SDK
@@ -129,7 +128,7 @@ module Fastlane
             text: "\n  s.header_dir       = \"Branch\""
           )
 
-          UI.message "Updated ios/Branch-SDK.podspec"
+          UI.success "Updated ios/Branch-SDK.podspec"
         end
 
         def adjust_rnbranch_xcodeproj
@@ -172,7 +171,7 @@ module Fastlane
           # check_file_refs
 
           @project.save
-          UI.message "Updated ios/RNBranch.xcodeproj"
+          UI.success "Updated ios/RNBranch.xcodeproj"
         end
 
         def ensure_group_at_path(pathname)
@@ -233,22 +232,22 @@ module Fastlane
 
         def checkout_last_git_tag
           commit = `git rev-list --tags='[0-9]*.[0-9]*.[0-9]*' --max-count=1`
-          `git checkout -q #{commit}`
+          sh "git checkout -q #{commit}"
         end
 
         def yarn(folder)
           Dir.chdir(folder) do
             UI.message "Running yarn in #{folder} ..."
-            `yarn -s > /dev/null 2>&1`
-            UI.message "Done"
+            sh "yarn -s > /dev/null 2>&1"
+            UI.success "Done"
           end
         end
 
         def pod_install(folder)
           Dir.chdir(folder) do
-            `bundle exec pod install --silent`
-            `git add .`
-            UI.message "pod install complete in #{folder}"
+            sh "bundle exec pod install --silent"
+            sh "git add ."
+            UI.success "pod install complete in #{folder}"
           end
         end
       end

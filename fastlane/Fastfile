@@ -1,4 +1,4 @@
-require './lib/update_native_sdks'
+actions_path("lib")
 
 fastlane_version "2.26.1"
 
