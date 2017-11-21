@@ -100,7 +100,7 @@ module Fastlane
         end
 
         def update_ios_branch_source
-          sh "git rm -fr ios/Branch-SDK" if File.exist? "ios/Branch-SDK"
+          sh "git rm -frq ios/Branch-SDK" if File.exist? "ios/Branch-SDK"
           sh "cp -r native-sdks/ios/Branch-SDK ios"
           sh "git add ios/Branch-SDK"
         end
