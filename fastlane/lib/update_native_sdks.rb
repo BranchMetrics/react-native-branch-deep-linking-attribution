@@ -35,7 +35,7 @@ module Fastlane
               silent: true,
               use_bundle_exec: true
             )
-            other_action.git_add(File.join("..", folder))
+            other_action.git_add(path: File.join("..", folder))
           end
 
           commit if params[:commit]
