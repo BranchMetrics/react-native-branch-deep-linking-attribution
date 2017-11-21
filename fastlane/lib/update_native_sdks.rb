@@ -4,9 +4,9 @@ module Fastlane
   module Actions
     class UpdateNativeSdksAction < Action
       class << self
-        UI = FastlaneCore::UI
-
         def run(params)
+          @params = params
+
           update_submodules params
 
           @android_subdir = File.expand_path 'android', '.'
@@ -24,13 +24,21 @@ module Fastlane
             examples/testbed_native_ios
             examples/webview_example_native_ios
             .
-          }.each { |f| yarn f }
+          }.each { |f| other_action.yarn package_path: File.join("..", f, "package.json") }
 
           %w{
             examples/testbed_native_ios
             examples/webview_example_native_ios
             native-tests/ios
-          }.each { |f| pod_install f }
+          }.each do |folder|
+            other_action.cocoapods(
+              # relative to fastlane folder when using other_action
+              podfile: File.join("..", folder, "Podfile"),
+              silent: true,
+              use_bundle_exec: true
+            )
+            other_action.git_add(path: File.join("..", folder))
+          end
 
           commit if params[:commit]
         end
@@ -49,29 +57,48 @@ module Fastlane
                                  description: "Determines whether to commit the result to SCM",
                                     optional: true,
                                default_value: true,
-                                   is_string: false)
-          ]
+                                   is_string: false),
+            FastlaneCore::ConfigItem.new(key: :verbose,
+                                 description: "Generate verbose output",
+                                    optional: true,
+                               default_value: false,
+                                   is_string: false)          ]
+        end
+
+        def verbose?
+          @params[:verbose]
+        end
+
+        def git_q_flag
+          verbose? ? "" : " -q"
         end
 
         def commit
-          `git commit -a -m'[Fastlane] Branch native SDK update'`
+          sh "git commit -a -m'[Fastlane] Branch native SDK update: Android #{@android_version}, iOS #{@ios_version}'"
         end
 
         def update_submodules(params)
           UI.message "Updating native SDK submodules..."
+          sh "git submodule update --init" # In case not present
           ['android', 'ios'].each do |platform|
             folder = "native-sdks/#{platform}"
             Dir.chdir(folder) do
-              `git checkout -q master`
-              `git pull --tags -q origin master`
+              UI.message "Updating submodule in #{folder}"
+              sh "git checkout#{git_q_flag} master"
+              sh "git pull --tags#{git_q_flag}" # Pull all available branch refs so anything can be checked out
               key = "#{platform}_checkout".to_sym
               commit = params[key]
+
               if commit
-                `git checkout -q #{commit}`
+                sh "git checkout#{git_q_flag} #{commit}"
+                version = commit
               else
-                checkout_last_git_tag
+                version = checkout_last_git_tag
               end
-              UI.message "Updated submodule in #{folder}"
+
+              instance_variable_set "@#{platform}_version", version
+
+              UI.success "Updated submodule in #{folder}"
             end
           end
         end
@@ -86,9 +113,9 @@ module Fastlane
           # Remove the old and add the new
           Dir.chdir("#{@android_subdir}/libs") do
             old_jars = Dir['Branch*.jar']
-            `cp #{jar_path} .`
-            `git add Branch-#{version}.jar`
-            `git rm -f #{old_jars.join ' '}`
+            sh "cp #{jar_path} ."
+            sh "git add Branch-#{version}.jar"
+            sh "git rm -f #{old_jars.join ' '}"
           end
 
           # Patch build.gradle
@@ -101,16 +128,16 @@ module Fastlane
         end
 
         def update_ios_branch_source
-          `git rm -fr ios/Branch-SDK` if File.exist? 'ios/Branch-SDK'
-          `cp -r native-sdks/ios/Branch-SDK ios`
-          `git add ios/Branch-SDK`
+          sh "git rm -frq ios/Branch-SDK" if File.exist? "ios/Branch-SDK"
+          sh "cp -r native-sdks/ios/Branch-SDK ios"
+          other_action.git_add path: File.join("..", "ios", "Branch-SDK")
         end
 
         def update_branch_podspec_from_submodule
           branch_sdk_podspec_path = "#{@ios_subdir}/Branch-SDK.podspec"
 
           # Copy the podspec from the submodule
-          `cp native-sdks/ios/Branch.podspec #{branch_sdk_podspec_path}`
+          sh "cp native-sdks/ios/Branch.podspec #{branch_sdk_podspec_path}"
           UI.user_error! "Unable to update #{branch_sdk_podspec_path}" unless $?.exitstatus == 0
 
           # Change the pod name to Branch-SDK
@@ -129,7 +156,7 @@ module Fastlane
             text: "\n  s.header_dir       = \"Branch\""
           )
 
-          UI.message "Updated ios/Branch-SDK.podspec"
+          UI.success "Updated ios/Branch-SDK.podspec"
         end
 
         def adjust_rnbranch_xcodeproj
@@ -172,7 +199,7 @@ module Fastlane
           # check_file_refs
 
           @project.save
-          UI.message "Updated ios/RNBranch.xcodeproj"
+          UI.success "Updated ios/RNBranch.xcodeproj"
         end
 
         def ensure_group_at_path(pathname)
@@ -233,23 +260,9 @@ module Fastlane
 
         def checkout_last_git_tag
           commit = `git rev-list --tags='[0-9]*.[0-9]*.[0-9]*' --max-count=1`
-          `git checkout -q #{commit}`
-        end
-
-        def yarn(folder)
-          Dir.chdir(folder) do
-            UI.message "Running yarn in #{folder} ..."
-            `yarn -s > /dev/null 2>&1`
-            UI.message "Done"
-          end
-        end
-
-        def pod_install(folder)
-          Dir.chdir(folder) do
-            `bundle exec pod install --silent`
-            `git add .`
-            UI.message "pod install complete in #{folder}"
-          end
+          tag = `git tag --contains #{commit}`.chomp
+          sh "git checkout#{git_q_flag} #{tag}"
+          tag
         end
       end
     end

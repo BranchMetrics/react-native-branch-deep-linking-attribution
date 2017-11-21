@@ -1,4 +1,4 @@
-require './lib/update_native_sdks'
+actions_path("lib")
 
 fastlane_version "2.26.1"
 
@@ -19,4 +19,10 @@ end
 desc "Update native SDKs"
 lane :native_update do
   update_native_sdks
+  # update_native_sdks(
+  #   android_checkout: "2.14.0" , # any commit, branch or tag in the Android repo. Default: latest tag
+  #   ios_checkout:     "0.21.11", # any commit, branch or tag in the iOS repo. Default: latest tag
+  #   commit:               false, # Don't commit the results. Default: true
+  #   verbose:               true, # Generate verbose output. Default: false
+  # )
 end

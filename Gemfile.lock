@@ -11,7 +11,15 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     ast (2.3.0)
     babosa (1.0.2)
-    backports (3.10.0)
+    backports (3.10.3)
+    branch_io_cli (0.12.0)
+      CFPropertyList
+      cocoapods-core
+      commander
+      pattern_patch (>= 0.5.3)
+      plist
+      rubyzip
+      xcodeproj
     claide (1.0.2)
     cocoapods (1.3.1)
       activesupport (>= 4.0.2, < 5)
@@ -48,6 +56,8 @@ GEM
     cocoapods-try (1.1.0)
     colored (1.2)
     colored2 (3.1.2)
+    commander (4.4.3)
+      highline (~> 1.7.2)
     commander-fastlane (4.4.5)
       highline (~> 1.7.2)
     concurrent-ruby (1.0.5)
@@ -58,7 +68,7 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
     escape (0.0.4)
-    ethon (0.10.1)
+    ethon (0.11.0)
       ffi (>= 1.3.0)
     excon (0.59.0)
     faraday (0.13.1)
@@ -69,7 +79,7 @@ GEM
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     fastimage (2.1.0)
-    fastlane (2.61.0)
+    fastlane (2.66.1)
       CFPropertyList (>= 2.3, < 3.0.0)
       addressable (>= 2.3, < 3.0.0)
       babosa (>= 1.0.2, < 2.0.0)
@@ -97,17 +107,16 @@ GEM
       slack-notifier (>= 1.3, < 2.0.0)
       terminal-notifier (>= 1.6.2, < 2.0.0)
       terminal-table (>= 1.4.5, < 2.0.0)
-      tty-screen (~> 0.5.0)
+      tty-screen (~> 0.6.2)
       word_wrap (~> 1.0.0)
-      xcodeproj (>= 1.5.0, < 2.0.0)
+      xcodeproj (>= 1.5.2, < 2.0.0)
       xcpretty (>= 0.2.4, < 1.0.0)
       xcpretty-travis-formatter (>= 0.0.3)
-    fastlane-plugin-branch (0.5.1)
-      fastlane-plugin-patch
-      plist
-      xcodeproj
-    fastlane-plugin-patch (0.4.1)
-      pattern_patch
+    fastlane-plugin-branch (0.7.2)
+      branch_io_cli (>= 0.12.0)
+    fastlane-plugin-patch (0.5.0)
+      pattern_patch (>= 0.5.1)
+    fastlane-plugin-yarn (1.0)
     ffi (1.9.18)
     fourflusher (2.0.1)
     fuzzy_match (2.0.4)
@@ -126,9 +135,9 @@ GEM
       mime-types (~> 3.0)
       representable (~> 3.0)
       retriable (>= 2.0, < 4.0)
-    googleauth (0.5.3)
+    googleauth (0.6.2)
       faraday (~> 0.12)
-      jwt (~> 1.4)
+      jwt (>= 1.4, < 3.0)
       logging (~> 2.0)
       memoist (~> 0.12)
       multi_json (~> 1.11)
@@ -138,10 +147,10 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     httpclient (2.8.3)
-    i18n (0.9.0)
+    i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     json (2.1.0)
-    jwt (1.5.6)
+    jwt (2.1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     little-plugger (1.1.4)
@@ -166,9 +175,10 @@ GEM
     netrc (0.11.0)
     os (0.9.6)
     parallel (1.12.0)
-    parser (2.4.0.0)
-      ast (~> 2.2)
-    pattern_patch (0.1.1)
+    parser (2.4.0.2)
+      ast (~> 2.3)
+    pattern_patch (0.5.3)
+      activesupport
     plist (3.3.0)
     powerpack (0.1.1)
     public_suffix (2.0.5)
@@ -177,14 +187,14 @@ GEM
       websocket (~> 1.0)
     rainbow (2.2.2)
       rake
-    rake (12.1.0)
+    rake (12.3.0)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
     retriable (3.1.1)
     rouge (2.0.7)
-    rubocop (0.50.0)
+    rubocop (0.51.0)
       parallel (~> 1.10)
       parser (>= 2.3.3.1, < 3.0)
       powerpack (~> 0.1)
@@ -214,26 +224,26 @@ GEM
       launchy (~> 2.1)
       pusher-client (~> 0.4)
       typhoeus (~> 0.6, >= 0.6.8)
-    tty-screen (0.5.0)
+    tty-screen (0.6.2)
     typhoeus (0.8.0)
       ethon (>= 0.8.0)
-    tzinfo (1.2.3)
+    tzinfo (1.2.4)
       thread_safe (~> 0.1)
     uber (0.1.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.4)
     unicode-display_width (1.3.0)
-    websocket (1.2.4)
+    websocket (1.2.5)
     word_wrap (1.0.0)
-    xcodeproj (1.5.2)
+    xcodeproj (1.5.3)
       CFPropertyList (~> 2.3.3)
       claide (>= 1.0.2, < 2.0)
       colored2 (~> 3.1)
       nanaimo (~> 0.2.3)
     xcpretty (0.2.8)
       rouge (~> 2.0.7)
-    xcpretty-travis-formatter (0.0.4)
+    xcpretty-travis-formatter (1.0.0)
       xcpretty (~> 0.2, >= 0.0.7)
 
 PLATFORMS
@@ -244,8 +254,9 @@ DEPENDENCIES
   fastlane (~> 2.26)
   fastlane-plugin-branch
   fastlane-plugin-patch
+  fastlane-plugin-yarn
   rubocop
   travis
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
