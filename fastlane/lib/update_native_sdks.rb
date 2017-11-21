@@ -30,10 +30,12 @@ module Fastlane
             native-tests/ios
           }.each do |folder|
             other_action.cocoapods(
-              podfile_path: File.join(folder, "Podfile"),
+              # relative to fastlane folder
+              podfile: File.join("..", folder, "Podfile"),
               silent: true,
               use_bundle_exec: true
             )
+            sh "git add #{folder.shellescape}"
           end
 
           commit if params[:commit]
@@ -76,7 +78,7 @@ module Fastlane
               else
                 checkout_last_git_tag
               end
-              UI.message "Updated submodule in #{folder}"
+              UI.success "Updated submodule in #{folder}"
             end
           end
         end
@@ -191,6 +193,7 @@ module Fastlane
         end
 
         def remove_dangling_references(group)
+=begin
           to_delete = []
           group.children.each do |child|
             if child.isa == "PBXGroup"
@@ -208,6 +211,8 @@ module Fastlane
           end
 
           to_delete.each { |f| f.parent.children.delete f }
+=end
+          group.children.each(&:remove_from_project)
         end
 
         def remove_empty_groups(group)
@@ -246,14 +251,6 @@ module Fastlane
             UI.message "Running yarn in #{folder} ..."
             sh "yarn -s > /dev/null 2>&1"
             UI.success "Done"
-          end
-        end
-
-        def pod_install(folder)
-          Dir.chdir(folder) do
-            sh "bundle exec pod install --silent"
-            sh "git add ."
-            UI.success "pod install complete in #{folder}"
           end
         end
       end
