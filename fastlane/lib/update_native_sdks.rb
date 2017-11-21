@@ -60,7 +60,7 @@ module Fastlane
         end
 
         def commit
-          sh "git commit -a -m'[Fastlane] Branch native SDK update'"
+          sh "git commit -a -m'[Fastlane] Branch native SDK update: Android #{@android_version}, iOS #{@ios_version}'"
         end
 
         def update_submodules(params)
@@ -74,11 +74,16 @@ module Fastlane
               sh "git pull --tags -q" # Pull all available branch refs so anything can be checked out
               key = "#{platform}_checkout".to_sym
               commit = params[key]
+
               if commit
                 sh "git checkout -q #{commit}"
+                version = commit
               else
-                checkout_last_git_tag
+                version = checkout_last_git_tag
               end
+
+              instance_variable_set "@#{platform}_version", version
+
               UI.success "Updated submodule in #{folder}"
             end
           end
@@ -241,7 +246,9 @@ module Fastlane
 
         def checkout_last_git_tag
           commit = `git rev-list --tags='[0-9]*.[0-9]*.[0-9]*' --max-count=1`
-          sh "git checkout -q #{commit}"
+          tag = `git tag --contains #{commit}`
+          sh "git checkout -q #{tag}"
+          tag
         end
       end
     end
