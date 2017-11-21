@@ -246,7 +246,7 @@ module Fastlane
 
         def checkout_last_git_tag
           commit = `git rev-list --tags='[0-9]*.[0-9]*.[0-9]*' --max-count=1`
-          tag = `git tag --contains #{commit}`
+          tag = `git tag --contains #{commit}`.chomp
           sh "git checkout -q #{tag}"
           tag
         end
