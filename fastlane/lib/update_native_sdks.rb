@@ -28,7 +28,13 @@ module Fastlane
             examples/testbed_native_ios
             examples/webview_example_native_ios
             native-tests/ios
-          }.each { |f| pod_install f }
+          }.each do |folder|
+            other_action.cocoapods(
+              podfile_path: File.join(folder, "Podfile"),
+              silent: true,
+              use_bundle_exec: true
+            )
+          end
 
           commit if params[:commit]
         end
