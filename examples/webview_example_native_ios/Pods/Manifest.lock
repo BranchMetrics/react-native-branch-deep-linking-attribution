@@ -5,7 +5,7 @@ PODS:
   - Cartography (2.0.0)
   - React (0.42.3):
     - React/Core (= 0.42.3)
-  - react-native-branch (2.1.2):
+  - react-native-branch (2.2.0):
     - Branch-SDK
     - React
   - React/Core (0.42.3):
@@ -53,7 +53,7 @@ SPEC CHECKSUMS:
   Branch-SDK: 1e9df9b63f4ce905ab07c8196a5a13c8b6d21713
   Cartography: d295eb25ab54bb57eecd8c2f04e9648c850f1281
   React: 35e039680feacd0563677d49ba410112d2748559
-  react-native-branch: b7a6940e52b8995aa47ac295a786de197e2bd9f9
+  react-native-branch: 09507709be9c6b1c55376890bf1ce54017eb690d
   Yoga: 86ce777665c8259b94ef8dbea76b84634237f4ea
 
 PODFILE CHECKSUM: a77bea5fee94576d206314f79821a57a9416cc7f
