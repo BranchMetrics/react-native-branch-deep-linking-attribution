@@ -95,7 +95,31 @@ RCT_EXPORT_MODULE();
              @"PURCHASE_INITIATED_EVENT": BNCPurchaseInitiatedEvent,
              @"REGISTER_VIEW_EVENT": BNCRegisterViewEvent,
              @"SHARE_COMPLETED_EVENT": BNCShareCompletedEvent,
-             @"SHARE_INITIATED_EVENT": BNCShareInitiatedEvent
+             @"SHARE_INITIATED_EVENT": BNCShareInitiatedEvent,
+
+             // constants for use with BranchEvent
+
+             // Commerce events
+             @"STANDARD_EVENT_ADD_TO_CART": BranchStandardEventAddToCart,
+             @"STANDARD_EVENT_ADD_TO_WISHLIST": BranchStandardEventAddToWishlist,
+             @"STANDARD_EVENT_VIEW_CART": BranchStandardEventViewCart,
+             @"STANDARD_EVENT_INITIATE_PURCHASE": BranchStandardEventInitiatePurchase,
+             @"STANDARD_EVENT_ADD_PAYMENT_INFO": BranchStandardEventAddPaymentInfo,
+             @"STANDARD_EVENT_PURCHASE": BranchStandardEventPurchase,
+             @"STANDARD_EVENT_SPEND_CREDITS": BranchStandardEventSpendCredits,
+
+             // Content Events
+             @"STANDARD_EVENT_SEARCH": BranchStandardEventSearch,
+             @"STANDARD_EVENT_VIEW_ITEM": BranchStandardEventViewItem,
+             @"STANDARD_EVENT_VIEW_ITEMS": BranchStandardEventViewItems,
+             @"STANDARD_EVENT_RATE": BranchStandardEventRate,
+             @"STANDARD_EVENT_SHARE": BranchStandardEventShare,
+
+             // User Lifecycle Events
+             @"STANDARD_EVENT_COMPLETE_REGISTRATION": BranchStandardEventCompleteRegistration,
+             @"STANDARD_EVENT_COMPLETE_TUTORIAL": BranchStandardEventCompleteTutorial,
+             @"STANDARD_EVENT_ACHIEVE_LEVEL": BranchStandardEventAchieveLevel,
+             @"STANDARD_EVENT_UNLOCK_ACHIEVEMENT": BranchStandardEventUnlockAchievement
              };
 }
 
@@ -355,7 +379,7 @@ RCT_EXPORT_METHOD(
     [event logEvent];
 }
 
-#pragma mark logEventOnUniversalObject
+#pragma mark logEventWithUniversalObjects
 RCT_EXPORT_METHOD(
                   logEventWithUniversalObjects:(id)identifiers
                   eventName:(NSString *)eventName
@@ -376,7 +400,7 @@ RCT_EXPORT_METHOD(
         // TODO: Reject this argument type
     }
 
-    NSMutableArray<BranchUniversalObject *> *buos = @{}.mutableCopy;
+    NSMutableArray<BranchUniversalObject *> *buos = @[].mutableCopy;
     for (NSString *identifier in ids) {
         BranchUniversalObject *buo = [self findUniversalObjectWithIdent:identifier rejecter:reject];
         if (!buo) return;

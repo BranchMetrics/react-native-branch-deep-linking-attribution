@@ -11,6 +11,10 @@
 #import <react-native-branch/RNBranchEventEmitter.h>
 #import <Branch/Branch.h>
 
+#define ASSERT_CONSTANT(constantName, expectedValue) \
+    NSString *constant = self.rnbranch.constantsToExport[constantName]; \
+    XCTAssertEqualObjects(expectedValue, constant);
+
 @interface RNBranchTests : XCTestCase
 @property (nonatomic) RNBranch *rnbranch;
 @end
@@ -26,56 +30,127 @@
 
 - (void)testInitSessionSuccessConstant
 {
-    NSString *constant = self.rnbranch.constantsToExport[@"INIT_SESSION_SUCCESS"];
-    XCTAssertEqualObjects(kRNBranchInitSessionSuccess, constant);
+    ASSERT_CONSTANT(@"INIT_SESSION_SUCCESS", kRNBranchInitSessionSuccess);
 }
 
 - (void)testInitSessionErrorConstant
 {
-    NSString *constant = self.rnbranch.constantsToExport[@"INIT_SESSION_ERROR"];
-    XCTAssertEqualObjects(kRNBranchInitSessionError, constant);
+    ASSERT_CONSTANT(@"INIT_SESSION_ERROR", kRNBranchInitSessionError);
 }
 
 - (void)testAddToCartEventConstant
 {
-    NSString *constant = self.rnbranch.constantsToExport[@"ADD_TO_CART_EVENT"];
-    XCTAssertEqualObjects(BNCAddToCartEvent, constant);
+    ASSERT_CONSTANT(@"ADD_TO_CART_EVENT", BNCAddToCartEvent);
 }
 
 - (void)testAddToWishlistEventConstant
 {
-    NSString *constant = self.rnbranch.constantsToExport[@"ADD_TO_WISHLIST_EVENT"];
-    XCTAssertEqualObjects(BNCAddToWishlistEvent, constant);
+    ASSERT_CONSTANT(@"ADD_TO_WISHLIST_EVENT", BNCAddToWishlistEvent);
 }
 
 - (void)testPurchasedEventConstant
 {
-    NSString *constant = self.rnbranch.constantsToExport[@"PURCHASED_EVENT"];
-    XCTAssertEqualObjects(BNCPurchasedEvent, constant);
+    ASSERT_CONSTANT(@"PURCHASED_EVENT", BNCPurchasedEvent);
 }
 
 - (void)testPurchaseInitiatedEventConstant
 {
-    NSString *constant = self.rnbranch.constantsToExport[@"PURCHASE_INITIATED_EVENT"];
-    XCTAssertEqualObjects(BNCPurchaseInitiatedEvent, constant);
+    ASSERT_CONSTANT(@"PURCHASE_INITIATED_EVENT", BNCPurchaseInitiatedEvent);
 }
 
 - (void)testRegisterViewEventConstant
 {
-    NSString *constant = self.rnbranch.constantsToExport[@"REGISTER_VIEW_EVENT"];
-    XCTAssertEqualObjects(BNCRegisterViewEvent, constant);
+    ASSERT_CONSTANT(@"REGISTER_VIEW_EVENT", BNCRegisterViewEvent);
 }
 
 - (void)testShareCompletedEventConstant
 {
-    NSString *constant = self.rnbranch.constantsToExport[@"SHARE_COMPLETED_EVENT"];
-    XCTAssertEqualObjects(BNCShareCompletedEvent, constant);
+    ASSERT_CONSTANT(@"SHARE_COMPLETED_EVENT", BNCShareCompletedEvent);
 }
 
 - (void)testShareInitiatedEventConstant
 {
-    NSString *constant = self.rnbranch.constantsToExport[@"SHARE_INITIATED_EVENT"];
-    XCTAssertEqualObjects(BNCShareInitiatedEvent, constant);
+    ASSERT_CONSTANT(@"SHARE_INITIATED_EVENT", BNCShareInitiatedEvent);
+}
+
+- (void)testStandardAddtoCartEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_ADD_TO_CART", BranchStandardEventAddToCart);
+}
+
+- (void)testStandardAddtoWishlistEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_ADD_TO_WISHLIST", BranchStandardEventAddToWishlist);
+}
+
+- (void)testStandardViewCartEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_VIEW_CART", BranchStandardEventViewCart);
+}
+
+- (void)testStandardInitiatePurchaseEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_INITIATE_PURCHASE", BranchStandardEventInitiatePurchase);
+}
+
+- (void)testStandardAddPaymentInfoEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_ADD_PAYMENT_INFO", BranchStandardEventAddPaymentInfo);
+}
+
+- (void)testStandardPurchaseEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_PURCHASE", BranchStandardEventPurchase);
+}
+
+- (void)testStandardSpendCreditsEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_SPEND_CREDITS", BranchStandardEventSpendCredits);
+}
+
+- (void)testStandardSearchEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_SEARCH", BranchStandardEventSearch);
+}
+
+- (void)testStandardViewItemEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_VIEW_ITEM", BranchStandardEventViewItem);
+}
+
+- (void)testStandardViewItemsEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_VIEW_ITEMS", BranchStandardEventViewItems);
+}
+
+- (void)testStandardRateEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_RATE", BranchStandardEventRate);
+}
+
+- (void)testStandardRateEventShareConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_SHARE", BranchStandardEventShare);
+}
+
+- (void)testStandardCompleteRegistrationEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_COMPLETE_REGISTRATION", BranchStandardEventCompleteRegistration);
+}
+
+- (void)testStandardCompleteTutorialEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_COMPLETE_TUTORIAL", BranchStandardEventCompleteTutorial);
+}
+
+- (void)testStandardAchieveLevelEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_ACHIEVE_LEVEL", BranchStandardEventAchieveLevel);
+}
+
+- (void)testStandardUnlockAchievementEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_UNLOCK_ACHIEVEMENT", BranchStandardEventUnlockAchievement);
 }
 
 @end
