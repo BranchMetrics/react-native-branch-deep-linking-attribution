@@ -2,6 +2,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTEventDispatcher.h>
 #import <React/RCTLog.h>
+#import "BranchEvent+RNBranch.h"
 #import "BranchLinkProperties+RNBranch.h"
 #import "BranchUniversalObject+RNBranch.h"
 #import "RNBranchAgingDictionary.h"
@@ -296,13 +297,6 @@ RCT_EXPORT_METHOD(
     [self.class.branch handleDeepLinkWithNewSession:[NSURL URLWithString:urlString]];
 }
 
-#pragma mark userCompletedAction
-RCT_EXPORT_METHOD(
-                  userCompletedAction:(NSString *)event withState:(NSDictionary *)appState
-                  ) {
-    [self.class.branch userCompletedAction:event withState:appState];
-}
-
 #pragma mark sendCommerceEvent
 RCT_EXPORT_METHOD(
                   sendCommerceEvent:(NSString *)revenue
@@ -314,6 +308,13 @@ RCT_EXPORT_METHOD(
     commerceEvent.revenue = [NSDecimalNumber decimalNumberWithString:revenue];
     [self.class.branch sendCommerceEvent:commerceEvent metadata:metadata withCompletion:nil];
     resolve(NSNull.null);
+}
+
+#pragma mark userCompletedAction
+RCT_EXPORT_METHOD(
+                  userCompletedAction:(NSString *)event withState:(NSDictionary *)appState
+                  ) {
+    [self.class.branch userCompletedAction:event withState:appState];
 }
 
 #pragma mark userCompletedActionOnUniversalObject
@@ -342,6 +343,49 @@ RCT_EXPORT_METHOD(
     if (!branchUniversalObject) return;
 
     [branchUniversalObject userCompletedAction:event withState:state];
+    resolve(NSNull.null);
+}
+
+#pragma mark logEvent
+RCT_EXPORT_METHOD(
+                  logEvent:(NSString *)eventName
+                  params:(NSDictionary *)params
+                  ) {
+    BranchEvent *event = [[BranchEvent alloc] initWithName:eventName map:params];
+    [event logEvent];
+}
+
+#pragma mark logEventOnUniversalObject
+RCT_EXPORT_METHOD(
+                  logEventWithUniversalObjects:(id)identifiers
+                  eventName:(NSString *)eventName
+                  params:(NSDictionary *)params
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject
+                  ) {
+    BranchEvent *event = [[BranchEvent alloc] initWithName:eventName map:params];
+
+    NSArray<NSString *> *ids;
+    if ([identifiers isKindOfClass:NSString.class]) {
+        ids = @[identifiers];
+    }
+    else if ([identifiers isKindOfClass:NSArray.class]) {
+        ids = identifiers;
+    }
+    else {
+        // TODO: Reject this argument type
+    }
+
+    NSMutableArray<BranchUniversalObject *> *buos = @{}.mutableCopy;
+    for (NSString *identifier in ids) {
+        BranchUniversalObject *buo = [self findUniversalObjectWithIdent:identifier rejecter:reject];
+        if (!buo) return;
+
+        [buos addObject:buo];
+    }
+
+    event.contentItems = buos;
+    [event logEvent];
     resolve(NSNull.null);
 }
 

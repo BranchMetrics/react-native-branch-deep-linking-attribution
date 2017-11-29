@@ -160,6 +160,8 @@
 		7B7C4D541E66343F00A27265 /* FABKitProtocol.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC11E6633CA00A27265 /* FABKitProtocol.h */; };
 		7B7C4D551E66343F00A27265 /* Fabric+FABKits.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC21E6633CA00A27265 /* Fabric+FABKits.h */; };
 		7B7C4D561E66343F00A27265 /* Fabric.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B7C4CC31E6633CA00A27265 /* Fabric.h */; };
+		7B7D27401FCE3BD2008E3EDE /* BranchEvent+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7D273E1FCE3BD2008E3EDE /* BranchEvent+RNBranch.h */; };
+		7B7D27411FCE3BD2008E3EDE /* BranchEvent+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D273F1FCE3BD2008E3EDE /* BranchEvent+RNBranch.m */; };
 		7B9654551E96E328009C3CEE /* RNBranchEventEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9654531E96E328009C3CEE /* RNBranchEventEmitter.h */; };
 		7B9654561E96E328009C3CEE /* RNBranchEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9654541E96E328009C3CEE /* RNBranchEventEmitter.m */; };
 		7BCFE4291E8DEE41009927C9 /* BNCDebug.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 7B2322921E8DDC84009B3BF6 /* BNCDebug.h */; };
@@ -409,6 +411,8 @@
 		7B7C4CC11E6633CA00A27265 /* FABKitProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FABKitProtocol.h; sourceTree = "<group>"; };
 		7B7C4CC21E6633CA00A27265 /* Fabric+FABKits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Fabric+FABKits.h"; sourceTree = "<group>"; };
 		7B7C4CC31E6633CA00A27265 /* Fabric.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fabric.h; sourceTree = "<group>"; };
+		7B7D273E1FCE3BD2008E3EDE /* BranchEvent+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchEvent+RNBranch.h"; sourceTree = SOURCE_ROOT; };
+		7B7D273F1FCE3BD2008E3EDE /* BranchEvent+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BranchEvent+RNBranch.m"; sourceTree = SOURCE_ROOT; };
 		7B9654531E96E328009C3CEE /* RNBranchEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchEventEmitter.h; sourceTree = "<group>"; };
 		7B9654541E96E328009C3CEE /* RNBranchEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchEventEmitter.m; sourceTree = "<group>"; };
 		80D3614639FC5F8B97ED273B /* BranchRedeemRewardsRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BranchRedeemRewardsRequest.m; sourceTree = "<group>"; };
@@ -572,6 +576,8 @@
 			isa = PBXGroup;
 			children = (
 				7B7C4C621E6633C900A27265 /* Branch-SDK */,
+				7B7D273E1FCE3BD2008E3EDE /* BranchEvent+RNBranch.h */,
+				7B7D273F1FCE3BD2008E3EDE /* BranchEvent+RNBranch.m */,
 				7B1D334E1E410DD200755B98 /* BranchLinkProperties+RNBranch.h */,
 				7B1D334F1E410DD200755B98 /* BranchLinkProperties+RNBranch.m */,
 				7B1D33501E410DD200755B98 /* BranchUniversalObject+RNBranch.h */,
@@ -669,6 +675,7 @@
 				7B2322BC1E8DDC84009B3BF6 /* BranchShareLink.h in Headers */,
 				7B7C4D1C1E6633CA00A27265 /* ANSCompatibility.h in Headers */,
 				7B7C4CF71E6633CA00A27265 /* BranchUniversalObject.h in Headers */,
+				7B7D27401FCE3BD2008E3EDE /* BranchEvent+RNBranch.h in Headers */,
 				7B7C4D211E6633CA00A27265 /* Fabric.h in Headers */,
 				7B7C4CDF1E6633CA00A27265 /* BNCStrongMatchHelper.h in Headers */,
 				7B7C4CF91E6633CA00A27265 /* BranchView.h in Headers */,
@@ -793,6 +800,7 @@
 				7B7C4CEB1E6633CA00A27265 /* BranchConstants.m in Sources */,
 				7B7C4CD01E6633CA00A27265 /* BNCError.m in Sources */,
 				7B7C4CD61E6633CA00A27265 /* BNCLinkData.m in Sources */,
+				7B7D27411FCE3BD2008E3EDE /* BranchEvent+RNBranch.m in Sources */,
 				7B3B27511E707CD7003ABDF4 /* RNBranchAgingItem.m in Sources */,
 				7BE575131E205B8600C936E2 /* RNBranch.m in Sources */,
 				7B2322BF1E8DDC84009B3BF6 /* NSString+Branch.m in Sources */,

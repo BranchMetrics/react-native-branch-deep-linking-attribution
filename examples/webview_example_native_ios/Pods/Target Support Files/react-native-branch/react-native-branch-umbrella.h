@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "BranchEvent+RNBranch.h"
 #import "BranchLinkProperties+RNBranch.h"
 #import "BranchUniversalObject+RNBranch.h"
 #import "NSObject+RNBranch.h"

@@ -44,6 +44,9 @@ export default async function createBranchUniversalObject(identifier, options = 
     userCompletedAction(event, state = {}) {
       return this._tryFunction(RNBranch.userCompletedActionOnUniversalObject, event, state)
     },
+    logEvent(eventName, params = {}) {
+      return this._tryFunction(RNBranch.logEventWithUniversalObjects, eventName, params)
+    },
     release() {
       RNBranch.releaseUniversalObject(this.ident)
     },
