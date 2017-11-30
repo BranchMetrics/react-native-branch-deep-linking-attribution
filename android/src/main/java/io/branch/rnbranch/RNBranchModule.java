@@ -327,7 +327,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         for (int i = 0; i < contentItems.size(); ++ i) {
             String ident = contentItems.getString(i);
             BranchUniversalObject universalObject = findUniversalObjectOrReject(ident, promise);
-            if (ident == null) return;
+            if (universalObject == null) return;
             buos.add(universalObject);
         }
 
