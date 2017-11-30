@@ -12,6 +12,8 @@ React.NativeModules.RNBranch = {
   SHARE_COMPLETED_EVENT: 'Share Completed',
   SHARE_INITIATED_EVENT: 'Share Started',
 
+  STANDARD_EVENT_ADD_TO_CART: 'ADD_TO_CART',
+
   redeemInitSessionResult() {
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(defaultSession), 500)

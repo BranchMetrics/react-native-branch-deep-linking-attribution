@@ -3,6 +3,7 @@ import { NativeModules, NativeEventEmitter, DeviceEventEmitter, Platform } from 
 const { RNBranch, RNBranchEventEmitter } = NativeModules
 
 import createBranchUniversalObject from './branchUniversalObject'
+import BranchEvent from './BranchEvent'
 
 export const DEFAULT_INIT_SESSION_TTL = 5000
 
@@ -111,5 +112,5 @@ class Branch {
   createBranchUniversalObject = createBranchUniversalObject
 }
 
-export { Branch }
+export { Branch, BranchEvent }
 export default new Branch()

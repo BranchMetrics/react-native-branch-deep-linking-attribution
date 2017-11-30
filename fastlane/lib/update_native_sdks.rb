@@ -62,7 +62,8 @@ module Fastlane
                                  description: "Generate verbose output",
                                     optional: true,
                                default_value: false,
-                                   is_string: false)          ]
+                                   is_string: false)
+          ]
         end
 
         def verbose?

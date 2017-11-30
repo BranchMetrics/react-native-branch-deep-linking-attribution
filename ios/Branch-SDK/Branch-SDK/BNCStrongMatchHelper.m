@@ -8,12 +8,12 @@
 
 
 #import "BNCStrongMatchHelper.h"
-@import ObjectiveC.runtime;
 #import "BNCConfig.h"
 #import "BNCPreferenceHelper.h"
 #import "BNCSystemObserver.h"
 #import "BranchConstants.h"
 #import "BNCLog.h"
+#import <objc/runtime.h>
 
 
 #pragma mark BNCStrongMatchHelper iOS 8.0
@@ -44,7 +44,14 @@
 
 
 #else   // ------------------------------------------------------------------------------ iOS >= 9.0
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+
+#if __has_feature(modules)
 @import SafariServices;
+#else
+#import <SafariServices/SafariServices.h>
+#endif
 
 
 #pragma mark - BNCMatchView
@@ -367,4 +374,5 @@
 
 @end
 
+#pragma clang diagnostic pop
 #endif  // ------------------------------------------------------------------------------ iOS >= 9.0
