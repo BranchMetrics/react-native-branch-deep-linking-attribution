@@ -15,20 +15,23 @@ export default class BranchEvent {
     else {
       this.contentItems = [contentItems]
     }
-
-    this._convertDecimalNumbers()
   }
 
   async logEvent() {
     const idents = this.contentItems.map((b) => b.ident)
-    return await RNBranch.logEvent(idents, this.name, this.params)
+    return await RNBranch.logEvent(idents, this.name, this._convertParams())
   }
 
-  _convertDecimalNumbers() {
+  _convertParams() {
+    // make a copy
+    newParams = JSON.parse(JSON.stringify(this.params))
+
     // for the benefit of the NSDecimalNumber on iOS
-    if (this.params.revenue) this.params.revenue = '' + this.params.revenue
-    if (this.params.shipping) this.params.shipping = '' + this.params.shipping
-    if (this.params.tax) this.params.tax = '' + this.params.tax
+    if (newParams.revenue) newParams.revenue = '' + newParams.revenue
+    if (newParams.shipping) newParams.shipping = '' + newParams.shipping
+    if (newParams.tax) newParams.tax = '' + newParams.tax
+
+    return newParams
   }
 }
 
