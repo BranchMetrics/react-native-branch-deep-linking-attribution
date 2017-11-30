@@ -4,21 +4,21 @@ const { RNBranch } = NativeModules
 export default class BranchEvent {
   name = null
   params = {}
-  universalObjects = []
+  contentItems = []
 
-  constructor(name, universalObjects = [], params = {}) {
+  constructor(name, contentItems = [], params = {}) {
     this.name = name
     this.params = params
-    if (Array.isArray(universalObjects)) {
-      this.universalObjects = universalObjects
+    if (Array.isArray(contentItems)) {
+      this.contentItems = contentItems
     }
     else {
-      this.universalObjects = [universalObjects]
+      this.contentItems = [contentItems]
     }
   }
 
   async logEvent() {
-    const idents = this.universalObjects.map((b) => b.ident)
+    const idents = this.contentItems.map((b) => b.ident)
     return await RNBranch.logEventWithUniversalObjects(idents, this.name, this.params)
   }
 }
