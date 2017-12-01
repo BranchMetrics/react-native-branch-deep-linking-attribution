@@ -4,6 +4,8 @@ const { RNBranch } = React.NativeModules
 
 import { BranchEvent } from '../src/index.js'
 
+// --- Constant mapping ---
+
 test('AddToCart is correct', t => {
   t.is(RNBranch.STANDARD_EVENT_ADD_TO_CART, BranchEvent.AddToCart)
 })
@@ -66,4 +68,117 @@ test('AchieveLevel is correct', t => {
 
 test('UnlockAchievement is correct', t => {
   t.is(RNBranch.STANDARD_EVENT_UNLOCK_ACHIEVEMENT, BranchEvent.UnlockAchievement)
+})
+
+// --- Field mapping
+
+test('Name mapping is correct', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem)
+  t.is(event.name, BranchEvent.ViewItem)
+})
+
+test('contentItems empty when null passed', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem)
+  t.true(Array.isArray(event.contentItems))
+  t.is(0, event.contentItems.length)
+})
+
+test('contentItems contains one item when one passed', t => {
+  const item = {}
+  const event = new BranchEvent(BranchEvent.ViewItem, item)
+  t.true(Array.isArray(event.contentItems))
+  t.is(1, event.contentItems.length)
+  t.is(item, event.contentItems[0])
+})
+
+test('contentItems contains all items when an array passed', t => {
+  const item1 = { name: 'item1' }
+  const item2 = { name: 'item2' }
+  const event = new BranchEvent(BranchEvent.ViewItem, [item1, item2])
+  t.true(Array.isArray(event.contentItems))
+  t.is(2, event.contentItems.length)
+  t.is(item1, event.contentItems[0])
+  t.is(item2, event.contentItems[1])
+})
+
+test('transactionID is null by default', t => {
+  t.is(null, new BranchEvent(BranchEvent.ViewItem).transactionID)
+})
+
+test('transactionID is correct', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem, null, { transactionID: 'transactionID' })
+  t.is('transactionID', event.transactionID)
+})
+
+test('currency is null by default', t => {
+  t.is(null, new BranchEvent(BranchEvent.ViewItem).currency)
+})
+
+test('currency is correct', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem, null, { currency: 'USD' })
+  t.is('USD', event.currency)
+})
+
+test('revenue is null by default', t => {
+  t.is(null, new BranchEvent(BranchEvent.ViewItem).revenue)
+})
+
+test('revenue is correct', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem, null, { revenue: '20.00' })
+  t.is('20.00', event.revenue)
+})
+
+test('shipping is null by default', t => {
+  t.is(null, new BranchEvent(BranchEvent.ViewItem).shipping)
+})
+
+test('shipping is correct', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem, null, { shipping: '2.00' })
+  t.is('2.00', event.shipping)
+})
+
+test('tax is null by default', t => {
+  t.is(null, new BranchEvent(BranchEvent.ViewItem).tax)
+})
+
+test('tax is correct', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem, null, { tax: '1.60' })
+  t.is('1.60', event.tax)
+})
+
+test('coupon is null by default', t => {
+  t.is(null, new BranchEvent(BranchEvent.ViewItem).coupon)
+})
+
+test('coupon is correct', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem, null, { coupon: 'coupon code' })
+  t.is('coupon code', event.coupon)
+})
+
+test('affiliation is null by default', t => {
+  t.is(null, new BranchEvent(BranchEvent.ViewItem).affiliation)
+})
+
+test('affiliation is correct', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem, null, { affiliation: 'affiliation' })
+  t.is('affiliation', event.affiliation)
+})
+
+test('searchQuery is null by default', t => {
+  t.is(null, new BranchEvent(BranchEvent.ViewItem).searchQuery)
+})
+
+test('searchQuery is correct', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem, null, { searchQuery: 'searchQuery' })
+  t.is('searchQuery', event.searchQuery)
+})
+
+test('customData is null by default', t => {
+  t.is(null, new BranchEvent(BranchEvent.ViewItem).customData)
+})
+
+test('customData is correct', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem, null, { customData: { key: 'value' } })
+  t.is('object', typeof(event.customData))
+  t.is('value', event.customData.key)
 })
