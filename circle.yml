@@ -25,4 +25,4 @@ dependencies:
 
 test:
   override:
-    - bundle exec fastlane test_android
+    - bundle exec fastlane android test

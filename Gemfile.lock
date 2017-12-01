@@ -12,11 +12,11 @@ GEM
     ast (2.3.0)
     babosa (1.0.2)
     backports (3.10.3)
-    branch_io_cli (0.12.0)
+    branch_io_cli (0.12.3)
       CFPropertyList
       cocoapods-core
       commander
-      pattern_patch (>= 0.5.3)
+      pattern_patch (>= 0.5.4)
       plist
       rubyzip
       xcodeproj
@@ -79,7 +79,7 @@ GEM
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     fastimage (2.1.0)
-    fastlane (2.66.1)
+    fastlane (2.68.0)
       CFPropertyList (>= 2.3, < 3.0.0)
       addressable (>= 2.3, < 3.0.0)
       babosa (>= 1.0.2, < 2.0.0)
@@ -112,7 +112,7 @@ GEM
       xcodeproj (>= 1.5.2, < 2.0.0)
       xcpretty (>= 0.2.4, < 1.0.0)
       xcpretty-travis-formatter (>= 0.0.3)
-    fastlane-plugin-branch (0.7.2)
+    fastlane-plugin-branch (0.7.3)
       branch_io_cli (>= 0.12.0)
     fastlane-plugin-patch (0.5.0)
       pattern_patch (>= 0.5.1)
@@ -143,7 +143,7 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
-    highline (1.7.8)
+    highline (1.7.10)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     httpclient (2.8.3)
@@ -177,7 +177,7 @@ GEM
     parallel (1.12.0)
     parser (2.4.0.2)
       ast (~> 2.3)
-    pattern_patch (0.5.3)
+    pattern_patch (0.5.4)
       activesupport
     plist (3.3.0)
     powerpack (0.1.1)
@@ -224,7 +224,7 @@ GEM
       launchy (~> 2.1)
       pusher-client (~> 0.4)
       typhoeus (~> 0.6, >= 0.6.8)
-    tty-screen (0.6.2)
+    tty-screen (0.6.3)
     typhoeus (0.8.0)
       ethon (>= 0.8.0)
     tzinfo (1.2.4)

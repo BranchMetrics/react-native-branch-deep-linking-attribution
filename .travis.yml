@@ -20,7 +20,7 @@ install:
 
 script:
   # Requires Android SDK
-  # - bundle exec fastlane test_android
-  - bundle exec fastlane test_ios
+  # - bundle exec fastlane android test
+  - bundle exec fastlane ios test
   - yarn lint
   - yarn test
