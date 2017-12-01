@@ -515,7 +515,6 @@
 				7B7C4C801E6633C900A27265 /* BNCStrongMatchHelper.m */,
 				7B7C4C811E6633C900A27265 /* BNCSystemObserver.h */,
 				7B7C4C821E6633C900A27265 /* BNCSystemObserver.m */,
-				7B7C4C851E6633C900A27265 /* Branch-SDK-Prefix.pch */,
 				7B7C4C861E6633C900A27265 /* Branch.h */,
 				7B7C4C871E6633C900A27265 /* Branch.m */,
 				7B7C4C881E6633C900A27265 /* BranchActivityItemProvider.h */,
