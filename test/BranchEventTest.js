@@ -164,6 +164,15 @@ test('affiliation is correct', t => {
   t.is('affiliation', event.affiliation)
 })
 
+test('description is null by default', t => {
+  t.is(null, new BranchEvent(BranchEvent.ViewItem).description)
+})
+
+test('description is correct', t => {
+  const event = new BranchEvent(BranchEvent.ViewItem, null, { description: 'description' })
+  t.is('description', event.description)
+})
+
 test('searchQuery is null by default', t => {
   t.is(null, new BranchEvent(BranchEvent.ViewItem).searchQuery)
 })
