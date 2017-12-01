@@ -96,7 +96,7 @@ export default class App extends Component {
       title: this.state.title,
       contentImageUrl: this.state.image
     })
-    this.buo.logEvent(BranchEvent.ViewEvent)
+    this.buo.logEvent(BranchEvent.ViewItem)
     console.log("Created Branch Universal Object and logged standard view item event.")
   }
 }
