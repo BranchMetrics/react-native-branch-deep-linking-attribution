@@ -49,6 +49,26 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static final String REGISTER_VIEW_EVENT = "REGISTER_VIEW_EVENT";
     private static final String SHARE_COMPLETED_EVENT = "SHARE_COMPLETED_EVENT";
     private static final String SHARE_INITIATED_EVENT = "SHARE_INITIATED_EVENT";
+
+    private static final String STANDARD_EVENT_ADD_TO_CART = "STANDARD_EVENT_ADD_TO_CART";
+    private static final String STANDARD_EVENT_ADD_TO_WISHLIST = "STANDARD_EVENT_ADD_TO_WISHLIST";
+    private static final String STANDARD_EVENT_VIEW_CART = "STANDARD_EVENT_VIEW_CART";
+    private static final String STANDARD_EVENT_INITIATE_PURCHASE = "STANDARD_EVENT_INITIATE_PURCHASE";
+    private static final String STANDARD_EVENT_ADD_PAYMENT_INFO = "STANDARD_EVENT_ADD_PAYMENT_INFO";
+    private static final String STANDARD_EVENT_PURCHASE = "STANDARD_EVENT_PURCHASE";
+    private static final String STANDARD_EVENT_SPEND_CREDITS = "STANDARD_EVENT_SPEND_CREDITS";
+
+    private static final String STANDARD_EVENT_SEARCH = "STANDARD_EVENT_SEARCH";
+    private static final String STANDARD_EVENT_VIEW_ITEM = "STANDARD_EVENT_VIEW_ITEM";
+    private static final String STANDARD_EVENT_VIEW_ITEMS = "STANDARD_EVENT_VIEW_ITEMS";
+    private static final String STANDARD_EVENT_RATE = "STANDARD_EVENT_RATE";
+    private static final String STANDARD_EVENT_SHARE = "STANDARD_EVENT_SHARE";
+
+    private static final String STANDARD_EVENT_COMPLETE_REGISTRATION = "STANDARD_EVENT_COMPLETE_REGISTRATION";
+    private static final String STANDARD_EVENT_COMPLETE_TUTORIAL = "STANDARD_EVENT_COMPLETE_TUTORIAL";
+    private static final String STANDARD_EVENT_ACHIEVE_LEVEL = "STANDARD_EVENT_ACHIEVE_LEVEL";
+    private static final String STANDARD_EVENT_UNLOCK_ACHIEVEMENT = "STANDARD_EVENT_UNLOCK_ACHIEVEMENT";
+
     private static final String IDENT_FIELD_NAME = "ident";
     public static final String UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE = "RNBranch::Error::BUONotFound";
     private static final long AGING_HASH_TTL = 3600000;
@@ -182,9 +202,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
         // RN events transmitted to JS
+
         constants.put(INIT_SESSION_SUCCESS, RN_INIT_SESSION_SUCCESS_EVENT);
         constants.put(INIT_SESSION_ERROR, RN_INIT_SESSION_ERROR_EVENT);
-        // Constants for use with userCompletedAction
+
+        // Constants for use with userCompletedAction (deprecated)
+
         constants.put(ADD_TO_CART_EVENT, BranchEvent.ADD_TO_CART);
         constants.put(ADD_TO_WISHLIST_EVENT, BranchEvent.ADD_TO_WISH_LIST);
         constants.put(PURCHASED_EVENT, BranchEvent.PURCHASED);
@@ -192,6 +215,34 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         constants.put(REGISTER_VIEW_EVENT, BranchEvent.VIEW);
         constants.put(SHARE_COMPLETED_EVENT, BranchEvent.SHARE_COMPLETED);
         constants.put(SHARE_INITIATED_EVENT, BranchEvent.SHARE_STARTED);
+
+        // constants for use with BranchEvent
+
+        // Commerce events
+
+        constants.put(STANDARD_EVENT_ADD_TO_CART, BRANCH_STANDARD_EVENT.ADD_TO_CART.getName());
+        constants.put(STANDARD_EVENT_ADD_TO_WISHLIST, BRANCH_STANDARD_EVENT.ADD_TO_WISHLIST.getName());
+        constants.put(STANDARD_EVENT_VIEW_CART, BRANCH_STANDARD_EVENT.VIEW_CART.getName());
+        constants.put(STANDARD_EVENT_INITIATE_PURCHASE, BRANCH_STANDARD_EVENT.INITIATE_PURCHASE.getName());
+        constants.put(STANDARD_EVENT_ADD_PAYMENT_INFO, BRANCH_STANDARD_EVENT.ADD_PAYMENT_INFO.getName());
+        constants.put(STANDARD_EVENT_PURCHASE, BRANCH_STANDARD_EVENT.PURCHASE.getName());
+        constants.put(STANDARD_EVENT_SPEND_CREDITS, BRANCH_STANDARD_EVENT.SPEND_CREDITS.getName());
+
+        // Content Events
+
+        constants.put(STANDARD_EVENT_SEARCH, BRANCH_STANDARD_EVENT.SEARCH.getName());
+        constants.put(STANDARD_EVENT_VIEW_ITEM, BRANCH_STANDARD_EVENT.VIEW_ITEM.getName());
+        constants.put(STANDARD_EVENT_VIEW_ITEMS , BRANCH_STANDARD_EVENT.VIEW_ITEMS.getName());
+        constants.put(STANDARD_EVENT_RATE, BRANCH_STANDARD_EVENT.RATE.getName());
+        constants.put(STANDARD_EVENT_SHARE, BRANCH_STANDARD_EVENT.SHARE.getName());
+
+        // User Lifecycle Events
+
+        constants.put(STANDARD_EVENT_COMPLETE_REGISTRATION, BRANCH_STANDARD_EVENT.COMPLETE_REGISTRATION.getName());
+        constants.put(STANDARD_EVENT_COMPLETE_TUTORIAL , BRANCH_STANDARD_EVENT.COMPLETE_TUTORIAL.getName());
+        constants.put(STANDARD_EVENT_ACHIEVE_LEVEL, BRANCH_STANDARD_EVENT.ACHIEVE_LEVEL.getName());
+        constants.put(STANDARD_EVENT_UNLOCK_ACHIEVEMENT, BRANCH_STANDARD_EVENT.UNLOCK_ACHIEVEMENT.getName());
+
         return constants;
     }
 
@@ -268,6 +319,22 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void logout() {
         Branch branch = Branch.getInstance();
         branch.logout();
+    }
+
+    @ReactMethod
+    public void logEventWithUniversalObjects(ReadableArray contentItems, String eventName, ReadableMap params, Promise promise) {
+        List<BranchUniversalObject> buos = new ArrayList<>();
+        for (int i = 0; i < contentItems.size(); ++ i) {
+            String ident = contentItems.getString(i);
+            BranchUniversalObject universalObject = findUniversalObjectOrReject(ident, promise);
+            if (universalObject == null) return;
+            buos.add(universalObject);
+        }
+
+        BranchEvent event = createBranchEvent(eventName, params);
+        event.addContentItems(buos);
+        event.logEvent(mActivity);
+        promise.resolve(null);
     }
 
     @ReactMethod
@@ -451,6 +518,49 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
         if (options.hasKey("newActivity") && options.getBoolean("newActivity")) mActivity.finish();
         mActivity.startActivity(intent);
+    }
+
+    public static BranchEvent createBranchEvent(String eventName, ReadableMap params) {
+        BRANCH_STANDARD_EVENT standardEvent = BRANCH_STANDARD_EVENT.valueOf(eventName);
+        BranchEvent event;
+
+        if (standardEvent != null) {
+            event = new BranchEvent(standardEvent);
+        }
+        else {
+            event = new BranchEvent(eventName);
+        }
+
+        if (params.hasKey("currency")) {
+            String currencyString = params.getString("currency");
+            CurrencyType currency = CurrencyType.getValue(currencyString);
+            if (currency != null) {
+                event.setCurrency(currency);
+            }
+            else {
+                Log.w(REACT_CLASS, "Invalid currency " + currencyString);
+            }
+        }
+
+        if (params.hasKey("transactionID")) event.setTransactionID(params.getString("transactionID"));
+        if (params.hasKey("revenue")) event.setRevenue(Double.parseDouble(params.getString("revenue")));
+        if (params.hasKey("shipping")) event.setShipping(Double.parseDouble(params.getString("shipping")));
+        if (params.hasKey("tax")) event.setTax(Double.parseDouble(params.getString("tax")));
+        if (params.hasKey("coupon")) event.setCoupon(params.getString("coupon"));
+        if (params.hasKey("affiliation")) event.setTransactionID(params.getString("affiliation"));
+        if (params.hasKey("description")) event.setTransactionID(params.getString("description"));
+        if (params.hasKey("searchQuery")) event.setTransactionID(params.getString("searchQuery"));
+
+        if (params.hasKey("customData")) {
+            ReadableMap customData = params.getMap("customData");
+            ReadableMapKeySetIterator it = customData.keySetIterator();
+            while (it.hasNextKey()) {
+                String key = it.nextKey();
+                event.addCustomDataProperty(key, customData.getString(key));
+            }
+        }
+
+        return event;
     }
 
     public static LinkProperties createLinkProperties(ReadableMap linkPropertiesMap, @Nullable ReadableMap controlParams){

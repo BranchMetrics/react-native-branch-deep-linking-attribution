@@ -1,4 +1,5 @@
 import { NativeModules, Platform } from 'react-native'
+import { BranchEvent } from './BranchEvent'
 
 const { RNBranch } = NativeModules
 
@@ -45,7 +46,7 @@ export default async function createBranchUniversalObject(identifier, options = 
       return this._tryFunction(RNBranch.userCompletedActionOnUniversalObject, event, state)
     },
     logEvent(eventName, params = {}) {
-      return this._tryFunction(RNBranch.logEventWithUniversalObjects, eventName, params)
+      new BranchEvent(eventName, this, params).logEvent()
     },
     release() {
       RNBranch.releaseUniversalObject(this.ident)

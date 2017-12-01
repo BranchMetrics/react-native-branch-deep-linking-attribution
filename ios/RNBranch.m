@@ -370,18 +370,9 @@ RCT_EXPORT_METHOD(
     resolve(NSNull.null);
 }
 
-#pragma mark logEvent
-RCT_EXPORT_METHOD(
-                  logEvent:(NSString *)eventName
-                  params:(NSDictionary *)params
-                  ) {
-    BranchEvent *event = [[BranchEvent alloc] initWithName:eventName map:params];
-    [event logEvent];
-}
-
 #pragma mark logEventWithUniversalObjects
 RCT_EXPORT_METHOD(
-                  logEventWithUniversalObjects:(id)identifiers
+                  logEvent:(NSArray *)identifiers
                   eventName:(NSString *)eventName
                   params:(NSDictionary *)params
                   resolver:(RCTPromiseResolveBlock)resolve
@@ -389,19 +380,8 @@ RCT_EXPORT_METHOD(
                   ) {
     BranchEvent *event = [[BranchEvent alloc] initWithName:eventName map:params];
 
-    NSArray<NSString *> *ids;
-    if ([identifiers isKindOfClass:NSString.class]) {
-        ids = @[identifiers];
-    }
-    else if ([identifiers isKindOfClass:NSArray.class]) {
-        ids = identifiers;
-    }
-    else {
-        // TODO: Reject this argument type
-    }
-
     NSMutableArray<BranchUniversalObject *> *buos = @[].mutableCopy;
-    for (NSString *identifier in ids) {
+    for (NSString *identifier in identifiers) {
         BranchUniversalObject *buo = [self findUniversalObjectWithIdent:identifier rejecter:reject];
         if (!buo) return;
 

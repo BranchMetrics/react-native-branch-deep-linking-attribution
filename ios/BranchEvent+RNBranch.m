@@ -25,7 +25,7 @@
           @"tax": [RNBranchProperty propertyWithSetterSelector:@selector(setTaxWithString:) type:NSString.class],
           @"coupon": [RNBranchProperty propertyWithSetterSelector:@selector(setCoupon:) type:NSString.class],
           @"affiliation": [RNBranchProperty propertyWithSetterSelector:@selector(setAffiliation:) type:NSString.class],
-          @"eventDescription": [RNBranchProperty propertyWithSetterSelector:@selector(setEventDescription:) type:NSString.class],
+          @"description": [RNBranchProperty propertyWithSetterSelector:@selector(setEventDescription:) type:NSString.class],
           @"searchQuery": [RNBranchProperty propertyWithSetterSelector:@selector(setSearchQuery:) type:NSString.class],
           @"customData": [RNBranchProperty propertyWithSetterSelector:@selector(setCustomData:) type:NSDictionary.class]
           };
