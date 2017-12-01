@@ -148,29 +148,106 @@ export default class BranchEvent {
   }
 }
 
-// Standard event definitions
+// --- Standard event definitions ---
 
 // Commerce events
 
+/**
+ * Standard Add to Cart event
+ * @type {string}
+ */
 BranchEvent.AddToCart = RNBranch.STANDARD_EVENT_ADD_TO_CART
+
+/**
+ * Standard Add to Wishlist event
+ * @type {string}
+ */
 BranchEvent.AddToWishlist = RNBranch.STANDARD_EVENT_ADD_TO_WISHLIST
+
+/**
+ * Standard View Cart event
+ * @type {string}
+ */
 BranchEvent.ViewCart = RNBranch.STANDARD_EVENT_VIEW_CART
+
+/**
+ * Standard Initiate Purchase event
+ * @type {string}
+ */
 BranchEvent.InitiatePurchase = RNBranch.STANDARD_EVENT_INITIATE_PURCHASE
+
+/**
+ * Standard Add Payment Info event
+ * @type {string}
+ */
 BranchEvent.AddPaymentInfo = RNBranch.STANDARD_EVENT_ADD_PAYMENT_INFO
+
+/**
+ * Standard Purchase event
+ * @type {string}
+ */
 BranchEvent.Purchase = RNBranch.STANDARD_EVENT_PURCHASE
+
+/**
+ * Standard Spend Credits event
+ * @type {string}
+ */
 BranchEvent.SpendCredits = RNBranch.STANDARD_EVENT_SPEND_CREDITS
 
 // Content events
 
+/**
+ * Standard Search event
+ * @type {string}
+ */
 BranchEvent.Search = RNBranch.STANDARD_EVENT_SEARCH
+
+/**
+ * Standard View Item event for a single Branch Universal Object
+ * @type {string}
+ */
 BranchEvent.ViewItem = RNBranch.STANDARD_EVENT_VIEW_ITEM
+
+/**
+ * Standard View Items event for multiple Branch Universal Objects
+ * @type {string}
+ */
 BranchEvent.ViewItems = RNBranch.STANDARD_EVENT_VIEW_ITEMS
+
+/**
+ * Standard Rate event
+ * @type {string}
+ */
 BranchEvent.Rate = RNBranch.STANDARD_EVENT_RATE
+
+/**
+ * Standard Share event
+ * @type {string}
+ */
 BranchEvent.Share = RNBranch.STANDARD_EVENT_SHARE
 
 // User Lifecycle Events
 
+/**
+ * Standard Complete Registration event
+ * @type {string}
+ */
 BranchEvent.CompleteRegistration = RNBranch.STANDARD_EVENT_COMPLETE_REGISTRATION
+
+/**
+ * Standard Complete Tutorial event
+ * @type {string}
+ */
 BranchEvent.CompleteTutorial = RNBranch.STANDARD_EVENT_COMPLETE_TUTORIAL
+
+/**
+ * Standard Achieve Level event
+ * @type {string}
+ */
 BranchEvent.AchieveLevel = RNBranch.STANDARD_EVENT_ACHIEVE_LEVEL
+
+/**
+ * Standard Unlock Achievement event
+ * @type {string}
+ */
 BranchEvent.UnlockAchievement = RNBranch.STANDARD_EVENT_UNLOCK_ACHIEVEMENT
