@@ -33,8 +33,7 @@ ___
   + [Retrieve the user's first deep linking params](#retrieve-install-install-only-parameters)
   + [Setting the user id for tracking influencers](#persistent-identities)
   + [Logging a user out](#logout)
-  + [Tracking custom events](#register-custom-events)
-  + [Sending commerce events](#commerce-events)
+  + [Tracking user actions and events](#tracking-user-actions-and-events)
   + [Programmatic deep linking](#programmatic-deep-linking)
   + [Debug mode and Apple Search Ads attribution](#debug-mode-and-apple-search-ads-attribution)
 
@@ -596,59 +595,6 @@ branch.logout()
 
 ___
 
-### Register custom events
-
-The `branch.userCompletedAction` method may be used for custom events that do not
-involve specific content views in the app. To record custom events related to
-content views, use the `userCompletedAction` method on the Branch Universal Object.
-
-#### Method
-
-```js
-branch.userCompletedAction(event, params)
-```
-
-##### Parameters
-
-**event**: A string specifying a custom event name  
-**params**: (optional) An object containing custom key-value pairs to associate with the event
-
-#### Example
-
-```js
-import branch from 'react-native-branch'
-
-branch.userCompletedAction('Level Complete', {level: 'Level 1'})
-```
-
-___
-
-### Commerce events
-
-Use the `branch.sendCommerceEvent` method to record commerce events.
-
-#### Method
-
-```js
-branch.sendCommerceEvent(revenue, metadata)
-```
-
-##### Parameters
-
-**revenue**: A decimal number represented as a string or a float, e.g. "20.00" or 20.00  
-**metadata**: (Optional) Metadata to associate with this event. Keys must be strings.
-
-#### Example
-
-```js
-import branch from 'react-native-branch'
-
-branch.sendCommerceEvent("20.00")
-branch.sendCommerceEvent(50, {key1: "value1", key2: "value2"})
-```
-
-___
-
 ### Programmatic deep linking
 
 The Branch SDK automatically triggers the `branch.subscribe` callback whenever a
@@ -699,6 +645,139 @@ import branch from 'react-native-branch'
 branch.openURL("https://myapp.app.link/xyz")
 branch.openURL("https://myapp.app.link/xyz", {newActivity: true})
 ```
+
+___
+
+### Tracking User Actions and Events
+
+Use the `BranchEvent` interface to track special user actions or application specific events beyond app installs, opens, and sharing. You can track events such as when a user adds an item to an on-line shopping cart, or searches for a keyword, among others.
+
+The `BranchEvent` interface provides an interface to add contents represented by BranchUniversalObject in order to associate app contents with events.
+
+Analytics about your app's BranchEvents can be found on the Branch dashboard, and BranchEvents also provide tight integration with many third party analytics providers.
+
+*Note:* The BranchEvent class supersedes the `userCompletedAction` method on the
+Branch Universal Object and the `branch.sendCommerceEvent` method, both of which
+should be considered deprecated.
+
+#### Constructor
+
+```js
+new BranchEvent(name, contentItems = null, params = {})
+```
+
+#### Parameters
+
+**name**: String indicating the name of the event to log. Pass a standard event
+    constant, such as `BranchEvent.ViewItem` or a custom event name.  
+**contentItems**: Zero or more Branch Universal Objects associated with this
+    event. Pass null, a single Branch Universal Object or an array of them.  
+**params**: Optional Object with properties to be set on the BranchEvent (see below).
+
+#### Properties
+
+The following properties may be passed as arguments to the constructor or
+set directly on the object after construction.
+
+**name:** A string indicating the name of the event, as passed to the constructor.
+    May be set after construction.  
+**contentItems:** An array of Branch Universal Objects associated with this
+    event. May be empty. Contents may be adjusted after construction.
+
+The following properties may be passed to the constructor in the `params` or
+set directly on the object after construction.
+
+**transactionID**: String indicating a transaction ID  
+**currency**: An ISO currency code (e.g. USD, JPY, EUR)  
+**revenue**: Revenue associated with this event as a string or number  
+**shipping**: Shipping cost associated with this event as a string or number  
+**tax**: Tax associated with this event as a string or number  
+**coupon**: String indicating a coupon code for this event  
+**affiliation**: String indicating an affiliation for this event  
+**description**: String indicating a description for this event  
+**searchQuery**: String indicating a search query for this event  
+**customData**: Object containing arbitrary key-value pairs for this event.
+    Values must be strings.
+
+#### logEvent method
+
+```js
+branchEvent.logEvent()
+```
+
+Logs a BranchEvent with all associated parameters.
+
+#### Examples
+
+Log a view on a single Branch Universal Object.
+
+```js
+new BranchEvent(BranchEvent.ViewItem, buo).logEvent()
+```
+
+Log a view on a multiple Branch Universal Objects.
+
+```js
+new BranchEvent(BranchEvent.ViewItems, [buo1, buo2]).logEvent()
+```
+
+Log a Purchase event on a Branch Universal Object.
+
+```js
+new BranchEvent(BranchEvent.Purchase, buo, {
+  revenue: 20,
+  shipping: 2,
+  tax: 1.6,
+  currency: 'USD'}).logEvent()
+```
+
+Log a Search event.
+
+```js
+let event = new BranchEvent(BranchEvent.Search)
+event.searchQuery = "tennis rackets"
+event.logEvent()
+```
+
+Log a custom event.
+
+```js
+new BranchEvent("UserScannedItem", buo).logEvent()
+```
+
+When logging an event on a single Branch Universal Object, the `logEvent`
+method may be called on the Branch Universal Object.
+
+```js
+buo.logEvent(BranchEvent.Purchase, { revenue: 20 })
+```
+
+This is equivalent to
+
+```js
+new BranchEvent(BranchEvent.Purchase, buo, { revenue: 20 }).logEvent()
+```
+
+#### Standard events
+
+|Event constant|Description|
+|--------------|-----------|
+|BranchEvent.AddToCart|Standard Add to Cart event|
+|BranchEvent.AddToWishlist|Standard Add to Wishlist event|
+|BranchEvent.ViewCart|Standard View Cart event|
+|BranchEvent.InitiatePurchase|Standard Initiate Purchase event|
+|BranchEvent.AddPaymentInfo|Standard Add Payment Info event|
+|BranchEvent.Purchase|Standard Purchase event|
+|BranchEvent.SpendCredits|Standard Spend Credits event|
+|BranchEvent.Search|Standard Search event|
+|BranchEvent.ViewItem|Standard View Item event for a single Branch Universal Object|
+|BranchEvent.ViewItems|Standard View Items event for multiple Branch Universal Objects|
+|BranchEvent.Rate|Standard Rate event|
+|BranchEvent.Share|Standard Share event|
+|BranchEvent.CompleteRegistration|Standard Complete Registration event|
+|BranchEvent.CompleteTutorial|Standard Complete Tutorial event|
+|BranchEvent.AchieveLevel|Standard Achieve Level event|
+|BranchEvent.AchievementUnlocked|Standard Unlock Achievement event|
 
 ___
 
@@ -862,49 +941,36 @@ ___
 
 ### Register user actions on an object
 
-We've added a series of custom events that you'll want to start tracking for rich
-analytics and targeting. Use this method to record events associated with a
-content item (Branch Universal Object).
+The `logEvent` method on the Branch Universal Object is a convenient shortcut
+for logging a `BranchEvent` on a single Branch Universal Object. See
+[Tracking user actions and events](#tracking-user-actions-and-events) for
+more details on `BranchEvent`.
 
 #### Method
 
 ```js
-branchUniversalObject.userCompletedAction(event, params)
+branchUniversalObject.logEvent(name, params = {})
 ```
 
-##### Parameters
+#### Parameters
 
-**event**: A string representing a standard event from the list below or a custom
-event.
+**name**: A string indicating the name of the event. May be a standard event
+    defined on `BranchEvent` or a custom event name.  
+**params**: An optional Object containing parameters for the `BranchEvent`
 
-| Event | Description
-| ----- | ---
-| RegisterViewEvent | User viewed the object
-| AddToWishlistEvent | User added the object to their wishlist
-| AddToCartEvent | User added object to cart
-| PurchaseInitiatedEvent | User started to check out
-| PurchasedEvent | User purchased the item
-| ShareInitiatedEvent | User started to share the object
-| ShareCompletedEvent | User completed a share
-
-**params**: (Optional) A dictionary of custom key-value pairs to associate with
-this event.
+#### Examples
 
 ```js
-import branch, {
-  AddToCartEvent,
-  AddToWishlistEvent,
-  PurchasedEvent,
-  PurchaseInitiatedEvent,
-  RegisterViewEvent,
-  ShareCompletedEvent,
-  ShareInitiatedEvent
-} from 'react-native-branch'
+branchUniversalObject.logEvent(BranchEvent.ViewItem)
+```
 
-let branchUniversalObject = await branch.createBranchUniversalObject(...)
-
-branchUniversalObject.userCompletedAction(RegisterViewEvent)
-branchUniversalObject.userCompletedAction('Custom Action', { key: 'value' })
+```js
+branchUniversalObject.logEvent(BranchEvent.Purchase, {
+  revenue: 20,
+  shipping: 2,
+  tax: 1.6,
+  currency: 'USD'
+})
 ```
 
 ### List content on Spotlight

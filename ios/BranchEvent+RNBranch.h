@@ -11,4 +11,8 @@
 
 - (instancetype)initWithName:(NSString *)eventName map:(NSDictionary *)map;
 
+- (void)setRevenueWithString:(NSString *)revenue;
+- (void)setShippingWithString:(NSString *)shipping;
+- (void)setTaxWithString:(NSString *)tax;
+
 @end
