@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, TextInput, View, WebView } from 'react-native'
 
-import branch, { RegisterViewEvent } from 'react-native-branch'
+import branch, { BranchEvent } from 'react-native-branch'
 
 const styles = StyleSheet.create({
   container: {
@@ -96,7 +96,7 @@ export default class App extends Component {
       title: this.state.title,
       contentImageUrl: this.state.image
     })
-    this.buo.userCompletedAction(RegisterViewEvent)
-    console.log("Created Branch Universal Object and logged RegisterViewEvent.")
+    this.buo.logEvent(BranchEvent.ViewEvent)
+    console.log("Created Branch Universal Object and logged standard view item event.")
   }
 }
