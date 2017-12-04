@@ -12,34 +12,6 @@ See each app for further details, including build instructions.
 [webview_example_native_ios]: ./webview_example_native_ios
 [webview_tutorial]: ./webview_tutorial
 
-## Automatically set up iOS Branch configuration with Fastlane
-
-To run any of the iOS examples ([testbed_native_ios], [testbed_simple], [webview_example], [webview_example_native_ios]) on a device, you can use Fastlane to set the following
-Branch-related configuration parameters without changing settings manually in Xcode.
-
-- Branch live key
-- Branch test key
-- Branch Universal Link domain(s)
-- Application bundle identifier
-- Code-signing team
-
-Once this is done, you can deploy the app on a device and open Universal Links in the app on the device.
-
-To use this tool:
-
-1. Edit the Branchfile in the fastlane subdirectory of any example you wish to use, e.g. [webview_example/fastlane/Branchfile](./webview_example/fastlane/Branchfile)
-2. To update any example app, e.g. `webview_example`:
-    ```bash
-    bundle install
-    cd webview_example
-    bundle exec fastlane update_branch
-    ```
-    Now the project is set up to use your app parameters, including your team and bundle identifiers.
-3. iOS projects: Validate the Universal Link configuration:
-    ```bash
-    bundle exec fastlane validate
-    ```
-
 ## [browser_example]
 
 This app demonstrates use of the `branch.openURL` method to build a Branch link browser that loads Branch
