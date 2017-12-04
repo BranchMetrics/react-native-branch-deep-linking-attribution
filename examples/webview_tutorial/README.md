@@ -163,7 +163,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
 7. If using a custom URI scheme in the Branch Dashboard, add that URI scheme to the app's Info.plist.
 
-    ![Xcode custom URI scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/xcode-custom-uri-schem.png)
+    ![Xcode custom URI scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/xcode-uri-scheme.png)
 
 ## Android setup
 
