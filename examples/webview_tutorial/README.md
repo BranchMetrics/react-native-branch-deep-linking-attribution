@@ -80,6 +80,11 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 3. Add the following method before the final `@end` in the AppDelegate.m file:
 
     ```Objective-C
+    - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+    {
+      return [RNBranch.branch application:app openURL:url options:options] || [[UIApplication sharedApplication] openURL:url];
+    }
+
     - (BOOL)application:(UIApplication *)app continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
     {
         return [RNBranch.branch continueUserActivity:userActivity];
@@ -126,7 +131,13 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
       return YES;
     }
 
-    // Step 3: Add application:continueUserActivity:restorationHandler: method
+    // Step 3: Add application:openURL:options: and application:continueUserActivity:restorationHandler: methods
+
+    - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+    {
+      return [RNBranch.branch application:app openURL:url options:options] || [[UIApplication sharedApplication] openURL:url];
+    }
+
     - (BOOL)application:(UIApplication *)app continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
     {
       return [RNBranch.branch continueUserActivity:userActivity];
@@ -149,6 +160,10 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     prefix each domain with `applinks:`.
 
     ![Associated domains](http://i.imgur.com/67t6hSY.png)
+
+7. If using a custom URI scheme in the Branch Dashboard, add that URI scheme to the app's Info.plist.
+
+    ![Xcode custom URI scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/xcode-custom-uri-schem.png)
 
 ## Android setup
 
@@ -299,7 +314,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 7. Add `intent-filters` to the MainActivity in the Android manifest using your Branch domains:
 
     ```xml
-    <intent-filter android:autoVerify='true'>
+    <intent-filter android:autoVerify="true">
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
@@ -312,6 +327,20 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
     Replace `yourapp` in the example above with your `app.link` subdomain from the
     Branch portal.
+
+    If using a custom URI scheme in the Branch Dashboard, also add an `intent-filter` for
+    that URI scheme.
+
+    ```xml
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="myurischeme" android:host="open"/>
+    </intent-filter>
+    ```
+
+    Replace `myurischeme` with your actual URI scheme.
 
 8. Add your Branch keys to the Android manifest at the end of the application element.
 
@@ -357,22 +386,27 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
                      <category android:name="android.intent.category.LAUNCHER" />
                  </intent-filter>
                  <!-- Step 7: Add intent-filters -->
-                 <!-- Branch intent-filter -->
-                 <intent-filter android:autoVerify='true'>
-                     <action android:name='android.intent.action.VIEW'/>
-                     <category android:name='android.intent.category.DEFAULT'/>
-                     <category android:name='android.intent.category.BROWSABLE'/>
-                     <data android:scheme='https' android:host='yourapp.app.link'/>
-                     <data android:scheme='https' android:host='yourapp-alternate.app.link'/>
-                     <data android:scheme='https' android:host='yourapp.test-app.link'/>
-                     <data android:scheme='https' android:host='yourapp-alternate.test-app.link'/>
+                 <intent-filter android:autoVerify="true">
+                     <action android:name="android.intent.action.VIEW"/>
+                     <category android:name="android.intent.category.DEFAULT"/>
+                     <category android:name="android.intent.category.BROWSABLE"/>
+                     <data android:scheme="https" android:host="yourapp.app.link"/>
+                     <data android:scheme="https" android:host="yourapp-alternate.app.link"/>
+                     <data android:scheme="https" android:host="yourapp.test-app.link"/>
+                     <data android:scheme="https" android:host="yourapp-alternate.test-app.link"/>
+                 </intent-filter>
+                 <intent-filter>
+                     <action android:name="android.intent.action.VIEW"/>
+                     <category android:name="android.intent.category.DEFAULT"/>
+                     <category android:name="android.intent.category.BROWSABLE"/>
+                     <data android:scheme="myurischeme" android:host="open"/>
                  </intent-filter>
              </activity>
              <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
              <!-- Step 8: Add Branch keys -->
              <!-- Branch keys -->
-             <meta-data android:name='io.branch.sdk.BranchKey' android:value='key_live_xxxx'/>
-             <meta-data android:name='io.branch.sdk.BranchKey.test' android:value='key_test_yyyy'/>
+             <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_xxxx"/>
+             <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_yyyy"/>
          </application>
 
     </manifest>
@@ -538,11 +572,11 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     }
     ```
 
-5. Open the `src/Article.js` class. Import the `branch` instance and the `RegisterViewEvent`
-    constant.
+5. Open the `src/Article.js` class. Import the `branch` instance and the `BranchEvent`
+    class.
 
     ```js
-    import branch, { RegisterViewEvent } from 'react-native-branch'
+    import branch, { BranchEvent } from 'react-native-branch'
     ```
 
 6. Add a `buo` property to the Article class and initialize it to null;
@@ -563,8 +597,8 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
         contentImageUrl: this.props.route.image,
         contentIndexingMode: 'public' // for Spotlight indexing
       })
-      this.buo.userCompletedAction(RegisterViewEvent)
-      console.log("Created Branch Universal Object and logged RegisterViewEvent.")
+      this.buo.logEvent(BranchEvent.ViewItem)
+      console.log("Created Branch Universal Object and logged standard view item event.")
     }
     ```
 
@@ -608,7 +642,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     import { StyleSheet, Text, TouchableHighlight, View, WebView } from 'react-native'
 
     // Step 5: Import branch and RegisterViewEvent
-    import branch, { RegisterViewEvent } from 'react-native-branch'
+    import branch, { BranchEvent } from 'react-native-branch'
 
     const styles = StyleSheet.create({
       container: {
@@ -647,8 +681,8 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
           contentImageUrl: this.props.route.image,
           contentIndexingMode: 'public' // for Spotlight indexing
         })
-        this.buo.userCompletedAction(RegisterViewEvent)
-        console.log("Created Branch Universal Object and logged RegisterViewEvent.")
+        this.buo.logEvent(BranchEvent.ViewItem)
+        console.log("Created Branch Universal Object and logged standard view item event.")
       }
 
       // Step 8: Add componentWillUnmount
@@ -726,7 +760,6 @@ will be displayed.
 
 The following are not included yet in this tutorial.
 
-- Setting up and handling URI schemes
 - Setting up custom Branch domains or non-Branch domains
 - Handling non-Branch domains
 - Using a single Branch key

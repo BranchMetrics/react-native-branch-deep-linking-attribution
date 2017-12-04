@@ -38,6 +38,6 @@
   return YES;
 }
 
-// Step 3: Add application:continueUserActivity:restorationHandler: method
+// Step 3: Add application:openURL:options: and application:continueUserActivity:restorationHandler: methods
 
 @end
