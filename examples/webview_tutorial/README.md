@@ -538,11 +538,11 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     }
     ```
 
-5. Open the `src/Article.js` class. Import the `branch` instance and the `RegisterViewEvent`
-    constant.
+5. Open the `src/Article.js` class. Import the `branch` instance and the `BranchEvent`
+    class.
 
     ```js
-    import branch, { RegisterViewEvent } from 'react-native-branch'
+    import branch, { BranchEvent } from 'react-native-branch'
     ```
 
 6. Add a `buo` property to the Article class and initialize it to null;
@@ -563,8 +563,8 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
         contentImageUrl: this.props.route.image,
         contentIndexingMode: 'public' // for Spotlight indexing
       })
-      this.buo.userCompletedAction(RegisterViewEvent)
-      console.log("Created Branch Universal Object and logged RegisterViewEvent.")
+      this.buo.logEvent(BranchEvent.ViewItem)
+      console.log("Created Branch Universal Object and logged standard view item event.")
     }
     ```
 
@@ -647,8 +647,8 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
           contentImageUrl: this.props.route.image,
           contentIndexingMode: 'public' // for Spotlight indexing
         })
-        this.buo.userCompletedAction(RegisterViewEvent)
-        console.log("Created Branch Universal Object and logged RegisterViewEvent.")
+        this.buo.logEvent(BranchEvent.ViewItem)
+        console.log("Created Branch Universal Object and logged standard view item event.")
       }
 
       // Step 8: Add componentWillUnmount
