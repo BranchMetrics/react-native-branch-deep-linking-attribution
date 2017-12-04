@@ -642,7 +642,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     import { StyleSheet, Text, TouchableHighlight, View, WebView } from 'react-native'
 
     // Step 5: Import branch and RegisterViewEvent
-    import branch, { RegisterViewEvent } from 'react-native-branch'
+    import branch, { BranchEvent } from 'react-native-branch'
 
     const styles = StyleSheet.create({
       container: {
