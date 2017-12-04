@@ -31,11 +31,10 @@ export default class Article extends Component {
 
   async componentDidMount() {
     this.buo = await branch.createBranchUniversalObject("planet/" + this.props.navigation.state.params.title, {
-      automaticallyListOnSpotlight: true, // ignored on Android
+      locallyIndex: true,
       canonicalUrl: this.props.navigation.state.params.url,
       title: this.props.navigation.state.params.title,
-      contentImageUrl: this.props.navigation.state.params.image,
-      contentIndexingMode: 'public' // for Spotlight indexing
+      contentImageUrl: this.props.navigation.state.params.image
     })
     this.buo.logEvent(BranchEvent.ViewItem)
     console.log("Created Branch Universal Object and logged standard view item event.")
