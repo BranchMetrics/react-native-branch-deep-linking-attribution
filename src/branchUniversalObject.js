@@ -46,10 +46,20 @@ export default async function createBranchUniversalObject(identifier, options = 
       return this._tryFunction(RNBranch.userCompletedActionOnUniversalObject, event, state)
     },
     logEvent(eventName, params = {}) {
-      new BranchEvent(eventName, this, params).logEvent()
+      return new BranchEvent(eventName, this, params).logEvent()
     },
     release() {
-      RNBranch.releaseUniversalObject(this.ident)
+      return RNBranch.releaseUniversalObject(this.ident)
+    },
+
+    /**
+     * Used by exception handlers when RNBranch::Error::BUONotFound is caught.
+     */
+    _newIdent() {
+      return RNBranch.createUniversalObject(branchUniversalObject).then(({ident}) => {
+        this.ident = ident
+        return ident
+      })
     },
 
     _tryFunction(func, ...args) {
@@ -57,10 +67,8 @@ export default async function createBranchUniversalObject(identifier, options = 
         if (error.code != 'RNBranch::Error::BUONotFound') {
           throw error
         }
-
-        return RNBranch.createUniversalObject(branchUniversalObject).then((response) => {
-          this.ident = response.ident
-          return func(response.ident, ...args)
+        return this._newIdent().then((ident) => {
+          return func(ident, ...args)
         })
       })
     }
