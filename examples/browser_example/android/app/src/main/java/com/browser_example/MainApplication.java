@@ -31,6 +31,11 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             new RNBranchPackage()
       );
     }
+
+    @Override
+    protected String getJSMainModuleName() {
+      return "index";
+    }
   };
 
   @Override
