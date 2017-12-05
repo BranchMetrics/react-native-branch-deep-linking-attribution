@@ -6,7 +6,7 @@ import Article from './Article'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 64,
+    marginTop: 0
   },
 })
 
@@ -55,7 +55,7 @@ class ArticleList extends Component {
 
   _showArticle(data) {
     console.log("Show article with URL " + data.url)
-    this.props.navigator.push(data)
+    this.props.navigation.navigate('Article', data)
   }
 }
 

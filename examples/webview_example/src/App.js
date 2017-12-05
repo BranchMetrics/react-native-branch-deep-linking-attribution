@@ -3,7 +3,6 @@ import { Button, StyleSheet, Text, View } from 'react-native'
 
 import branch from 'react-native-branch'
 
-import Article from './Article'
 import RootNavigator from './RootNavigator'
 
 export default class App extends Component {
@@ -26,7 +25,7 @@ export default class App extends Component {
       let image = params.$og_image_url
 
       // Now push the view for this URL
-      // TODO: ^^
+      RootNavigator.navigate('Article', {url: url, title: title, image: image})
     })
   }
 

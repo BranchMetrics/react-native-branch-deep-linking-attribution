@@ -6,11 +6,9 @@ import { StyleSheet, Text, TouchableHighlight, View, WebView } from 'react-nativ
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    marginTop: 64
+    flexDirection: 'column'
   },
   webView: {
-    flex: 0.85
   },
   button: {
     backgroundColor: '#cceeee',
@@ -40,7 +38,7 @@ export default class Article extends Component {
         style={styles.container} >
         <WebView
           style={styles.webView}
-          source={{uri: this.props.route.url}} />
+          source={{uri: this.props.navigation.state.params.url}} />
         <TouchableHighlight
           onPress={() => this.onShare()}
           style={styles.button} >

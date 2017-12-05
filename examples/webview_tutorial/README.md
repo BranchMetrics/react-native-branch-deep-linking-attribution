@@ -465,7 +465,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
         let image = params.$og_image_url
 
         // Now push the view for this URL
-        this.navigator.push({ title: title, url: url, image: image })
+        RootNavigator.navigate('Article', {url: url, title: title, image: image})
       })
     }
     ```
@@ -486,17 +486,13 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     ```js
     import React, { Component } from 'react'
     import { Button, StyleSheet, Text, View } from 'react-native'
-    import { Navigator } from 'react-native-deprecated-custom-components'
 
     // Step 1: import branch
     import branch from 'react-native-branch'
 
-    import ArticleList from './ArticleList'
-    import Article from './Article'
+    import RootNavigator from './RootNavigator'
 
     export default class App extends Component {
-      navigator = null
-
       // Step 2: Add _unsubscribeFromBranch property
       _unsubscribeFromBranch = null
 
@@ -532,41 +528,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
       render() {
         return (
-          <Navigator
-            initialRoute={{ title: "The Planets", url: null }}
-            navigationBar={
-               <Navigator.NavigationBar
-                 routeMapper={{
-                    LeftButton: (route, navigator, index, navState) => {
-                      if (route.url) return (
-                        <Button
-                          onPress={() => {navigator.pop()}}
-                          title={"Back"} />
-                      )
-
-                      return <View />
-                    },
-                    RightButton: (route, navigator, index, navState) => {
-                      return <View />
-                    },
-                    Title: (route, navigator, index, navState) => { return (
-                      <Text
-                        style={{fontSize: 23, fontWeight: 'bold'}}>
-                        {route.title}
-                      </Text>
-                    ) },
-                 }}
-               />
-             }
-            renderScene={(route, navigator) => {
-              // hack
-              this.navigator = navigator
-
-              if (!route.url) {
-                return <ArticleList navigator={navigator} />
-              }
-              return <Article route={route} />
-            }} />
+          <RootNavigator />
         )
       }
     }
@@ -590,11 +552,11 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
     ```js
     async componentDidMount() {
-      this.buo = await branch.createBranchUniversalObject("planet/" + this.props.route.title, {
+      this.buo = await branch.createBranchUniversalObject("planet/" + this.props.navigation.state.params.title, {
         automaticallyListOnSpotlight: true, // ignored on Android
-        canonicalUrl: this.props.route.url,
-        title: this.props.route.title,
-        contentImageUrl: this.props.route.image,
+        canonicalUrl: this.props.navigation.state.params.url,
+        title: this.props.navigation.state.params.title,
+        contentImageUrl: this.props.navigation.state.params.image,
         contentIndexingMode: 'public' // for Spotlight indexing
       })
       this.buo.logEvent(BranchEvent.ViewItem)
@@ -616,14 +578,14 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
     ```js
     let { channel, completed, error } = await this.buo.showShareSheet({
-      emailSubject: "The Planet " + this.props.route.title,
-      messageBody: "Read about the planet " + this.props.route.title + ".",
-      messageHeader: "The Planet " + this.props.route.title
+      emailSubject: "The Planet " + this.props.navigation.state.params.title,
+      messageBody: "Read about the planet " + this.props.navigation.state.params.title + ".",
+      messageHeader: "The Planet " + this.props.navigation.state.params.title
     }, {
       feature: "share",
       channel: "RNApp"
     }, {
-      $desktop_url: this.props.route.url,
+      $desktop_url: this.props.navigation.state.params.url,
       $ios_deepview: "branch_default"
     })
 
@@ -647,11 +609,9 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     const styles = StyleSheet.create({
       container: {
         flex: 1,
-        flexDirection: 'column',
-        marginTop: 64
+        flexDirection: 'column'
       },
       webView: {
-        flex: 0.85
       },
       button: {
         backgroundColor: '#cceeee',
@@ -674,11 +634,11 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
       // Step 7: Add componentDidMount
       async componentDidMount() {
-        this.buo = await branch.createBranchUniversalObject("planet/" + this.props.route.title, {
+        this.buo = await branch.createBranchUniversalObject("planet/" + this.props.navigation.state.params.title, {
           automaticallyListOnSpotlight: true, // ignored on Android
-          canonicalUrl: this.props.route.url,
-          title: this.props.route.title,
-          contentImageUrl: this.props.route.image,
+          canonicalUrl: this.props.navigation.state.params.url,
+          title: this.props.navigation.state.params.title,
+          contentImageUrl: this.props.navigation.state.params.image,
           contentIndexingMode: 'public' // for Spotlight indexing
         })
         this.buo.logEvent(BranchEvent.ViewItem)
@@ -698,7 +658,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
             style={styles.container} >
             <WebView
               style={styles.webView}
-              source={{uri: this.props.route.url}} />
+              source={{uri: this.props.navigation.state.params.url}} />
             <TouchableHighlight
               onPress={() => this.onShare()}
               style={styles.button} >
@@ -714,14 +674,14 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
       async onShare() {
         // Step 9: Implement onShare
         let { channel, completed, error } = await this.buo.showShareSheet({
-          emailSubject: "The Planet " + this.props.route.title,
-          messageBody: "Read about the planet " + this.props.route.title + ".",
-          messageHeader: "The Planet " + this.props.route.title
+          emailSubject: "The Planet " + this.props.navigation.state.params.title,
+          messageBody: "Read about the planet " + this.props.navigation.state.params.title + ".",
+          messageHeader: "The Planet " + this.props.navigation.state.params.title
         }, {
           feature: "share",
           channel: "RNApp"
         }, {
-          $desktop_url: this.props.route.url,
+          $desktop_url: this.props.navigation.state.params.url,
           $ios_deepview: "branch_default"
         })
 
