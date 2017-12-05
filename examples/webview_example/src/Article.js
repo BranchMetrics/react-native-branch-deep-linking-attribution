@@ -7,10 +7,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    marginTop: 64
+    marginTop: 0
   },
   webView: {
-    flex: 0.85
   },
   button: {
     backgroundColor: '#cceeee',
@@ -31,11 +30,11 @@ export default class Article extends Component {
   buo = null
 
   async componentDidMount() {
-    this.buo = await branch.createBranchUniversalObject("planet/" + this.props.route.title, {
+    this.buo = await branch.createBranchUniversalObject("planet/" + this.props.navigation.state.params.title, {
       automaticallyListOnSpotlight: true, // ignored on Android
-      canonicalUrl: this.props.route.url,
-      title: this.props.route.title,
-      contentImageUrl: this.props.route.image,
+      canonicalUrl: this.props.navigation.state.params.url,
+      title: this.props.navigation.state.params.title,
+      contentImageUrl: this.props.navigation.state.params.image,
       contentIndexingMode: 'public' // for Spotlight indexing
     })
     this.buo.logEvent(BranchEvent.ViewItem)
@@ -54,7 +53,7 @@ export default class Article extends Component {
         style={styles.container} >
         <WebView
           style={styles.webView}
-          source={{uri: this.props.route.url}} />
+          source={{uri: this.props.navigation.state.params.url}} />
         <TouchableHighlight
           onPress={() => this.onShare()}
           style={styles.button} >
@@ -69,14 +68,14 @@ export default class Article extends Component {
 
   async onShare() {
     let { channel, completed, error } = await this.buo.showShareSheet({
-      emailSubject: "The Planet " + this.props.route.title,
-      messageBody: "Read about the planet " + this.props.route.title + ".",
-      messageHeader: "The Planet " + this.props.route.title
+      emailSubject: "The Planet " + this.props.navigation.state.params.title,
+      messageBody: "Read about the planet " + this.props.navigation.state.params.title + ".",
+      messageHeader: "The Planet " + this.props.navigation.state.params.title
     }, {
       feature: "share",
       channel: "RNApp"
     }, {
-      $desktop_url: this.props.route.url,
+      $desktop_url: this.props.navigation.state.params.url,
       $ios_deepview: "branch_default"
     })
 

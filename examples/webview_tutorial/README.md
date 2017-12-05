@@ -433,19 +433,19 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
 ## React Native setup
 
-1. Open the file `src/App.js`. Add the following line to import the react-native-branch SDK:
+1. Open the file `src/ArticleList.js`. Add the following line to import the react-native-branch SDK:
 
     ```js
     import branch from 'react-native-branch'
     ```
 
-2. Add a property to the App class called `_unsubscribeFromBranch`. Initialize it to null:
+2. Add a property to the ArticleList class called `_unsubscribeFromBranch`. Initialize it to null:
 
     ```js
     _unsubscribeFromBranch = null
     ```
 
-3. Add a `componentDidMount` method to the App class:
+3. Add a `componentDidMount` method to the ArticleList class:
 
     ```js
     componentDidMount() {
@@ -465,12 +465,12 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
         let image = params.$og_image_url
 
         // Now push the view for this URL
-        this.navigator.push({ title: title, url: url, image: image })
+        this.props.navigation.navigate('Article', {url: url, title: title, image: image})
       })
     }
     ```
 
-4. Add a `componentWillUnmount` method to the App class:
+4. Add a `componentWillUnmount` method to the ArticleList class:
 
     ```js
     componentWillUnmount() {
@@ -481,24 +481,46 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     }
     ```
 
-    The complete App class should look like this:
+    The complete ArticleList class should look like this:
 
     ```js
     import React, { Component } from 'react'
-    import { Button, StyleSheet, Text, View } from 'react-native'
-    import { Navigator } from 'react-native-deprecated-custom-components'
+    import { Text, Image, ListView, StyleSheet, TouchableHighlight, View } from 'react-native'
 
-    // Step 1: import branch
+    // Step 1: import Branch
     import branch from 'react-native-branch'
 
-    import ArticleList from './ArticleList'
     import Article from './Article'
 
-    export default class App extends Component {
-      navigator = null
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        marginTop: 0
+      },
+    })
 
+    class ArticleList extends Component {
       // Step 2: Add _unsubscribeFromBranch property
       _unsubscribeFromBranch = null
+
+      constructor(props) {
+        super(props)
+
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+        this.state = {
+          dataSource: ds.cloneWithRows([
+            { title: 'Mercury', url: 'https://en.wikipedia.org/wiki/Mercury_(planet)', image: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Mercury_in_color_-_Prockter07-edit1.jpg' },
+            { title: 'Venus', url: 'https://en.wikipedia.org/wiki/Venus', image: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg' },
+            { title: 'Earth', url: 'https://en.wikipedia.org/wiki/Earth', image: 'https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg' },
+            { title: 'Mars', url: 'https://en.wikipedia.org/wiki/Mars', image: 'https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg' },
+            { title: 'Jupiter', url: 'https://en.wikipedia.org/wiki/Jupiter', image: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg' },
+            { title: 'Saturn', url: 'https://en.wikipedia.org/wiki/Saturn', image: 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Saturn-27-03-04.jpeg' },
+            { title: 'Uranus', url: 'https://en.wikipedia.org/wiki/Uranus', image: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg' },
+            { title: 'Neptune', url: 'https://en.wikipedia.org/wiki/Neptune', image: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg' },
+            { title: 'Pluto', url: 'https://en.wikipedia.org/wiki/Pluto', image: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Nh-pluto-in-true-color_2x_JPEG-edit-frame.jpg' },
+          ]),
+        }
+      }
 
       // Step 3: Add componentDidMount
       componentDidMount() {
@@ -518,7 +540,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
           let image = params.$og_image_url
 
           // Now push the view for this URL
-          this.navigator.push({ title: title, url: url, image: image })
+          this.props.navigation.navigate('Article', {url: url, title: title, image: image})
         })
       }
 
@@ -532,44 +554,34 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
       render() {
         return (
-          <Navigator
-            initialRoute={{ title: "The Planets", url: null }}
-            navigationBar={
-               <Navigator.NavigationBar
-                 routeMapper={{
-                    LeftButton: (route, navigator, index, navState) => {
-                      if (route.url) return (
-                        <Button
-                          onPress={() => {navigator.pop()}}
-                          title={"Back"} />
-                      )
-
-                      return <View />
-                    },
-                    RightButton: (route, navigator, index, navState) => {
-                      return <View />
-                    },
-                    Title: (route, navigator, index, navState) => { return (
-                      <Text
-                        style={{fontSize: 23, fontWeight: 'bold'}}>
-                        {route.title}
-                      </Text>
-                    ) },
-                 }}
-               />
-             }
-            renderScene={(route, navigator) => {
-              // hack
-              this.navigator = navigator
-
-              if (!route.url) {
-                return <ArticleList navigator={navigator} />
-              }
-              return <Article route={route} />
-            }} />
+          <ListView
+            style={styles.container}
+            dataSource={this.state.dataSource}
+            renderRow={(data) =>
+              <TouchableHighlight
+                onPress={() => { this._showArticle(data) }}>
+                <View
+                  style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                  <Image
+                    style={{width: 80, height: 80}}
+                    source={{uri: data.image}}/>
+                  <Text
+                    style={{fontWeight: 'bold', fontSize: 17, margin: 20}}>
+                    {data.title}
+                  </Text>
+                </View>
+              </TouchableHighlight>}
+          />
         )
       }
+
+      _showArticle(data) {
+        console.log("Show article with URL " + data.url)
+        this.props.navigation.navigate('Article', data)
+      }
     }
+
+    export default ArticleList
     ```
 
 5. Open the `src/Article.js` class. Import the `branch` instance and the `BranchEvent`
@@ -590,11 +602,11 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
     ```js
     async componentDidMount() {
-      this.buo = await branch.createBranchUniversalObject("planet/" + this.props.route.title, {
+      this.buo = await branch.createBranchUniversalObject("planet/" + this.props.navigation.state.params.title, {
         automaticallyListOnSpotlight: true, // ignored on Android
-        canonicalUrl: this.props.route.url,
-        title: this.props.route.title,
-        contentImageUrl: this.props.route.image,
+        canonicalUrl: this.props.navigation.state.params.url,
+        title: this.props.navigation.state.params.title,
+        contentImageUrl: this.props.navigation.state.params.image,
         contentIndexingMode: 'public' // for Spotlight indexing
       })
       this.buo.logEvent(BranchEvent.ViewItem)
@@ -616,14 +628,14 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
     ```js
     let { channel, completed, error } = await this.buo.showShareSheet({
-      emailSubject: "The Planet " + this.props.route.title,
-      messageBody: "Read about the planet " + this.props.route.title + ".",
-      messageHeader: "The Planet " + this.props.route.title
+      emailSubject: "The Planet " + this.props.navigation.state.params.title,
+      messageBody: "Read about the planet " + this.props.navigation.state.params.title + ".",
+      messageHeader: "The Planet " + this.props.navigation.state.params.title
     }, {
       feature: "share",
       channel: "RNApp"
     }, {
-      $desktop_url: this.props.route.url,
+      $desktop_url: this.props.navigation.state.params.url,
       $ios_deepview: "branch_default"
     })
 
@@ -641,17 +653,15 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     import React, { Component } from 'react'
     import { StyleSheet, Text, TouchableHighlight, View, WebView } from 'react-native'
 
-    // Step 5: Import branch and RegisterViewEvent
+    // Step 5: Import branch and BranchEvent
     import branch, { BranchEvent } from 'react-native-branch'
 
     const styles = StyleSheet.create({
       container: {
         flex: 1,
-        flexDirection: 'column',
-        marginTop: 64
+        flexDirection: 'column'
       },
       webView: {
-        flex: 0.85
       },
       button: {
         backgroundColor: '#cceeee',
@@ -674,11 +684,11 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
       // Step 7: Add componentDidMount
       async componentDidMount() {
-        this.buo = await branch.createBranchUniversalObject("planet/" + this.props.route.title, {
+        this.buo = await branch.createBranchUniversalObject("planet/" + this.props.navigation.state.params.title, {
           automaticallyListOnSpotlight: true, // ignored on Android
-          canonicalUrl: this.props.route.url,
-          title: this.props.route.title,
-          contentImageUrl: this.props.route.image,
+          canonicalUrl: this.props.navigation.state.params.url,
+          title: this.props.navigation.state.params.title,
+          contentImageUrl: this.props.navigation.state.params.image,
           contentIndexingMode: 'public' // for Spotlight indexing
         })
         this.buo.logEvent(BranchEvent.ViewItem)
@@ -698,7 +708,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
             style={styles.container} >
             <WebView
               style={styles.webView}
-              source={{uri: this.props.route.url}} />
+              source={{uri: this.props.navigation.state.params.url}} />
             <TouchableHighlight
               onPress={() => this.onShare()}
               style={styles.button} >
@@ -714,14 +724,14 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
       async onShare() {
         // Step 9: Implement onShare
         let { channel, completed, error } = await this.buo.showShareSheet({
-          emailSubject: "The Planet " + this.props.route.title,
-          messageBody: "Read about the planet " + this.props.route.title + ".",
-          messageHeader: "The Planet " + this.props.route.title
+          emailSubject: "The Planet " + this.props.navigation.state.params.title,
+          messageBody: "Read about the planet " + this.props.navigation.state.params.title + ".",
+          messageHeader: "The Planet " + this.props.navigation.state.params.title
         }, {
           feature: "share",
           channel: "RNApp"
         }, {
-          $desktop_url: this.props.route.url,
+          $desktop_url: this.props.navigation.state.params.url,
           $ios_deepview: "branch_default"
         })
 
