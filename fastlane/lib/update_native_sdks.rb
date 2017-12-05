@@ -177,7 +177,7 @@ module Fastlane
 
             file = group.new_file filename
 
-            if filename =~ /\.h$/
+            if is_header? filename
               copy_branch_sdk_headers_build_phase.add_file_reference file, true
               headers_build_phase.add_file_reference file, true
             else
@@ -220,7 +220,7 @@ module Fastlane
               remove_dangling_references child
             elsif child.isa == "PBXFileReference"
               next if File.exist? child.real_path
-              if child.path =~ /\.h$/
+              if is_header? child.path
                 copy_branch_sdk_headers_build_phase.remove_file_reference child
                 headers_build_phase.remove_file_reference child
               else
@@ -236,6 +236,10 @@ module Fastlane
         def remove_empty_groups(group)
           group.groups.each { |g| remove_empty_groups g }
           group.remove_from_project if group.empty?
+        end
+
+        def is_header?(path)
+          path =~ /\.(h|pch)$/
         end
 
         def check_file_refs
