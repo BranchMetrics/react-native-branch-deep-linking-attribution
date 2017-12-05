@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableHighlight, View, WebView } from 'react-native'
 
-// Step 5: Import branch and RegisterViewEvent
+// Step 5: Import branch and BranchEvent
 
 const styles = StyleSheet.create({
   container: {

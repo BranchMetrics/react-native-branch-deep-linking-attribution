@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Text, Image, ListView, StyleSheet, TouchableHighlight, View } from 'react-native'
 
+import branch from 'react-native-branch'
+
 import Article from './Article'
 
 const styles = StyleSheet.create({
@@ -11,6 +13,8 @@ const styles = StyleSheet.create({
 })
 
 class ArticleList extends Component {
+  _unsubscribeFromBranch = null
+
   constructor(props) {
     super(props)
 
@@ -27,6 +31,34 @@ class ArticleList extends Component {
         { title: 'Neptune', url: 'https://en.wikipedia.org/wiki/Neptune', image: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg' },
         { title: 'Pluto', url: 'https://en.wikipedia.org/wiki/Pluto', image: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Nh-pluto-in-true-color_2x_JPEG-edit-frame.jpg' },
       ]),
+    }
+  }
+
+  componentDidMount() {
+    this._unsubscribeFromBranch = branch.subscribe(({ error, params }) => {
+      if (error) {
+        console.error("Error from Branch: " + error)
+        return
+      }
+
+      console.log("Branch params: " + JSON.stringify(params))
+
+      if (!params['+clicked_branch_link']) return
+
+      // Get title and url for route
+      let title = params.$og_title
+      let url = params.$canonical_url
+      let image = params.$og_image_url
+
+      // Now push the view for this URL
+      this.props.navigation.navigate('Article', { url: url, title: title, image: image })
+    })
+  }
+
+  componentWillUnmount() {
+    if (this._unsubscribeFromBranch) {
+      this._unsubscribeFromBranch()
+      this._unsubscribeFromBranch = null
     }
   }
 

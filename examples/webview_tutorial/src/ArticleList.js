@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Text, Image, ListView, StyleSheet, TouchableHighlight, View } from 'react-native'
 
+// Step 1: import Branch
+
 import Article from './Article'
 
 const styles = StyleSheet.create({
@@ -11,6 +13,8 @@ const styles = StyleSheet.create({
 })
 
 class ArticleList extends Component {
+  // Step 2: Add _unsubscribeFromBranch property
+
   constructor(props) {
     super(props)
 
@@ -29,6 +33,10 @@ class ArticleList extends Component {
       ]),
     }
   }
+
+  // Step 3: Add componentDidMount
+
+  // Step 4: Add componentWillUnmount
 
   render() {
     return (
