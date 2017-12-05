@@ -1,5 +1,5 @@
 import { NativeModules, Platform } from 'react-native'
-import { BranchEvent } from './BranchEvent'
+import BranchEvent from './BranchEvent'
 
 const { RNBranch } = NativeModules
 

@@ -27,6 +27,6 @@ lane :native_update do
   #   android_checkout: "2.14.0" , # any commit, branch or tag in the Android repo. Default: latest tag
   #   ios_checkout:     "0.21.11", # any commit, branch or tag in the iOS repo. Default: latest tag
   #   commit:               false, # Don't commit the results. Default: true
-  #   verbose:               true, # Generate verbose output. Default: false
+  #   verbose:               true  # Generate verbose output. Default: false
   # )
 end

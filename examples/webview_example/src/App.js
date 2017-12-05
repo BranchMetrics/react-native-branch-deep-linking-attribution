@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
-import { Navigator } from 'react-native-deprecated-custom-components'
 
 import branch from 'react-native-branch'
 
-import ArticleList from './ArticleList'
 import Article from './Article'
+import RootNavigator from './RootNavigator'
 
 export default class App extends Component {
   _unsubscribeFromBranch = null
-  navigator = null
 
   componentDidMount() {
     this._unsubscribeFromBranch = branch.subscribe(({ error, params }) => {
@@ -28,7 +26,7 @@ export default class App extends Component {
       let image = params.$og_image_url
 
       // Now push the view for this URL
-      this.navigator.push({ title: title, url: url, image: image })
+      // TODO: ^^
     })
   }
 
@@ -41,41 +39,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <Navigator
-        initialRoute={{ title: "The Planets", url: null }}
-        navigationBar={
-           <Navigator.NavigationBar
-             routeMapper={{
-                LeftButton: (route, navigator, index, navState) => {
-                  if (route.url) return (
-                    <Button
-                      onPress={() => {navigator.pop()}}
-                      title={"Back"} />
-                  )
-
-                  return <View />
-                },
-                RightButton: (route, navigator, index, navState) => {
-                  return <View />
-                },
-                Title: (route, navigator, index, navState) => { return (
-                  <Text
-                    style={{fontSize: 23, fontWeight: 'bold'}}>
-                    {route.title}
-                  </Text>
-                ) },
-             }}
-           />
-         }
-        renderScene={(route, navigator) => {
-          // hack
-          this.navigator = navigator
-
-          if (!route.url) {
-            return <ArticleList navigator={navigator} />
-          }
-          return <Article route={route} />
-        }} />
+      <RootNavigator />
     )
   }
 }
