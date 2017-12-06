@@ -191,3 +191,11 @@ test('customData is correct', t => {
   t.is('object', typeof(event.customData))
   t.is('value', event.customData.key)
 })
+
+// --- _identFromMessage
+
+test('_identFromMessage parses a UUID from text', t => {
+  const event = new BranchEvent('Name')
+  const message = 'BranchUniversalObject not found for ident 16432373-05cb-4b42-85a0-55599e28c515.'
+  t.is('16432373-05cb-4b42-85a0-55599e28c515', event._identFromMessage(message))
+})
