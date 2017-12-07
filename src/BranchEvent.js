@@ -81,6 +81,8 @@ export default class BranchEvent {
   customData = null
 
   /**
+   * Constructs a new BranchEvent from arguments
+   *
    * @param {!string} name - The name of the event. May be a standard Branch event
    *   or a custom event name.
    * @param {?(Object|Object[])} contentItems - One or more Branch Universal Objects associated with this event, or null.
@@ -119,25 +121,35 @@ export default class BranchEvent {
   }
 
   /**
-   * Log this event
+   * Log this event. This method is always successful. It queues events to be
+   * transmitted whenever the service is available. It returns a promise that
+   * is resolved once the native logEvent call is complete. The promise always
+   * returns null.
+   *
+   * @return {null} Always returns null
    */
-  logEvent() {
+  async logEvent() {
     const idents = this.contentItems.map((b) => b.ident)
-    return RNBranch.logEvent(idents, this.name, this._convertParams())
-      .catch ((error) => {
+    try {
+      return await RNBranch.logEvent(idents, this.name, this._convertParams())
+    }
+    catch (error) {
       if (error.code != 'RNBranch::Error::BUONotFound') {
+        // This is the only reason this promise should ever be rejected,
+        // but in case anything else is ever thrown, throw it out to the
+        // caller.
         throw error
       }
 
       // Native BUO not found (expired from cache). Find the JS instance and
       // have it create a new native instance with a new ident.
-      let ident = this._identFromMessage(error.message)
+      const ident = this._identFromMessage(error.message)
       const buo = this.contentItems.find((b) => b.ident == ident)
-      return buo._newIdent().then((ident) => {
-        // Now that a fresh BUO has been created, call this method again.
-        return this.logEvent()
-      })
-    })
+      await buo._newIdent()
+
+      // Now that a fresh BUO has been created, call this method again.
+      return await this.logEvent()
+    }
   }
 
   // Parse the ident of the missing BUO out of the error text.
@@ -163,7 +175,15 @@ export default class BranchEvent {
     if (this.affiliation) params.affiliation = this.affiliation
     if (this.description) params.description = this.description
     if (this.searchQuery) params.searchQuery = this.searchQuery
-    if (this.customData) params.customData = this.customData
+    if (this.customData) {
+      params.customData = this.customData
+      for (const key in params.customData) {
+        const valueType = typeof params.customData[key]
+        if (valueType == 'string') continue
+        console.info('[Branch] customMetadata values must be strings. Value for property ' + key + ' has type ' + valueType + '.')
+        // TODO: throw?
+      }
+    }
 
     return params
   }

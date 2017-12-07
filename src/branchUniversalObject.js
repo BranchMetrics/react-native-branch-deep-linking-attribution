@@ -6,28 +6,50 @@ const { RNBranch } = NativeModules
 export default async function createBranchUniversalObject(identifier, options = {}) {
   if (typeof identifier !== 'string') throw new Error('react-native-branch: identifier must be a string')
 
+  const contentMetadata = options.contentMetadata || {}
+
+  if (contentMetadata.customMetadata) {
+    for (const key in contentMetadata.customMetadata) {
+      const valueType = typeof contentMetadata.customMetadata[key]
+      if (valueType == 'string') continue
+      console.info('[Branch] customMetadata values must be strings. Value for property ' + key + ' has type ' + valueType + '.')
+      // TODO: throw?
+    }
+  }
+
+  // For the benefit of NSDecimalNumber on iOS.
+  const price = contentMetadata.price === undefined ? undefined : '' + contentMetadata.price
+
   const branchUniversalObject = {
     canonicalIdentifier: identifier,
+    contentMetadata: {
+      price: price,
+      ...contentMetadata
+    },
     ...options
   }
 
-  if (branchUniversalObject.automaticallyListOnSpotlight !== undefined) {
+  if (options.automaticallyListOnSpotlight !== undefined) {
     console.info('[Branch] automaticallyListOnSpotlight is deprecated. Please use locallyIndex instead.')
   }
 
-  if (branchUniversalObject.price !== undefined) {
+  if (options.price !== undefined) {
     console.info('[Branch] price is deprecated. Please use contentMetadata.price instead.')
   }
 
-  if (branchUniversalObject.metadata !== undefined) {
+  if (options.currency !== undefined) {
+    console.info('[Branch] currency is deprecated. Please use contentMetadata.price instead.')
+  }
+
+  if (options.metadata !== undefined) {
     console.info('[Branch] metadata is deprecated. Please use contentMetadata.customMetadata instead.')
   }
 
-  if (branchUniversalObject.contentIndexingMode !== undefined) {
+  if (options.contentIndexingMode !== undefined) {
     console.info('[Branch] contentIndexingMode is deprecated. Please use locallyIndex or publiclyIndex instead.')
   }
 
-  let { ident } = await RNBranch.createUniversalObject(branchUniversalObject)
+  const { ident } = await RNBranch.createUniversalObject(branchUniversalObject)
 
   return {
     ident: ident,
