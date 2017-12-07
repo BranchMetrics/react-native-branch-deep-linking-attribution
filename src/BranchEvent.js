@@ -160,7 +160,6 @@ export default class BranchEvent {
   }
 
   _convertParams() {
-    // make a copy
     let params = {}
 
     if (this.transactionID) params.transactionID = this.transactionID
