@@ -179,7 +179,7 @@ export default class BranchEvent {
       for (const key in params.customData) {
         const valueType = typeof params.customData[key]
         if (valueType == 'string') continue
-        console.info('[Branch] customMetadata values must be strings. Value for property ' + key + ' has type ' + valueType + '.')
+        console.warn('[Branch] customMetadata values must be strings. Value for property ' + key + ' has type ' + valueType + '.')
         // TODO: throw?
       }
     }

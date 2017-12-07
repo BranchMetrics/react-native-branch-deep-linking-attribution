@@ -12,7 +12,7 @@ export default async function createBranchUniversalObject(identifier, options = 
     for (const key in contentMetadata.customMetadata) {
       const valueType = typeof contentMetadata.customMetadata[key]
       if (valueType == 'string') continue
-      console.info('[Branch] customMetadata values must be strings. Value for property ' + key + ' has type ' + valueType + '.')
+      console.warn('[Branch] customMetadata values must be strings. Value for property ' + key + ' has type ' + valueType + '.')
       // TODO: throw?
     }
   }
