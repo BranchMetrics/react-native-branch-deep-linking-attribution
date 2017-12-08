@@ -68,6 +68,10 @@ RCT_EXPORT_MODULE();
     }
 }
 
++ (BOOL)requiresMainQueueSetup {
+    return YES;
+}
+
 + (void)setupBranchInstance:(Branch *)instance
 {
     RNBranchConfig *config = RNBranchConfig.instance;
