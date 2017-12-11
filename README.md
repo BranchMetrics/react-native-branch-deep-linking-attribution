@@ -71,7 +71,7 @@ ___
 ### Native iOS app using the React pod
 
 Only follow these instructions if you are already using the React pod from node_modules. This is usually
-done in native apps that integrate React Native components.
+done in native apps that integrate a React Native components.
 
 1. Add the following to your Podfile:
     ```Ruby
@@ -80,7 +80,7 @@ done in native apps that integrate React Native components.
     ```
     Adjust the path if necessary to indicate the location of your `node_modules` subdirectory.
 2. Run `pod install` to regenerate the Pods project with these new dependencies.
-2. (Optional) Add a branch.json file to the your app project. See https://rnbranch.app.link/branch-json.
+2. (Optional) Add a branch.json file to your app project. See https://rnbranch.app.link/branch-json.
 4. Follow the [setup instructions](#setup).
 
 ___
@@ -89,7 +89,7 @@ ___
 
 As of version 2.0.0, the native Branch SDKs are included in the module and must not be installed
 from elsewhere (CocoaPods, Carthage or manually). When updating from an earlier
-versions of `react-native-branch`, you must remove the Branch SDK that was
+version of `react-native-branch`, you must remove the Branch SDK that was
 previously taken from elsewhere.
 
 #### Android
@@ -888,7 +888,7 @@ Here are a set of best practices to ensure that your analytics are correct, and 
 
 1. Set the `canonicalIdentifier` to a unique, de-duped value across instances of the app.
 2. Ensure that the `title`, `contentDescription` and `contentImageUrl` properly represent the object.
-3. Initialize the Branch Universal Object and call `userCompletedAction` with the `RegisterViewEvent` **on page load** (in `componentDidMount`).
+3. Initialize the Branch Universal Object and call `logEvent(BranchEvent.ViewItem)` **on page load** (in `componentDidMount`).
 4. Call `showShareSheet` and `generateShortLink` later in the life cycle, when the user takes an action that needs a link.
 5. Call the additional object events (purchase, share completed, etc) when the corresponding user action is taken.
 
@@ -931,10 +931,19 @@ below.
 import branch from 'react-native-branch'
 
 let branchUniversalObject = await branch.createBranchUniversalObject('canonicalIdentifier', {
-  automaticallyListOnSpotlight: true,
-  metadata: {prop1: 'test', prop2: 'abc'},
+  locallyIndex: true,
   title: 'Cool Content!',
-  contentDescription: 'Cool Content Description'})
+  contentDescription: 'Cool Content Description'}),
+  contentMetadata: {
+    ratingAverage: 4.2,
+    ratingCount: 100,
+    ratingMax: 5.0,
+    customMetadata: {
+      prop1: 'test',
+      prop2: 'abc'
+    }
+  }
+})
 ```
 
 ___
@@ -975,21 +984,14 @@ branchUniversalObject.logEvent(BranchEvent.Purchase, {
 
 ### List content on Spotlight
 
-To list content on Spotlight (iOS), the preferred practice is to set the `automaticallyListOnSpotlight`
-property to `true` in the `createBranchUniversalObject` method and call `userCompletedAction(RegisterViewEvent)`
-on the Branch Universal Object when the view appears. The content will be listed on Spotlight
-when `userCompletedAction` is called. There is also a `listOnSpotlight()` method on the Branch Universal
-Object that can be used for this purpose. Note that this method and the
-`automaticallyListOnSpotlight` property are ignored on Android.
+To list content on Spotlight, set the `locallyIndex` property to true and log a
+`BranchEvent.ViewItem` or `BranchEvent.ViewItems` event.
 
 **Note**: Listing on Spotlight requires adding `CoreSpotlight.framework` to your
 Xcode project.
 
-#### Method
-
-```js
-branchUniversalObject.listOnSpotlight()
-```
+Note that the `automaticallyListOnSpotlight` property and the `listOnSpotlight()`
+method are deprecated in favor of this mechanism.
 
 #### Example
 
@@ -997,21 +999,11 @@ branchUniversalObject.listOnSpotlight()
 import branch, { RegisterViewEvent } from 'react-native-branch'
 
 let branchUniversalObject = await branch.createBranchUniversalObject('canonicalIdentifier', {
-  automaticallyListOnSpotlight: true,
+  locallyIndex: true,
   // other properties
 })
 
-branchUniversalObject.userCompletedAction(RegisterViewEvent)
-```
-
-or
-
-```js
-import branch from 'react-native-branch'
-
-let branchUniversalObject = await branch.createBranchUniversalObject(...)
-
-branchUniversalObject.listOnSpotlight()
+branchUniversalObject.logEvent(BranchEvent.ViewItem)
 ```
 
 ___
@@ -1130,14 +1122,14 @@ branchUniversalObject.release()
 #### Example
 
 ```js
-import branch, { RegisterViewEvent } from `react-native-branch
+import branch, { BranchEvent } from `react-native-branch
 
 class CustomComponent extends Component {
   buo = null
 
   componentDidMount() {
     this.buo = await branch.createBranchUniversalObject(...)
-    this.buo.userCompletedAction(RegisterViewEvent)
+    this.buo.logeEvent(BranchEvent.ViewItem)
   }
 
   componentWillUnmount() {
@@ -1155,18 +1147,130 @@ ___
 
 |         Key                  | TYPE   |             DESCRIPTION                                |
 | ---------------------------- | ------ | ------------------------------------------------------ |
-| automaticallyListOnSpotlight | Bool   | List this item on Spotlight (iOS). Ignored on Android. |
+| automaticallyListOnSpotlight (deprecated) | Bool   | List this item on Spotlight (iOS). Ignored on Android. **Deprecated.** Please use locallyIndex instead. |
 | canonicalIdentifier          | String | The object identifier                                  |
 | contentDescription           | String | Object Description                                     |
 | contentImageUrl              | String | The Image URL                                          |
-| contentIndexingMode          | String | Indexing Mode 'private' or 'public'                    |
-| currency                     | String | A 3-letter ISO currency code (used with price)         |
+| contentIndexingMode (deprecated) | String | Indexing Mode 'private' or 'public' **Deprecated.** Please use locallyIndex and publiclyIndex instead. |
+| contentMetadata              | Object | See [Branch Universal Object Content Metadata](#branch-universal-object-content-metadata) |
+| currency (deprecated)        | String | A 3-letter ISO currency code (used with price) **Deprecated.** Please use contentMetadata.currency instead. |
 | expirationDate               | String | A UTC expiration date, e.g. 2018-02-01T00:00:00        |
 | keywords                     | Array  | An array of keyword strings                            |
-| metadata                     | Object | Custom key/value                                       |
-| price                        | Float  | A floating-point price (used with currency)            |
+| locallyIndex                 | Bool   | List this item on Spotlight (iOS). No current Android implementation. |
+| metadata (deprecated)        | Object | Custom key/value. **Deprecated.** Please use contentMetadata.customMetadata instead. |
+| price (deprecated)           | Float  | A floating-point price (used with currency) **Deprecated.** Please use contentMetadata.price instead. |
+| publiclyIndex                | Bool   | List in a public search index.                         |
 | title                        | String | The object title                                       |
-| type                         | String | MIME type for this content                             |
+| type (deprecated)            | String | MIME type for this content **Deprecated.** Please use contentMetadata.contentSchema instead.|
+
+___
+
+#### Branch Universal Object Content Metadata
+
+| Key | TYPE | DESCRIPTION |
+| --- | ---- | ----------- |
+| contentSchema | String | See [Content Schema](#content-schema) |
+| quantity | Number | Item quantity |
+| price | String/Number | Used with currency |
+| currency | String | An ISO currency code. Must also specify price. |
+| sku | String | Product SKU |
+| productName | String | Product name |
+| productBrand | String | Product brand |
+| productCategory | String | See [Product Category](#product-category) |
+| productVariant | String | Product variant |
+| condition | String | See [Condition](#condition) |
+| ratingAverage | Number | Average rating |
+| ratingCount | Number | Rating count |
+| ratingMax | Number | Maximum rating |
+| addressStreet | String | Address street |
+| addressCity | String | Address city |
+| addressRegion | String | Address region |
+| addressCountry | String | Address country |
+| addressPostalCode | String | Address postal code |
+| latitude | Number | Location latitude |
+| longitude | Number | Location longitude |
+| imageCaptions | Array | Array of strings |
+| customMetadata | Object | Values must be strings |
+
+___
+
+#### Content Schema
+
+Allowed string values for Branch Universal Object contentSchema property.
+
+| Value |
+| ----- |
+| 'COMMERCE_AUCTION' |
+| 'COMMERCE_BUSINESS' |
+| 'COMMERCE_OTHER' |
+| 'COMMERCE_PRODUCT' |
+| 'COMMERCE_RESTAURANT' |
+| 'COMMERCE_SERVICE' |
+| 'COMMERCE_TRAVEL_FLIGHT' |
+| 'COMMERCE_TRAVEL_HOTEL' |
+| 'COMMERCE_TRAVEL_OTHER' |
+| 'GAME_STATE' |
+| 'MEDIA_IMAGE' |
+| 'MEDIA_MIXED' |
+| 'MEDIA_MUSIC' |
+| 'MEDIA_OTHER' |
+| 'MEDIA_VIDEO' |
+| 'OTHER' |
+| 'TEXT_ARTICLE' |
+| 'TEXT_BLOG' |
+| 'TEXT_OTHER' |
+| 'TEXT_RECIPE' |
+| 'TEXT_REVIEW' |
+| 'TEXT_SEARCH_RESULTS' |
+| 'TEXT_STORY' |
+| 'TEXT_TECHNICAL_DOC' |
+
+___
+
+#### Condition
+
+Allowed string values for Branch Universal Object condition property.
+
+| Value |
+| ----- |
+| 'OTHER' |
+| 'EXCELLENT' |
+| 'NEW' |
+| 'GOOD' |
+| 'FAIR' |
+| 'POOR' |
+| 'USED' |
+| 'REFURBISHED' |
+
+___
+
+#### Product Category
+
+Allowed string values for Branch Universal Object productCategory property.
+
+| Value |
+| ----- |
+| 'Animals & Pet Supplies' |
+| 'Apparel & Accessories' |
+| 'Arts & Entertainment' |
+| 'Baby & Toddler' |
+| 'Business & Industrial' |
+| 'Cameras & Optics' |
+| 'Electronics' |
+| 'Food, Beverages & Tobacco' |
+| 'Furniture' |
+| 'Hardware' |
+| 'Health & Beauty' |
+| 'Home & Garden' |
+| 'Luggage & Bags' |
+| 'Mature' |
+| 'Media' |
+| 'Office Supplies' |
+| 'Religious & Ceremonial' |
+| 'Software' |
+| 'Sporting Goods' |
+| 'Toys & Games' |
+| 'Vehicles & Parts' |
 
 ___
 

@@ -44,6 +44,8 @@
 		6A8CCA28C8A80B691A18D40A /* BranchRedeemRewardsRequest.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 8180B40E8B617C5D0E6424ED /* BranchRedeemRewardsRequest.h */; };
 		733D82947B6CF7343878E211 /* BranchShortUrlRequest.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 3349ABB5B34244E9FA786F6D /* BranchShortUrlRequest.h */; };
 		78BA917C5753750BE8799085 /* BranchShortUrlRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 3349ABB5B34244E9FA786F6D /* BranchShortUrlRequest.h */; };
+		7B03296A1FD9A76F0010D948 /* BranchContentMetadata+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0329681FD9A76E0010D948 /* BranchContentMetadata+RNBranch.m */; };
+		7B03296B1FD9A76F0010D948 /* BranchContentMetadata+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0329691FD9A76F0010D948 /* BranchContentMetadata+RNBranch.h */; };
 		7B1CBF301EE8B4C6002E5D0D /* RNBranchConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1CBF2E1EE8B4C6002E5D0D /* RNBranchConfig.h */; };
 		7B1CBF311EE8B4C6002E5D0D /* RNBranchConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1CBF2F1EE8B4C6002E5D0D /* RNBranchConfig.m */; };
 		7B1D33561E410DD200755B98 /* BranchLinkProperties+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1D334E1E410DD200755B98 /* BranchLinkProperties+RNBranch.h */; };
@@ -327,6 +329,8 @@
 		675CB88784F1EF26A881E32B /* BranchInstallRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = BranchInstallRequest.h; sourceTree = "<group>"; };
 		6E1CAD63660ED422BCA9C3B6 /* BNCLocalization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BNCLocalization.m; sourceTree = "<group>"; };
 		70FB06DF5DCBF779F2EC8ECE /* BranchUserCompletedActionRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BranchUserCompletedActionRequest.m; sourceTree = "<group>"; };
+		7B0329681FD9A76E0010D948 /* BranchContentMetadata+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BranchContentMetadata+RNBranch.m"; sourceTree = "<group>"; };
+		7B0329691FD9A76F0010D948 /* BranchContentMetadata+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchContentMetadata+RNBranch.h"; sourceTree = "<group>"; };
 		7B1CBF2E1EE8B4C6002E5D0D /* RNBranchConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchConfig.h; sourceTree = "<group>"; };
 		7B1CBF2F1EE8B4C6002E5D0D /* RNBranchConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchConfig.m; sourceTree = "<group>"; };
 		7B1D334E1E410DD200755B98 /* BranchLinkProperties+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchLinkProperties+RNBranch.h"; sourceTree = "<group>"; };
@@ -578,6 +582,8 @@
 			isa = PBXGroup;
 			children = (
 				7B7C4C621E6633C900A27265 /* Branch-SDK */,
+				7B0329691FD9A76F0010D948 /* BranchContentMetadata+RNBranch.h */,
+				7B0329681FD9A76E0010D948 /* BranchContentMetadata+RNBranch.m */,
 				7B7D273E1FCE3BD2008E3EDE /* BranchEvent+RNBranch.h */,
 				7B7D273F1FCE3BD2008E3EDE /* BranchEvent+RNBranch.m */,
 				7B1D334E1E410DD200755B98 /* BranchLinkProperties+RNBranch.h */,
@@ -715,6 +721,7 @@
 				BCAEDA05B3BBE891231DFF69 /* BranchRedeemRewardsRequest.h in Headers */,
 				488EB3F2F9E9E1EA535E4836 /* BranchRegisterViewRequest.h in Headers */,
 				2390AD03FD8A6B9E37E54417 /* BranchSetIdentityRequest.h in Headers */,
+				7B03296B1FD9A76F0010D948 /* BranchContentMetadata+RNBranch.h in Headers */,
 				78BA917C5753750BE8799085 /* BranchShortUrlRequest.h in Headers */,
 				D4DDA73F5A61FF76F0D9D5AC /* BranchShortUrlSyncRequest.h in Headers */,
 				06814E00A2F3E0E52F81AF76 /* BranchSpotlightUrlRequest.h in Headers */,
@@ -845,6 +852,7 @@
 				87F45DF93E453AD30AB551C5 /* BranchSpotlightUrlRequest.m in Sources */,
 				426A6760B58CE8014588DB1B /* BranchUserCompletedActionRequest.m in Sources */,
 				E51F016EA544BFD646336A5B /* BranchDelegate.m in Sources */,
+				7B03296A1FD9A76F0010D948 /* BranchContentMetadata+RNBranch.m in Sources */,
 				0FCC733327564BE24A55A000 /* BNCAvailability.m in Sources */,
 				81928DC1592D0BC77325DA43 /* BNCSpotlightService.m in Sources */,
 				518EAD6A0B15A2B056F65396 /* BranchEvent.m in Sources */,

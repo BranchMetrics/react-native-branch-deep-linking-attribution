@@ -1,0 +1,1 @@
+../../../../../../ios/BranchContentMetadata+RNBranch.h

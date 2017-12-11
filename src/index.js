@@ -94,6 +94,7 @@ class Branch {
   userCompletedAction = (event, state = {}) => RNBranch.userCompletedAction(event, state)
   getShortUrl = RNBranch.getShortUrl
   sendCommerceEvent = (revenue, metadata) => {
+    console.info('[Branch] sendCommerceEvent is deprecated. Please use the BranchEvent class instead.')
     return RNBranch.sendCommerceEvent('' + revenue, metadata)
   }
   openURL = (url, options = {}) => {

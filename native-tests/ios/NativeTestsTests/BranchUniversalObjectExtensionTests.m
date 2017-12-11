@@ -16,6 +16,9 @@
 
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 @implementation BranchUniversalObjectExtensionTests
 
 #pragma mark - General tests
@@ -24,7 +27,7 @@
 {
     NSDictionary<NSString *, RNBranchProperty *> *supportedProperties = BranchUniversalObject.supportedProperties;
     
-    XCTAssertEqual(12, supportedProperties.count);
+    XCTAssertEqual(15, supportedProperties.count);
 
     XCTAssert([supportedProperties[@"automaticallyListOnSpotlight"] isEqual:
                [RNBranchProperty propertyWithSetterSelector:@selector(setAutomaticallyListOnSpotlightWithNumber:) type:NSNumber.class]]);
@@ -151,3 +154,5 @@
 }
 
 @end
+
+#pragma clang diagnostic pop

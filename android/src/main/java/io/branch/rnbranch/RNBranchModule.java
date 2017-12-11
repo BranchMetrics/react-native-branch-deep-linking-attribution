@@ -622,6 +622,100 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         return universalObject;
     }
 
+    public ContentMetadata createContentMetadata(ReadableMap map) {
+        ContentMetadata metadata = new ContentMetadata();
+
+        if (map.hasKey("contentSchema")) {
+            BranchContentSchema schema = BranchContentSchema.valueOf(map.getString("contentSchema"));
+            metadata.setContentSchema(schema);
+        }
+
+        if (map.hasKey("quantity")) {
+            metadata.setQuantity(map.getDouble("quantity"));
+        }
+
+        if (map.hasKey("price")) {
+            double price = Double.parseDouble(map.getString("price"));
+            CurrencyType currency = null;
+            if (map.hasKey("currency")) currency = CurrencyType.valueOf(map.getString("currency"));
+            metadata.setPrice(price, currency);
+        }
+
+        if (map.hasKey("sku")) {
+            metadata.setSku(map.getString("sku"));
+        }
+
+        if (map.hasKey("productName")) {
+            metadata.setProductName(map.getString("productName"));
+        }
+
+        if (map.hasKey("productBrand")) {
+            metadata.setProductBrand(map.getString("productBrand"));
+        }
+
+        if (map.hasKey("productCategory")) {
+            ProductCategory category = ProductCategory.valueOf(map.getString("productCategory"));
+            metadata.setProductCategory(category);
+        }
+
+        if (map.hasKey("productVariant")) {
+            metadata.setProductVariant(map.getString("productVariant"));
+        }
+
+        if (map.hasKey("condition")) {
+            ContentMetadata.CONDITION condition = ContentMetadata.CONDITION.valueOf(map.getString("condition"));
+            metadata.setProductCondition(condition);
+        }
+
+        if (map.hasKey("ratingAverage") || map.hasKey("ratingMax") || map.hasKey("ratingCount")) {
+            Double average = null, max = null;
+            Integer count = null;
+            if (map.hasKey("ratingAverage")) average = map.getDouble("ratingAverage");
+            if (map.hasKey("ratingCount")) count = map.getInt("ratingCount");
+            if (map.hasKey("ratingMax")) max = map.getDouble("ratingMax");
+            metadata.setRating(average, max, count);
+        }
+
+        if (map.hasKey("addressStreet") ||
+                map.hasKey("addressCity") ||
+                map.hasKey("addressRegion") ||
+                map.hasKey("addressCountry") ||
+                map.hasKey("addressPostalCode")) {
+            String street = null, city = null, region = null, country = null, postalCode = null;
+            if (map.hasKey("addressStreet")) street = map.getString("addressStreet");
+            if (map.hasKey("addressCity")) street = map.getString("addressCity");
+            if (map.hasKey("addressRegion")) street = map.getString("addressRegion");
+            if (map.hasKey("addressCountry")) street = map.getString("addressCountry");
+            if (map.hasKey("addressPostalCode")) street = map.getString("addressPostalCode");
+            metadata.setAddress(street, city, region, country, postalCode);
+        }
+
+        if (map.hasKey("latitude") || map.hasKey("longitude")) {
+            Double latitude = null, longitude = null;
+            if (map.hasKey("latitude")) latitude = map.getDouble("latitude");
+            if (map.hasKey("longitude")) longitude = map.getDouble("longitude");
+            metadata.setLocation(latitude, longitude);
+        }
+
+        if (map.hasKey("imageCaptions")) {
+            ReadableArray captions = map.getArray("imageCaptions");
+            for (int j=0; j < captions.size(); ++j) {
+                metadata.addImageCaptions(captions.getString(j));
+            }
+        }
+
+        if (map.hasKey("customMetadata")) {
+            ReadableMap customMetadata = map.getMap("customMetadata");
+            ReadableMapKeySetIterator it = customMetadata.keySetIterator();
+            while (it.hasNextKey()) {
+                String key = it.nextKey();
+                metadata.addCustomMetadata(key, customMetadata.getString(key));
+            }
+        }
+
+        return metadata;
+    }
+
     public BranchUniversalObject createBranchUniversalObject(ReadableMap branchUniversalObjectMap) {
         BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
                 .setCanonicalIdentifier(branchUniversalObjectMap.getString("canonicalIdentifier"));
@@ -630,6 +724,25 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         if (branchUniversalObjectMap.hasKey("canonicalUrl")) branchUniversalObject.setCanonicalUrl(branchUniversalObjectMap.getString("canonicalUrl"));
         if (branchUniversalObjectMap.hasKey("contentDescription")) branchUniversalObject.setContentDescription(branchUniversalObjectMap.getString("contentDescription"));
         if (branchUniversalObjectMap.hasKey("contentImageUrl")) branchUniversalObject.setContentImageUrl(branchUniversalObjectMap.getString("contentImageUrl"));
+
+        if (branchUniversalObjectMap.hasKey("locallyIndex")) {
+            if (branchUniversalObjectMap.getBoolean("locallyIndex")) {
+                branchUniversalObject.setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC);
+            }
+            else {
+                branchUniversalObject.setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PRIVATE);
+            }
+        }
+
+        if (branchUniversalObjectMap.hasKey("publiclyIndex")) {
+            if (branchUniversalObjectMap.getBoolean("publiclyIndex")) {
+                branchUniversalObject.setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC);
+            }
+            else {
+                branchUniversalObject.setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PRIVATE);
+            }
+        }
+
         if (branchUniversalObjectMap.hasKey("contentIndexingMode")) {
             switch (branchUniversalObjectMap.getType("contentIndexingMode")) {
                 case String:
@@ -688,6 +801,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }
 
         if (branchUniversalObjectMap.hasKey("type")) branchUniversalObject.setContentType(branchUniversalObjectMap.getString("type"));
+
+        if (branchUniversalObjectMap.hasKey("contentMetadata")) {
+            branchUniversalObject.setContentMetadata(createContentMetadata(branchUniversalObjectMap.getMap("contentMetadata")));
+        }
 
         return branchUniversalObject;
     }
