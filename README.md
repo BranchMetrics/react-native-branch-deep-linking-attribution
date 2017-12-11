@@ -931,10 +931,18 @@ below.
 import branch from 'react-native-branch'
 
 let branchUniversalObject = await branch.createBranchUniversalObject('canonicalIdentifier', {
-  automaticallyListOnSpotlight: true,
-  metadata: {prop1: 'test', prop2: 'abc'},
+  locallyIndex: true,
   title: 'Cool Content!',
-  contentDescription: 'Cool Content Description'})
+  contentDescription: 'Cool Content Description',
+  contentMetadata: {
+    price: 10,
+    currency: 'EUR',
+    customMetadata: {
+      prop1: 'test',
+      prop2: 'abc'
+    }
+  }
+})
 ```
 
 ___
