@@ -125,19 +125,19 @@ export default class BranchEvent {
     const idents = this.contentItems.map((b) => b.ident)
     return RNBranch.logEvent(idents, this.name, this._convertParams())
       .catch ((error) => {
-      if (error.code != 'RNBranch::Error::BUONotFound') {
-        throw error
-      }
+        if (error.code != 'RNBranch::Error::BUONotFound') {
+          throw error
+        }
 
       // Native BUO not found (expired from cache). Find the JS instance and
       // have it create a new native instance with a new ident.
-      let ident = this._identFromMessage(error.message)
-      const buo = this.contentItems.find((b) => b.ident == ident)
-      return buo._newIdent().then((ident) => {
+        let ident = this._identFromMessage(error.message)
+        const buo = this.contentItems.find((b) => b.ident == ident)
+        return buo._newIdent().then((ident) => {
         // Now that a fresh BUO has been created, call this method again.
-        return this.logEvent()
+          return this.logEvent()
+        })
       })
-    })
   }
 
   // Parse the ident of the missing BUO out of the error text.
