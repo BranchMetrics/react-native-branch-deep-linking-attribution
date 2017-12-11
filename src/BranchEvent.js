@@ -128,8 +128,9 @@ export default class BranchEvent {
    *
    * @return {null} Always returns null
    */
-  async logEvent() {
+  logEvent() {
     const idents = this.contentItems.map((b) => b.ident)
+
     try {
       return await RNBranch.logEvent(idents, this.name, this._convertParams())
     }
