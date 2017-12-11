@@ -128,7 +128,7 @@ export default class BranchEvent {
    *
    * @return {null} Always returns null
    */
-  logEvent() {
+  async logEvent() {
     const idents = this.contentItems.map((b) => b.ident)
 
     try {
