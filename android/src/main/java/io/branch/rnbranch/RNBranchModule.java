@@ -634,9 +634,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             metadata.setQuantity(map.getDouble("quantity"));
         }
 
-        if (map.hasKey("price") && map.hasKey("currency")) {
+        if (map.hasKey("price")) {
             double price = Double.parseDouble(map.getString("price"));
-            CurrencyType currency = CurrencyType.valueOf(map.getString("currency"));
+            CurrencyType currency = null;
+            if (map.hasKey("currency")) currency = CurrencyType.valueOf(map.getString("currency"));
             metadata.setPrice(price, currency);
         }
 
@@ -666,24 +667,34 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             metadata.setProductCondition(condition);
         }
 
-        if (map.hasKey("ratingAverage") && map.hasKey("ratingMax") && map.hasKey("ratingCount")) {
-            metadata.setRating(map.getDouble("ratingAverage"), map.getDouble("ratingMax"),  map.getInt("ratingCount"));
+        if (map.hasKey("ratingAverage") || map.hasKey("ratingMax") || map.hasKey("ratingCount")) {
+            Double average = null, max = null;
+            Integer count = null;
+            if (map.hasKey("ratingAverage")) average = map.getDouble("ratingAverage");
+            if (map.hasKey("ratingCount")) count = map.getInt("ratingCount");
+            if (map.hasKey("ratingMax")) max = map.getDouble("ratingMax");
+            metadata.setRating(average, max, count);
         }
 
-        if (map.hasKey("addressStreet") &&
-                map.hasKey("addressCity") &&
-                map.hasKey("addressRegion") &&
-                map.hasKey("addressCountry") &&
+        if (map.hasKey("addressStreet") ||
+                map.hasKey("addressCity") ||
+                map.hasKey("addressRegion") ||
+                map.hasKey("addressCountry") ||
                 map.hasKey("addressPostalCode")) {
-            metadata.setAddress(map.getString("addressStreet"),
-                    map.getString("addressCity"),
-                    map.getString("addressRegion"),
-                    map.getString("addressCountry"),
-                    map.getString("addressPostalCode"));
+            String street = null, city = null, region = null, country = null, postalCode = null;
+            if (map.hasKey("addressStreet")) street = map.getString("addressStreet");
+            if (map.hasKey("addressCity")) street = map.getString("addressCity");
+            if (map.hasKey("addressRegion")) street = map.getString("addressRegion");
+            if (map.hasKey("addressCountry")) street = map.getString("addressCountry");
+            if (map.hasKey("addressPostalCode")) street = map.getString("addressPostalCode");
+            metadata.setAddress(street, city, region, country, postalCode);
         }
 
-        if (map.hasKey("latitude") && map.hasKey("longitude")) {
-            metadata.setLocation(map.getDouble("latitude"), map.getDouble("longitude"));
+        if (map.hasKey("latitude") || map.hasKey("longitude")) {
+            Double latitude = null, longitude = null;
+            if (map.hasKey("latitude")) latitude = map.getDouble("latitude");
+            if (map.hasKey("longitude")) longitude = map.getDouble("longitude");
+            metadata.setLocation(latitude, longitude);
         }
 
         if (map.hasKey("imageCaptions")) {

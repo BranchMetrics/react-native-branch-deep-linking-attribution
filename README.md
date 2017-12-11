@@ -1170,27 +1170,27 @@ ___
 | Key | TYPE | DESCRIPTION |
 | --- | ---- | ----------- |
 | contentSchema | String | See [Content Schema](#content-schema) |
-| quantity | Number | |
-| price | String/Number | Must also specify currency. |
+| quantity | Number | Item quantity |
+| price | String/Number | Used with currency |
 | currency | String | An ISO currency code. Must also specify price. |
-| sku | String | |
-| productName | String | |
-| productBrand | String | |
+| sku | String | Product SKU |
+| productName | String | Product name |
+| productBrand | String | Product brand |
 | productCategory | String | See [Product Category](#product-category) |
-| productVariant | String | |
+| productVariant | String | Product variant |
 | condition | String | See [Condition](#condition) |
-| ratingAverage | Number | Must also specify ratingCount and ratingMax. |
-| ratingCount | Number | Must also specify ratingAverage and ratingMax. |
-| ratingMax | Number | Must also specify ratingAverage and ratingCount. |
-| addressStreet | String | Must specify all address fields. |
-| addressCity | String | Must specify all address fields. |
-| addressRegion | String | Must specify all address fields. |
-| addressCountry | String | Must specify all address fields. |
-| addressPostalCode | String | Must specify all address fields. |
-| latitude | Number | Must also specify longitude. |
-| longitude | Number | Must also specify latitude. |
-| imageCaptions | Array | |
-| customMetadata | Object | Values must be strings. |
+| ratingAverage | Number | Average rating |
+| ratingCount | Number | Rating count |
+| ratingMax | Number | Maximum rating |
+| addressStreet | String | Address street |
+| addressCity | String | Address city |
+| addressRegion | String | Address region |
+| addressCountry | String | Address country |
+| addressPostalCode | String | Address postal code |
+| latitude | Number | Location latitude |
+| longitude | Number | Location longitude |
+| imageCaptions | Array | Array of strings |
+| customMetadata | Object | Values must be strings |
 
 ___
 
