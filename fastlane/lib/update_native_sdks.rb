@@ -75,7 +75,7 @@ module Fastlane
         end
 
         def commit
-          sh "git commit -a -m'[Fastlane] Branch native SDK update: Android #{@android_version}, iOS #{@ios_version}'"
+          sh "git", "commit", "-a", "-m", "[Fastlane] Branch native SDK update: Android #{@android_version}, iOS #{@ios_version}"
         end
 
         def update_submodules(params)
@@ -114,9 +114,9 @@ module Fastlane
           # Remove the old and add the new
           Dir.chdir("#{@android_subdir}/libs") do
             old_jars = Dir['Branch*.jar']
-            sh "cp #{jar_path} ."
-            sh "git add Branch-#{version}.jar"
-            sh "git rm -f #{old_jars.join ' '}"
+            sh "cp", jar_path, "."
+            sh "git", "add", "Branch-#{version}.jar"
+            sh "git", "rm", "-f", *old_jars unless old_jars.empty?
           end
 
           # Patch build.gradle
@@ -138,8 +138,9 @@ module Fastlane
           branch_sdk_podspec_path = "#{@ios_subdir}/Branch-SDK.podspec"
 
           # Copy the podspec from the submodule
-          sh "cp native-sdks/ios/Branch.podspec #{branch_sdk_podspec_path}"
-          UI.user_error! "Unable to update #{branch_sdk_podspec_path}" unless $?.exitstatus == 0
+          sh "cp", "native-sdks/ios/Branch.podspec", branch_sdk_podspec_path do |status|
+            UI.user_error! "Unable to update #{branch_sdk_podspec_path}" unless status.success?
+          end
 
           # Change the pod name to Branch-SDK
           other_action.patch(
