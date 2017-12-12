@@ -1,6 +1,6 @@
 actions_path("lib")
 
-fastlane_version "2.26.1"
+fastlane_version "2.69.0"
 
 default_platform :ios
 

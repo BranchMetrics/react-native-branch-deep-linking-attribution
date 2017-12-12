@@ -9,35 +9,20 @@ module Fastlane
 
           update_submodules params
 
+          return unless @android_update_needed || @ios_update_needed
+
           @android_subdir = File.expand_path 'android', '.'
           @ios_subdir = File.expand_path 'ios', '.'
 
           # Update embedded Android SDK
-          update_android_jar
+          update_android_jar if @android_update_needed
 
           # Update embedded iOS SDK
-          update_ios_branch_source
-          update_branch_podspec_from_submodule
-          adjust_rnbranch_xcodeproj
-
-          %w{
-            examples/testbed_native_ios
-            examples/webview_example_native_ios
-            .
-          }.each { |f| other_action.yarn package_path: File.join("..", f, "package.json") }
-
-          %w{
-            examples/testbed_native_ios
-            examples/webview_example_native_ios
-            native-tests/ios
-          }.each do |folder|
-            other_action.cocoapods(
-              # relative to fastlane folder when using other_action
-              podfile: File.join("..", folder, "Podfile"),
-              silent: true,
-              use_bundle_exec: true
-            )
-            other_action.git_add(path: File.join("..", folder))
+          if @ios_update_needed
+            update_ios_branch_source
+            update_branch_podspec_from_submodule
+            adjust_rnbranch_xcodeproj
+            update_pods_in_tests_and_examples
           end
 
           commit if params[:commit]
@@ -75,7 +60,11 @@ module Fastlane
         end
 
         def commit
-          sh "git commit -a -m'[Fastlane] Branch native SDK update: Android #{@android_version}, iOS #{@ios_version}'"
+          message = "[Fastlane] Branch native SDK update:"
+          message << " #{@android_version} (Android)," if @android_update_needed
+          message << " #{@ios_version} (iOS)" if @ios_update_needed
+
+          sh "git", "commit", "-a", "-m", message.chomp(",")
         end
 
         def update_submodules(params)
@@ -85,6 +74,9 @@ module Fastlane
             folder = "native-sdks/#{platform}"
             Dir.chdir(folder) do
               UI.message "Updating submodule in #{folder}"
+
+              original_commit = current_commit
+
               sh "git checkout#{git_q_flag} master"
               sh "git pull --tags#{git_q_flag}" # Pull all available branch refs so anything can be checked out
               key = "#{platform}_checkout".to_sym
@@ -97,11 +89,22 @@ module Fastlane
                 version = checkout_last_git_tag
               end
 
-              instance_variable_set "@#{platform}_version", version
+              update_needed = current_commit != original_commit
 
-              UI.success "Updated submodule in #{folder}"
+              instance_variable_set "@#{platform}_version", version
+              instance_variable_set "@#{platform}_update_needed", update_needed
+
+              if update_needed
+                UI.success "Updated submodule in #{folder}"
+              else
+                UI.message "#{folder} is current. No update required."
+              end
             end
           end
+        end
+
+        def current_commit
+          `git rev-list HEAD --max-count=1`
         end
 
         def update_android_jar
@@ -114,9 +117,9 @@ module Fastlane
           # Remove the old and add the new
           Dir.chdir("#{@android_subdir}/libs") do
             old_jars = Dir['Branch*.jar']
-            sh "cp #{jar_path} ."
-            sh "git add Branch-#{version}.jar"
-            sh "git rm -f #{old_jars.join ' '}"
+            sh "cp", jar_path, "."
+            sh "git", "add", "Branch-#{version}.jar"
+            sh "git", "rm", "-f", *old_jars unless old_jars.empty?
           end
 
           # Patch build.gradle
@@ -138,8 +141,9 @@ module Fastlane
           branch_sdk_podspec_path = "#{@ios_subdir}/Branch-SDK.podspec"
 
           # Copy the podspec from the submodule
-          sh "cp native-sdks/ios/Branch.podspec #{branch_sdk_podspec_path}"
-          UI.user_error! "Unable to update #{branch_sdk_podspec_path}" unless $?.exitstatus == 0
+          sh "cp", "native-sdks/ios/Branch.podspec", branch_sdk_podspec_path do |status|
+            UI.user_error! "Unable to update #{branch_sdk_podspec_path}" unless status.success?
+          end
 
           # Change the pod name to Branch-SDK
           other_action.patch(
@@ -158,6 +162,36 @@ module Fastlane
           )
 
           UI.success "Updated ios/Branch-SDK.podspec"
+        end
+
+        def update_pods_in_tests_and_examples
+          # Updates to CocoaPods for unit tests and examples (requires
+          # node_modules for each)
+          %w{
+            examples/testbed_native_ios
+            examples/webview_example_native_ios
+            .
+          }.each do |folder|
+            other_action.yarn package_path: File.join("..", folder, "package.json")
+
+            pods_folder = folder
+
+            # The Podfile there installs from node_modules in the repo root.
+            pods_folder = "native-tests/ios" if folder == "."
+
+            other_action.cocoapods(
+              # relative to fastlane folder when using other_action
+              podfile: File.join("..", pods_folder, "Podfile"),
+              silent: true,
+              use_bundle_exec: true
+            )
+
+            other_action.git_add(path: File.join("..", pods_folder))
+
+            # node_modules only required for pod install. Remove to speed up
+            # subsequent calls to yarn.
+            sh "rm", "-fr", File.join(folder, "node_modules")
+          end
         end
 
         def adjust_rnbranch_xcodeproj
