@@ -81,13 +81,11 @@ module Fastlane
         end
 
         def commit
-          sh(
-            "git",
-            "commit",
-            "-a",
-            "-m",
-            "[Fastlane] Branch native SDK update: Android #{@android_version}, iOS #{@ios_version}"
-          )
+          message = "[Fastlane] Branch native SDK update:"
+          message << " #{@android_version} (Android)," if @android_update_needed
+          message << " #{@ios_version} (iOS)" if @ios_update_needed
+
+          sh "git", "commit", "-a", "-m", message.chomp(",")
         end
 
         def update_submodules(params)
