@@ -4,7 +4,7 @@ PODS:
   - Branch-SDK/Core (0.21.14)
   - React (0.42.3):
     - React/Core (= 0.42.3)
-  - react-native-branch (2.2.0):
+  - react-native-branch (2.2.1):
     - Branch-SDK
     - React
   - React/Core (0.42.3):
@@ -50,7 +50,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Branch-SDK: 915b99a365345265d3438746b67177c449b80da4
   React: 35e039680feacd0563677d49ba410112d2748559
-  react-native-branch: 09507709be9c6b1c55376890bf1ce54017eb690d
+  react-native-branch: d996b442b0fc0f28bb290489e1766517dcb5729e
   Yoga: 86ce777665c8259b94ef8dbea76b84634237f4ea
 
 PODFILE CHECKSUM: add4645b825f22aaa2eb629899a1687f650a9588
