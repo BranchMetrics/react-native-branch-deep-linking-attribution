@@ -174,3 +174,10 @@
   * Suppress some warnings with Xcode 9.
   * Added a troubleshooting section to the README.
   * Includes native SDKs 0.19.5 (iOS), 2.12.2 (Android).
+
+2017-12-11  Version 2.2.0
+  * Adds BranchEvent class
+  * Adds new Branch Universal Object API
+  * Added requiresMainQueueSetup as required by v0.49+ of RN via @UrbanChrisy (#299)
+  * Fix incorrect event type when error = null via @wildseansy (#285)
+  * Includes native SDKs 0.21.14 (iOS), 2.14.2 (Android).
