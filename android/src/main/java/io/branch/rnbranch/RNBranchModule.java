@@ -322,7 +322,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void logEventWithUniversalObjects(ReadableArray contentItems, String eventName, ReadableMap params, Promise promise) {
+    public void logEvent(ReadableArray contentItems, String eventName, ReadableMap params, Promise promise) {
         List<BranchUniversalObject> buos = new ArrayList<>();
         for (int i = 0; i < contentItems.size(); ++ i) {
             String ident = contentItems.getString(i);
