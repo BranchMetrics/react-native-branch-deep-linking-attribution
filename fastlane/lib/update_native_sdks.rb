@@ -9,35 +9,41 @@ module Fastlane
 
           update_submodules params
 
+          return unless @android_update_needed || @ios_update_needed
+
           @android_subdir = File.expand_path 'android', '.'
           @ios_subdir = File.expand_path 'ios', '.'
 
           # Update embedded Android SDK
-          update_android_jar
+          update_android_jar if @android_update_needed
 
           # Update embedded iOS SDK
-          update_ios_branch_source
-          update_branch_podspec_from_submodule
-          adjust_rnbranch_xcodeproj
+          if @ios_update_needed
+            update_ios_branch_source
+            update_branch_podspec_from_submodule
+            adjust_rnbranch_xcodeproj
 
-          %w{
-            examples/testbed_native_ios
-            examples/webview_example_native_ios
-            .
-          }.each { |f| other_action.yarn package_path: File.join("..", f, "package.json") }
+            # Updates to CocoaPods for unit tests and examples (requires
+            # node_modules for each)
+            %w{
+              examples/testbed_native_ios
+              examples/webview_example_native_ios
+              .
+            }.each { |f| other_action.yarn package_path: File.join("..", f, "package.json") }
 
-          %w{
-            examples/testbed_native_ios
-            examples/webview_example_native_ios
-            native-tests/ios
-          }.each do |folder|
-            other_action.cocoapods(
-              # relative to fastlane folder when using other_action
-              podfile: File.join("..", folder, "Podfile"),
-              silent: true,
-              use_bundle_exec: true
-            )
-            other_action.git_add(path: File.join("..", folder))
+            %w{
+              examples/testbed_native_ios
+              examples/webview_example_native_ios
+              native-tests/ios
+            }.each do |folder|
+              other_action.cocoapods(
+                # relative to fastlane folder when using other_action
+                podfile: File.join("..", folder, "Podfile"),
+                silent: true,
+                use_bundle_exec: true
+              )
+              other_action.git_add(path: File.join("..", folder))
+            end
           end
 
           commit if params[:commit]
@@ -75,7 +81,13 @@ module Fastlane
         end
 
         def commit
-          sh "git", "commit", "-a", "-m", "[Fastlane] Branch native SDK update: Android #{@android_version}, iOS #{@ios_version}"
+          sh(
+            "git",
+            "commit",
+            "-a",
+            "-m",
+            "[Fastlane] Branch native SDK update: Android #{@android_version}, iOS #{@ios_version}"
+          )
         end
 
         def update_submodules(params)
@@ -85,6 +97,9 @@ module Fastlane
             folder = "native-sdks/#{platform}"
             Dir.chdir(folder) do
               UI.message "Updating submodule in #{folder}"
+
+              original_commit = current_commit
+
               sh "git checkout#{git_q_flag} master"
               sh "git pull --tags#{git_q_flag}" # Pull all available branch refs so anything can be checked out
               key = "#{platform}_checkout".to_sym
@@ -97,11 +112,22 @@ module Fastlane
                 version = checkout_last_git_tag
               end
 
-              instance_variable_set "@#{platform}_version", version
+              update_needed = current_commit != original_commit
 
-              UI.success "Updated submodule in #{folder}"
+              instance_variable_set "@#{platform}_version", version
+              instance_variable_set "@#{platform}_update_needed", update_needed
+
+              if update_needed
+                UI.success "Updated submodule in #{folder}"
+              else
+                UI.message "#{folder} is current. No update required."
+              end
             end
           end
+        end
+
+        def current_commit
+          `git rev-list HEAD --max-count=1`
         end
 
         def update_android_jar
