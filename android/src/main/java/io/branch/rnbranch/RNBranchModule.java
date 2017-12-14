@@ -654,8 +654,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }
 
         if (map.hasKey("productCategory")) {
-            ProductCategory category = ProductCategory.valueOf(map.getString("productCategory"));
-            metadata.setProductCategory(category);
+            ProductCategory category = getProductCategory(map.getString("productCategory"));
+            if (category != null) metadata.setProductCategory(category);
         }
 
         if (map.hasKey("productVariant")) {
@@ -807,6 +807,18 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }
 
         return branchUniversalObject;
+    }
+
+    @Nullable
+    public ProductCategory getProductCategory(final String stringValue) {
+        ProductCategory[] possibleValues = ProductCategory.class.getEnumConstants();
+        for (ProductCategory value: possibleValues) {
+            if (stringValue.equals(value.getName())) {
+                return value;
+            }
+        }
+        Log.w(REACT_CLASS, "Could not find product category " + stringValue);
+        return null;
     }
 
     @ReactMethod

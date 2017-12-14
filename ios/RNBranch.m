@@ -374,7 +374,7 @@ RCT_EXPORT_METHOD(
     resolve(NSNull.null);
 }
 
-#pragma mark logEventWithUniversalObjects
+#pragma mark logEvent
 RCT_EXPORT_METHOD(
                   logEvent:(NSArray *)identifiers
                   eventName:(NSString *)eventName
