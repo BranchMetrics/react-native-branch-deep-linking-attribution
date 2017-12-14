@@ -35,7 +35,7 @@
           @"addressCity": [RNBranchProperty propertyWithSetterSelector:@selector(setAddressCity:) type:NSString.class],
           @"addressRegion": [RNBranchProperty propertyWithSetterSelector:@selector(setAddressRegion:) type:NSString.class],
           @"addressCountry": [RNBranchProperty propertyWithSetterSelector:@selector(setAddressCountry:) type:NSString.class],
-          @"addressPostalCode": [RNBranchProperty propertyWithSetterSelector:@selector(setPostalCode:) type:NSString.class],
+          @"addressPostalCode": [RNBranchProperty propertyWithSetterSelector:@selector(setAddressPostalCode:) type:NSString.class],
           @"latitude": [RNBranchProperty propertyWithSetterSelector:@selector(setLatitudeWithNumber:) type:NSNumber.class],
           @"longitude": [RNBranchProperty propertyWithSetterSelector:@selector(setLongitudeWithNumber:) type:NSNumber.class],
           @"imageCaptions": [RNBranchProperty propertyWithSetterSelector:@selector(setImageCaptionsWithArray:) type:NSArray.class],
