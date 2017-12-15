@@ -181,3 +181,7 @@
   * Added requiresMainQueueSetup as required by v0.49+ of RN via @UrbanChrisy (#299)
   * Fix incorrect event type when error = null via @wildseansy (#285)
   * Includes native SDKs 0.21.14 (iOS), 2.14.2 (Android).
+
+2017-12-14  Version 2.2.1
+  * Fixes certain BUO content metadata field mappings: productCategory, addressPostalCode, ratingAverage
+  * Includes native SDKs 0.21.14 (iOS), 2.14.2 (Android).
