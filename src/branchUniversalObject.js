@@ -83,6 +83,9 @@ export default async function createBranchUniversalObject(identifier, options = 
     },
     userCompletedAction(event, state = {}) {
       console.info('[Branch] userCompletedAction is deprecated. Please use logEvent or the BranchEvent class instead.')
+      if (event == RNBranch.REGISTER_VIEW_EVENT) {
+        return this.logEvent(BranchEvent.ViewItem, { customData: state })
+      }
       return this._tryFunction(RNBranch.userCompletedActionOnUniversalObject, event, state)
     },
     logEvent(eventName, params = {}) {
