@@ -28,7 +28,7 @@
           @"productCategory": [RNBranchProperty propertyWithSetterSelector:@selector(setProductCategory:) type:NSString.class],
           @"productVariant": [RNBranchProperty propertyWithSetterSelector:@selector(setProductVariant:) type:NSString.class],
           @"condition": [RNBranchProperty propertyWithSetterSelector:@selector(setCondition:) type:NSString.class],
-          @"ratingAverage": [RNBranchProperty propertyWithSetterSelector:@selector(setRatingAverage:) type:NSNumber.class],
+          @"ratingAverage": [RNBranchProperty propertyWithSetterSelector:@selector(setRatingAverageWithNumber:) type:NSNumber.class],
           @"ratingCount": [RNBranchProperty propertyWithSetterSelector:@selector(setRatingCountWithNumber:) type:NSNumber.class],
           @"ratingMax": [RNBranchProperty propertyWithSetterSelector:@selector(setRatingMaxWithNumber:) type:NSNumber.class],
           @"addressStreet": [RNBranchProperty propertyWithSetterSelector:@selector(setAddressStreet:) type:NSString.class],

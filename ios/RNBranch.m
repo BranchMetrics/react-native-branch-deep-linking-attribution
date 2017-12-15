@@ -393,6 +393,14 @@ RCT_EXPORT_METHOD(
     }
 
     event.contentItems = buos;
+    if ([eventName isEqualToString:BranchStandardEventViewItem] && params.count == 0) {
+        for (BranchUniversalObject *buo in buos) {
+            if (!buo.locallyIndex) continue;
+            // for now at least, pending possible changes to the native SDK
+            [buo listOnSpotlight];
+        }
+    }
+
     [event logEvent];
     resolve(NSNull.null);
 }
