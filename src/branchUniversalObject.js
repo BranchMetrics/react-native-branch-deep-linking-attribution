@@ -17,17 +17,15 @@ export default async function createBranchUniversalObject(identifier, options = 
     }
   }
 
-  // For the benefit of NSDecimalNumber on iOS.
-  const price = contentMetadata.price === undefined ? undefined : '' + contentMetadata.price
-
   const branchUniversalObject = {
     canonicalIdentifier: identifier,
-    contentMetadata: {
-      price: price,
-      ...contentMetadata
-    },
+    contentMetadata: contentMetadata,
     ...options
   }
+
+  // For the benefit of NSDecimalNumber on iOS.
+  const price = contentMetadata.price === undefined ? undefined : '' + contentMetadata.price
+  branchUniversalObject.contentMetadata.price = price
 
   if (options.automaticallyListOnSpotlight !== undefined) {
     console.info('[Branch] automaticallyListOnSpotlight is deprecated. Please use locallyIndex instead.')
