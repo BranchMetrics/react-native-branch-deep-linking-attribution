@@ -16,6 +16,8 @@ module Fastlane
           patch_index_js version
           update_pods_in_tests_and_examples
           sh "git", "commit", "-a", "-m", "[Fastlane] Version bump to #{version}"
+          sh "git", "tag", version if params[:tag]
+          true
         end
 
         def available_options
@@ -41,7 +43,7 @@ module Fastlane
           package_json[:version] = version
           json_text = JSON.generate(
             package_json,
-            indent: "  ",
+            indent: " " * 2,
             object_nl: "\n",
             array_nl: "\n",
             space: " "
@@ -52,7 +54,7 @@ module Fastlane
 
         def patch_index_js(version)
           PatternPatch::Patch.new(
-            regexp: /(VERSION = ")\d+\.\d+\.\d+/,
+            regexp: /(\sVERSION\s*=\s*")\d+\.\d+\.\d+/,
             text: "\\1#{version}",
             mode: :replace
           ).apply "src/index.js"
