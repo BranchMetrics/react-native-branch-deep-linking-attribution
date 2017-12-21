@@ -25,6 +25,12 @@
 #import <arpa/inet.h>
 #import <netinet/in.h>
 
+// Forward declare this for older versions of iOS
+@interface NSLocale (BranchAvailability)
+- (NSString*) countryCode;
+- (NSString*) languageCode;
+@end
+
 #pragma mark BRNNetworkInfo
 
 typedef NS_ENUM(NSInteger, BNCNetworkAddressType) {
@@ -436,7 +442,7 @@ exit:
     addNumber(screenWidth,          screen_width);
     addBoolean(unidentifiedDevice,  unidentified_device);
     addString(localIPAddress,       local_ip);
-    
+
     #include "BNCFieldDefines.h"
 
     if (!self.isAdTrackingEnabled)
@@ -450,6 +456,9 @@ exit:
 
     s = preferences.deviceFingerprintID;
     if (s.length) dictionary[@"device_fingerprint_id"] = s;
+
+    if (preferences.limitFacebookTracking)
+        dictionary[@"limit_facebook_tracking"] = CFBridgingRelease(kCFBooleanTrue);
 
     dictionary[@"sdk"] = @"ios";
     dictionary[@"sdk_version"] = BNC_SDK_VERSION;
