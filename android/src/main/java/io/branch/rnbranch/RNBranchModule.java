@@ -18,6 +18,7 @@ import com.facebook.react.bridge.ReadableMap;
 
 import io.branch.referral.*;
 import io.branch.referral.Branch.BranchLinkCreateListener;
+import io.branch.referral.BuildConfig;
 import io.branch.referral.util.*;
 import io.branch.referral.Branch;
 import io.branch.indexing.*;
@@ -592,6 +593,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     private static Branch setupBranch(Context context) {
+        Log.i(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);
+
         RNBranchConfig config = new RNBranchConfig(context);
         String branchKey = config.getBranchKey();
         if (branchKey == null) branchKey = config.getUseTestInstance() ? config.getTestKey() : config.getLiveKey();
