@@ -219,13 +219,8 @@ RCT_EXPORT_MODULE();
 - (UIViewController *)currentViewController
 {
     UIViewController *current = [UIApplication sharedApplication].keyWindow.rootViewController;
-    if (@available(iOS 8.0, *)) {
-        while (current.presentedViewController && ![current.presentedViewController isKindOfClass:UIAlertController.class]) {
-            current = current.presentedViewController;
-        }
-    } else {
-        // RN Requires iOS 8. Nothing to do here. Still.
-        while (current.presentedViewController) current = current.presentedViewController;
+    while (current.presentedViewController && ![current.presentedViewController isKindOfClass:UIAlertController.class]) {
+        current = current.presentedViewController;
     }
     return current;
 }
