@@ -74,6 +74,7 @@ RCT_EXPORT_MODULE();
 
 + (void)setupBranchInstance:(Branch *)instance
 {
+    RCTLogInfo(@"Initializing Branch SDK v. %@", BNC_SDK_VERSION);
     RNBranchConfig *config = RNBranchConfig.instance;
     if (config.debugMode) {
         [instance setDebug];

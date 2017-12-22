@@ -18,6 +18,7 @@ import com.facebook.react.bridge.ReadableMap;
 
 import io.branch.referral.*;
 import io.branch.referral.Branch.BranchLinkCreateListener;
+import io.branch.referral.BuildConfig;
 import io.branch.referral.util.*;
 import io.branch.referral.Branch;
 import io.branch.indexing.*;
@@ -79,6 +80,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private static Activity mActivity = null;
     private static boolean mUseDebug = false;
+    private static boolean mInitialized = false;
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
@@ -592,21 +594,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     private static Branch setupBranch(Context context) {
-        RNBranchConfig config = new RNBranchConfig(context);
-        String branchKey = config.getBranchKey();
-        if (branchKey == null) branchKey = config.getUseTestInstance() ? config.getTestKey() : config.getLiveKey();
+        Branch branch = Branch.getInstance(context);
 
-        /*
-         * This differs a little from iOS. If you add "useTestInstance": true to branch.json but
-         * don't add the testKey, on iOS, it will use the test key from the Info.plist if configured.
-         * On Android, useTestInstance in branch.json will be ignored unless testKey is present. If
-         * testKey is not specified in branch.json, it's necessary to add io.branch.sdk.TestMode to
-         * the Android manifest to use the test instance. It's not clear if there's a programmatic
-         * way to select the test key without specifying the key explicitly.
-         */
-        Branch branch = branchKey != null ? Branch.getInstance(context, branchKey) : Branch.getInstance(context);
+        if (!mInitialized) {
+            Log.i(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);
 
-        if (mUseDebug || config.getDebugMode()) branch.setDebug();
+            RNBranchConfig config = new RNBranchConfig(context);
+
+            if (mUseDebug || config.getDebugMode()) branch.setDebug();
+
+            mInitialized = true;
+        }
 
         return branch;
     }

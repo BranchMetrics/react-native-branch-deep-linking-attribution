@@ -6,6 +6,7 @@ import createBranchUniversalObject from './branchUniversalObject'
 import BranchEvent from './BranchEvent'
 
 export const DEFAULT_INIT_SESSION_TTL = 5000
+export const VERSION = '2.2.2'
 
 export const AddToCartEvent = RNBranch.ADD_TO_CART_EVENT
 export const AddToWishlistEvent = RNBranch.ADD_TO_WISHLIST_EVENT
@@ -27,6 +28,8 @@ class Branch {
 
   constructor(options = {}) {
     if (options.debug) this._debug = true
+
+    console.info('Initializing react-native-branch v. ' + VERSION)
   }
 
   subscribe(listener) {
