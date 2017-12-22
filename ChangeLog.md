@@ -185,3 +185,8 @@
 2017-12-14  Version 2.2.1
   * Fixes certain BUO content metadata field mappings: productCategory, addressPostalCode, ratingAverage
   * Includes native SDKs 0.21.14 (iOS), 2.14.2 (Android).
+
+2017-12-22  Version 2.2.2
+  * Get rid of unnecessary version check for iOS 8 (#309)
+  * Some corrections to handling of Branch Universal Object content metadata.
+  * Includes native SDKs 0.21.16 (iOS), 2.14.3 (Android).
