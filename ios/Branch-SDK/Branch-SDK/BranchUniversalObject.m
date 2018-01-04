@@ -67,6 +67,11 @@ BranchCondition _Nonnull BranchConditionRefurbished   = @"REFURBISHED";
 - (NSDictionary*_Nonnull) dictionary {
     NSMutableDictionary*dictionary = [NSMutableDictionary new];
 
+    for (NSString *key in self.customMetadata.keyEnumerator) {
+        NSString *value = self.customMetadata[key];
+        dictionary[key] = value;
+    }
+
     #define BNCFieldDefinesDictionaryFromSelf
     #include "BNCFieldDefines.h"
 
@@ -91,7 +96,6 @@ BranchCondition _Nonnull BranchConditionRefurbished   = @"REFURBISHED";
     addDouble(latitude,         $latitude);
     addDouble(longitude,        $longitude);
     addStringArray(imageCaptions,$image_captions);
-    addStringifiedDictionary(customMetadata, $custom_fields);
 
     #include "BNCFieldDefines.h"
 
@@ -126,7 +130,6 @@ BranchCondition _Nonnull BranchConditionRefurbished   = @"REFURBISHED";
     addDouble(latitude,         $latitude);
     addDouble(longitude,        $longitude);
     addStringArray(imageCaptions,$image_captions);
-    addStringifiedDictionary(customMetadata, $custom_fields);
 
     #include "BNCFieldDefines.h"
 
@@ -493,15 +496,14 @@ BranchCondition _Nonnull BranchConditionRefurbished   = @"REFURBISHED";
         #pragma clang diagnostic pop
     }
     
-    UIViewController *presentingViewController;
+    UIViewController *presentingViewController = nil;
     if (viewController && [viewController respondsToSelector:@selector(presentViewController:animated:completion:)]) {
         presentingViewController = viewController;
     }
     else {
-        Class UIApplicationClass = NSClassFromString(@"UIApplication");
-        if ([[[[UIApplicationClass sharedApplication].delegate window] rootViewController]
-               respondsToSelector:@selector(presentViewController:animated:completion:)]) {
-            presentingViewController = [[[UIApplicationClass sharedApplication].delegate window] rootViewController];
+        UIViewController *rootViewController = [UIViewController bnc_currentViewController];
+        if ([rootViewController respondsToSelector:@selector(presentViewController:animated:completion:)]) {
+            presentingViewController = rootViewController;
         }
     }
     

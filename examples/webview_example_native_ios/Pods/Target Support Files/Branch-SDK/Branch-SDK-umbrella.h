@@ -48,6 +48,7 @@
 #import "BranchViewHandler.h"
 #import "NSMutableDictionary+Branch.h"
 #import "NSString+Branch.h"
+#import "UIViewController+Branch.h"
 #import "BNCNetworkService.h"
 #import "BNCNetworkServiceProtocol.h"
 #import "BNCServerInterface.h"
