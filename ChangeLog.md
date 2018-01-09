@@ -190,3 +190,11 @@
   * Get rid of unnecessary version check for iOS 8 (#309)
   * Some corrections to handling of Branch Universal Object content metadata.
   * Includes native SDKs 0.21.16 (iOS), 2.14.3 (Android).
+
+2018-01-04  Version 2.2.3
+  * Updated to iOS SDK 0.22.4 to fix backward compatibility issues with metadata. #311
+  * Includes native SDKs 0.22.4 (iOS), 2.14.3 (Android).
+
+2018-01-09  Version 2.2.4
+  * Updated to Android SDK 2.14.4.
+  * Includes native SDKs 0.22.4 (iOS), 2.14.4 (Android).
