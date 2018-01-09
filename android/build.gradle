@@ -19,5 +19,5 @@ android {
 
 dependencies {
     compile 'com.facebook.react:react-native:+' // From node_modules
-    compile files('libs/Branch-2.14.3.jar') // From node_modules
+    compile files('libs/Branch-2.14.4.jar') // From node_modules
 }
