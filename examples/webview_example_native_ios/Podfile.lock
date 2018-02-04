@@ -1,7 +1,7 @@
 PODS:
-  - Branch-SDK (0.22.4):
-    - Branch-SDK/Core (= 0.22.4)
-  - Branch-SDK/Core (0.22.4)
+  - Branch-SDK (0.22.5):
+    - Branch-SDK/Core (= 0.22.5)
+  - Branch-SDK/Core (0.22.5)
   - Cartography (2.0.0)
   - React (0.42.3):
     - React/Core (= 0.42.3)
@@ -50,7 +50,7 @@ EXTERNAL SOURCES:
     :path: node_modules/react-native/ReactCommon/yoga
 
 SPEC CHECKSUMS:
-  Branch-SDK: 5441e442814e2b77e3c822040eef1e81f5b36f06
+  Branch-SDK: 82b57443b76b28193ac22e0f7e9afc2c62c21e7f
   Cartography: d295eb25ab54bb57eecd8c2f04e9648c850f1281
   React: 35e039680feacd0563677d49ba410112d2748559
   react-native-branch: 463977136001e2e8f9142384916b82de3c6b6e29
