@@ -81,6 +81,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static Activity mActivity = null;
     private static boolean mUseDebug = false;
     private static boolean mInitialized = false;
+    private static JSONObject mRequestMetadata = new JSONObject();
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
@@ -192,6 +193,22 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     public static void setDebug() {
         mUseDebug = true;
+    }
+
+    public static void setRequestMetadata(String key, String val) {
+        if (key == null) {
+            return;
+        }
+
+        if (mRequestMetadata.has(key) && val == null) {
+            mRequestMetadata.remove(key);
+        }
+
+        try {
+            mRequestMetadata.put(key, val);
+        } catch (JSONException e) {
+            // no-op
+        }
     }
 
     public RNBranchModule(ReactApplicationContext reactContext) {
@@ -602,6 +619,18 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             RNBranchConfig config = new RNBranchConfig(context);
 
             if (mUseDebug || config.getDebugMode()) branch.setDebug();
+
+            if (mRequestMetadata != null) {
+                Iterator keys = mRequestMetadata.keys();
+                while (keys.hasNext()) {
+                    String key = (String) keys.next();
+                    try {
+                        branch.setRequestMetadata(key, mRequestMetadata.getString(key));
+                    } catch (JSONException e) {
+                        // no-op
+                    }
+                }
+            }
 
             mInitialized = true;
         }
