@@ -74,7 +74,7 @@ function removeSymbolicLink(path) {
     return
   }
 
-  fs.unlink(path)
+  fs.unlinkSync(path)
 }
 
 function ensureAndroidAssetsFolder(buildType) {
