@@ -30,7 +30,7 @@ ___
   + [Unregister a subscriber](#unregister-a-subscriber)
   + [Adjust cached link TTL](#adjust-cached-link-ttl)
   + [Retrieve latest deep linking params](#retrieve-session-install-or-open-parameters)
-  + [Retrieve the user's first deep linking params](#retrieve-install-install-only-parameters)
+  + [Retrieve the user's first deep linking params](#retrieve-session-install-or-open-params)
   + [Setting the user id for tracking influencers](#persistent-identities)
   + [Logging a user out](#logout)
   + [Tracking user actions and events](#tracking-user-actions-and-events)
