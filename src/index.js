@@ -36,7 +36,7 @@ class Branch {
      * If none, the listener is not called. If there is a cached value, it is passed to the listener.
      */
     if (this._checkCachedEvents) {
-      this._checkCachedEvents = false;
+      this._checkCachedEvents = false
 
       RNBranch.redeemInitSessionResult().then((result) => {
         if (result) {

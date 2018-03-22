@@ -63,7 +63,7 @@ test('subscribe does not call redeemInitSessionResult if skipCachedEvents is cal
   return new Promise((resolve, reject) => {
     branch.skipCachedEvents()
     branch.subscribe(({ error, params, uri }) => {
-        reject('cached initial session event returned')
+      reject('cached initial session event returned')
     })
 
     setTimeout(() => {
