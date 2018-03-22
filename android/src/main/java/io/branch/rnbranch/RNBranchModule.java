@@ -540,13 +540,14 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     public static BranchEvent createBranchEvent(String eventName, ReadableMap params) {
-        BRANCH_STANDARD_EVENT standardEvent = BRANCH_STANDARD_EVENT.valueOf(eventName);
         BranchEvent event;
-
-        if (standardEvent != null) {
+        try {
+            BRANCH_STANDARD_EVENT standardEvent = BRANCH_STANDARD_EVENT.valueOf(eventName);
+            // valueOf on BRANCH_STANDARD_EVENT Enum has succeeded, so this is a standard event.
             event = new BranchEvent(standardEvent);
-        }
-        else {
+        } catch (IllegalArgumentException e) {
+            // The event name is not found in standard events.
+            // So use custom event mode.
             event = new BranchEvent(eventName);
         }
 
