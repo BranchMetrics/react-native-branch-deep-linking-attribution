@@ -5,8 +5,14 @@ const { RNBranch, RNBranchEventEmitter } = NativeModules
 import createBranchUniversalObject from './branchUniversalObject'
 import BranchEvent from './BranchEvent'
 
+//import {version} from './../package.json';
+
 export const DEFAULT_INIT_SESSION_TTL = 5000
-export const VERSION = '2.2.5'
+
+var pjson = require('./../package.json');
+console.log(pjson.version);
+
+export const VERSION = pjson.version//version//'2.2.5'
 
 export const AddToCartEvent = RNBranch.ADD_TO_CART_EVENT
 export const AddToWishlistEvent = RNBranch.ADD_TO_WISHLIST_EVENT
