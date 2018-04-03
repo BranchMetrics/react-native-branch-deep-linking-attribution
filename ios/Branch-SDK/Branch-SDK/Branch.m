@@ -1820,6 +1820,7 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
 }
 
 - (void)applicationWillResignActive {
+    [self clearSessionParams];
     [self callClose];
     [self.requestQueue persistImmediately];
     [BranchOpenRequest setWaitNeededForOpenResponseLock];
@@ -1844,6 +1845,11 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
 
         [self processNextQueueItem];
     }
+}
+
+- (void)clearSessionParams {
+    // Reset session params
+    self.preferenceHelper.sessionParams = nil;
 }
 
 #pragma mark - Queue management
