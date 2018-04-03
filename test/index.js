@@ -10,12 +10,11 @@ import branch, {
   PurchaseInitiatedEvent,
   RegisterViewEvent,
   ShareCompletedEvent,
-  ShareInitiatedEvent,
-  DEFAULT_INIT_SESSION_TTL
+  ShareInitiatedEvent
 } from '../src/index.js'
 
 test.beforeEach(() => {
-  branch.initSessionTtl = DEFAULT_INIT_SESSION_TTL
+  branch._checkCachedEvents = true
 })
 
 test.afterEach(() => {
@@ -30,24 +29,50 @@ test('subscribe returns init session', t => {
   })
 })
 
-test('subscribe does not return init session beyond the TTL', t => {
-  branch.initSessionTtl = 0 // disable the cache check in this test
+test('subscribe returns cached init session with cached_initial_event flag', t => {
+  mock(RNBranch, 'redeemInitSessionResult', () => {
+    return new Promise((resolve, reject) => {
+      resolve({error: null, params: {}, uri: 'test'})
+    })
+  })
 
   return new Promise((resolve, reject) => {
-    let listenerWasCalled = false
+    let event_received = false
     branch.subscribe(({ error, params, uri }) => {
-      listenerWasCalled = true
-      reject('subscribe listener should not be called')
+      event_received = true
+      if(params.cached_initial_event)
+        resolve()
+      else
+        reject('cached_initial_event is not set')
     })
 
     setTimeout(() => {
-      if (!listenerWasCalled) resolve()
-      // else reject() was already called
+      if(!event_received)
+        reject('event not received')
     }, 100)
   })
 })
 
-test.serial('subscribe does not add an event listener within the TTL until redeemInitSession returns', t => {
+test('subscribe does not call redeemInitSessionResult if skipCachedEvents is called', t => {
+  mock(RNBranch, 'redeemInitSessionResult', () => {
+    return new Promise((resolve, reject) => {
+      resolve({error: null, params: null, uri: null})
+    })
+  })
+
+  return new Promise((resolve, reject) => {
+    branch.skipCachedEvents()
+    branch.subscribe(({ error, params, uri }) => {
+      reject('cached initial session event returned')
+    })
+
+    setTimeout(() => {
+      resolve()
+    }, 100)
+  })
+})
+
+test.serial('subscribe does not add an event listener before redeemInitSession returns', t => {
   /*
    * Desperately want a mock framework for this
    */
@@ -63,7 +88,7 @@ test.serial('subscribe does not add an event listener within the TTL until redee
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         t.false(this.listenerAdded)
-        resolve({error: null, params: null, uri: null})
+        resolve({error: null, params: {}, uri: null})
       }, 100)
     })
   })
@@ -77,7 +102,7 @@ test.serial('subscribe does not add an event listener within the TTL until redee
   })
 })
 
-test.serial('after the TTL, subscribe adds a listener and does not call redeemInitSessionResult', t => {
+test.serial('once skipCachedEvents is called, subscribe adds a listener and does not call redeemInitSessionResult', t => {
   /*
    * Desperately want a mock framework for this
    */
@@ -96,7 +121,7 @@ test.serial('after the TTL, subscribe adds a listener and does not call redeemIn
     })
   })
 
-  branch.initSessionTtl = 0 // disable the cache check in this test
+  branch.skipCachedEvents() // disable the cache check in this test
 
   return new Promise((resolve, reject) => {
     branch.subscribe(({error, params, uri}) => {})

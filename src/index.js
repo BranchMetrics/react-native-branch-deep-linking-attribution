@@ -5,7 +5,6 @@ const { RNBranch, RNBranchEventEmitter } = NativeModules
 import createBranchUniversalObject from './branchUniversalObject'
 import BranchEvent from './BranchEvent'
 
-export const DEFAULT_INIT_SESSION_TTL = 5000
 export const VERSION = '2.2.2'
 
 export const AddToCartEvent = RNBranch.ADD_TO_CART_EVENT
@@ -21,9 +20,8 @@ class Branch {
     android: DeviceEventEmitter,
     ios: new NativeEventEmitter(RNBranchEventEmitter)
   })
-  initSessionTtl = DEFAULT_INIT_SESSION_TTL;
 
-  _launchTime = new Date().getTime();
+  _checkCachedEvents = true;
   _debug = false;
 
   constructor(options = {}) {
@@ -34,12 +32,19 @@ class Branch {
 
   subscribe(listener) {
     /*
-     * If this is within the INIT_SESSION_TTL, get the cached value from the native layer (asynchronously).
+     * If _checkCachedEvents flag is set, get the cached value from the native layer (asynchronously).
      * If none, the listener is not called. If there is a cached value, it is passed to the listener.
      */
-    if (this._timeSinceLaunch() < this.initSessionTtl) {
+    if (this._checkCachedEvents) {
+      this._checkCachedEvents = false
+
       RNBranch.redeemInitSessionResult().then((result) => {
         if (result) {
+          /*** Cached value is returned, so set it as cached. ***/
+          if('params' in result) {
+            result['params']['cached_initial_event'] = true
+          }
+
           listener(result)
         }
 
@@ -74,8 +79,9 @@ class Branch {
     return unsubscribe
   }
 
-  _timeSinceLaunch() {
-    return new Date().getTime() - this._launchTime
+  skipCachedEvents() {
+    /*** Sets to ignore cached events. ***/
+    this._checkCachedEvents = false
   }
 
   _addListener(listener) {

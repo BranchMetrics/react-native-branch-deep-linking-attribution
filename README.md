@@ -28,7 +28,7 @@ ___
 3. Branch general methods
   + [Register a subscriber](#register-a-subscriber)
   + [Unregister a subscriber](#unregister-a-subscriber)
-  + [Adjust cached link TTL](#adjust-cached-link-ttl)
+  + [Skip cached initial launch event](#skip-cached-initial-launch-event)
   + [Retrieve latest deep linking params](#retrieve-session-install-or-open-parameters)
   + [Retrieve the user's first deep linking params](#retrieve-session-install-or-open-params)
   + [Setting the user id for tracking influencers](#persistent-identities)
@@ -465,33 +465,41 @@ class MyApp extends Component {
 
 ___
 
-### Adjust cached link TTL
+### Skip cached initial launch event
 
 Any initial link cached by the native layer will be returned to the callback
 supplied to `branch.subscribe` immediately if the JavaScript method is called
-within a certain time from app launch. This allows components to unsubscribe and
-resubscribe without receiving the initial link after resubscription. By default,
-the TTL for any initial link is 5000 ms. To use a different value, set
-`branch.initSessionTtl` to that value, in ms. To have the desired effect, this
-parameter should be set at app launch.
+for the first time after app launch. In case, app does not need to receive
+the cached initial app launch link event, call `branch.skipCachedEvents()`
+before `branch.subscribe` to skip returning it.
 
-#### Property
+#### Method
 
 ```js
-branch.initSessionTtl
+branch.skipCachedEvents()
 ```
 
-An integer specifying the maximum amount of time, in milliseconds, to cache
-the initial link from app launch. Defaults to 5000.
+Also, if a cached initial app launch link event is returned, `params` will
+contain a key `cached_initial_event`, set to `true`.
 
 #### Example
 
 ```js
 import branch from 'react-native-branch'
 
-branch.initSessionTtl = 10000
+branch.skipCachedEvents()
 branch.subscribe({ error, params } => {
   // ...
+})
+```
+
+```js
+import branch from 'react-native-branch'
+
+branch.subscribe({ error, params } => {
+  if ('cached_initial_event' in params) {
+    // ...
+  }
 })
 ```
 
