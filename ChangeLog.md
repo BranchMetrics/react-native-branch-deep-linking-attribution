@@ -198,3 +198,11 @@
 2018-01-09  Version 2.2.4
   * Updated to Android SDK 2.14.4.
   * Includes native SDKs 0.22.4 (iOS), 2.14.4 (Android).
+
+2018-04-14  Version 2.2.5
+  * `setRequestMetadata` support to RNBranch module.
+  * Fixed custom event issues on iOS and Android #317.
+  * Fixed async `subscribe` call issue #322.
+  * Fixed `getLatestReferringParams` release issue #282.
+  * Updated to iOS SDK 0.22.5 and Android SDK 2.15.0.
+  * Includes native SDKs 0.22.5 (iOS), 2.15.0 (Android).
