@@ -72,7 +72,7 @@
     "react-addons-test-utils": "16.0.0-alpha.3",
     "react-addons-update": "16.0.0-alpha.3",
     "react-dom": "16.0.0-alpha.3",
-    "react-native": "0.43.1",
+    "react-native": "^0.43.0",
     "react-native-mock": "^0.3.0",
     "sinon": "*",
     "underscore": "*"
