@@ -1,21 +1,15 @@
+/**
+ @file          BNCLog.m
+ @package       Branch-SDK
+ @brief         Simple logging functions.
 
-
-//--------------------------------------------------------------------------------------------------
-//
-//                                                                                          BNCLog.m
-//                                                                                  Branch.framework
-//
-//                                                                          Simple logging functions
-//                                                                        Edward Smith, October 2016
-//
-//                                             -©- Copyright © 2016 Branch, all rights reserved. -©-
-//
-//--------------------------------------------------------------------------------------------------
-
+ @author        Edward Smith
+ @date          October 2016
+ @copyright     Copyright © 2016 Branch. All rights reserved.
+*/
 
 #import "BNCLog.h"
 #import <stdatomic.h> // import not available in Xcode 7
-
 
 #define _countof(array)  (sizeof(array)/sizeof(array[0]))
 static NSNumber *bnc_LogIsInitialized = nil;
@@ -599,7 +593,7 @@ void BNCLogSetFlushFunction(BNCLogFlushFunctionPtr flushFunction) {
 void BNCLogWriteMessageFormat(
         BNCLogLevel logLevel,
         const char *_Nullable file,
-        int lineNumber,
+        int32_t lineNumber,
         NSString *_Nullable message,
         ...
     ) {
@@ -648,10 +642,10 @@ void BNCLogWriteMessageFormat(
 void BNCLogWriteMessage(
         BNCLogLevel logLevel,
         NSString *_Nonnull file,
-        NSUInteger lineNumber,
+        int32_t lineNumber,
         NSString *_Nonnull message
     ) {
-    BNCLogWriteMessageFormat(logLevel, file.UTF8String, (int)lineNumber, @"%@", message);
+    BNCLogWriteMessageFormat(logLevel, file.UTF8String, lineNumber, @"%@", message);
 }
 
 void BNCLogFlushMessages() {

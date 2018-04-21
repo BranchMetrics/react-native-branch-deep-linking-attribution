@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "BNCApplication.h"
 #import "BNCAvailability.h"
 #import "BNCCallbacks.h"
 #import "BNCCommerceEvent.h"
@@ -23,6 +24,7 @@
 #import "BNCError.h"
 #import "BNCFabricAnswers.h"
 #import "BNCFieldDefines.h"
+#import "BNCKeyChain.h"
 #import "BNCLinkCache.h"
 #import "BNCLinkData.h"
 #import "BNCLocalization.h"
@@ -31,6 +33,8 @@
 #import "BNCSpotlightService.h"
 #import "BNCStrongMatchHelper.h"
 #import "BNCSystemObserver.h"
+#import "BNCURLBlackList.h"
+#import "Branch+Validator.h"
 #import "Branch.h"
 #import "BranchActivityItemProvider.h"
 #import "BranchConstants.h"

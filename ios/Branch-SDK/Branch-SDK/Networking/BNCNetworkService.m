@@ -75,7 +75,7 @@
 
 @implementation BNCNetworkService
 
-+ (id<BNCNetworkServiceProtocol>) new {
++ (instancetype) new {
     return [[self alloc] init];
 }
 
@@ -173,7 +173,7 @@
 #pragma mark - Operations
 
 - (BNCNetworkOperation*) networkOperationWithURLRequest:(NSMutableURLRequest*)request
-                completion:(void (^)(BNCNetworkOperation*operation))completion {
+                completion:(void (^)(id<BNCNetworkOperationProtocol>operation))completion {
 
     BNCNetworkOperation *operation = [BNCNetworkOperation new];
     if (![request isKindOfClass:[NSMutableURLRequest class]]) {
@@ -211,12 +211,21 @@
                 operation.responseData = data;
                 operation.response = (NSHTTPURLResponse*) response;
                 operation.error = error;
-                BNCLogDebug(@"Network finish operation %@ %1.3fs. Status %ld error %@.\n%@.",
-                    operation.request.URL.absoluteString,
-                    [[NSDate date] timeIntervalSinceDate:operation.startDate],
-                    (long)operation.response.statusCode,
-                    operation.error,
-                    operation.stringFromResponseData);
+                if (operation.response.statusCode == 404) {
+                    /* Don't print 404 messages because they look like an error.
+                    BNCLogDebugSDK(@"Network finish operation %@ %1.3fs. Status %ld.",
+                        operation.request.URL.absoluteString,
+                        [[NSDate date] timeIntervalSinceDate:operation.startDate],
+                        (long)operation.response.statusCode);
+                    */
+                } else {
+                    BNCLogDebug(@"Network finish operation %@ %1.3fs. Status %ld error %@.\n%@.",
+                        operation.request.URL.absoluteString,
+                        [[NSDate date] timeIntervalSinceDate:operation.startDate],
+                        (long)operation.response.statusCode,
+                        operation.error,
+                        operation.stringFromResponseData);
+                }
                 if (operation.completionBlock)
                     operation.completionBlock(operation);
             }];

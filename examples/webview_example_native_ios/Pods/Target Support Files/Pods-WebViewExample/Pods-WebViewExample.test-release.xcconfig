@@ -1,11 +1,11 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Branch-SDK" "$PODS_CONFIGURATION_BUILD_DIR/Cartography" "$PODS_CONFIGURATION_BUILD_DIR/React" "$PODS_CONFIGURATION_BUILD_DIR/Yoga" "$PODS_CONFIGURATION_BUILD_DIR/react-native-branch"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Branch-SDK" "${PODS_CONFIGURATION_BUILD_DIR}/Cartography" "${PODS_CONFIGURATION_BUILD_DIR}/React" "${PODS_CONFIGURATION_BUILD_DIR}/Yoga" "${PODS_CONFIGURATION_BUILD_DIR}/react-native-branch"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Branch-SDK/Branch.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Cartography/Cartography.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/React/React.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Yoga/yoga.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/react-native-branch/react_native_branch.framework/Headers"
+OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Branch-SDK/Branch.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Cartography/Cartography.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/React/React.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Yoga/yoga.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/react-native-branch/react_native_branch.framework/Headers"
 OTHER_LDFLAGS = $(inherited) -framework "Branch" -framework "Cartography" -framework "React" -framework "react_native_branch" -framework "yoga"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
-PODS_BUILD_DIR = $BUILD_DIR
-PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
