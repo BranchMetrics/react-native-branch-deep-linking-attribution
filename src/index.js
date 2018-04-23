@@ -95,6 +95,10 @@ class Branch {
     this.nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_ERROR, listener)
   }
 
+  /*** Tracking related methods ***/
+  disableTracking = (disable) => RNBranch.disableTracking(disable)
+  isTrackingDisabled = RNBranch.isTrackingDisabled
+
   /*** RNBranch singleton methods ***/
   setDebug = () => { throw 'setDebug() is not supported in the RN SDK. For other solutions, please see https://rnbranch.app.link/setDebug' }
   getLatestReferringParams = RNBranch.getLatestReferringParams

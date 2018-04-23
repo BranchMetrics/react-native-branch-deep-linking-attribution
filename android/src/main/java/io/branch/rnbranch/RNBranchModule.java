@@ -296,6 +296,18 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void disableTracking(boolean disable) {
+        Branch branch = Branch.getInstance();
+        branch.disableTracking(disable);
+    }
+
+    @ReactMethod
+    public void isTrackingDisabled(Promise promise) {
+        Branch branch = Branch.getInstance();
+        promise.resolve(branch.isTrackingDisabled());
+    }
+
+    @ReactMethod
     public void createUniversalObject(ReadableMap universalObjectMap, Promise promise) {
         String ident = UUID.randomUUID().toString();
         BranchUniversalObject universalObject = createBranchUniversalObject(universalObjectMap);
