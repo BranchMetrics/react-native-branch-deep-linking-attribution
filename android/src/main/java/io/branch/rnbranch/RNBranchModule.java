@@ -1013,7 +1013,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             case Boolean:
                 return readableMap.getBoolean(key);
             case Number:
-                return readableMap.getDouble(key);
+                if(readableMap.getDouble(key)%1==0){
+                    return readableMap.getInt(key);
+                }
+                else
+                {
+                    return readableMap.getDouble(key);
+                }
+
+               // return (readableMap.getDouble(key)%1==0) ? readableMap.getInt(key) : readableMap.getDouble(key);
+
+                //return readableMap.getDouble(key);
             case String:
                 return readableMap.getString(key);
             default:
