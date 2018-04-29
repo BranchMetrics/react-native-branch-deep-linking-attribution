@@ -1,6 +1,7 @@
 import React from 'react-native'
 
 const defaultSession = {params: {}, error: null}
+let tackingDisabled = false
 
 React.NativeModules.RNBranch = {
   // Mock constants exported by native layers
@@ -35,7 +36,18 @@ React.NativeModules.RNBranch = {
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(defaultSession), 500)
     })
-  }
+  },
+
+  disableTracking(disable) {
+    // Just mock user tracking enable/disable
+    tackingDisabled = disable
+  },
+
+  isTrackingDisabled() {
+    return new Promise((resolve, reject) => {
+      resolve(tackingDisabled)
+    })
+  },
 }
 
 // This only has to exist to be passed to the NativeEventEmitter
