@@ -21,6 +21,26 @@ test.afterEach(() => {
   unmock()
 })
 
+test('can disable user tracking', t => {
+  return new Promise((resolve, reject) => {
+    branch.disableTracking(true)
+    branch.isTrackingDisabled().then((disabled) => {
+      if(disabled) resolve()
+      else reject('Could not disable user tracking')
+    })
+  })
+})
+
+test('can enable user tracking', t => {
+  return new Promise((resolve, reject) => {
+    branch.disableTracking(false)
+    branch.isTrackingDisabled().then((disabled) => {
+      if(!disabled) resolve()
+      else reject('Could not enable user tracking')
+    })
+  })
+})
+
 test('subscribe returns init session', t => {
   return new Promise((resolve, reject) => {
     branch.subscribe((session) => {

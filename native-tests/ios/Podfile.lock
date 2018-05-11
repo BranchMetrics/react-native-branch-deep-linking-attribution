@@ -1,20 +1,20 @@
 PODS:
-  - Branch-SDK (0.22.5):
-    - Branch-SDK/Core (= 0.22.5)
-  - Branch-SDK/Core (0.22.5)
+  - Branch-SDK (0.24.1):
+    - Branch-SDK/Core (= 0.24.1)
+  - Branch-SDK/Core (0.24.1)
   - OCMock (3.4)
-  - React (0.43.1):
-    - React/Core (= 0.43.1)
+  - React (0.43.4):
+    - React/Core (= 0.43.4)
   - react-native-branch (2.2.5):
     - Branch-SDK
     - React
-  - React/Core (0.43.1):
+  - React/Core (0.43.4):
     - React/cxxreact
-    - Yoga (= 0.43.1.React)
-  - React/cxxreact (0.43.1):
+    - Yoga (= 0.43.4.React)
+  - React/cxxreact (0.43.4):
     - React/jschelpers
-  - React/jschelpers (0.43.1)
-  - Yoga (0.43.1.React)
+  - React/jschelpers (0.43.4)
+  - Yoga (0.43.4.React)
 
 DEPENDENCIES:
   - Branch-SDK (from `../../ios`)
@@ -23,23 +23,27 @@ DEPENDENCIES:
   - react-native-branch (from `../..`)
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - OCMock
+
 EXTERNAL SOURCES:
   Branch-SDK:
-    :path: ../../ios
+    :path: "../../ios"
   React:
-    :path: ../../node_modules/react-native
+    :path: "../../node_modules/react-native"
   react-native-branch:
-    :path: ../..
+    :path: "../.."
   Yoga:
-    :path: ../../node_modules/react-native/ReactCommon/yoga
+    :path: "../../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  Branch-SDK: 82b57443b76b28193ac22e0f7e9afc2c62c21e7f
+  Branch-SDK: 6465b450b555f3a46611307bc2dba787dd0fcb1d
   OCMock: 35ae71d6a8fcc1b59434d561d1520b9dd4f15765
-  React: c28b1a7b7510eda68c58ed1bd22e85a76ef4f819
-  react-native-branch: 463977136001e2e8f9142384916b82de3c6b6e29
-  Yoga: f3e6a7a683f55875a5bf521e4dc2a8511ebc7f0d
+  React: 8f52d52389ef8a271b049f81634343290f59a356
+  react-native-branch: 8988998ef912c6373dc39a24e4638f02a1268265
+  Yoga: ee3dae4d89b27276f4be20241c2bab84f296b626
 
 PODFILE CHECKSUM: 965caaeb92ef244aba06c04762387dce51799eca
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.0

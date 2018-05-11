@@ -1,16 +1,12 @@
+/**
+ @file          BNCLog.h
+ @package       Branch-SDK
+ @brief         Simple logging functions.
 
-
-//--------------------------------------------------------------------------------------------------
-//
-//                                                                                          BNCLog.h
-//                                                                                  Branch.framework
-//
-//                                                                          Simple logging functions
-//                                                                        Edward Smith, October 2016
-//
-//                                             -©- Copyright © 2016 Branch, all rights reserved. -©-
-//
-//--------------------------------------------------------------------------------------------------
+ @author        Edward Smith
+ @date          October 2016
+ @copyright     Copyright © 2016 Branch. All rights reserved.
+*/
 
 #import "BNCDebug.h"
 
@@ -135,7 +131,7 @@ extern BNCLogFlushFunctionPtr _Nullable BNCLogFlushFunction(void);
 extern void BNCLogWriteMessageFormat(
     BNCLogLevel logLevel,
     const char *_Nullable sourceFileName,
-    int sourceLineNumber,
+    int32_t sourceLineNumber,
     id _Nullable messageFormat,
     ...
 );
@@ -144,7 +140,7 @@ extern void BNCLogWriteMessageFormat(
 extern void BNCLogWriteMessage(
     BNCLogLevel logLevel,
     NSString *_Nonnull sourceFileName,
-    NSUInteger sourceLineNumber,
+    int32_t sourceLineNumber,
     NSString *_Nonnull message
 );
 

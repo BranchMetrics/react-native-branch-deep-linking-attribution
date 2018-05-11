@@ -3894,9 +3894,9 @@ react-native-mock@^0.3.0:
     react-timer-mixin "^0.13.3"
     warning "^2.1.0"
 
-react-native@0.43.1:
-  version "0.43.1"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.43.1.tgz#0b49ec9b1fbb56a85c8594e40405ac111c5e7943"
+react-native@^0.43.0:
+  version "0.43.4"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.43.4.tgz#92fb6937ab415b2e5612835a93a61845de98eb4d"
   dependencies:
     absolute-path "^0.0.0"
     art "^0.10.0"

@@ -276,6 +276,21 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - Methods exported to React Native
 
+#pragma mark disableTracking
+RCT_EXPORT_METHOD(
+                  disableTracking:(BOOL)disable
+                  ) {
+    [Branch setTrackingDisabled: disable];
+}
+
+#pragma mark isTrackingDisabled
+RCT_EXPORT_METHOD(
+                  isTrackingDisabled:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject
+                  ) {
+    resolve([Branch trackingDisabled] ? @YES : @NO);
+}
+
 #pragma mark redeemInitSessionResult
 RCT_EXPORT_METHOD(
                   redeemInitSessionResult:(RCTPromiseResolveBlock)resolve

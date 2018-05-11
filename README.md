@@ -36,6 +36,7 @@ ___
   + [Tracking user actions and events](#tracking-user-actions-and-events)
   + [Programmatic deep linking](#programmatic-deep-linking)
   + [Debug mode and Apple Search Ads attribution](#debug-mode-and-apple-search-ads-attribution)
+  + [Enable or Disable User Tracking](#enable-or-disable-user-tracking)
 
 4. Branch Universal Objects
   + [Instantiate a Branch Universal Object](#create-branch-universal-object)
@@ -808,6 +809,17 @@ JavaScript finishes loading. To use these methods, two options are available.
 
 ___
 
+### Enable or Disable User Tracking
+In order to comply with tracking requirements, you can disable tracking at the SDK level. Simply call:
+```js
+branch.disableTracking(true)
+```
+
+This will prevent any Branch requests from being sent across the network, except for the case of deep linking. If someone clicks a Branch link, but has expressed not to be tracked, we will return deep linking data back to the client but without tracking information captured.
+
+In do-not-track mode, you will still be able to create and share links. They will not have identifiable information. Event tracking won’t pass data back to the server if a user has expressed to not be tracked. You can change this behavior at any time, but calling the above function. This information will be saved and persisted.
+
+___
 
 ## Referral System Rewarding Functionality
 

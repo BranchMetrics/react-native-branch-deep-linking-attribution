@@ -128,6 +128,32 @@ class BranchMethods extends Component {
     }
   }
 
+  disableTracking = async () => {
+    try {
+      let disabled = await branch.isTrackingDisabled()
+      branch.disableTracking(!disabled)
+      disabled = await branch.isTrackingDisabled()
+      let status = disabled ? 'Tracking Disabled' : 'Tracking Enabled'
+      console.log('disableTracking', status)
+      this.addResult('success', 'disableTracking', status)
+    } catch (err) {
+      console.log('disableTracking err', err)
+      this.addResult('error', 'disableTracking', err.toString())
+    }
+  }
+
+  isTrackingDisabled = async () => {
+    try {
+      let disabled = await branch.isTrackingDisabled()
+      let status = disabled ? 'Tracking is Disabled' : 'Tracking is Enabled'
+      console.log('isTrackingDisabled', status)
+      this.addResult('success', 'isTrackingDisabled', status)
+    } catch (err) {
+      console.log('isTrackingDisabled err', err)
+      this.addResult('error', 'isTrackingDisabled', err.toString())
+    }
+  }
+
   addResult(type, slug, payload) {
     let result = { type, slug, payload }
     this.setState({
@@ -154,6 +180,8 @@ class BranchMethods extends Component {
         </View>
         <Text style={styles.header}>METHODS</Text>
         <ScrollView style={styles.buttonsContainer}>
+          <Button onPress={this.disableTracking}>disableTracking (switch on/off)</Button>
+          <Button onPress={this.isTrackingDisabled}>isTrackingDisabled</Button>
           <Button onPress={this.createBranchUniversalObject}>createBranchUniversalObject</Button>
           <Button onPress={this.userCompletedAction}>userCompletedAction</Button>
           <Button onPress={this.sendCommerceEvent}>sendCommerceEvent</Button>
