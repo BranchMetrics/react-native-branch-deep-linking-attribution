@@ -1007,16 +1007,15 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     private static Object getReadableMapObjectForKey(ReadableMap readableMap, String key) {
-        switch(readableMap.getType(key)) {
+        switch (readableMap.getType(key)) {
             case Null:
                 return "Null";
             case Boolean:
                 return readableMap.getBoolean(key);
             case Number:
-                if(readableMap.getDouble(key)%1==0){
+                if (readableMap.getDouble(key) % 1 == 0) {
                     return readableMap.getInt(key);
-                }
-                else{
+                } else {
                     return readableMap.getDouble(key);
                 }
             case String:
