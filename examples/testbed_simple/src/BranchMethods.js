@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import Button from './Button'
 
-import branch, { RegisterViewEvent } from 'react-native-branch'
+import branch, { RegisterViewEvent, BranchEvent } from 'react-native-branch'
 
 const defaultBUO = {
   title: 'wallo'
@@ -154,6 +154,68 @@ class BranchMethods extends Component {
     }
   }
 
+  logStandardEvent = async () => {
+    if (!this.buo) await this.createBranchUniversalObject()
+    try {
+      let branchEvent = new BranchEvent(
+        BranchEvent.Purchase,
+        this.buo,
+        {
+          transactionID: '12344555',
+          currency: 'USD',
+          revenue: 1.5,
+          shipping: 10.2,
+          tax: 12.3,
+          coupon: 'test_coupon',
+          affiliation: 'test_affiliation',
+          description: 'Test purchase event',
+          searchQuery: 'test keyword',
+          customData: {
+            "Custom_Event_Property_Key1": "Custom_Event_Property_val1",
+            "Custom_Event_Property_Key2": "Custom_Event_Property_val2"
+          }
+        }
+      )
+      branchEvent.logEvent()
+
+      this.addResult('success', 'sendStandardEvent', branchEvent)
+    } catch (err) {
+      console.log('sendStandardEvent err', err)
+      this.addResult('error', 'sendStandardEvent', err.toString())
+    }
+  }
+
+  logCustomEvent = async () => {
+    if (!this.buo) await this.createBranchUniversalObject()
+    try {
+      let branchEvent = new BranchEvent(
+        'Test Custom Event Name',
+        this.buo,
+        {
+          transactionID: '12344555',
+          currency: 'USD',
+          revenue: 1.5,
+          shipping: 10.2,
+          tax: 12.3,
+          coupon: 'test_coupon',
+          affiliation: 'test_affiliation',
+          description: 'Test purchase event',
+          searchQuery: 'test keyword',
+          customData: {
+            "Custom_Event_Property_Key1": "Custom_Event_Property_val1",
+            "Custom_Event_Property_Key2": "Custom_Event_Property_val2"
+          }
+        }
+      )
+      branchEvent.logEvent()
+
+      this.addResult('success', 'sendStandardEvent', branchEvent)
+    } catch (err) {
+      console.log('sendStandardEvent err', err)
+      this.addResult('error', 'sendStandardEvent', err.toString())
+    }
+  }
+
   addResult(type, slug, payload) {
     let result = { type, slug, payload }
     this.setState({
@@ -192,6 +254,8 @@ class BranchMethods extends Component {
           <Button onPress={this.redeemRewards.bind(this, 'testBucket')}>redeemRewards (with bucket)</Button>
           <Button onPress={this.loadRewards}>loadRewards</Button>
           <Button onPress={this.getCreditHistory}>getCreditHistory</Button>
+          <Button onPress={this.logStandardEvent}>BranchEvent.logEvent (Standard)</Button>
+          <Button onPress={this.logCustomEvent}>BranchEvent.logEvent (Custom)</Button>
         </ScrollView>
       </View>
     )
