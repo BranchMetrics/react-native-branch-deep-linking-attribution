@@ -579,9 +579,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         if (params.hasKey("shipping")) event.setShipping(Double.parseDouble(params.getString("shipping")));
         if (params.hasKey("tax")) event.setTax(Double.parseDouble(params.getString("tax")));
         if (params.hasKey("coupon")) event.setCoupon(params.getString("coupon"));
-        if (params.hasKey("affiliation")) event.setTransactionID(params.getString("affiliation"));
-        if (params.hasKey("description")) event.setTransactionID(params.getString("description"));
-        if (params.hasKey("searchQuery")) event.setTransactionID(params.getString("searchQuery"));
+        if (params.hasKey("affiliation")) event.setAffiliation(params.getString("affiliation"));
+        if (params.hasKey("description")) event.setDescription(params.getString("description"));
+        if (params.hasKey("searchQuery")) event.setSearchQuery(params.getString("searchQuery"));
 
         if (params.hasKey("customData")) {
             ReadableMap customData = params.getMap("customData");
