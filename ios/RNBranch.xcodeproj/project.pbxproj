@@ -24,6 +24,7 @@
 		2BF51BBB98B89B5FC57169D6 /* BNCNetworkService.h in Headers */ = {isa = PBXBuildFile; fileRef = DA862A3C6C7057A0F38F1EAA /* BNCNetworkService.h */; };
 		302709212ECC3D0A2C985442 /* BNCApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = F3744CDD5733CE0539D480D9 /* BNCApplication.m */; };
 		30393E4ADB402F9630236DF1 /* BranchInstallRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 675CB88784F1EF26A881E32B /* BranchInstallRequest.h */; };
+		3296460300CA58C448D32519 /* BNCThreads.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 2BC6F3C8AFA9CE3322C493D5 /* BNCThreads.h */; };
 		33A32136DA6EBAF2AA3AF5F2 /* BNCServerResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 165F66EE806AB9D2FA60DBAD /* BNCServerResponse.h */; };
 		33B3BA3988060C6B7081A521 /* BNCApplication.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = AAD66CDBB993C80EA3603836 /* BNCApplication.h */; };
 		340BAEE9333ABC29337599DB /* BNCNetworkServiceProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B70C9B20515DFEC4929E44F /* BNCNetworkServiceProtocol.h */; };
@@ -208,7 +209,9 @@
 		C0364FB3970B767B548D7322 /* BNCServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC72DFC505C7D42DEF8DD4EC /* BNCServerRequest.m */; };
 		C39CB1673BDDBBB7FA61A6D5 /* BNCCrashlyticsWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F6393EC10144104DEF854F /* BNCCrashlyticsWrapper.m */; };
 		CB76DC97DA1131C5A09B3EF7 /* BranchLogoutRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 590D0BA6AFCA528CF0779B58 /* BranchLogoutRequest.h */; };
+		CFCCE34A766E80D71E2142C4 /* BNCThreads.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BC6F3C8AFA9CE3322C493D5 /* BNCThreads.h */; };
 		D2FC2441A3CAAED08755D3A4 /* BNCServerRequestQueue.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 648276F61CA88ED5ACE765AE /* BNCServerRequestQueue.h */; };
+		D336EE73E0EEB3136AA02433 /* BNCThreads.m in Sources */ = {isa = PBXBuildFile; fileRef = F905420D27F1836548D7618E /* BNCThreads.m */; };
 		D4DDA73F5A61FF76F0D9D5AC /* BranchShortUrlSyncRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 049E836AA163E1A6777F1172 /* BranchShortUrlSyncRequest.h */; };
 		D60C0633E989C01ACAF8CE3F /* BNCServerInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F6D1776D940BE34F443F05 /* BNCServerInterface.m */; };
 		D76FD5C142A79523A3B75452 /* BNCNetworkServiceProtocol.h in Copy Branch SDK Headers */ = {isa = PBXBuildFile; fileRef = 5B70C9B20515DFEC4929E44F /* BNCNetworkServiceProtocol.h */; };
@@ -310,6 +313,7 @@
 				33B3BA3988060C6B7081A521 /* BNCApplication.h in Copy Branch SDK Headers */,
 				A1C77A8FA8EF99AD2198A771 /* Branch+Validator.h in Copy Branch SDK Headers */,
 				03EFA468F20AC9C9659C0F88 /* BNCURLBlackList.h in Copy Branch SDK Headers */,
+				3296460300CA58C448D32519 /* BNCThreads.h in Copy Branch SDK Headers */,
 			);
 			name = "Copy Branch SDK Headers";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,6 +338,7 @@
 		2387B791DF8295D2ED346B91 /* BranchInstallRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BranchInstallRequest.m; sourceTree = "<group>"; };
 		277A87671FB454F3C1A63D02 /* BranchSpotlightUrlRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BranchSpotlightUrlRequest.m; sourceTree = "<group>"; };
 		291BBE8E0CEFA1D709445C34 /* BNCServerResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BNCServerResponse.m; sourceTree = "<group>"; };
+		2BC6F3C8AFA9CE3322C493D5 /* BNCThreads.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = BNCThreads.h; sourceTree = "<group>"; };
 		2DB063070B2624197C43BBAA /* Branch+Validator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Branch+Validator.m"; sourceTree = "<group>"; };
 		313F32E0B5A01E38F0458FC0 /* BranchDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BranchDelegate.m; sourceTree = "<group>"; };
 		3349ABB5B34244E9FA786F6D /* BranchShortUrlRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = BranchShortUrlRequest.h; sourceTree = "<group>"; };
@@ -466,6 +471,7 @@
 		E168F3AF7DFACA8DD26BEC1E /* Branch+Validator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Branch+Validator.h"; sourceTree = "<group>"; };
 		E928A1B116F31D296912160B /* BranchShortUrlSyncRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BranchShortUrlSyncRequest.m; sourceTree = "<group>"; };
 		F3744CDD5733CE0539D480D9 /* BNCApplication.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BNCApplication.m; sourceTree = "<group>"; };
+		F905420D27F1836548D7618E /* BNCThreads.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BNCThreads.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -594,6 +600,8 @@
 				3AF668D8451CC5DD952A4F22 /* BNCKeyChain.m */,
 				E168F3AF7DFACA8DD26BEC1E /* Branch+Validator.h */,
 				9506CB3EFAEC0355FDEF93E6 /* BNCURLBlackList.h */,
+				F905420D27F1836548D7618E /* BNCThreads.m */,
+				2BC6F3C8AFA9CE3322C493D5 /* BNCThreads.h */,
 			);
 			path = "Branch-SDK";
 			sourceTree = "<group>";
@@ -776,6 +784,7 @@
 				05D31DF406D3AB36F08D2A46 /* BNCApplication.h in Headers */,
 				797945F4B8C12A6E5F9911C3 /* Branch+Validator.h in Headers */,
 				BF17C2CD2E10731727A55E15 /* BNCURLBlackList.h in Headers */,
+				CFCCE34A766E80D71E2142C4 /* BNCThreads.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,6 +915,7 @@
 				62E53E6DD740C4FFCAAA8A6E /* Branch+Validator.m in Sources */,
 				5A0CE9F585BE9C1AB74D3802 /* BNCURLBlackList.m in Sources */,
 				EE65EFA146D6EAA63936D7DC /* BNCKeyChain.m in Sources */,
+				D336EE73E0EEB3136AA02433 /* BNCThreads.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

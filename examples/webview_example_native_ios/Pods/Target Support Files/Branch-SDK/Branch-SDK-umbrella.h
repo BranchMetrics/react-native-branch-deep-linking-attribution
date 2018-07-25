@@ -33,6 +33,7 @@
 #import "BNCSpotlightService.h"
 #import "BNCStrongMatchHelper.h"
 #import "BNCSystemObserver.h"
+#import "BNCThreads.h"
 #import "BNCURLBlackList.h"
 #import "Branch+Validator.h"
 #import "Branch.h"

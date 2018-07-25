@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Branch-SDK"
-  s.version          = "0.24.1"
+  s.version          = "0.25.1"
   s.summary          = "Create an HTTP URL for any piece of content in your app"
   s.description      = <<-DESC
 - Want the highest possible conversions on your sharing feature?
@@ -36,7 +36,7 @@ Use the Branch SDK (branch.io) to create and power the links that point back to 
   s.subspec 'without-IDFA' do |idfa|
     idfa.source_files = source_files
     idfa.private_header_files = "Branch-SDK/Fabric/*.h"
-    idfa.frameworks = 'MobileCoreServices'
+    idfa.frameworks = 'MobileCoreServices', 'SafariServices'
   end
 
   s.subspec 'without-Safari' do |safari|
