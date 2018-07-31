@@ -1142,7 +1142,7 @@ branchUniversalObject.release()
 #### Example
 
 ```js
-import branch, { BranchEvent } from `react-native-branch
+import branch, { BranchEvent } from `react-native-branch`
 
 class CustomComponent extends Component {
   buo = null
