@@ -44,7 +44,7 @@ class Branch {
       RNBranch.redeemInitSessionResult().then((result) => {
         if (result) {
           /*** Cached value is returned, so set it as cached. ***/
-          if('params' in result) {
+          if('params' in result && !!result['params']) {
             result['params']['cached_initial_event'] = true
           }
 
