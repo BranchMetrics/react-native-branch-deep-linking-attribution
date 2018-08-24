@@ -76,7 +76,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private static JSONObject initSessionResult = null;
     private BroadcastReceiver mInitSessionEventReceiver = null;
-    private static WeakReference<Branch.BranchUniversalReferralInitListener> initListener = null;
+    private static Branch.BranchUniversalReferralInitListener initListener = null;
 
     private static Activity mActivity = null;
     private static boolean mUseDebug = false;
@@ -86,7 +86,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
     public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
-        initListener = new WeakReference<>(anInitListener);
+        initListener = anInitListener;
         initSession(uri, reactActivity);
     }
 
@@ -148,8 +148,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 LinkProperties linkProperties = LinkProperties.getReferredLinkProperties();
 
                 if (initListener != null) {
-                    Branch.BranchUniversalReferralInitListener listener = initListener.get();
-                    if (listener != null) listener.onInitFinished(branchUniversalObject, linkProperties, error);
+                    initListener.onInitFinished(branchUniversalObject, linkProperties, error);
                 }
                 generateLocalBroadcast(referringParams, referringUri, branchUniversalObject, linkProperties, error);
             }
