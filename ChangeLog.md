@@ -206,3 +206,12 @@
   * Fixed `getLatestReferringParams` release issue #282.
   * Updated to iOS SDK 0.22.5 and Android SDK 2.15.0.
   * Includes native SDKs 0.22.5 (iOS), 2.15.0 (Android).
+
+2018-07-20  Version 2.3.2
+  * Updated to iOS SDK 0.24.1 and Android SDK 2.17.1.
+  * V2 event support updates.
+  * Link data read updates.
+  * Node dependency updates.
+
+2018-07-25  Version 2.3.3
+  * Updated to iOS SDK 0.25.1 and Android SDK 2.19.0.
