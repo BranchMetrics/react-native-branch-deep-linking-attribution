@@ -260,12 +260,12 @@ These instructions are for Swift 3 and 4.
 
 After modifying your AppDelegate:
 
-1. [Add a Dictionary or String entry branch_key](https://dev.branch.io/references/ios_sdk/#add-your-branch-key-to-your-project) with your Branch key to your info.plist
+1. [Add a Dictionary or String entry branch_key](https://docs.branch.io/pages/apps/ios/#configure-infoplist) with your Branch key to your info.plist
 
 2. [Configure for Universal Linking](https://dev.branch.io/references/ios_sdk/#support-universal-linking-ios-9)
 
 3. If using a custom domain in the Branch Dashboard or one or more non-Branch domains, [add the `branch_universal_link_domains`
-    key to your Info.plist](https://dev.branch.io/getting-started/universal-app-links/advanced/ios/#custom-continueuseractivity-configuration).
+    key to your Info.plist](https://docs.branch.io/pages/deep-linking/universal-links/#using-a-custom-domain).
 
 ___
 
@@ -333,18 +333,18 @@ public class MainActivity extends ReactActivity {
 
 ### Android Project Configuration
 
-1. [Configure AndroidManifest.xml](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#configure-manifest). Be sure to set `android:launchMode="singleTask"` on your main activity.
+1. [Configure AndroidManifest.xml](https://docs.branch.io/pages/apps/android/#configure-app). Be sure to set `android:launchMode="singleTask"` on your main activity.
 
-2. [Register for Google Play Install Referrer](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#register-for-google-play-install-referrer). The "receiver" element needs to be added to the "application" node in AndroidManifest.xml
+2. [Register for Google Play Install Referrer](https://docs.branch.io/pages/apps/android/#configure-app). The "receiver" element needs to be added to the "application" node in AndroidManifest.xml
 
-3. [Register a URI scheme](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#register-a-uri-scheme)
+3. [Register a URI scheme](https://docs.branch.io/pages/apps/android/#configure-app)
 - The "intent-filter" element needs to be added to the activity node, whose android:name is "com.yourAppName.MainActivity". This node is in the "application" node.
 - If you already have an intent-filter tag, this has to be added as an additional one.
 - Make sure to replace "yourApp" with the scheme you specified in the Branch dashboard.
 
-4. [Enable Auto Session Management](https://dev.branch.io/getting-started/sdk-integration-guide/guide/android/#enable-auto-session-management). Simply add the "android:name" attribute to your "application" node in your AndroidManifest.xml
+4. [Enable Auto Session Management](https://docs.branch.io/pages/apps/android/#load-branch). Simply add the "android:name" attribute to your "application" node in your AndroidManifest.xml
 
-5. [Enable App Links for Android M and above](https://dev.branch.io/getting-started/universal-app-links/guide/android/) (optional but recommended)
+5. [Enable App Links for Android M and above](https://docs.branch.io/pages/deep-linking/android-app-links/#setup) (optional but recommended)
 
 6. Add your Branch key to AndroidManifest: Inside of application node add `<meta-data android:name="io.branch.sdk.BranchKey" android:value="your_branch_key" />`
 
@@ -354,7 +354,7 @@ public class MainActivity extends ReactActivity {
 -dontwarn io.branch.**
 ```
 
-Please see the Branch [SDK Integration Guide](https://dev.branch.io/getting-started/sdk-integration-guide/) for complete setup instructions.
+Please see the Branch [SDK Integration Guide](https://docs.branch.io/pages/apps/android/#integrate-branch) for complete setup instructions.
 
 ___
 
