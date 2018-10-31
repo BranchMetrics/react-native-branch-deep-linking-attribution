@@ -18,6 +18,8 @@ NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey = @"link_proper
 
 static NSDictionary *initSessionWithLaunchOptionsResult;
 static BOOL useTestInstance = NO;
+BOOL isFromApp;
+NSString *branchKey;
 
 static NSString * const IdentFieldName = @"ident";
 
@@ -44,26 +46,19 @@ RCT_EXPORT_MODULE();
 + (Branch *)branch
 {
     @synchronized(self) {
-        static Branch *instance;
-        static dispatch_once_t once = 0;
-        dispatch_once(&once, ^{
-            RNBranchConfig *config = RNBranchConfig.instance;
-
-            // YES if either [RNBranch useTestInstance] was called or useTestInstance: true is present in branch.json.
-            BOOL usingTestInstance = useTestInstance || config.useTestInstance;
-            NSString *key = config.branchKey ?: usingTestInstance ? config.testKey : config.liveKey;
-
-            if (key) {
-                // Override the Info.plist if these are present.
-                instance = [Branch getInstance: key];
-            }
-            else {
-                [Branch setUseTestBranchKey:usingTestInstance];
-                instance = [Branch getInstance];
-            }
-
+        Branch *instance;
+        NSString *key;
+        RNBranchConfig *config;
+        if (isFromApp)
+            config = [[RNBranchConfig alloc]initWithKey:branchKey];
+        else
+            config = [[RNBranchConfig alloc]init];
+        BOOL usingTestInstance = useTestInstance || config.useTestInstance;
+        key = config.branchKey ? : usingTestInstance ? config.testKey : config.liveKey;
+        if (key) {
+            instance = [Branch getInstance: key];
             [self setupBranchInstance:instance];
-        });
+        }
         return instance;
     }
 }
@@ -293,9 +288,14 @@ RCT_EXPORT_METHOD(
 
 #pragma mark redeemInitSessionResult
 RCT_EXPORT_METHOD(
-                  redeemInitSessionResult:(RCTPromiseResolveBlock)resolve
+                  redeemInitSessionResult:(NSString *)key resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
+    if (![key isEqualToString:@""]) {
+        branchKey = key;
+        isFromApp = true;
+        [RNBranch branch];
+    }
     resolve(initSessionWithLaunchOptionsResult ?: [NSNull null]);
 }
 

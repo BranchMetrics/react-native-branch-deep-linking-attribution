@@ -12,7 +12,7 @@ const defaultBUO = {
 class BranchMethods extends Component {
 
   buo = null
-
+  _unsubscribeFromBranch = null
   state = {
     results: [],
   }
@@ -20,6 +20,21 @@ class BranchMethods extends Component {
   componentWillUnmount() {
     if (!this.buo) return
     this.buo.release()
+  } 
+
+  componentDidMount() { 
+    let key = {
+      "liveKey": "key_live_jnFOgSy0CLIEbPhiS980ccdoxznE8aou",
+      "testKey": "key_test_epyPpLw3zPQqdHklHXY5jfmkAyat5cbm"
+    };
+    this._unsubscribeFromBranch = branch.subscribe(key, ({ error, params }) => {
+      if (error) {
+        console.error("Error from Branch: " + error)
+        return
+      }
+      console.log("Branch params: " + JSON.stringify(params))
+      if (!params['+clicked_branch_link']) return
+    })
   }
 
   createBranchUniversalObject = async () => {

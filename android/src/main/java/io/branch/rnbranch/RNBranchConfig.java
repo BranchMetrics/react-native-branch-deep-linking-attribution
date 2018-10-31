@@ -45,6 +45,14 @@ public class RNBranchConfig {
         }
     }
 
+    public RNBranchConfig(String key) {
+        try {
+            mConfiguration = new JSONObject(key);
+        } catch (JSONException e) {
+            Log.e(TAG, "Error reading key from app: " + e.getMessage());
+        }
+    }
+	
     @Nullable
     public Object get(String key) {
         if (mConfiguration == null) return null;

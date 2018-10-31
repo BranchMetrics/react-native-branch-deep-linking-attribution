@@ -83,6 +83,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static boolean mInitialized = false;
     private static JSONObject mRequestMetadata = new JSONObject();
 
+    private static boolean isKeyFromApp = false;
+    private static String appKey = "";
+    private static Uri mUri;
+
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
     public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
@@ -90,9 +94,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         initSession(uri, reactActivity);
     }
 
-    public static void initSession(final Uri uri, Activity reactActivity) {
+    public static void initSession(Uri uri, Activity reactActivity) {
         Branch branch = setupBranch(reactActivity.getApplicationContext());
-
+        mUri = uri;
         mActivity = reactActivity;
         branch.initSession(new Branch.BranchReferralInitListener(){
 
@@ -324,7 +328,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void redeemInitSessionResult(Promise promise) {
+    public void redeemInitSessionResult(String key, Promise promise) {
+           if (key != null ) {
+            appKey = key;
+            isKeyFromApp = true;
+            initSession(mUri, mActivity);
+        }
         promise.resolve(convertJsonToMap(initSessionResult));
     }
 
@@ -624,12 +633,16 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     private static Branch setupBranch(Context context) {
-        Branch branch = Branch.getInstance(context);
-
-        if (!mInitialized) {
+          
             Log.i(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);
 
-            RNBranchConfig config = new RNBranchConfig(context);
+            RNBranchConfig config = (isKeyFromApp) ? new RNBranchConfig(appKey) : new RNBranchConfig(context);
+        
+			String branchKey = config.getBranchKey();
+       		if (branchKey == null)
+           		branchKey = config.getUseTestInstance() ? config.getTestKey() : config.getLiveKey();
+
+       		Branch branch = branchKey != null ? Branch.getInstance(context, branchKey) : Branch.getInstance(context);
 
             if (mUseDebug || config.getDebugMode()) branch.setDebug();
 
@@ -645,8 +658,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 }
             }
 
-            mInitialized = true;
-        }
+          
 
         return branch;
     }

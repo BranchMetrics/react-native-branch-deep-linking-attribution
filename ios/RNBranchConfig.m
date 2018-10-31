@@ -48,6 +48,38 @@ NSString * _Nonnull const RNBranchConfigAppleSearchAdsDebugModeOption = @"appleS
     return self;
 }
 
+- (instancetype)initWithKey:(NSString *)key
+{
+    self = [super init];
+    if (self) {
+        [self findConfigFile];
+        [self loadConfigFile:key];
+    }
+    return self;
+}
+
+-(void)loadConfigFile:(NSString *)key{
+    NSData* data = [key dataUsingEncoding:NSUTF8StringEncoding];
+    if (!data) return;
+    NSError *error;
+    id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    if (!object || error) {
+        RCTLogError(@"Failed to parse branch.json. Error: %@", error.localizedDescription);
+        return;
+    }
+    
+    if (object && (![[object allKeys] containsObject:@"liveKey"] || ![[object allKeys] containsObject:@"testKey"])) {
+        RCTLogError(@"Failed to access key Error: %@", error.localizedDescription);
+        return;
+    }
+    
+    if (![object isKindOfClass:NSDictionary.class]) {
+        RCTLogError(@"Contents of branch.json should be a JSON object.");
+        return;
+    }
+    self.configuration = object;
+}
+
 - (void)loadConfigFile
 {
     NSData *data = self.configFileContents;

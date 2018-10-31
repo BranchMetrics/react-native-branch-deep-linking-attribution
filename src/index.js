@@ -31,7 +31,7 @@ class Branch {
     console.info('Initializing react-native-branch v. ' + VERSION)
   }
 
-  subscribe(listener) {
+  subscribe(key,listener) {
     /*
      * If _checkCachedEvents flag is set, get the cached value from the native layer (asynchronously).
      * If none, the listener is not called. If there is a cached value, it is passed to the listener.
@@ -39,7 +39,7 @@ class Branch {
     if (this._checkCachedEvents) {
       this._checkCachedEvents = false
 
-      RNBranch.redeemInitSessionResult().then((result) => {
+      RNBranch.redeemInitSessionResult(JSON.stringify(key)).then((result) => {
         if (result) {
           /*** Cached value is returned, so set it as cached. ***/
           if('params' in result) {
