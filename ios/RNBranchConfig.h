@@ -30,5 +30,6 @@ extern NSString * _Nonnull const RNBranchConfigAppleSearchAdsDebugModeOption;
 
 - (nullable id)objectForKey:(NSString * _Nonnull)key;
 - (nullable id)objectForKeyedSubscript:(NSString * _Nonnull)key;
+- (nullable instancetype)initWithKey:(NSString * _Nonnull)key;
 
 @end
