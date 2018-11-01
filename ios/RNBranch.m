@@ -288,14 +288,6 @@ RCT_EXPORT_METHOD(
 
 #pragma mark redeemInitSessionResult
 RCT_EXPORT_METHOD(
-                  redeemInitSessionResult:(RCTPromiseResolveBlock)resolve
-                  rejecter:(__unused RCTPromiseRejectBlock)reject
-                  ) {
-    resolve(initSessionWithLaunchOptionsResult ?: [NSNull null]);
-}
-
-#pragma mark redeemInitSessionResultWithParams
-RCT_EXPORT_METHOD(
                   redeemInitSessionResult:(NSString *)key resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {

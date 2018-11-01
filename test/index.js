@@ -43,7 +43,7 @@ test('can enable user tracking', t => {
 
 test('subscribe returns init session', t => {
   return new Promise((resolve, reject) => {
-    branch.subscribe((session) => {
+    branch.subscribe('',(session) => {
       resolve()
     })
   })
@@ -58,7 +58,7 @@ test('subscribe returns cached init session with cached_initial_event flag', t =
 
   return new Promise((resolve, reject) => {
     let event_received = false
-    branch.subscribe(({ error, params, uri }) => {
+    branch.subscribe('',({ error, params, uri }) => {
       event_received = true
       if(params.cached_initial_event)
         resolve()
@@ -82,7 +82,7 @@ test('subscribe does not call redeemInitSessionResult if skipCachedEvents is cal
 
   return new Promise((resolve, reject) => {
     branch.skipCachedEvents()
-    branch.subscribe(({ error, params, uri }) => {
+    branch.subscribe('',({ error, params, uri }) => {
       reject('cached initial session event returned')
     })
 
@@ -114,7 +114,7 @@ test.serial('subscribe does not add an event listener before redeemInitSession r
   })
 
   return new Promise((resolve, reject) => {
-    branch.subscribe(({error, params, uri}) => {})
+    branch.subscribe('',({error, params, uri}) => {})
 
     setTimeout(() => {
       this.listenerAdded ? resolve() : reject('listener was not added')
@@ -144,7 +144,7 @@ test.serial('once skipCachedEvents is called, subscribe adds a listener and does
   branch.skipCachedEvents() // disable the cache check in this test
 
   return new Promise((resolve, reject) => {
-    branch.subscribe(({error, params, uri}) => {})
+    branch.subscribe('',({error, params, uri}) => {})
 
     setTimeout(() => {
       this.listenerAdded ? resolve() : reject('listener was not added')
