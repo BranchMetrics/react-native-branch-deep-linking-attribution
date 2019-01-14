@@ -1,1 +1,1 @@
-../../../../node_modules/react-native/React/Modules/JSCSamplingProfiler.h
+../../../../node_modules/react-native/ReactCommon/cxxreact/JSCSamplingProfiler.h

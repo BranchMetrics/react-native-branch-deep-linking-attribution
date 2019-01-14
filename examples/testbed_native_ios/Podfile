@@ -1,16 +1,19 @@
-platform :ios, "8.0"
+platform :ios, "9.0"
 
 pod "React",
   path: "node_modules/react-native",
   subspecs: %w{
     Core
+    CxxBridge
+    DevSupport
     RCTAnimation
     RCTImage
     RCTText
     RCTNetwork
     RCTWebSocket
   }
-pod "Yoga", path: "node_modules/react-native/ReactCommon/yoga"
+pod "yoga", path: "node_modules/react-native/ReactCommon/yoga"
+pod "Folly", :podspec => "node_modules/react-native/third-party-podspecs/Folly.podspec"
 pod "react-native-branch", path: "node_modules/react-native-branch"
 pod "Branch-SDK", path: "node_modules/react-native-branch/ios"
 
