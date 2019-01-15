@@ -1,5 +1,5 @@
 # RN supports iOS 8+
-platform :ios, "8.0"
+platform :ios, "9.0"
 
 # Necessary to use Swift pods
 use_frameworks!
@@ -9,6 +9,8 @@ pod "React",
   path: "node_modules/react-native",
   subspecs: %w{
     Core
+    CxxBridge
+    DevSupport
     RCTAnimation
     RCTImage
     RCTText
@@ -18,7 +20,8 @@ pod "React",
 
 # From https://facebook.github.io/react-native/docs/integration-with-existing-apps.html#podfile
 # Explicitly include Yoga if you are using RN >= 0.42.0
-pod "Yoga", path: "node_modules/react-native/ReactCommon/yoga"
+pod "yoga", path: "node_modules/react-native/ReactCommon/yoga"
+pod "Folly", :podspec => "node_modules/react-native/third-party-podspecs/Folly.podspec"
 
 # ----- Begin Branch SDK additions -----
 # Import react-native-branch and Branch pods from node_modules

@@ -15,11 +15,11 @@ import AppKit
 public struct Dimension : Property, NumericalEquality, RelativeEquality, NumericalInequality, RelativeInequality, Addition, Multiplication {
     public let attribute: LayoutAttribute
     public let context: Context
-    public let view: View
+    public let item: AnyObject
 
-    internal init(_ context: Context, _ view: View, _ attribute: LayoutAttribute) {
+    internal init(_ context: Context, _ item: AnyObject, _ attribute: LayoutAttribute) {
         self.attribute = attribute
         self.context = context
-        self.view = view
+        self.item = item
     }
 }

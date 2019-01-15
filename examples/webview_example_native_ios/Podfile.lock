@@ -1,61 +1,95 @@
 PODS:
+  - boost-for-react-native (1.63.0)
   - Branch-SDK (0.25.1):
     - Branch-SDK/Core (= 0.25.1)
   - Branch-SDK/Core (0.25.1)
-  - Cartography (2.0.0)
-  - React (0.43.4):
-    - React/Core (= 0.43.4)
-  - react-native-branch (2.3.2):
+  - Cartography (3.1.0)
+  - DoubleConversion (1.1.5)
+  - Folly (2016.10.31.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+  - glog (0.3.4)
+  - React (0.57.8):
+    - React/Core (= 0.57.8)
+  - react-native-branch (2.3.3):
     - Branch-SDK
     - React
-  - React/Core (0.43.4):
-    - React/cxxreact
-    - Yoga (= 0.43.4.React)
-  - React/cxxreact (0.43.4):
-    - React/jschelpers
-  - React/jschelpers (0.43.4)
-  - React/RCTAnimation (0.43.4):
+  - React/Core (0.57.8):
+    - yoga (= 0.57.8.React)
+  - React/CxxBridge (0.57.8):
+    - Folly (= 2016.10.31.00)
     - React/Core
-  - React/RCTImage (0.43.4):
+    - React/cxxreact
+  - React/cxxreact (0.57.8):
+    - boost-for-react-native (= 1.63.0)
+    - Folly (= 2016.10.31.00)
+    - React/jschelpers
+    - React/jsinspector
+  - React/DevSupport (0.57.8):
+    - React/Core
+    - React/RCTWebSocket
+  - React/fishhook (0.57.8)
+  - React/jschelpers (0.57.8):
+    - Folly (= 2016.10.31.00)
+    - React/PrivateDatabase
+  - React/jsinspector (0.57.8)
+  - React/PrivateDatabase (0.57.8)
+  - React/RCTAnimation (0.57.8):
+    - React/Core
+  - React/RCTBlob (0.57.8):
+    - React/Core
+  - React/RCTImage (0.57.8):
     - React/Core
     - React/RCTNetwork
-  - React/RCTNetwork (0.43.4):
+  - React/RCTNetwork (0.57.8):
     - React/Core
-  - React/RCTText (0.43.4):
+  - React/RCTText (0.57.8):
     - React/Core
-  - React/RCTWebSocket (0.43.4):
+  - React/RCTWebSocket (0.57.8):
     - React/Core
-  - Yoga (0.43.4.React)
+    - React/fishhook
+    - React/RCTBlob
+  - yoga (0.57.8.React)
 
 DEPENDENCIES:
   - Branch-SDK (from `node_modules/react-native-branch/ios`)
   - Cartography
+  - Folly (from `node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - react-native-branch (from `node_modules/react-native-branch`)
   - React/Core (from `node_modules/react-native`)
+  - React/CxxBridge (from `node_modules/react-native`)
+  - React/DevSupport (from `node_modules/react-native`)
   - React/RCTAnimation (from `node_modules/react-native`)
   - React/RCTImage (from `node_modules/react-native`)
   - React/RCTNetwork (from `node_modules/react-native`)
   - React/RCTText (from `node_modules/react-native`)
   - React/RCTWebSocket (from `node_modules/react-native`)
-  - Yoga (from `node_modules/react-native/ReactCommon/yoga`)
+  - yoga (from `node_modules/react-native/ReactCommon/yoga`)
 
 EXTERNAL SOURCES:
   Branch-SDK:
     :path: node_modules/react-native-branch/ios
+  Folly:
+    :podspec: node_modules/react-native/third-party-podspecs/Folly.podspec
   React:
     :path: node_modules/react-native
   react-native-branch:
     :path: node_modules/react-native-branch
-  Yoga:
+  yoga:
     :path: node_modules/react-native/ReactCommon/yoga
 
 SPEC CHECKSUMS:
+  boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   Branch-SDK: 7494230721d7a3083d22e2cb3d9ab9dc1340b1ea
-  Cartography: d295eb25ab54bb57eecd8c2f04e9648c850f1281
-  React: 607aa7eb8b0e44b102f95f43fd49dc8aedefa93f
-  react-native-branch: c9dd67f5e2b7bf1aca962717ccfbff54c9535f07
-  Yoga: 2a70bc5ab41486a272b9fd5b76c482ba9268c5dd
+  Cartography: 1988b7578871a56c036e7af17195cb2190edf18c
+  DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
+  Folly: c89ac2d5c6ab169cd7397ef27485c44f35f742c7
+  glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
+  React: adbac0757ce35e92fbd447ab98c810209d27d9b0
+  react-native-branch: fe98f2cae66d9e77d81a170040512ddb97cccbaf
+  yoga: 74cdf036c30820443b25ade59916236b1e95ee93
 
-PODFILE CHECKSUM: a77bea5fee94576d206314f79821a57a9416cc7f
+PODFILE CHECKSUM: 04968966b74d22bdeea04ea479e7c63dd87629b1
 
 COCOAPODS: 1.3.1
