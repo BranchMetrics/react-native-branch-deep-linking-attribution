@@ -17,13 +17,14 @@ NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey = @"link_proper
 
 static NSDictionary *initSessionWithLaunchOptionsResult;
 static BOOL useTestInstance = NO;
+static NSDictionary *savedLaunchOptions;
+static BOOL savedIsReferrable;
 
 static NSString * const IdentFieldName = @"ident";
 
 // These are only really exposed to the JS layer, so keep them internal for now.
 static NSString * const RNBranchErrorDomain = @"RNBranchErrorDomain";
 static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
-
 
 #pragma mark - Private RNBranch declarations
 
@@ -153,31 +154,8 @@ RCT_EXPORT_MODULE();
 
 //Called by AppDelegate.m -- stores initSession result in static variables and posts RNBranchLinkOpened event that's captured by the RNBranch instance to emit it to React Native
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
-    [self.branch initSessionWithLaunchOptions:launchOptions isReferrable:isReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-        NSMutableDictionary *result = [NSMutableDictionary dictionary];
-        if (error) result[RNBranchLinkOpenedNotificationErrorKey] = error;
-        if (params) {
-            result[RNBranchLinkOpenedNotificationParamsKey] = params;
-            BOOL clickedBranchLink = params[@"+clicked_branch_link"];
-
-            if (clickedBranchLink) {
-                BranchUniversalObject *branchUniversalObject = [BranchUniversalObject objectWithDictionary:params];
-                if (branchUniversalObject) result[RNBranchLinkOpenedNotificationBranchUniversalObjectKey] = branchUniversalObject;
-
-                BranchLinkProperties *linkProperties = [BranchLinkProperties getBranchLinkPropertiesFromDictionary:params];
-                if (linkProperties) result[RNBranchLinkOpenedNotificationLinkPropertiesKey] = linkProperties;
-
-                if (params[@"~referring_link"]) {
-                    result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"~referring_link"]];
-                }
-            }
-            else if (params[@"+non_branch_link"]) {
-                result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"+non_branch_link"]];
-            }
-        }
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:result];
-    }];
+    savedLaunchOptions = launchOptions;
+    savedIsReferrable = isReferrable;
 }
 
 // TODO: Eliminate these now that sourceUrl is gone.
@@ -286,6 +264,38 @@ RCT_EXPORT_METHOD(
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
     resolve([Branch trackingDisabled] ? @YES : @NO);
+}
+
+#pragma mark initializeBranch
+RCT_EXPORT_METHOD(initializeBranch:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject
+                  ) {
+    [self.class.branch initSessionWithLaunchOptions:savedLaunchOptions isReferrable:savedIsReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        NSMutableDictionary *result = [NSMutableDictionary dictionary];
+        if (error) result[RNBranchLinkOpenedNotificationErrorKey] = error;
+        if (params) {
+            result[RNBranchLinkOpenedNotificationParamsKey] = params;
+            BOOL clickedBranchLink = params[@"+clicked_branch_link"];
+            
+            if (clickedBranchLink) {
+                BranchUniversalObject *branchUniversalObject = [BranchUniversalObject objectWithDictionary:params];
+                if (branchUniversalObject) result[RNBranchLinkOpenedNotificationBranchUniversalObjectKey] = branchUniversalObject;
+                
+                BranchLinkProperties *linkProperties = [BranchLinkProperties getBranchLinkPropertiesFromDictionary:params];
+                if (linkProperties) result[RNBranchLinkOpenedNotificationLinkPropertiesKey] = linkProperties;
+                
+                if (params[@"~referring_link"]) {
+                    result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"~referring_link"]];
+                }
+            }
+            else if (params[@"+non_branch_link"]) {
+                result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"+non_branch_link"]];
+            }
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:result];
+    }];
+    resolve(0);
 }
 
 #pragma mark redeemInitSessionResult

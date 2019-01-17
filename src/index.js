@@ -32,6 +32,8 @@ class Branch {
   }
 
   subscribe(listener) {
+    RNBranch.initializeBranch()
+
     /*
      * If _checkCachedEvents flag is set, get the cached value from the native layer (asynchronously).
      * If none, the listener is not called. If there is a cached value, it is passed to the listener.
