@@ -1,8 +1,8 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - Branch-SDK (0.25.1):
-    - Branch-SDK/Core (= 0.25.1)
-  - Branch-SDK/Core (0.25.1)
+  - Branch-SDK (0.25.10):
+    - Branch-SDK/Core (= 0.25.10)
+  - Branch-SDK/Core (0.25.10)
   - DoubleConversion (1.1.5)
   - Folly (2016.10.31.00):
     - boost-for-react-native
@@ -65,6 +65,12 @@ DEPENDENCIES:
   - React/RCTWebSocket (from `node_modules/react-native`)
   - yoga (from `node_modules/react-native/ReactCommon/yoga`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+
 EXTERNAL SOURCES:
   Branch-SDK:
     :path: node_modules/react-native-branch/ios
@@ -79,14 +85,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  Branch-SDK: 7494230721d7a3083d22e2cb3d9ab9dc1340b1ea
+  Branch-SDK: a993ce451de842ebd7c150c4e0b36ec98933a05c
   DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
   Folly: c89ac2d5c6ab169cd7397ef27485c44f35f742c7
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
-  React: adbac0757ce35e92fbd447ab98c810209d27d9b0
-  react-native-branch: fe98f2cae66d9e77d81a170040512ddb97cccbaf
-  yoga: 74cdf036c30820443b25ade59916236b1e95ee93
+  React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
+  react-native-branch: 8988998ef912c6373dc39a24e4638f02a1268265
+  yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
 PODFILE CHECKSUM: 447186ac9ce6ef59fa8e5300fa2e5e142c9e60e2
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3

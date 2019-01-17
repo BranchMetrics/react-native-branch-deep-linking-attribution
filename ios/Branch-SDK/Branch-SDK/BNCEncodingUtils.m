@@ -143,10 +143,15 @@ NSString* BNCWireFormatFromString(NSString *string) {
 
 + (NSString *)sanitizedStringFromString:(NSString *)dirtyString {
     NSString *dirtyCopy = [dirtyString copy]; // dirtyString seems to get dealloc'ed sometimes. Make a copy.
-    NSString *cleanString = [[[[dirtyCopy stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]
-                                          stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"]
-                                          stringByReplacingOccurrencesOfString:@"’" withString:@"'"]
-                                          stringByReplacingOccurrencesOfString:@"\r" withString:@"\\r"];
+    NSString *cleanString = [[[[[[[[dirtyCopy
+        stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"]
+        stringByReplacingOccurrencesOfString:@"\b" withString:@"\\b"]
+        stringByReplacingOccurrencesOfString:@"\f" withString:@"\\f"]
+        stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"]
+        stringByReplacingOccurrencesOfString:@"\r" withString:@"\\r"]
+        stringByReplacingOccurrencesOfString:@"\t" withString:@"\\t"]
+        stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]
+        stringByReplacingOccurrencesOfString:@"`"  withString:@"'"];
     return cleanString;
 }
 
@@ -439,7 +444,7 @@ NSString* BNCWireFormatFromString(NSString *string) {
     int highValue = -1;
     const uint8_t *p = (const uint8_t*) [inputData bytes];
     for (NSUInteger i = 0; i < inputData.length; ++i) {
-        int value = -1;
+        int value;
         if (*p >= '0' && *p <= '9')
             value = *p - '0';
         else
