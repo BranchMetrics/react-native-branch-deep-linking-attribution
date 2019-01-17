@@ -15,7 +15,6 @@ NSString * const RNBranchLinkOpenedNotificationUriKey = @"uri";
 NSString * const RNBranchLinkOpenedNotificationBranchUniversalObjectKey = @"branch_universal_object";
 NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey = @"link_properties";
 
-static NSDictionary *initSessionWithLaunchOptionsResult;
 static BOOL useTestInstance = NO;
 static NSDictionary *savedLaunchOptions;
 static BOOL savedIsReferrable;
@@ -205,7 +204,7 @@ RCT_EXPORT_MODULE();
     NSError *error = notification.userInfo[RNBranchLinkOpenedNotificationErrorKey];
     NSDictionary *params = notification.userInfo[RNBranchLinkOpenedNotificationParamsKey];
 
-    initSessionWithLaunchOptionsResult = @{
+    NSDictionary *initSessionWithLaunchOptionsResult = @{
                                            RNBranchLinkOpenedNotificationErrorKey: error.localizedDescription ?: NSNull.null,
                                            RNBranchLinkOpenedNotificationParamsKey: params ?: NSNull.null,
                                            RNBranchLinkOpenedNotificationUriKey: uri.absoluteString ?: NSNull.null
@@ -296,14 +295,6 @@ RCT_EXPORT_METHOD(initializeBranch:(RCTPromiseResolveBlock)resolve
         [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:result];
     }];
     resolve(0);
-}
-
-#pragma mark redeemInitSessionResult
-RCT_EXPORT_METHOD(
-                  redeemInitSessionResult:(RCTPromiseResolveBlock)resolve
-                  rejecter:(__unused RCTPromiseRejectBlock)reject
-                  ) {
-    resolve(initSessionWithLaunchOptionsResult ?: [NSNull null]);
 }
 
 #pragma mark getLatestReferringParams
