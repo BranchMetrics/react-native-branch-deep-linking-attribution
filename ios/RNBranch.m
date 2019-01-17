@@ -1,5 +1,4 @@
 #import "RNBranch.h"
-#import <React/RCTBridge.h>
 #import <React/RCTEventDispatcher.h>
 #import <React/RCTLog.h>
 #import "BranchEvent+RNBranch.h"
@@ -36,8 +35,6 @@ static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 #pragma mark - RNBranch implementation
 
 @implementation RNBranch
-
-@synthesize bridge = _bridge;
 
 RCT_EXPORT_MODULE();
 
