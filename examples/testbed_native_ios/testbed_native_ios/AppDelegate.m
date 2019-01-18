@@ -22,6 +22,7 @@
 #ifdef USE_BRANCH_TEST_INSTANCE
     [RNBranch useTestInstance];
 #endif // USE_BRANCH_TEST_INSTANCE
+    [RNBranch initializeImmediately];
     [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
     return YES;
 }
