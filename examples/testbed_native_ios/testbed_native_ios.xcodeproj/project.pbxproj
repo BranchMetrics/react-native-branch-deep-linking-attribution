@@ -134,8 +134,6 @@
 				7B6377521E831BF6009227D1 /* Frameworks */,
 				7B6377531E831BF6009227D1 /* Resources */,
 				7B6377C71E834105009227D1 /* Bundle React Native code and images */,
-				409AEEA2728817F15F8D5C66 /* [CP] Embed Pods Frameworks */,
-				55616525A0E039CE66B33C0E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -215,36 +213,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		409AEEA2728817F15F8D5C66 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-testbed_native_ios/Pods-testbed_native_ios-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		55616525A0E039CE66B33C0E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-testbed_native_ios/Pods-testbed_native_ios-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7B6377C71E834105009227D1 /* Bundle React Native code and images */ = {

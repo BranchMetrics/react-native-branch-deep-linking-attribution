@@ -148,7 +148,6 @@
 				7B3B977E1E8C1B650089C04B /* Resources */,
 				B83EB663911AC8B2CA5E28B1 /* [CP] Embed Pods Frameworks */,
 				7B5C791C1E959348002FE942 /* Bundle React Native code and images */,
-				47AAFFFB742D719C77A2E9DE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,21 +213,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		47AAFFFB742D719C77A2E9DE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7B5C791B1E95931A002FE942 /* Start React Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
