@@ -22,6 +22,7 @@ class Branch {
     ios: new NativeEventEmitter(RNBranchEventEmitter)
   })
 
+  key = null;
   _debug = false;
 
   constructor(options = {}) {
@@ -34,7 +35,7 @@ class Branch {
     this._addListener(listener)
 
     // Initialize the native Branch SDK from JS
-    RNBranch.initializeBranch()
+    RNBranch.initializeBranch(this.key)
 
     const unsubscribe = () => {
       this._removeListener(listener)

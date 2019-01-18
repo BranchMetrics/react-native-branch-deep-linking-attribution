@@ -18,6 +18,7 @@ NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey = @"link_proper
 static BOOL useTestInstance = NO;
 static NSDictionary *savedLaunchOptions;
 static BOOL savedIsReferrable;
+static NSString *branchKey;
 
 static NSString * const IdentFieldName = @"ident";
 
@@ -48,7 +49,7 @@ RCT_EXPORT_MODULE();
 
             // YES if either [RNBranch useTestInstance] was called or useTestInstance: true is present in branch.json.
             BOOL usingTestInstance = useTestInstance || config.useTestInstance;
-            NSString *key = config.branchKey ?: usingTestInstance ? config.testKey : config.liveKey;
+            NSString *key = branchKey ?: config.branchKey ?: usingTestInstance ? config.testKey : config.liveKey;
 
             if (key) {
                 // Override the Info.plist if these are present.
@@ -266,9 +267,13 @@ RCT_EXPORT_METHOD(
 }
 
 #pragma mark initializeBranch
-RCT_EXPORT_METHOD(initializeBranch:(RCTPromiseResolveBlock)resolve
+RCT_EXPORT_METHOD(initializeBranch:(NSString *)key
+                  resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
+    RCTLogTrace(@"Initializing Branch SDK. Key from JS: %@", key);
+    branchKey = key;
+
     [self.class.branch initSessionWithLaunchOptions:savedLaunchOptions isReferrable:savedIsReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSMutableDictionary *result = [NSMutableDictionary dictionary];
         if (error) result[RNBranchLinkOpenedNotificationErrorKey] = error;
