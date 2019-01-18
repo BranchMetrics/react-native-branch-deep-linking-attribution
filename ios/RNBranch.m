@@ -19,7 +19,7 @@ static BOOL useTestInstance = NO;
 static NSDictionary *savedLaunchOptions;
 static BOOL savedIsReferrable;
 static NSString *branchKey;
-static BOOL initializeImmediately = NO;
+static BOOL initializeImmediately = YES;
 
 static NSString * const IdentFieldName = @"ident";
 
@@ -153,9 +153,9 @@ RCT_EXPORT_MODULE();
     useTestInstance = YES;
 }
     
-+ (void)initializeImmediately
++ (void)deferInitializationForJSLoad
 {
-    initializeImmediately = YES;
+    initializeImmediately = NO;
 }
 
 //Called by AppDelegate.m -- stores initSession result in static variables and posts RNBranchLinkOpened event that's captured by the RNBranch instance to emit it to React Native
