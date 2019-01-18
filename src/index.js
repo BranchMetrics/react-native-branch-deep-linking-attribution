@@ -23,6 +23,7 @@ class Branch {
   })
 
   key = null;
+  _checkCachedEvents = true;
   _debug = false;
 
   constructor(options = {}) {
@@ -32,7 +33,47 @@ class Branch {
   }
 
   subscribe(listener) {
-    this._addListener(listener)
+
+    /*
+     * If _checkCachedEvents flag is set, get the cached value from the native layer (asynchronously).
+     * If none, the listener is not called. If there is a cached value, it is passed to the listener.
+     */
+    if (this._checkCachedEvents) {
+      this._checkCachedEvents = false
+
+      RNBranch.redeemInitSessionResult().then((result) => {
+        if (result) {
+          /*** Cached value is returned, so set it as cached. ***/
+          if('params' in result) {
+            result['params']['cached_initial_event'] = true
+          }
+
+          listener(result)
+        }
+
+        /*
+         * https://github.com/BranchMetrics/react-native-branch-deep-linking/issues/79
+         *
+         * By waiting until redeemInitSessionResult() returns, we roughly simulate a
+         * synchronous call to the native layer.
+         *
+         * Note that this is equivalent to
+         *
+         * let result = await RNBranch.redeemInitSessionResult()
+         * if (result) listener(result)
+         * this._addListener(listener)
+         *
+         * But by using then(), the subscribe method does not have to be async.
+         * This way, we don't add event listeners until the listener has received the
+         * initial cached value, which essentially eliminates all possibility of
+         * getting the same event twice.
+         */
+        this._addListener(listener)
+      })
+    }
+    else {
+      this._addListener(listener)
+    }
 
     // Initialize the native Branch SDK from JS
     RNBranch.initializeBranch(this.key)
