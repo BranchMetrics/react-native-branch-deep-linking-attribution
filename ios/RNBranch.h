@@ -24,6 +24,7 @@ extern NSString * _Nonnull const RNBranchLinkOpenedNotificationLinkPropertiesKey
 
 // Must be called before any other static method below
 + (void)useTestInstance;
++ (void)deferInitializationForJSLoad;
 
 + (void)setDebug;
 + (void)delayInitToCheckForSearchAds;

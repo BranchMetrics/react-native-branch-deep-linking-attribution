@@ -1,7 +1,7 @@
 import React from 'react-native'
 
 const defaultSession = {params: {}, error: null}
-let tackingDisabled = false
+let trackingDisabled = false
 
 React.NativeModules.RNBranch = {
   // Mock constants exported by native layers
@@ -38,14 +38,18 @@ React.NativeModules.RNBranch = {
     })
   },
 
+  initializeBranch() {
+    return Promise.resolve(0)
+  },
+
   disableTracking(disable) {
     // Just mock user tracking enable/disable
-    tackingDisabled = disable
+    trackingDisabled = disable
   },
 
   isTrackingDisabled() {
     return new Promise((resolve, reject) => {
-      resolve(tackingDisabled)
+      resolve(trackingDisabled)
     })
   },
 }

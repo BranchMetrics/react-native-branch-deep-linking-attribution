@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import react_native_branch
+import Branch
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,29 +26,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ReactBridge.start(launchOptions: launchOptions)
 
         // Initialize Branch SDK
-        NotificationCenter.default.addObserver(self, selector: #selector(routeURLFromBranch), name: NSNotification.Name.RNBranchLinkOpened, object: nil)
 
         #if USE_BRANCH_TEST_INSTANCE
-            RNBranch.useTestInstance()
+            Branch.setUseTestBranchKey(true)
         #endif
-        RNBranch.initSession(launchOptions: launchOptions, isReferrable: true)
+        Branch.getInstance()?.initSession(launchOptions: launchOptions) {
+            branchUniversalObject, linkProperties, error in
+
+            guard error == nil else {
+                print("Error from Branch: \(error!)")
+                return
+            }
+
+            guard let branchUniversalObject = branchUniversalObject else { return }
+
+            self.routeURLFromBranch(branchUniversalObject: branchUniversalObject)
+        }
         
         return true
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return RNBranch.branch.application(app, open: url, options: options)
+        return Branch.getInstance().application(app, open: url, options: options)
     }
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
-        return RNBranch.continue(userActivity)
+        return Branch.getInstance().continue(userActivity)
     }
 
     // MARK: - Branch link routing
 
-    @objc func routeURLFromBranch(_ notification: NSNotification) {
-        guard let buo = notification.userInfo?[RNBranchLinkOpenedNotificationBranchUniversalObjectKey] as? BranchUniversalObject,
-            let planetData = PlanetData(branchUniversalObject: buo) else { return }
+    @objc func routeURLFromBranch(branchUniversalObject: BranchUniversalObject) {
+        guard let planetData = PlanetData(branchUniversalObject: branchUniversalObject) else { return }
 
         let articleViewController = ArticleViewController(planetData: planetData)
         navigationController.pushViewController(articleViewController, animated: true)

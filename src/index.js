@@ -22,6 +22,7 @@ class Branch {
     ios: new NativeEventEmitter(RNBranchEventEmitter)
   })
 
+  key = null;
   _checkCachedEvents = true;
   _debug = false;
 
@@ -32,6 +33,7 @@ class Branch {
   }
 
   subscribe(listener) {
+
     /*
      * If _checkCachedEvents flag is set, get the cached value from the native layer (asynchronously).
      * If none, the listener is not called. If there is a cached value, it is passed to the listener.
@@ -72,6 +74,9 @@ class Branch {
     else {
       this._addListener(listener)
     }
+
+    // Initialize the native Branch SDK from JS
+    RNBranch.initializeBranch(this.key)
 
     const unsubscribe = () => {
       this._removeListener(listener)
