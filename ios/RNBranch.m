@@ -20,7 +20,7 @@ static BOOL useTestInstance = NO;
 static NSDictionary *savedLaunchOptions;
 static BOOL savedIsReferrable;
 static NSString *branchKey;
-static BOOL initializeImmediately = YES;
+static BOOL deferInitializationForJSLoad = NO;
 
 static NSString * const IdentFieldName = @"ident";
 
@@ -156,7 +156,7 @@ RCT_EXPORT_MODULE();
     
 + (void)deferInitializationForJSLoad
 {
-    initializeImmediately = NO;
+    deferInitializationForJSLoad = YES;
 }
 
 //Called by AppDelegate.m -- stores initSession result in static variables and posts RNBranchLinkOpened event that's captured by the RNBranch instance to emit it to React Native
@@ -164,7 +164,7 @@ RCT_EXPORT_MODULE();
     savedLaunchOptions = launchOptions;
     savedIsReferrable = isReferrable;
     
-    if (initializeImmediately) [self initializeBranchSDK];
+    if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
 }
     
 + (void)initializeBranchSDK
@@ -309,6 +309,12 @@ RCT_EXPORT_METHOD(initializeBranch:(NSString *)key
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
+    if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) {
+        // This is a no-op from JS unless [RNBranch deferInitializationForJSLoad] is called.
+        resolve(0);
+        return;
+    }
+
     RCTLogTrace(@"Initializing Branch SDK. Key from JS: %@", key);
     branchKey = key;
 
