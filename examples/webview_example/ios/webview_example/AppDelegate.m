@@ -20,6 +20,7 @@
   [RNBranch useTestInstance];
 #endif // DEBUG
 
+  [RNBranch deferInitializationForJSLoad];
   [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
 
   NSURL *jsCodeLocation;
