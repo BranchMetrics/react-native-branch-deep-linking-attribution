@@ -38,6 +38,10 @@ React.NativeModules.RNBranch = {
     })
   },
 
+  initializeBranch() {
+    return Promise.resolve(0)
+  },
+
   disableTracking(disable) {
     // Just mock user tracking enable/disable
     tackingDisabled = disable
