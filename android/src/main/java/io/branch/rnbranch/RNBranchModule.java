@@ -117,15 +117,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         mActivity = reactActivity;
         mSavedUri = uri;
 
-        if (mDeferInitializationForJSLoad) {
+        RNBranchConfig config = new RNBranchConfig(reactActivity);
+
+        if (mDeferInitializationForJSLoad || config.getDeferInitializationForJSLoad()) {
             return;
         }
 
-        initializeNativeSDK();
+        initializeNativeSDK(null);
     }
 
-    private static void initializeNativeSDK() {
-        Branch branch = setupBranch(mActivity.getApplicationContext());
+    private static void initializeNativeSDK(@Nullable String key) {
+        Branch branch = setupBranch(key, mActivity.getApplicationContext());
 
         branch.initSession(new Branch.BranchReferralInitListener(){
 
@@ -345,14 +347,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void initializeBranch(String key, Promise promise) {
-        if (!mDeferInitializationForJSLoad) {
+        RNBranchConfig config = new RNBranchConfig(mActivity);
+
+        if (!mDeferInitializationForJSLoad && !config.getDeferInitializationForJSLoad()) {
+            // TODO: Reject if key is non-null. Too late now.
             promise.resolve(0);
             return;
         }
 
-        Log.d(REACT_CLASS, "key from JS: " + key);
+        Log.d(REACT_CLASS, "Initializing Branch SDK. Key from JS: " + key);
 
-        initializeNativeSDK();
+        initializeNativeSDK(key);
 
         promise.resolve(0);
     }
@@ -673,8 +678,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         return linkProperties;
     }
 
-    private static Branch setupBranch(Context context) {
-        Branch branch = Branch.getInstance(context);
+    private static Branch setupBranch(@Nullable String key, Context context) {
+        Branch branch;
+
+        if (key == null) key = getBranchKeyFromConfiguration(context);
+
+        if (key != null) {
+            branch = Branch.getInstance(context, key);
+        }
+        else {
+            branch = Branch.getInstance(context);
+        }
 
         if (!mInitialized) {
             Log.i(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);
@@ -686,9 +700,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             if (mRequestMetadata != null) {
                 Iterator keys = mRequestMetadata.keys();
                 while (keys.hasNext()) {
-                    String key = (String) keys.next();
+                    String metadataKey = (String) keys.next();
                     try {
-                        branch.setRequestMetadata(key, mRequestMetadata.getString(key));
+                        branch.setRequestMetadata(metadataKey, mRequestMetadata.getString(metadataKey));
                     } catch (JSONException e) {
                         // no-op
                     }
@@ -699,6 +713,20 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }
 
         return branch;
+    }
+
+    @Nullable
+    private static String getBranchKeyFromConfiguration(Context context) {
+        RNBranchConfig config = new RNBranchConfig(context);
+        String key = config.getBranchKey();
+        if (key != null) return key;
+
+        if (config.getUseTestInstance()) {
+            return config.getTestKey();
+        }
+        else {
+            return config.getLiveKey();
+        }
     }
 
     private BranchUniversalObject findUniversalObjectOrReject(final String ident, final Promise promise) {
