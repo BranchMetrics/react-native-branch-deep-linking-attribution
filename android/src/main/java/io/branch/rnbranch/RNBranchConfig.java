@@ -126,4 +126,17 @@ public class RNBranchConfig {
             return false;
         }
     }
+
+    public boolean getDeferInitializationForJSLoad() {
+        if (mConfiguration == null) return false;
+
+        try {
+            if (!mConfiguration.has("deferInitializationForJSLoad")) return false;
+            return mConfiguration.getBoolean("deferInitializationForJSLoad");
+        }
+        catch (JSONException exception) {
+            Log.e(TAG, "Error parsing branch.json: " + exception.getMessage());
+            return false;
+        }
+    }
 }
