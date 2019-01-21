@@ -82,6 +82,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static boolean mUseDebug = false;
     private static boolean mInitialized = false;
     private static JSONObject mRequestMetadata = new JSONObject();
+    private static boolean mDeferInitializationForJSLoad = false;
+    private static Uri mSavedUri = null;
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
@@ -91,9 +93,19 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     public static void initSession(final Uri uri, Activity reactActivity) {
-        Branch branch = setupBranch(reactActivity.getApplicationContext());
-
         mActivity = reactActivity;
+        mSavedUri = uri;
+
+        if (mDeferInitializationForJSLoad) {
+            return;
+        }
+
+        initializeNativeSDK();
+    }
+
+    private static void initializeNativeSDK() {
+        Branch branch = setupBranch(mActivity.getApplicationContext());
+
         branch.initSession(new Branch.BranchReferralInitListener(){
 
             private Activity mmActivity = null;
@@ -188,7 +200,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
                 LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(broadcastIntent);
             }
-        }.init(reactActivity), uri, reactActivity);
+        }.init(mActivity), mSavedUri, mActivity);
     }
 
     public static void setDebug() {
@@ -209,6 +221,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         } catch (JSONException e) {
             // no-op
         }
+    }
+
+    public static void setmDeferInitializationForJSLoad() {
+        mDeferInitializationForJSLoad = true;
     }
 
     public RNBranchModule(ReactApplicationContext reactContext) {
@@ -305,6 +321,20 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void isTrackingDisabled(Promise promise) {
         Branch branch = Branch.getInstance();
         promise.resolve(branch.isTrackingDisabled());
+    }
+
+    @ReactMethod
+    public void initializeBranch(String key, Promise promise) {
+        if (!mDeferInitializationForJSLoad) {
+            promise.resolve(0);
+            return;
+        }
+
+        Log.d(REACT_CLASS, "key from JS: " + key);
+
+        initializeNativeSDK();
+
+        promise.resolve(0);
     }
 
     @ReactMethod
