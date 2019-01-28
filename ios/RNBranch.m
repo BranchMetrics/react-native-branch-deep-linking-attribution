@@ -163,10 +163,12 @@ RCT_EXPORT_MODULE();
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
     savedLaunchOptions = launchOptions;
     savedIsReferrable = isReferrable;
-    
-    if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
+
+    // Can't currently support this on Android.
+    // if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
+    [self initializeBranchSDK];
 }
-    
+
 + (void)initializeBranchSDK
 {
     [self.branch initSessionWithLaunchOptions:savedLaunchOptions isReferrable:savedIsReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
@@ -307,8 +309,15 @@ RCT_EXPORT_METHOD(
 #pragma mark initializeBranch
 RCT_EXPORT_METHOD(initializeBranch:(NSString *)key
                   resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(__unused RCTPromiseRejectBlock)reject
+                  rejecter:(RCTPromiseRejectBlock)reject
                   ) {
+    NSError *error = [NSError errorWithDomain:RNBranchErrorDomain
+                                         code:-1
+                                     userInfo:nil];
+    
+    reject(@"RNBranch::Error::Unsupported", @"Initializing the Branch SDK from JS will be supported in a future release.", error);
+
+    /*
     if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) {
         // This is a no-op from JS unless [RNBranch deferInitializationForJSLoad] is called.
         resolve(0);
@@ -320,6 +329,7 @@ RCT_EXPORT_METHOD(initializeBranch:(NSString *)key
 
     [self.class initializeBranchSDK];
     resolve(0);
+    // */
 }
 
 #pragma mark redeemInitSessionResult
