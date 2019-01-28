@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2009-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2009-2018 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -123,7 +123,7 @@
 
     /* dynamically create a subclass and set it as the class of the object */
     Class subclass = OCMCreateSubclass(mockedClass, realObject);
-	object_setClass(realObject, subclass);
+    object_setClass(realObject, subclass);
 
     /* point forwardInvocation: of the object to the implementation in the mock */
 	Method myForwardMethod = class_getInstanceMethod([self mockObjectClass], @selector(forwardInvocationForRealObject:));
@@ -174,9 +174,9 @@
         return;
 
     Method originalMethod = class_getInstanceMethod(mockedClass, sel);
-	IMP originalIMP = method_getImplementation(originalMethod);
-    const char *types = method_getTypeEncoding(originalMethod);
     /* Might be NULL if the selector is forwarded to another class */
+    IMP originalIMP = (originalMethod != NULL) ? method_getImplementation(originalMethod) : NULL;
+    const char *types = (originalMethod != NULL) ? method_getTypeEncoding(originalMethod) : NULL;
     // TODO: check the fallback implementation is actually sufficient
     if(types == NULL)
         types = ([[mockedClass instanceMethodSignatureForSelector:sel] fullObjCTypes]);

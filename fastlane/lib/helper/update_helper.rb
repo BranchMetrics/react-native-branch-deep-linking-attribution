@@ -14,12 +14,11 @@ module UpdateHelper
       # The Podfile there installs from node_modules in the repo root.
       pods_folder = "native-tests/ios" if folder == "."
 
-      other_action.cocoapods(
-        # relative to fastlane folder when using other_action
-        podfile: File.join("..", pods_folder, "Podfile"),
-        silent: true,
-        use_bundle_exec: true
-      )
+      FastlaneCore::UI.message "Updating Pods in #{pods_folder}"
+      Dir.chdir pods_folder do
+        sh %w{pod update --silent}
+      end
+      FastlaneCore::UI.message "Done ✅"
 
       other_action.git_add(path: File.join("..", pods_folder))
 
