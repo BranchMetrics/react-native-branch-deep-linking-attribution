@@ -2,10 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "io.branch.testbed_native_android"
-        buildToolsVersion = "27.0.3"
         minSdkVersion = 16
         compileSdkVersion = 27
         targetSdkVersion = 26
@@ -33,7 +31,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "io.branch.sdk.android:library:3+"
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

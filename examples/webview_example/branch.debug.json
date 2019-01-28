@@ -1,6 +1,5 @@
 {
     "debugMode": true,
     "delayInitToCheckForSearchAds": true,
-    "appleSearchAdsDebugMode": true,
-    "deferInitializationForJSLoad": true
+    "appleSearchAdsDebugMode": true
 }
