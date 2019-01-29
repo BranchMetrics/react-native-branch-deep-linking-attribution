@@ -85,7 +85,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static JSONObject mRequestMetadata = new JSONObject();
     private static boolean mDeferInitializationForJSLoad = false;
     private static Uri mSavedUri = null;
-    // TODO: Should probably be an ApplicationContext
     private static Context mSavedApplicationContext = null;
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
@@ -112,7 +111,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     /**
-     * Call this method in order to use deferInitializataionForJsLoad where Branch.getAutoInstance()
+     * Call this method in order to use deferInitializationForJsLoad where Branch.getAutoInstance()
      * would usually be called. Does not return the instance, which may not be instantiated until
      * later. This should not be called more than once in the lifetime of the app.
      *
@@ -139,10 +138,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         mActivity = reactActivity;
         mSavedUri = uri;
 
-        RNBranchConfig config = new RNBranchConfig(reactActivity);
-
-        if (mDeferInitializationForJSLoad || config.getDeferInitializationForJSLoad()) {
-            return;
+        if (mSavedApplicationContext != null) {
+            RNBranchConfig config = new RNBranchConfig(reactActivity);
+            if (mDeferInitializationForJSLoad || config.getDeferInitializationForJSLoad()) {
+                return;
+            }
         }
 
         initializeNativeSDK(null);
@@ -161,44 +161,44 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 Log.d(REACT_CLASS, "onInitFinished");
                 JSONObject result = new JSONObject();
                 Uri referringUri = null;
-                try{
-                    boolean clickedBranchLink = false;
-                    // getXXX throws. It's OK for these to be missing.
+                if (referringParams != null) {
                     try {
-                        clickedBranchLink = referringParams.getBoolean("+clicked_branch_link");
-                    }
-                    catch (JSONException e) {
-
-                    }
-
-                    String referringLink = null;
-                    if (clickedBranchLink) {
+                        boolean clickedBranchLink = false;
+                        // getXXX throws. It's OK for these to be missing.
                         try {
-                            referringLink = referringParams.getString("~referring_link");
-                        }
-                        catch (JSONException e) {
+                            clickedBranchLink = referringParams.getBoolean("+clicked_branch_link");
+                        } catch (JSONException e) {
 
                         }
-                    }
-                    else {
+
+                        String referringLink = null;
+                        if (clickedBranchLink) {
+                            try {
+                                referringLink = referringParams.getString("~referring_link");
+                            } catch (JSONException e) {
+
+                            }
+                        } else {
+                            try {
+                                referringLink = referringParams.getString("+non_branch_link");
+                            } catch (JSONException e) {
+
+                            }
+                        }
+
+                        if (referringLink != null) referringUri = Uri.parse(referringLink);
+
+                        result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS, referringParams);
+                        result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR, error != null ? error.getMessage() : JSONObject.NULL);
+                        result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, referringLink != null ? referringLink : JSONObject.NULL);
+                    } catch (JSONException ex) {
                         try {
-                            referringLink = referringParams.getString("+non_branch_link");
-                        }
-                        catch (JSONException e) {
-
+                            result.put("error", "Failed to convert result to JSONObject: " + ex.getMessage());
+                        } catch (JSONException k) {
                         }
                     }
-
-                    if (referringLink != null) referringUri = Uri.parse(referringLink);
-
-                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS, referringParams);
-                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR, error != null ? error.getMessage() : JSONObject.NULL);
-                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, referringLink != null ? referringLink : JSONObject.NULL);
-                } catch(JSONException ex) {
-                    try {
-                        result.put("error", "Failed to convert result to JSONObject: " + ex.getMessage());
-                    } catch(JSONException k) {}
                 }
+
                 initSessionResult = result;
 
                 BranchUniversalObject branchUniversalObject =  BranchUniversalObject.getReferredBranchUniversalObject();
@@ -700,35 +700,27 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         return linkProperties;
     }
 
-    private static Branch getBranchInstance(@Nullable String key, Context context) {
-        Branch branch;
-        if (key != null) {
-            if (mSavedApplicationContext != null) {
-                branch = Branch.getAutoInstance(mSavedApplicationContext, key);
-                mSavedApplicationContext = null;
+    private static Branch getBranchInstance(@Nullable String key) {
+        if (mSavedApplicationContext != null) {
+            Log.d(REACT_CLASS, "Calling Branch.getAutoInstance with key " + key);
+            if (key != null) {
+                Branch.getAutoInstance(mSavedApplicationContext, key);
+            } else {
+                Branch.getAutoInstance(mSavedApplicationContext);
             }
-            else {
-                branch = Branch.getInstance(context, key);
-            }
-        }
-        else if (mSavedApplicationContext != null) {
-            branch = Branch.getAutoInstance(mSavedApplicationContext);
             mSavedApplicationContext = null;
         }
-        else {
-            branch = Branch.getInstance(context);
-        }
 
-        return branch;
+        return Branch.getInstance();
     }
 
     private static Branch setupBranch(@Nullable String key, Context context) {
 
         if (key == null) key = getBranchKeyFromConfiguration(context);
-        Branch branch = getBranchInstance(key, context);
+        Branch branch = getBranchInstance(key);
 
         if (!mInitialized) {
-            Log.i(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);
+            Log.d(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);
 
             RNBranchConfig config = new RNBranchConfig(context);
 
