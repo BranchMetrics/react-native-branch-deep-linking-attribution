@@ -88,72 +88,36 @@ ___
 
 ### Updating from an earlier version
 
-As of version 2.0.0, the native Branch SDKs are included in the module and must not be installed
-from elsewhere (CocoaPods, Carthage or manually). When updating from an earlier
-version of `react-native-branch`, you must remove the Branch SDK that was
-previously taken from elsewhere.
+To fix a longstanding build issue with Android, it is necessary to take the
+native Branch Android SDK from Maven rather than from the react-native-branch
+module, starting with version 3.0.0.
 
-#### Android
+Open the `android/app/build.gradle` file in your project.
 
-Open the `android/app/build.gradle` file
-in your project. Remove:
+Remove this line:
 
 ```gradle
-compile 'io.branch.sdk.android:library:2.+'
+implementation fileTree(dir: 'libs', include: ['*.jar'])
 ```
 
-And add this line if not already present:
+Add this line:
 
 ```gradle
-compile fileTree(dir: 'libs', include: ['*.jar'])
+implementation "io.branch.sdk.android:library:3.0.4"
 ```
 
 The result should be something like
 ```gradle
 dependencies {
-    compile project(':react-native-branch')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:appcompat-v7:23.0.1"
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    implementation project(':react-native-branch')
+    implementation "io.branch.sdk.android:library:3.0.4"
+    implementation "com.android.support:appcompat-v7:23.0.1"
+    implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 ```
 
-#### iOS
-
-Remove the external Branch SDK from your project depending on how you originally
-integrated it.
-
-##### CocoaPods
-
-###### Apps built using react-native link
-
-Remove "Branch" from your Podfile. Run `pod install` after updating the Podfile. This is
-necessary to regenerate the Pods project without the Branch pod.
-
-If you added CocoaPods to your project just for the Branch pod, you can remove CocoaPods entirely from your app using the [pod deintegrate](https://guides.cocoapods.org/terminal/commands.html#pod_deintegrate) command.
-
-###### Using the React pod
-
-Replace `pod "Branch"` in your Podfile with `pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"`.
-```Ruby
-pod "React", path: "../node_modules/react-native"
-# The following line is necessary with use_frameworks! or RN >= 0.42.
-pod "Yoga", path: "../node_modules/react-native/ReactCommon/yoga"
-pod "react-native-branch", path: "../node_modules/react-native-branch"
-pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"
-```
-
-The location of `node_modules` relative to your `Podfile` may vary.
-
-Run `pod install` after making this change.
-
-##### Carthage
-
-Remove Branch.framework from your app's dependencies. Also remove Branch.framework from your `carthage copy-frameworks` build phase.
-
-##### Manually installed
-
-Remove Branch.framework from your app's dependencies.
+If you're using an older version of Gradle, you may need `compile` instead of
+`implementation`.
 
 ___
 
