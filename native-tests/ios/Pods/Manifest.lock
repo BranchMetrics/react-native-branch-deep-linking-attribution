@@ -5,7 +5,7 @@ PODS:
   - OCMock (3.4.3)
   - React (0.43.4):
     - React/Core (= 0.43.4)
-  - react-native-branch (3.0.0-beta.1):
+  - react-native-branch (3.0.0-beta.2):
     - Branch-SDK
     - React
   - React/Core (0.43.4):
