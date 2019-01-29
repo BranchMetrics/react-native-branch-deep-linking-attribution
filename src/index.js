@@ -76,8 +76,7 @@ class Branch {
     }
 
     // Initialize the native Branch SDK from JS
-    // -- Unsupportable on Android for the time being.
-    // RNBranch.initializeBranch(this.key)
+    RNBranch.initializeBranch(this.key)
 
     const unsubscribe = () => {
       this._removeListener(listener)

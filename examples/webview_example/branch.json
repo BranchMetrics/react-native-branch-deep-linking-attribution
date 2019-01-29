@@ -1,4 +1,6 @@
 {
   "delayInitToCheckForSearchAds": true,
-  "branchKey": "key_live_gmvPhLx7x9cW5Qh4x80dVcphxviJom1r"
+  "branchKey": "key_live_gmvPhLx7x9cW5Qh4x80dVcphxviJom1r",
+  "delayInitToCheckForSearchAds": true,
+  "deferInitializationForJSLoad": true
 }

@@ -35,6 +35,7 @@ class ArticleList extends Component {
   }
 
   componentDidMount() {
+    branch.key = 'key_test_jmzd0lUR9gIiAAEQfo42onbcExe1MeHg'
     this._unsubscribeFromBranch = branch.subscribe(({ error, params }) => {
       if (error) {
         console.error("Error from Branch: " + error)

@@ -153,7 +153,7 @@ RCT_EXPORT_MODULE();
 + (void)useTestInstance {
     useTestInstance = YES;
 }
-    
+
 + (void)deferInitializationForJSLoad
 {
     deferInitializationForJSLoad = YES;
@@ -164,9 +164,7 @@ RCT_EXPORT_MODULE();
     savedLaunchOptions = launchOptions;
     savedIsReferrable = isReferrable;
 
-    // Can't currently support this on Android.
-    // if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
-    [self initializeBranchSDK];
+    if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
 }
 
 + (void)initializeBranchSDK
@@ -177,14 +175,14 @@ RCT_EXPORT_MODULE();
         if (params) {
             result[RNBranchLinkOpenedNotificationParamsKey] = params;
             BOOL clickedBranchLink = params[@"+clicked_branch_link"];
-            
+
             if (clickedBranchLink) {
                 BranchUniversalObject *branchUniversalObject = [BranchUniversalObject objectWithDictionary:params];
                 if (branchUniversalObject) result[RNBranchLinkOpenedNotificationBranchUniversalObjectKey] = branchUniversalObject;
-                
+
                 BranchLinkProperties *linkProperties = [BranchLinkProperties getBranchLinkPropertiesFromDictionary:params];
                 if (linkProperties) result[RNBranchLinkOpenedNotificationLinkPropertiesKey] = linkProperties;
-                
+
                 if (params[@"~referring_link"]) {
                     result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"~referring_link"]];
                 }
@@ -193,7 +191,7 @@ RCT_EXPORT_MODULE();
                 result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"+non_branch_link"]];
             }
         }
-        
+
         [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:result];
     }];
 }
@@ -311,13 +309,7 @@ RCT_EXPORT_METHOD(initializeBranch:(NSString *)key
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ) {
-    NSError *error = [NSError errorWithDomain:RNBranchErrorDomain
-                                         code:-1
-                                     userInfo:nil];
-    
-    reject(@"RNBranch::Error::Unsupported", @"Initializing the Branch SDK from JS will be supported in a future release.", error);
-
-    /*
+    //*
     if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) {
         // This is a no-op from JS unless [RNBranch deferInitializationForJSLoad] is called.
         resolve(0);

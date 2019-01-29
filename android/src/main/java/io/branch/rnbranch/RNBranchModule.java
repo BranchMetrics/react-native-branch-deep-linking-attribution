@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -84,6 +85,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static JSONObject mRequestMetadata = new JSONObject();
     private static boolean mDeferInitializationForJSLoad = false;
     private static Uri mSavedUri = null;
+    // TODO: Should probably be an ApplicationContext
+    private static Context mSavedApplicationContext = null;
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
@@ -106,6 +109,25 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         else {
             Branch.getAutoInstance(context);
         }
+    }
+
+    /**
+     * Call this method in order to use deferInitializataionForJsLoad where Branch.getAutoInstance()
+     * would usually be called. Does not return the instance, which may not be instantiated until
+     * later. This should not be called more than once in the lifetime of the app.
+     *
+     * @param applicationContext the application context (`this` is your Application subclass)
+     */
+    public static void saveApplicationContext(@NonNull Context applicationContext) {
+        mSavedApplicationContext = applicationContext;
+        RNBranchConfig config = new RNBranchConfig(applicationContext);
+
+        // If instructed to defer, wait till JS initializes the SDK.
+        if (mDeferInitializationForJSLoad || config.getDeferInitializationForJSLoad()) return;
+
+        // If configuration doesn't specify to defer, and deferInitializationForJSLoad() has not been
+        // called, go ahead and initialize normally.
+        Branch.getAutoInstance(applicationContext);
     }
 
     public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
@@ -678,17 +700,32 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         return linkProperties;
     }
 
-    private static Branch setupBranch(@Nullable String key, Context context) {
+    private static Branch getBranchInstance(@Nullable String key, Context context) {
         Branch branch;
-
-        if (key == null) key = getBranchKeyFromConfiguration(context);
-
         if (key != null) {
-            branch = Branch.getInstance(context, key);
+            if (mSavedApplicationContext != null) {
+                branch = Branch.getAutoInstance(mSavedApplicationContext, key);
+                mSavedApplicationContext = null;
+            }
+            else {
+                branch = Branch.getInstance(context, key);
+            }
+        }
+        else if (mSavedApplicationContext != null) {
+            branch = Branch.getAutoInstance(mSavedApplicationContext);
+            mSavedApplicationContext = null;
         }
         else {
             branch = Branch.getInstance(context);
         }
+
+        return branch;
+    }
+
+    private static Branch setupBranch(@Nullable String key, Context context) {
+
+        if (key == null) key = getBranchKeyFromConfiguration(context);
+        Branch branch = getBranchInstance(key, context);
 
         if (!mInitialized) {
             Log.i(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);
