@@ -784,10 +784,10 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
         NSDictionary *params = [BNCEncodingUtils decodeQueryStringToDictionary:query];
         if (params[@"link_click_id"]) {
             handled = YES;
-            if (isFromSelf) {
-                [self resetUserSession];
-            }
             self.preferenceHelper.linkClickIdentifier = params[@"link_click_id"];
+        }
+	if (isFromSelf) {
+            [self resetUserSession];
         }
     }
     [self initUserSessionAndCallCallback:(self.initializationStatus != BNCInitStatusInitialized)];
