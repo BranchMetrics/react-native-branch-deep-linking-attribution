@@ -85,6 +85,27 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
+    public static void getAutoInstance(Context context) {
+        RNBranchConfig config = new RNBranchConfig(context);
+        String branchKey = config.getBranchKey();
+        String liveKey = config.getLiveKey();
+        String testKey = config.getTestKey();
+        boolean useTest = config.getUseTestInstance();
+
+        if (branchKey != null) {
+            Branch.getAutoInstance(context, branchKey);
+        }
+        else if (useTest && testKey != null) {
+            Branch.getAutoInstance(context, testKey);
+        }
+        else if (!useTest && liveKey != null) {
+            Branch.getAutoInstance(context, liveKey);
+        }
+        else {
+            Branch.getAutoInstance(context);
+        }
+    }
+
     public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
         initListener = new WeakReference<>(anInitListener);
         initSession(uri, reactActivity);
