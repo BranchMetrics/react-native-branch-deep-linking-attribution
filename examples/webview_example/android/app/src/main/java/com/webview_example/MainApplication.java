@@ -50,7 +50,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         SoLoader.init(this, /* native exopackage */ false);
 
         // Replace Branch.getAutoInstance(this); with:
-        RNBranchModule.saveApplicationContext(this);
+        RNBranchModule.getAutoInstance(this);
     }
 
     @Override

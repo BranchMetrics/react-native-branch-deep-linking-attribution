@@ -89,44 +89,27 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
-    public static void getAutoInstance(Context context) {
+    public static void getAutoInstance(@NonNull Context context) {
         RNBranchConfig config = new RNBranchConfig(context);
-        String branchKey = config.getBranchKey();
-        String liveKey = config.getLiveKey();
-        String testKey = config.getTestKey();
-        boolean useTest = config.getUseTestInstance();
-
-        if (branchKey != null) {
-            Branch.getAutoInstance(context, branchKey);
-        }
-        else if (useTest && testKey != null) {
-            Branch.getAutoInstance(context, testKey);
-        }
-        else if (!useTest && liveKey != null) {
-            Branch.getAutoInstance(context, liveKey);
-        }
-        else {
-            Branch.getAutoInstance(context);
-        }
-    }
-
-    /**
-     * Call this method in order to use deferInitializationForJsLoad where Branch.getAutoInstance()
-     * would usually be called. Does not return the instance, which may not be instantiated until
-     * later. This should not be called more than once in the lifetime of the app.
-     *
-     * @param applicationContext the application context (`this` is your Application subclass)
-     */
-    public static void saveApplicationContext(@NonNull Context applicationContext) {
-        mSavedApplicationContext = applicationContext;
-        RNBranchConfig config = new RNBranchConfig(applicationContext);
 
         // If instructed to defer, wait till JS initializes the SDK.
-        if (mDeferInitializationForJSLoad || config.getDeferInitializationForJSLoad()) return;
+        if (mDeferInitializationForJSLoad || config.getDeferInitializationForJSLoad()) {
+            mSavedApplicationContext = context;
+            return;
+        }
 
         // If configuration doesn't specify to defer, and deferInitializationForJSLoad() has not been
         // called, go ahead and initialize normally.
-        Branch.getAutoInstance(applicationContext);
+        String branchKey = getBranchKeyFromConfiguration(context);
+
+        if (branchKey != null) {
+            // key from branch.json
+            Branch.getAutoInstance(context, branchKey);
+        }
+        else {
+            // key from Android manifest
+            Branch.getAutoInstance(context);
+        }
     }
 
     public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
@@ -702,6 +685,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private static Branch getBranchInstance(@Nullable String key) {
         if (mSavedApplicationContext != null) {
+            // If key not passed in from JS, but we were instructed to defer (why?),
+            // check branch.json for keys.
+            if (key == null) key = getBranchKeyFromConfiguration(mSavedApplicationContext);
+
             Log.d(REACT_CLASS, "Calling Branch.getAutoInstance with key " + key);
             if (key != null) {
                 Branch.getAutoInstance(mSavedApplicationContext, key);
