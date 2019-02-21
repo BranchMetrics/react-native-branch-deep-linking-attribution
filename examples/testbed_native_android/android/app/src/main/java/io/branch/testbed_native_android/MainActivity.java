@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
                 .setBundleAssetName("index.android.bundle") // prod
-                .setJSMainModuleName("index.android")
+                .setJSMainModulePath("index.android")
                 .addPackage(new MainReactPackage())
                 .addPackage(new RNBranchPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
