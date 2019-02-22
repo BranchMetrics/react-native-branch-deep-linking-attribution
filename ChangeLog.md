@@ -218,3 +218,7 @@
 
 2019-01-28  Version 3.0.0-beta.1
   * Remove native Branch Android jar from repo and distro.
+
+2019-02-22  Version 2.3.4
+  * Remove weak reference from BranchUniversalReferralInitListener (#372)
+  * Check for null params (#364)
