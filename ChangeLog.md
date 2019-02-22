@@ -215,3 +215,6 @@
 
 2018-07-25  Version 2.3.3
   * Updated to iOS SDK 0.25.1 and Android SDK 2.19.0.
+
+2019-01-28  Version 3.0.0-beta.1
+  * Remove native Branch Android jar from repo and distro.
