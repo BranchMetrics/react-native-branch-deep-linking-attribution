@@ -222,3 +222,8 @@
 2019-02-22  Version 2.3.4
   * Remove weak reference from BranchUniversalReferralInitListener (#372)
   * Check for null params (#364)
+
+2019-02-22  Version 3.0.0-beta.2
+  * Remove weak reference from BranchUniversalReferralInitListener (#372)
+  * Check for null params (#364)
+  * Support for setting Branch keys in branch.json
