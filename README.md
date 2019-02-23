@@ -86,7 +86,7 @@ done in native apps that integrate a React Native components.
 
 ___
 
-### Updating from an earlier version
+### Updating from an earlier version or starting with v3.0.0
 
 To fix a longstanding build issue with Android, it is necessary to take the
 native Branch Android SDK from Maven rather than from the react-native-branch
