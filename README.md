@@ -119,6 +119,20 @@ dependencies {
 If you're using an older version of Gradle, you may need `compile` instead of
 `implementation`.
 
+It is recommended to replace `Branch.getAutoInstance` in your `Application.onCreate`
+method with `RNBranchModule.getAutoInstance`. This is required in order to set Branch
+keys in the `branch.json` file.
+
+```java
+@Override
+public void onCreate() {
+  super.onCreate();
+  SoLoader.init(this, /* native exopackage */ false);
+  // Replace Branch.getAutoInstance(this); with:
+  RNBranchModule.getAutoInstance(this);
+}
+```
+
 ___
 
 ### Register Your App
