@@ -252,7 +252,7 @@ ___
 Add RNBranchPackage to packages list in `getPackages()` MainApplication.java (`android/app/src/[...]/MainApplication.java`).
 Note that this is automatically done if you used `react-native link`.
 
-Also add a call to `Branch.getAutoinstance()` in `onCreate()` in the same source file. This has to be
+Also add a call to `RNBranchModule.getAutoinstance()` in `onCreate()` in the same source file. This has to be
 done even if you used `react-native link`.
 ```java
 // ...
@@ -276,9 +276,12 @@ import io.branch.referral.Branch;
     @Override
     public void onCreate() {
       super.onCreate();
-      Branch.getAutoInstance(this);
+      RNBranchModule.getAutoInstance(this);
     }
 ```
+
+_NOTE_: `RNBranchModule.getAutoInstance` was introduced in version 3.0.0-beta.2. Use `Branch.getAutoInstance` in
+previous versions, including 2.x.
 
 Override onStart and onNewIntent in MainActivity.java to handle Branch links (`android/app/src/[...]/MainActivity.java`).
 This has to be done regardless whether you used `react-native link`.
