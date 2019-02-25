@@ -35,6 +35,7 @@ end
 # bundle exec fastlane bump # patch increment
 # bundle exec fastlane bump version:2.3.0 # update to any specific version
 # bundle exec fastlane bump tag:yes # add a tag after committing
+# bundle exec fastlane bump repo_update:no # Don't update CocoaPods repo
 desc "Increment version number"
 lane :bump do |opts|
   version_bump opts

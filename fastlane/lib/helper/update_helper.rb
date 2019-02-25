@@ -1,5 +1,5 @@
 module UpdateHelper
-  def update_pods_in_tests_and_examples
+  def update_pods_in_tests_and_examples(params)
     # Updates to CocoaPods for unit tests and examples (requires
     # node_modules for each)
     %w{
@@ -15,8 +15,10 @@ module UpdateHelper
       pods_folder = "native-tests/ios" if folder == "."
 
       FastlaneCore::UI.message "Updating Pods in #{pods_folder}"
+      command = %w{pod update --silent}
+      command << "--no-repo-update" unless params[:repo_update]
       Dir.chdir pods_folder do
-        sh %w{pod update --silent}
+        sh command
       end
       FastlaneCore::UI.message "Done ✅"
 
