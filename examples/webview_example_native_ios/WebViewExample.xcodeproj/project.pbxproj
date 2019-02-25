@@ -248,7 +248,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-WebViewExample/Pods-WebViewExample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Branch-SDK/Branch.framework",
 				"${BUILT_PRODUCTS_DIR}/Cartography/Cartography.framework",
 				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
@@ -271,7 +271,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WebViewExample/Pods-WebViewExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D7BEC49A1B1ABE8643F54767 /* [CP] Check Pods Manifest.lock */ = {
