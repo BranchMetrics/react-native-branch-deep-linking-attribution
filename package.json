@@ -9,6 +9,7 @@
     "docs",
     "ios",
     "react-native-branch.podspec",
+    "react-native-branch-segment.podspec",
     "scripts",
     "src"
   ],
