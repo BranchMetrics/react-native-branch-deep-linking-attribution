@@ -1,5 +1,8 @@
 require 'json'
 
+# Podspec specifically for use in hybrid apps with the Branch Segment integration.
+# Not for use in pure RN apps.
+
 # expect package.json in current dir
 package_json_filename = File.expand_path("./package.json", __dir__)
 
@@ -20,7 +23,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
   s.source       = { spec['repository']['type'].to_sym => spec['repository']['url'].sub(/^[a-z]+\+/, '') }
   s.source_files = [ "ios/*.h", "ios/*.m"]
-  s.header_dir   = "react_native_branch"
+  s.header_dir   = "react-native-branch"
   s.dependency 'Branch'
   s.dependency 'React' # to ensure the correct build order
 end
