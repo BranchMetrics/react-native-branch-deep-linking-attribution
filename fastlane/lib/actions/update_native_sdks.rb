@@ -16,7 +16,7 @@ module Fastlane
           @ios_subdir = File.expand_path 'ios', '.'
 
           # Update embedded Android SDK
-          update_android_jar if @android_update_needed
+          update_android_dependency if @android_update_needed
 
           # Update embedded iOS SDK
           if @ios_update_needed
@@ -108,27 +108,13 @@ module Fastlane
           `git rev-list HEAD --max-count=1`
         end
 
-        def update_android_jar
-          jar = Dir['native-sdks/android/Branch*.jar'].reject { |j| j =~ /core/ }.first
-          version = jar.sub(/^.*Branch-/, '').sub(/\.jar$/, '')
-          jar_path = File.expand_path jar, '.'
-
-          return if File.exist? "#{@android_subdir}/libs/Branch-#{version}.jar"
-
-          # Remove the old and add the new
-          Dir.chdir("#{@android_subdir}/libs") do
-            old_jars = Dir['Branch*.jar']
-            sh "cp", jar_path, "."
-            sh "git", "add", "Branch-#{version}.jar"
-            sh "git", "rm", "-f", *old_jars unless old_jars.empty?
-          end
-
+        def update_android_dependency
           # Patch build.gradle
           other_action.patch(
             files: "#{@android_subdir}/build.gradle",
             mode: :replace,
-            regexp: /Branch-.*\.jar/,
-            text: "Branch-#{version}.jar"
+            regexp: /(io.branch.sdk.android:library:)\d\.\d\.\d/,
+            text: "\\1#{@android_version}"
           )
         end
 
