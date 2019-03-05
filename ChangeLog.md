@@ -227,3 +227,6 @@
   * Remove weak reference from BranchUniversalReferralInitListener (#372)
   * Check for null params (#364)
   * Support for setting Branch keys in branch.json
+
+2019-03-05  Version 3.0.0-beta.3
+  * Added react-native-branch-segment.podspec for use with the Segment integration.

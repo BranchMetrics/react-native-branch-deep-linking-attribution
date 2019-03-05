@@ -80,6 +80,11 @@ done in native apps that integrate a React Native components.
     pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"
     ```
     Adjust the path if necessary to indicate the location of your `node_modules` subdirectory.
+    **Note:** If you are using Branch's Segment integration, use
+    ```Ruby
+    pod "react-native-branch-segment", path: "../node_modules/react-native-branch"
+    ```
+    and do not include `pod "Branch-SDK"`.
 2. Run `pod install` to regenerate the Pods project with these new dependencies.
 2. (Optional) Add a branch.json file to your app project. See https://rnbranch.app.link/branch-json.
 4. Follow the [setup instructions](#setup).
