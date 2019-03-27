@@ -72,6 +72,9 @@ module Fastlane
           UI.message "Updating native SDK submodules..."
           sh "git submodule update --init" # In case not present
           ['android', 'ios'].each do |platform|
+            # Temporarily disable update of Android.
+            next unless platform == 'ios'
+
             folder = "native-sdks/#{platform}"
             Dir.chdir(folder) do
               UI.message "Updating submodule in #{folder}"
