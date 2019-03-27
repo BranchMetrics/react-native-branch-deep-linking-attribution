@@ -230,3 +230,7 @@
 
 2019-03-05  Version 3.0.0-beta.3
   * Added react-native-branch-segment.podspec for use with the Segment integration.
+
+2019-03-27  Version 2.3.5
+  * Remove docs folder from distro.
+  * Updated to iOS SDK 0.26.0.
