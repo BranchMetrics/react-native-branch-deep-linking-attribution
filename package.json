@@ -6,7 +6,6 @@
   "files": [
     "android",
     "branch.example.json",
-    "docs",
     "ios",
     "react-native-branch.podspec",
     "react-native-branch-segment.podspec",
