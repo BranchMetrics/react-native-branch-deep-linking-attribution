@@ -1,1 +1,0 @@
-../../../../../../../ios/Branch-SDK/Branch-SDK/BranchCSSearchableItemAttributeSet.h
