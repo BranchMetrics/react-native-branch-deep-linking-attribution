@@ -1,8 +1,8 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - Branch-SDK (0.25.10):
-    - Branch-SDK/Core (= 0.25.10)
-  - Branch-SDK/Core (0.25.10)
+  - Branch (0.26.0):
+    - Branch/Core (= 0.26.0)
+  - Branch/Core (0.26.0)
   - Cartography (3.1.0)
   - DoubleConversion (1.1.5)
   - Folly (2016.10.31.00):
@@ -13,7 +13,7 @@ PODS:
   - React (0.57.8):
     - React/Core (= 0.57.8)
   - react-native-branch (3.0.0-beta.4):
-    - Branch-SDK
+    - Branch (~> 0.26.0)
     - React
   - React/Core (0.57.8):
     - yoga (= 0.57.8.React)
@@ -53,7 +53,6 @@ PODS:
   - yoga (0.57.8.React)
 
 DEPENDENCIES:
-  - Branch-SDK (from `node_modules/react-native-branch/ios`)
   - Cartography
   - Folly (from `node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - react-native-branch (from `node_modules/react-native-branch`)
@@ -70,13 +69,12 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - boost-for-react-native
+    - Branch
     - Cartography
     - DoubleConversion
     - glog
 
 EXTERNAL SOURCES:
-  Branch-SDK:
-    :path: node_modules/react-native-branch/ios
   Folly:
     :podspec: node_modules/react-native/third-party-podspecs/Folly.podspec
   React:
@@ -88,15 +86,15 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  Branch-SDK: 37593d66ab3635a9b442dd4ec7a863dcd11d7a68
+  Branch: 5bf1e0d3f57bfce0b7029c960118641695b294ee
   Cartography: 1988b7578871a56c036e7af17195cb2190edf18c
   DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
   Folly: c89ac2d5c6ab169cd7397ef27485c44f35f742c7
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   React: adbac0757ce35e92fbd447ab98c810209d27d9b0
-  react-native-branch: 8971070eeb5fa85d0e1cdb1fab398e29d0cb91f7
+  react-native-branch: cf5d57a4e638af90af25fb4d593fbe24c9c4cc07
   yoga: 74cdf036c30820443b25ade59916236b1e95ee93
 
-PODFILE CHECKSUM: 04968966b74d22bdeea04ea479e7c63dd87629b1
+PODFILE CHECKSUM: a1ec943fa38753a5fc677d0c54a2ba1f4ed1b1ee
 
 COCOAPODS: 1.6.1

@@ -15,7 +15,6 @@ pod "React",
 pod "yoga", path: "node_modules/react-native/ReactCommon/yoga"
 pod "Folly", :podspec => "node_modules/react-native/third-party-podspecs/Folly.podspec"
 pod "react-native-branch", path: "node_modules/react-native-branch"
-pod "Branch-SDK", path: "node_modules/react-native-branch/ios"
 
 target "testbed_native_ios"
 project "testbed_native_ios", "Test-Debug" => :debug, "Test-Release" => :release

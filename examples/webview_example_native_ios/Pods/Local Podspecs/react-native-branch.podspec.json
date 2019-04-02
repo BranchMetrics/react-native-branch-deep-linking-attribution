@@ -20,8 +20,8 @@
     "ios/*.m"
   ],
   "dependencies": {
-    "Branch-SDK": [
-
+    "Branch": [
+      "~> 0.26.0"
     ],
     "React": [
 
