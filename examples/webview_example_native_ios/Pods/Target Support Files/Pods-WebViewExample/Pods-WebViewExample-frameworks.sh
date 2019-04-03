@@ -159,6 +159,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Folly/folly.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React/React.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/glog/glog.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/react-native-branch/react_native_branch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/yoga/yoga.framework"
 fi
 if [[ "$CONFIGURATION" == "Test-Debug" ]]; then
@@ -168,6 +169,7 @@ if [[ "$CONFIGURATION" == "Test-Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Folly/folly.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React/React.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/glog/glog.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/react-native-branch/react_native_branch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/yoga/yoga.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -177,6 +179,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Folly/folly.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React/React.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/glog/glog.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/react-native-branch/react_native_branch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/yoga/yoga.framework"
 fi
 if [[ "$CONFIGURATION" == "Test-Release" ]]; then
@@ -186,6 +189,7 @@ if [[ "$CONFIGURATION" == "Test-Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Folly/folly.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React/React.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/glog/glog.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/react-native-branch/react_native_branch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/yoga/yoga.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
