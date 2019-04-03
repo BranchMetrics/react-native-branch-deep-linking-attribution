@@ -12,6 +12,6 @@
     "react-native-branch": "file:../.."
   },
   "devDependencies": {
-    "babel-preset-react-native": "1.9.1"
+    "metro-react-native-babel-preset": "^0.53.1"
   }
 }
