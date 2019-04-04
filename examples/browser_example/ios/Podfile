@@ -1,0 +1,7 @@
+platform :ios, "9.0"
+
+use_frameworks!
+
+pod "Branch", "~> 0.26.0"
+
+target "browser_example"
