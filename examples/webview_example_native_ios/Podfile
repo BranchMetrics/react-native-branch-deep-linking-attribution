@@ -13,6 +13,7 @@ pod "React",
     DevSupport
     RCTAnimation
     RCTImage
+    RCTLinkingIOS
     RCTText
     RCTNetwork
     RCTWebSocket
