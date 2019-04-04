@@ -99,12 +99,6 @@ module, starting with version 3.0.0.
 
 Open the `android/app/build.gradle` file in your project.
 
-Remove this line:
-
-```gradle
-implementation fileTree(dir: 'libs', include: ['*.jar'])
-```
-
 Add this line:
 
 ```gradle
@@ -116,6 +110,7 @@ The result should be something like
 dependencies {
     implementation project(':react-native-branch')
     implementation "io.branch.sdk.android:library:3.0.4"
+    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:23.0.1"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
