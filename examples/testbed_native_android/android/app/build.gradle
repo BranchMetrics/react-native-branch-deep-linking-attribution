@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "io.branch.testbed_native_android"
         minSdkVersion 16
-        compileSdkVersion = 27
+        compileSdkVersion = 28
         targetSdkVersion 27
         multiDexEnabled true
         versionCode 1
