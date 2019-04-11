@@ -13,7 +13,7 @@ PODS:
   - React (0.59.3):
     - React/Core (= 0.59.3)
   - react-native-branch (3.0.0-beta.4):
-    - Branch (~> 0.26.0)
+    - Branch (= 0.26.0)
     - React
   - React/Core (0.59.3):
     - yoga (= 0.59.3.React)
@@ -103,7 +103,7 @@ SPEC CHECKSUMS:
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   React: b52fdb80565505b7e4592b313a38868f5df51641
-  react-native-branch: cf5d57a4e638af90af25fb4d593fbe24c9c4cc07
+  react-native-branch: 1b741094b32ac5795fa9ad94c7a6841ba81789cc
   yoga: 1a492113f66a35e9e583bb0434f4b8cc668dd839
 
 PODFILE CHECKSUM: 43472c071254b7717fe005eaf3b585a98565576e

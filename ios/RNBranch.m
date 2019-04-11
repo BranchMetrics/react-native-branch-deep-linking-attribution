@@ -29,21 +29,7 @@ static NSString * const IdentFieldName = @"ident";
 static NSString * const RNBranchErrorDomain = @"RNBranchErrorDomain";
 static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 
-static NSString * const MINIMUM_REQUIRED_BRANCH_SDK = @"0.26.0";
-
-static BOOL branchSdkVersionValid() {
-    NSArray<NSString *> *components = [BNC_SDK_VERSION componentsSeparatedByString:@"."];
-    int major = components[0].intValue;
-    int minor = components[1].intValue;
-    int patch = components[2].intValue;
-
-    NSArray<NSString *> *required = [MINIMUM_REQUIRED_BRANCH_SDK componentsSeparatedByString:@"."];
-    int requiredMajor = required[0].intValue;
-    int requiredMinor = required[1].intValue;
-    int requiredPatch = required[2].intValue;
-
-    return major > requiredMajor || (major == requiredMajor && (minor > requiredMinor || (minor == requiredMinor && patch >= requiredPatch)));
-}
+static NSString * const REQUIRED_BRANCH_SDK = @"0.26.0";
 
 #pragma mark - Private RNBranch declarations
 
@@ -92,8 +78,8 @@ RCT_EXPORT_MODULE();
 + (void)setupBranchInstance:(Branch *)instance
 {
     RCTLogInfo(@"Initializing Branch SDK v. %@", BNC_SDK_VERSION);
-    if (!branchSdkVersionValid()) {
-        RCTLogError(@"Please use at least v. %@ of Branch. In your Podfile: pod 'Branch', '~> %@'. Then pod install.", MINIMUM_REQUIRED_BRANCH_SDK, MINIMUM_REQUIRED_BRANCH_SDK);
+    if (![BNC_SDK_VERSION isEqualToString:REQUIRED_BRANCH_SDK]) {
+        RCTLogError(@"Please use v. %@ of Branch. In your Podfile: pod 'Branch', '%@'. Then pod install.", REQUIRED_BRANCH_SDK, REQUIRED_BRANCH_SDK);
     }
 
     RNBranchConfig *config = RNBranchConfig.instance;
