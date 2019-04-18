@@ -20,7 +20,7 @@ ___
 2. Getting started
   + [Installation using react-native link](#pure-react-native-app-using-react-native-link)
   + [Installation in a native iOS app using the React pod](#native-ios-app-using-the-react-pod)
-  + [Updating from an earlier SDK version](#updating-from-an-earlier-version)
+  + [Updating from an earlier SDK version or starting with v. 3.0.0](#updating-from-an-earlier-version-or-starting-with-v300)
   + [Register for Branch key](#register-your-app)
   + [Project setup](#setup)
   + [Example apps](#example-apps)
@@ -137,6 +137,9 @@ public void onCreate() {
   RNBranchModule.getAutoInstance(this);
 }
 ```
+
+The `cached_initial_event` key in the `params` returned in the `subscribe`
+callback has been renamed to `+rn_cached_initial_event`.
 
 ___
 
