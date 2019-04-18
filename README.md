@@ -468,7 +468,7 @@ branch.skipCachedEvents()
 ```
 
 Also, if a cached initial app launch link event is returned, `params` will
-contain a key `cached_initial_event`, set to `true`.
+contain a key `+rn_cached_initial_event`, set to `true`.
 
 #### Example
 
@@ -485,7 +485,7 @@ branch.subscribe({ error, params } => {
 import branch from 'react-native-branch'
 
 branch.subscribe({ error, params } => {
-  if ('cached_initial_event' in params) {
+  if ('+rn_cached_initial_event' in params) {
     // ...
   }
 })
