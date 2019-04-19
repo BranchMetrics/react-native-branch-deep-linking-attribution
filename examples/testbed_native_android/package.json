@@ -1,6 +1,7 @@
 {
   "name": "testbed_native_android",
   "version": "1.0.0",
+  "private": true,
   "description": "Native Android app with RN testbed component",
   "main": "index.js",
   "scripts": {
@@ -9,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react": "16.8.3",
-    "react-native": "0.59.4",
+    "react": "16.8.6",
+    "react-native": "0.59.6",
     "react-native-branch": "file:../.."
   },
   "devDependencies": {

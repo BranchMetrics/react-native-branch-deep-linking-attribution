@@ -45,7 +45,7 @@ class Branch {
         if (result) {
           /*** Cached value is returned, so set it as cached. ***/
           if('params' in result && !!result['params']) {
-            result['params']['cached_initial_event'] = true
+            result['params']['+rn_cached_initial_event'] = true
           }
 
           listener(result)

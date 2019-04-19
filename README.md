@@ -20,7 +20,7 @@ ___
 2. Getting started
   + [Installation using react-native link](#pure-react-native-app-using-react-native-link)
   + [Installation in a native iOS app using the React pod](#native-ios-app-using-the-react-pod)
-  + [Updating from an earlier SDK version](#updating-from-an-earlier-version)
+  + [Updating from an earlier SDK version or starting with v. 3.0.0](#updating-from-an-earlier-version-or-starting-with-v300)
   + [Register for Branch key](#register-your-app)
   + [Project setup](#setup)
   + [Example apps](#example-apps)
@@ -108,14 +108,14 @@ implementation fileTree(dir: 'libs', include: ['*.jar'])
 Add this line:
 
 ```gradle
-implementation "io.branch.sdk.android:library:3.0.4"
+implementation "io.branch.sdk.android:library:3.+"
 ```
 
 The result should be something like
 ```gradle
 dependencies {
     implementation project(':react-native-branch')
-    implementation "io.branch.sdk.android:library:3.0.4"
+    implementation "io.branch.sdk.android:library:3.+"
     implementation "com.android.support:appcompat-v7:23.0.1"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
@@ -137,6 +137,9 @@ public void onCreate() {
   RNBranchModule.getAutoInstance(this);
 }
 ```
+
+The `cached_initial_event` key in the `params` returned in the `subscribe`
+callback has been renamed to `+rn_cached_initial_event`.
 
 ___
 
@@ -468,7 +471,7 @@ branch.skipCachedEvents()
 ```
 
 Also, if a cached initial app launch link event is returned, `params` will
-contain a key `cached_initial_event`, set to `true`.
+contain a key `+rn_cached_initial_event`, set to `true`.
 
 #### Example
 
@@ -485,7 +488,7 @@ branch.subscribe({ error, params } => {
 import branch from 'react-native-branch'
 
 branch.subscribe({ error, params } => {
-  if ('cached_initial_event' in params) {
+  if ('+rn_cached_initial_event' in params) {
     // ...
   }
 })
