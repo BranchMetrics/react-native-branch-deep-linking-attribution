@@ -108,14 +108,14 @@ implementation fileTree(dir: 'libs', include: ['*.jar'])
 Add this line:
 
 ```gradle
-implementation "io.branch.sdk.android:library:3.0.4"
+implementation "io.branch.sdk.android:library:3.+"
 ```
 
 The result should be something like
 ```gradle
 dependencies {
     implementation project(':react-native-branch')
-    implementation "io.branch.sdk.android:library:3.0.4"
+    implementation "io.branch.sdk.android:library:3.+"
     implementation "com.android.support:appcompat-v7:23.0.1"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
