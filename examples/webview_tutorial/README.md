@@ -30,24 +30,11 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
     ```bash
     yarn add react-native-branch
-    ```
-
-    or
-
-    ```bash
-    npm install --save react-native-branch
-    ```
 
     This installs the latest release from NPM. To use the SDK from this local repo instead of NPM:
 
     ```bash
-    yarn add file:../..
-    ```
-
-    or
-
-    ```bash
-    npm install --save ../..
+    yarn add ../..
     ```
 
 2. Run `react-native link`:

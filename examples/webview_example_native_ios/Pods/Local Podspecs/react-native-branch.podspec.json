@@ -1,6 +1,6 @@
 {
   "name": "react-native-branch",
-  "version": "3.0.0-beta.4",
+  "version": "3.0.0-rc.1",
   "summary": "Branch Metrics React Native SDK",
   "requires_arc": true,
   "authors": {

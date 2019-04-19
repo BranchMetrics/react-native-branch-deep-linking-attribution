@@ -13,7 +13,6 @@ module Fastlane
           UI.message "Bumping to version #{version}."
 
           update_package_json version
-          patch_index_js version
           update_pods_in_tests_and_examples params
           sh "git", "commit", "-a", "-m", "[Fastlane] Version bump to #{version}"
           sh "git", "tag", version if params[:tag]
@@ -42,6 +41,13 @@ module Fastlane
               description: "Whether to update the CocoaPods repo when updating",
               optional: true,
               default_value: true
+            ),
+            FastlaneCore::ConfigItem.new(
+              key: :verbose,
+              is_string: false,
+              description: "Whether to generate extra output",
+              optional: true,
+              default_value: false
             )
           ]
         end
@@ -57,14 +63,6 @@ module Fastlane
           )
 
           File.write "package.json", "#{json_text}\n"
-        end
-
-        def patch_index_js(version)
-          PatternPatch::Patch.new(
-            regexp: /(\sVERSION\s*=\s*")\d+\.\d+\.\d+/,
-            text: "\\1#{version}",
-            mode: :replace
-          ).apply "src/index.js"
         end
 
         def new_version(params)
