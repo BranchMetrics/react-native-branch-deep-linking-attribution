@@ -42,6 +42,13 @@ module Fastlane
               description: "Whether to update the CocoaPods repo when updating",
               optional: true,
               default_value: true
+            ),
+            FastlaneCore::ConfigItem.new(
+              key: :verbose,
+              is_string: false,
+              description: "Whether to generate extra output",
+              optional: true,
+              default_value: false
             )
           ]
         end
