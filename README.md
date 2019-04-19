@@ -67,6 +67,10 @@ Note that the `react-native-branch` module requires `react-native` >= 0.40.
 3. `react-native link react-native-branch`
 4. Follow the [setup instructions](#setup).
 
+**Note:** This SDK currently does not work in projects using NPM instead of yarn.
+See #433. The RN toolchain will use yarn by default. Please use
+`yarn add react-native-branch` to add the SDK to your project.
+
 ___
 
 ### Native iOS app using the React pod
