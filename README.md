@@ -62,7 +62,7 @@ Note that the `react-native-branch` module requires `react-native` >= 0.40.
 
 ### Pure React Native app (using react-native link)
 
-1. `yarn add react-native-branch` or `npm install --save react-native-branch`
+1. `yarn add react-native-branch`
 2. (Optional) Add a branch.json file to the root of your app project. See https://rnbranch.app.link/branch-json.
 3. `react-native link react-native-branch`
 4. Follow the [setup instructions](#setup).

@@ -22,5 +22,5 @@ In particular, it uses the `React`, `Yoga`, `react-native-branch` and `Branch-SD
 
 ## Building
 
-To build and run, install NPM dependencies using `npm install` or `yarn`. The Pods directory is
+To build and run, install NPM dependencies using `yarn`. The Pods directory is
 included in the repo. CocoaPods does not have to be installed or run in order to build this example.

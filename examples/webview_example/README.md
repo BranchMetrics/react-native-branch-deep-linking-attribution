@@ -14,5 +14,5 @@ pushes an Article component for the appropriate article when a link is opened.
 
 ## Building
 
-Just install the NPM dependencies using `npm install` or `yarn`. No other setup
+Just install the NPM dependencies using `yarn`. No other setup
 is required to run on a simulator.
