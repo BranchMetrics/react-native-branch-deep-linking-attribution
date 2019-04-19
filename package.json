@@ -66,6 +66,7 @@
     "eslint": "^2.7.0",
     "eslint-config-rackt": "^1.1.1",
     "mockery": "*",
+    "npmlog": "^4.0.0",
     "react": "16.0.0-alpha.6",
     "react-addons-create-fragment": "16.0.0-alpha.3",
     "react-addons-pure-render-mixin": "16.0.0-alpha.3",
@@ -75,7 +76,8 @@
     "react-native": "^0.43.0",
     "react-native-mock": "^0.3.0",
     "sinon": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "xcode": "^2.0.0"
   },
   "rnpm": {
     "commands": {

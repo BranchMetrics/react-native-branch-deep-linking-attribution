@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "io.branch.testbed_native_android"
         minSdkVersion 16
-        compileSdkVersion = 27
+        compileSdkVersion = 28
         targetSdkVersion 27
         multiDexEnabled true
         versionCode 1
@@ -31,7 +31,7 @@ android {
 }
 
 dependencies {
-    implementation "io.branch.sdk.android:library:3.0.4"
+    implementation "io.branch.sdk.android:library:3.+"
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

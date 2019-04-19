@@ -13,6 +13,7 @@ pod "React",
     DevSupport
     RCTAnimation
     RCTImage
+    RCTLinkingIOS
     RCTText
     RCTNetwork
     RCTWebSocket
@@ -24,12 +25,10 @@ pod "yoga", path: "node_modules/react-native/ReactCommon/yoga"
 pod "Folly", :podspec => "node_modules/react-native/third-party-podspecs/Folly.podspec"
 
 # ----- Begin Branch SDK additions -----
-# Import react-native-branch and Branch pods from node_modules
+
+# Import react-native-branch pod from node_modules
 pod "react-native-branch", path: "node_modules/react-native-branch"
 
-# If you already have pod "Branch" in your Podfile, replace it with this. Note the name of the pod
-# in node_modules is "Branch-SDK", not "Branch"
-pod "Branch-SDK", path: "node_modules/react-native-branch/ios"
 # ----- End Branch SDK additions -----
 
 # Convenient pods for app development

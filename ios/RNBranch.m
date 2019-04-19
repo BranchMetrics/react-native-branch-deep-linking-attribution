@@ -15,6 +15,7 @@ NSString * const RNBranchLinkOpenedNotificationUriKey = @"uri";
 NSString * const RNBranchLinkOpenedNotificationBranchUniversalObjectKey = @"branch_universal_object";
 NSString * const RNBranchLinkOpenedNotificationLinkPropertiesKey = @"link_properties";
 
+
 static NSDictionary *initSessionWithLaunchOptionsResult;
 static BOOL useTestInstance = NO;
 static NSDictionary *savedLaunchOptions;
@@ -27,6 +28,8 @@ static NSString * const IdentFieldName = @"ident";
 // These are only really exposed to the JS layer, so keep them internal for now.
 static NSString * const RNBranchErrorDomain = @"RNBranchErrorDomain";
 static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
+
+static NSString * const REQUIRED_BRANCH_SDK = @"0.26.0";
 
 #pragma mark - Private RNBranch declarations
 
@@ -75,6 +78,10 @@ RCT_EXPORT_MODULE();
 + (void)setupBranchInstance:(Branch *)instance
 {
     RCTLogInfo(@"Initializing Branch SDK v. %@", BNC_SDK_VERSION);
+    if (![BNC_SDK_VERSION isEqualToString:REQUIRED_BRANCH_SDK]) {
+        RCTLogError(@"Please use v. %@ of Branch. In your Podfile: pod 'Branch', '%@'. Then pod install.", REQUIRED_BRANCH_SDK, REQUIRED_BRANCH_SDK);
+    }
+
     RNBranchConfig *config = RNBranchConfig.instance;
     if (config.debugMode) {
         [instance setDebug];

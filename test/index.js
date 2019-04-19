@@ -49,7 +49,7 @@ test('subscribe returns init session', t => {
   })
 })
 
-test('subscribe returns cached init session with cached_initial_event flag', t => {
+test('subscribe returns cached init session with +rn_cached_initial_event flag', t => {
   mock(RNBranch, 'redeemInitSessionResult', () => {
     return new Promise((resolve, reject) => {
       resolve({error: null, params: {}, uri: 'test'})
@@ -60,10 +60,10 @@ test('subscribe returns cached init session with cached_initial_event flag', t =
     let event_received = false
     branch.subscribe(({ error, params, uri }) => {
       event_received = true
-      if(params.cached_initial_event)
+      if(params['+rn_cached_initial_event'])
         resolve()
       else
-        reject('cached_initial_event is not set')
+        reject('+rn_cached_initial_event is not set')
     })
 
     setTimeout(() => {
