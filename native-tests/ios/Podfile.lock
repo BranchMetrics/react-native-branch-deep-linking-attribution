@@ -5,7 +5,7 @@ PODS:
   - OCMock (3.4.3)
   - React (0.43.4):
     - React/Core (= 0.43.4)
-  - react-native-branch (3.0.0-rc.1):
+  - react-native-branch (3.0.0-rc.2):
     - Branch (= 0.26.0)
     - React
   - React/Core (0.43.4):
@@ -39,7 +39,7 @@ SPEC CHECKSUMS:
   Branch: 5bf1e0d3f57bfce0b7029c960118641695b294ee
   OCMock: 43565190abc78977ad44a61c0d20d7f0784d35ab
   React: 607aa7eb8b0e44b102f95f43fd49dc8aedefa93f
-  react-native-branch: bcf58be1ec8af410a78d1fbf4e300d0189674db2
+  react-native-branch: f2c73cda831832272647fa8542b424c71fdd8c6f
   Yoga: 2a70bc5ab41486a272b9fd5b76c482ba9268c5dd
 
 PODFILE CHECKSUM: 414501c6b8313fdfbc75096cbe93c10c29fd35c4
