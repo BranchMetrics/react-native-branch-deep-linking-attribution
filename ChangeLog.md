@@ -1,3 +1,48 @@
+2019-04-19  Version 3.0.0-rc.1
+  * Removed docs folder from distro.
+  * Updated to iOS SDK 0.26.0, Android 3.1.1.
+  * Removed Branch-SDK & react-native-branch-segment podspecs. Removed Branch
+    iOS SDK source code from distribution in favor of using CocoaPods.
+  * Renamed cached_initial_event parameter +rn_cached_initial_event.
+  * Updated all examples to RN 0.59.6, React 16.8.6.
+  * NPM is not currently supported (#433). package-lock.json removed from all
+    examples. NPM removed from instructions in docs.
+
+  **Updating to 3.0.0**
+    - If using the `cached_initial_event` parameter, change it to
+      `+rn_cached_initial_event`.
+    - \[Android] Add `implementation 'io.branch.sdk.android:library:3.+'` to `app/build.gradle`.
+    - \[Android] Change the call to `Branch.getAutoInstance` in `Application.onCreate` to
+      `RNBranchModule.getAutoInstance`.
+    - \[iOS] Add version 0.26.0 of the Branch pod to your Podfile:
+
+      **Pure RN app with react-native link**
+        - If you already have a Podfile, add `pod 'Branch', '0.26.0'`. Then run
+          `pod install`.
+        - If you don't have a Podfile, add one to your `ios` subdirectory using
+          these contents:
+          ```Ruby
+          platform :ios, "9.0"
+
+          use_frameworks!
+
+          pod "Branch", "0.26.0"
+
+          target "MyApp"
+          ```
+          Change `MyApp` to the name of your application target. Install CocoaPods
+          if necessary: https://guides.cocoapods.org/using/getting-started.html#installation.
+          Run `pod install` in the ios subdirectory.
+          Note that this creates a workspace called `MyApp.xcworkspace` in the same
+          directory. From now on, open the workspace, not the project.
+        - Note that if your local podspec repo is quite old, you may need to update
+          it to get the current version of the Branch SDK. Do this by running
+          `pod install --repo-update` or by running `pod repo update` before
+          `pod install`.
+
+      **Native iOS app with the react-native-branch pod**
+        - Remove `pod 'Branch-SDK'` from your Podfile. Run `pod install`.
+
 2019-03-27  Version 2.3.5
   * Remove docs folder from distro.
   * Updated to iOS SDK 0.26.0.
