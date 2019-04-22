@@ -288,7 +288,7 @@ done even if you used `react-native link`.
 
 // import Branch and RNBranch
 import io.branch.rnbranch.RNBranchPackage;
-import io.branch.referral.Branch;
+import io.branch.rnbranch.RNBranchModule;
 
 //...
 
