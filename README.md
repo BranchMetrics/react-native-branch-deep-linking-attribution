@@ -81,15 +81,9 @@ done in native apps that integrate a React Native components.
 1. Add the following to your Podfile:
     ```Ruby
     pod "react-native-branch", path: "../node_modules/react-native-branch"
-    pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"
     ```
     Adjust the path if necessary to indicate the location of your `node_modules` subdirectory.
-    **Note:** If you are using Branch's Segment integration, use
-    ```Ruby
-    pod "react-native-branch-segment", path: "../node_modules/react-native-branch"
-    ```
-    and do not include `pod "Branch-SDK"`.
-2. Run `pod install` to regenerate the Pods project with these new dependencies.
+2. Run `pod install` to regenerate the Pods project with the new dependencies.
 2. (Optional) Add a branch.json file to your app project. See https://rnbranch.app.link/branch-json.
 4. Follow the [setup instructions](#setup).
 
@@ -291,9 +285,6 @@ import io.branch.referral.Branch;
       RNBranchModule.getAutoInstance(this);
     }
 ```
-
-_NOTE_: `RNBranchModule.getAutoInstance` was introduced in version 3.0.0-beta.2. Use `Branch.getAutoInstance` in
-previous versions, including 2.x.
 
 Override onStart and onNewIntent in MainActivity.java to handle Branch links (`android/app/src/[...]/MainActivity.java`).
 This has to be done regardless whether you used `react-native link`.
