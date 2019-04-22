@@ -22,7 +22,7 @@ From the Dashboard, you need:
   - The domains used with these keys
   - The bundle identifier associated with your app in the Dashboard (iOS only)
 
-Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
+Run `yarn` first to supply all dependencies in `node_modules`.
 
 ## Installation
 
