@@ -255,6 +255,29 @@ ___
 
 ### Android Setup
 
+#### Gradle dependency
+
+Add this line to your `dependencies` in `app/build.gradle`:
+
+```gradle
+implementation "io.branch.sdk.android:library:3.+"
+```
+
+The result should be something like
+```gradle
+dependencies {
+    implementation project(':react-native-branch')
+    implementation "io.branch.sdk.android:library:3.+"
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+}
+```
+
+If you're using an older version of Gradle, you may need `compile` instead of
+`implementation`.
+
+#### Application code
+
 Add RNBranchPackage to packages list in `getPackages()` MainApplication.java (`android/app/src/[...]/MainApplication.java`).
 Note that this is automatically done if you used `react-native link`.
 
