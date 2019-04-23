@@ -10,13 +10,13 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
-// Step 1: Add RNBranch import
+// Step 2: Add RNBranch import
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  // Step 2: Add call to [RNBranch initSessionWithLaunchOptions:isReferrable:]
+  // Step 3: Add call to [RNBranch initSessionWithLaunchOptions:isReferrable:]
 
   NSURL *jsCodeLocation;
 
@@ -40,6 +40,6 @@
   return YES;
 }
 
-// Step 3: Add application:openURL:options: and application:continueUserActivity:restorationHandler: methods
+// Step 4: Add application:openURL:options: and application:continueUserActivity:restorationHandler: methods
 
 @end

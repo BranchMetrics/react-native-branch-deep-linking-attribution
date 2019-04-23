@@ -1,6 +1,6 @@
 package com.webview_tutorial;
 
-// Step 3: Import RNBranchModule and Android Intent class
+// Step 4: Import RNBranchModule and Android Intent class
 
 import com.facebook.react.ReactActivity;
 
@@ -15,8 +15,6 @@ public class MainActivity extends ReactActivity {
         return "webview_tutorial";
     }
 
-    // Step 4: Add onStart method
-
-    // Step 5: Add onNewIntent method
+    // Step 5: Add onStart method
 
 }

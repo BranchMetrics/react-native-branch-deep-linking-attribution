@@ -81,15 +81,9 @@ done in native apps that integrate a React Native components.
 1. Add the following to your Podfile:
     ```Ruby
     pod "react-native-branch", path: "../node_modules/react-native-branch"
-    pod "Branch-SDK", path: "../node_modules/react-native-branch/ios"
     ```
     Adjust the path if necessary to indicate the location of your `node_modules` subdirectory.
-    **Note:** If you are using Branch's Segment integration, use
-    ```Ruby
-    pod "react-native-branch-segment", path: "../node_modules/react-native-branch"
-    ```
-    and do not include `pod "Branch-SDK"`.
-2. Run `pod install` to regenerate the Pods project with these new dependencies.
+2. Run `pod install` to regenerate the Pods project with the new dependencies.
 2. (Optional) Add a branch.json file to your app project. See https://rnbranch.app.link/branch-json.
 4. Follow the [setup instructions](#setup).
 
@@ -120,7 +114,7 @@ The result should be something like
 dependencies {
     implementation project(':react-native-branch')
     implementation "io.branch.sdk.android:library:3.+"
-    implementation "com.android.support:appcompat-v7:23.0.1"
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 ```
@@ -261,6 +255,29 @@ ___
 
 ### Android Setup
 
+#### Gradle dependency
+
+Add this line to your `dependencies` in `app/build.gradle`:
+
+```gradle
+implementation "io.branch.sdk.android:library:3.+"
+```
+
+The result should be something like
+```gradle
+dependencies {
+    implementation project(':react-native-branch')
+    implementation "io.branch.sdk.android:library:3.+"
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+}
+```
+
+If you're using an older version of Gradle, you may need `compile` instead of
+`implementation`.
+
+#### Application code
+
 Add RNBranchPackage to packages list in `getPackages()` MainApplication.java (`android/app/src/[...]/MainApplication.java`).
 Note that this is automatically done if you used `react-native link`.
 
@@ -271,7 +288,7 @@ done even if you used `react-native link`.
 
 // import Branch and RNBranch
 import io.branch.rnbranch.RNBranchPackage;
-import io.branch.referral.Branch;
+import io.branch.rnbranch.RNBranchModule;
 
 //...
 
@@ -291,9 +308,6 @@ import io.branch.referral.Branch;
       RNBranchModule.getAutoInstance(this);
     }
 ```
-
-_NOTE_: `RNBranchModule.getAutoInstance` was introduced in version 3.0.0-beta.2. Use `Branch.getAutoInstance` in
-previous versions, including 2.x.
 
 Override onStart and onNewIntent in MainActivity.java to handle Branch links (`android/app/src/[...]/MainActivity.java`).
 This has to be done regardless whether you used `react-native link`.

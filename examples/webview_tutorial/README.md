@@ -22,7 +22,7 @@ From the Dashboard, you need:
   - The domains used with these keys
   - The bundle identifier associated with your app in the Dashboard (iOS only)
 
-Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
+Run `yarn` first to supply all dependencies in `node_modules`.
 
 ## Installation
 
@@ -45,7 +45,22 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
 ## iOS/Xcode setup
 
-1. Open the `ios/webview_tutorial.xcodeproj` using Xcode. Select the AppDelegate.m file from the
+1. Install the native Branch SDK using CocoaPods.
+    [Install CocoaPods](https://guides.cocoapods.org/using/getting-started.html#installation) first if
+    necessary. Add a file called `Podfile` in the `ios` subdirectory with these contents:
+
+    ```Ruby
+    platform :ios, "9.0"
+    use_frameworks!
+    pod "Branch", "0.26.0"
+    target "webview_tutorial"
+    ```
+
+    Now run `pod install` at the command line in the `ios` subdirectory. CocoaPods generates an
+    Xcode workspace in the same directory called `webview_tutorial.xcworkspace`. From now on
+    you will use the workspace rather than the original Xcode project.
+
+2. Open the `ios/webview_tutorial.xcworkspace` using Xcode. Select the AppDelegate.m file from the
     left panel. Alternately, open `ios/webview_tutorial/AppDelegate.m` in your favorite editor.
     At the top of the file, add:
 
@@ -53,7 +68,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     #import <react-native-branch/RNBranch.h>
     ```
 
-2. Find the `application:didFinishLaunchingWithOptions:` method near the top of the AppDelegate.m
+3. Find the `application:didFinishLaunchingWithOptions:` method near the top of the AppDelegate.m
     file. Add the following to the beginning of that method:
 
     ```Objective-C
@@ -64,7 +79,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
     ```
 
-3. Add the following method before the final `@end` in the AppDelegate.m file:
+4. Add the following method before the final `@end` in the AppDelegate.m file:
 
     ```Objective-C
     - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
@@ -86,7 +101,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     #import <React/RCTBundleURLProvider.h>
     #import <React/RCTRootView.h>
 
-    // Step 1: Add RNBranch import
+    // Step 2: Add RNBranch import
 
     #import <react-native-branch/RNBranch.h>
 
@@ -94,7 +109,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
     - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     {
-      // Step 2: Add call to [RNBranch initSessionWithLaunchOptions:isReferrable:]
+      // Step 3: Add call to [RNBranch initSessionWithLaunchOptions:isReferrable:]
     #ifdef DEBUG
       [RNBranch useTestInstance];
     #endif // DEBUG
@@ -118,7 +133,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
       return YES;
     }
 
-    // Step 3: Add application:openURL:options: and application:continueUserActivity:restorationHandler: methods
+    // Step 4: Add application:openURL:options: and application:continueUserActivity:restorationHandler: methods
 
     - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
     {
@@ -133,39 +148,55 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     @end
     ```
 
-4. In Xcode, change the bundle identifier to the correct bundle identifier for your Branch app
+5. In Xcode, change the bundle identifier to the correct bundle identifier for your Branch app
     (see the [Branch Dashboard](https://dashboard.branch.io)). Also
     change the code signing settings to use your signing team.
 
     ![Bundle identifier](http://i.imgur.com/BHAQIQf.png)
 
-5. In Xcode, add your Branch keys to the Info.plist as a dictionary.
+6. In Xcode, add your Branch keys to the Info.plist as a dictionary.
 
     ![Branch keys](https://raw.githubusercontent.com/BranchMetrics/ios-branch-deep-linking/master/docs/images/branch-multi-key-plist.png)
 
-6. In Xcode, add your Branch domains to the application's associated domains. Be sure to
+7. In Xcode, add your Branch domains to the application's associated domains. Be sure to
     prefix each domain with `applinks:`.
 
     ![Associated domains](http://i.imgur.com/67t6hSY.png)
 
-7. If using a custom URI scheme in the Branch Dashboard, add that URI scheme to the app's Info.plist.
+8. If using a custom URI scheme in the Branch Dashboard, add that URI scheme to the app's Info.plist.
 
     ![Xcode custom URI scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/xcode-uri-scheme.png)
 
 ## Android setup
 
-1. Open the `android` project in Android Studio. Open the `MainApplication.java` file in Android Studio.
+1. Add this line to the `dependencies` in `android/app/build.gradle`:
+
+```gradle
+implementation "io.branch.sdk.android:library:3.+"
+```
+
+The result should be something like
+```gradle
+dependencies {
+    implementation project(':react-native-branch')
+    implementation "io.branch.sdk.android:library:3.+"
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+}
+```
+
+2. Open the `android` project in Android Studio. Open the `MainApplication.java` file in Android Studio.
     Alternately, open `android/app/src/main/java/com/webview_tutorial/MainApplication.java` in your
     favorite text editor. At the top of the file, after the `package` declaration, add the following line:
 
     ```Java
-    import io.branch.referral.Branch;
+    import io.branch.rnbranch.RNBranchModule;
     ```
 
-2. In the `onCreate` method, add the following line:
+3. In the `onCreate` method, add the following line:
 
     ```Java
-    Branch.getAutoInstance(this);
+    RNBranch.getAutoInstance(this);
     ```
 
     The complete MainApplication should look like this:
@@ -173,8 +204,8 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     ```Java
     package com.webview_tutorial;
 
-    // Step 1: Add Branch import
-    import io.branch.referral.Branch;
+    // Step 2: Add RNBranchModule import
+    import io.branch.rnbranch.RNBranchModule;
 
     import android.app.Application;
 
@@ -213,13 +244,13 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
 
-        // Step 2: Add call to Branch.getAutoInstance
-        Branch.getAutoInstance(this);
+        // Step 3: Add call to RNBranch.getAutoInstance
+        RNBranch.getAutoInstance(this);
       }
     }
     ```
 
-3. Open the `android/app/src/main/java/com/webview_tutorial/MainActivity.java` file in Android Studio
+4. Open the `android/app/src/main/java/com/webview_tutorial/MainActivity.java` file in Android Studio
     or your favorite editor. Add the following imports near the top of the file:
 
     ```Java
@@ -227,7 +258,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     import android.content.Intent;
     ```
 
-4. Add the `onStart` method in the MainActivity:
+5. Add the `onStart` method in the MainActivity:
 
     ```Java
     @Override
@@ -237,7 +268,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     }
     ```
 
-5. Add the `onNewIntent` method in the MainActivity:
+6. Add the `onNewIntent` method in the MainActivity:
 
     ```Java
     @Override
@@ -252,7 +283,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     ```Java
     package com.webview_tutorial;
 
-    // Step 3: Import RNBranchModule and Android Intent class
+    // Step 4: Import RNBranchModule and Android Intent class
     import io.branch.rnbranch.RNBranchModule;
     import android.content.Intent;
 
@@ -269,14 +300,14 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
             return "webview_tutorial";
         }
 
-        // Step 4: Add onStart method
+        // Step 5: Add onStart method
         @Override
         protected void onStart() {
             super.onStart();
             RNBranchModule.initSession(getIntent().getData(), this);
         }
 
-        // Step 5: Add onNewIntent method
+        // Step 6: Add onNewIntent method
         @Override
         public void onNewIntent(Intent intent) {
             super.onNewIntent(intent);
@@ -286,7 +317,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     }
     ```
 
-6. Open the `android/app/src/main/AndroidManifest.xml` in Android Studio or a text editor. Add
+7. Open the `android/app/src/main/AndroidManifest.xml` in Android Studio or a text editor. Add
     `android:launchMode="singleTask"` to the MainActivity:
 
     ```xml
@@ -298,7 +329,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
         android:launchMode="singleTask">
     ```
 
-7. Add `intent-filters` to the MainActivity in the Android manifest using your Branch domains:
+8. Add `intent-filters` to the MainActivity in the Android manifest using your Branch domains:
 
     ```xml
     <intent-filter android:autoVerify="true">
@@ -329,7 +360,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
 
     Replace `myurischeme` with your actual URI scheme.
 
-8. Add your Branch keys to the Android manifest at the end of the application element.
+9. Add your Branch keys to the Android manifest at the end of the application element.
 
     ```xml
     <!-- Branch keys -->
@@ -399,7 +430,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     </manifest>
     ```
 
-9. Add a file called `android/app/src/debug/AndroidManifest.xml` with the following contents:
+10. Add a file called `android/app/src/debug/AndroidManifest.xml` with the following contents:
 
     ```xml
     <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -412,7 +443,7 @@ Run `yarn` or `npm install` first to supply all dependencies in `node_modules`.
     </manifest>
     ```
 
-10. Open the file `android/app/proguard-rules.pro` and add the following line at the end:
+11. Open the file `android/app/proguard-rules.pro` and add the following line at the end:
 
     ```proguard
     -dontwarn io.branch.**
