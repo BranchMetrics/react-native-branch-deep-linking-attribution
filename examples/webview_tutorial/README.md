@@ -172,14 +172,14 @@ Run `yarn` first to supply all dependencies in `node_modules`.
 1. Add this line to the `dependencies` in `android/app/build.gradle`:
 
 ```gradle
-implementation "io.branch.sdk.android:library:3.+"
+implementation "io.branch.sdk.android:library:3.1.2"
 ```
 
 The result should be something like
 ```gradle
 dependencies {
     implementation project(':react-native-branch')
-    implementation "io.branch.sdk.android:library:3.+"
+    implementation "io.branch.sdk.android:library:3.1.2"
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
