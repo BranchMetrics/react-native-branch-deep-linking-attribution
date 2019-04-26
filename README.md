@@ -145,6 +145,8 @@ dependencies {
 }
 ```
 
+**Note:** Version 3.0.0-rc.1 uses version 3.1.1 of the native Branch SDK.
+
 If you're using an older version of Gradle, you may need `compile` instead of
 `implementation`.
 
@@ -298,6 +300,8 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 ```
+
+**Note:** Version 3.0.0-rc.1 uses version 3.1.1 of the native Branch SDK.
 
 If you're using an older version of Gradle, you may need `compile` instead of
 `implementation`.
