@@ -52,7 +52,7 @@ Run `yarn` first to supply all dependencies in `node_modules`.
     ```Ruby
     platform :ios, "9.0"
     use_frameworks!
-    pod "Branch", "0.26.0"
+    pod "Branch", "0.27.0"
     target "webview_tutorial"
     ```
 

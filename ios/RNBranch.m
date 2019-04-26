@@ -29,7 +29,7 @@ static NSString * const IdentFieldName = @"ident";
 static NSString * const RNBranchErrorDomain = @"RNBranchErrorDomain";
 static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 
-static NSString * const REQUIRED_BRANCH_SDK = @"0.26.0";
+static NSString * const REQUIRED_BRANCH_SDK = @"0.27.0";
 
 #pragma mark - Private RNBranch declarations
 
@@ -160,7 +160,7 @@ RCT_EXPORT_MODULE();
 + (void)useTestInstance {
     useTestInstance = YES;
 }
-    
+
 + (void)deferInitializationForJSLoad
 {
     deferInitializationForJSLoad = YES;
@@ -184,14 +184,14 @@ RCT_EXPORT_MODULE();
         if (params) {
             result[RNBranchLinkOpenedNotificationParamsKey] = params;
             BOOL clickedBranchLink = params[@"+clicked_branch_link"];
-            
+
             if (clickedBranchLink) {
                 BranchUniversalObject *branchUniversalObject = [BranchUniversalObject objectWithDictionary:params];
                 if (branchUniversalObject) result[RNBranchLinkOpenedNotificationBranchUniversalObjectKey] = branchUniversalObject;
-                
+
                 BranchLinkProperties *linkProperties = [BranchLinkProperties getBranchLinkPropertiesFromDictionary:params];
                 if (linkProperties) result[RNBranchLinkOpenedNotificationLinkPropertiesKey] = linkProperties;
-                
+
                 if (params[@"~referring_link"]) {
                     result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"~referring_link"]];
                 }
@@ -200,7 +200,7 @@ RCT_EXPORT_MODULE();
                 result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"+non_branch_link"]];
             }
         }
-        
+
         [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:result];
     }];
 }
@@ -321,7 +321,7 @@ RCT_EXPORT_METHOD(initializeBranch:(NSString *)key
     NSError *error = [NSError errorWithDomain:RNBranchErrorDomain
                                          code:-1
                                      userInfo:nil];
-    
+
     reject(@"RNBranch::Error::Unsupported", @"Initializing the Branch SDK from JS will be supported in a future release.", error);
 
     /*
