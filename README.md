@@ -65,7 +65,31 @@ Note that the `react-native-branch` module requires `react-native` >= 0.40.
 1. `yarn add react-native-branch`
 2. (Optional) Add a branch.json file to the root of your app project. See https://rnbranch.app.link/branch-json.
 3. `react-native link react-native-branch`
-4. Follow the [setup instructions](#setup).
+4. Add the native Branch SDK via CocoaPods.
+    - Already using CocoaPods:
+      + Add `pod 'Branch', '0.26.0'` to your `Podfile`.
+      + Run `pod install`.
+    - Not using CocoaPods:
+      + Add a file to your `ios` subdirectory called
+        'Podfile' with these contents:
+        ```Ruby
+        platform :ios, "9.0"
+        use_frameworks!
+        pod "Branch", "0.26.0"
+        target "MyApp"
+        ```
+        Replace `MyApp` with the name of your application target.
+      + Install CocoaPods if necessary: https://guides.cocoapods.org/using/getting-started.html#installation.
+      + Run `pod install`.
+        Note that this creates a workspace called `MyApp.xcworkspace` in the same
+        directory. From now on, open the workspace, not the project.
+    - Note that if your local podspec repo is quite old, `pod install` may fail.
+      You may need to update the local podspec repo to get the current
+      version of the Branch SDK. Do this by running
+      `pod install --repo-update` or by running `pod repo update` before
+      `pod install`.
+
+5. Follow the [setup instructions](#setup).
 
 **Note:** This SDK currently does not work in projects using NPM instead of yarn.
 See #433. The RN toolchain will use yarn by default. Please use
@@ -76,7 +100,9 @@ ___
 ### Native iOS app using the React pod
 
 Only follow these instructions if you are already using the React pod from node_modules. This is usually
-done in native apps that integrate a React Native components.
+done in native apps that integrate a React Native components. **Warning:** If you use the React pod in a
+project built with `react-native link`, you will have duplicate copies of the React Native components
+in your project, and the results will be unpredictable.
 
 1. Add the following to your Podfile:
     ```Ruby
