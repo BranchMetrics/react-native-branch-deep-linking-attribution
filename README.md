@@ -83,6 +83,12 @@ Note that the `react-native-branch` module requires `react-native` >= 0.40.
       + Run `pod install`.
         Note that this creates a workspace called `MyApp.xcworkspace` in the same
         directory. From now on, open the workspace, not the project.
+    - Note that if your local podspec repo is quite old, `pod install` may fail.
+      You may need to update the local podspec repo to get the current
+      version of the Branch SDK. Do this by running
+      `pod install --repo-update` or by running `pod repo update` before
+      `pod install`.
+
 5. Follow the [setup instructions](#setup).
 
 **Note:** This SDK currently does not work in projects using NPM instead of yarn.
