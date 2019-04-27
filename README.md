@@ -66,8 +66,10 @@ Note that the `react-native-branch` module requires `react-native` >= 0.40.
 2. (Optional) Add a branch.json file to the root of your app project. See https://rnbranch.app.link/branch-json.
 3. `react-native link react-native-branch`
 4. Add the native Branch SDK via CocoaPods.
+    - **Note:** Version 3.0.0-rc.1 uses version 0.26.0 of the native iOS SDK. Replace 0.27.0 below
+      with 0.26.0.
     - Already using CocoaPods:
-      + Add `pod 'Branch', '0.26.0'` to your `Podfile`.
+      + Add `pod 'Branch', '0.27.0'` to your `Podfile`.
       + Run `pod install`.
     - Not using CocoaPods:
       + Add a file to your `ios` subdirectory called
@@ -75,7 +77,7 @@ Note that the `react-native-branch` module requires `react-native` >= 0.40.
         ```Ruby
         platform :ios, "9.0"
         use_frameworks!
-        pod "Branch", "0.26.0"
+        pod "Branch", "0.27.0"
         target "MyApp"
         ```
         Replace `MyApp` with the name of your application target.
@@ -132,18 +134,20 @@ implementation fileTree(dir: 'libs', include: ['*.jar'])
 Add this line:
 
 ```gradle
-implementation "io.branch.sdk.android:library:3.+"
+implementation "io.branch.sdk.android:library:3.1.2"
 ```
 
 The result should be something like
 ```gradle
 dependencies {
     implementation project(':react-native-branch')
-    implementation "io.branch.sdk.android:library:3.+"
+    implementation "io.branch.sdk.android:library:3.1.2"
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 ```
+
+**Note:** Version 3.0.0-rc.1 uses version 3.1.1 of the native Branch SDK.
 
 If you're using an older version of Gradle, you may need `compile` instead of
 `implementation`.
@@ -286,18 +290,20 @@ ___
 Add this line to your `dependencies` in `app/build.gradle`:
 
 ```gradle
-implementation "io.branch.sdk.android:library:3.+"
+implementation "io.branch.sdk.android:library:3.1.2"
 ```
 
 The result should be something like
 ```gradle
 dependencies {
     implementation project(':react-native-branch')
-    implementation "io.branch.sdk.android:library:3.+"
+    implementation "io.branch.sdk.android:library:3.1.2"
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 ```
+
+**Note:** Version 3.0.0-rc.1 uses version 3.1.1 of the native Branch SDK.
 
 If you're using an older version of Gradle, you may need `compile` instead of
 `implementation`.
