@@ -121,33 +121,23 @@ ___
 
 To fix a longstanding build issue with Android, it is necessary to take the
 native Branch Android SDK from Maven rather than from the react-native-branch
-module, starting with version 3.0.0.
+module, starting with version 3.0.0. This now happens transparently via Gradle.
+If you previously added `implementation fileTree(dir: 'libs', include: ['*.jar'])`
+to your `app/build.gradle` only for React Native Branch, you may remove it,
+unless it is now used by other code.
 
-Open the `android/app/build.gradle` file in your project.
+Remove any direct reference to `io.branch.sdk.android:library` in your dependencies,
+e.g. `io.branch.sdk.android:library:3.1.1`. This has the potential to cause
+conflicts. This module imports the Branch SDK directly.
 
-Remove this line:
-
-```gradle
-implementation fileTree(dir: 'libs', include: ['*.jar'])
-```
-
-Add this line:
-
-```gradle
-implementation "io.branch.sdk.android:library:3.1.2"
-```
-
-The result should be something like
+The result in your `app/build.gradle` should be something like
 ```gradle
 dependencies {
     implementation project(':react-native-branch')
-    implementation "io.branch.sdk.android:library:3.1.2"
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 ```
-
-**Note:** Version 3.0.0-rc.1 uses version 3.1.1 of the native Branch SDK.
 
 If you're using an older version of Gradle, you may need `compile` instead of
 `implementation`.
@@ -287,26 +277,28 @@ ___
 
 #### Gradle dependency
 
-Add this line to your `dependencies` in `app/build.gradle`:
+If you use `react-native link`, no further change is necessary to your `app/build.gradle`.
+
+In a native app, import the `react-native-branch` project like this:
 
 ```gradle
-implementation "io.branch.sdk.android:library:3.1.2"
+implementation project(':react-native-branch')
 ```
 
-The result should be something like
+If you're using an older version of Gradle, you may need `compile` rather than
+`implementation`. If you are already using the native Branch SDK in your app,
+it will now be imported from Maven via `react-native-branch` as a dependency.
+Remove any reference to `io.branch.sdk.android:library` from your dependencies
+to avoid conflicts.
+
+Also add the project to your `setting.gradle`:
+
 ```gradle
-dependencies {
-    implementation project(':react-native-branch')
-    implementation "io.branch.sdk.android:library:3.1.2"
-    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-}
+include ':react-native-branch'
+project(':react-native-branch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-branch/android')
 ```
 
-**Note:** Version 3.0.0-rc.1 uses version 3.1.1 of the native Branch SDK.
-
-If you're using an older version of Gradle, you may need `compile` instead of
-`implementation`.
+The location of your `node_modules` folder may vary.
 
 #### Application code
 
