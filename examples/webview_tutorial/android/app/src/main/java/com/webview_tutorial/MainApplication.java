@@ -1,6 +1,6 @@
 package com.webview_tutorial;
 
-// Step 2: Add RNBranchModule import
+// Step 1: Add RNBranchModule import
 
 import android.app.Application;
 
@@ -44,6 +44,6 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
 
-    // Step 3: Add call to RNBranch.getAutoInstance
+    // Step 2: Add call to RNBranch.getAutoInstance
   }
 }

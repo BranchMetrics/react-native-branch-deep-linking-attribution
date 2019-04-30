@@ -169,23 +169,7 @@ Run `yarn` first to supply all dependencies in `node_modules`.
 
 ## Android setup
 
-1. Add this line to the `dependencies` in `android/app/build.gradle`:
-
-```gradle
-implementation "io.branch.sdk.android:library:3.1.2"
-```
-
-The result should be something like
-```gradle
-dependencies {
-    implementation project(':react-native-branch')
-    implementation "io.branch.sdk.android:library:3.1.2"
-    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-}
-```
-
-2. Open the `android` project in Android Studio. Open the `MainApplication.java` file in Android Studio.
+1. Open the `android` project in Android Studio. Open the `MainApplication.java` file in Android Studio.
     Alternately, open `android/app/src/main/java/com/webview_tutorial/MainApplication.java` in your
     favorite text editor. At the top of the file, after the `package` declaration, add the following line:
 
@@ -193,7 +177,7 @@ dependencies {
     import io.branch.rnbranch.RNBranchModule;
     ```
 
-3. In the `onCreate` method, add the following line:
+2. In the `onCreate` method, add the following line:
 
     ```Java
     RNBranch.getAutoInstance(this);
@@ -204,7 +188,7 @@ dependencies {
     ```Java
     package com.webview_tutorial;
 
-    // Step 2: Add RNBranchModule import
+    // Step 1: Add RNBranchModule import
     import io.branch.rnbranch.RNBranchModule;
 
     import android.app.Application;
@@ -244,13 +228,13 @@ dependencies {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
 
-        // Step 3: Add call to RNBranch.getAutoInstance
+        // Step 2: Add call to RNBranch.getAutoInstance
         RNBranch.getAutoInstance(this);
       }
     }
     ```
 
-4. Open the `android/app/src/main/java/com/webview_tutorial/MainActivity.java` file in Android Studio
+3. Open the `android/app/src/main/java/com/webview_tutorial/MainActivity.java` file in Android Studio
     or your favorite editor. Add the following imports near the top of the file:
 
     ```Java
@@ -258,7 +242,7 @@ dependencies {
     import android.content.Intent;
     ```
 
-5. Add the `onStart` method in the MainActivity:
+4. Add the `onStart` method in the MainActivity:
 
     ```Java
     @Override
@@ -268,7 +252,7 @@ dependencies {
     }
     ```
 
-6. Add the `onNewIntent` method in the MainActivity:
+5. Add the `onNewIntent` method in the MainActivity:
 
     ```Java
     @Override
@@ -283,7 +267,7 @@ dependencies {
     ```Java
     package com.webview_tutorial;
 
-    // Step 4: Import RNBranchModule and Android Intent class
+    // Step 3: Import RNBranchModule and Android Intent class
     import io.branch.rnbranch.RNBranchModule;
     import android.content.Intent;
 
@@ -300,14 +284,14 @@ dependencies {
             return "webview_tutorial";
         }
 
-        // Step 5: Add onStart method
+        // Step 4: Add onStart method
         @Override
         protected void onStart() {
             super.onStart();
             RNBranchModule.initSession(getIntent().getData(), this);
         }
 
-        // Step 6: Add onNewIntent method
+        // Step 5: Add onNewIntent method
         @Override
         public void onNewIntent(Intent intent) {
             super.onNewIntent(intent);
@@ -317,7 +301,7 @@ dependencies {
     }
     ```
 
-7. Open the `android/app/src/main/AndroidManifest.xml` in Android Studio or a text editor. Add
+6. Open the `android/app/src/main/AndroidManifest.xml` in Android Studio or a text editor. Add
     `android:launchMode="singleTask"` to the MainActivity:
 
     ```xml
@@ -329,7 +313,7 @@ dependencies {
         android:launchMode="singleTask">
     ```
 
-8. Add `intent-filters` to the MainActivity in the Android manifest using your Branch domains:
+7. Add `intent-filters` to the MainActivity in the Android manifest using your Branch domains:
 
     ```xml
     <intent-filter android:autoVerify="true">
@@ -360,7 +344,7 @@ dependencies {
 
     Replace `myurischeme` with your actual URI scheme.
 
-9. Add your Branch keys to the Android manifest at the end of the application element.
+8. Add your Branch keys to the Android manifest at the end of the application element.
 
     ```xml
     <!-- Branch keys -->
@@ -430,7 +414,7 @@ dependencies {
     </manifest>
     ```
 
-10. Add a file called `android/app/src/debug/AndroidManifest.xml` with the following contents:
+9. Add a file called `android/app/src/debug/AndroidManifest.xml` with the following contents:
 
     ```xml
     <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -443,7 +427,7 @@ dependencies {
     </manifest>
     ```
 
-11. Open the file `android/app/proguard-rules.pro` and add the following line at the end:
+10. Open the file `android/app/proguard-rules.pro` and add the following line at the end:
 
     ```proguard
     -dontwarn io.branch.**
