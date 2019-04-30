@@ -1,3 +1,11 @@
+2019-04-30  Version 3.0.0
+  * Changed `implementation` to `api` in build.gradle. This exposes the native
+      Branch SDK to native code and avoids the need to import
+      `io.branch.sdk.android:library` in the `app/build.gradle`, which
+      introduces the potential for conflicts. The `app/build.gradle` import
+      via `implementation 'io.branch.sdk.android:library:3.1.2'`
+      is no longer necessary and should be removed.
+
 2019-04-19  Version 3.0.0-rc.1
   * Removed docs folder from distro.
   * Updated to iOS SDK 0.26.0, Android 3.1.1.
