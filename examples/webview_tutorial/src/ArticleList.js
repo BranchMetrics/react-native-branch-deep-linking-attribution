@@ -33,6 +33,7 @@ class ArticleList extends Component {
 
   // Step 4: Add componentWillUnmount
 
+  // TODO: Working except for style?
   render() {
     return (
       <FlatList
