@@ -5,6 +5,7 @@
       introduces the potential for conflicts. The `app/build.gradle` import
       via `implementation 'io.branch.sdk.android:library:3.1.2'`
       is no longer necessary and should be removed.
+  * Uses native Branch SDKs 3.1.2 (Android), 0.27.0 (iOS).
 
 2019-04-19  Version 3.0.0-rc.1
   * Removed docs folder from distro.
