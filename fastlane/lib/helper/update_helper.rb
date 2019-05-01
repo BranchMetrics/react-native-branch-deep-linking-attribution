@@ -1,33 +1,40 @@
+require 'fileutils'
+
 module UpdateHelper
   def update_pods_in_tests_and_examples(params)
     # Updates to CocoaPods for unit tests and examples (requires
     # node_modules for each)
-    %w{
+    %w[
       examples/testbed_native_ios
       examples/webview_example_native_ios
+      examples/webview_example_react_pod
       .
-    }.each do |folder|
-      other_action.yarn package_path: File.join("..", folder, "package.json")
+    ].each do |folder|
+      other_action.yarn package_path: File.join('..', folder, 'package.json')
 
-      pods_folder = folder
-
-      # The Podfile there installs from node_modules in the repo root.
-      pods_folder = "native-tests/ios" if folder == "."
+      pods_folder = case folder
+      when '.'
+        'native-tests/ios'
+      when 'examples/webview_example_react_pod'
+        "#{folder}/ios"
+      else
+        folder
+      end
 
       FastlaneCore::UI.message "Updating Pods in #{pods_folder}"
-      command = %w{pod update}
-      command << "--silent" unless params[:verbose]
-      command << "--no-repo-update" unless params[:repo_update]
+      command = %w[pod update]
+      command << '--silent' unless params[:verbose]
+      command << '--no-repo-update' unless params[:repo_update]
       Dir.chdir pods_folder do
         sh command
       end
-      FastlaneCore::UI.message "Done ✅"
+      FastlaneCore::UI.message 'Done ✅'
 
-      other_action.git_add(path: File.join("..", pods_folder))
+      other_action.git_add(path: File.join('..', pods_folder))
 
       # node_modules only required for pod install. Remove to speed up
       # subsequent calls to yarn.
-      sh "rm", "-fr", File.join(folder, "node_modules")
+      FileUtils.rm_rf File.join(folder, 'node_modules')
     end
   end
 end
