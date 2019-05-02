@@ -6,6 +6,10 @@ import branch from 'react-native-branch'
 import Article from './Article'
 
 class ArticleList extends Component {
+  static navigationOptions = {
+    title: 'The Planets',
+  }
+
   _unsubscribeFromBranch = null
 
   constructor(props) {

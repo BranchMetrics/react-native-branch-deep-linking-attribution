@@ -1,10 +1,12 @@
 package com.webview_example;
 
-import android.content.Intent;
-
 import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactActivityDelegate;
+import com.facebook.react.ReactRootView;
+import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
-import io.branch.rnbranch.*;
+import io.branch.rnbranch.RNBranchModule;
+import android.content.Intent;
 
 public class MainActivity extends ReactActivity {
 
@@ -15,6 +17,16 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "webview_example";
+    }
+
+    @Override
+    protected ReactActivityDelegate createReactActivityDelegate() {
+        return new ReactActivityDelegate(this, getMainComponentName()) {
+            @Override
+            protected ReactRootView createRootView() {
+                return new RNGestureHandlerEnabledRootView(MainActivity.this);
+            }
+        };
     }
 
     @Override
