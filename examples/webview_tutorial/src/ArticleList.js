@@ -4,6 +4,10 @@ import { Text, Image, FlatList, StyleSheet, TouchableHighlight, View } from 'rea
 import Article from './Article'
 
 class ArticleList extends Component {
+  static navigationOptions = {
+    title: 'The Planets',
+  }
+
   // Step 2: Add _unsubscribeFromBranch property
 
   constructor(props) {
