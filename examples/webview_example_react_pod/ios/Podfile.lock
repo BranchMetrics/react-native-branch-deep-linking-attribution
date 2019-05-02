@@ -14,6 +14,8 @@ PODS:
   - react-native-branch (3.0.1):
     - Branch (= 0.27.0)
     - React
+  - react-native-webview (5.8.1):
+    - React
   - React/Core (0.59.6):
     - yoga (= 0.59.6.React)
   - React/CxxBridge (0.59.6):
@@ -64,6 +66,7 @@ PODS:
 DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - react-native-branch (from `../node_modules/react-native-branch`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -89,6 +92,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-branch:
     :path: "../node_modules/react-native-branch"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -100,8 +105,9 @@ SPEC CHECKSUMS:
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   React: 0bb58efca577aa4b3c8f03a9fbf0d9a8ebdb5ac4
   react-native-branch: cff1a3b806889681c29afc2dbe974cd9d08cecaa
+  react-native-webview: f3e28b48461c78db833f727feec08b13285e7b61
   yoga: 8dacc3c5977cb8e07c346e203bb5f4ffe01296df
 
-PODFILE CHECKSUM: df6ff2d3c4293860afdf9a33347eb9db6a393d29
+PODFILE CHECKSUM: bcb27e685af1c49893d00f08309c2dd09d7482d4
 
 COCOAPODS: 1.6.1
