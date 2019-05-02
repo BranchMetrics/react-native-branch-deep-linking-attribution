@@ -4,40 +4,41 @@ platform :ios, "9.0"
 # Necessary to use Swift pods
 use_frameworks!
 
-# Import the React pod and required subspecs from node_modules
-pod "React",
-  path: "node_modules/react-native",
-  subspecs: %w{
-    Core
-    CxxBridge
-    DevSupport
-    RCTAnimation
-    RCTImage
-    RCTLinkingIOS
-    RCTText
-    RCTNetwork
-    RCTWebSocket
-  }
-
-# From https://facebook.github.io/react-native/docs/integration-with-existing-apps.html#podfile
-# Explicitly include Yoga if you are using RN >= 0.42.0
-pod "yoga", path: "node_modules/react-native/ReactCommon/yoga"
-pod "Folly", :podspec => "node_modules/react-native/third-party-podspecs/Folly.podspec"
-
-# ----- Begin Branch SDK additions -----
-
-# Import react-native-branch pod from node_modules
-pod "react-native-branch", path: "node_modules/react-native-branch"
-
-# ----- End Branch SDK additions -----
-
-# Convenient pods for app development
-pod "Cartography"
-# pod "TextAttributes"
-
 # Specify the app target and any other targets that require these dependencies
-target "WebViewExample"
+target 'WebViewExample' do
+  # Import the React pod and required subspecs from node_modules
+  pod 'React',
+    path: 'node_modules/react-native',
+    subspecs: %w[
+      Core
+      CxxBridge
+      DevSupport
+      RCTAnimation
+      RCTImage
+      RCTLinkingIOS
+      RCTText
+      RCTNetwork
+      RCTWebSocket
+    ]
+
+  # From https://facebook.github.io/react-native/docs/integration-with-existing-apps.html#podfile
+  # Explicitly include Yoga if you are using RN >= 0.42.0
+  pod 'yoga', path: 'node_modules/react-native/ReactCommon/yoga'
+  pod 'Folly', podspec: 'node_modules/react-native/third-party-podspecs/Folly.podspec'
+
+  # ----- Begin Branch SDK additions -----
+
+  # Import react-native-branch pod from node_modules
+  pod 'react-native-branch', path: 'node_modules/react-native-branch'
+
+  # ----- End Branch SDK additions -----
+
+  # Convenient pods for app development
+  pod 'Cartography'
+
+  pod 'react-native-webview', path: 'node_modules/react-native-webview'
+end
 
 # Add custom configurations
 # https://github.com/BranchMetrics/react-native-branch-deep-linking/blob/master/docs/branch-environments.md#step-7-update-podfile
-project "WebViewExample", "Test-Debug" => :debug, "Test-Release" => :release
+project 'WebViewExample', 'Test-Debug' => :debug, 'Test-Release' => :release
