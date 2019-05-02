@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Text, Image, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native'
 
+// Step 1: import Branch
+
 import Article from './Article'
 
 class ArticleList extends Component {
