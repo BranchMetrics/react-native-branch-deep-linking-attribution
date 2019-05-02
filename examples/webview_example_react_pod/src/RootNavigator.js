@@ -1,21 +1,15 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Article from './Article';
 import ArticleList from './ArticleList';
 
-const RootNavigator = StackNavigator({
+const RootNavigator = createStackNavigator({
   Home: {
     screen: ArticleList,
-    navigationOptions: {
-      headerTitle: 'The Planets'
-    }
   },
   Article: {
     screen: Article,
-    navigationOptions: ({navigation}) => ({
-      headerTitle: navigation.state.params.title
-    })
   }
 });
 
-export default RootNavigator;
+export default createAppContainer(RootNavigator);
