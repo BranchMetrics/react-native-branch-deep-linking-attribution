@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, TouchableHighlight, View, WebView } from 'react-native'
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native'
+import { WebView } from 'react-native-webview'
 
 // Step 5: Import branch and BranchEvent
 
