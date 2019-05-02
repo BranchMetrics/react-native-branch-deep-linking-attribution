@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, TextInput, View, WebView } from 'react-native'
+import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { WebView } from 'react-native-webview'
 
 import branch, { BranchEvent } from 'react-native-branch'
 
