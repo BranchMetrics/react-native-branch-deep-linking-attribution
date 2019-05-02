@@ -75,10 +75,11 @@ Note that the `react-native-branch` module requires `react-native` >= 0.40.
       + Add a file to your `ios` subdirectory called
         'Podfile' with these contents:
         ```Ruby
-        platform :ios, "9.0"
+        platform :ios, '9.0'
         use_frameworks!
-        pod "Branch", "0.27.0"
-        target "MyApp"
+        target 'MyApp' do
+          pod 'Branch', '0.27.0'
+        end
         ```
         Replace `MyApp` with the name of your application target.
       + Install CocoaPods if necessary: https://guides.cocoapods.org/using/getting-started.html#installation.
