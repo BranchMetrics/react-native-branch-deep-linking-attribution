@@ -61,6 +61,10 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNGestureHandler (1.2.1):
+    - React
+  - RNScreens (1.0.0-alpha.22):
+    - React
   - yoga (0.59.6.React)
 
 DEPENDENCIES:
@@ -76,6 +80,8 @@ DEPENDENCIES:
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -94,6 +100,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-branch"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -106,8 +116,10 @@ SPEC CHECKSUMS:
   React: 0bb58efca577aa4b3c8f03a9fbf0d9a8ebdb5ac4
   react-native-branch: cff1a3b806889681c29afc2dbe974cd9d08cecaa
   react-native-webview: f3e28b48461c78db833f727feec08b13285e7b61
+  RNGestureHandler: aea90f0ad8e35fec23438db6fc3ad79be58bb734
+  RNScreens: 720a9e6968beb73e8196239801e887d8401f86ed
   yoga: 8dacc3c5977cb8e07c346e203bb5f4ffe01296df
 
-PODFILE CHECKSUM: bcb27e685af1c49893d00f08309c2dd09d7482d4
+PODFILE CHECKSUM: e7c0a0bc55b0bc5803b2b51fee32b76caf0f5df9
 
 COCOAPODS: 1.6.1

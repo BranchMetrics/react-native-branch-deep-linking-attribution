@@ -33,4 +33,8 @@ target 'webview_example_react_pod' do
   # ----- End Branch SDK additions -----
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
 end

@@ -10,8 +10,10 @@
     "react": "16.8.6",
     "react-native": "0.59.6",
     "react-native-branch": "file:../..",
+    "react-native-gesture-handler": "^1.0.12",
+    "react-native-screens": "^1.0.0-alpha.22",
     "react-native-webview": "^5.8.1",
-    "react-navigation": "^1.0.0-beta.21"
+    "react-navigation": "^3.9.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

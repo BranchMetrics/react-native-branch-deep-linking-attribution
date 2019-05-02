@@ -28,6 +28,10 @@ const styles = StyleSheet.create({
 })
 
 export default class Article extends Component {
+  static navigationOptions = ({navigation}) => ({
+    title: navigation.getParam('title', 'Article')
+  })
+
   buo = null
 
   async componentDidMount() {

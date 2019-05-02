@@ -1,6 +1,9 @@
 package com.webview_example_react_pod;
 
 import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactActivityDelegate;
+import com.facebook.react.ReactRootView;
+import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
 import io.branch.rnbranch.RNBranchModule;
 import android.content.Intent;
@@ -14,6 +17,16 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "webview_example_react_pod";
+    }
+
+    @Override
+    protected ReactActivityDelegate createReactActivityDelegate() {
+        return new ReactActivityDelegate(this, getMainComponentName()) {
+            @Override
+            protected ReactRootView createRootView() {
+                return new RNGestureHandlerEnabledRootView(MainActivity.this);
+            }
+        };
     }
 
     @Override

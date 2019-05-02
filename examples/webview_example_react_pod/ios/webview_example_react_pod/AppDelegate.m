@@ -11,6 +11,10 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+#if RCT_DEV
+#import <React/RCTDevLoadingView.h>
+#endif
+
 @import react_native_branch;
 
 @implementation AppDelegate
@@ -19,7 +23,12 @@
 {
   [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
 
-  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self
+                                            launchOptions:launchOptions];
+#if RCT_DEV
+  [bridge moduleForClass:[RCTDevLoadingView class]];
+#endif
+
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"webview_example_react_pod"
                                             initialProperties:nil];

@@ -50,10 +50,11 @@ Run `yarn` first to supply all dependencies in `node_modules`.
     necessary. Add a file called `Podfile` in the `ios` subdirectory with these contents:
 
     ```Ruby
-    platform :ios, "9.0"
+    platform :ios, '9.0'
     use_frameworks!
-    pod "Branch", "0.27.0"
-    target "webview_tutorial"
+    target 'webview_tutorial' do
+      pod 'Branch', '0.27.0'
+    end
     ```
 
     Now run `pod install` at the command line in the `ios` subdirectory. CocoaPods generates an
@@ -101,6 +102,10 @@ Run `yarn` first to supply all dependencies in `node_modules`.
     #import <React/RCTBundleURLProvider.h>
     #import <React/RCTRootView.h>
 
+    #if RCT_DEV
+    #import <React/RCTDevLoadingView.h>
+    #endif
+
     // Step 2: Add RNBranch import
 
     #import <react-native-branch/RNBranch.h>
@@ -115,14 +120,13 @@ Run `yarn` first to supply all dependencies in `node_modules`.
     #endif // DEBUG
       [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
 
-      NSURL *jsCodeLocation;
+      RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
 
-      jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+    #if RCT_DEV
+      [bridge moduleForClass:RCTDevLoadingView.class];
+    #endif
 
-      RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                          moduleName:@"webview_tutorial"
-                                                   initialProperties:nil
-                                                       launchOptions:launchOptions];
+      RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"webview_tutorial" initialProperties:nil];
       rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
       self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -131,6 +135,15 @@ Run `yarn` first to supply all dependencies in `node_modules`.
       self.window.rootViewController = rootViewController;
       [self.window makeKeyAndVisible];
       return YES;
+    }
+
+    - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+    {
+    #if DEBUG
+      return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+    #else
+      return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+    #endif
     }
 
     // Step 4: Add application:openURL:options: and application:continueUserActivity:restorationHandler: methods
@@ -180,7 +193,7 @@ Run `yarn` first to supply all dependencies in `node_modules`.
 2. In the `onCreate` method, add the following line:
 
     ```Java
-    RNBranch.getAutoInstance(this);
+    RNBranchModule.getAutoInstance(this);
     ```
 
     The complete MainApplication should look like this:
@@ -194,6 +207,9 @@ Run `yarn` first to supply all dependencies in `node_modules`.
     import android.app.Application;
 
     import com.facebook.react.ReactApplication;
+    import com.swmansion.rnscreens.RNScreensPackage;
+    import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+    import com.reactnativecommunity.webview.RNCWebViewPackage;
     import com.facebook.react.ReactNativeHost;
     import com.facebook.react.ReactPackage;
     import com.facebook.react.shell.MainReactPackage;
@@ -213,7 +229,11 @@ Run `yarn` first to supply all dependencies in `node_modules`.
         @Override
         protected List<ReactPackage> getPackages() {
           return Arrays.<ReactPackage>asList(
-              new MainReactPackage()
+          new MainReactPackage(),
+            new RNScreensPackage(),
+            new RNGestureHandlerPackage(),
+            new RNCWebViewPackage(),
+            new RNBranchPackage()
           );
         }
       };
@@ -229,7 +249,7 @@ Run `yarn` first to supply all dependencies in `node_modules`.
         SoLoader.init(this, /* native exopackage */ false);
 
         // Step 2: Add call to RNBranch.getAutoInstance
-        RNBranch.getAutoInstance(this);
+        RNBranchModule.getAutoInstance(this);
       }
     }
     ```
@@ -272,6 +292,9 @@ Run `yarn` first to supply all dependencies in `node_modules`.
     import android.content.Intent;
 
     import com.facebook.react.ReactActivity;
+    import com.facebook.react.ReactActivityDelegate;
+    import com.facebook.react.ReactRootView;
+    import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
     public class MainActivity extends ReactActivity {
 
@@ -282,6 +305,16 @@ Run `yarn` first to supply all dependencies in `node_modules`.
         @Override
         protected String getMainComponentName() {
             return "webview_tutorial";
+        }
+
+        @Override
+        protected ReactActivityDelegate createReactActivityDelegate() {
+            return new ReactActivityDelegate(this, getMainComponentName()) {
+                @Override
+                protected ReactRootView createRootView() {
+                    return new RNGestureHandlerEnabledRootView(MainActivity.this);
+                }
+            };
         }
 
         // Step 4: Add onStart method
@@ -487,30 +520,26 @@ Run `yarn` first to supply all dependencies in `node_modules`.
 
     ```js
     import React, { Component } from 'react'
-    import { Text, Image, ListView, StyleSheet, TouchableHighlight, View } from 'react-native'
+    import { Text, Image, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native'
 
     // Step 1: import Branch
     import branch from 'react-native-branch'
 
     import Article from './Article'
 
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        marginTop: 0
-      },
-    })
-
     class ArticleList extends Component {
+      static navigationOptions = {
+        title: 'The Planets',
+      }
+
       // Step 2: Add _unsubscribeFromBranch property
       _unsubscribeFromBranch = null
 
       constructor(props) {
         super(props)
 
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
         this.state = {
-          dataSource: ds.cloneWithRows([
+          listData: props.listData || [
             { title: 'Mercury', url: 'https://en.wikipedia.org/wiki/Mercury_(planet)', image: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Mercury_in_color_-_Prockter07-edit1.jpg' },
             { title: 'Venus', url: 'https://en.wikipedia.org/wiki/Venus', image: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg' },
             { title: 'Earth', url: 'https://en.wikipedia.org/wiki/Earth', image: 'https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg' },
@@ -520,7 +549,7 @@ Run `yarn` first to supply all dependencies in `node_modules`.
             { title: 'Uranus', url: 'https://en.wikipedia.org/wiki/Uranus', image: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg' },
             { title: 'Neptune', url: 'https://en.wikipedia.org/wiki/Neptune', image: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg' },
             { title: 'Pluto', url: 'https://en.wikipedia.org/wiki/Pluto', image: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Nh-pluto-in-true-color_2x_JPEG-edit-frame.jpg' },
-          ]),
+          ],
         }
       }
 
@@ -556,24 +585,25 @@ Run `yarn` first to supply all dependencies in `node_modules`.
 
       render() {
         return (
-          <ListView
-            style={styles.container}
-            dataSource={this.state.dataSource}
-            renderRow={(data) =>
-              <TouchableHighlight
-                onPress={() => { this._showArticle(data) }}>
-                <View
-                  style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                  <Image
-                    style={{width: 80, height: 80}}
-                    source={{uri: data.image}}/>
-                  <Text
-                    style={{fontWeight: 'bold', fontSize: 17, margin: 20}}>
-                    {data.title}
-                  </Text>
-                </View>
-              </TouchableHighlight>}
-          />
+          <View style={styles.container}>
+            <FlatList
+              data={this.state.listData}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item}) =>
+                <TouchableHighlight
+                  onPress={() => { this._showArticle(item) }}>
+                  <View style={styles.item}>
+                    <Image
+                      style={styles.image}
+                      source={{uri: item.image}}/>
+                    <Text
+                      style={styles.label}>
+                      {item.title}
+                    </Text>
+                  </View>
+                </TouchableHighlight>}
+            />
+          </View>
         )
       }
 
@@ -582,6 +612,30 @@ Run `yarn` first to supply all dependencies in `node_modules`.
         this.props.navigation.navigate('Article', data)
       }
     }
+
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        justifyContent: 'center',
+        marginTop: 0,
+      },
+      item: {
+        height: 88,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+      image: {
+        width: 80,
+        height: 80,
+        marginLeft: 8
+      },
+      label: {
+        fontWeight: 'bold',
+        fontSize: 17,
+        margin: 20,
+      },
+    })
 
     export default ArticleList
     ```
@@ -652,7 +706,8 @@ Run `yarn` first to supply all dependencies in `node_modules`.
 
     ```js
     import React, { Component } from 'react'
-    import { StyleSheet, Text, TouchableHighlight, View, WebView } from 'react-native'
+    import { StyleSheet, Text, TouchableHighlight, View } from 'react-native'
+    import { WebView } from 'react-native-webview'
 
     // Step 5: Import branch and BranchEvent
     import branch, { BranchEvent } from 'react-native-branch'
@@ -680,6 +735,10 @@ Run `yarn` first to supply all dependencies in `node_modules`.
     })
 
     export default class Article extends Component {
+      static navigationOptions = ({navigation}) => ({
+        title: navigation.getParam('title', 'Article')
+      })
+
       // Step 6: Add buo property
       buo = null
 

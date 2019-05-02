@@ -10,6 +10,10 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+#if RCT_DEV
+#import <React/RCTDevLoadingView.h>
+#endif
+
 // Step 2: Add RNBranch import
 
 @implementation AppDelegate
@@ -18,18 +22,13 @@
 {
   // Step 3: Add call to [RNBranch initSessionWithLaunchOptions:isReferrable:]
 
-  NSURL *jsCodeLocation;
+  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
 
-  #ifdef DEBUG
-    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-  #else
-    jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-  #endif
+#if RCT_DEV
+  [bridge moduleForClass:RCTDevLoadingView.class];
+#endif
 
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"webview_tutorial"
-                                               initialProperties:nil
-                                                   launchOptions:launchOptions];
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"webview_tutorial" initialProperties:nil];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -38,6 +37,15 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+{
+#if DEBUG
+  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#else
+  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+#endif
 }
 
 // Step 4: Add application:openURL:options: and application:continueUserActivity:restorationHandler: methods
