@@ -180,8 +180,16 @@ Modify your AppDelegate as follows:
 #### Objective-C
 In AppDelegate.m
 
+Note that if you are using the react-native-branch pod from node_modules with
+`use_frameworks!` in your Podfile, and your AppDelegate is written in
+Objective-C, you should replace `#import <react-native-branch/RNBranch.h>` with
+`@import react_native_branch;`.
+
 ```objective-c
 #import <react-native-branch/RNBranch.h> // at the top
+
+// Use this instead if using the react-native-branch pod with use_frameworks!
+// @import react_native_branch;
 
 // Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -207,7 +215,7 @@ In AppDelegate.m
 }
 ```
 
-Note: Some applications may use `application:openURL:sourceApplication:annotiation:` instead of `application:openURL:options:`.
+Note: Some applications may be using the deprecated `application:openURL:sourceApplication:annotiation:` instead of `application:openURL:options:`.
 
 ```objective-c
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
