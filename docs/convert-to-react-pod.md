@@ -81,7 +81,10 @@
 1. In the `ios` subdirectory, run `pod install` again. It is not necessary to
     update the repo the second time. From now on, each time you add dependencies
     with `react-native link`, you will need to run `pod install` again.
-    Remember to update your podspec repo from time to time. Running `pod
+    Remember to update your podspec repo from time to time. (This happens
+    automatically when you run `pod update` unless you use the
+    `--no-repo-update` option.)
+    Running `pod
     install` will regenerate the code under `Pods` each time to include any
     new dependencies.
 1. Remove the `Libraries` group from your project altogether to avoid conflicts
