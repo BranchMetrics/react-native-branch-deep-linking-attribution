@@ -29,6 +29,10 @@ target 'webview_example_react_pod' do
   # Import react-native-branch pod from node_modules
   pod 'react-native-branch', path: '../node_modules/react-native-branch'
 
+  # To work with a local copy of the Branch iOS SDK
+  # pod 'react-native-branch', podspec: '../../../ios/react-native-branch-dev.podspec'
+  # pod 'Branch', path: '../../../../ios-branch-deep-linking'
+
   # ----- End Branch SDK additions -----
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
