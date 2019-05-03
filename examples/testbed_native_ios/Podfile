@@ -10,7 +10,6 @@ pod "React",
     RCTImage
     RCTText
     RCTNetwork
-    RCTWebSocket
   }
 pod "yoga", path: "node_modules/react-native/ReactCommon/yoga"
 pod "Folly", :podspec => "node_modules/react-native/third-party-podspecs/Folly.podspec"

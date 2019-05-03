@@ -17,19 +17,18 @@ target 'webview_example_react_pod' do
       RCTLinkingIOS
       RCTText
       RCTNetwork
-      RCTWebSocket
     ]
-  
+
   # From https://facebook.github.io/react-native/docs/integration-with-existing-apps.html#podfile
   # Explicitly include Yoga if you are using RN >= 0.42.0
   pod 'yoga', path: '../node_modules/react-native/ReactCommon/yoga'
   pod 'Folly', podspec: '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-  
+
   # ----- Begin Branch SDK additions -----
-  
+
   # Import react-native-branch pod from node_modules
   pod 'react-native-branch', path: '../node_modules/react-native-branch'
-  
+
   # ----- End Branch SDK additions -----
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
