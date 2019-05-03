@@ -38,7 +38,8 @@
     ```ruby
     source 'https://rubygems.org'
 
-    gem 'cocoapods'
+    # Install any 1.x >= 1.6
+    gem 'cocoapods', '~> 1.6'
     ```
     Now at the command line type `bundle install`. This generates a file
     called `Gemfile.lock`. Commit both `Gemfile` and `Gemfile.lock` to
