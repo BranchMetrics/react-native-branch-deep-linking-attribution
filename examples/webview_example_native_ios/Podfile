@@ -18,7 +18,6 @@ target 'WebViewExample' do
       RCTLinkingIOS
       RCTText
       RCTNetwork
-      RCTWebSocket
     ]
 
   # From https://facebook.github.io/react-native/docs/integration-with-existing-apps.html#podfile
