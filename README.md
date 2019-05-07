@@ -18,8 +18,7 @@ ___
   + [Support portal](http://support.branch.io)
 
 2. Getting started
-  + [Installation using react-native link](#pure-react-native-app-using-react-native-link)
-  + [Installation in a native iOS app using the React pod](#native-ios-app-using-the-react-pod)
+  + [Installation](#installation)
   + [Updating from an earlier SDK version or starting with v. 3.0.0](#updating-from-an-earlier-version-or-starting-with-v300)
   + [Register for Branch key](#register-your-app)
   + [Project setup](#setup)
@@ -60,61 +59,20 @@ ___
 
 Note that the `react-native-branch` module requires `react-native` >= 0.40.
 
-### Pure React Native app (using react-native link)
-
 1. `yarn add react-native-branch`
 2. (Optional) Add a branch.json file to the root of your app project. See https://rnbranch.app.link/branch-json.
 3. `react-native link react-native-branch`
-4. Add the native Branch SDK via CocoaPods.
-    - **Note:** Version 3.0.0-rc.1 uses version 0.26.0 of the native iOS SDK. Replace 0.27.0 below
-      with 0.26.0.
-    - Already using CocoaPods:
-      + Add `pod 'Branch', '0.27.0'` to your `Podfile`.
-      + Run `pod install`.
-    - Not using CocoaPods:
-      + Add a file to your `ios` subdirectory called
-        'Podfile' with these contents:
-        ```Ruby
-        platform :ios, '9.0'
-        use_frameworks!
-        target 'MyApp' do
-          pod 'Branch', '0.27.0'
-        end
-        ```
-        Replace `MyApp` with the name of your application target.
-      + Install CocoaPods if necessary: https://guides.cocoapods.org/using/getting-started.html#installation.
-      + Run `pod install`.
-        Note that this creates a workspace called `MyApp.xcworkspace` in the same
-        directory. From now on, open the workspace, not the project.
-    - Note that if your local podspec repo is quite old, `pod install` may fail.
-      You may need to update the local podspec repo to get the current
-      version of the Branch SDK. Do this by running
-      `pod install --repo-update` or by running `pod repo update` before
-      `pod install`.
-
+4. `cd ios; pod install --repo-update`
 5. Follow the [setup instructions](#setup).
+
+**Note:** These instructions assume you are using the React pod from
+node_modules with CocoaPods in your Xcode project. If you are not already
+using the React pod, it will first be necessary to
+[convert your Xcode project](./docs/convert-to-react-pod.md).
 
 **Note:** This SDK currently does not work in projects using NPM instead of yarn.
 See #433. The RN toolchain will use yarn by default. Please use
 `yarn add react-native-branch` to add the SDK to your project.
-
-___
-
-### Native iOS app using the React pod
-
-Only follow these instructions if you are already using the React pod from node_modules. This is usually
-done in native apps that integrate a React Native components. **Warning:** If you use the React pod in a
-project built with `react-native link`, you will have duplicate copies of the React Native components
-in your project, and the results will be unpredictable.
-
-1. Add the following to your Podfile:
-    ```Ruby
-    pod "react-native-branch", path: "../node_modules/react-native-branch"
-    ```
-    Adjust the path if necessary to indicate the location of your `node_modules` subdirectory.
-2. Run `pod install` to regenerate the Pods project with the new dependencies.
-2. (Optional) Add a branch.json file to your app project. See https://rnbranch.app.link/branch-json.
-4. Follow the [setup instructions](#setup).
 
 ___
 
@@ -157,6 +115,9 @@ public void onCreate() {
 }
 ```
 
+If you are not already using the React pod to build your app, it will
+be necessary to [convert your Xcode project](./docs/convert-to-react-pod.md).
+
 The `cached_initial_event` key in the `params` returned in the `subscribe`
 callback has been renamed to `+rn_cached_initial_event`.
 
@@ -180,16 +141,15 @@ Modify your AppDelegate as follows:
 #### Objective-C
 In AppDelegate.m
 
-Note that if you are using the react-native-branch pod from node_modules with
-`use_frameworks!` in your Podfile, and your AppDelegate is written in
-Objective-C, you should replace `#import <react-native-branch/RNBranch.h>` with
-`@import react_native_branch;`.
+Note that if you don't have `use_frameworks!` in your Podfile, and your
+AppDelegate is written in Objective-C, you should replace
+`@import react_native_branch;` with `#import <react-native-branch/RNBranch.h>`.
 
 ```objective-c
-#import <react-native-branch/RNBranch.h> // at the top
+@import react_native_branch; // at the top
 
-// Use this instead if using the react-native-branch pod with use_frameworks!
-// @import react_native_branch;
+// Use this instead if you don't use_frameworks! in your Podfile.
+// #import <react-native-branch/RNBranch.h>
 
 // Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -231,23 +191,25 @@ will be supplied by autocompletion in Xcode.
 
 #### Swift
 
-If you are using `react-native link`, your AppDelegate is probably written in Objective-C. When you use
-`react-native link`, the Branch dependency is added to your project as a static library. If instead
-you are using Swift in a pure React Native app with `react-native link`, you will require a
+If you're using Swift in your iOS native code, it is recommended that you
+include `use_frameworks!` in your Podfile. This is necessary to use any pods
+written in Swift.
+
+If you are using Swift without `use_frameworks!` in your Podfile, you will
+require a
 [bridging header](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html)
 in order to use any React Native plugin in Swift.
 
-Add `#import <react-native-branch/RNBranch.h>` to your Bridging header if you have one.
+Add `#import <react-native-branch/RNBranch.h>` to your Bridging header if you
+have one.
 
-If you are using the `React` pod in a native app with `use_frameworks!`, you may simply use
-a Swift import:
-
-```Swift
-import react_native_branch
-```
+If you have `use_frameworks!` in your Podfile, you may simply use a Swift
+import.
 
 In AppDelegate.swift:
 ```Swift
+import react_native_branch // omit if using a bridging header
+
 // Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
 func application(_ application: UIApplication, didFinishLaunchingWithOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Uncomment this line to use the test key instead of the live one.
@@ -300,7 +262,7 @@ it will now be imported from Maven via `react-native-branch` as a dependency.
 Remove any reference to `io.branch.sdk.android:library` from your dependencies
 to avoid conflicts.
 
-Also add the project to your `setting.gradle`:
+Also add the project to your `settings.gradle`:
 
 ```gradle
 include ':react-native-branch'

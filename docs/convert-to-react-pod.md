@@ -31,6 +31,45 @@
     Also note that your `subspecs` may vary depending on your needs. For example,
     the deprecated RN WebView and `react-native-webview` both depend on the
     RCTLinkingIOS subspec.
+1. Use frameworks (Recommended):
+    CocoaPods can optionally build dependencies as frameworks rather than
+    static libraries (the default). To enable this, add `use_frameworks!`
+    (with the exclamation point) on a separate line below `platform` at the
+    top:
+    ```Ruby
+    platform :ios, '9.0'
+
+    use_frameworks!
+
+    target 'MyApp' do
+      pod 'React',
+        path: '../node_modules/react-native',
+        subspecs: %w[
+          Core
+        # ...
+    ```
+    For some dependencies, e.g. react-native-branch, it may be necessary to
+    change any `#import` statement in your native app code if you specify
+    `use_frameworks!`. Omitting `use_frameworks!` from the Podfile will not
+    require any import changes and may make your transition simpler. If you
+    later add `use_frameworks!` to the `Podfile`, just run `pod install`
+    again (see below) and modify any necessary imports.
+
+    For react-native-branch, the import should be:
+
+    _Using frameworks_
+    ```Objective-C
+    @import react_native_branch;
+    ```
+
+    _Not using frameworks_
+    ```Objective-C
+    #import <react-native-branch/RNBranch.h>
+    ```
+1. Run `react-native link` (from the project root) for each dependency with
+    native components, e.g.
+    `react-native link react-native-branch`. This will add appropriate
+    dependencies to your Podfile.
 1. Install CocoaPods if necessary:
     https://guides.cocoapods.org/using/getting-started.html#installation.
     **Recommended**: Use a Gemfile to install CocoaPods for your project.
@@ -67,19 +106,18 @@
 
     This will generate a number of files, all of which should be checked into
     source control:
-    - Podfile.lock: like yarn.lock, records the resolution of all dependencies
-        from CocoaPods.
-    - Pods: folder containing generated code. It is common practice to check in
-        this folder, avoiding the need to run `pod install` before building.
-    - MyApp.xcworkspace: Generated and maintained by CocoaPods. From now on,
-        whenever you work with your app, you should open the workspace with
-        Xcode instead of the project.
-1. Run `react-native link` (from the project root) for each dependency with
-    native components, e.g.
-    `react-native link react-native-branch`. This will add appropriate
-    dependencies to your Podfile.
-1. In the `ios` subdirectory, run `pod install` again. It is not necessary to
-    update the repo the second time. From now on, each time you add dependencies
+
+    Podfile.lock: like yarn.lock, records the resolution of all dependencies
+    from CocoaPods.
+
+    Pods: folder containing generated code. It is common practice to check in
+    this folder, avoiding the need to run `pod install` before building.
+
+    MyApp.xcworkspace: Generated and maintained by CocoaPods. From now on,
+    whenever you work with your app, you should open the workspace with
+    Xcode instead of the project.
+
+    Each time you add dependencies
     with `react-native link`, you will need to run `pod install` again.
     Remember to update your podspec repo from time to time. (This happens
     automatically when you run `pod update` unless you use the
