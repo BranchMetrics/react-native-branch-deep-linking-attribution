@@ -46,25 +46,33 @@ Run `yarn` first to supply all dependencies in `node_modules`.
 
 ## iOS/Xcode setup
 
-1. Install the native Branch SDK using CocoaPods.
-    [Install CocoaPods](https://guides.cocoapods.org/using/getting-started.html#installation) first if
-    necessary. Add a file called `Podfile` in the `ios` subdirectory with these contents:
-
-    ```Ruby
-    platform :ios, '9.0'
-    use_frameworks!
-    target 'webview_tutorial' do
-      pod 'Branch', '0.27.0'
-    end
+1. Run `pod install` at the command line in the `ios` subdirectory. The
+    `react-native link` command has made changes to the Podfile. This step
+    regenerates the code in the `Pods` subdirectory. **Note:**
+    This repo includes a Gemfile. It is necessary first to
+    `bundle check || bundle install` and then use `bundle exec` with any
+    pod command. Depending on your app configuration, you may just run
+    `pod install`. The `--repo-update` option is equivalent to running
+    `pod repo update; pod install`. This may be necessary to get the
+    required version of the Branch SDK. If your podspec repo is up to date,
+    you may omit this option.
+    ```bash
+    cd ios
+    bundle check || bundle install
+    bundle exec pod install --repo-update
     ```
-
-    Now run `pod install` at the command line in the `ios` subdirectory. CocoaPods generates an
-    Xcode workspace in the same directory called `webview_tutorial.xcworkspace`. From now on
-    you will use the workspace rather than the original Xcode project.
 
 2. Open the `ios/webview_tutorial.xcworkspace` using Xcode. Select the AppDelegate.m file from the
     left panel. Alternately, open `ios/webview_tutorial/AppDelegate.m` in your favorite editor.
     At the top of the file, add:
+
+    ```Objective-C
+    @import react_native_branch;
+    ```
+
+    The Podfile for this project specifies `use_frameworks!`. This requires
+    `@import react_native_branch;` in Obj-C. If you do not have this option in
+    your Podfile, instead use:
 
     ```Objective-C
     #import <react-native-branch/RNBranch.h>

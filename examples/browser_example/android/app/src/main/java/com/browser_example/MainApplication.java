@@ -5,10 +5,10 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.facebook.react.ReactApplication;
+import io.branch.rnbranch.RNBranchPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 
 import io.branch.referral.Branch;
-import io.branch.rnbranch.RNBranchPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -29,8 +29,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNCWebViewPackage(),
-            new RNBranchPackage()
+            new RNBranchPackage(),
+            new RNCWebViewPackage()
       );
     }
 

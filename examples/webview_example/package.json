@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
     "react": "16.8.6",
@@ -17,12 +16,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "babel-jest": "19.0.0",
-    "jest": "19.0.2",
-    "metro-react-native-babel-preset": "^0.53.1",
-    "react-test-renderer": "16.0.0-alpha.12"
-  },
-  "jest": {
-    "preset": "react-native"
+    "metro-react-native-babel-preset": "^0.53.1"
   }
 }

@@ -14,7 +14,7 @@
 #import <React/RCTDevLoadingView.h>
 #endif
 
-#import <react-native-branch/RNBranch.h>
+@import react_native_branch;
 
 @implementation AppDelegate
 

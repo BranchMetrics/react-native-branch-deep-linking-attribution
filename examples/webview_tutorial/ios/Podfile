@@ -1,0 +1,26 @@
+platform :ios, '9.0'
+
+use_frameworks!
+
+target 'webview_tutorial' do
+  pod 'React',
+    path: '../node_modules/react-native',
+    subspecs: %w[
+      Core
+      CxxBridge
+      DevSupport
+      RCTAnimation
+      RCTImage
+      RCTLinkingIOS
+      RCTText
+      RCTNetwork
+    ]
+  pod 'yoga', path: '../node_modules/react-native/ReactCommon/yoga'
+  pod 'Folly', podspec: '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+end
