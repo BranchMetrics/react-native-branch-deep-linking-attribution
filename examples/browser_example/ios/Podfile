@@ -1,7 +1,24 @@
-platform :ios, "9.0"
+platform :ios, '9.0'
 
 use_frameworks!
 
-pod "Branch", "0.27.0"
+target 'browser_example' do
+  pod 'React',
+    path: '../node_modules/react-native',
+    subspecs: %w[
+      Core
+      CxxBridge
+      DevSupport
+      RCTAnimation
+      RCTImage
+      RCTLinkingIOS
+      RCTText
+      RCTNetwork
+    ]
+  pod 'yoga', path: '../node_modules/react-native/ReactCommon/yoga'
+  pod 'Folly', podspec: '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
-target "browser_example"
+  pod 'react-native-branch', :path => '../node_modules/react-native-branch'
+
+end
