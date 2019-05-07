@@ -1,7 +1,35 @@
-platform :ios, "9.0"
+platform :ios, '9.0'
 
 use_frameworks!
 
-target "webview_example" do
-  pod "Branch", "0.27.0"
+# Specify the app target and any other targets that require these dependencies
+target 'webview_example' do
+
+  # Import the React pod and required subspecs from node_modules
+  pod 'React',
+    path: '../node_modules/react-native',
+    subspecs: %w[
+      Core
+      CxxBridge
+      DevSupport
+      RCTAnimation
+      RCTImage
+      RCTLinkingIOS
+      RCTText
+      RCTNetwork
+    ]
+
+  # From https://facebook.github.io/react-native/docs/integration-with-existing-apps.html#podfile
+  # Explicitly include Yoga if you are using RN >= 0.42.0
+  pod 'yoga', path: '../node_modules/react-native/ReactCommon/yoga'
+  pod 'Folly', podspec: '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'react-native-branch', :path => '../node_modules/react-native-branch'
+
 end
