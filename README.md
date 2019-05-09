@@ -78,6 +78,9 @@ ___
 
 ### Updating from an earlier version or starting with v3.0.0
 
+If you are not already using the React pod from node_modules, it will be
+necessary first to [convert your Xcode project](./docs/convert-to-react-pod.md).
+
 To fix a longstanding build issue with Android, it is necessary to take the
 native Branch Android SDK from Maven rather than from the react-native-branch
 module, starting with version 3.0.0. This now happens transparently via Gradle.
