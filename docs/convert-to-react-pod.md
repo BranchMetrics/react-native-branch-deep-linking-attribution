@@ -108,8 +108,8 @@
     pod install
     ```
 
-    This will generate a number of files, all of which should be checked into
-    source control:
+    The `pod install` command will generate a number of files, all of which
+    should be checked into source control:
 
     Podfile.lock: like yarn.lock, records the resolution of all dependencies
     from CocoaPods.
@@ -119,7 +119,8 @@
 
     MyApp.xcworkspace: Generated and maintained by CocoaPods. From now on,
     whenever you work with your app, you should open the workspace with
-    Xcode instead of the project.
+    Xcode instead of the project. (Instead of MyApp, the generated workspace
+    will have the same name as your Xcode project.)
 
     Each time you add dependencies
     with `react-native link`, you will need to run `pod install` again.
