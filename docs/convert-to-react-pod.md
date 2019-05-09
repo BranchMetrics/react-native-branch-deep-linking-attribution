@@ -88,6 +88,10 @@
     ```
     This ensures that you execute the version of CocoaPods specified in the
     Gemfile.lock, which will make your results more reproducible.
+
+    **Protip:** Use `bundle check || bundle install` instead of just
+    `bundle install`, particularly in scripts, to reduce execution time in case
+    `bundle install` is not necessary.
 1. At the command line, from the `ios` subdirectory where you created the
     `Podfile`:
     ```bash
