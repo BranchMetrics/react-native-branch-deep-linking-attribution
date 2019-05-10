@@ -1,5 +1,9 @@
 # Convert your app to use the React pod from node_modules
 
+**Experimental:** Try the
+[react_native_util](https://github.com/jdee/react_native_util) CLI from
+RubyGems.
+
 ## The basics
 
 1. Run `react-native unlink` for each dependency with native
