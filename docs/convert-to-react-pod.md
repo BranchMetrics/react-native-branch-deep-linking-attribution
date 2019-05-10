@@ -20,21 +20,33 @@ RubyGems.
           Core
           CxxBridge
           DevSupport
+          RCTActionSheet
           RCTAnimation
+          RCTBlob
+          RCTGeolocation
           RCTImage
-          RCTText
+          RCTLinkingIOS
           RCTNetwork
+          RCTSettings
+          RCTText
+          RCTVibration
+          RCTWebSocket
         ]
       pod 'yoga', path: '../node_modules/react-native/ReactCommon/yoga'
       pod 'Folly', podspec: '../node_modules/react-native/third-party-podspecs/Folly.podspec'
     end
+
+    target 'MyAppTests' do
+      pod 'React', path: '../node_modules/react-native', subspecs: %w[Core CxxBridge]
+      pod 'yoga', path: '../node_modules/react-native/ReactCommon/yoga'
+      pod 'Folly', podspec: '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+    end
     ```
-    Replace `MyApp` with the name of your application target. You may need to
+    Replace `MyApp` with the name of your application target. The second target
+    block is only necessary if you have a test target. You may need to
     add other targets as well.
 
-    Also note that your `subspecs` may vary depending on your needs. For example,
-    the deprecated RN WebView and `react-native-webview` both depend on the
-    RCTLinkingIOS subspec.
+    Also note that your `subspecs` may vary depending on your needs.
 1. Use frameworks (Recommended):
     CocoaPods can optionally build dependencies as frameworks rather than
     static libraries (the default). To enable this, add `use_frameworks!`
