@@ -1,8 +1,13 @@
 # Convert your app to use the React pod from node_modules
 
 **Experimental:** Try the
-[react_native_util](https://github.com/jdee/react_native_util) CLI from
-RubyGems.
+[react_native_util](https://github.com/jdee/react_native_util) CLI.
+
+```bash
+brew install jdee/tap/react_native_util
+cd /path/to/app
+rn react_pod
+```
 
 ## The basics
 
