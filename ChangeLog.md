@@ -1,3 +1,7 @@
+2019-05-22  Version 3.0.1
+  * Added Carthage/Build/iOS to Framework Search Paths for Carthage support.
+  * Uses native Branch SDKs 3.2.0 (Android), 0.27.0 (iOS).
+
 2019-04-30  Version 3.0.0
   * Changed `implementation` to `api` in build.gradle. This exposes the native
       Branch SDK to native code and avoids the need to import
