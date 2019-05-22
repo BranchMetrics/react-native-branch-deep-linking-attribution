@@ -7,7 +7,9 @@ module UpdateHelper
     %w[
       examples/testbed_native_ios
       examples/webview_example_native_ios
-      examples/webview_example_react_pod
+      examples/webview_example
+      examples/browser_example
+      examples/testbed_simple
       .
     ].each do |folder|
       other_action.yarn package_path: File.join('..', folder, 'package.json')
