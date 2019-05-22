@@ -17,10 +17,10 @@ module UpdateHelper
       pods_folder = case folder
       when '.'
         'native-tests/ios'
-      when 'examples/webview_example_react_pod'
-        "#{folder}/ios"
-      else
+      when /_native_ios$/
         folder
+      else
+        "#{folder}/ios"
       end
 
       FastlaneCore::UI.message "Updating Pods in #{pods_folder}"
