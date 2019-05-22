@@ -345,7 +345,10 @@
 		B3A3CC401C5B0A070016AC52 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/Branch";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(BUILT_PRODUCTS_DIR)/Branch",
+					"$(SRCROOT)/../../../ios/Carthage/Build/iOS",
+				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../ios/Pods/Headers/Public";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "react-native-branch";
@@ -356,7 +359,10 @@
 		B3A3CC411C5B0A070016AC52 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/Branch";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(BUILT_PRODUCTS_DIR)/Branch",
+					"$(SRCROOT)/../../../ios/Carthage/Build/iOS",
+				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../ios/Pods/Headers/Public";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "react-native-branch";
