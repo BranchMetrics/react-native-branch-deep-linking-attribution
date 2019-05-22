@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
-gem "cocoapods", "~> 1.2"
+# CP 1.7 breaks our #imports. For now, pin for the unit tests and examples.
+gem "cocoapods", "~> 1.6.0"
 gem "fastlane", "~> 2.69"
 gem "rubocop"
 gem "travis"

@@ -10,11 +10,11 @@ cache: yarn
 
 install:
 # Set up RVM, RubyGems, Bundler
-  - rvm install 2.4.1
-  - rvm use 2.4.1 --default
+  - rvm install 2.6.3
+  - rvm use 2.6.3 --default
   - gem update --system
   - gem install bundler
-  - bundle install
+  - bundle check || bundle install
 # Install NPM deps
   - yarn
 
