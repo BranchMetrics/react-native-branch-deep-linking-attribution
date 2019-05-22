@@ -1,5 +1,7 @@
 # Installation using Carthage
 
+Carthage requires version 3.0.1 of react-native-branch.
+
 Add react-native-branch to your project:
 
 ```bash

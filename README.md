@@ -62,13 +62,8 @@ Note that the `react-native-branch` module requires `react-native` >= 0.40.
 1. `yarn add react-native-branch`
 2. (Optional) Add a branch.json file to the root of your app project. See https://rnbranch.app.link/branch-json.
 3. `react-native link react-native-branch`
-4. `cd ios; pod install --repo-update`
+4. Install the native Branch SDK using [CocoaPods](./docs/cocoapods.md) or [Carthage](./docs/carthage.md).
 5. Follow the [setup instructions](#setup).
-
-**Note:** These instructions assume you are using the React pod from
-node_modules with CocoaPods in your Xcode project. If you are not already
-using the React pod, it will first be necessary to
-[convert your Xcode project](./docs/convert-to-react-pod.md).
 
 **Note:** This SDK currently does not work in projects using NPM instead of yarn.
 See #433. The RN toolchain will use yarn by default. Please use
@@ -78,8 +73,9 @@ ___
 
 ### Updating from an earlier version or starting with v3.0.0
 
-If you are not already using the React pod from node_modules, it will be
-necessary first to [convert your Xcode project](./docs/convert-to-react-pod.md).
+The native SDKs are no longer bundled into this module. The native Android SDK
+will be installed from Maven via Gradle. You must add the native Branch iOS SDK
+to your project either using [CocoaPods](./docs/cocoapods.md) or [Carthage](./docs/carthage.md).
 
 To fix a longstanding build issue with Android, it is necessary to take the
 native Branch Android SDK from Maven rather than from the react-native-branch
@@ -144,14 +140,14 @@ Modify your AppDelegate as follows:
 #### Objective-C
 In AppDelegate.m
 
-Note that if you don't have `use_frameworks!` in your Podfile, and your
+Note that if you are not using the React pod, or if you don't have `use_frameworks!` in your Podfile, and your
 AppDelegate is written in Objective-C, you should replace
 `@import react_native_branch;` with `#import <react-native-branch/RNBranch.h>`.
 
 ```objective-c
 @import react_native_branch; // at the top
 
-// Use this instead if you don't use_frameworks! in your Podfile.
+// Use this instead if are not using the React pod or you don't use_frameworks! in your Podfile.
 // #import <react-native-branch/RNBranch.h>
 
 // Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
