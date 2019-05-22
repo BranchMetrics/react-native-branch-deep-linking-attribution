@@ -1,6 +1,6 @@
 # Convert your app to use the React pod from node_modules
 
-**Experimental:** Try the
+Try the
 [react_native_util](https://github.com/jdee/react_native_util) CLI.
 
 ```bash
@@ -8,6 +8,9 @@ brew install jdee/tap/react_native_util
 cd /path/to/app
 rn react_pod
 ```
+
+The `react_pod` command performs all the following steps on your app,
+including adding the Start Packager build phase.
 
 ## The basics
 
