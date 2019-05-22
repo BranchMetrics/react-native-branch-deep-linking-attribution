@@ -1,0 +1,413 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7B323EE72295F5C600DD027E /* BranchUniversalObject+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B323ED02295F5C500DD027E /* BranchUniversalObject+RNBranch.m */; };
+		7B323EE82295F5C600DD027E /* RNBranchConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B323ED12295F5C500DD027E /* RNBranchConfig.h */; };
+		7B323EE92295F5C600DD027E /* RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B323ED22295F5C500DD027E /* RNBranch.m */; };
+		7B323EEA2295F5C600DD027E /* BranchLinkProperties+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B323ED32295F5C500DD027E /* BranchLinkProperties+RNBranch.m */; };
+		7B323EEB2295F5C600DD027E /* RNBranchAgingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B323ED42295F5C500DD027E /* RNBranchAgingItem.m */; };
+		7B323EEC2295F5C600DD027E /* RNBranchEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B323ED52295F5C500DD027E /* RNBranchEventEmitter.m */; };
+		7B323EED2295F5C600DD027E /* RNBranchProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B323ED62295F5C500DD027E /* RNBranchProperty.h */; };
+		7B323EEE2295F5C600DD027E /* RNBranchConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B323ED72295F5C500DD027E /* RNBranchConfig.m */; };
+		7B323EEF2295F5C600DD027E /* RNBranchAgingDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B323ED82295F5C500DD027E /* RNBranchAgingDictionary.h */; };
+		7B323EF02295F5C600DD027E /* BranchEvent+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B323ED92295F5C500DD027E /* BranchEvent+RNBranch.h */; };
+		7B323EF12295F5C600DD027E /* BranchEvent+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B323EDA2295F5C500DD027E /* BranchEvent+RNBranch.m */; };
+		7B323EF22295F5C600DD027E /* RNBranchAgingDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B323EDB2295F5C500DD027E /* RNBranchAgingDictionary.m */; };
+		7B323EF32295F5C600DD027E /* RNBranchAgingItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B323EDC2295F5C500DD027E /* RNBranchAgingItem.h */; };
+		7B323EF42295F5C600DD027E /* BranchLinkProperties+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B323EDD2295F5C500DD027E /* BranchLinkProperties+RNBranch.h */; };
+		7B323EF52295F5C600DD027E /* BranchUniversalObject+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B323EDE2295F5C500DD027E /* BranchUniversalObject+RNBranch.h */; };
+		7B323EF62295F5C600DD027E /* NSObject+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B323EDF2295F5C500DD027E /* NSObject+RNBranch.m */; };
+		7B323EF72295F5C600DD027E /* BranchContentMetadata+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B323EE02295F5C500DD027E /* BranchContentMetadata+RNBranch.m */; };
+		7B323EF82295F5C600DD027E /* NSObject+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B323EE12295F5C600DD027E /* NSObject+RNBranch.h */; };
+		7B323EF92295F5C600DD027E /* RNBranchEventEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B323EE22295F5C600DD027E /* RNBranchEventEmitter.h */; };
+		7B323EFA2295F5C600DD027E /* BranchContentMetadata+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B323EE32295F5C600DD027E /* BranchContentMetadata+RNBranch.h */; };
+		7B323EFC2295F5C600DD027E /* RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B323EE52295F5C600DD027E /* RNBranch.h */; };
+		7B323EFD2295F5C600DD027E /* RNBranchProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B323EE62295F5C600DD027E /* RNBranchProperty.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7B323EC52295F55700DD027E /* RNBranch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RNBranch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B323EC92295F55700DD027E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B323ED02295F5C500DD027E /* BranchUniversalObject+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BranchUniversalObject+RNBranch.m"; path = "../../ios/BranchUniversalObject+RNBranch.m"; sourceTree = "<group>"; };
+		7B323ED12295F5C500DD027E /* RNBranchConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNBranchConfig.h; path = ../../ios/RNBranchConfig.h; sourceTree = "<group>"; };
+		7B323ED22295F5C500DD027E /* RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNBranch.m; path = ../../ios/RNBranch.m; sourceTree = "<group>"; };
+		7B323ED32295F5C500DD027E /* BranchLinkProperties+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BranchLinkProperties+RNBranch.m"; path = "../../ios/BranchLinkProperties+RNBranch.m"; sourceTree = "<group>"; };
+		7B323ED42295F5C500DD027E /* RNBranchAgingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNBranchAgingItem.m; path = ../../ios/RNBranchAgingItem.m; sourceTree = "<group>"; };
+		7B323ED52295F5C500DD027E /* RNBranchEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNBranchEventEmitter.m; path = ../../ios/RNBranchEventEmitter.m; sourceTree = "<group>"; };
+		7B323ED62295F5C500DD027E /* RNBranchProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNBranchProperty.h; path = ../../ios/RNBranchProperty.h; sourceTree = "<group>"; };
+		7B323ED72295F5C500DD027E /* RNBranchConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNBranchConfig.m; path = ../../ios/RNBranchConfig.m; sourceTree = "<group>"; };
+		7B323ED82295F5C500DD027E /* RNBranchAgingDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNBranchAgingDictionary.h; path = ../../ios/RNBranchAgingDictionary.h; sourceTree = "<group>"; };
+		7B323ED92295F5C500DD027E /* BranchEvent+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BranchEvent+RNBranch.h"; path = "../../ios/BranchEvent+RNBranch.h"; sourceTree = "<group>"; };
+		7B323EDA2295F5C500DD027E /* BranchEvent+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BranchEvent+RNBranch.m"; path = "../../ios/BranchEvent+RNBranch.m"; sourceTree = "<group>"; };
+		7B323EDB2295F5C500DD027E /* RNBranchAgingDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNBranchAgingDictionary.m; path = ../../ios/RNBranchAgingDictionary.m; sourceTree = "<group>"; };
+		7B323EDC2295F5C500DD027E /* RNBranchAgingItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNBranchAgingItem.h; path = ../../ios/RNBranchAgingItem.h; sourceTree = "<group>"; };
+		7B323EDD2295F5C500DD027E /* BranchLinkProperties+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BranchLinkProperties+RNBranch.h"; path = "../../ios/BranchLinkProperties+RNBranch.h"; sourceTree = "<group>"; };
+		7B323EDE2295F5C500DD027E /* BranchUniversalObject+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BranchUniversalObject+RNBranch.h"; path = "../../ios/BranchUniversalObject+RNBranch.h"; sourceTree = "<group>"; };
+		7B323EDF2295F5C500DD027E /* NSObject+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+RNBranch.m"; path = "../../ios/NSObject+RNBranch.m"; sourceTree = "<group>"; };
+		7B323EE02295F5C500DD027E /* BranchContentMetadata+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BranchContentMetadata+RNBranch.m"; path = "../../ios/BranchContentMetadata+RNBranch.m"; sourceTree = "<group>"; };
+		7B323EE12295F5C600DD027E /* NSObject+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+RNBranch.h"; path = "../../ios/NSObject+RNBranch.h"; sourceTree = "<group>"; };
+		7B323EE22295F5C600DD027E /* RNBranchEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNBranchEventEmitter.h; path = ../../ios/RNBranchEventEmitter.h; sourceTree = "<group>"; };
+		7B323EE32295F5C600DD027E /* BranchContentMetadata+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BranchContentMetadata+RNBranch.h"; path = "../../ios/BranchContentMetadata+RNBranch.h"; sourceTree = "<group>"; };
+		7B323EE52295F5C600DD027E /* RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNBranch.h; path = ../../ios/RNBranch.h; sourceTree = "<group>"; };
+		7B323EE62295F5C600DD027E /* RNBranchProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNBranchProperty.m; path = ../../ios/RNBranchProperty.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7B323EC22295F55700DD027E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7B323EBB2295F55700DD027E = {
+			isa = PBXGroup;
+			children = (
+				7B323EC72295F55700DD027E /* RNBranch */,
+				7B323EC62295F55700DD027E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7B323EC62295F55700DD027E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B323EC52295F55700DD027E /* RNBranch.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7B323EC72295F55700DD027E /* RNBranch */ = {
+			isa = PBXGroup;
+			children = (
+				7B323EE32295F5C600DD027E /* BranchContentMetadata+RNBranch.h */,
+				7B323EE02295F5C500DD027E /* BranchContentMetadata+RNBranch.m */,
+				7B323ED92295F5C500DD027E /* BranchEvent+RNBranch.h */,
+				7B323EDA2295F5C500DD027E /* BranchEvent+RNBranch.m */,
+				7B323EDD2295F5C500DD027E /* BranchLinkProperties+RNBranch.h */,
+				7B323ED32295F5C500DD027E /* BranchLinkProperties+RNBranch.m */,
+				7B323EDE2295F5C500DD027E /* BranchUniversalObject+RNBranch.h */,
+				7B323ED02295F5C500DD027E /* BranchUniversalObject+RNBranch.m */,
+				7B323EE12295F5C600DD027E /* NSObject+RNBranch.h */,
+				7B323EDF2295F5C500DD027E /* NSObject+RNBranch.m */,
+				7B323EE52295F5C600DD027E /* RNBranch.h */,
+				7B323ED22295F5C500DD027E /* RNBranch.m */,
+				7B323ED82295F5C500DD027E /* RNBranchAgingDictionary.h */,
+				7B323EDB2295F5C500DD027E /* RNBranchAgingDictionary.m */,
+				7B323EDC2295F5C500DD027E /* RNBranchAgingItem.h */,
+				7B323ED42295F5C500DD027E /* RNBranchAgingItem.m */,
+				7B323ED12295F5C500DD027E /* RNBranchConfig.h */,
+				7B323ED72295F5C500DD027E /* RNBranchConfig.m */,
+				7B323EE22295F5C600DD027E /* RNBranchEventEmitter.h */,
+				7B323ED52295F5C500DD027E /* RNBranchEventEmitter.m */,
+				7B323ED62295F5C500DD027E /* RNBranchProperty.h */,
+				7B323EE62295F5C600DD027E /* RNBranchProperty.m */,
+				7B323EC92295F55700DD027E /* Info.plist */,
+			);
+			path = RNBranch;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		7B323EC02295F55700DD027E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B323EFA2295F5C600DD027E /* BranchContentMetadata+RNBranch.h in Headers */,
+				7B323EF92295F5C600DD027E /* RNBranchEventEmitter.h in Headers */,
+				7B323EE82295F5C600DD027E /* RNBranchConfig.h in Headers */,
+				7B323EF32295F5C600DD027E /* RNBranchAgingItem.h in Headers */,
+				7B323EF82295F5C600DD027E /* NSObject+RNBranch.h in Headers */,
+				7B323EF02295F5C600DD027E /* BranchEvent+RNBranch.h in Headers */,
+				7B323EF42295F5C600DD027E /* BranchLinkProperties+RNBranch.h in Headers */,
+				7B323EED2295F5C600DD027E /* RNBranchProperty.h in Headers */,
+				7B323EF52295F5C600DD027E /* BranchUniversalObject+RNBranch.h in Headers */,
+				7B323EFC2295F5C600DD027E /* RNBranch.h in Headers */,
+				7B323EEF2295F5C600DD027E /* RNBranchAgingDictionary.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		7B323EC42295F55700DD027E /* RNBranch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B323ECD2295F55700DD027E /* Build configuration list for PBXNativeTarget "RNBranch" */;
+			buildPhases = (
+				7B323EC02295F55700DD027E /* Headers */,
+				7B323EC12295F55700DD027E /* Sources */,
+				7B323EC22295F55700DD027E /* Frameworks */,
+				7B323EC32295F55700DD027E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RNBranch;
+			productName = RNBranch;
+			productReference = 7B323EC52295F55700DD027E /* RNBranch.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7B323EBC2295F55700DD027E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Branch Metrics";
+				TargetAttributes = {
+					7B323EC42295F55700DD027E = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 7B323EBF2295F55700DD027E /* Build configuration list for PBXProject "RNBranch" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7B323EBB2295F55700DD027E;
+			productRefGroup = 7B323EC62295F55700DD027E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7B323EC42295F55700DD027E /* RNBranch */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7B323EC32295F55700DD027E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7B323EC12295F55700DD027E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B323EF72295F5C600DD027E /* BranchContentMetadata+RNBranch.m in Sources */,
+				7B323EF62295F5C600DD027E /* NSObject+RNBranch.m in Sources */,
+				7B323EEA2295F5C600DD027E /* BranchLinkProperties+RNBranch.m in Sources */,
+				7B323EEE2295F5C600DD027E /* RNBranchConfig.m in Sources */,
+				7B323EEB2295F5C600DD027E /* RNBranchAgingItem.m in Sources */,
+				7B323EFD2295F5C600DD027E /* RNBranchProperty.m in Sources */,
+				7B323EF12295F5C600DD027E /* BranchEvent+RNBranch.m in Sources */,
+				7B323EEC2295F5C600DD027E /* RNBranchEventEmitter.m in Sources */,
+				7B323EE72295F5C600DD027E /* BranchUniversalObject+RNBranch.m in Sources */,
+				7B323EF22295F5C600DD027E /* RNBranchAgingDictionary.m in Sources */,
+				7B323EE92295F5C600DD027E /* RNBranch.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7B323ECB2295F55700DD027E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7B323ECC2295F55700DD027E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		7B323ECE2295F55700DD027E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
+				INFOPLIST_FILE = RNBranch/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.branch.RNBranch;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7B323ECF2295F55700DD027E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
+				INFOPLIST_FILE = RNBranch/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.branch.RNBranch;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7B323EBF2295F55700DD027E /* Build configuration list for PBXProject "RNBranch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B323ECB2295F55700DD027E /* Debug */,
+				7B323ECC2295F55700DD027E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7B323ECD2295F55700DD027E /* Build configuration list for PBXNativeTarget "RNBranch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B323ECE2295F55700DD027E /* Debug */,
+				7B323ECF2295F55700DD027E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7B323EBC2295F55700DD027E /* Project object */;
+}
