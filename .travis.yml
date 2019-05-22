@@ -1,11 +1,11 @@
-# Use macOS with XCode 9
+# Use macOS with XCode 10
 os: osx
-osx_image: xcode9
+osx_image: xcode10
 
-# Use Node 7.x and yarn
+# Use Node 10.x and yarn
 language: node_js
 node_js:
-  - "7"
+  - "10"
 cache: yarn
 
 install:
