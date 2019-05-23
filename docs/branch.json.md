@@ -91,6 +91,9 @@ of `branch.json`.
 
 ## Contents
 
+Note that support for setting Branch keys on Android in branch.json requires
+version 3.x of react-native-branch, using [RNBranchModule.getAutoInstance()](../README.md#updating-from-an-earlier-version-or-starting-with-v300)
+
 |key|description|type|
 |---|---|---|
 |appleSearchAdsDebugMode|If true, `setAppleSearchAdsDebugMode` will be called on the iOS Branch instance. Ignored on Android.|Boolean|
