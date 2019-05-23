@@ -99,7 +99,7 @@ of `branch.json`.
 
 ## Example
 
-See [branch.example.json](https://github.com/BranchMetrics/react-native-branch-deep-linking/blob/master/branch.example.json) in the root of this repo.
+See [branch.example.json](https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution/blob/master/branch.example.json) in the root of this repo.
 
 ```json
 {

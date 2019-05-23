@@ -50,7 +50,7 @@ Add both keys to the `AndroidManifest.xml` within the `<application>` tag:
 
 In the `Info.plist` for your project, make the `branch_key` a dictionary instead of a string, and add entries for keys "live" and "test" with string values. Add your keys from the Branch Dashboard as the values of the corresponding keys.
 
-![Branch keys in Info.plist](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/branch-keys-info-plist.png)
+![Branch keys in Info.plist](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/branch-keys-info-plist.png)
 
 # Option 1 (basic): Use test key for debug builds and live key for release builds
 
@@ -162,21 +162,21 @@ By default, all Xcode projects include Debug and Release configurations. Define 
 
 On the Info tab of the Project settings, click the + button under the list of Configurations. Select `Duplicate "Debug" Configuration`.
 
-![Copy Debug Configuration](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/1-add-configuration.png)
+![Copy Debug Configuration](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/1-add-configuration.png)
 
 Name the new configuration `Test-Debug`.
 
-![Name New Configuration](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/2-rename-configuration.png)
+![Name New Configuration](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/2-rename-configuration.png)
 
 ### Step 2: Add a new build scheme to use the new configuration
 
 From the Xcode task bar, select Product > Scheme > New Scheme....
 
-![New Scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/3-new-scheme.png)
+![New Scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/3-new-scheme.png)
 
 Add `-Test` to the end of the scheme name. If your app is named `MyApp`, the default scheme name will be `MyApp`. Change it to `MyApp-Test`.
 
-![Name New Scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/4-name-new-scheme.png)
+![Name New Scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/4-name-new-scheme.png)
 
 Notice that the scheme pulldown at the upper left of Xcode has changed to show your new scheme.
 
@@ -184,15 +184,15 @@ Notice that the scheme pulldown at the upper left of Xcode has changed to show y
 
 From the Xcode task bar, select Product > Scheme > Edit Scheme....
 
-![Edit New Scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/5-edit-scheme.png)
+![Edit New Scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/5-edit-scheme.png)
 
 Check the box at the bottom of the dialog marked Shared to make this a shared scheme:
 
-![Share New Scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/6-share-scheme.png)
+![Share New Scheme](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/6-share-scheme.png)
 
 For each task listed in the sidebar of the dialog that currently uses the Debug configuration (Run, Test, Analyze), select the new `Test-Debug` configuration instead.
 
-![Use New Config](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/7-use-new-config-in-scheme.png)
+![Use New Config](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/7-use-new-config-in-scheme.png)
 
 Once this is complete, click Close to dismiss the scheme dialog.
 
@@ -202,17 +202,17 @@ Go to the Build Settings tab in the Project settings. Note that all settings can
 
 Under Apple LLVM 8.1 - Preprocessing, find the Preprocessor Macros setting. Double-click the value for `Test-Debug`, which should be bold and show `DEBUG=1`. This brings up a dialog. Click the + button at the bottom of the dialog to add a new macro. Type in `USE_BRANCH_TEST_INSTANCE=1`.
 
-![Add Preprocessor Macro](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/8-add-preprocessor-macro.png)
+![Add Preprocessor Macro](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/8-add-preprocessor-macro.png)
 
 Click outside the dialog to exit. The value of the setting for `Test-Debug` should now read `DEBUG=1 USE_BRANCH_TEST_INSTANCE=1`.
 
-![Modified Preprocessor Macro](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/9-modified-preprocessor-macro.png)
+![Modified Preprocessor Macro](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/9-modified-preprocessor-macro.png)
 
 #### (Optional) Add a Swift compilation flag
 
 If you are also using Swift in your app, add a similar setting under Swift-Compiler - Custom Flags. Under Active Compilation Conditions, add `USE_BRANCH_TEST_INSTANCE` to the setting for Test-Debug.
 
-![Add Optional Swift Flag](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/10-optional-add-swift-flag.png)
+![Add Optional Swift Flag](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/10-optional-add-swift-flag.png)
 
 ### Step 5: Conditional compilation in code
 

@@ -1,10 +1,9 @@
 # Branch Metrics React Native SDK Reference
 
-[![CircleCI](https://circleci.com/gh/BranchMetrics/react-native-branch-deep-linking.svg?style=svg)](https://circleci.com/gh/BranchMetrics/react-native-branch-deep-linking)
-[![Travis](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking.svg?style=flat)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking)
+[![Travis](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking-attribution.svg?style=flat)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking-attribution)
 [![npm version](https://img.shields.io/npm/v/react-native-branch.svg?style=flat)](https://www.npmjs.com/package/react-native-branch)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat)](https://www.npmjs.com/package/react-native-branch)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/LICENSE)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/LICENSE)
 
 This is a repository of our open source React Native SDK. The information presented here serves as a reference manual for the SDK. See the table of contents below for a complete list of the content featured in this document.
 
@@ -14,7 +13,7 @@ ___
 
 1. External resources
   + [Full integration guide](https://docs.branch.io/pages/apps/react-native/)
-  + [Change log](https://github.com/BranchMetrics/react-native-branch-deep-linking/blob/master/ChangeLog.md)
+  + [Change log](https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution/blob/master/ChangeLog.md)
   + [Support portal](http://support.branch.io)
 
 2. Getting started

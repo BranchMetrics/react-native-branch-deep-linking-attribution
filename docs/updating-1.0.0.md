@@ -36,6 +36,6 @@ headers, for example:
 Change the name of the library in Linked Frameworks and Libraries to
 `libreact-native-branch.a` instead of `libRNBranch.a`:
 
-![libreact-native-branch.a](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking/master/docs/assets/libreact-native-branch.png)
+![libreact-native-branch.a](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/docs/assets/libreact-native-branch.png)
 
 Alternately, you can remove the `RNBranch` project reference from the Libraries group in Xcode (be sure to select Remove Reference or you'll have to reinstall the react-native-branch NPM module) and the dependency on `libRNBranch.a` in Linked Frameworks and Libraries. Then close the project or workspace and run `react-native link` to add `RNBranch` back with the correct library name.
