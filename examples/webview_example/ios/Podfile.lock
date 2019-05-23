@@ -113,7 +113,7 @@ SPEC CHECKSUMS:
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   React: 0bb58efca577aa4b3c8f03a9fbf0d9a8ebdb5ac4
-  react-native-branch: 3b6a55b7d75671ef61d7983e061fa0a984e2731e
+  react-native-branch: 2b25ab228dd6cb8e41208fd6ea24e1f0db6d8727
   react-native-webview: f3e28b48461c78db833f727feec08b13285e7b61
   RNGestureHandler: aea90f0ad8e35fec23438db6fc3ad79be58bb734
   RNScreens: 720a9e6968beb73e8196239801e887d8401f86ed
@@ -121,4 +121,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: dc80f3ddb20f97698e6bb83eb449978b5fb673ec
 
-COCOAPODS: 1.6.2
+COCOAPODS: 1.7.0

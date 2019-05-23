@@ -72,24 +72,12 @@ including adding the Start Packager build phase.
           Core
         # ...
     ```
-    For some dependencies, e.g. react-native-branch, it may be necessary to
+    For some dependencies it may be necessary to
     change any `#import` statement in your native app code if you specify
     `use_frameworks!`. Omitting `use_frameworks!` from the Podfile will not
     require any import changes and may make your transition simpler. If you
     later add `use_frameworks!` to the `Podfile`, just run `pod install`
     again (see below) and modify any necessary imports.
-
-    For react-native-branch, the import should be:
-
-    _Using frameworks_
-    ```Objective-C
-    @import react_native_branch;
-    ```
-
-    _Not using frameworks_
-    ```Objective-C
-    #import <react-native-branch/RNBranch.h>
-    ```
 1. Run `react-native link` (from the project root) for each dependency with
     native components, e.g.
     `react-native link react-native-branch`. This will add appropriate

@@ -15,7 +15,7 @@
 #import <React/RCTDevLoadingView.h>
 #endif
 
-#import <react-native-branch/RNBranch.h>
+#import <RNBranch/RNBranch.h>
 
 @implementation AppDelegate
 
@@ -28,20 +28,20 @@
   [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
 
   NSURL *jsCodeLocation;
-  
+
 #ifdef DEBUG
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 #else
   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
-  
+
   RCTBridge *bridge = [[RCTBridge alloc] initWithBundleURL:jsCodeLocation
                                             moduleProvider:nil
                                              launchOptions:launchOptions];
 #if RCT_DEV
   [bridge moduleForClass:[RCTDevLoadingView class]];
 #endif
-  
+
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"webview_example_carthage"
                                             initialProperties:nil];

@@ -75,7 +75,7 @@ Run `yarn` first to supply all dependencies in `node_modules`.
     your Podfile, instead use:
 
     ```Objective-C
-    #import <react-native-branch/RNBranch.h>
+    #import <RNBranch/RNBranch.h>
     ```
 
 3. Find the `application:didFinishLaunchingWithOptions:` method near the top of the AppDelegate.m
@@ -117,7 +117,7 @@ Run `yarn` first to supply all dependencies in `node_modules`.
 
     // Step 2: Add RNBranch import
 
-    #import <react-native-branch/RNBranch.h>
+    #import <RNBranch/RNBranch.h>
 
     @implementation AppDelegate
 

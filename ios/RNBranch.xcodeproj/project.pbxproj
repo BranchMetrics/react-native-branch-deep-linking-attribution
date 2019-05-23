@@ -71,7 +71,7 @@
 		7B9654531E96E328009C3CEE /* RNBranchEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchEventEmitter.h; sourceTree = "<group>"; };
 		7B9654541E96E328009C3CEE /* RNBranchEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchEventEmitter.m; sourceTree = "<group>"; };
 		7BA40F93225589C900EC6B4D /* Branch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Branch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libreact-native-branch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3A3CC361C5B0A070016AC52 /* libRNBranch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNBranch.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +135,7 @@
 		B3A3CC371C5B0A070016AC52 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */,
+				B3A3CC361C5B0A070016AC52 /* libRNBranch.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -179,7 +179,7 @@
 			);
 			name = RNBranch;
 			productName = RNBranch;
-			productReference = B3A3CC361C5B0A070016AC52 /* libreact-native-branch.a */;
+			productReference = B3A3CC361C5B0A070016AC52 /* libRNBranch.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -351,7 +351,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../ios/Pods/Headers/Public";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "react-native-branch";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/$(PRODUCT_NAME)";
 			};
 			name = Debug;
@@ -365,7 +365,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../ios/Pods/Headers/Public";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "react-native-branch";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/$(PRODUCT_NAME)";
 			};
 			name = Release;

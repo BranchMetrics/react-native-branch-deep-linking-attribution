@@ -22,6 +22,6 @@
 #import "RNBranchEventEmitter.h"
 #import "RNBranchProperty.h"
 
-FOUNDATION_EXPORT double react_native_branchVersionNumber;
-FOUNDATION_EXPORT const unsigned char react_native_branchVersionString[];
+FOUNDATION_EXPORT double RNBranchVersionNumber;
+FOUNDATION_EXPORT const unsigned char RNBranchVersionString[];
 

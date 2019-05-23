@@ -8,17 +8,18 @@
     "Jimmy Dee": "jgvdthree@gmail.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/BranchMetrics/react-native-branch-deep-linking",
+  "homepage": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution",
   "platforms": {
     "ios": "7.0"
   },
   "source": {
-    "git": "https://github.com/BranchMetrics/react-native-branch-deep-linking.git"
+    "git": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution.git"
   },
   "source_files": [
     "ios/*.h",
     "ios/*.m"
   ],
+  "header_dir": "RNBranch",
   "dependencies": {
     "Branch": [
       "0.27.0"
