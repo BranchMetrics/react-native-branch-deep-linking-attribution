@@ -25,6 +25,10 @@ These apps are realistic examples of a content-sharing app that includes link ro
 
 This is a pure React Native app that integrates the react-native-branch NPM module.
 
+### [webview_example_carthage]
+
+This is a pure React Native app built using Carthage.
+
 ### [webview_example_native_ios]
 
 This is a Swift app that integrates the Branch SDK and the react-native-branch NPM module in a React Native component.
