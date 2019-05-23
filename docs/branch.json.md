@@ -93,9 +93,13 @@ of `branch.json`.
 
 |key|description|type|
 |---|---|---|
-|debugMode|If true, `setDebug` will be called in the native SDK, enabling testing of install events.|Boolean|
 |appleSearchAdsDebugMode|If true, `setAppleSearchAdsDebugMode` will be called on the iOS Branch instance. Ignored on Android.|Boolean|
+|branchKey|The Branch key to use. Overrides liveKey, testKey and useTestInstance.|String|
+|liveKey|The live Branch key to use if useTestInstance is false. Ignored if useTestInstance is true or branchKey is present.|String|
+|debugMode|If true, `setDebug` will be called in the native SDK, enabling testing of install events.|Boolean|
 |delayInitToCheckForSearchAds|If true, `delayInitToCheckForSearchAds` will be called on the iOS Branch instance. Ignored on Android.|Boolean|
+|testKey|The test Branch key to use if useTestInstance is true. Ignored if useTestInstance is false or branchKey is present.|String|
+|useTestInstance|Determines whether liveKey or testKey is used if branchKey is not present.|Boolean|
 
 ## Example
 
@@ -103,8 +107,11 @@ See [branch.example.json](https://github.com/BranchMetrics/react-native-branch-d
 
 ```json
 {
-    "debugMode": true,
-    "delayInitToCheckForSearchAds": true,
-    "appleSearchAdsDebugMode": true
+  "debugMode": true,
+  "liveKey": "key_live_xxxx",
+  "testKey": "key_test_yyyy",
+  "useTestInstance": true,
+  "delayInitToCheckForSearchAds": true,
+  "appleSearchAdsDebugMode": true
 }
 ```
