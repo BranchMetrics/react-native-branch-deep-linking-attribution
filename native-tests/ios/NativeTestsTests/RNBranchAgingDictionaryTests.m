@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import <react-native-branch/RNBranchAgingDictionary.h>
+#import <RNBranch/RNBranchAgingDictionary.h>
 
 @interface RNBranchAgingDictionaryTests : XCTestCase
 @end
