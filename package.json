@@ -50,12 +50,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BranchMetrics/react-native-branch-deep-linking.git"
+    "url": "git+https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution.git"
   },
   "bugs": {
-    "url": "https://github.com/BranchMetrics/react-native-branch-deep-linking/issues"
+    "url": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution/issues"
   },
-  "homepage": "https://github.com/BranchMetrics/react-native-branch-deep-linking",
+  "homepage": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution",
   "peerDependencies": {
     "react-native": ">=0.40.0"
   },
