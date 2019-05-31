@@ -142,15 +142,14 @@ In AppDelegate.m
 Note that if you are not using the React pod, or if you don't have `use_frameworks!` in your Podfile, and your
 AppDelegate is written in Objective-C, you should replace
 `@import react_native_branch;` with `#import <react-native-branch/RNBranch.h>`.
-Also note that if you are using CocoaPods >= 1.7, it will be
-`#import <react_native_branch/RNBranch.h>`
+Also note that CocoaPods 1.7.0 breaks iOS builds using the react-native-branch pod.
+Please update to version 1.7.1 instead. See #461.
 
 ```objective-c
 @import react_native_branch; // at the top
 
 // Use this instead if are not using the React pod or you don't use_frameworks! in your Podfile.
 // #import <react-native-branch/RNBranch.h>
-// #import <react_native_branch/RNBranch.h> // For CocoaPods >= 1.7
 
 // Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -202,7 +201,7 @@ require a
 in order to use any React Native plugin in Swift.
 
 Add `#import <react-native-branch/RNBranch.h>` to your Bridging header if you
-have one. Use `#import <react_native_branch/RNBranch.h>` with CocoaPods >= 1.7.
+have one.
 
 If you have `use_frameworks!` in your Podfile, you may simply use a Swift
 import.
