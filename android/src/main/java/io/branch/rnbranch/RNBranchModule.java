@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 import android.os.Handler;
 
@@ -25,7 +25,6 @@ import io.branch.indexing.*;
 
 import org.json.*;
 
-import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -84,27 +83,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static JSONObject mRequestMetadata = new JSONObject();
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
-
-    public static void getAutoInstance(Context context) {
-        RNBranchConfig config = new RNBranchConfig(context);
-        String branchKey = config.getBranchKey();
-        String liveKey = config.getLiveKey();
-        String testKey = config.getTestKey();
-        boolean useTest = config.getUseTestInstance();
-
-        if (branchKey != null) {
-            Branch.getAutoInstance(context, branchKey);
-        }
-        else if (useTest && testKey != null) {
-            Branch.getAutoInstance(context, testKey);
-        }
-        else if (!useTest && liveKey != null) {
-            Branch.getAutoInstance(context, liveKey);
-        }
-        else {
-            Branch.getAutoInstance(context);
-        }
-    }
 
     public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
         initListener = anInitListener;
