@@ -11,7 +11,7 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1A91CE03BA8FDF648A798879 /* Pods_webview_example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC4DA0FA0A7AD849A4F45E23 /* Pods_webview_example.framework */; };
+		1B218B0BE338F4A6CBDFC36B /* libPods-webview_example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 581D929E54E44416DDD41A9B /* libPods-webview_example.a */; };
 		7B7A336A225EE2690025BDEE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7A333B225EE2690025BDEE /* JavaScriptCore.framework */; };
 		7BAA94CE1F57608000C57B54 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94CD1F57608000C57B54 /* CoreSpotlight.framework */; };
 		7BAA95031F57632800C57B54 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94ED1F5760F200C57B54 /* AdSupport.framework */; };
@@ -32,13 +32,13 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = webview_example/main.m; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B9074068D05929F3AB2B59 /* Pods-webview_example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example.release.xcconfig"; path = "Target Support Files/Pods-webview_example/Pods-webview_example.release.xcconfig"; sourceTree = "<group>"; };
+		581D929E54E44416DDD41A9B /* libPods-webview_example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-webview_example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7A333B225EE2690025BDEE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		7BAA94CD1F57608000C57B54 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		7BAA94ED1F5760F200C57B54 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		7BAA94EF1F5760FA00C57B54 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		7BC69F431EA12D87000B04CE /* webview_example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = webview_example.entitlements; path = webview_example/webview_example.entitlements; sourceTree = "<group>"; };
 		88D071D07DBF4ED4A4BBE3A4 /* branch.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = branch.json; path = ../branch.json; sourceTree = "<group>"; };
-		BC4DA0FA0A7AD849A4F45E23 /* Pods_webview_example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_webview_example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D37305AA0212B49551DA0442 /* Pods-webview_example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example.debug.xcconfig"; path = "Target Support Files/Pods-webview_example/Pods-webview_example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,7 +51,7 @@
 				7BAA95041F57633100C57B54 /* SafariServices.framework in Frameworks */,
 				7BAA95031F57632800C57B54 /* AdSupport.framework in Frameworks */,
 				7BAA94CE1F57608000C57B54 /* CoreSpotlight.framework in Frameworks */,
-				1A91CE03BA8FDF648A798879 /* Pods_webview_example.framework in Frameworks */,
+				1B218B0BE338F4A6CBDFC36B /* libPods-webview_example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +80,7 @@
 			children = (
 				7B7A333B225EE2690025BDEE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				BC4DA0FA0A7AD849A4F45E23 /* Pods_webview_example.framework */,
+				581D929E54E44416DDD41A9B /* libPods-webview_example.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -139,7 +139,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				6ADD7DF0E46EBA84821D7BE0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -215,42 +214,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
-		};
-		6ADD7DF0E46EBA84821D7BE0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-webview_example/Pods-webview_example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Branch/Branch.framework",
-				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
-				"${BUILT_PRODUCTS_DIR}/Folly/folly.framework",
-				"${BUILT_PRODUCTS_DIR}/RNGestureHandler/RNGestureHandler.framework",
-				"${BUILT_PRODUCTS_DIR}/RNScreens/RNScreens.framework",
-				"${BUILT_PRODUCTS_DIR}/React/React.framework",
-				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
-				"${BUILT_PRODUCTS_DIR}/react-native-branch/react_native_branch.framework",
-				"${BUILT_PRODUCTS_DIR}/react-native-webview/react_native_webview.framework",
-				"${BUILT_PRODUCTS_DIR}/yoga/yoga.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Branch.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoubleConversion.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/folly.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNGestureHandler.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNScreens.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_branch.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_webview.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-webview_example/Pods-webview_example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		7B49D09C2282045A004FDBD3 /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
