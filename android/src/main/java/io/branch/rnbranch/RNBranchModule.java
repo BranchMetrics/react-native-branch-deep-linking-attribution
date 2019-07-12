@@ -71,6 +71,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private static final String IDENT_FIELD_NAME = "ident";
     public static final String UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE = "RNBranch::Error::BUONotFound";
+    public static final String GENERIC_ERROR = "RNBranch::Error";
     private static final long AGING_HASH_TTL = 3600000;
 
     private static JSONObject initSessionResult = null;
@@ -541,7 +542,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                         promise.reject("RNBranch::Error::DuplicateResourceError", error.getMessage());
                     }
                     else {
-                        promise.reject("RNBranch::Error", error.getMessage());
+                        promise.reject(GENERIC_ERROR, error.getMessage());
                     }
                     return;
                 }
@@ -920,12 +921,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                     ReadableArray result = convertJsonToArray(list);
                     this._promise.resolve(result);
                 } catch (JSONException err) {
-                    this._promise.reject(err.getMessage());
+                    this._promise.reject(GENERIC_ERROR, err.getMessage());
                 }
             } else {
                 String errorMessage = error.getMessage();
                 Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(errorMessage);
+                this._promise.reject(GENERIC_ERROR, errorMessage);
             }
         }
     }
@@ -947,7 +948,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             } else {
                 String errorMessage = error.getMessage();
                 Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(errorMessage);
+                this._promise.reject(GENERIC_ERROR, errorMessage);
             }
         }
     }
@@ -977,7 +978,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             } else {
                 String errorMessage = error.getMessage();
                 Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(errorMessage);
+                this._promise.reject(GENERIC_ERROR, errorMessage);
             }
         }
     }
