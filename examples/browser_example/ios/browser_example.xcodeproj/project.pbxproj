@@ -11,8 +11,8 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2D3AC39E7CADB05F23CA9F50 /* Pods_browser_example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D195D1552686ABE85A22EE /* Pods_browser_example.framework */; };
 		7BFD3777225EEBE300F923D2 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFD3748225EEBE200F923D2 /* JavaScriptCore.framework */; };
+		8190ADD335787C7D003F8390 /* libPods-browser_example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF8AE81498BE8DDE5169F0DD /* libPods-browser_example.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,7 @@
 		5C600F1A852FDB8570BD8637 /* Pods-browser_example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-browser_example.release.xcconfig"; path = "Target Support Files/Pods-browser_example/Pods-browser_example.release.xcconfig"; sourceTree = "<group>"; };
 		7B05DFA51F6859AD00CFAB5E /* browser_example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = browser_example.entitlements; path = browser_example/browser_example.entitlements; sourceTree = "<group>"; };
 		7BFD3748225EEBE200F923D2 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		E0D195D1552686ABE85A22EE /* Pods_browser_example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_browser_example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF8AE81498BE8DDE5169F0DD /* libPods-browser_example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-browser_example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,7 +38,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BFD3777225EEBE300F923D2 /* JavaScriptCore.framework in Frameworks */,
-				2D3AC39E7CADB05F23CA9F50 /* Pods_browser_example.framework in Frameworks */,
+				8190ADD335787C7D003F8390 /* libPods-browser_example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,7 +65,7 @@
 			children = (
 				7BFD3748225EEBE200F923D2 /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				E0D195D1552686ABE85A22EE /* Pods_browser_example.framework */,
+				AF8AE81498BE8DDE5169F0DD /* libPods-browser_example.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -121,7 +121,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				7F50CCAD2F2576E0E545AB58 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -235,38 +234,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\nif nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\nif ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\necho \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running\ncorrectly\"\nexit 2\nfi\nelse\nopen \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\nfi\nfi\n";
-		};
-		7F50CCAD2F2576E0E545AB58 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-browser_example/Pods-browser_example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Branch/Branch.framework",
-				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
-				"${BUILT_PRODUCTS_DIR}/Folly/folly.framework",
-				"${BUILT_PRODUCTS_DIR}/React/React.framework",
-				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
-				"${BUILT_PRODUCTS_DIR}/react-native-branch/react_native_branch.framework",
-				"${BUILT_PRODUCTS_DIR}/react-native-webview/react_native_webview.framework",
-				"${BUILT_PRODUCTS_DIR}/yoga/yoga.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Branch.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoubleConversion.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/folly.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_branch.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_webview.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-browser_example/Pods-browser_example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

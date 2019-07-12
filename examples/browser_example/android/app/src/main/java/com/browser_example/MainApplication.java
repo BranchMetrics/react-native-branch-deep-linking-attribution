@@ -1,8 +1,6 @@
 package com.browser_example;
 
-import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
+import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import io.branch.rnbranch.RNBranchPackage;
@@ -17,7 +15,7 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends MultiDexApplication implements ReactApplication {
+public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -50,11 +48,5 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
     Branch.getAutoInstance(this);
-  }
-
-  @Override
-  protected void attachBaseContext(Context base) {
-    super.attachBaseContext(base);
-    MultiDex.install(this);
   }
 }
