@@ -11,7 +11,7 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2F6E3B0032BBA7C332AEBAE1 /* Pods_webview_tutorial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD20697B6551D948E18DCB2E /* Pods_webview_tutorial.framework */; };
+		2E2AD97C46D50892FF4D4070 /* libPods-webview_tutorial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 935C5D891749854190797894 /* libPods-webview_tutorial.a */; };
 		7BFD37B2225EEF3B00F923D2 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFD3784225EEF3B00F923D2 /* JavaScriptCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +28,7 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFD3784225EEF3B00F923D2 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		7C169F86E1B12DA79FF9CF1C /* Pods-webview_tutorial.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_tutorial.debug.xcconfig"; path = "Target Support Files/Pods-webview_tutorial/Pods-webview_tutorial.debug.xcconfig"; sourceTree = "<group>"; };
-		BD20697B6551D948E18DCB2E /* Pods_webview_tutorial.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_webview_tutorial.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		935C5D891749854190797894 /* libPods-webview_tutorial.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-webview_tutorial.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +37,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BFD37B2225EEF3B00F923D2 /* JavaScriptCore.framework in Frameworks */,
-				2F6E3B0032BBA7C332AEBAE1 /* Pods_webview_tutorial.framework in Frameworks */,
+				2E2AD97C46D50892FF4D4070 /* libPods-webview_tutorial.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +63,7 @@
 			children = (
 				7BFD3784225EEF3B00F923D2 /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				BD20697B6551D948E18DCB2E /* Pods_webview_tutorial.framework */,
+				935C5D891749854190797894 /* libPods-webview_tutorial.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -119,7 +119,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				3E8702C39994F90F6730CB80 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -204,38 +203,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3E8702C39994F90F6730CB80 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-webview_tutorial/Pods-webview_tutorial-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
-				"${BUILT_PRODUCTS_DIR}/Folly/folly.framework",
-				"${BUILT_PRODUCTS_DIR}/RNGestureHandler/RNGestureHandler.framework",
-				"${BUILT_PRODUCTS_DIR}/RNScreens/RNScreens.framework",
-				"${BUILT_PRODUCTS_DIR}/React/React.framework",
-				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
-				"${BUILT_PRODUCTS_DIR}/react-native-webview/react_native_webview.framework",
-				"${BUILT_PRODUCTS_DIR}/yoga/yoga.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoubleConversion.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/folly.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNGestureHandler.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNScreens.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_webview.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-webview_tutorial/Pods-webview_tutorial-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7BA4897B22820C10009AD409 /* Start Packager */ = {

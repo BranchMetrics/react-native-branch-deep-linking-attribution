@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 import android.os.Handler;
 
@@ -25,7 +25,6 @@ import io.branch.indexing.*;
 
 import org.json.*;
 
-import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -72,6 +71,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private static final String IDENT_FIELD_NAME = "ident";
     public static final String UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE = "RNBranch::Error::BUONotFound";
+    public static final String GENERIC_ERROR = "RNBranch::Error";
     private static final long AGING_HASH_TTL = 3600000;
 
     private static JSONObject initSessionResult = null;
@@ -542,7 +542,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                         promise.reject("RNBranch::Error::DuplicateResourceError", error.getMessage());
                     }
                     else {
-                        promise.reject("RNBranch::Error", error.getMessage());
+                        promise.reject(GENERIC_ERROR, error.getMessage());
                     }
                     return;
                 }
@@ -921,12 +921,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                     ReadableArray result = convertJsonToArray(list);
                     this._promise.resolve(result);
                 } catch (JSONException err) {
-                    this._promise.reject(err.getMessage());
+                    this._promise.reject(GENERIC_ERROR, err.getMessage());
                 }
             } else {
                 String errorMessage = error.getMessage();
                 Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(errorMessage);
+                this._promise.reject(GENERIC_ERROR, errorMessage);
             }
         }
     }
@@ -948,7 +948,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             } else {
                 String errorMessage = error.getMessage();
                 Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(errorMessage);
+                this._promise.reject(GENERIC_ERROR, errorMessage);
             }
         }
     }
@@ -978,7 +978,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             } else {
                 String errorMessage = error.getMessage();
                 Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(errorMessage);
+                this._promise.reject(GENERIC_ERROR, errorMessage);
             }
         }
     }

@@ -7,11 +7,11 @@
   },
   "dependencies": {
     "react": "16.8.6",
-    "react-native": "0.59.6",
+    "react-native": "0.60.3",
     "react-native-branch": "file:../.."
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "metro-react-native-babel-preset": "^0.53.1"
+    "@babel/core": "^7.5.4",
+    "metro-react-native-babel-preset": "^0.55.0"
   }
 }
