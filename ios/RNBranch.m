@@ -183,7 +183,7 @@ RCT_EXPORT_MODULE();
         if (error) result[RNBranchLinkOpenedNotificationErrorKey] = error;
         if (params) {
             result[RNBranchLinkOpenedNotificationParamsKey] = params;
-            BOOL clickedBranchLink = params[@"+clicked_branch_link"];
+            BOOL clickedBranchLink = [params[@"+clicked_branch_link"] boolValue];
 
             if (clickedBranchLink) {
                 BranchUniversalObject *branchUniversalObject = [BranchUniversalObject objectWithDictionary:params];
