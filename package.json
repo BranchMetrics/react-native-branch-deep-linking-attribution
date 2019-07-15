@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
+    "babel-eslint": "^7.0.0",
     "eslint": "^2.7.0",
     "eslint-config-rackt": "^1.1.1",
     "jest": "^24.8.0",
