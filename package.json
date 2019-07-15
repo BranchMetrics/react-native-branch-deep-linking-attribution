@@ -9,7 +9,6 @@
     "ios",
     "!**/*-dev.podspec",
     "react-native-branch.podspec",
-    "scripts",
     "src"
   ],
   "scripts": {
@@ -76,11 +75,5 @@
     "react-native-mock": "^0.3.0",
     "sinon": "*",
     "underscore": "*"
-  },
-  "rnpm": {
-    "commands": {
-      "postlink": "node ./node_modules/react-native-branch/scripts/addBranchConfig.js",
-      "postunlink": "node ./node_modules/react-native-branch/scripts/removeBranchConfig.js"
-    }
   }
 }
