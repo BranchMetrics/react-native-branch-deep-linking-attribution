@@ -50,8 +50,7 @@
     "react-native": "^0.60.0"
   },
   "devDependencies": {
-    "babel-eslint": "^6.0.4",
-    "babel-polyfill": "^6.7.4",
+    "@babel/core": "^7.5.4",
     "eslint": "^2.7.0",
     "eslint-config-rackt": "^1.1.1",
     "jest": "^24.8.0",
