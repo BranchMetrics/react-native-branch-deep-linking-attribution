@@ -3,15 +3,13 @@ package com.testbed_simple;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import io.branch.rnbranch.RNBranchPackage;
 
 import io.branch.referral.Branch;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
+import com.facebook.react.PackageList;
 import com.facebook.soloader.SoLoader;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -24,10 +22,7 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new RNBranchPackage()
-      );
+      return new PackageList(this).getPackages();
     }
 
     @Override

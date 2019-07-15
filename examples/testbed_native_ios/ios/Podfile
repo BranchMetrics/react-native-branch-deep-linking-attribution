@@ -28,7 +28,6 @@ target 'testbed_native_ios' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-  pod 'react-native-branch', path: '../node_modules/react-native-branch'
 end
 
 project 'testbed_native_ios', 'Test-Debug' => :debug, 'Test-Release' => :release

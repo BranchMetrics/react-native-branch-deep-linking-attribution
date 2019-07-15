@@ -8,7 +8,7 @@
   "dependencies": {
     "react": "16.8.3",
     "react-native": "0.59.8",
-    "react-native-branch": "../..",
+    "react-native-branch": "3.0.1",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-screens": "^1.0.0-alpha.22",
     "react-native-webview": "^5.10.0",

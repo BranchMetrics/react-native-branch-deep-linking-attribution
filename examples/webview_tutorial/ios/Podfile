@@ -32,10 +32,7 @@ target 'webview_tutorial' do
 
   # react-native link inserts below this line
 
-  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
-  pod 'RNScreens', :path => '../node_modules/react-native-screens'
 
-  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
 end
