@@ -23,4 +23,5 @@ script:
   # - bundle exec fastlane android test
   - bundle exec fastlane ios test
   - yarn lint
-  - yarn test
+  # Pending update to jest
+  # - yarn test
