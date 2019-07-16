@@ -118,7 +118,8 @@ protected List<ReactPackage> getPackages() {
 ##### iOS
 
 **iOS imports have changed**  
-Note that `use_frameworks!` currently does not work with RN 0.60. Regardless of
+Note that `use_frameworks!` currently does not work with RN 0.60. See
+https://github.com/facebook/react-native/issues/25349. Regardless of
 that setting, in Objective-C, use:
 
 ```Obj-C
@@ -216,7 +217,8 @@ If you have `use_frameworks!` in your Podfile, you may simply use a Swift
 import.
 
 Note that as of RN 0.60.3, it is not possible to `use_frameworks!` with
-native modules. A bridging header will be required for all RN dependencies.
+native modules. See https://github.com/facebook/react-native/issues/25349. A
+bridging header will be required for all RN dependencies.
 See [webview_example_native_ios] for an example of a Swift app that
 uses a bridging header for React Native as well as an external Swift pod.
 

@@ -71,7 +71,8 @@ If you are using Objective-C, you can use:
 
 This form is independent of other build options. Clang will automatically
 convert it to `@import RNBranch;` whenever possible. As of version 0.60.3,
-react-native does not support `use_frameworks!` in a Podfile. Once that is
+react-native does not support `use_frameworks!` in a Podfile. See
+https://github.com/facebook/react-native/issues/25349. Once that is
 supported, the same `#import <RNBranch/RNBranch.h>` will still work. However,
 with `use_frameworks!` you will also have the option to explicitly use
 `@import RNBranch;`.
