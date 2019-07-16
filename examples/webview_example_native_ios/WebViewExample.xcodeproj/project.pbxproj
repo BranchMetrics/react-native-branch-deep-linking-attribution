@@ -23,13 +23,16 @@
 		7BAA94F21F57622500C57B54 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94F11F57622500C57B54 /* CoreSpotlight.framework */; };
 		7BAA94F41F57631700C57B54 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94F31F57631700C57B54 /* AdSupport.framework */; };
 		7BAA94F61F57631C00C57B54 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94F51F57631C00C57B54 /* SafariServices.framework */; };
-		9DAD2FE7A1CEA90F3A3E6367 /* Pods_WebViewExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1F71C7570D66540364CE97A /* Pods_WebViewExample.framework */; };
+		D435919EC2CDE5D897297ECB /* libPods-SwiftPods-WebViewExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7769DDE23ADEBD7D12F8EE34 /* libPods-SwiftPods-WebViewExample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		015BDA552767CAB0FF873A39 /* Pods-SwiftPods-WebViewExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftPods-WebViewExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftPods-WebViewExample/Pods-SwiftPods-WebViewExample.release.xcconfig"; sourceTree = "<group>"; };
+		132D86BE800634C9319A493A /* Pods-SwiftPods-WebViewExample.test-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftPods-WebViewExample.test-debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftPods-WebViewExample/Pods-SwiftPods-WebViewExample.test-debug.xcconfig"; sourceTree = "<group>"; };
 		2C98E56F8491559BB0741AAF /* Pods-WebViewExample.test-release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewExample.test-release.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample.test-release.xcconfig"; sourceTree = "<group>"; };
 		6D6117909230007A384D2046 /* Pods-WebViewExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample.release.xcconfig"; sourceTree = "<group>"; };
 		73F43B2C303E9BF5A6714F1B /* Pods-WebViewExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample.debug.xcconfig"; sourceTree = "<group>"; };
+		7769DDE23ADEBD7D12F8EE34 /* libPods-SwiftPods-WebViewExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftPods-WebViewExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B132B5B1E8D878E006FB28F /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		7B3B97801E8C1B650089C04B /* WebViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B3B97831E8C1B650089C04B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,7 +55,8 @@
 		7BAA94F31F57631700C57B54 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		7BAA94F51F57631C00C57B54 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		A14C7B96994ECEB8E6C5DB86 /* Pods-WebViewExample.test-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewExample.test-debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewExample/Pods-WebViewExample.test-debug.xcconfig"; sourceTree = "<group>"; };
-		D1F71C7570D66540364CE97A /* Pods_WebViewExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WebViewExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6E942D5122E7B8F49668791 /* Pods-SwiftPods-WebViewExample.test-release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftPods-WebViewExample.test-release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftPods-WebViewExample/Pods-SwiftPods-WebViewExample.test-release.xcconfig"; sourceTree = "<group>"; };
+		F264F6BB346BF8F682670508 /* Pods-SwiftPods-WebViewExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftPods-WebViewExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftPods-WebViewExample/Pods-SwiftPods-WebViewExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +67,7 @@
 				7BAA94F61F57631C00C57B54 /* SafariServices.framework in Frameworks */,
 				7BAA94F41F57631700C57B54 /* AdSupport.framework in Frameworks */,
 				7BAA94F21F57622500C57B54 /* CoreSpotlight.framework in Frameworks */,
-				9DAD2FE7A1CEA90F3A3E6367 /* Pods_WebViewExample.framework in Frameworks */,
+				D435919EC2CDE5D897297ECB /* libPods-SwiftPods-WebViewExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +80,7 @@
 				7BAA94F51F57631C00C57B54 /* SafariServices.framework */,
 				7BAA94F31F57631700C57B54 /* AdSupport.framework */,
 				7BAA94F11F57622500C57B54 /* CoreSpotlight.framework */,
-				D1F71C7570D66540364CE97A /* Pods_WebViewExample.framework */,
+				7769DDE23ADEBD7D12F8EE34 /* libPods-SwiftPods-WebViewExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -130,6 +134,10 @@
 				6D6117909230007A384D2046 /* Pods-WebViewExample.release.xcconfig */,
 				A14C7B96994ECEB8E6C5DB86 /* Pods-WebViewExample.test-debug.xcconfig */,
 				2C98E56F8491559BB0741AAF /* Pods-WebViewExample.test-release.xcconfig */,
+				F264F6BB346BF8F682670508 /* Pods-SwiftPods-WebViewExample.debug.xcconfig */,
+				132D86BE800634C9319A493A /* Pods-SwiftPods-WebViewExample.test-debug.xcconfig */,
+				015BDA552767CAB0FF873A39 /* Pods-SwiftPods-WebViewExample.release.xcconfig */,
+				B6E942D5122E7B8F49668791 /* Pods-SwiftPods-WebViewExample.test-release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -146,7 +154,6 @@
 				7B3B977C1E8C1B650089C04B /* Sources */,
 				7B3B977D1E8C1B650089C04B /* Frameworks */,
 				7B3B977E1E8C1B650089C04B /* Resources */,
-				B83EB663911AC8B2CA5E28B1 /* [CP] Embed Pods Frameworks */,
 				7B5C791C1E959348002FE942 /* Bundle React Native code and images */,
 			);
 			buildRules = (
@@ -242,40 +249,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\nnode_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		B83EB663911AC8B2CA5E28B1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WebViewExample/Pods-WebViewExample-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Branch/Branch.framework",
-				"${BUILT_PRODUCTS_DIR}/Cartography/Cartography.framework",
-				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
-				"${BUILT_PRODUCTS_DIR}/Folly/folly.framework",
-				"${BUILT_PRODUCTS_DIR}/React/React.framework",
-				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
-				"${BUILT_PRODUCTS_DIR}/react-native-branch/react_native_branch.framework",
-				"${BUILT_PRODUCTS_DIR}/react-native-webview/react_native_webview.framework",
-				"${BUILT_PRODUCTS_DIR}/yoga/yoga.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Branch.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cartography.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoubleConversion.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/folly.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_branch.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_webview.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WebViewExample/Pods-WebViewExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D7BEC49A1B1ABE8643F54767 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -287,7 +260,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WebViewExample-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SwiftPods-WebViewExample-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -395,7 +368,7 @@
 		};
 		7B36C1181EA1BA5C0059B030 /* Test-Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C98E56F8491559BB0741AAF /* Pods-WebViewExample.test-release.xcconfig */;
+			baseConfigurationReference = B6E942D5122E7B8F49668791 /* Pods-SwiftPods-WebViewExample.test-release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WebViewExample/WebViewExample.entitlements;
@@ -477,7 +450,7 @@
 		};
 		7B36C11A1EA1BA6E0059B030 /* Test-Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A14C7B96994ECEB8E6C5DB86 /* Pods-WebViewExample.test-debug.xcconfig */;
+			baseConfigurationReference = 132D86BE800634C9319A493A /* Pods-SwiftPods-WebViewExample.test-debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WebViewExample/WebViewExample.entitlements;
@@ -613,7 +586,7 @@
 		};
 		7B3B97931E8C1B650089C04B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73F43B2C303E9BF5A6714F1B /* Pods-WebViewExample.debug.xcconfig */;
+			baseConfigurationReference = F264F6BB346BF8F682670508 /* Pods-SwiftPods-WebViewExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WebViewExample/WebViewExample.entitlements;
@@ -630,7 +603,7 @@
 		};
 		7B3B97941E8C1B650089C04B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6D6117909230007A384D2046 /* Pods-WebViewExample.release.xcconfig */;
+			baseConfigurationReference = 015BDA552767CAB0FF873A39 /* Pods-SwiftPods-WebViewExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WebViewExample/WebViewExample.entitlements;

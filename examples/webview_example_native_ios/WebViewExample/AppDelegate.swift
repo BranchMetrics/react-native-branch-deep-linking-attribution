@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Branch
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

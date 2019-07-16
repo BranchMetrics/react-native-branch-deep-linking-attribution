@@ -7,12 +7,12 @@
   },
   "dependencies": {
     "react": "16.8.6",
-    "react-native": "0.59.6",
-    "react-native-branch": "3.0.1",
-    "react-native-webview": "^5.8.1"
+    "react-native": "0.60.3",
+    "react-native-branch": "file:../..",
+    "react-native-webview": "^5.12.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "metro-react-native-babel-preset": "^0.53.1"
+    "@babel/core": "^7.5.4",
+    "metro-react-native-babel-preset": "^0.55.0"
   }
 }

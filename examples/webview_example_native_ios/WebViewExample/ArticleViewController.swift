@@ -7,7 +7,6 @@
 //
 
 import Cartography
-import React
 import UIKit
 
 /**
@@ -36,13 +35,11 @@ class ArticleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let bridge = ReactBridge.shared,
-            let rootView = RCTRootView(bridge: bridge, moduleName: "webview_example_native_ios", initialProperties: planetData.reactNativeRoute)
-            else {
+        guard let bridge = ReactBridge.shared else {
                 RCTLogError("Failed to create RCTRootView")
                 return
         }
-
+        let rootView = RCTRootView(bridge: bridge, moduleName: "webview_example_native_ios", initialProperties: planetData.reactNativeRoute)
         view.addSubview(rootView)
         rootView.translatesAutoresizingMaskIntoConstraints = false
 
