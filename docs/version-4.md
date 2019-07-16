@@ -19,10 +19,9 @@ Version 4.0.0 of this SDK may not work with any other option. This may be
 revisited in the future, but it's not yet clear how feasible it would be to
 support any other option. At any rate, if an RN 0.60 app is set up to use
 CocoaPods with `use_native_modules!`, the CocoaPods integration of
-react-native-branch will be automatic. It would be necessary to disable
+react-native-branch will be automatic. It might be necessary to disable
 CocoaPods throughout a RN app in order to support any other solution for this
-SDK. It's not obvious that RN/Facebook will support any other option from here
-forward. If they don't, we can't.
+SDK.
 
 ### Autolinking
 
