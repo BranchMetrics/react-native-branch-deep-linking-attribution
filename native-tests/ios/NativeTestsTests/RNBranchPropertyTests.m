@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import <react-native-branch/RNBranchProperty.h>
+#import <RNBranch/RNBranchProperty.h>
 
 @interface RNBranchPropertyTests : XCTestCase
 

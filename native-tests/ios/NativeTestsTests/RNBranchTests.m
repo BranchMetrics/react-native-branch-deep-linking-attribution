@@ -7,8 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <react-native-branch/RNBranch.h>
-#import <react-native-branch/RNBranchEventEmitter.h>
+#import <RNBranch/RNBranch.h>
+#import <RNBranch/RNBranchEventEmitter.h>
 #import <Branch/Branch.h>
 
 #define ASSERT_CONSTANT(constantName, expectedValue) \
