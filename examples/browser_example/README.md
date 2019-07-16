@@ -13,6 +13,20 @@ load the following Wikipedia page: https://en.wikipedia.org/wiki/Web_browser.
 Just install the NPM dependencies using `yarn`. No other setup
 is required to run on a simulator.
 
+## AndroidX note
+
+The react-native-webview package had not been updated to AndroidX when last
+checked. It is necessary manually to convert it to AndroidX using the tools
+in AndroidStudio. Alternately, after running `yarn` to install the contents
+of `node_modules`, you can run
+
+```bash
+cp -r ../androidx-deps/react-native-webview node_modules
+```
+
+This will copy updated Java source for the version in the yarn.lock into the
+build tree so that an Android build will succeed.
+
 ## React Native setup
 
 If you are new to React Native, follow these steps to get set up and run.

@@ -6,7 +6,6 @@
 //  Copyright © 2017 Branch Metrics. All rights reserved.
 //
 
-import React
 import UIKit
 
 struct ReactBridge {
