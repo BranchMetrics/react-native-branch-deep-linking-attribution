@@ -54,16 +54,21 @@ ___
 6. General support
   + [Troubleshooting](#troubleshooting)
 
+[Manual branch.json installation]: ./docs/branch.json.md#manual-integration-without-react-native-link
+[Version 3.0]: ./docs/version-3.md
+[Version 4.0]: ./docs/version-4.md
+[webview_example_native_ios]: ./examples/webview_example_native_ios
+
 ## Installation
 
 Note that version 4.0 of the `react-native-branch` module requires
 `react-native` >= 0.60. If you are using RN < 0.60, please see the instructions
-for [version 3.0](./docs/version-3.md) of 'react-native-branch'.
+for [Version 3.0] of 'react-native-branch'.
 
 1. `yarn add react-native-branch`
 2. `cd ios; pod install`
 3. Follow the [setup instructions](#setup).
-4. (Optional) [Add branch.json to your project](branch.json.md#manual-integration-without-react-native-link).
+4. (Optional) Add branch.json to your project. See [Manual branch.json installation].
 
 **Note:** This SDK currently does not work in projects using NPM instead of yarn.
 See #433. The RN toolchain will use yarn by default. Please use
@@ -73,19 +78,19 @@ ___
 
 ### Updating from an earlier version or starting with v4.0.0
 
-Please see [./docs/version-4.md] for more details.
+Please see [Version 4.0] for more details.
 
 - react-native >= 0.60 is required
 - AndroidX is required
 - CocoaPods is required
 - Autolinking is supported
 
-### New installations
+#### New installations
 
 (Optional)
-[Add branch.json to your project](branch.json.md#manual-integration-without-react-native-link).
+Add branch.json to your project. See [Manual branch.json installation].
 
-### Updating
+#### Updating
 
 Once you have updated to RN 0.60 and version 4.0 of this SDK, run:
 
@@ -97,7 +102,7 @@ This will not affect branch.json once you have updated to 4.0. The postunlink
 hook that removed it from a project no longer runs. If you have added it to
 your project previously, it will remain.
 
-#### Android
+##### Android
 
 It is no longer necessary to make use of RNBranchPackage in
 MainApplication.java. The whole of your getPackages() method should look like
@@ -110,7 +115,7 @@ protected List<ReactPackage> getPackages() {
 }
 ```
 
-#### iOS
+##### iOS
 
 **iOS imports have changed**  
 Note that `use_frameworks!` currently does not work with RN 0.60. Regardless of
@@ -128,7 +133,7 @@ import RNBranch
 ```
 
 in Swift source code. For now it is possible to use the Objective-C import in a
-Swift bridging header. See [examples/webview_example_native_ios] for an example
+Swift bridging header. See [webview_example_native_ios] for an example
 of a Swift app that imports RNBranch via a bridging header while also using
 Swift pods.
 
@@ -212,7 +217,7 @@ import.
 
 Note that as of RN 0.60.3, it is not possible to `use_frameworks!` with
 native modules. A bridging header will be required for all RN dependencies.
-See [examples/webview_example_native_ios] for an example of a Swift app that
+See [webview_example_native_ios] for an example of a Swift app that
 uses a bridging header for React Native as well as an external Swift pod.
 
 In AppDelegate.swift:
