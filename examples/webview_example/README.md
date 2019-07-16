@@ -16,3 +16,18 @@ pushes an Article component for the appropriate article when a link is opened.
 
 Just install the NPM dependencies using `yarn`. No other setup
 is required to run on a simulator.
+
+## AndroidX note
+
+Several dependencies of this app (react-native-webview, react-native-screens
+and react-native-gesture-handler) had not been updated to AndroidX when last
+checked. It is necessary manually to convert them to AndroidX using the tools
+in AndroidStudio. Alternately, after running `yarn` to install the contents
+of `node_modules`, you can run
+
+```bash
+cp -r ../androidx-deps/* node_modules
+```
+
+This will copy updated Java source for the versions in the yarn.lock into the
+build tree so that an Android build will succeed.

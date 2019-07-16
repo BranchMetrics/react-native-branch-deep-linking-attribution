@@ -96,7 +96,7 @@ The postlink hook that added `branch.json` to a project automatically when
 running `react-native link` has been removed. It is currently necessary to
 integrate `branch.json` manually as described
 [here](branch.json.md#manual-integration-without-react-native-link). Note
-that if you run `react-native unlink react-native-branch` after updating to the
+that if you run `react-native unlink react-native-branch` after updating to
 version 4.0.0, there is no postunlink hook, and branch.json will not be removed
 from your project if found. Manual integration is only
 necessary for new projects.
