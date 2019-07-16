@@ -30,7 +30,8 @@
     "metrics",
     "deeplink",
     "deep",
-    "link"
+    "link",
+    "attribution"
   ],
   "authors": [
     "Zack Story <zack@root-two.com> (https://github.com/rt2zz)",
