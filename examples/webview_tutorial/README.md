@@ -53,16 +53,9 @@ build tree so that an Android build will succeed.
     yarn add ../..
     ```
 
-2. Run `react-native link`:
-
-    ```bash
-    react-native link react-native-branch
-    ```
-
 ## iOS/Xcode setup
 
-1. Run `pod install` at the command line in the `ios` subdirectory. The
-    `react-native link` command has made changes to the Podfile. This step
+1. Run `pod install` at the command line in the `ios` subdirectory. This step
     regenerates the code in the `Pods` subdirectory. **Note:**
     This repo includes a Gemfile. It is necessary first to
     `bundle check || bundle install` and then use `bundle exec` with any
@@ -70,7 +63,7 @@ build tree so that an Android build will succeed.
     `pod install`. The `--repo-update` option is equivalent to running
     `pod repo update; pod install`. This may be necessary to get the
     required version of the Branch SDK. If your podspec repo is up to date,
-    you may omit this option.
+    you may omit this option, which takes more time.
     ```bash
     cd ios
     bundle check || bundle install
@@ -82,15 +75,7 @@ build tree so that an Android build will succeed.
     At the top of the file, add:
 
     ```Objective-C
-    @import react_native_branch;
-    ```
-
-    The Podfile for this project specifies `use_frameworks!`. This requires
-    `@import react_native_branch;` in Obj-C. If you do not have this option in
-    your Podfile, instead use:
-
-    ```Objective-C
-    #import <react-native-branch/RNBranch.h>
+    #import <RNBranch/RNBranch.h>
     ```
 
 3. Find the `application:didFinishLaunchingWithOptions:` method near the top of the AppDelegate.m
@@ -132,7 +117,7 @@ build tree so that an Android build will succeed.
 
     // Step 2: Add RNBranch import
 
-    #import <react-native-branch/RNBranch.h>
+    #import <RNBranch/RNBranch.h>
 
     @implementation AppDelegate
 
@@ -231,15 +216,11 @@ build tree so that an Android build will succeed.
     import android.app.Application;
 
     import com.facebook.react.ReactApplication;
-    import com.swmansion.rnscreens.RNScreensPackage;
-    import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-    import com.reactnativecommunity.webview.RNCWebViewPackage;
     import com.facebook.react.ReactNativeHost;
     import com.facebook.react.ReactPackage;
-    import com.facebook.react.shell.MainReactPackage;
+    import com.facebook.react.PackageList;
     import com.facebook.soloader.SoLoader;
 
-    import java.util.Arrays;
     import java.util.List;
 
     public class MainApplication extends Application implements ReactApplication {
@@ -252,13 +233,12 @@ build tree so that an Android build will succeed.
 
         @Override
         protected List<ReactPackage> getPackages() {
-          return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new RNScreensPackage(),
-            new RNGestureHandlerPackage(),
-            new RNCWebViewPackage(),
-            new RNBranchPackage()
-          );
+          return new PackageList(this).getPackages();
+        }
+
+        @Override
+        protected String getJSMainModuleName() {
+          return "index";
         }
       };
 

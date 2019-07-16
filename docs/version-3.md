@@ -33,3 +33,29 @@ import react_native_branch
 
 Version 4.0 provides one import for each language, independent of other
 configuration and settings.
+
+
+## Gradle dependency
+
+If you use `react-native link`, no further change is necessary to your `app/build.gradle`.
+
+In a native app, import the `react-native-branch` project like this:
+
+```gradle
+implementation project(':react-native-branch')
+```
+
+If you're using an older version of Gradle, you may need `compile` rather than
+`implementation`. If you are already using the native Branch SDK in your app,
+it will now be imported from Maven via `react-native-branch` as a dependency.
+Remove any reference to `io.branch.sdk.android:library` from your dependencies
+to avoid conflicts.
+
+Also add the project to your `settings.gradle`:
+
+```gradle
+include ':react-native-branch'
+project(':react-native-branch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-branch/android')
+```
+
+The location of your `node_modules` folder may vary.

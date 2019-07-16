@@ -56,13 +56,14 @@ ___
 
 ## Installation
 
-Note that the `react-native-branch` module requires `react-native` >= 0.40.
+Note that version 4.0 of the `react-native-branch` module requires
+`react-native` >= 0.60. If you are using RN < 0.60, please see the instructions
+for [version 3.0](./docs/version-3.md) of 'react-native-branch'.
 
 1. `yarn add react-native-branch`
-2. (Optional) Add a branch.json file to the root of your app project. See https://rnbranch.app.link/branch-json.
-3. `react-native link react-native-branch`
-4. Install the native Branch SDK using [CocoaPods](./docs/cocoapods.md) or [Carthage](./docs/carthage.md).
-5. Follow the [setup instructions](#setup).
+2. `cd ios; pod install`
+3. Follow the [setup instructions](#setup).
+4. (Optional) [Add branch.json to your project](branch.json.md#manual-integration-without-react-native-link).
 
 **Note:** This SDK currently does not work in projects using NPM instead of yarn.
 See #433. The RN toolchain will use yarn by default. Please use
@@ -70,54 +71,66 @@ See #433. The RN toolchain will use yarn by default. Please use
 
 ___
 
-### Updating from an earlier version or starting with v3.0.0
+### Updating from an earlier version or starting with v4.0.0
 
-The native SDKs are no longer bundled into this module. The native Android SDK
-will be installed from Maven via Gradle. You must add the native Branch iOS SDK
-to your project either using [CocoaPods](./docs/cocoapods.md) or [Carthage](./docs/carthage.md).
+Please see [./docs/version-4.md] for more details.
 
-To fix a longstanding build issue with Android, it is necessary to take the
-native Branch Android SDK from Maven rather than from the react-native-branch
-module, starting with version 3.0.0. This now happens transparently via Gradle.
-If you previously added `implementation fileTree(dir: 'libs', include: ['*.jar'])`
-to your `app/build.gradle` only for React Native Branch, you may remove it,
-unless it is now used by other code.
+- react-native >= 0.60 is required
+- AndroidX is required
+- CocoaPods is required
+- Autolinking is supported
 
-Remove any direct reference to `io.branch.sdk.android:library` in your dependencies,
-e.g. `io.branch.sdk.android:library:3.1.1`. This has the potential to cause
-conflicts. This module imports the Branch SDK directly.
+### New installations
 
-The result in your `app/build.gradle` should be something like
-```gradle
-dependencies {
-    implementation project(':react-native-branch')
-    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-}
+(Optional)
+[Add branch.json to your project](branch.json.md#manual-integration-without-react-native-link).
+
+### Updating
+
+Once you have updated to RN 0.60 and version 4.0 of this SDK, run:
+
+```bash
+react-native unlink react-native-branch
 ```
 
-If you're using an older version of Gradle, you may need `compile` instead of
-`implementation`.
+This will not affect branch.json once you have updated to 4.0. The postunlink
+hook that removed it from a project no longer runs. If you have added it to
+your project previously, it will remain.
 
-It is recommended to replace `Branch.getAutoInstance` in your `Application.onCreate`
-method with `RNBranchModule.getAutoInstance`. This is required in order to set Branch
-keys in the `branch.json` file.
+#### Android
 
-```java
+It is no longer necessary to make use of RNBranchPackage in
+MainApplication.java. The whole of your getPackages() method should look like
+this with RN 0.60:
+
+```Java
 @Override
-public void onCreate() {
-  super.onCreate();
-  SoLoader.init(this, /* native exopackage */ false);
-  // Replace Branch.getAutoInstance(this); with:
-  RNBranchModule.getAutoInstance(this);
+protected List<ReactPackage> getPackages() {
+  return new PackageList(this).getPackages();
 }
 ```
 
-If you are not already using the React pod to build your app, it will
-be necessary to [convert your Xcode project](./docs/convert-to-react-pod.md).
+#### iOS
 
-The `cached_initial_event` key in the `params` returned in the `subscribe`
-callback has been renamed to `+rn_cached_initial_event`.
+**iOS imports have changed**  
+Note that `use_frameworks!` currently does not work with RN 0.60. Regardless of
+that setting, in Objective-C, use:
+
+```Obj-C
+#import <RNBranch/RNBranch.h>
+```
+
+Without `use_frameworks!` in your Podfile, you cannot import native modules
+directly in Swift. Once that RN bug is fixed, you can use:
+
+```Swift
+import RNBranch
+```
+
+in Swift source code. For now it is possible to use the Objective-C import in a
+Swift bridging header. See [examples/webview_example_native_ios] for an example
+of a Swift app that imports RNBranch via a bridging header while also using
+Swift pods.
 
 ___
 
@@ -139,17 +152,8 @@ Modify your AppDelegate as follows:
 #### Objective-C
 In AppDelegate.m
 
-Note that if you are not using the React pod, or if you don't have `use_frameworks!` in your Podfile, and your
-AppDelegate is written in Objective-C, you should replace
-`@import react_native_branch;` with `#import <react-native-branch/RNBranch.h>`.
-Also note that CocoaPods 1.7.0 breaks iOS builds using the react-native-branch pod.
-Please update to version 1.7.1 instead. See #461.
-
 ```objective-c
-@import react_native_branch; // at the top
-
-// Use this instead if are not using the React pod or you don't use_frameworks! in your Podfile.
-// #import <react-native-branch/RNBranch.h>
+#import <RNBranch/RNBranch.h> // at the top
 
 // Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -200,15 +204,20 @@ require a
 [bridging header](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html)
 in order to use any React Native plugin in Swift.
 
-Add `#import <react-native-branch/RNBranch.h>` to your Bridging header if you
+Add `#import <RNBranch/RNBranch.h>` to your Bridging header if you
 have one.
 
 If you have `use_frameworks!` in your Podfile, you may simply use a Swift
 import.
 
+Note that as of RN 0.60.3, it is not possible to `use_frameworks!` with
+native modules. A bridging header will be required for all RN dependencies.
+See [examples/webview_example_native_ios] for an example of a Swift app that
+uses a bridging header for React Native as well as an external Swift pod.
+
 In AppDelegate.swift:
 ```Swift
-import react_native_branch // omit if using a bridging header
+import RNBranch // omit if using a bridging header
 
 // Initialize the Branch Session at the top of existing application:didFinishLaunchingWithOptions:
 func application(_ application: UIApplication, didFinishLaunchingWithOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -229,7 +238,7 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 }
 ```
 
-These instructions are for Swift 3 and 4.
+These instructions are for Swift 3-5.
 
 ### iOS Project Configuration
 
@@ -246,56 +255,16 @@ ___
 
 ### Android Setup
 
-#### Gradle dependency
-
-If you use `react-native link`, no further change is necessary to your `app/build.gradle`.
-
-In a native app, import the `react-native-branch` project like this:
-
-```gradle
-implementation project(':react-native-branch')
-```
-
-If you're using an older version of Gradle, you may need `compile` rather than
-`implementation`. If you are already using the native Branch SDK in your app,
-it will now be imported from Maven via `react-native-branch` as a dependency.
-Remove any reference to `io.branch.sdk.android:library` from your dependencies
-to avoid conflicts.
-
-Also add the project to your `settings.gradle`:
-
-```gradle
-include ':react-native-branch'
-project(':react-native-branch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-branch/android')
-```
-
-The location of your `node_modules` folder may vary.
-
 #### Application code
 
-Add RNBranchPackage to packages list in `getPackages()` MainApplication.java (`android/app/src/[...]/MainApplication.java`).
-Note that this is automatically done if you used `react-native link`.
-
-Also add a call to `RNBranchModule.getAutoinstance()` in `onCreate()` in the same source file. This has to be
-done even if you used `react-native link`.
+Add a call to `RNBranchModule.getAutoinstance()` in `onCreate()` in MainApplication.java.
 ```java
 // ...
 
 // import Branch and RNBranch
-import io.branch.rnbranch.RNBranchPackage;
 import io.branch.rnbranch.RNBranchModule;
 
 //...
-
-    // add RNBranchPackage to react-native package list
-    @Override
-    protected List<ReactPackage> getPackages() {
-        return Arrays.<ReactPackage>asList(
-                new MainReactPackage(),
-                new RNBranchPackage(), // <-- add this
-
-    // ...
-
     // add onCreate() override
     @Override
     public void onCreate() {
@@ -305,7 +274,6 @@ import io.branch.rnbranch.RNBranchModule;
 ```
 
 Override onStart and onNewIntent in MainActivity.java to handle Branch links (`android/app/src/[...]/MainActivity.java`).
-This has to be done regardless whether you used `react-native link`.
 ```java
 import io.branch.rnbranch.*; // <-- add this
 import android.content.Intent; // <-- and this
