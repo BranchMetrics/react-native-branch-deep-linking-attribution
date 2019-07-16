@@ -8,9 +8,9 @@
 
 #import <XCTest/XCTest.h>
 
-#import <react-native-branch/NSObject+RNBranch.h>
-#import <react-native-branch/BranchLinkProperties+RNBranch.h>
-#import <react-native-branch/RNBranchProperty.h>
+#import <RNBranch/NSObject+RNBranch.h>
+#import <RNBranch/BranchLinkProperties+RNBranch.h>
+#import <RNBranch/RNBranchProperty.h>
 
 @interface BranchLinkPropertiesExtensionTests : XCTestCase
 

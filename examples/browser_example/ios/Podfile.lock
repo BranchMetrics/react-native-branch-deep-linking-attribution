@@ -60,7 +60,7 @@ PODS:
     - React-cxxreact (= 0.60.3)
     - React-jsi (= 0.60.3)
   - React-jsinspector (0.60.3)
-  - react-native-branch (3.1.0):
+  - react-native-branch (4.0.0):
     - Branch (= 0.27.1)
     - React
   - react-native-webview (5.12.1):
@@ -186,7 +186,7 @@ SPEC CHECKSUMS:
   React-jsi: c2b6e57836bcae2677a036384111dc2c58e94369
   React-jsiexecutor: d9023c5c199114d2b6f38ec861a4d923c73d0735
   React-jsinspector: 817b64f3c8a807f09d78620f4f505868d89b26f3
-  react-native-branch: cf84b8a8a0b288a689563fc5ae9d0a4dae5e8677
+  react-native-branch: 5f8215061567f5015127e3996c3eaeec2f5dd64b
   react-native-webview: 5036ed4a973ad1deeeff118262d2df7b60b3419d
   React-RCTActionSheet: 9c42321fd5652515d706dd722c5a10b1970d7ec8
   React-RCTAnimation: fabb087dde8964c9a835a7fabd0e7e5701787913

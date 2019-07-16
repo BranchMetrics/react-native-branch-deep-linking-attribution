@@ -7,7 +7,7 @@
 //
 
 #import <React/RCTLog.h>
-#import <react-native-branch/RNBranch.h>
+#import <RNBranch/RNBranch.h>
 
 #import <Branch/Branch.h>
 
