@@ -22,6 +22,7 @@ ___
   + [Register for Branch key](#register-your-app)
   + [Project setup](#setup)
   + [Example apps](#example-apps)
+  + [Tutorial app](#tutorial-app)
 
 3. Branch general methods
   + [Register a subscriber](#register-a-subscriber)
@@ -57,7 +58,10 @@ ___
 [Manual branch.json installation]: ./docs/branch.json.md#manual-integration-without-react-native-link
 [Version 3.0]: ./docs/version-3.md
 [Version 4.0]: ./docs/version-4.md
+[webview_example]: ./examples/webview_example
 [webview_example_native_ios]: ./examples/webview_example_native_ios
+[webview_tutorial]: ./examples/webview_tutorial
+[Tutorial app]: #tutorial-app
 
 ## Installation
 
@@ -73,6 +77,9 @@ for [Version 3.0] of 'react-native-branch'.
 **Note:** This SDK currently does not work in projects using NPM instead of yarn.
 See #433. The RN toolchain will use yarn by default. Please use
 `yarn add react-native-branch` to add the SDK to your project.
+
+See the [Tutorial app] for a step-by-step walkthrough of integrating Branch in
+an existing RN 0.60 app.
 
 ___
 
@@ -337,8 +344,14 @@ ___
 
 ## Example apps
 
-There are six example apps in this repo, including a [tutorial app](./examples/webview_tutorial).
+There are six example apps in this repo, including a [Tutorial app].
 See the [examples](./examples) subdirectory for more details.
+
+## Tutorial app
+
+The [webview_tutorial] app is a functioning app using react-native 0.60.3 and
+react 16.8.6. The tutorial takes you step-by-step through adding this SDK to
+produce [webview_example] with Branch integrated.
 
 ___
 
