@@ -18,7 +18,7 @@ ___
 
 2. Getting started
   + [Installation](#installation)
-  + [Updating from an earlier SDK version or starting with v. 3.0.0](#updating-from-an-earlier-version-or-starting-with-v300)
+  + [Updating from an earlier SDK version or starting with v. 4.0.0](#updating-from-an-earlier-version-or-starting-with-v400)
   + [Register for Branch key](#register-your-app)
   + [Project setup](#setup)
   + [Example apps](#example-apps)
