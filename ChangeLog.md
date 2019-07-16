@@ -1,3 +1,8 @@
+2019-07-16  Version 4.0.0
+  - Full support for React Native 0.60, AndroidX and autolinking
+  - Fix clicked_branch_link false positive (#466) from @sjchmiela.
+  - Uses native Branch SDKs 3.2.0 (Android), 0.27.1 (iOS).
+
 2019-05-22  Version 3.0.1
   * Added Carthage/Build/iOS to Framework Search Paths for Carthage support.
   * Uses native Branch SDKs 3.2.0 (Android), 0.27.0 (iOS).
