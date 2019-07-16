@@ -114,7 +114,7 @@ pod install
 Add branch.json to your project manually as described above if you wish.
 Note you should not run `react-native link` for this SDK.
 
-Then follow the common Branch setup instructions.
+Then follow the common Branch [setup instructions](../README.md#setup).
 
 Finally:
 
