@@ -82,6 +82,11 @@ bridging header. A Swift import statement will not work without
 `use_frameworks!`. Once that is supported, you can use `import RNBranch` in
 your Swift source code.
 
+See [webview_example_native_ios](../examples/webview_example_native_ios) for
+an example of a Swfit app using a Swift pod with `use_frameworks!` while
+disabling that option for all native modules. It uses a bridging header to
+import React and RNBranch.
+
 The previous include path, `react-native-branch` caused problems with Clang,
 CocoaPods and React Native because of the hyphens.
 
