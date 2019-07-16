@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
                    }
   s.license      = spec['license']
   s.homepage     = spec['homepage']
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "9.0"
   s.source       = { spec['repository']['type'].to_sym => spec['repository']['url'].sub(/^[a-z]+\+/, '') }
   s.source_files = [ "ios/*.h", "ios/*.m"]
   s.header_dir   = 'RNBranch' # also sets generated module name
