@@ -6762,6 +6762,30 @@
 			};
 			name = "Test-Release";
 		};
+		15B08DC6C90740EF92F61952477B1950 /* Test-Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 551C592B9F15B1CCB76032F1B8BF3A94 /* react-native-branch.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/react-native-branch/react-native-branch-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = RNBranch;
+				PRODUCT_NAME = "react-native-branch";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Test-Debug";
+		};
 		15E7B74F7A25C582BAE633DB76F42A59 /* Test-Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 745EF8D581A3A09B86DDFF12807E2CF9 /* React-jsinspector.xcconfig */;
@@ -6970,55 +6994,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Test-Debug";
-		};
-		3BD35044AC064C1259FDDF3DC26AD750 /* Test-Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 551C592B9F15B1CCB76032F1B8BF3A94 /* react-native-branch.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/react-native-branch/react-native-branch-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = RNBranch;
-				PRODUCT_NAME = "react-native-branch";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = "Test-Debug";
-		};
-		3D31C272BE586D50B49C51622B9D770B /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 551C592B9F15B1CCB76032F1B8BF3A94 /* react-native-branch.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/react-native-branch/react-native-branch-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = RNBranch;
-				PRODUCT_NAME = "react-native-branch";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
 		};
 		3F7EE217598B143C18079703530EFA8D /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -8275,6 +8250,30 @@
 			};
 			name = "Test-Debug";
 		};
+		9943113B0FEFF3BE4A7491BEC859C128 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 551C592B9F15B1CCB76032F1B8BF3A94 /* react-native-branch.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/react-native-branch/react-native-branch-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = RNBranch;
+				PRODUCT_NAME = "react-native-branch";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		99590FA16AA8A57FF609643EFAAD79C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AFB7CB3F354F883B43AEDC137B912BA7 /* React-DevSupport.xcconfig */;
@@ -8450,6 +8449,31 @@
 			};
 			name = Debug;
 		};
+		AAFBC8D44EB3C5FF416DF45D3964BBD6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 551C592B9F15B1CCB76032F1B8BF3A94 /* react-native-branch.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/react-native-branch/react-native-branch-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = RNBranch;
+				PRODUCT_NAME = "react-native-branch";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		ABF3C165FADCD06A8C7D5ADD77CFB57E /* Test-Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 76E12D5A239C9323A808B8BD63766631 /* React-RCTSettings.xcconfig */;
@@ -8465,31 +8489,6 @@
 				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_MODULE_NAME = React;
 				PRODUCT_NAME = "React-RCTSettings";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = "Test-Release";
-		};
-		AFE1BA6344DABDDD01A11FA5D6264582 /* Test-Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 551C592B9F15B1CCB76032F1B8BF3A94 /* react-native-branch.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/react-native-branch/react-native-branch-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = RNBranch;
-				PRODUCT_NAME = "react-native-branch";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -8944,6 +8943,31 @@
 			};
 			name = Release;
 		};
+		D61BFD44F5E5C303B51D3D9DC853075A /* Test-Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 551C592B9F15B1CCB76032F1B8BF3A94 /* react-native-branch.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/react-native-branch/react-native-branch-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = RNBranch;
+				PRODUCT_NAME = "react-native-branch";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Test-Release";
+		};
 		D729E4CF87A97A4C63AE90D18E7652A0 /* Test-Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 38896783DB446D7B074E2A039BAC77CA /* React-RCTActionSheet.xcconfig */;
@@ -9106,30 +9130,6 @@
 				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_MODULE_NAME = React;
 				PRODUCT_NAME = "React-RCTAnimation";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		E416464916A1B458526CF99E6675A33E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 551C592B9F15B1CCB76032F1B8BF3A94 /* react-native-branch.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/react-native-branch/react-native-branch-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = RNBranch;
-				PRODUCT_NAME = "react-native-branch";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -9694,10 +9694,10 @@
 		8CF4EA49DD65F201C201A39E7BA487D6 /* Build configuration list for PBXNativeTarget "react-native-branch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E416464916A1B458526CF99E6675A33E /* Debug */,
-				3D31C272BE586D50B49C51622B9D770B /* Release */,
-				3BD35044AC064C1259FDDF3DC26AD750 /* Test-Debug */,
-				AFE1BA6344DABDDD01A11FA5D6264582 /* Test-Release */,
+				9943113B0FEFF3BE4A7491BEC859C128 /* Debug */,
+				AAFBC8D44EB3C5FF416DF45D3964BBD6 /* Release */,
+				15B08DC6C90740EF92F61952477B1950 /* Test-Debug */,
+				D61BFD44F5E5C303B51D3D9DC853075A /* Test-Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

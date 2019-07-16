@@ -10,7 +10,7 @@
   "license": "MIT",
   "homepage": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution",
   "platforms": {
-    "ios": "7.0"
+    "ios": "9.0"
   },
   "source": {
     "git": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution.git"
