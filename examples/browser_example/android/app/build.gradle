@@ -128,7 +128,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.testapp"
+        applicationId "com.browser_example"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
