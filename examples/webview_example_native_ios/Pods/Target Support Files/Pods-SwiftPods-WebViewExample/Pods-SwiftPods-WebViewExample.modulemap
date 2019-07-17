@@ -1,6 +1,0 @@
-module Pods_SwiftPods_WebViewExample {
-  umbrella header "Pods-SwiftPods-WebViewExample-umbrella.h"
-
-  export *
-  module * { export * }
-}

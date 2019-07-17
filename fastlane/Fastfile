@@ -15,7 +15,9 @@ end
 
 platform :ios do
   desc "Run iOS unit tests"
-  lane :test do
+  lane :test do |opts|
+    podfile_path = File.expand_path('../native-tests/ios', __dir__)
+    UpdateHelper.pod_install_if_required podfile_path, verbose: opts[:verbose], repo_update: opts[:repo_update]
     scan
   end
 end

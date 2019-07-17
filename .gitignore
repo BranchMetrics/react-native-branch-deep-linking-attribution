@@ -47,3 +47,5 @@ xcuserdata
 android/build
 *.iml
 .idea
+
+Pods

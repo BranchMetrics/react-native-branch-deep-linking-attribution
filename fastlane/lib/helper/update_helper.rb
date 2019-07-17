@@ -1,6 +1,30 @@
+require 'cocoapods-core'
 require 'fileutils'
+require 'pathname'
 
 module UpdateHelper
+  UI = FastlaneCore::UI
+
+  def pod_install_required?(path)
+    pod_lockfile = Pod::Lockfile.from_file Pathname.new "#{path}/Podfile.lock"
+    manifest_lockfile_pathname = Pathname.new "#{path}/Pods/Manifest.lock"
+    manifest_lockfile = Pod::Lockfile.from_file manifest_lockfile_pathname if manifest_lockfile_pathname.readable?
+
+    pod_lockfile != manifest_lockfile
+  end
+
+  def pod_install_if_required(path, verbose: false, repo_update: true)
+    install_required = pod_install_required?(path)
+    UI.message "pod install #{install_required ? '' : 'not '}required in #{path}"
+    return unless install_required
+
+    command = %w[pod install]
+    command << '--silent' unless verbose
+    command << '--repo-update' if repo_update
+
+    Dir.chdir(path) { Fastlane::Action.sh *command }
+  end
+
   def update_pods_in_tests_and_examples(params)
     # Updates to CocoaPods for unit tests and examples (requires
     # node_modules for each)
