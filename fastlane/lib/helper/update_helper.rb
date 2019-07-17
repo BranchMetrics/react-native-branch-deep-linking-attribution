@@ -1,28 +1,51 @@
-require 'cocoapods-core'
+require 'cocoapods'
 require 'fileutils'
 require 'pathname'
 
 module UpdateHelper
   UI = FastlaneCore::UI
 
-  def pod_install_required?(path)
-    pod_lockfile = Pod::Lockfile.from_file Pathname.new "#{path}/Podfile.lock"
-    manifest_lockfile_pathname = Pathname.new "#{path}/Pods/Manifest.lock"
-    manifest_lockfile = Pod::Lockfile.from_file manifest_lockfile_pathname if manifest_lockfile_pathname.readable?
+  def pod_install_required?(podfile_path)
+    lockfile_path = "#{podfile_path}/Podfile.lock"
+    manifest_path = "#{podfile_path}/Pods/Manifest.lock"
 
-    pod_lockfile != manifest_lockfile
+    return true unless File.readable?(lockfile_path) && File.readable?(manifest_path)
+
+    lockfile = Pod::Lockfile.from_file Pathname.new lockfile_path
+    manifest = Pod::Lockfile.from_file Pathname.new manifest_path
+
+    # diff the contents of Podfile.lock and Pods/Manifest.lock
+    # This is just what is done in the "[CP] Check Pods Manifest.lock" script build phase
+    # in a project using CocoaPods, but it also validates YAML parsing, etc.
+    return true unless lockfile == manifest
+
+    # Podfile must be evalled in its current directory in order to resolve
+    # the require_relative at the top.
+    podfile = Dir.chdir(podfile_path) do
+      # Why not just 'Podfile' or './Podfile'?
+      Pod::Podfile.from_file "#{podfile_path}/Podfile"
+    end
+
+    # compare checksum of Podfile with checksum in Podfile.lock in case Podfile
+    # updated since last pod install/update.
+    return true unless lockfile.to_hash["PODFILE CHECKSUM"] == podfile.checksum
+
+    false
+  rescue StandardError => e
+    UI.error e.message
+    true
   end
 
-  def pod_install_if_required(path, verbose: false, repo_update: true)
-    install_required = pod_install_required?(path)
-    UI.message "pod install #{install_required ? '' : 'not '}required in #{path}"
+  def pod_install_if_required(podfile_path, verbose: false, repo_update: true)
+    install_required = pod_install_required?(podfile_path)
+    UI.message "pod install #{install_required ? '' : 'not '}required in #{podfile_path}"
     return unless install_required
 
     command = %w[pod install]
     command << '--silent' unless verbose
     command << '--repo-update' if repo_update
 
-    Dir.chdir(path) { Fastlane::Action.sh *command }
+    Dir.chdir(podfile_path) { Fastlane::Action.sh *command }
   end
 
   def update_pods_in_tests_and_examples(params)
