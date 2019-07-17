@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
 
         mReactRootView = new ReactRootView(this);
         mReactInstanceManager = ReactInstanceManager.builder()
+                .setCurrentActivity(this)
                 .setApplication(getApplication())
                 .setBundleAssetName("index.android.bundle") // prod
                 .setJSMainModulePath("index.android")
