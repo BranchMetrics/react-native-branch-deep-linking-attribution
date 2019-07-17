@@ -11,5 +11,11 @@ In particular, it uses the `React`, `react-native-branch` and `Branch-SDK` pods 
 
 ## Building
 
-To build and run, install NPM dependencies using `yarn`. The Pods directory is
-included in the repo. CocoaPods does not have to be installed or run in order to build this example.
+To build and run:
+
+```bash
+yarn
+cd ios
+bundle check || bundle install
+bundle exec pod install
+```
