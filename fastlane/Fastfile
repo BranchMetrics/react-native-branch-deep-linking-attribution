@@ -14,10 +14,25 @@ platform :android do
 end
 
 platform :ios do
+  # fastlane ios test [opts]
+  # opts:
+  # verbose:[yes|no] (REACT_NATIVE_BRANCH_VERBOSE env. var., default: no)
+  # repo_update:[yes|no] (REACT_NATIVE_BRANCH_REPO_UPDATE env. var., default: yes)
   desc "Run iOS unit tests"
   lane :test do |opts|
+    helper = UpdateHelper
+
+    # Options
+    verbose = opts[:verbose]
+    verbose = verbose.nil? ? helper.boolean_env_var?(:REACT_NATIVE_BRANCH_VERBOSE, default_value: false) : verbose
+
+    repo_update = opts[:repo_update]
+    repo_update = repo_update.nil? ? helper.boolean_env_var?(:REACT_NATIVE_BRANCH_REPO_UPDATE, default_value: true) : repo_update
+
+    # Make sure Pods are installed for native-tests before running scan
     podfile_path = File.expand_path('../native-tests/ios', __dir__)
-    UpdateHelper.pod_install_if_required podfile_path, verbose: opts[:verbose], repo_update: opts[:repo_update]
+    helper.pod_install_if_required podfile_path, verbose: verbose, repo_update: repo_update
+
     scan
   end
 end

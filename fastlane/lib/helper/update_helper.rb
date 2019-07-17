@@ -5,6 +5,12 @@ require 'pathname'
 module UpdateHelper
   UI = FastlaneCore::UI
 
+  def boolean_env_var?(varname, default_value: nil)
+    varstr = ENV[varname.to_s]
+    return default_value if varstr.nil?
+    varstr =~ /^[ty]/i
+  end
+
   def pod_install_required?(podfile_path)
     lockfile_path = "#{podfile_path}/Podfile.lock"
     manifest_path = "#{podfile_path}/Pods/Manifest.lock"
