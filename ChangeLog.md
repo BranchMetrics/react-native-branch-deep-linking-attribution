@@ -1,3 +1,8 @@
+2019-07-25  Version 3.1.1
+  - Requires RN < 0.60
+  - Fix a runtime iOS issue in 3.1.0
+  - Uses native Branch SDKs 3.2.0 (Android), 0.27.1 (iOS).
+
 2019-07-25  Version 4.1.0
   - Requires RN >= 0.60
   - Added optional argument to getLatestReferringParams to allow deferring
