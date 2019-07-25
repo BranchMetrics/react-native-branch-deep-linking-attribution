@@ -349,9 +349,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getLatestReferringParams(Promise promise) {
+    public void getLatestReferringParams(boolean synchronous, Promise promise) {
         Branch branch = Branch.getInstance();
-        promise.resolve(convertJsonToMap(branch.getLatestReferringParamsSync()));
+        if (synchronous)
+            promise.resolve(convertJsonToMap(branch.getLatestReferringParamsSync()));
+        else
+            promise.resolve(convertJsonToMap(branch.getLatestReferringParams()));
     }
 
     @ReactMethod
