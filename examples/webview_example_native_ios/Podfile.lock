@@ -1,8 +1,8 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - Branch (0.27.0):
-    - Branch/Core (= 0.27.0)
-  - Branch/Core (0.27.0)
+  - Branch (0.27.1):
+    - Branch/Core (= 0.27.1)
+  - Branch/Core (0.27.1)
   - Cartography (4.0.0)
   - DoubleConversion (1.1.5)
   - Folly (2018.10.22.00):
@@ -13,7 +13,7 @@ PODS:
   - React (0.59.6):
     - React/Core (= 0.59.6)
   - react-native-branch (3.1.0):
-    - Branch (= 0.27.0)
+    - Branch (= 0.27.1)
     - React
   - react-native-webview (5.8.1):
     - React
@@ -101,16 +101,16 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  Branch: e4f2a9c361ebdc960c823d16014c187bf19b508c
+  Branch: 1ace77c04b6e3efbf982bf4364f0662bfac156a0
   Cartography: c5626d29056b20f1e95c017326ee4df57cc39ad8
   DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   React: 0bb58efca577aa4b3c8f03a9fbf0d9a8ebdb5ac4
-  react-native-branch: 499094dee9c8d8e108306c223e87b4f84b012109
+  react-native-branch: cf84b8a8a0b288a689563fc5ae9d0a4dae5e8677
   react-native-webview: f3e28b48461c78db833f727feec08b13285e7b61
   yoga: 8dacc3c5977cb8e07c346e203bb5f4ffe01296df
 
 PODFILE CHECKSUM: 1891c4b6dc3b127344fdd58d8437fb3cc5881917
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.7.5
