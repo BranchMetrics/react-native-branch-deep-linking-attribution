@@ -1,3 +1,16 @@
+2019-07-25  Version 4.1.0
+  - Requires RN >= 0.60
+  - Added optional argument to getLatestReferringParams to allow deferring
+    promise resolution.
+  - Uses native Branch SDKs 3.2.0 (Android), 0.27.1 (iOS).
+
+2019-07-25  Version 3.1.0
+  - Requires RN < 0.60
+  - Added optional argument to getLatestReferringParams to allow deferring
+    promise resolution.
+  - Fix clicked_branch_link false positive (#466) from @sjchmiela.
+  - Uses native Branch SDKs 3.2.0 (Android), 0.27.1 (iOS).
+
 2019-07-16  Version 4.0.0
   - Full support for React Native 0.60, AndroidX and autolinking
   - Fix clicked_branch_link false positive (#466) from @sjchmiela.
