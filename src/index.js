@@ -107,7 +107,7 @@ class Branch {
 
   /*** RNBranch singleton methods ***/
   setDebug = () => { throw 'setDebug() is not supported in the RN SDK. For other solutions, please see https://rnbranch.app.link/setDebug' }
-  getLatestReferringParams = RNBranch.getLatestReferringParams
+  getLatestReferringParams = (synchronous = false) => RNBranch.getLatestReferringParams(synchronous)
   getFirstReferringParams = RNBranch.getFirstReferringParams
   setIdentity = (identity) => RNBranch.setIdentity(identity)
   logout = RNBranch.logout

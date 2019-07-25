@@ -349,10 +349,14 @@ RCT_EXPORT_METHOD(
 
 #pragma mark getLatestReferringParams
 RCT_EXPORT_METHOD(
-                  getLatestReferringParams:(RCTPromiseResolveBlock)resolve
+                  getLatestReferringParams:(NSNumber*)synchronous
+                  resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
-    resolve([self.class.branch getLatestReferringParamsSynchronous]);
+    if (synchronous.boolValue)
+        resolve([self.class.branch getLatestReferringParamsSynchronous]);
+    else
+        resolve([self.class.branch getLatestReferringParams]);
 }
 
 #pragma mark getFirstReferringParams
