@@ -352,7 +352,7 @@ RCT_EXPORT_METHOD(
                   getLatestReferringParams:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
-    resolve([self.class.branch getLatestReferringParams]);
+    resolve([self.class.branch getLatestReferringParamsSynchronous]);
 }
 
 #pragma mark getFirstReferringParams
