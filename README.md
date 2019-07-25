@@ -504,21 +504,27 @@ These session parameters will be available at any point later on with this comma
 #### Method
 
 ```js
-branch.getLatestReferringParams()
+branch.getLatestReferringParams(synchronous = false)
 ```
 
 ##### Return
 
 A promise. On resolution, the promise returns an object containing the parameters
 from the latest link open or install. See [Params object](#params-object) for
-details on the contents.
+details on the contents. Depending on the value of the argument, the promise may
+return right away, possibly with values from the user defaults (iOS) or user
+preferences (Android) or wait until an open response is received.
 
 #### Example
 
 ```js
 import branch from 'react-native-branch'
 
+// don't wait for open response
 const latestParams = await branch.getLatestReferringParams()
+
+// wait for open response
+const latestParams = await branch.getLatestReferringParams(true)
 ```
 
 ___
