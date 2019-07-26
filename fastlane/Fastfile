@@ -79,7 +79,7 @@ lane :npm_update do
         # ignore failures for now. returning nonzero, but basically succeeding.
       end
 
-      git_add path: ["#{folder}/package-lock.json", "#{folder}/yarn.lock"]
+      git_add path: "../#{path}"
 
       UI.message 'Cleaning up'
 
