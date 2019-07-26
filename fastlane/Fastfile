@@ -39,6 +39,8 @@ end
 
 desc "Update NPM deps"
 lane :npm_update do
+  helper = UpdateHelper
+
   %w[
     .
     browser_example
@@ -56,8 +58,6 @@ lane :npm_update do
     else
       "examples/#{ex}"
     end
-
-    helper = UpdateHelper
 
     Dir.chdir File.expand_path("../#{path}", __dir__) do |folder|
       UI.message "Updating #{ex}"
@@ -88,9 +88,9 @@ lane :npm_update do
 
       UI.message 'Done ✅'
     end
-
-    helper.sh 'git', 'commit', '-m[Fastlane] Updated all JS lockfiles', chdir: '..'
   end
+
+  Dir.chdir('..') { helper.sh 'git', 'commit', '-m[Fastlane] Updated all JS lockfiles' }
 end
 
 desc "Update native SDKs"
