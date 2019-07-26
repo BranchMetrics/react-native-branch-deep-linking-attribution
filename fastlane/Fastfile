@@ -57,6 +57,8 @@ lane :npm_update do
       "examples/#{ex}"
     end
 
+    helper = UpdateHelper
+
     Dir.chdir File.expand_path("../#{path}", __dir__) do |folder|
       UI.message "Updating #{ex}"
 
@@ -75,11 +77,10 @@ lane :npm_update do
       UI.message 'Removing node_modules before npm install'
 
       FileUtils.rm_rf 'node_modules'
-      sh 'npm install' do |status, result, command|
-        # ignore failures for now. returning nonzero, but basically succeeding.
-      end
+      helper.sh 'npm', 'install'
 
-      git_add path: "../#{path}"
+      # Not having much luck with builtin git actions
+      helper.sh 'git', 'add', '.'
 
       UI.message 'Cleaning up'
 
@@ -88,7 +89,7 @@ lane :npm_update do
       UI.message 'Done ✅'
     end
 
-    git_commit path: '..', message: '[Fastlane] updated JS lockfiles'
+    helper.sh 'git', 'commit', '-m[Fastlane] Updated all JS lockfiles'
   end
 end
 

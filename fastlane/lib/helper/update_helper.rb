@@ -92,6 +92,17 @@ module UpdateHelper
       FileUtils.rm_rf File.join(folder, 'node_modules')
     end
   end
+
+  def sh(*cmd)
+    Fastlane::Action.sh *cmd do |status, result, command|
+      message = "Command #{command} (pid #{status.pid})"
+      if status.success?
+        FastlaneCore::UI.message "#{message} succeeded."
+      else
+        FastlaneCore::UI.user_error! "#{message} failed with status #{status.exitstatus}."
+      end
+    end
+  end
 end
 
 include UpdateHelper
