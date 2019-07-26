@@ -18,6 +18,17 @@ To build and run:
 
 ```bash
 yarn
+```
+
+or
+
+```bash
+npm i
+```
+
+then
+
+```bash
 cd ios
 bundle check || bundle install
 bundle exec pod install
@@ -25,7 +36,7 @@ bundle exec pod install
 
 ## AndroidX note
 
-Several dependencies of this app (react-native-webview, react-native-screens
+Several dependencies of this app (react-native-screens
 and react-native-gesture-handler) had not been updated to AndroidX when last
 checked. It is necessary manually to convert them to AndroidX using the tools
 in AndroidStudio. Alternately, after running `yarn` to install the contents

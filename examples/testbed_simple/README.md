@@ -17,6 +17,17 @@ To build and run:
 
 ```bash
 yarn
+```
+
+or
+
+```bash
+npm i
+```
+
+then
+
+```bash
 cd ios
 bundle check || bundle install
 bundle exec pod install

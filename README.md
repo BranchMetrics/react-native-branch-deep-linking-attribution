@@ -55,6 +55,7 @@ ___
 6. General support
   + [Troubleshooting](#troubleshooting)
 
+[branch.json]: ./docs/branch.json.md
 [Manual branch.json installation]: ./docs/branch.json.md#manual-integration-without-react-native-link
 [Version 3.0]: ./docs/version-3.md
 [Version 4.0]: ./docs/version-4.md
@@ -69,14 +70,21 @@ Note that version 4.0 of the `react-native-branch` module requires
 `react-native` >= 0.60. If you are using RN < 0.60, please see the instructions
 for [Version 3.0] of 'react-native-branch'.
 
-1. `yarn add react-native-branch`
-2. `cd ios; pod install`
-3. Follow the [setup instructions](#setup).
-4. (Optional) Add branch.json to your project. See [Manual branch.json installation].
+1. Add react-native-branch to your project:
 
-**Note:** This SDK currently does not work in projects using NPM instead of yarn.
-See #433. The RN toolchain will use yarn by default. Please use
-`yarn add react-native-branch` to add the SDK to your project.
+  **React Native >= 0.60**  
+  `yarn add react-native-branch`  
+  or  
+  `npm install --save react-native-branch`
+
+  **React Native < 0.60**  
+  `yarn add react-native-branch@^3.0.0`  
+  or  
+  `npm install --save react-native-branch@^3.0.0`
+2. (Optional) Add [branch.json] to your project.
+3. (_RN < 0.60 only_) `react-native link react-native-branch`
+4. `cd ios; pod install`
+5. Follow the [setup instructions](#setup).
 
 See the [Tutorial app] for a step-by-step walkthrough of integrating Branch in
 an existing RN 0.60 app.
