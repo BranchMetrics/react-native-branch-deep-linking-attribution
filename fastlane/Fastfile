@@ -37,6 +37,29 @@ platform :ios do
   end
 end
 
+desc "Update examples"
+lane :example_update do
+  %w[
+    browser_example
+    testbed_native_android
+    testbed_native_ios
+    testbed_simple
+    webview_example
+    webview_example_carthage
+    webview_example_native_ios
+    webview_tutorial
+  ].each do |ex|
+    Dir.chdir File.expand_path("../examples/#{ex}", __dir__) do
+      FileUtils.rm_f %w[package-lock.json yarn.lock]
+      sh 'npm install'
+      FileUtils.rm_rf 'node_modules'
+      sh 'yarn install'
+      sh 'git add .'
+      FileUtils.rm_rf 'node_modules'
+    end
+  end
+end
+
 desc "Update native SDKs"
 lane :native_update do
   update_native_sdks
