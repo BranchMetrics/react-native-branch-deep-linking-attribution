@@ -3605,7 +3605,7 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-native-branch@^3.0.1:
+react-native-branch@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-3.1.1.tgz#41926463a05e6e94d76e2346051f0fc374e77596"
   integrity sha512-q3Jz2vFWnxjmRWiMFo2PqOrh9TNPrPgt4xntWUMNUmE4860D4i6esOZ/e+JIE7ym//bvki1tQgucTyntSFRrKQ==
