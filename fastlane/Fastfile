@@ -77,7 +77,7 @@ lane :npm_update do
       FileUtils.rm_rf 'node_modules'
       sh 'npm install'
 
-      git_add path: folder
+      git_add path: ["#{folder}/package-lock.json", "#{folder}/yarn.lock"]
 
       UI.message 'Cleaning up'
 
