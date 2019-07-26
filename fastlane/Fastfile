@@ -37,9 +37,10 @@ platform :ios do
   end
 end
 
-desc "Update examples"
-lane :example_update do
+desc "Update NPM deps"
+lane :npm_update do
   %w[
+    .
     browser_example
     testbed_native_android
     testbed_native_ios
@@ -49,13 +50,34 @@ lane :example_update do
     webview_example_native_ios
     webview_tutorial
   ].each do |ex|
-    Dir.chdir File.expand_path("../examples/#{ex}", __dir__) do
+    path = case ex
+    when '.'
+      ex
+    else
+      "examples/#{ex}"
+    end
+
+    Dir.chdir File.expand_path("../#{path}}", __dir__) do |folder|
+      UI.message "Updating #{ex}"
+
+      # Just remove both lockfiles to force package resolution in both cases.
+      # Since npm and yarn run back-to-back, the package resolution should be
+      # roughly the same in each newly-generated lockfile.
       FileUtils.rm_f %w[package-lock.json yarn.lock]
       sh 'npm install'
+
+      UI.message 'Removing node_modules before yarn install'
+
       FileUtils.rm_rf 'node_modules'
-      sh 'yarn install'
-      sh 'git add .'
+      yarn package_path: "#{folder}/package.json"
+
+      git_add folder
+
+      UI.message 'Cleaning up'
+
       FileUtils.rm_rf 'node_modules'
+
+      UI.message 'Done ✅'
     end
   end
 end
