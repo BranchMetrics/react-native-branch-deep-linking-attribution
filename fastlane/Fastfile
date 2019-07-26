@@ -57,7 +57,7 @@ lane :npm_update do
       "examples/#{ex}"
     end
 
-    Dir.chdir File.expand_path("../#{path}}", __dir__) do |folder|
+    Dir.chdir File.expand_path("../#{path}", __dir__) do |folder|
       UI.message "Updating #{ex}"
 
       # Just remove both lockfiles to force package resolution in both cases.
@@ -71,7 +71,7 @@ lane :npm_update do
       FileUtils.rm_rf 'node_modules'
       yarn package_path: "#{folder}/package.json"
 
-      git_add folder
+      git_add path: folder
 
       UI.message 'Cleaning up'
 
@@ -79,6 +79,8 @@ lane :npm_update do
 
       UI.message 'Done ✅'
     end
+
+    git_commit path: '..', message: '[Fastlane] updated JS lockfiles'
   end
 end
 
