@@ -65,15 +65,17 @@ lane :npm_update do
       # roughly the same in each newly-generated lockfile.
       FileUtils.rm_f %w[package-lock.json yarn.lock]
 
-      UI.message 'Removing node_modules before npm install'
-
-      FileUtils.rm_rf 'node_modules'
-      sh 'npm install'
-
+      # yarn install before npm install
+      # yarn complains about package-lock.json, but not the other way around
       UI.message 'Removing node_modules before yarn install'
 
       FileUtils.rm_rf 'node_modules'
       yarn package_path: "#{folder}/package.json"
+
+      UI.message 'Removing node_modules before npm install'
+
+      FileUtils.rm_rf 'node_modules'
+      sh 'npm install'
 
       git_add path: folder
 
