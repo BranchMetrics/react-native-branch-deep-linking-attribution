@@ -89,7 +89,7 @@ lane :npm_update do
       UI.message 'Done ✅'
     end
 
-    helper.sh 'git', 'commit', '-m[Fastlane] Updated all JS lockfiles'
+    helper.sh 'git', 'commit', '-m[Fastlane] Updated all JS lockfiles', chdir: '..'
   end
 end
 
