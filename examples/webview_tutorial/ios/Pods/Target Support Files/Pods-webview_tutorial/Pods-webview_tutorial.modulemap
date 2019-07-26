@@ -1,6 +1,0 @@
-framework module Pods_webview_tutorial {
-  umbrella header "Pods-webview_tutorial-umbrella.h"
-
-  export *
-  module * { export * }
-}
