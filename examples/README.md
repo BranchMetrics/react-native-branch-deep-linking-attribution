@@ -53,3 +53,12 @@ This app illustrates how to integrate the react-native-branch SDK into a React N
 ### [testbed_native_ios]
 
 This app illustrates how to integrate the react-native-branch SDK into a React Native component within an existing native iOS app using the React, react-native-branch and Branch-SDK pods from node_modules.
+
+### General note on NPM vs yarn
+
+Note when using `npm install` it will be necessary first to modify the
+react-native-branch requirement in package.json from `file:../..` to
+`^4.1.0` for any example app that has this SDK integrated. With
+[webview_tutorial] it is necessary to use `npm i --save react-native-branch`
+instead of `../..`. Direct integration from the repo causes problems with both
+platforms when installing from NPM.

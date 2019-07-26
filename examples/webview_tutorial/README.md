@@ -29,7 +29,7 @@ Run `yarn` first to supply all dependencies in `node_modules`.
 Several dependencies of this app (react-native-screens
 and react-native-gesture-handler) had not been updated to AndroidX when last
 checked. It is necessary manually to convert them to AndroidX using the tools
-in AndroidStudio. Alternately, after running `yarn` to install the contents
+in AndroidStudio. Alternately, after using yarn or npm to install the contents
 of `node_modules`, you can run
 
 ```bash
@@ -43,6 +43,7 @@ build tree so that an Android build will succeed.
 
 1. Add the react-native-branch SDK.
 
+    **Using yarn**  
     ```bash
     yarn add react-native-branch
     ```
@@ -52,6 +53,14 @@ build tree so that an Android build will succeed.
     ```bash
     yarn add ../..
     ```
+
+    **Using NPM**
+    ```bash
+    npm install --save react-native-branch
+    ```
+
+    Note that using `npm install --save ../..` causes problems with both iOS and
+    Android.
 
 ## iOS/Xcode setup
 

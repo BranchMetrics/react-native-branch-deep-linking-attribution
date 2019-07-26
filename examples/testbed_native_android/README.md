@@ -9,7 +9,7 @@ The app was produced following the methodology outlined in these tutorials:
 
 ## Building
 
-To build and run, install NPM dependencies using `yarn`.
+To build and run, install NPM dependencies using `yarn` or `npm`.
 
 Also be sure to start the React packager manually unless you are packaging `index.android.bundle` in the app
 assets.
@@ -17,3 +17,13 @@ assets.
 ```bash
 yarn start
 ```
+
+or
+
+```bash
+npm start
+```
+
+Note when using `npm install` it will be necessary first to modify the
+react-native-branch requirement in package.json from `file:../..` to
+`^4.1.0`.

@@ -24,6 +24,21 @@ To build and run:
 
 ```bash
 yarn
+```
+
+or
+
+```bash
+npm i
+```
+
+then
+
+```bash
 bundle check || bundle install
 bundle exec pod install
 ```
+
+Note when using `npm install` it will be necessary first to modify the
+react-native-branch requirement in package.json from `file:../..` to
+`^4.1.0`.
