@@ -13,4 +13,11 @@ CocoaPods and Carthage are not required for iOS.
 
 ## Building
 
-Just install the NPM dependencies using `yarn`. No other setup is required to run on a simulator.
+To build and run:
+
+```bash
+yarn
+cd ios
+bundle check || bundle install
+bundle exec pod install
+```

@@ -10,44 +10,11 @@ load the following Wikipedia page: https://en.wikipedia.org/wiki/Web_browser.
 
 ## Building
 
-Just install the NPM dependencies using `yarn`. No other setup
-is required to run on a simulator.
-
-## React Native setup
-
-If you are new to React Native, follow these steps to get set up and run.
+To build and run:
 
 ```bash
-npm install -g react-native-cli
-```
-
-Once you've installed dependencies with `yarn`:
-
-```bash
-react-native run-android
-```
-
-or
-
-```bash
-react-native run-ios
-```
-
-You can also run the projects under the `android` and `ios` folders in Xcode or
-Android Studio.
-
-**Android note:**
-
-If not using `react-native run-android`, you must also start the React packager
-manually:
-
-```bash
-yarn start
-```
-
-If running on a device, it may also be necessary to expose the packager port via
-`adb reverse`:
-
-```bash
-adb reverse tcp:8081 tcp:8081
+yarn
+cd ios
+bundle check || bundle install
+bundle exec pod install
 ```
