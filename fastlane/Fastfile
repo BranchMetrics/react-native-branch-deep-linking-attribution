@@ -64,6 +64,10 @@ lane :npm_update do
       # Since npm and yarn run back-to-back, the package resolution should be
       # roughly the same in each newly-generated lockfile.
       FileUtils.rm_f %w[package-lock.json yarn.lock]
+
+      UI.message 'Removing node_modules before npm install'
+
+      FileUtils.rm_rf 'node_modules'
       sh 'npm install'
 
       UI.message 'Removing node_modules before yarn install'
