@@ -56,9 +56,13 @@ ___
 
 ## Installation
 
-Note that the `react-native-branch` module requires `react-native` >= 0.40.
+Note that the `react-native-branch` module requires 0.40 <= `react-native` <
+0.60.
 
-1. `yarn add react-native-branch`
+1. Install NPM dependencies:
+  `yarn add react-native-branch@^3.0.0`
+  or
+  `npm install --save react-native-branch@^3.0.0`
 2. (Optional) Add a branch.json file to the root of your app project. See https://rnbranch.app.link/branch-json.
 3. `react-native link react-native-branch`
 4. Install the native Branch SDK using [CocoaPods](./docs/cocoapods.md) or [Carthage](./docs/carthage.md).
