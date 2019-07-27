@@ -30,8 +30,7 @@ platform :ios do
     repo_update = repo_update.nil? ? helper.boolean_env_var?(:REACT_NATIVE_BRANCH_REPO_UPDATE, default_value: true) : repo_update
 
     # Make sure Pods are installed for native-tests before running scan
-    podfile_path = File.expand_path('../native-tests/ios', __dir__)
-    helper.pod_install_if_required podfile_path, verbose: verbose, repo_update: repo_update
+    helper.pod_install_if_required '../native-tests/ios', verbose: verbose, repo_update: repo_update
 
     scan
   end
@@ -93,15 +92,15 @@ lane :npm_update do
   helper.sh 'git', 'commit', '-m[Fastlane] Updated all JS lockfiles', chdir: '..'
 end
 
+# Examples:
+# bundle exec fastlane native_update android_version:"3.2.0", # Android SDK version from Maven
+# bundle exec fastlane native_update ios_version:"0.27.1", # iOS SDK version from CocoaPods
+# bundle exec fastlane native_update repo_update:no # Don't update CocoaPods repo
+# bundle exec fastlane native_update include_examples:yes # Also update all example lockfiles
+# bundle exec fastlane native_update commit:false, # Don't commit the results. Default: true
 desc "Update native SDKs"
-lane :native_update do
-  update_native_sdks
-  # update_native_sdks(
-  #   android_checkout: "2.14.0" , # any commit, branch or tag in the Android repo. Default: latest tag
-  #   ios_checkout:     "0.21.11", # any commit, branch or tag in the iOS repo. Default: latest tag
-  #   commit:               false, # Don't commit the results. Default: true
-  #   verbose:               true  # Generate verbose output. Default: false
-  # )
+lane :native_update do |opts|
+  update_native_sdks opts
 end
 
 # Examples:
@@ -109,6 +108,7 @@ end
 # bundle exec fastlane bump version:2.3.0 # update to any specific version
 # bundle exec fastlane bump tag:yes # add a tag after committing
 # bundle exec fastlane bump repo_update:no # Don't update CocoaPods repo
+# bundle exec fastlane bump include_examples:yes # Also update all example lockfiles
 desc "Increment version number"
 lane :bump do |opts|
   version_bump opts

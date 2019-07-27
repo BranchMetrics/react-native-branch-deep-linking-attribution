@@ -11,60 +11,68 @@ module UpdateHelper
     varstr =~ /^[ty]/i
   end
 
-  def pod_install_required?(podfile_path)
-    lockfile_path = "#{podfile_path}/Podfile.lock"
-    manifest_path = "#{podfile_path}/Pods/Manifest.lock"
+  def pod_install_required?(podfile_folder)
+    podfile_folder = File.expand_path podfile_folder
+    podfile_path = File.join podfile_folder, 'Podfile'
+    raise ArgumentError, "No Podfile at #{podfile_folder}" unless File.readable?(podfile_path)
+
+    lockfile_path = File.join podfile_folder, 'Podfile.lock'
+    manifest_path = File.join podfile_folder, 'Pods', 'Manifest.lock'
 
     return true unless File.readable?(lockfile_path) && File.readable?(manifest_path)
 
-    lockfile = Pod::Lockfile.from_file Pathname.new lockfile_path
-    manifest = Pod::Lockfile.from_file Pathname.new manifest_path
+    begin
+      lockfile = Pod::Lockfile.from_file Pathname.new lockfile_path
+      manifest = Pod::Lockfile.from_file Pathname.new manifest_path
 
-    # diff the contents of Podfile.lock and Pods/Manifest.lock
-    # This is just what is done in the "[CP] Check Pods Manifest.lock" script build phase
-    # in a project using CocoaPods, but it also validates YAML parsing, etc.
-    return true unless lockfile == manifest
+      # diff the contents of Podfile.lock and Pods/Manifest.lock
+      # This is just what is done in the "[CP] Check Pods Manifest.lock" script build phase
+      # in a project using CocoaPods, but it also validates YAML parsing, etc.
+      return true unless lockfile == manifest
 
-    # Podfile must be evalled in its current directory in order to resolve
-    # the require_relative at the top.
-    podfile = Dir.chdir(podfile_path) do
-      # Why not just 'Podfile' or './Podfile'?
-      Pod::Podfile.from_file "#{podfile_path}/Podfile"
+      # Podfile must be evalled in its current directory in order to resolve
+      # the require_relative at the top.
+      podfile = Dir.chdir(podfile_folder) { Pod::Podfile.from_file podfile_path }
+
+      # compare checksum of Podfile with checksum in Podfile.lock in case Podfile
+      # updated since last pod install/update.
+      return true unless lockfile.to_hash["PODFILE CHECKSUM"] == podfile.checksum
+
+      false
+    rescue StandardError => e
+      UI.error e.message
+      true
     end
-
-    # compare checksum of Podfile with checksum in Podfile.lock in case Podfile
-    # updated since last pod install/update.
-    return true unless lockfile.to_hash["PODFILE CHECKSUM"] == podfile.checksum
-
-    false
-  rescue StandardError => e
-    UI.error e.message
-    true
   end
 
-  def pod_install_if_required(podfile_path, verbose: false, repo_update: true)
-    install_required = pod_install_required?(podfile_path)
-    UI.message "pod install #{install_required ? '' : 'not '}required in #{podfile_path}"
+  def pod_install_if_required(podfile_folder, verbose: false, repo_update: true)
+    podfile_folder = File.expand_path podfile_folder
+    install_required = pod_install_required? podfile_folder
+    UI.message "pod install #{install_required ? '' : 'not '}required in #{podfile_folder}"
     return unless install_required
 
     command = %w[pod install]
     command << '--silent' unless verbose
     command << '--repo-update' if repo_update
 
-    Dir.chdir(podfile_path) { Fastlane::Action.sh *command }
+    Dir.chdir(podfile_folder) { Fastlane::Action.sh(*command) }
   end
 
   def update_pods_in_tests_and_examples(params)
     # Updates to CocoaPods for unit tests and examples (requires
     # node_modules for each)
-    %w[
-      examples/testbed_native_ios
-      examples/webview_example_native_ios
-      examples/webview_example
+
+    folders = %w[.]
+
+    folders += %w[
       examples/browser_example
+      examples/testbed_native_ios
       examples/testbed_simple
-      .
-    ].each do |folder|
+      examples/webview_example
+      examples/webview_example_native_ios
+    ] if params[:include_examples]
+
+    folders.each do |folder|
       other_action.yarn package_path: File.join('..', folder, 'package.json')
 
       pods_folder = case folder

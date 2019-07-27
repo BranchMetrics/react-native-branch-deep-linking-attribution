@@ -8,6 +8,7 @@ module Fastlane
     class VersionBumpAction < Action
       class << self
         def run(params)
+          @params = params
           version = new_version params
 
           UI.message "Bumping to version #{version}."
@@ -37,6 +38,7 @@ module Fastlane
             ),
             FastlaneCore::ConfigItem.new(
               key: :repo_update,
+              env_name: 'REACT_NATIVE_BRANCH_REPO_UPDATE',
               is_string: false,
               description: "Whether to update the CocoaPods repo when updating",
               optional: true,
@@ -48,8 +50,19 @@ module Fastlane
               description: "Whether to generate extra output",
               optional: true,
               default_value: false
+            ),
+            FastlaneCore::ConfigItem.new(
+              key: :include_examples,
+              is_string: false,
+              description: "Whether to update example lockfiles",
+              optional: true,
+              default_value: false
             )
           ]
+        end
+
+        def verbose?
+          @params[:verbose]
         end
 
         def update_package_json(version)
