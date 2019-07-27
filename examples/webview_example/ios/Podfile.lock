@@ -11,10 +11,10 @@ PODS:
   - glog (0.3.4)
   - React (0.59.6):
     - React/Core (= 0.59.6)
-  - react-native-branch (3.1.2):
+  - react-native-branch (3.1.1):
     - Branch (= 0.27.1)
     - React
-  - react-native-webview (5.8.1):
+  - react-native-webview (5.12.1):
     - React
   - React/Core (0.59.6):
     - yoga (= 0.59.6.React)
@@ -61,9 +61,9 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - RNGestureHandler (1.2.1):
+  - RNGestureHandler (1.3.0):
     - React
-  - RNScreens (1.0.0-alpha.22):
+  - RNScreens (1.0.0-alpha.23):
     - React
   - yoga (0.59.6.React)
 
@@ -113,10 +113,10 @@ SPEC CHECKSUMS:
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   React: 0bb58efca577aa4b3c8f03a9fbf0d9a8ebdb5ac4
-  react-native-branch: 978d67c41b6cc30bb4ff2b335e7299ab9ca21b61
-  react-native-webview: f3e28b48461c78db833f727feec08b13285e7b61
-  RNGestureHandler: aea90f0ad8e35fec23438db6fc3ad79be58bb734
-  RNScreens: 720a9e6968beb73e8196239801e887d8401f86ed
+  react-native-branch: b95430177fc90d4a5d414b33c6bc7b1e8e3a2ea5
+  react-native-webview: 5036ed4a973ad1deeeff118262d2df7b60b3419d
+  RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
+  RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
   yoga: 8dacc3c5977cb8e07c346e203bb5f4ffe01296df
 
 PODFILE CHECKSUM: dc80f3ddb20f97698e6bb83eb449978b5fb673ec
