@@ -70,7 +70,7 @@ module UpdateHelper
       pods_folder = case folder
       when '.'
         'native-tests/ios'
-      when /webview_example_native_ios$/
+      when /_native_ios$/
         folder
       else
         "#{folder}/ios"
