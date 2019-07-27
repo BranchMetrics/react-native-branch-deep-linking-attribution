@@ -1,47 +1,97 @@
 PODS:
+  - boost-for-react-native (1.63.0)
   - Branch (0.27.1):
     - Branch/Core (= 0.27.1)
   - Branch/Core (0.27.1)
+  - DoubleConversion (1.1.5)
+  - Folly (2018.10.22.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+  - glog (0.3.4)
   - OCMock (3.4.3)
-  - React (0.43.4):
-    - React/Core (= 0.43.4)
+  - React (0.59.10):
+    - React/Core (= 0.59.10)
   - react-native-branch (3.1.2):
     - Branch (= 0.27.1)
     - React
-  - React/Core (0.43.4):
+  - React/Core (0.59.10):
+    - yoga (= 0.59.10.React)
+  - React/CxxBridge (0.59.10):
+    - Folly (= 2018.10.22.00)
+    - React/Core
     - React/cxxreact
-    - Yoga (= 0.43.4.React)
-  - React/cxxreact (0.43.4):
-    - React/jschelpers
-  - React/jschelpers (0.43.4)
-  - Yoga (0.43.4.React)
+    - React/jsiexecutor
+  - React/cxxreact (0.59.10):
+    - boost-for-react-native (= 1.63.0)
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React/jsinspector
+  - React/DevSupport (0.59.10):
+    - React/Core
+    - React/RCTWebSocket
+  - React/fishhook (0.59.10)
+  - React/jsi (0.59.10):
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+  - React/jsiexecutor (0.59.10):
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React/cxxreact
+    - React/jsi
+  - React/jsinspector (0.59.10)
+  - React/RCTBlob (0.59.10):
+    - React/Core
+  - React/RCTNetwork (0.59.10):
+    - React/Core
+  - React/RCTWebSocket (0.59.10):
+    - React/Core
+    - React/fishhook
+    - React/RCTBlob
+  - yoga (0.59.10.React)
 
 DEPENDENCIES:
+  - Folly (from `../../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - OCMock
-  - React (from `../../node_modules/react-native`)
   - react-native-branch (from `../..`)
-  - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
+  - React/Core (from `../../node_modules/react-native`)
+  - React/CxxBridge (from `../../node_modules/react-native`)
+  - React/DevSupport (from `../../node_modules/react-native`)
+  - React/RCTNetwork (from `../../node_modules/react-native`)
+  - yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - boost-for-react-native
     - Branch
+    - DoubleConversion
+    - glog
     - OCMock
 
 EXTERNAL SOURCES:
+  Folly:
+    :podspec: "../../node_modules/react-native/third-party-podspecs/Folly.podspec"
   React:
     :path: "../../node_modules/react-native"
   react-native-branch:
     :path: "../.."
-  Yoga:
+  yoga:
     :path: "../../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   Branch: 1ace77c04b6e3efbf982bf4364f0662bfac156a0
+  DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
+  Folly: de497beb10f102453a1afa9edbf8cf8a251890de
+  glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   OCMock: 43565190abc78977ad44a61c0d20d7f0784d35ab
-  React: 607aa7eb8b0e44b102f95f43fd49dc8aedefa93f
+  React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
   react-native-branch: 978d67c41b6cc30bb4ff2b335e7299ab9ca21b61
-  Yoga: 2a70bc5ab41486a272b9fd5b76c482ba9268c5dd
+  yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: 414501c6b8313fdfbc75096cbe93c10c29fd35c4
+PODFILE CHECKSUM: 7e9d5ee0f6ae095e090eae4851f9ec8bc15c4c31
 
 COCOAPODS: 1.7.5

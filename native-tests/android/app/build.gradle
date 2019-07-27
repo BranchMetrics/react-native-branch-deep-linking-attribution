@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "io.branch.nativetests"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -24,6 +24,6 @@ dependencies {
     })
     implementation "com.facebook.react:react-native:+" // From node_modules.
     implementation project(':react-native-branch')
-    androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.0'
+    androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.2'
     testImplementation 'junit:junit:4.12'
 }
