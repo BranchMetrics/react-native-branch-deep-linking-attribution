@@ -56,7 +56,7 @@ ___
 
 ## Installation
 
-Note that the `react-native-branch` module requires 0.40 <= `react-native` <
+Note that the `react-native-branch` module requires `react-native` >= 0.40, <
 0.60.
 
 1. Install NPM dependencies:

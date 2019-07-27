@@ -9,21 +9,11 @@
     "ios",
     "!**/*-dev.podspec",
     "react-native-branch.podspec",
-    "scripts",
     "src"
   ],
   "scripts": {
     "lint": "eslint src test",
-    "test": "ava"
-  },
-  "ava": {
-    "require": [
-      "babel-register",
-      "babel-polyfill",
-      "react-native-mock/mock.js",
-      "./test/helpers/RNBranch.mock.js"
-    ],
-    "babel": "inherit"
+    "test": "jest"
   },
   "babel": {
     "ignore": false,
@@ -40,7 +30,8 @@
     "metrics",
     "deeplink",
     "deep",
-    "link"
+    "link",
+    "attribution"
   ],
   "authors": [
     "Zack Story <zack@root-two.com> (https://github.com/rt2zz)",
@@ -57,30 +48,15 @@
   },
   "homepage": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution",
   "peerDependencies": {
-    "react-native": ">=0.40.0, <0.60.0"
+    "react-native": ">= 0.40, < 0.60.0"
   },
   "devDependencies": {
-    "ava": "~0.14.0",
-    "babel-eslint": "^6.0.4",
-    "babel-polyfill": "^6.7.4",
+    "@babel/core": "^7.5.4",
+    "babel-eslint": "^7.0.0",
     "eslint": "^2.7.0",
     "eslint-config-rackt": "^1.1.1",
-    "mockery": "*",
-    "react": "16.0.0-alpha.6",
-    "react-addons-create-fragment": "16.0.0-alpha.3",
-    "react-addons-pure-render-mixin": "16.0.0-alpha.3",
-    "react-addons-test-utils": "16.0.0-alpha.3",
-    "react-addons-update": "16.0.0-alpha.3",
-    "react-dom": "16.0.0-alpha.3",
-    "react-native": "^0.43.0",
-    "react-native-mock": "^0.3.0",
-    "sinon": "*",
-    "underscore": "*"
-  },
-  "rnpm": {
-    "commands": {
-      "postlink": "node ./node_modules/react-native-branch/scripts/addBranchConfig.js",
-      "postunlink": "node ./node_modules/react-native-branch/scripts/removeBranchConfig.js"
-    }
+    "jest": "^24.8.0",
+    "react": "16.8.6",
+    "react-native": "^0.59.6"
   }
 }
