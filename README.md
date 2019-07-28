@@ -81,7 +81,7 @@ for [Version 3.0] of 'react-native-branch'.
   **React Native < 0.60**  
   `yarn add react-native-branch@^3.0.0`  
   or  
-  `npm install --save react-native-branch@^3.0.0`
+  `npm install --save react-native-branch@^3.0.0`  
 2. (Optional) Add [branch.json] to your project.
 3. (_RN < 0.60 only_) `react-native link react-native-branch`
 4. `cd ios; pod install`
