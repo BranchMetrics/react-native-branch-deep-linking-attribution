@@ -7,6 +7,11 @@ PODS:
   - Folly (2018.10.22.00):
     - boost-for-react-native
     - DoubleConversion
+    - Folly/Default (= 2018.10.22.00)
+    - glog
+  - Folly/Default (2018.10.22.00):
+    - boost-for-react-native
+    - DoubleConversion
     - glog
   - glog (0.3.4)
   - OCMock (3.4.3)
@@ -85,7 +90,7 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   Branch: 1ace77c04b6e3efbf982bf4364f0662bfac156a0
   DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
-  Folly: de497beb10f102453a1afa9edbf8cf8a251890de
+  Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   OCMock: 43565190abc78977ad44a61c0d20d7f0784d35ab
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
