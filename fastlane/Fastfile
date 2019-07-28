@@ -51,7 +51,7 @@ lane :npm_update do |opts|
     include_examples: opts[:include_examples]
   )
   # default is to commit, use commit:no to suppress
-  helper.sh 'git', 'commit', '-m[Fastlane] Updated all JS lockfiles', chdir: '..' if opts[:commit] || opts[:commit].nil?
+  helper.sh 'git', 'commit', '-a', '-m[Fastlane] Updated all JS lockfiles', chdir: '..' if opts[:commit] || opts[:commit].nil?
 end
 
 # Examples:
