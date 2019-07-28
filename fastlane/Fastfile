@@ -37,7 +37,7 @@ platform :ios do
 end
 
 # Examples:
-# bundle exec fastlane npm_update commit:false, # Don't commit the results. Default: true
+# bundle exec fastlane npm_update commit:no, # Don't commit the results. Default: true
 # bundle exec fastlane npm_update repo_update:no # Don't update CocoaPods repo
 # bundle exec fastlane npm_update include_examples:yes # Also update all example lockfiles
 desc "Update NPM deps"
@@ -59,7 +59,7 @@ end
 # bundle exec fastlane native_update ios_version:"0.27.1", # iOS SDK version from CocoaPods
 # bundle exec fastlane native_update repo_update:no # Don't update CocoaPods repo
 # bundle exec fastlane native_update include_examples:yes # Also update all example lockfiles
-# bundle exec fastlane native_update commit:false, # Don't commit the results. Default: true
+# bundle exec fastlane native_update commit:no, # Don't commit the results. Default: true
 desc "Update native SDKs"
 lane :native_update do |opts|
   update_native_sdks opts
