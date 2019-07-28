@@ -9,12 +9,18 @@ fi
 # Load RVM into a shell session *as a function*
 if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
   # First try to load from a user install
+  HAVE_RVM=1
   source "$HOME/.rvm/scripts/rvm"
 elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
   # Then try to load from a root install
+  HAVE_RVM=1
   source "/usr/local/rvm/scripts/rvm"
 else
   echo "RVM not detected. Using local Ruby environment."
+fi
+
+if [[ "$HAVE_RVM" = 1 ]]; then
+  rvm use
 fi
 
 PATH=${PATH}:/usr/local/bin
