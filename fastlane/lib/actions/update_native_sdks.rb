@@ -1,5 +1,5 @@
-require "xcodeproj"
-require_relative "../helper/update_helper"
+require 'xcodeproj'
+require_relative '../helper/update_helper'
 
 module Fastlane
   module Actions
@@ -8,15 +8,25 @@ module Fastlane
         def run(params)
           @params = params
 
-          @android_subdir = File.expand_path 'android', '.'
-          @ios_subdir = File.expand_path 'ios', '.'
+          @android_version = params[:android_version]
+          @ios_version     = params[:ios_version]
+
+          UI.user_error! 'Specify either android_version, ios_version or both.' unless @android_version || @ios_version
+
+          @android_update_needed = true if @android_version
+          @ios_update_needed = true if @ios_version
 
           # Update embedded Android SDK
           update_android_dependency if @android_update_needed
 
           # Update embedded iOS SDK
           if @ios_update_needed
-            update_pods_in_tests_and_examples
+            update_ios_dependency
+            update_pods_in_tests_and_examples(
+              repo_update: params[:repo_update],
+              verbose: params[:verbose],
+              include_examples: params[:include_examples]
+            )
           end
 
           commit if params[:commit]
@@ -24,14 +34,14 @@ module Fastlane
 
         def available_options
           [
-            FastlaneCore::ConfigItem.new(key: :android_checkout,
+            FastlaneCore::ConfigItem.new(key: :android_version,
                                  description: "A commit, tag or branch to check out in the Android SDK instead of the latest tag",
-                                     optional: true,
-                                         type: String),
-            FastlaneCore::ConfigItem.new(key: :ios_checkout,
+                                    optional: true,
+                                        type: String),
+            FastlaneCore::ConfigItem.new(key: :ios_version,
                                  description: "A commit, tag or branch to checkout out in the iOS SDK instead of the latest tag",
-                                     optional: true,
-                                         type: String),
+                                    optional: true,
+                                        type: String),
             FastlaneCore::ConfigItem.new(key: :commit,
                                  description: "Determines whether to commit the result to SCM",
                                     optional: true,
@@ -41,7 +51,18 @@ module Fastlane
                                  description: "Generate verbose output",
                                     optional: true,
                                default_value: false,
-                                   is_string: false)
+                                   is_string: false),
+            FastlaneCore::ConfigItem.new(key: :include_examples,
+                                   is_string: false,
+                                 description: "Whether to update example lockfiles",
+                                    optional: true,
+                               default_value: false),
+            FastlaneCore::ConfigItem.new(key: :repo_update,
+                                    env_name: 'REACT_NATIVE_BRANCH_REPO_UPDATE',
+                                   is_string: false,
+                                 description: "Whether to update the CocoaPods repo when updating",
+                                    optional: true,
+                               default_value: true)
           ]
         end
 
@@ -54,25 +75,39 @@ module Fastlane
           message << " #{@android_version} (Android)," if @android_update_needed
           message << " #{@ios_version} (iOS)" if @ios_update_needed
 
-          sh "git", "commit", "-a", "-m", message.chomp(",")
+          command = %w[git commit -a -m]
+          command << message.chomp(',')
+          sh(*command)
         end
+
+        VERSION_REGEXP = /\w+\.\w+\.\w+/
 
         def update_android_dependency
           # Patch build.gradle
           other_action.patch(
-            files: "#{@android_subdir}/build.gradle",
+            files: '../android/build.gradle',
             mode: :replace,
-            regexp: /(io.branch.sdk.android:library:)\d\.\d\.\d/,
+            regexp: /(io.branch.sdk.android:library:)#{VERSION_REGEXP}/,
             text: "\\1#{@android_version}"
           )
         end
 
-        def headers_build_phase
-          @project.targets.first.headers_build_phase
-        end
+        def update_ios_dependency
+          # Patch podspec
+          other_action.patch(
+            files: '../react-native-branch.podspec',
+            mode: :replace,
+            regexp: /(\.dependency\s+['"]Branch['"]\s*,\s*['"])#{VERSION_REGEXP}/,
+            text: "\\1#{@ios_version}"
+          )
 
-        def source_build_phase
-          @project.targets.first.source_build_phase
+          # Patch RNBranch.m
+          other_action.patch(
+            files: '../ios/RNBranch.m',
+            mode: :replace,
+            regexp: /(REQUIRED_BRANCH_SDK\s*=\s*@")#{VERSION_REGEXP}/,
+            text: "\\1#{@ios_version}"
+          )
         end
       end
     end
