@@ -102,7 +102,8 @@ module UpdateHelper
     end
 
     folders.each do |folder|
-      context.yarn package_path: File.join(project_root, folder, 'package.json')
+      package_folder = File.expand_path File.join(project_root, folder)
+      context.yarn project_root: package_folder
 
       pods_folder = case folder
       when '.'
@@ -117,16 +118,17 @@ module UpdateHelper
       command = %w[pod update]
       command << '--silent' unless verbose
       command << '--no-repo-update' unless repo_update
+      pods_folder = File.expand_path File.join(project_root, pods_folder)
       Dir.chdir pods_folder do
         sh command
       end
       UI.message 'Done ✅'
 
-      other_action.git_add(path: File.join(project_root, pods_folder))
+      context.git_add path: pods_folder
 
       # node_modules only required for pod install. Remove to speed up
       # subsequent calls to yarn.
-      FileUtils.rm_rf File.join(folder, 'node_modules')
+      FileUtils.rm_rf File.join(package_folder, 'node_modules')
     end
   end
 
@@ -152,32 +154,14 @@ module UpdateHelper
         "examples/#{ex}"
       end
 
-      Dir.chdir File.expand_path("../#{path}") do |folder|
+      Dir.chdir File.expand_path("../../../#{path}", __dir__) do |folder|
         UI.message "Updating #{ex}"
-
-        # Just remove both lockfiles to force package resolution in both cases.
-        # Since npm and yarn run back-to-back, the package resolution should be
-        # roughly the same in each newly-generated lockfile.
-        FileUtils.rm_f %w[package-lock.json yarn.lock]
-
-        # yarn install before npm install
-        # yarn complains about package-lock.json, but not the other way around
-        UI.message 'Removing node_modules before yarn install'
-
-        FileUtils.rm_rf 'node_modules'
-        context.yarn package_path: "#{folder}/package.json"
-
-        UI.message 'Removing node_modules before npm install'
-
-        FileUtils.rm_rf 'node_modules'
+        UI.message "Removing #{folder}/node_modules before updating"
+        FileUtils.rm_rf %w[node_modules package-lock.json].map { |f| File.join(folder, f) }
         sh 'npm', 'install'
-
+        context.yarn project_root: folder, command: 'upgrade'
         # Not having much luck with builtin git actions
         sh 'git', 'add', '.'
-
-        UI.message 'Cleaning up'
-
-        FileUtils.rm_rf 'node_modules'
 
         UI.message 'Done ✅'
       end
