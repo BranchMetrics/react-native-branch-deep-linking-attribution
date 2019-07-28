@@ -36,60 +36,22 @@ platform :ios do
   end
 end
 
+# Examples:
+# bundle exec fastlane npm_update commit:false, # Don't commit the results. Default: true
+# bundle exec fastlane npm_update repo_update:no # Don't update CocoaPods repo
+# bundle exec fastlane npm_update include_examples:yes # Also update all example lockfiles
 desc "Update NPM deps"
-lane :npm_update do
+lane :npm_update do |opts|
   helper = UpdateHelper
-
-  %w[
-    .
-    browser_example
-    testbed_native_android
-    testbed_native_ios
-    testbed_simple
-    webview_example
-    webview_example_carthage
-    webview_example_native_ios
-    webview_tutorial
-  ].each do |ex|
-    path = case ex
-    when '.'
-      ex
-    else
-      "examples/#{ex}"
-    end
-
-    Dir.chdir File.expand_path("../#{path}", __dir__) do |folder|
-      UI.message "Updating #{ex}"
-
-      # Just remove both lockfiles to force package resolution in both cases.
-      # Since npm and yarn run back-to-back, the package resolution should be
-      # roughly the same in each newly-generated lockfile.
-      FileUtils.rm_f %w[package-lock.json yarn.lock]
-
-      # yarn install before npm install
-      # yarn complains about package-lock.json, but not the other way around
-      UI.message 'Removing node_modules before yarn install'
-
-      FileUtils.rm_rf 'node_modules'
-      yarn package_path: "#{folder}/package.json"
-
-      UI.message 'Removing node_modules before npm install'
-
-      FileUtils.rm_rf 'node_modules'
-      helper.sh 'npm', 'install'
-
-      # Not having much luck with builtin git actions
-      helper.sh 'git', 'add', '.'
-
-      UI.message 'Cleaning up'
-
-      FileUtils.rm_rf 'node_modules'
-
-      UI.message 'Done ✅'
-    end
-  end
-
-  helper.sh 'git', 'commit', '-m[Fastlane] Updated all JS lockfiles', chdir: '..'
+  helper.update_npm_deps self, include_examples: opts[:include_examples]
+  helper.update_pods_in_tests_and_examples(
+    self,
+    repo_update: opts[:repo_update],
+    verbose: opts[:verbose],
+    include_examples: opts[:include_examples]
+  )
+  # default is to commit, use commit:no to suppress
+  helper.sh 'git', 'commit', '-m[Fastlane] Updated all JS lockfiles', chdir: '..' if opts[:commit] || opts[:commit].nil?
 end
 
 # Examples:

@@ -14,7 +14,11 @@ module Fastlane
           UI.message "Bumping to version #{version}."
 
           update_package_json version
-          update_pods_in_tests_and_examples params
+          update_pods_in_tests_and_examples(
+            repo_update: params[:repo_update],
+            verbose: params[:verbose],
+            include_examples: params[:include_examples]
+          )
           sh "git", "commit", "-a", "-m", "[Fastlane] Version bump to #{version}"
           sh "git", "tag", version if params[:tag]
           true

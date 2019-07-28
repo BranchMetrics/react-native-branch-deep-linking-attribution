@@ -22,7 +22,11 @@ module Fastlane
           # Update embedded iOS SDK
           if @ios_update_needed
             update_ios_dependency
-            update_pods_in_tests_and_examples params
+            update_pods_in_tests_and_examples(
+              repo_update: params[:repo_update],
+              verbose: params[:verbose],
+              include_examples: params[:include_examples]
+            )
           end
 
           commit if params[:commit]

@@ -5,6 +5,19 @@ require 'pathname'
 module UpdateHelper
   UI = FastlaneCore::UI
 
+  def sh(*cmd, chdir: '.')
+    Dir.chdir chdir do
+      Fastlane::Action.sh(*cmd) do |status, result, command|
+        message = "Command #{command} (pid #{status.pid})"
+        if status.success?
+          UI.message "#{message} succeeded."
+        else
+          UI.user_error! "#{message} failed with status #{status.exitstatus}."
+        end
+      end
+    end
+  end
+
   def boolean_env_var?(varname, default_value: nil)
     varstr = ENV[varname.to_s]
     return default_value if varstr.nil?
@@ -58,7 +71,14 @@ module UpdateHelper
     Dir.chdir(podfile_folder) { Fastlane::Action.sh(*command) }
   end
 
-  def update_pods_in_tests_and_examples(params)
+  def update_pods_in_tests_and_examples(context = nil,
+    verbose: nil,
+    repo_update: nil,
+    include_examples: false
+  )
+    verbose = boolean_env_var?(:REACT_NATIVE_BRANCH_VERBOSE, default_value: false) if verbose.nil?
+    repo_update = boolean_env_var?(:REACT_NATIVE_BRANCH_REPO_UPDATE, default_value: true) if repo_update.nil?
+
     # Updates to CocoaPods for unit tests and examples (requires
     # node_modules for each)
 
@@ -70,10 +90,19 @@ module UpdateHelper
       examples/testbed_simple
       examples/webview_example
       examples/webview_example_native_ios
-    ] if params[:include_examples]
+    ] if include_examples
+
+    if context.nil?
+      # From an Action
+      project_root = '.'
+      context = other_action
+    else
+      # From the Fastfile
+      project_root = '..'
+    end
 
     folders.each do |folder|
-      other_action.yarn package_path: File.join('..', folder, 'package.json')
+      context.yarn package_path: File.join(project_root, folder, 'package.json')
 
       pods_folder = case folder
       when '.'
@@ -84,16 +113,16 @@ module UpdateHelper
         "#{folder}/ios"
       end
 
-      FastlaneCore::UI.message "Updating Pods in #{pods_folder}"
+      UI.message "Updating Pods in #{pods_folder}"
       command = %w[pod update]
-      command << '--silent' unless params[:verbose]
-      command << '--no-repo-update' unless params[:repo_update]
+      command << '--silent' unless verbose
+      command << '--no-repo-update' unless repo_update
       Dir.chdir pods_folder do
         sh command
       end
-      FastlaneCore::UI.message 'Done ✅'
+      UI.message 'Done ✅'
 
-      other_action.git_add(path: File.join('..', pods_folder))
+      other_action.git_add(path: File.join(project_root, pods_folder))
 
       # node_modules only required for pod install. Remove to speed up
       # subsequent calls to yarn.
@@ -101,15 +130,56 @@ module UpdateHelper
     end
   end
 
-  def sh(*cmd, chdir: '.')
-    Dir.chdir chdir do
-      Fastlane::Action.sh *cmd do |status, result, command|
-        message = "Command #{command} (pid #{status.pid})"
-        if status.success?
-          FastlaneCore::UI.message "#{message} succeeded."
-        else
-          FastlaneCore::UI.user_error! "#{message} failed with status #{status.exitstatus}."
-        end
+  def update_npm_deps(context, include_examples: false)
+    folders = %w[.]
+
+    folders += %w[
+      browser_example
+      testbed_native_android
+      testbed_native_ios
+      testbed_simple
+      webview_example
+      webview_example_carthage
+      webview_example_native_ios
+      webview_tutorial
+    ] if include_examples
+
+    folders.each do |ex|
+      path = case ex
+      when '.'
+        ex
+      else
+        "examples/#{ex}"
+      end
+
+      Dir.chdir File.expand_path("../#{path}") do |folder|
+        UI.message "Updating #{ex}"
+
+        # Just remove both lockfiles to force package resolution in both cases.
+        # Since npm and yarn run back-to-back, the package resolution should be
+        # roughly the same in each newly-generated lockfile.
+        FileUtils.rm_f %w[package-lock.json yarn.lock]
+
+        # yarn install before npm install
+        # yarn complains about package-lock.json, but not the other way around
+        UI.message 'Removing node_modules before yarn install'
+
+        FileUtils.rm_rf 'node_modules'
+        context.yarn package_path: "#{folder}/package.json"
+
+        UI.message 'Removing node_modules before npm install'
+
+        FileUtils.rm_rf 'node_modules'
+        sh 'npm', 'install'
+
+        # Not having much luck with builtin git actions
+        sh 'git', 'add', '.'
+
+        UI.message 'Cleaning up'
+
+        FileUtils.rm_rf 'node_modules'
+
+        UI.message 'Done ✅'
       end
     end
   end
