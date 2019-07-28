@@ -125,10 +125,6 @@ module UpdateHelper
       UI.message 'Done ✅'
 
       context.git_add path: pods_folder
-
-      # node_modules only required for pod install. Remove to speed up
-      # subsequent calls to yarn.
-      FileUtils.rm_rf File.join(package_folder, 'node_modules')
     end
   end
 
@@ -156,7 +152,7 @@ module UpdateHelper
 
       Dir.chdir File.expand_path("../../../#{path}", __dir__) do |folder|
         UI.message "Updating #{ex}"
-        UI.message "Removing #{folder}/node_modules before updating"
+        UI.message "Removing #{folder}/node_modules and #{folder}/package-lock.json before updating"
         FileUtils.rm_rf %w[node_modules package-lock.json].map { |f| File.join(folder, f) }
         sh 'npm', 'install'
         context.yarn project_root: folder, command: 'upgrade'
