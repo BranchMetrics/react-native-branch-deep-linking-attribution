@@ -29,30 +29,37 @@ module UpdateHelper
     podfile_path = File.join podfile_folder, 'Podfile'
     raise ArgumentError, "No Podfile at #{podfile_folder}" unless File.readable?(podfile_path)
 
+    # Podfile must be evalled in its current directory in order to resolve
+    # the require_relative at the top.
+    podfile = Dir.chdir(podfile_folder) { Pod::Podfile.from_file podfile_path }
+
+    # From here on we expect pod install to succeed. We just check whether it's
+    # necessary. The Podfile.from_file call above can raise if the Podfile
+    # contains errors. In that case, pod install will also fail, so we allow
+    # the exception to be raised instead of returning true.
+
     lockfile_path = File.join podfile_folder, 'Podfile.lock'
     manifest_path = File.join podfile_folder, 'Pods', 'Manifest.lock'
 
     return true unless File.readable?(lockfile_path) && File.readable?(manifest_path)
 
     begin
+      # This validates the Podfile.lock for yaml formatting at least and makes
+      # the lockfile hash available to check the Podfile checksum later.
       lockfile = Pod::Lockfile.from_file Pathname.new lockfile_path
-      manifest = Pod::Lockfile.from_file Pathname.new manifest_path
 
       # diff the contents of Podfile.lock and Pods/Manifest.lock
-      # This is just what is done in the "[CP] Check Pods Manifest.lock" script build phase
-      # in a project using CocoaPods, but it also validates YAML parsing, etc.
-      return true unless lockfile == manifest
-
-      # Podfile must be evalled in its current directory in order to resolve
-      # the require_relative at the top.
-      podfile = Dir.chdir(podfile_folder) { Pod::Podfile.from_file podfile_path }
+      # This is just what is done in the "[CP] Check Pods Manifest.lock" script
+      # build phase in a project using CocoaPods. This is a stricter requirement
+      # than semantic comparison of the two lockfile hashes.
+      return true unless File.read(lockfile_path) == File.read(manifest_path)
 
       # compare checksum of Podfile with checksum in Podfile.lock in case Podfile
       # updated since last pod install/update.
-      return true unless lockfile.to_hash["PODFILE CHECKSUM"] == podfile.checksum
-
-      false
-    rescue StandardError => e
+      lockfile.to_hash["PODFILE CHECKSUM"] != podfile.checksum
+    rescue StandardError, Pod::PlainInformative => e
+      # Any error from Pod::Lockfile.from_file or File.read after verifying a
+      # file exists and is readable. pod install will regenerate these files.
       UI.error e.message
       true
     end
