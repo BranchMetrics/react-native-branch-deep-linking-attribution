@@ -22,7 +22,7 @@ android {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+' // From node_modules
-    implementation 'io.branch.sdk.android:library:+'
+    implementation 'io.branch.sdk.android:library:3.2.0'
     // TODO: Resolve build issue with this jar.
     // implementation files('libs/Branch-3.0.3.jar') // From node_modules
 }
