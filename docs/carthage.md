@@ -12,7 +12,7 @@ react-native link react-native-branch
 If you already have a Cartfile, add this to your Cartfile:
 
 ```
-github "BranchMetrics/ios-branch-deep-linking" "0.27.0"
+github "BranchMetrics/ios-branch-deep-linking" "0.28.1"
 ```
 
 Now run `carthage build`.

@@ -70,7 +70,7 @@ method if you have a tvOS app, since the React pod will not build for tvOS.
 If you are already using CocoaPods, add this to your Podfile:
 
 ```Ruby
-pod 'Branch', '0.27.0'
+pod 'Branch', '0.28.1'
 ```
 
 **Note:** The required version of the Branch SDK may differ. In that case,
@@ -99,7 +99,7 @@ target 'MyApp' do
   # use_frameworks!
 
   # iOS dependencies
-  pod 'Branch', '0.27.0'
+  pod 'Branch', '0.28.1'
 
   target 'MyAppTests' do
     # Add any additional dependencies for the test target

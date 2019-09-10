@@ -56,7 +56,7 @@ end
 
 # Examples:
 # bundle exec fastlane native_update android_version:"3.2.0", # Android SDK version from Maven
-# bundle exec fastlane native_update ios_version:"0.27.1", # iOS SDK version from CocoaPods
+# bundle exec fastlane native_update ios_version:"0.28.1", # iOS SDK version from CocoaPods
 # bundle exec fastlane native_update repo_update:no # Don't update CocoaPods repo
 # bundle exec fastlane native_update include_examples:yes # Also update all example lockfiles
 # bundle exec fastlane native_update commit:no, # Don't commit the results. Default: true
