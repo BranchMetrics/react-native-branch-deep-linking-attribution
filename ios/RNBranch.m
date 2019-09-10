@@ -29,7 +29,7 @@ static NSString * const IdentFieldName = @"ident";
 static NSString * const RNBranchErrorDomain = @"RNBranchErrorDomain";
 static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 
-static NSString * const REQUIRED_BRANCH_SDK = @"0.27.1";
+static NSString * const REQUIRED_BRANCH_SDK = @"0.28.1";
 
 #pragma mark - Private RNBranch declarations
 
