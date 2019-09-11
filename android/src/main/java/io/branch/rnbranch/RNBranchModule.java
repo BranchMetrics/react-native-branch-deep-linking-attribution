@@ -370,6 +370,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void setRequestMetadataKey(String key, String value) {
+        setRequestMetadata(key, value);
+    }
+
+    @ReactMethod
     public void logout() {
         Branch branch = Branch.getInstance();
         branch.logout();
