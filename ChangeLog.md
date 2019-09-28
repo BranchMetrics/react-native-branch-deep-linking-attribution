@@ -1,3 +1,8 @@
+2019-09-27 Version 4.2.0
+  - Update Android Branch SDK to 4.1.0
+  - Update iOS Branch SDK to 0.29.0
+  - Expose Android reInit session for foreground links
+
 2019-07-25  Version 3.1.1
   - Requires RN < 0.60
   - Fix a runtime iOS issue in 3.1.0
