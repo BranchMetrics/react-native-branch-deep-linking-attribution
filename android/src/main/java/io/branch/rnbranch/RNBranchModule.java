@@ -85,6 +85,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
+    private static Branch.BranchReferralInitListener referralInitListener = null;
+
     public static void getAutoInstance(Context context) {
         RNBranchConfig config = new RNBranchConfig(context);
         String branchKey = config.getBranchKey();
@@ -106,6 +108,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }
     }
 
+    public static void reInitSession(Activity reactActivity) {
+        Branch branch = Branch.getInstance();
+        branch.reInitSession(reactActivity, referralInitListener);
+    }
+
     public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
         initListener = anInitListener;
         initSession(uri, reactActivity);
@@ -115,7 +122,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Branch branch = setupBranch(reactActivity.getApplicationContext());
 
         mActivity = reactActivity;
-        branch.initSession(new Branch.BranchReferralInitListener(){
+        referralInitListener = new Branch.BranchReferralInitListener(){
 
             private Activity mmActivity = null;
 
@@ -208,7 +215,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
                 LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(broadcastIntent);
             }
-        }.init(reactActivity), uri, reactActivity);
+        }.init(reactActivity);
+        
+        branch.initSession(referralInitListener, uri, reactActivity);
     }
 
     public static void setDebug() {
@@ -247,13 +256,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
         // Constants for use with userCompletedAction (deprecated)
 
-        constants.put(ADD_TO_CART_EVENT, BranchEvent.ADD_TO_CART);
-        constants.put(ADD_TO_WISHLIST_EVENT, BranchEvent.ADD_TO_WISH_LIST);
-        constants.put(PURCHASED_EVENT, BranchEvent.PURCHASED);
-        constants.put(PURCHASE_INITIATED_EVENT, BranchEvent.PURCHASE_STARTED);
-        constants.put(REGISTER_VIEW_EVENT, BranchEvent.VIEW);
-        constants.put(SHARE_COMPLETED_EVENT, BranchEvent.SHARE_COMPLETED);
-        constants.put(SHARE_INITIATED_EVENT, BranchEvent.SHARE_STARTED);
+        // constants.put(ADD_TO_CART_EVENT, BranchEvent.ADD_TO_CART);
+        // constants.put(ADD_TO_WISHLIST_EVENT, BranchEvent.ADD_TO_WISH_LIST);
+        // constants.put(PURCHASED_EVENT, BranchEvent.PURCHASED);
+        // constants.put(PURCHASE_INITIATED_EVENT, BranchEvent.PURCHASE_STARTED);
+        // constants.put(REGISTER_VIEW_EVENT, BranchEvent.VIEW);
+        // constants.put(SHARE_COMPLETED_EVENT, BranchEvent.SHARE_COMPLETED);
+        // constants.put(SHARE_INITIATED_EVENT, BranchEvent.SHARE_STARTED);
 
         // constants for use with BranchEvent
 
