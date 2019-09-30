@@ -1,3 +1,6 @@
+2019-09-30 Version 4.2.1
+  - Missed version update in iOS RNBranch.m
+
 2019-09-27 Version 4.2.0
   - Update Android Branch SDK to 4.1.0
   - Update iOS Branch SDK to 0.29.0
