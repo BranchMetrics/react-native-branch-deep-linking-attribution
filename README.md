@@ -792,7 +792,7 @@ new BranchEvent(BranchEvent.Purchase, buo, { revenue: 20 }).logEvent()
 |BranchEvent.CompleteRegistration|Standard Complete Registration event|
 |BranchEvent.CompleteTutorial|Standard Complete Tutorial event|
 |BranchEvent.AchieveLevel|Standard Achieve Level event|
-|BranchEvent.AchievementUnlocked|Standard Unlock Achievement event|
+|BranchEvent.UnlockAchievement|Standard Unlock Achievement event|
 
 ___
 
