@@ -38,6 +38,8 @@ react-native link react-native-branch
 
 ### Manual integration without react-native link
 
+**NOTE: This is required for RN > 0.60**
+
 #### Android
 
 Put your `branch.json` file in `app/src/main/assets/branch.json`.
