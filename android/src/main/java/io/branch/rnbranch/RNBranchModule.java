@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -21,10 +22,13 @@ import io.branch.referral.Branch.BranchLinkCreateListener;
 import io.branch.referral.BuildConfig;
 import io.branch.referral.util.*;
 import io.branch.referral.Branch;
+import io.branch.referral.BranchUtil;
 import io.branch.indexing.*;
 
 import org.json.*;
 
+import java.io.InputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -93,6 +97,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         String liveKey = config.getLiveKey();
         String testKey = config.getTestKey();
         boolean useTest = config.getUseTestInstance();
+
+        BranchUtil.setPluginType(BranchUtil.PluginType.ReactNative);
+        BranchUtil.setPluginVersion(getPluginVersion(context));
 
         if (branchKey != null) {
             Branch.getAutoInstance(context, branchKey);
@@ -1207,5 +1214,34 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }
 
         return hash;
+    }
+
+    private static String getPluginVersion(Context context) {
+        // reads from package.json symlink in assets folder
+        String pluginVersion = null;
+        try {
+            String str = loadStringFromAssets(context, "package.json");
+            JSONObject json = new JSONObject(str);
+            pluginVersion = json.optString("version");
+        } catch (JSONException e) {
+            Log.w(REACT_CLASS, "Can't find version name in RN package.json file");
+        }
+        return pluginVersion;
+    }
+
+    private static String loadStringFromAssets(Context context, String fileName) {
+        String json = null;
+        try {
+            InputStream is = context.getAssets().open(fileName);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 }
