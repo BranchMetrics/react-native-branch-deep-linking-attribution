@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "lint": "eslint src test",
+    "version": "./scripts/update-plugin-version-in-RNBranchConfig.sh",
     "test": "jest"
   },
   "babel": {
