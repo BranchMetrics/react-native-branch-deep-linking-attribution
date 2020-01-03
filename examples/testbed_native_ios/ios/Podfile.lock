@@ -60,7 +60,7 @@ PODS:
     - React-cxxreact (= 0.60.3)
     - React-jsi (= 0.60.3)
   - React-jsinspector (0.60.3)
-  - react-native-branch (4.2.2):
+  - react-native-branch (4.2.1):
     - Branch (= 0.31.3)
     - React
   - React-RCTActionSheet (0.60.3):

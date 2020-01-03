@@ -1,4 +1,12 @@
+import groovy.json.JsonSlurper
+
 apply plugin: 'com.android.library'
+
+def getNpmVersion() {
+    def inputFile = new File("$rootDir/../../../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+    return packageJson["version"]
+}
 
 repositories {
     mavenCentral()
@@ -15,12 +23,15 @@ android {
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 16)
         targetSdkVersion safeExtGet('targetSdkVersion', 26)
+
         versionCode 1
         versionName "1.0"
+
+        buildConfigField("String", "RNBRANCH_VERSION", "\"${getNpmVersion()}\"")
     }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+' // From node_modules
-    api 'io.branch.sdk.android:library:4.1.0'
+    api 'io.branch.sdk.android:library:4.2.1'
 }
