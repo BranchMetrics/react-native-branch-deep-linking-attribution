@@ -3626,10 +3626,10 @@ react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
-react-native-branch@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-4.1.0.tgz#419713610c99aa491a993765b0538d2f17671b46"
-  integrity sha512-/gVd0HDEZU/B+vPJpFLnQS/iV3xYU9EAVnYTT+ao+yVgjiWfNXeP4O9aECc0OQACsgWxAOjA19tDQxzohjhTmg==
+react-native-branch@~/AndroidStudioProjects/plugins/react-native-branch-deep-linking-attribution/:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-4.2.1.tgz#3ed1a071c053b420d11af8aa368142b19e2d5129"
+  integrity sha512-wwBCsj3VslS0zG8UAZjx+nNrWgd3CuA24r5muFDzS38oQ4S9oB0NJPafEcWcUT7TPxw/rfpdPLb+JccGvS2/Lg==
 
 react-native@0.60.3:
   version "0.60.3"
