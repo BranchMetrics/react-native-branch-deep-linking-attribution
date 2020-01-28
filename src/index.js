@@ -110,6 +110,7 @@ class Branch {
   getLatestReferringParams = (synchronous = false) => RNBranch.getLatestReferringParams(synchronous)
   getFirstReferringParams = RNBranch.getFirstReferringParams
   setIdentity = (identity) => RNBranch.setIdentity(identity)
+  setRequestMetadata = (key, value) => RNBranch.setRequestMetadataKey(key, value)
   logout = RNBranch.logout
   userCompletedAction = (event, state = {}) => RNBranch.userCompletedAction(event, state)
   getShortUrl = RNBranch.getShortUrl
