@@ -110,7 +110,10 @@ class Branch {
   getLatestReferringParams = (synchronous = false) => RNBranch.getLatestReferringParams(synchronous)
   getFirstReferringParams = RNBranch.getFirstReferringParams
   setIdentity = (identity) => RNBranch.setIdentity(identity)
-  setRequestMetadata = (key, value) => RNBranch.setRequestMetadataKey(key, value)
+  setRequestMetadata = (key, value) => { 
+    console.info('[Branch] setRequestMetadata has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the metadata.')
+    return RNBranch.setRequestMetadataKey(key, value)
+  }
   logout = RNBranch.logout
   userCompletedAction = (event, state = {}) => RNBranch.userCompletedAction(event, state)
   getShortUrl = RNBranch.getShortUrl
