@@ -361,6 +361,14 @@ RCT_EXPORT_METHOD(
     [self.class.branch setIdentity:identity];
 }
 
+#pragma mark setRequestMetadataKey
+RCT_EXPORT_METHOD(
+                  setRequestMetadataKey:(NSString *)key
+                  value:(NSString *)value
+                  ) {
+    [self.class.branch setRequestMetadataKey:key value:value];
+}
+
 #pragma mark logout
 RCT_EXPORT_METHOD(
                   logout
