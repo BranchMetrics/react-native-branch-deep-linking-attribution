@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.facebook.soloader.SoLoader;
 
-import io.branch.referral.Branch;
+import io.branch.rnbranch.RNBranchModule;
 
 /**
  * Created by jdee on 3/30/17.
@@ -15,6 +15,6 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, false);
-        Branch.getAutoInstance(this);
+        RNBranchModule.getAutoInstance(this);
     }
 }

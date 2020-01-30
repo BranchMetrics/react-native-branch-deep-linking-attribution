@@ -21,6 +21,7 @@ import io.branch.referral.Branch.BranchLinkCreateListener;
 import io.branch.referral.BuildConfig;
 import io.branch.referral.util.*;
 import io.branch.referral.Branch;
+import io.branch.referral.BranchUtil;
 import io.branch.indexing.*;
 
 import org.json.*;
@@ -93,6 +94,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         String liveKey = config.getLiveKey();
         String testKey = config.getTestKey();
         boolean useTest = config.getUseTestInstance();
+
+        BranchUtil.setPluginType(BranchUtil.PluginType.ReactNative);
+        BranchUtil.setPluginVersion(io.branch.rnbranch.BuildConfig.RNBRANCH_VERSION);
 
         if (branchKey != null) {
             Branch.getAutoInstance(context, branchKey);

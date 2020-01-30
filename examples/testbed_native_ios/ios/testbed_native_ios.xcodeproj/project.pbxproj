@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A7BC9C323BC13F200DF5871 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A7BC9C223BC13F200DF5871 /* branch.json */; };
 		670B2C96104BC4AAAC53746B /* libPods-testbed_native_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD34805037249BCBEA51DB6A /* libPods-testbed_native_ios.a */; };
 		7B63775A1E831BF6009227D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6377591E831BF6009227D1 /* main.m */; };
 		7B63775D1E831BF6009227D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B63775C1E831BF6009227D1 /* AppDelegate.m */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A7BC9C223BC13F200DF5871 /* branch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = branch.json; sourceTree = "<group>"; };
 		6BB1A7345A739859711A5A68 /* Pods-testbed_native_ios.test-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testbed_native_ios.test-debug.xcconfig"; path = "Pods/Target Support Files/Pods-testbed_native_ios/Pods-testbed_native_ios.test-debug.xcconfig"; sourceTree = "<group>"; };
 		7B6377551E831BF6009227D1 /* testbed_native_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testbed_native_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6377591E831BF6009227D1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		7B63774C1E831BF6009227D1 = {
 			isa = PBXGroup;
 			children = (
+				4A7BC9C223BC13F200DF5871 /* branch.json */,
 				7B6377571E831BF6009227D1 /* testbed_native_ios */,
 				7B6377561E831BF6009227D1 /* Products */,
 				3ABC7CA1AECDC51B364F7312 /* Pods */,
@@ -189,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B6377681E831BF6009227D1 /* LaunchScreen.storyboard in Resources */,
+				4A7BC9C323BC13F200DF5871 /* branch.json in Resources */,
 				7B6377651E831BF6009227D1 /* Assets.xcassets in Resources */,
 				7B6377631E831BF6009227D1 /* Main.storyboard in Resources */,
 			);
