@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4A7BC9C323BC13F200DF5871 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A7BC9C223BC13F200DF5871 /* branch.json */; };
-		4A7BC9D123BC209300DF5871 /* NSURLSession+Branch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC9D023BC209300DF5871 /* NSURLSession+Branch.m */; };
 		670B2C96104BC4AAAC53746B /* libPods-testbed_native_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD34805037249BCBEA51DB6A /* libPods-testbed_native_ios.a */; };
 		7B63775A1E831BF6009227D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6377591E831BF6009227D1 /* main.m */; };
 		7B63775D1E831BF6009227D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B63775C1E831BF6009227D1 /* AppDelegate.m */; };
@@ -23,8 +22,6 @@
 
 /* Begin PBXFileReference section */
 		4A7BC9C223BC13F200DF5871 /* branch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = branch.json; sourceTree = "<group>"; };
-		4A7BC9CF23BC209300DF5871 /* NSURLSession+Branch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+Branch.h"; sourceTree = "<group>"; };
-		4A7BC9D023BC209300DF5871 /* NSURLSession+Branch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+Branch.m"; sourceTree = "<group>"; };
 		6BB1A7345A739859711A5A68 /* Pods-testbed_native_ios.test-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testbed_native_ios.test-debug.xcconfig"; path = "Pods/Target Support Files/Pods-testbed_native_ios/Pods-testbed_native_ios.test-debug.xcconfig"; sourceTree = "<group>"; };
 		7B6377551E831BF6009227D1 /* testbed_native_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testbed_native_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6377591E831BF6009227D1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -105,8 +102,6 @@
 		7B6377571E831BF6009227D1 /* testbed_native_ios */ = {
 			isa = PBXGroup;
 			children = (
-				4A7BC9CF23BC209300DF5871 /* NSURLSession+Branch.h */,
-				4A7BC9D023BC209300DF5871 /* NSURLSession+Branch.m */,
 				7B6377961E833F57009227D1 /* testbed_native_ios.entitlements */,
 				7B63775B1E831BF6009227D1 /* AppDelegate.h */,
 				7B63775C1E831BF6009227D1 /* AppDelegate.m */,
@@ -261,7 +256,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B6377601E831BF6009227D1 /* ViewController.m in Sources */,
-				4A7BC9D123BC209300DF5871 /* NSURLSession+Branch.m in Sources */,
 				7B63775D1E831BF6009227D1 /* AppDelegate.m in Sources */,
 				7B63775A1E831BF6009227D1 /* main.m in Sources */,
 			);
