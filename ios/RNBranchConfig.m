@@ -19,7 +19,7 @@ NSString * _Nonnull const RNBranchConfigDelayInitToCheckForSearchAdsOption = @"d
 NSString * _Nonnull const RNBranchConfigAppleSearchAdsDebugModeOption = @"appleSearchAdsDebugMode";
 NSString * _Nonnull const RNBranchConfigDeferInitializationForJSLoadOption = @"deferInitializationForJSLoad";
 
-NSString * const RNBNC_PLUGIN_VERSION = @"4.2.1";
+NSString * const RNBNC_PLUGIN_VERSION = @"4.2.2";
 
 @interface RNBranchConfig()
 @property (nonatomic) NSDictionary *configuration;

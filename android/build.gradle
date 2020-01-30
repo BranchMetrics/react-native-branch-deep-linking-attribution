@@ -3,9 +3,12 @@ import groovy.json.JsonSlurper
 apply plugin: 'com.android.library'
 
 def getNpmVersion() {
-    def inputFile = new File("../package.json")
-    def packageJson = new JsonSlurper().parseText(inputFile.text)
-    return packageJson["version"]
+    // This returns the app version instead of the plugin version.  Will need to rework this in the future.
+    // def inputFile = new File("../package.json")
+    // def packageJson = new JsonSlurper().parseText(inputFile.text)
+    // return packageJson["version"]
+
+    return "4.2.2"
 }
 
 repositories {
