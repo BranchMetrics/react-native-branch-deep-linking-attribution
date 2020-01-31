@@ -384,7 +384,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setRequestMetadataKey(String key, String value) {
-        setRequestMetadata(key, value);
+        // setRequestMetadata does not do what it appears to do.  Call directly to the native code.
+        Branch branch = Branch.getInstance();
+        branch.setRequestMetadata(key, value);
     }
 
     @ReactMethod
