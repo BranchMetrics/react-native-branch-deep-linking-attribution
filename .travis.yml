@@ -10,7 +10,7 @@ cache: yarn
 
 install:
 # Set up RVM, RubyGems, Bundler
-  - rvm use 2.6.5 --default
+  - rvm use 2.6 --default
   - gem update --system
   - gem install bundler
   - bundle check || bundle install
