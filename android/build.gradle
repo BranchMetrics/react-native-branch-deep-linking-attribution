@@ -30,5 +30,5 @@ android {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+' // From node_modules
-    api 'io.branch.sdk.android:library:4.2.1'
+    api 'io.branch.sdk.android:library:4.3.2'
 }

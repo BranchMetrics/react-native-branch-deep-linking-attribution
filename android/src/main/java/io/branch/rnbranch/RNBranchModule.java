@@ -114,7 +114,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     public static void reInitSession(Activity reactActivity) {
         Branch branch = Branch.getInstance();
-        branch.reInitSession(reactActivity, referralInitListener);
+        Intent intent = reactActivity.getIntent();
+        if (intent != null) {
+            intent.putExtra("branch_force_new_session", true);
+            branch.reInitSession(reactActivity, referralInitListener);
+        } else {
+            Log.w(REACT_CLASS, "reInitSession was called but the Intent is null");
+        }
     }
 
     public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
@@ -132,6 +138,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onInitFinished(JSONObject referringParams, BranchError error) {
+
+                // react native currently expects this to never be null
+                if (referringParams == null) {
+                    referringParams = new JSONObject();
+                }
 
                 Log.d(REACT_CLASS, "onInitFinished");
                 JSONObject result = new JSONObject();
