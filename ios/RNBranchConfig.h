@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+FOUNDATION_EXPORT NSString*_Nonnull const RNBNC_PLUGIN_VERSION;
+
 extern NSString * _Nonnull const RNBranchConfigDebugModeOption;
 extern NSString * _Nonnull const RNBranchConfigBranchKeyOption;
 extern NSString * _Nonnull const RNBranchConfigLiveKeyOption;

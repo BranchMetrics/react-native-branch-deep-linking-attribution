@@ -21,6 +21,7 @@ import io.branch.referral.Branch.BranchLinkCreateListener;
 import io.branch.referral.BuildConfig;
 import io.branch.referral.util.*;
 import io.branch.referral.Branch;
+import io.branch.referral.BranchUtil;
 import io.branch.indexing.*;
 
 import org.json.*;
@@ -94,6 +95,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         String testKey = config.getTestKey();
         boolean useTest = config.getUseTestInstance();
 
+        BranchUtil.setPluginType(BranchUtil.PluginType.ReactNative);
+        BranchUtil.setPluginVersion(io.branch.rnbranch.BuildConfig.RNBRANCH_VERSION);
+
         if (branchKey != null) {
             Branch.getAutoInstance(context, branchKey);
         }
@@ -110,7 +114,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     public static void reInitSession(Activity reactActivity) {
         Branch branch = Branch.getInstance();
-        branch.reInitSession(reactActivity, referralInitListener);
+        Intent intent = reactActivity.getIntent();
+        if (intent != null) {
+            intent.putExtra("branch_force_new_session", true);
+            branch.reInitSession(reactActivity, referralInitListener);
+        } else {
+            Log.w(REACT_CLASS, "reInitSession was called but the Intent is null");
+        }
     }
 
     public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
@@ -128,6 +138,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onInitFinished(JSONObject referringParams, BranchError error) {
+
+                // react native currently expects this to never be null
+                if (referringParams == null) {
+                    referringParams = new JSONObject();
+                }
 
                 Log.d(REACT_CLASS, "onInitFinished");
                 JSONObject result = new JSONObject();
@@ -376,6 +391,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void setIdentity(String identity) {
         Branch branch = Branch.getInstance();
         branch.setIdentity(identity);
+    }
+
+    @ReactMethod
+    public void setRequestMetadataKey(String key, String value) {
+        // setRequestMetadata does not do what it appears to do.  Call directly to the native code.
+        Branch branch = Branch.getInstance();
+        branch.setRequestMetadata(key, value);
     }
 
     @ReactMethod

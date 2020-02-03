@@ -29,8 +29,6 @@ static NSString * const IdentFieldName = @"ident";
 static NSString * const RNBranchErrorDomain = @"RNBranchErrorDomain";
 static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 
-static NSString * const REQUIRED_BRANCH_SDK = @"0.29.0";
-
 #pragma mark - Private RNBranch declarations
 
 @interface RNBranch()
@@ -77,11 +75,6 @@ RCT_EXPORT_MODULE();
 
 + (void)setupBranchInstance:(Branch *)instance
 {
-    RCTLogInfo(@"Initializing Branch SDK v. %@", BNC_SDK_VERSION);
-    if (![BNC_SDK_VERSION isEqualToString:REQUIRED_BRANCH_SDK]) {
-        RCTLogError(@"Please use v. %@ of Branch. In your Podfile: pod 'Branch', '%@'. Then pod install.", REQUIRED_BRANCH_SDK, REQUIRED_BRANCH_SDK);
-    }
-
     RNBranchConfig *config = RNBranchConfig.instance;
     if (config.debugMode) {
         [instance setDebug];
@@ -162,6 +155,8 @@ RCT_EXPORT_MODULE();
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
     savedLaunchOptions = launchOptions;
     savedIsReferrable = isReferrable;
+    
+    [self.branch registerPluginName:@"ReactNative" version:RNBNC_PLUGIN_VERSION];
 
     // Can't currently support this on Android.
     // if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
@@ -366,6 +361,14 @@ RCT_EXPORT_METHOD(
     [self.class.branch setIdentity:identity];
 }
 
+#pragma mark setRequestMetadataKey
+RCT_EXPORT_METHOD(
+                  setRequestMetadataKey:(NSString *)key
+                  value:(NSString *)value
+                  ) {
+    [self.class.branch setRequestMetadataKey:key value:value];
+}
+
 #pragma mark logout
 RCT_EXPORT_METHOD(
                   logout
@@ -389,7 +392,7 @@ RCT_EXPORT_METHOD(
                   ) {
     BNCCommerceEvent *commerceEvent = [BNCCommerceEvent new];
     commerceEvent.revenue = [NSDecimalNumber decimalNumberWithString:revenue];
-    [self.class.branch sendCommerceEvent:commerceEvent metadata:metadata withCompletion:nil];
+    [self.class.branch sendCommerceEvent:commerceEvent metadata:metadata withCompletion:^(NSDictionary *r, NSError *e){}];
     resolve(NSNull.null);
 }
 
