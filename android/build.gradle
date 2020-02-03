@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 def getNpmVersion() {
-    def pluginVersion = "4.2.2"
+    def pluginVersion = "4.3.0"
     return pluginVersion
 }
 
