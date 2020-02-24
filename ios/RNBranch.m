@@ -498,8 +498,12 @@ RCT_EXPORT_METHOD(
                                                                          @"completed" : @(completed),
                                                                          @"error" : [NSNull null]
                                                                          };
-
-                                                resolve(result);
+                                                
+                                                // SDK-854 do not callback more than once.  
+                                                // The native iOS code calls back with status even if the user just cancelled.
+                                                if (completed) {
+                                                    resolve(result);
+                                                }
                                             }];
     });
 }
