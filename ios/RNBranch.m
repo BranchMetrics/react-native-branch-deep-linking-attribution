@@ -29,8 +29,6 @@ static NSString * const IdentFieldName = @"ident";
 static NSString * const RNBranchErrorDomain = @"RNBranchErrorDomain";
 static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 
-static NSString * const REQUIRED_BRANCH_SDK = @"0.27.1";
-
 #pragma mark - Private RNBranch declarations
 
 @interface RNBranch()
@@ -78,9 +76,6 @@ RCT_EXPORT_MODULE();
 + (void)setupBranchInstance:(Branch *)instance
 {
     RCTLogInfo(@"Initializing Branch SDK v. %@", BNC_SDK_VERSION);
-    if (![BNC_SDK_VERSION isEqualToString:REQUIRED_BRANCH_SDK]) {
-        RCTLogError(@"Please use v. %@ of Branch. In your Podfile: pod 'Branch', '%@'. Then pod install.", REQUIRED_BRANCH_SDK, REQUIRED_BRANCH_SDK);
-    }
 
     RNBranchConfig *config = RNBranchConfig.instance;
     if (config.debugMode) {
@@ -88,9 +83,6 @@ RCT_EXPORT_MODULE();
     }
     if (config.delayInitToCheckForSearchAds) {
         [instance delayInitToCheckForSearchAds];
-    }
-    if (config.appleSearchAdsDebugMode) {
-        [instance setAppleSearchAdsDebugMode];
     }
 }
 
