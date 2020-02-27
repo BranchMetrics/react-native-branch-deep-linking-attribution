@@ -2,7 +2,6 @@
 
 [![Travis](https://img.shields.io/travis/BranchMetrics/react-native-branch-deep-linking-attribution.svg?style=flat)](https://travis-ci.org/BranchMetrics/react-native-branch-deep-linking-attribution)
 [![npm version](https://img.shields.io/npm/v/react-native-branch/latest.svg?style=flat)](https://www.npmjs.com/package/react-native-branch)
-[![npm RN 0.60](https://img.shields.io/npm/v/react-native-branch/rn0.60.svg?style=flat)](https://www.npmjs.com/package/react-native-branch)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-branch.svg?style=flat)](https://www.npmjs.com/package/react-native-branch)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/BranchMetrics/react-native-branch-deep-linking-attribution/master/LICENSE)
 
