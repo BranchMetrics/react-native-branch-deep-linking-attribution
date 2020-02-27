@@ -130,11 +130,6 @@ RCT_EXPORT_MODULE();
     [self.branch delayInitToCheckForSearchAds];
 }
 
-+ (void)setAppleSearchAdsDebugMode
-{
-    [self.branch setAppleSearchAdsDebugMode];
-}
-
 + (void)setRequestMetadataKey:(NSString *)key value:(NSObject *)value
 {
     [self.branch setRequestMetadataKey:key value:value];
