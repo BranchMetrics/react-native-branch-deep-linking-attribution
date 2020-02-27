@@ -1,6 +1,6 @@
 # Installation using Carthage
 
-Carthage requires version 3.0.1 of react-native-branch.
+Carthage requires version 3.x of react-native-branch.
 
 Add react-native-branch to your project:
 
@@ -12,7 +12,7 @@ react-native link react-native-branch
 If you already have a Cartfile, add this to your Cartfile:
 
 ```
-github "BranchMetrics/ios-branch-deep-linking" "0.27.0"
+github "BranchMetrics/ios-branch-deep-linking" "0.31.3"
 ```
 
 Now run `carthage build`.
