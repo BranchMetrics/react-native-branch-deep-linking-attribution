@@ -38,41 +38,6 @@
     ASSERT_CONSTANT(@"INIT_SESSION_ERROR", kRNBranchInitSessionError);
 }
 
-- (void)testAddToCartEventConstant
-{
-    ASSERT_CONSTANT(@"ADD_TO_CART_EVENT", BNCAddToCartEvent);
-}
-
-- (void)testAddToWishlistEventConstant
-{
-    ASSERT_CONSTANT(@"ADD_TO_WISHLIST_EVENT", BNCAddToWishlistEvent);
-}
-
-- (void)testPurchasedEventConstant
-{
-    ASSERT_CONSTANT(@"PURCHASED_EVENT", BNCPurchasedEvent);
-}
-
-- (void)testPurchaseInitiatedEventConstant
-{
-    ASSERT_CONSTANT(@"PURCHASE_INITIATED_EVENT", BNCPurchaseInitiatedEvent);
-}
-
-- (void)testRegisterViewEventConstant
-{
-    ASSERT_CONSTANT(@"REGISTER_VIEW_EVENT", BNCRegisterViewEvent);
-}
-
-- (void)testShareCompletedEventConstant
-{
-    ASSERT_CONSTANT(@"SHARE_COMPLETED_EVENT", BNCShareCompletedEvent);
-}
-
-- (void)testShareInitiatedEventConstant
-{
-    ASSERT_CONSTANT(@"SHARE_INITIATED_EVENT", BNCShareInitiatedEvent);
-}
-
 - (void)testStandardAddtoCartEventConstant
 {
     ASSERT_CONSTANT(@"STANDARD_EVENT_ADD_TO_CART", BranchStandardEventAddToCart);
