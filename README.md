@@ -812,12 +812,10 @@ JavaScript finishes loading. To use these methods, two options are available.
 - Add a [branch.json](./docs/branch.json.md) file to your project.
 
     This allows you to enable debug mode (to simulate install events on both
-    Android and iOS), Apple Search Ads attribution and Apple Search Ads debug
-    mode from a configuration file.
+    Android and iOS), Apple Search Ads attribution from a configuration file.
 
 - Add native iOS and Android method calls to your project.
 
-    + [Debug mode (simulated install events)](./docs/setDebug.md)
     + [Apple Search Ads attribution](https://github.com/BranchMetrics/ios-branch-deep-linking#apple-search-ads)
 
 ___
