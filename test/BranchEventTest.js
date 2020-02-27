@@ -6,28 +6,12 @@ import { BranchEvent } from '../src/index.js'
 
 // --- Constant mapping ---
 
-test('AddToCart is correct', t => {
-  t.is(RNBranch.STANDARD_EVENT_ADD_TO_CART, BranchEvent.AddToCart)
-})
-
-test('AddToWishlist is correct', t => {
-  t.is(RNBranch.STANDARD_EVENT_ADD_TO_WISHLIST, BranchEvent.AddToWishlist)
-})
-
 test('ViewCart is correct', t => {
   t.is(RNBranch.STANDARD_EVENT_VIEW_CART, BranchEvent.ViewCart)
 })
 
-test('InitiatePurchase is correct', t => {
-  t.is(RNBranch.STANDARD_EVENT_INITIATE_PURCHASE, BranchEvent.InitiatePurchase)
-})
-
 test('AddPaymentInfo is correct', t => {
   t.is(RNBranch.STANDARD_EVENT_ADD_PAYMENT_INFO, BranchEvent.AddPaymentInfo)
-})
-
-test('Purchase is correct', t => {
-  t.is(RNBranch.STANDARD_EVENT_PURCHASE, BranchEvent.Purchase)
 })
 
 test('SpendCredits is correct', t => {
