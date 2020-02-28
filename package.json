@@ -49,7 +49,7 @@
   },
   "homepage": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution",
   "peerDependencies": {
-    "react-native": "^0.60.0"
+    "react-native": ">=0.60.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
