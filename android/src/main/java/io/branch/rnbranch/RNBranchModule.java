@@ -231,7 +231,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(broadcastIntent);
             }
         }.init(reactActivity);
-        
+
         branch.initSession(referralInitListener, uri, reactActivity);
     }
 
@@ -686,6 +686,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             RNBranchConfig config = new RNBranchConfig(context);
 
             if (mUseDebug || config.getDebugMode()) branch.setDebug();
+
+            if (config.getEnableFacebookLinkCheck()) branch.enableFacebookLinkCheck();
 
             if (mRequestMetadata != null) {
                 Iterator keys = mRequestMetadata.keys();

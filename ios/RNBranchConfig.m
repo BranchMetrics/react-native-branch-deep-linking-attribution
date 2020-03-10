@@ -18,6 +18,7 @@ NSString * _Nonnull const RNBranchConfigUseTestInstanceOption = @"useTestInstanc
 NSString * _Nonnull const RNBranchConfigDelayInitToCheckForSearchAdsOption = @"delayInitToCheckForSearchAds";
 NSString * _Nonnull const RNBranchConfigAppleSearchAdsDebugModeOption = @"appleSearchAdsDebugMode";
 NSString * _Nonnull const RNBranchConfigDeferInitializationForJSLoadOption = @"deferInitializationForJSLoad";
+NSString * _Nonnull const RNBranchConfigEnableFacebookLinkCheck = @"enableFacebookLinkCheck";
 
 NSString * const RNBNC_PLUGIN_VERSION = @"4.3.0";
 
@@ -141,6 +142,12 @@ NSString * const RNBNC_PLUGIN_VERSION = @"4.3.0";
 - (BOOL)deferInitializationForJSLoad
 {
     NSNumber *number = self[RNBranchConfigDeferInitializationForJSLoadOption];
+    return number.boolValue;
+}
+
+- (BOOL)enableFacebookLinkCheck
+{
+    NSNumber *number = self[RNBranchConfigEnableFacebookLinkCheck];
     return number.boolValue;
 }
 
