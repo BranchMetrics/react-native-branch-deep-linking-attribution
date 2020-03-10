@@ -88,7 +88,7 @@ RCT_EXPORT_MODULE();
             [instance registerFacebookDeepLinkingClass:FBSDKAppLinkUtility];
         }
         else {
-            RCTWarn(@"FBSDKAppLinkUtility not found but enableFacebookLinkCheck set to true. Please be sure you have integrated the Facebook SDK.");
+            RCTLogWarn(@"FBSDKAppLinkUtility not found but enableFacebookLinkCheck set to true. Please be sure you have integrated the Facebook SDK.");
         }
     }
 }
