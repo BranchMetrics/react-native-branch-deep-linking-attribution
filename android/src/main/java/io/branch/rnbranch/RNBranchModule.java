@@ -122,6 +122,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             @Override
             public void onInitFinished(JSONObject referringParams, BranchError error) {
 
+                // react native currently expects this to never be null
+                if (referringParams == null) {
+                    referringParams = new JSONObject();
+                }
+
                 Log.d(REACT_CLASS, "onInitFinished");
                 JSONObject result = new JSONObject();
                 Uri referringUri = null;
