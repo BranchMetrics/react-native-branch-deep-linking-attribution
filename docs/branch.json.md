@@ -92,7 +92,7 @@ of `branch.json`.
 ## Contents
 
 Note that support for setting Branch keys on Android in branch.json requires
-version 3.x of react-native-branch, using [RNBranchModule.getAutoInstance()](../README.md#updating-from-an-earlier-version-or-starting-with-v300)
+version 3.x of react-native-branch, using [RNBranchModule.getAutoInstance()](https://help.branch.io/developers-hub/docs/react-native#section-updating-from-an-earlier-version-or-starting-with-v-3-0-0)
 
 |key|description|type|
 |---|---|---|
