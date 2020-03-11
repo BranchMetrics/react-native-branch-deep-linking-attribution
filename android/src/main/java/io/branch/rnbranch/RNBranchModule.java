@@ -213,9 +213,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
                 LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(broadcastIntent);
             }
-        }.init(reactActivity);
-
-        branch.initSession(referralInitListener, uri, reactActivity);
+        }.init(reactActivity), uri, reactActivity);
     }
 
     public static void setDebug() {

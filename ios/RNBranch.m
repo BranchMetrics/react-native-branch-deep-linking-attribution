@@ -157,7 +157,6 @@ RCT_EXPORT_MODULE();
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
     savedLaunchOptions = launchOptions;
     savedIsReferrable = isReferrable;
-    [self.branch registerPluginName:@"ReactNative" version:RNBNC_PLUGIN_VERSION];
 
     // Can't currently support this on Android.
     // if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
