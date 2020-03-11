@@ -82,6 +82,15 @@ RCT_EXPORT_MODULE();
     if (config.delayInitToCheckForSearchAds) {
         [instance delayInitToCheckForSearchAds];
     }
+    if (config.enableFacebookLinkCheck) {
+        Class FBSDKAppLinkUtility = NSClassFromString(@"FBSDKAppLinkUtility");
+        if (FBSDKAppLinkUtility) {
+            [instance registerFacebookDeepLinkingClass:FBSDKAppLinkUtility];
+        }
+        else {
+            RCTLogWarn(@"FBSDKAppLinkUtility not found but enableFacebookLinkCheck set to true. Please be sure you have integrated the Facebook SDK.");
+        }
+    }
 }
 
 - (NSDictionary<NSString *, NSString *> *)constantsToExport {
@@ -155,7 +164,7 @@ RCT_EXPORT_MODULE();
 + (void)initSessionWithLaunchOptions:(NSDictionary *)launchOptions isReferrable:(BOOL)isReferrable {
     savedLaunchOptions = launchOptions;
     savedIsReferrable = isReferrable;
-    
+
     [self.branch registerPluginName:@"ReactNative" version:RNBNC_PLUGIN_VERSION];
 
     // Can't currently support this on Android.
@@ -498,8 +507,8 @@ RCT_EXPORT_METHOD(
                                                                          @"completed" : @(completed),
                                                                          @"error" : [NSNull null]
                                                                          };
-                                                
-                                                // SDK-854 do not callback more than once.  
+
+                                                // SDK-854 do not callback more than once.
                                                 // The native iOS code calls back with status even if the user just cancelled.
                                                 if (completed) {
                                                     resolve(result);
