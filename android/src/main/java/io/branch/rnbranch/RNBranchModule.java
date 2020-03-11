@@ -653,7 +653,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
             if (mUseDebug || config.getDebugMode()) branch.setDebug();
 
-            if (config.getEnableFacebookLinkCheck()) branch.enableFacebookLinkCheck();
+            if (config.getEnableFacebookLinkCheck()) branch.enableFacebookAppLinkCheck();
 
             if (mRequestMetadata != null) {
                 Iterator keys = mRequestMetadata.keys();
