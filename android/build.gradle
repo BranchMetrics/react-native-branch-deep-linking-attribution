@@ -29,6 +29,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     implementation 'com.facebook.react:react-native:+' // From node_modules
     api 'io.branch.sdk.android:library:4.3.2'
 }
