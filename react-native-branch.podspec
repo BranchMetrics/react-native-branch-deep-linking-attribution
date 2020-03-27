@@ -20,6 +20,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
   s.source       = { spec['repository']['type'].to_sym => spec['repository']['url'].sub(/^[a-z]+\+/, '') }
   s.source_files = [ "ios/*.h", "ios/*.m"]
+  s.compiler_flags = %[-DRNBRANCH_VERSION=@\\"#{s.version}\\"]
   s.dependency 'Branch', '0.31.3'
   s.dependency 'React' # to ensure the correct build order
 end
