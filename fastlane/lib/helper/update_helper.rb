@@ -140,8 +140,7 @@ module UpdateHelper
     rnbranch_option = %[RNBRANCH_VERSION=@\\"#{version}\\"]
     project = Xcodeproj::Project.open 'ios/RNBranch.xcodeproj'
     project.build_configurations.each do |config|
-      options = config.build_settings['GCC_PREPROCESSOR_DEFINITIONS']
-      options ||= []
+      options = config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] || []
       options = options.reject { |o| o =~ /^RNBRANCH_VERSION=/ }
       options << rnbranch_option
       config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = options
