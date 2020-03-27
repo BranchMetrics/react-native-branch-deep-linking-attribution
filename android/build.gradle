@@ -1,8 +1,10 @@
 apply plugin: 'com.android.library'
+import groovy.json.JsonSlurper
 
 def getNpmVersion() {
-    def pluginVersion = "4.3.0"
-    return pluginVersion
+    def packageJsonFile = new File(rootProject.projectDir.parentFile, 'package.json')
+    def packageJson = new JsonSlurper().parseText(packageJsonFile.text)
+    return packageJson.version
 }
 
 repositories {
