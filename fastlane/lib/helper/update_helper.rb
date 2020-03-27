@@ -143,7 +143,7 @@ module UpdateHelper
       options = config.build_settings['GCC_PREPROCESSOR_DEFINITIONS']
       options = options.reject { |o| o =~ /^RNBRANCH_VERSION=/ }
       options << rnbranch_option
-      config.set_setting 'GCC_PREPROCESSOR_DEFINITIONS', options
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = options
     end
     project.save
   end
