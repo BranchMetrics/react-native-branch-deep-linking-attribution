@@ -1,8 +1,8 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - Branch (0.31.3):
-    - Branch/Core (= 0.31.3)
-  - Branch/Core (0.31.3)
+  - Branch (0.32.0):
+    - Branch/Core (= 0.32.0)
+  - Branch/Core (0.32.0)
   - DoubleConversion (1.1.5)
   - Folly (2018.10.22.00):
     - boost-for-react-native
@@ -13,7 +13,7 @@ PODS:
   - React (0.59.10):
     - React/Core (= 0.59.10)
   - react-native-branch (3.2.1):
-    - Branch (= 0.31.3)
+    - Branch (= 0.32.0)
     - React
   - React/Core (0.59.10):
     - yoga (= 0.59.10.React)
@@ -83,13 +83,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  Branch: 9b299693ee54b308ff8c18146afe1f711c2069ec
+  Branch: 770a23c04d3f5410cf9231db099a444dd3060784
   DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   OCMock: 5ea90566be239f179ba766fd9fbae5885040b992
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
-  react-native-branch: 18ffa5516f2463d6fa05a5f10699e28495cc9510
+  react-native-branch: f6f8f24151238718e4d9b26be18a7111078d7fc9
   yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
 PODFILE CHECKSUM: 7e9d5ee0f6ae095e090eae4851f9ec8bc15c4c31

@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 import groovy.json.JsonSlurper
 
 def getNpmVersion() {
-    def packageJsonFile = new File(rootProject.projectDir.parentFile, 'package.json')
+    def packageJsonFile = file('../package.json')
     def packageJson = new JsonSlurper().parseText(packageJsonFile.text)
     return packageJson.version
 }
@@ -31,5 +31,5 @@ android {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+' // From node_modules
-    api 'io.branch.sdk.android:library:4.3.2'
+    api 'io.branch.sdk.android:library:5.0.0'
 }
