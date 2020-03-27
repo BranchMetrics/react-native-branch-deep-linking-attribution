@@ -1,6 +1,7 @@
 require 'cocoapods'
 require 'fileutils'
 require 'pathname'
+require 'xcodeproj'
 
 module UpdateHelper
   UI = FastlaneCore::UI
@@ -133,6 +134,18 @@ module UpdateHelper
 
       context.git_add path: pods_folder
     end
+  end
+
+  def update_rnbranch_xcodeproj(version)
+    rnbranch_option = %[RNBRANCH_VERSION=@\\"#{version}\\"]
+    project = Xcodeproj::Project.open '../ios/RNBranch.xcodeproj'
+    project.build_configurations.each do |config|
+      options = config['GCC_PREPROCESSOR_DEFINITIONS']
+      options = options.reject { |o| o =~ /^RNBRANCH_VERSION=/ }
+      options << rnbranch_option
+      config.set_setting 'GCC_PREPROCESSOR_DEFINITIONS', options
+    end
+    project.save
   end
 
   def update_npm_deps(context, include_examples: false)

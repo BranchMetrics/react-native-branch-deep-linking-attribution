@@ -14,6 +14,7 @@ module Fastlane
           UI.message "Bumping to version #{version}."
 
           update_package_json version
+          update_rnbranch_xcodeproj version
           update_pods_in_tests_and_examples(
             repo_update: params[:repo_update],
             verbose: params[:verbose],
