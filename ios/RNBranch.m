@@ -158,6 +158,8 @@ RCT_EXPORT_MODULE();
     savedLaunchOptions = launchOptions;
     savedIsReferrable = isReferrable;
 
+    [self.branch registerPluginName:@"ReactNative" version:RNBRANCH_VERSION];
+
     // Can't currently support this on Android.
     // if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
     [self initializeBranchSDK];
