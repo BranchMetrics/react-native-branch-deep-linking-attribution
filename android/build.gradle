@@ -1,4 +1,11 @@
 apply plugin: 'com.android.library'
+import groovy.json.JsonSlurper
+
+def getNpmVersion() {
+    def packageJsonFile = new File(rootProject.projectDir.parentFile, 'package.json')
+    def packageJson = new JsonSlurper().parseText(packageJsonFile.text)
+    return packageJson.version
+}
 
 repositories {
     mavenCentral()
@@ -17,6 +24,8 @@ android {
         targetSdkVersion safeExtGet('targetSdkVersion', 26)
         versionCode 1
         versionName "1.0"
+
+        buildConfigField("String", "RNBRANCH_VERSION", "\"${getNpmVersion()}\"")
     }
 }
 
