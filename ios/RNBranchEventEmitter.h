@@ -9,11 +9,13 @@
 #import <React/RCTEventEmitter.h>
 #import <React/RCTBridge.h>
 
+extern NSString * const kRNBranchInitSessionStart;
 extern NSString * const kRNBranchInitSessionSuccess;
 extern NSString * const kRNBranchInitSessionError;
 
 @interface RNBranchEventEmitter : RCTEventEmitter<RCTBridgeModule>
 
++ (void)initSessionWillStartWithURL:(NSURL * __nullable)url;
 + (void)initSessionDidSucceedWithPayload:(NSDictionary<NSString *, id> *)payload;
 + (void)initSessionDidEncounterErrorWithPayload:(NSDictionary<NSString *, id> *)payload;
 

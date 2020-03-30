@@ -12,6 +12,7 @@
 #import "RNBranchEventEmitter.h"
 
 // Notification/Event Names
+NSString * const kRNBranchInitSessionStart = @"RNBranch.initSessionStart";
 NSString * const kRNBranchInitSessionSuccess = @"RNBranch.initSessionSuccess";
 NSString * const kRNBranchInitSessionError = @"RNBranch.initSessionError";
 
@@ -31,7 +32,7 @@ RCT_EXPORT_MODULE();
     }
     return self;
 }
-    
+
 + (BOOL)requiresMainQueueSetup {
     return YES;
 }
@@ -58,6 +59,11 @@ RCT_EXPORT_MODULE();
 }
 
 # pragma mark - Public
+
++ (void)initSessionWillStartWithURL:(NSURL *)url
+{
+    [self postNotificationName:kRNBranchInitSessionStart withPayload:@{@"url": url}]
+}
 
 + (void)initSessionDidSucceedWithPayload:(NSDictionary *)payload
 {

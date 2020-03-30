@@ -92,6 +92,7 @@ class Branch {
   }
 
   _addListener(listener) {
+    // TODO: Add listener for INIT_SESSION_START
     this.nativeEventEmitter.addListener(RNBranch.INIT_SESSION_SUCCESS, listener)
     this.nativeEventEmitter.addListener(RNBranch.INIT_SESSION_ERROR, listener)
   }
@@ -110,7 +111,7 @@ class Branch {
   getLatestReferringParams = (synchronous = false) => RNBranch.getLatestReferringParams(synchronous)
   getFirstReferringParams = RNBranch.getFirstReferringParams
   setIdentity = (identity) => RNBranch.setIdentity(identity)
-  setRequestMetadata = (key, value) => { 
+  setRequestMetadata = (key, value) => {
     console.info('[Branch] setRequestMetadata has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the metadata.')
     return RNBranch.setRequestMetadataKey(key, value)
   }

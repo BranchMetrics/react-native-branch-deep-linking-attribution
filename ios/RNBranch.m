@@ -96,6 +96,7 @@ RCT_EXPORT_MODULE();
 - (NSDictionary<NSString *, NSString *> *)constantsToExport {
     return @{
              // RN events transmitted to JS by event emitter
+             @"INIT_SESSION_START": kRNBranchInitSessionStart,
              @"INIT_SESSION_SUCCESS": kRNBranchInitSessionSuccess,
              @"INIT_SESSION_ERROR": kRNBranchInitSessionError,
 
@@ -201,7 +202,6 @@ RCT_EXPORT_MODULE();
     }];
 }
 
-// TODO: Eliminate these now that sourceUrl is gone.
 + (BOOL)handleDeepLink:(NSURL *)url {
     BOOL handled = [self.branch handleDeepLink:url];
     return handled;
