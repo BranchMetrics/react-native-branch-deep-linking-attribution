@@ -78,7 +78,7 @@ RCT_EXPORT_MODULE();
      * (RNBranch.INIT_SESSION_START).
      */
     [self postNotificationName:kRNBranchInitSessionStart withPayload:@{
-        RNBranchLinkOpenedNotificationUriKey: uri ?: NSNull.null
+        RNBranchLinkOpenedNotificationUriKey: uri.absoluteString ?: NSNull.null
     }];
 }
 
