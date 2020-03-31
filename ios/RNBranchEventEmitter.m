@@ -38,9 +38,11 @@ RCT_EXPORT_MODULE();
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-    return @[kRNBranchInitSessionSuccess,
-             kRNBranchInitSessionError
-             ];
+    return @[
+        kRNBranchInitSessionStart,
+        kRNBranchInitSessionSuccess,
+        kRNBranchInitSessionError
+    ];
 }
 
 - (void)startObserving {

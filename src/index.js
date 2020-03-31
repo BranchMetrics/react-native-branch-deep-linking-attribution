@@ -29,7 +29,7 @@ class Branch {
   }
 
   subscribe(options) {
-    if (typeof options === function) {
+    if (typeof options === 'function') {
       /*
        * Support for legacy API, passing a single callback function:
        * branch.subscribe(({params, error, uri}) => { ... }). This is
