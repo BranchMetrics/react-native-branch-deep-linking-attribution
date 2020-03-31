@@ -96,5 +96,5 @@ class Branch {
   createBranchUniversalObject = createBranchUniversalObject
 }
 
-export { Branch, BranchEvent }
+export { Branch, BranchEvent, BranchSubscriber }
 export default new Branch()
