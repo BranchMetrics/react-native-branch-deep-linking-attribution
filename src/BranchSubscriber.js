@@ -3,7 +3,7 @@ import { NativeModules, NativeEventEmitter, DeviceEventEmitter, Platform } from 
 const { RNBranch, RNBranchEventEmitter } = NativeModules
 
 /**
- * Class to encapsulate the logic of subscription to native events.
+ * Utility class to encapsulate the logic of subscription to native events.
  */
 export default class BranchSubscriber {
   /**

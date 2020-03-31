@@ -4,7 +4,7 @@ const { RNBranch } = NativeModules
 
 import createBranchUniversalObject from './branchUniversalObject'
 import BranchEvent from './BranchEvent'
-import BranchSubscribe from './BranchSubscriber'
+import BranchSubscriber from './BranchSubscriber'
 
 const packageFile = require('./../package.json')
 export const VERSION = packageFile.version
@@ -30,20 +30,29 @@ class Branch {
 
   subscribe(options) {
     if (typeof options === function) {
+      /*
+       * Support for legacy API, passing a single callback function:
+       * branch.subscribe(({params, error, uri}) => { ... }). This is
+       * the same as the onOpenComplete callback.
+       */
       options = {
-        checkCachedEvents: this._checkCachedEvents,
         onOpenComplete: options,
       }
     }
 
+    /*
+     * You can specify checkCachedEvents in the subscribe options to control
+     * this per subscriber.
+     */
+    if (!('checkCachedEvents' in options)) {
+      options.checkCachedEvents = this._checkCachedEvents
+    }
+    this._checkCachedEvents = false
+
     const subscriber = new BranchSubscriber(options)
     subscriber.subscribe()
 
-    const unsubscribe = () => {
-      subscriber.unsubscribe()
-    }
-
-    return unsubscribe
+    return subscriber.unsubscribe
   }
 
   skipCachedEvents() {
