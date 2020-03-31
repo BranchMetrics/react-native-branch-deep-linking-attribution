@@ -43,7 +43,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public static final String NATIVE_INIT_SESSION_STARTED_EVENT_URI = "uri";
     private static final String RN_INIT_SESSION_SUCCESS_EVENT = "RNBranch.initSessionSuccess";
     private static final String RN_INIT_SESSION_ERROR_EVENT = "RNBranch.initSessionError";
-    private static final String RN_INIT_SESSION_STARTED_EVENT = "RNBranch.initSessionStarted";
+    private static final String RN_INIT_SESSION_START_EVENT = "RNBranch.initSessionStart";
     private static final String INIT_SESSION_SUCCESS = "INIT_SESSION_SUCCESS";
     private static final String INIT_SESSION_ERROR = "INIT_SESSION_ERROR";
     private static final String INIT_SESSION_STARTED = "INIT_SESSION_STARTED";
@@ -252,7 +252,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
         constants.put(INIT_SESSION_SUCCESS, RN_INIT_SESSION_SUCCESS_EVENT);
         constants.put(INIT_SESSION_ERROR, RN_INIT_SESSION_ERROR_EVENT);
-        constants.put(INIT_SESSION_STARTED, RN_INIT_SESSION_STARTED_EVENT);
+        constants.put(INIT_SESSION_STARTED, RN_INIT_SESSION_START_EVENT);
 
         // Constants for use with userCompletedAction (deprecated)
 
@@ -326,7 +326,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 else {
                     payload.putNull(NATIVE_INIT_SESSION_STARTED_EVENT_URI);
                 }
-                mBranchModule.sendRNEvent(RN_INIT_SESSION_STARTED_EVENT, payload);
+                mBranchModule.sendRNEvent(RN_INIT_SESSION_START_EVENT, payload);
             }
 
             private BroadcastReceiver init(RNBranchModule branchModule) {
