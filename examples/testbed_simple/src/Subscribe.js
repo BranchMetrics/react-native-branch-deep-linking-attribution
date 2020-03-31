@@ -13,7 +13,7 @@ const subscriber = new BranchSubscriber({
       return
     }
 
-    console.info("Received link response from Branch")
+    console.info("Received link response from Branch for " + uri)
 
     console.log("params: " + JSON.stringify(params))
   },
