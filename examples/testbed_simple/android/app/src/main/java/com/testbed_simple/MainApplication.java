@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 
-import io.branch.referral.Branch;
+import io.branch.rnbranch.RNBranchModule;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.PackageList;
@@ -40,6 +40,6 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-    Branch.getAutoInstance(this);
+    RNBranchModule.getAutoInstance(this);
   }
 }

@@ -74,6 +74,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public static final String UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE = "RNBranch::Error::BUONotFound";
     public static final String GENERIC_ERROR = "RNBranch::Error";
     private static final long AGING_HASH_TTL = 3600000;
+    private static final String PLUGIN_NAME = "ReactNative";
 
     private static JSONObject initSessionResult = null;
     private BroadcastReceiver mInitSessionEventReceiver = null;
@@ -95,8 +96,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         String testKey = config.getTestKey();
         boolean useTest = config.getUseTestInstance();
 
-        BranchUtil.setPluginType(BranchUtil.PluginType.ReactNative);
-        BranchUtil.setPluginVersion(io.branch.rnbranch.BuildConfig.RNBRANCH_VERSION);
+        Branch.registerPlugin(PLUGIN_NAME, io.branch.rnbranch.BuildConfig.RNBRANCH_VERSION);
 
         if (branchKey != null) {
             Branch.getAutoInstance(context, branchKey);

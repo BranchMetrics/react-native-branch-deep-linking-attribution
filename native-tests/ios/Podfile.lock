@@ -1,8 +1,8 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - Branch (0.31.3):
-    - Branch/Core (= 0.31.3)
-  - Branch/Core (0.31.3)
+  - Branch (0.32.0):
+    - Branch/Core (= 0.32.0)
+  - Branch/Core (0.32.0)
   - DoubleConversion (1.1.6)
   - Folly (2018.10.22.00):
     - boost-for-react-native
@@ -62,7 +62,7 @@ PODS:
     - React-jsi (= 0.60.4)
   - React-jsinspector (0.60.4)
   - react-native-branch (4.4.1):
-    - Branch (= 0.31.3)
+    - Branch (= 0.32.0)
     - React
   - React-RCTActionSheet (0.60.4):
     - React-Core (= 0.60.4)
@@ -172,7 +172,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  Branch: 9b299693ee54b308ff8c18146afe1f711c2069ec
+  Branch: 770a23c04d3f5410cf9231db099a444dd3060784
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
@@ -185,7 +185,7 @@ SPEC CHECKSUMS:
   React-jsi: 21d3153b1153fbf6510a92b6b11e33e725cb7432
   React-jsiexecutor: 7549641e48bafae7bfee3f3ea19bf4901639c5de
   React-jsinspector: 73f24a02fa684ed6a2b828ba116874a2191ded88
-  react-native-branch: 027ed88e96019f0606bb41caf9111e60b71146d3
+  react-native-branch: 154dca37b41b0643012aeee8753f4ce00af6d544
   React-RCTActionSheet: 9f71d7ae3e8fb10e08d162cbf14c621349dbfab3
   React-RCTAnimation: 981d8c95b0e30918a9832ccac32af83562a27fae
   React-RCTBlob: 21e73d1020a302a75fed30dbaee9f15287b80baa
