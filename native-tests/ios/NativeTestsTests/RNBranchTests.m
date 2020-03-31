@@ -38,6 +38,11 @@
     ASSERT_CONSTANT(@"INIT_SESSION_ERROR", kRNBranchInitSessionError);
 }
 
+- (void)testInitSessionStartConstant
+{
+    ASSERT_CONSTANT(@"INIT_SESSION_START", kRNBranchInitSessionStart);
+}
+
 - (void)testAddToCartEventConstant
 {
     ASSERT_CONSTANT(@"ADD_TO_CART_EVENT", BNCAddToCartEvent);

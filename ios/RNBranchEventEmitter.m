@@ -60,9 +60,24 @@ RCT_EXPORT_MODULE();
 
 # pragma mark - Public
 
-+ (void)initSessionWillStartWithURL:(NSURL *)url
++ (void)initSessionWillStartWithURI:(NSURL *)uri
 {
-    [self postNotificationName:kRNBranchInitSessionStart withPayload:@{@"url": url}]
+    /*
+     * Transmits an Object to JS with a member named uri. This member
+     * will be null if the uri argument here is nil (e.g. Spotlight item).
+     *
+     * branch.subscribe({
+     *   onOpenStart: ({ uri }) => {
+     *     console.log('Opening URI ' + uri)
+     *   },
+     * })
+     *
+     * Note that deferred deep link checks will not trigger an onOpenStart call in JS
+     * (RNBranch.INIT_SESSION_START).
+     */
+    [self postNotificationName:kRNBranchInitSessionStart withPayload:@{
+        RNBranchLinkOpenedNotificationUriKey: uri ?: NSNull.null
+    }];
 }
 
 + (void)initSessionDidSucceedWithPayload:(NSDictionary *)payload
