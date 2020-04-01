@@ -8,7 +8,7 @@ const subscriber = new BranchSubscriber({
   },
   onOpenComplete: ({ error, params, uri }) => {
     if (error) {
-      console.error("Error from Branch: " + error)
+      console.error("Error from Branch opening URI '" + uri + "': " + error)
       return
     }
 
