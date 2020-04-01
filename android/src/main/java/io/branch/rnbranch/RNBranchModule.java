@@ -46,7 +46,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static final String RN_INIT_SESSION_START_EVENT = "RNBranch.initSessionStart";
     private static final String INIT_SESSION_SUCCESS = "INIT_SESSION_SUCCESS";
     private static final String INIT_SESSION_ERROR = "INIT_SESSION_ERROR";
-    private static final String INIT_SESSION_STARTED = "INIT_SESSION_STARTED";
+    private static final String INIT_SESSION_START = "INIT_SESSION_START";
     private static final String ADD_TO_CART_EVENT = "ADD_TO_CART_EVENT";
     private static final String ADD_TO_WISHLIST_EVENT = "ADD_TO_WISHLIST_EVENT";
     private static final String PURCHASED_EVENT = "PURCHASED_EVENT";
@@ -208,7 +208,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }.init(reactActivity);
 
         notifyJSOfInitSessionStart(reactActivity, uri);
-        branch.initSession(referralInitListener, uri, reactActivity);
+        branch.sessionBuilder(reactActivity).withCallback(referralInitListener).withData(uri).init();
     }
 
     private static void notifyJSOfInitSessionStart(Context context, Uri uri) {
@@ -218,6 +218,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }
 
         LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
+        Log.d(REACT_CLASS, "Sent session start broadcast for " + uri);
     }
 
     public static void setDebug() {
@@ -253,7 +254,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
         constants.put(INIT_SESSION_SUCCESS, RN_INIT_SESSION_SUCCESS_EVENT);
         constants.put(INIT_SESSION_ERROR, RN_INIT_SESSION_ERROR_EVENT);
-        constants.put(INIT_SESSION_STARTED, RN_INIT_SESSION_START_EVENT);
+        constants.put(INIT_SESSION_START, RN_INIT_SESSION_START_EVENT);
 
         // Constants for use with userCompletedAction (deprecated)
 
