@@ -63,7 +63,7 @@ export default class BranchSubscriber {
            * URI, but onOpenStart was never called. This can be addressed
            * by caching the pending URI in the native layers.
            */
-          if (this.options.onOpenStart && 'uri' in result && !!result['uri']) {
+          if (this.options.onOpenStart && 'uri' in result) {
             this.options.onOpenStart(result.uri)
           }
           if (this.options.onOpenComplete) {
