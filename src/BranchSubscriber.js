@@ -15,6 +15,13 @@ export default class BranchSubscriber {
   })
 
   /**
+   * Tracks whether cached events should be checked on the next
+   * call to subscribe(). Initialized by options.checkCachedEvents
+   * if present, true otherwise.
+   */
+  _checkCachedEvents = true
+
+  /**
    * The options Object passed to the constructor
    * @type {Object}
    */
@@ -27,10 +34,18 @@ export default class BranchSubscriber {
    */
   constructor(options) {
     this.options = options || {}
+    if ('checkCachedEvents' in this.options) {
+      this._checkCachedEvents = this.options.checkCachedEvents
+    }
   }
 
   subscribe() {
-    if (this.options.checkCachedEvents) {
+    if (this._checkCachedEvents) {
+      /*
+       * Only check for events from the native layer on the first call to
+       * subscribe().
+       */
+      this._checkCachedEvents = false
       RNBranch.redeemInitSessionResult().then((result) => {
         if (result) {
           /*** Cached value is returned, so set it as cached. ***/
