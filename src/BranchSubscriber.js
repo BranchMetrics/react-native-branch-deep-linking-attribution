@@ -22,6 +22,11 @@ export default class BranchSubscriber {
   _checkCachedEvents = true
 
   /**
+   * Keep track of whether subscription is active.
+   */
+  _subscribed = false
+
+  /**
    * The options Object passed to the constructor
    * @type {Object}
    */
@@ -40,6 +45,10 @@ export default class BranchSubscriber {
   }
 
   subscribe() {
+    if (this._subscribed) return
+
+    this._subscribed = true
+
     if (this._checkCachedEvents) {
       /*
        * Only check for events from the native layer on the first call to
@@ -99,6 +108,10 @@ export default class BranchSubscriber {
    * Deactivates subscription to native events
    */
   unsubscribe() {
+    if (!this._subscribed) return
+
+    this._subscribed = false
+
     if (this.options.onOpenStart) {
       this._nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_START, this.options.onOpenStart)
     }
