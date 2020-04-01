@@ -122,7 +122,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Intent intent = reactActivity.getIntent();
         if (intent != null) {
             intent.putExtra("branch_force_new_session", true);
-            branch.reInitSession(reactActivity, referralInitListener);
+            branch.sessionBuilder(reactActivity).withCallback(referralInitListener).reInit();
         } else {
             Log.w(REACT_CLASS, "reInitSession was called but the Intent is null");
         }
