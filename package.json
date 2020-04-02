@@ -57,7 +57,7 @@
     "eslint": "^2.7.0",
     "eslint-config-rackt": "^1.1.1",
     "jest": "^24.8.0",
-    "react": "16.8.6",
-    "react-native": "^0.60.3"
+    "react": "16.11.0",
+    "react-native": "^0.62.0"
   }
 }
