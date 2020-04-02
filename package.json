@@ -16,12 +16,6 @@
     "version": "./scripts/update-plugin-version.sh",
     "test": "jest"
   },
-  "babel": {
-    "ignore": false,
-    "presets": [
-      "react-native"
-    ]
-  },
   "keywords": [
     "react-native",
     "react-component",
@@ -56,7 +50,7 @@
     "babel-eslint": "^7.0.0",
     "eslint": "^2.7.0",
     "eslint-config-rackt": "^1.1.1",
-    "jest": "^24.8.0",
+    "jest": "^25.2.6",
     "react": "16.11.0",
     "react-native": "^0.62.0"
   }
