@@ -25,6 +25,7 @@ test('subscribes to init session start events', () => {
 
   expect(subscriber._nativeEventEmitter.addListener.mock.calls.length).toBe(1)
   expect(subscriber._nativeEventEmitter.addListener.mock.calls[0][0]).toBe(RNBranch.INIT_SESSION_START)
+  expect(subscriber._nativeEventEmitter.addListener.mock.calls[0][1]).toBe(subscriber.options.onOpenStart)
 })
 
 test('subscribes to init session success & error events', () => {
@@ -43,4 +44,6 @@ test('subscribes to init session success & error events', () => {
     RNBranch.INIT_SESSION_ERROR,
     RNBranch.INIT_SESSION_SUCCESS,
   ])
+  expect(subscriber._nativeEventEmitter.addListener.mock.calls[0][1]).toBe(subscriber.options.onOpenComplete)
+  expect(subscriber._nativeEventEmitter.addListener.mock.calls[1][1]).toBe(subscriber.options.onOpenComplete)
 })
