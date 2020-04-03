@@ -37,7 +37,10 @@ test('subscribes to init session success & error events', () => {
 
   expect(subscriber._nativeEventEmitter.addListener.mock.calls.length).toBe(2)
 
-  // TODO: This is brittle because it depends on the order.
-  expect(subscriber._nativeEventEmitter.addListener.mock.calls[0][0]).toBe(RNBranch.INIT_SESSION_SUCCESS)
-  expect(subscriber._nativeEventEmitter.addListener.mock.calls[1][0]).toBe(RNBranch.INIT_SESSION_ERROR)
+  // This comparison ignores the call order.
+  const mockArgs = subscriber._nativeEventEmitter.addListener.mock.calls.map(call => call[0]).sort()
+  expect(mockArgs).toEqual([
+    RNBranch.INIT_SESSION_ERROR,
+    RNBranch.INIT_SESSION_SUCCESS,
+  ])
 })
