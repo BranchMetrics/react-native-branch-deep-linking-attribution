@@ -151,7 +151,34 @@ test('passes a non-null uri to onOpenStart when available', done => {
       done(error)
     }
   }
-  expect(subscriber._checkCachedEvents).toBe(true)
+
+  // --- Code under test ---
+  subscriber.subscribe()
+})
+
+test('does not return a cached result when none available', done => {
+  // Mock promise from redeemInitSessionResult
+  RNBranch.redeemInitSessionResult.mockReturnValueOnce(Promise.resolve(null))
+
+  // Set up subscriber, mocking the callbacks
+  const subscriber = new BranchSubscriber({
+    checkCachedEvents: true,
+    onOpenStart: jest.fn(({uri}) => {}),
+  })
+
+  // mock subscriber._nativeEventEmitter.addListener.
+  subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
+    // --- Check results ---
+
+    try {
+      // Expect onOpenStart not to be called
+      expect(subscriber.options.onOpenStart.mock.calls.length).toBe(0)
+
+      done()
+    } catch(error) {
+      done(error)
+    }
+  }
 
   // --- Code under test ---
   subscriber.subscribe()
