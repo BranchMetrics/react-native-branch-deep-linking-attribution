@@ -164,6 +164,7 @@ test('does not return a cached result when none available', done => {
   const subscriber = new BranchSubscriber({
     checkCachedEvents: true,
     onOpenStart: jest.fn(({uri}) => {}),
+    onOpenComplete: jest.fn(({params, error, uri}) => {})
   })
 
   // mock subscriber._nativeEventEmitter.addListener.
@@ -173,6 +174,7 @@ test('does not return a cached result when none available', done => {
     try {
       // Expect onOpenStart not to be called
       expect(subscriber.options.onOpenStart.mock.calls.length).toBe(0)
+      expect(subscriber.options.onOpenComplete.mock.calls.length).toBe(0)
 
       done()
     } catch(error) {
