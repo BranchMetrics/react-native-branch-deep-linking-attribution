@@ -100,7 +100,7 @@ test('will return a cached event when appropriate', done => {
   subscriber.subscribe()
 })
 
-test('passes a non-null uri to onOpenStart when available', () => {
+test('passes a non-null uri to onOpenStart when available', done => {
   const mockResult = {
     params: {
       '+clicked_branch_link': true,
@@ -120,13 +120,7 @@ test('passes a non-null uri to onOpenStart when available', () => {
   })
 
   // mock subscriber._nativeEventEmitter.addListener.
-
-  // TODO: Brittle test
-  // Expect first onOpenStart, then onOpenComplete, then _nativeEventEmitter.addListener three times,
-  // with INIT_SESSION_ERROR last.
   subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
-    if (eventType !== RNBranch.INIT_SESSION_ERROR) return
-
     // --- Check results ---
 
     // Expect onOpenStart to be called
