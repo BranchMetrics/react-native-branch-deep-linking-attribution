@@ -82,12 +82,10 @@ test('will return a cached event when appropriate', done => {
     onOpenComplete: jest.fn(({params, error, uri}) => {}),
   })
 
-  // mock subscriber._nativeEventEmitter.addListener.
+  // mock subscriber._nativeEventEmitter.addListener. Expect this to be called three times.
+  let addListenerCount = 0
   subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
-    // TODO: Brittle test
-    // Expect first onOpenStart, then onOpenComplete, then _nativeEventEmitter.addListener three times,
-    // with INIT_SESSION_ERROR last.
-    if (eventType !== RNBranch.INIT_SESSION_ERROR) return
+    if (++addListenerCount < 3) return
 
     // --- Check results ---
 
@@ -167,12 +165,10 @@ test('does not return a cached result when none available', done => {
     onOpenComplete: jest.fn(({params, error, uri}) => {}),
   })
 
-  // mock subscriber._nativeEventEmitter.addListener.
+  // mock subscriber._nativeEventEmitter.addListener. Expect this to be called three times.
+  let addListenerCount = 0
   subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
-    // TODO: Brittle test
-    // Expect first onOpenStart, then onOpenComplete, then _nativeEventEmitter.addListener three times,
-    // with INIT_SESSION_ERROR last.
-    if (eventType !== RNBranch.INIT_SESSION_ERROR) return
+    if (++addListenerCount < 3) return
 
     // --- Check results ---
 
