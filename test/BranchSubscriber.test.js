@@ -15,6 +15,12 @@ test('stores options passed to the constructor', () => {
   expect(subscriber.options).toEqual({ checkCachedEvents: false })
 })
 
+test('will check cached events by default', () => {
+  const subscriber = new BranchSubscriber({})
+  expect(subscriber.options.checkCachedEvents).toBe(undefined)
+  expect(subscriber._checkCachedEvents).toBe(true)
+})
+
 test('subscribes to init session start events', () => {
   const subscriber = new BranchSubscriber({
     checkCachedEvents: false,
