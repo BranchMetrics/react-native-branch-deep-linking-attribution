@@ -85,9 +85,15 @@ test('will return a cached event when appropriate', done => {
     expect(subscriber.options.onOpenStart.mock.calls.length).toBe(1)
     expect(subscriber.options.onOpenStart.mock.calls[0][0]).toEqual({uri: null})
 
-    // full result passed to onOpenComplete
+    // full result passed to onOpenComplete with +rn_cached_initial_event: true
     expect(subscriber.options.onOpenComplete.mock.calls.length).toBe(1)
-    expect(subscriber.options.onOpenComplete.mock.calls[0][0]).toEqual(mockResult)
+    const actualResult = subscriber.options.onOpenComplete.mock.calls[0][0]
+
+    let expectedParams = mockResult.params
+    expectedParams['+rn_cached_initial_event'] = true
+    expect(actualResult.params).toEqual(expectedParams)
+    expect(actualResult.error).toEqual(mockResult.error)
+    expect(actualResult.uri).toEqual(mockResult.uri)
 
     // state cleared
     expect(subscriber._checkCachedEvents).toBe(false)
