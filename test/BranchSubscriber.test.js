@@ -169,6 +169,11 @@ test('does not return a cached result when none available', done => {
 
   // mock subscriber._nativeEventEmitter.addListener.
   subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
+    // TODO: Brittle test
+    // Expect first onOpenStart, then onOpenComplete, then _nativeEventEmitter.addListener three times,
+    // with INIT_SESSION_ERROR last.
+    if (eventType !== RNBranch.INIT_SESSION_ERROR) return
+
     // --- Check results ---
 
     try {
