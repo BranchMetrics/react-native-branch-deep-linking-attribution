@@ -72,7 +72,7 @@ test('will return a cached event when appropriate', done => {
     params: {
       ...mockResult.params,
       '+rn_cached_initial_event': true,
-    }
+    },
   }
 
   // Mock promise from redeemInitSessionResult
