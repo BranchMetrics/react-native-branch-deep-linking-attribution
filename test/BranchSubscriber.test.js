@@ -59,9 +59,8 @@ test('will return a cached event when appropriate', done => {
     uri: null,
   }
 
-  //* Mock promise from redeemInitSessionResult
+  // Mock promise from redeemInitSessionResult
   RNBranch.redeemInitSessionResult.mockReturnValueOnce(Promise.resolve(mockResult))
-  // */
 
   // Set up subscriber, mocking the callbacks
   const subscriber = new BranchSubscriber({
@@ -92,6 +91,48 @@ test('will return a cached event when appropriate', done => {
 
     // state cleared
     expect(subscriber._checkCachedEvents).toBe(false)
+
+    done()
+  }
+  expect(subscriber._checkCachedEvents).toBe(true)
+
+  // --- Code under test ---
+  subscriber.subscribe()
+})
+
+test('passes a non-null uri to onOpenStart when available', () => {
+  const mockResult = {
+    params: {
+      '+clicked_branch_link': true,
+      '+is_first_session': false,
+    },
+    error: null,
+    uri: 'https://abcd.app.link/xyz',
+  }
+
+  // Mock promise from redeemInitSessionResult
+  RNBranch.redeemInitSessionResult.mockReturnValueOnce(Promise.resolve(mockResult))
+
+  // Set up subscriber, mocking the callbacks
+  const subscriber = new BranchSubscriber({
+    checkCachedEvents: true,
+    onOpenStart: jest.fn(({uri}) => {}),
+  })
+
+  // mock subscriber._nativeEventEmitter.addListener.
+
+  // TODO: Brittle test
+  // Expect first onOpenStart, then onOpenComplete, then _nativeEventEmitter.addListener three times,
+  // with INIT_SESSION_ERROR last.
+  subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
+    if (eventType !== RNBranch.INIT_SESSION_ERROR) return
+
+    // --- Check results ---
+
+    // Expect onOpenStart to be called
+    // uri passed to onOpenStart
+    expect(subscriber.options.onOpenStart.mock.calls.length).toBe(1)
+    expect(subscriber.options.onOpenStart.mock.calls[0][0]).toEqual({uri: mockResult.uri})
 
     done()
   }
