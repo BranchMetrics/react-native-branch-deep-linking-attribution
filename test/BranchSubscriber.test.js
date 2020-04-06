@@ -59,6 +59,19 @@ test('will return a cached event when appropriate', done => {
     uri: null,
   }
 
+  // expectedResult is mockResult with +rn_cached_initial_event added to
+  // params.
+  const expectedParams = {
+    ...mockResult.params,
+    '+rn_cached_initial_event': true,
+  }
+  expectedParams['+rn_cached_initial_event'] = true
+  const expectedResult = {
+    params: expectedParams,
+    error: mockResult.error,
+    uri: mockResult.uri,
+  }
+
   // Mock promise from redeemInitSessionResult
   RNBranch.redeemInitSessionResult.mockReturnValueOnce(Promise.resolve(mockResult))
 
@@ -70,35 +83,33 @@ test('will return a cached event when appropriate', done => {
   })
 
   // mock subscriber._nativeEventEmitter.addListener.
-
-  // TODO: Brittle test
-  // Expect first onOpenStart, then onOpenComplete, then _nativeEventEmitter.addListener three times,
-  // with INIT_SESSION_ERROR last.
   subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
+    // TODO: Brittle test
+    // Expect first onOpenStart, then onOpenComplete, then _nativeEventEmitter.addListener three times,
+    // with INIT_SESSION_ERROR last.
     if (eventType !== RNBranch.INIT_SESSION_ERROR) return
 
     // --- Check results ---
 
-    // Expect onOpenStart and onOpenComplete both to be called
+    try {
+      // Expect onOpenStart and onOpenComplete both to be called
 
-    // uri passed to onOpenStart
-    expect(subscriber.options.onOpenStart.mock.calls.length).toBe(1)
-    expect(subscriber.options.onOpenStart.mock.calls[0][0]).toEqual({uri: null})
+      // uri passed to onOpenStart
+      expect(subscriber.options.onOpenStart.mock.calls.length).toBe(1)
+      expect(subscriber.options.onOpenStart.mock.calls[0][0]).toEqual({uri: null})
 
-    // full result passed to onOpenComplete with +rn_cached_initial_event: true
-    expect(subscriber.options.onOpenComplete.mock.calls.length).toBe(1)
-    const actualResult = subscriber.options.onOpenComplete.mock.calls[0][0]
+      // full result passed to onOpenComplete with +rn_cached_initial_event: true
+      expect(subscriber.options.onOpenComplete.mock.calls.length).toBe(1)
+      const actualResult = subscriber.options.onOpenComplete.mock.calls[0][0]
+      expect(actualResult).toEqual(expectedResult)
 
-    let expectedParams = mockResult.params
-    expectedParams['+rn_cached_initial_event'] = true
-    expect(actualResult.params).toEqual(expectedParams)
-    expect(actualResult.error).toEqual(mockResult.error)
-    expect(actualResult.uri).toEqual(mockResult.uri)
+      // state cleared
+      expect(subscriber._checkCachedEvents).toBe(false)
 
-    // state cleared
-    expect(subscriber._checkCachedEvents).toBe(false)
-
-    done()
+      done()
+    } catch(error) {
+      done(error)
+    }
   }
   expect(subscriber._checkCachedEvents).toBe(true)
 
@@ -129,12 +140,16 @@ test('passes a non-null uri to onOpenStart when available', done => {
   subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
     // --- Check results ---
 
-    // Expect onOpenStart to be called
-    // uri passed to onOpenStart
-    expect(subscriber.options.onOpenStart.mock.calls.length).toBe(1)
-    expect(subscriber.options.onOpenStart.mock.calls[0][0]).toEqual({uri: mockResult.uri})
+    try {
+      // Expect onOpenStart to be called
+      // uri passed to onOpenStart
+      expect(subscriber.options.onOpenStart.mock.calls.length).toBe(1)
+      expect(subscriber.options.onOpenStart.mock.calls[0][0]).toEqual({uri: mockResult.uri})
 
-    done()
+      done()
+    } catch(error) {
+      done(error)
+    }
   }
   expect(subscriber._checkCachedEvents).toBe(true)
 
