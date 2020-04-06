@@ -61,14 +61,12 @@ test('will return a cached event when appropriate', done => {
 
   // expectedResult is mockResult with +rn_cached_initial_event added to
   // params.
-  const expectedParams = {
-    ...mockResult.params,
-    '+rn_cached_initial_event': true,
-  }
   const expectedResult = {
-    params: expectedParams,
-    error: mockResult.error,
-    uri: mockResult.uri,
+    ...mockResult,
+    params: {
+      ...mockResult.params,
+      '+rn_cached_initial_event': true,
+    }
   }
 
   // Mock promise from redeemInitSessionResult
