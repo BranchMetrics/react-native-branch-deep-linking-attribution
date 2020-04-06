@@ -65,7 +65,6 @@ test('will return a cached event when appropriate', done => {
     ...mockResult.params,
     '+rn_cached_initial_event': true,
   }
-  expectedParams['+rn_cached_initial_event'] = true
   const expectedResult = {
     params: expectedParams,
     error: mockResult.error,
