@@ -189,3 +189,30 @@ test('does not return a cached result when none available', done => {
   // --- Code under test ---
   subscriber.subscribe()
 })
+
+test('can unsubscribe after subscribe() is called', () => {
+  // set up subscriber
+  const subscriber = new BranchSubscriber({
+    onOpenStart: jest.fn(({uri}) => {}),
+    onOpenComplete: jest.fn(({params, error, uri}) => {}),
+  })
+
+  // subscription in effect (set by calling subscribe())
+  subscriber._subscribed = true
+
+  // mock removeListener call to native event emitter
+  subscriber._nativeEventEmitter.removeListener = jest.fn((eventType, listener) => {})
+
+  // --- Code under test ---
+  subscriber.unsubscribe()
+
+  // --- Check results ---
+
+  expect(subscriber._nativeEventEmitter.removeListener.mock.calls.length).toBe(3)
+  const mockArgs = subscriber._nativeEventEmitter.removeListener.mock.calls.map(call => call[0]).sort()
+  expect(mockArgs).toEqual([
+    RNBranch.INIT_SESSION_ERROR,
+    RNBranch.INIT_SESSION_START,
+    RNBranch.INIT_SESSION_SUCCESS,
+  ])
+})
