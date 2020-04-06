@@ -47,3 +47,56 @@ test('subscribes to init session success & error events', () => {
   expect(subscriber._nativeEventEmitter.addListener.mock.calls[0][1]).toBe(subscriber.options.onOpenComplete)
   expect(subscriber._nativeEventEmitter.addListener.mock.calls[1][1]).toBe(subscriber.options.onOpenComplete)
 })
+
+// async test
+test('will return a cached event when appropriate', done => {
+  const mockResult = {
+    params: {
+      '+clicked_branch_link': false,
+      '+is_first_session': false,
+    },
+    error: null,
+    uri: null,
+  }
+
+  //* Mock promise from redeemInitSessionResult
+  RNBranch.redeemInitSessionResult.mockReturnValueOnce(Promise.resolve(mockResult))
+  // */
+
+  // Set up subscriber, mocking the callbacks
+  const subscriber = new BranchSubscriber({
+    checkCachedEvents: true,
+    onOpenStart: jest.fn(({uri}) => {}),
+    onOpenComplete: jest.fn(({params, error, uri}) => {}),
+  })
+
+  // mock subscriber._nativeEventEmitter.addListener.
+
+  // TODO: Brittle test
+  // Expect first onOpenStart, then onOpenComplete, then _nativeEventEmitter.addListener three times,
+  // with INIT_SESSION_ERROR last.
+  subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
+    if (eventType !== RNBranch.INIT_SESSION_ERROR) return
+
+    // --- Check results ---
+
+    // Expect onOpenStart and onOpenComplete both to be called
+
+    // uri passed to onOpenStart
+    expect(subscriber.options.onOpenStart.mock.calls.length).toBe(1)
+    expect(subscriber.options.onOpenStart.mock.calls[0][0]).toEqual({uri: null})
+
+    // full result passed to onOpenComplete
+    expect(subscriber.options.onOpenComplete.mock.calls.length).toBe(1)
+    expect(subscriber.options.onOpenComplete.mock.calls[0][0]).toEqual(mockResult)
+
+    // state cleared
+    expect(subscriber._checkCachedEvents).toBe(false)
+
+    done()
+  }
+  expect(subscriber._checkCachedEvents).toBe(true)
+
+  // --- Code under test ---
+  subscriber.subscribe()
+})
