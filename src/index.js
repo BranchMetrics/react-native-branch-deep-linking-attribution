@@ -1,9 +1,10 @@
-import { NativeModules, NativeEventEmitter, DeviceEventEmitter, Platform } from 'react-native'
+import { NativeModules, Platform } from 'react-native'
 
-const { RNBranch, RNBranchEventEmitter } = NativeModules
+const { RNBranch } = NativeModules
 
 import createBranchUniversalObject from './branchUniversalObject'
 import BranchEvent from './BranchEvent'
+import BranchSubscriber from './BranchSubscriber'
 
 const packageFile = require('./../package.json')
 export const VERSION = packageFile.version
@@ -17,11 +18,6 @@ export const ShareCompletedEvent = RNBranch.SHARE_COMPLETED_EVENT
 export const ShareInitiatedEvent = RNBranch.SHARE_INITIATED_EVENT
 
 class Branch {
-  nativeEventEmitter = Platform.select({
-    android: DeviceEventEmitter,
-    ios: new NativeEventEmitter(RNBranchEventEmitter)
-  })
-
   key = null;
   _checkCachedEvents = true;
   _debug = false;
@@ -32,73 +28,36 @@ class Branch {
     console.info('Initializing react-native-branch v. ' + VERSION)
   }
 
-  subscribe(listener) {
+  subscribe(options) {
+    if (typeof options === 'function') {
+      /*
+       * Support for legacy API, passing a single callback function:
+       * branch.subscribe(({params, error, uri}) => { ... }). This is
+       * the same as the onOpenComplete callback.
+       */
+      options = {
+        onOpenComplete: options,
+      }
+    }
 
     /*
-     * If _checkCachedEvents flag is set, get the cached value from the native layer (asynchronously).
-     * If none, the listener is not called. If there is a cached value, it is passed to the listener.
+     * You can specify checkCachedEvents in the subscribe options to control
+     * this per subscriber.
      */
-    if (this._checkCachedEvents) {
-      this._checkCachedEvents = false
-
-      RNBranch.redeemInitSessionResult().then((result) => {
-        if (result) {
-          /*** Cached value is returned, so set it as cached. ***/
-          if('params' in result && !!result['params']) {
-            result['params']['+rn_cached_initial_event'] = true
-          }
-
-          listener(result)
-        }
-
-        /*
-         * https://github.com/BranchMetrics/react-native-branch-deep-linking/issues/79
-         *
-         * By waiting until redeemInitSessionResult() returns, we roughly simulate a
-         * synchronous call to the native layer.
-         *
-         * Note that this is equivalent to
-         *
-         * let result = await RNBranch.redeemInitSessionResult()
-         * if (result) listener(result)
-         * this._addListener(listener)
-         *
-         * But by using then(), the subscribe method does not have to be async.
-         * This way, we don't add event listeners until the listener has received the
-         * initial cached value, which essentially eliminates all possibility of
-         * getting the same event twice.
-         */
-        this._addListener(listener)
-      })
+    if (!('checkCachedEvents' in options)) {
+      options.checkCachedEvents = this._checkCachedEvents
     }
-    else {
-      this._addListener(listener)
-    }
+    this._checkCachedEvents = false
 
-    // Initialize the native Branch SDK from JS
-    // -- Unsupportable on Android for the time being.
-    // RNBranch.initializeBranch(this.key)
+    const subscriber = new BranchSubscriber(options)
+    subscriber.subscribe()
 
-    const unsubscribe = () => {
-      this._removeListener(listener)
-    }
-
-    return unsubscribe
+    return subscriber.unsubscribe
   }
 
   skipCachedEvents() {
     /*** Sets to ignore cached events. ***/
     this._checkCachedEvents = false
-  }
-
-  _addListener(listener) {
-    this.nativeEventEmitter.addListener(RNBranch.INIT_SESSION_SUCCESS, listener)
-    this.nativeEventEmitter.addListener(RNBranch.INIT_SESSION_ERROR, listener)
-  }
-
-  _removeListener(listener) {
-    this.nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_SUCCESS, listener)
-    this.nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_ERROR, listener)
   }
 
   /*** Tracking related methods ***/
@@ -110,7 +69,7 @@ class Branch {
   getLatestReferringParams = (synchronous = false) => RNBranch.getLatestReferringParams(synchronous)
   getFirstReferringParams = RNBranch.getFirstReferringParams
   setIdentity = (identity) => RNBranch.setIdentity(identity)
-  setRequestMetadata = (key, value) => { 
+  setRequestMetadata = (key, value) => {
     console.info('[Branch] setRequestMetadata has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the metadata.')
     return RNBranch.setRequestMetadataKey(key, value)
   }
@@ -137,5 +96,5 @@ class Branch {
   createBranchUniversalObject = createBranchUniversalObject
 }
 
-export { Branch, BranchEvent }
+export { Branch, BranchEvent, BranchSubscriber }
 export default new Branch()

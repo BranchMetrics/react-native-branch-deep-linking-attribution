@@ -22,6 +22,7 @@ static NSDictionary *savedLaunchOptions;
 static BOOL savedIsReferrable;
 static NSString *branchKey;
 static BOOL deferInitializationForJSLoad = NO;
+static NSURL *originalURL;
 
 static NSString * const IdentFieldName = @"ident";
 
@@ -34,6 +35,8 @@ static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 @interface RNBranch()
 @property (nonatomic, readonly) UIViewController *currentViewController;
 @property (nonatomic) RNBranchAgingDictionary<NSString *, BranchUniversalObject *> *universalObjectMap;
+
++ (void)willOpenURL:(NSURL * _Nullable)url;
 @end
 
 #pragma mark - RNBranch implementation
@@ -96,6 +99,7 @@ RCT_EXPORT_MODULE();
 - (NSDictionary<NSString *, NSString *> *)constantsToExport {
     return @{
              // RN events transmitted to JS by event emitter
+             @"INIT_SESSION_START": kRNBranchInitSessionStart,
              @"INIT_SESSION_SUCCESS": kRNBranchInitSessionSuccess,
              @"INIT_SESSION_ERROR": kRNBranchInitSessionError,
 
@@ -174,6 +178,11 @@ RCT_EXPORT_MODULE();
 
 + (void)initializeBranchSDK
 {
+    NSURL *coldLaunchURL = savedLaunchOptions[UIApplicationLaunchOptionsURLKey];
+    if (coldLaunchURL) {
+        [self willOpenURL:coldLaunchURL];
+    }
+
     [self.branch initSessionWithLaunchOptions:savedLaunchOptions isReferrable:savedIsReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSMutableDictionary *result = [NSMutableDictionary dictionary];
         if (error) result[RNBranchLinkOpenedNotificationErrorKey] = error;
@@ -187,32 +196,57 @@ RCT_EXPORT_MODULE();
 
                 BranchLinkProperties *linkProperties = [BranchLinkProperties getBranchLinkPropertiesFromDictionary:params];
                 if (linkProperties) result[RNBranchLinkOpenedNotificationLinkPropertiesKey] = linkProperties;
+            }
+        }
 
-                if (params[@"~referring_link"]) {
-                    result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"~referring_link"]];
-                }
-            }
-            else if (params[@"+non_branch_link"]) {
-                result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"+non_branch_link"]];
-            }
+        /*
+         * originalURL will be nil in case of deferred deep links, Spotlight items, etc.
+         * Note that deferred deep link checks will not trigger an onOpenStart call in JS
+         * (RNBranch.INIT_SESSION_START).
+         */
+        if (originalURL) {
+            result[RNBranchLinkOpenedNotificationUriKey] = originalURL;
+            originalURL = nil;
         }
 
         [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:result];
     }];
 }
 
-// TODO: Eliminate these now that sourceUrl is gone.
-+ (BOOL)handleDeepLink:(NSURL *)url {
-    BOOL handled = [self.branch handleDeepLink:url];
-    return handled;
++ (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+    [self willOpenURL:url];
+    return [self.branch application:application openURL:url options:options];
+}
+
++ (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    [self willOpenURL:url];
+    return [self.branch application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity {
+    [self willOpenURL:userActivity.webpageURL];
     return [self.branch continueUserActivity:userActivity];
 }
 #pragma clang diagnostic pop
+
++ (void)willOpenURL:(NSURL *)url
+{
+    /*
+     * This should be consistent with the behavior of the underlying SDK.
+     * If an open is pending, and a new open is received, the first open is
+     * dropped. No response is expected for the first open. JS will generate
+     * two calls to onOpenStart with potentially different URIs. Only the
+     * last one should be expected to get a response.
+     *
+     * Behavior on Android is probably different.
+     */
+    originalURL = url;
+    [RNBranchEventEmitter initSessionWillStartWithURI:url];
+}
 
 #pragma mark - Object lifecycle
 
