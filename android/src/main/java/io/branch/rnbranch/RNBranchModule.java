@@ -123,7 +123,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         if (intent != null) {
             intent.putExtra("branch_force_new_session", true);
             notifyJSOfInitSessionStart(reactActivity, intent.getData());
-            branch.sessionBuilder(reactActivity).withCallback(referralInitListener).reInit();
+            Branch.sessionBuilder(reactActivity).withCallback(referralInitListener).reInit();
         } else {
             Log.w(REACT_CLASS, "reInitSession was called but the Intent is null");
         }
@@ -208,9 +208,15 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }.init(reactActivity);
 
         notifyJSOfInitSessionStart(reactActivity, uri);
-        branch.sessionBuilder(reactActivity).withCallback(referralInitListener).withData(uri).init();
+        Branch.sessionBuilder(reactActivity).withCallback(referralInitListener).withData(uri).init();
     }
 
+    /**
+     * Notify JavaScript of init session start. This generates an RNBranch.initSessionStart
+     * event to JS via the RN native event emitter.
+     * @param context a Context for the LocalBroadcastManager
+     * @param uri the URI to include in the notification or null
+     */
     private static void notifyJSOfInitSessionStart(Context context, Uri uri) {
         Intent broadcastIntent = new Intent(NATIVE_INIT_SESSION_STARTED_EVENT);
         if (uri != null) {
@@ -243,7 +249,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     public RNBranchModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        forwardInitSessionEventsToReactNative(reactContext);
+        listenForInitSessionEventsToReactNative(reactContext);
     }
 
     @javax.annotation.Nullable
@@ -296,7 +302,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         return constants;
     }
 
-    private void forwardInitSessionEventsToReactNative(ReactApplicationContext reactContext) {
+    private void listenForInitSessionEventsToReactNative(ReactApplicationContext reactContext) {
         mInitSessionFinishedEventReceiver = new BroadcastReceiver() {
             RNBranchModule mBranchModule;
 
