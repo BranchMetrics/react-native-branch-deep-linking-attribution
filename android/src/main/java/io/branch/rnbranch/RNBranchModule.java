@@ -47,13 +47,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static final String INIT_SESSION_SUCCESS = "INIT_SESSION_SUCCESS";
     private static final String INIT_SESSION_ERROR = "INIT_SESSION_ERROR";
     private static final String INIT_SESSION_START = "INIT_SESSION_START";
-    private static final String ADD_TO_CART_EVENT = "ADD_TO_CART_EVENT";
-    private static final String ADD_TO_WISHLIST_EVENT = "ADD_TO_WISHLIST_EVENT";
-    private static final String PURCHASED_EVENT = "PURCHASED_EVENT";
-    private static final String PURCHASE_INITIATED_EVENT = "PURCHASE_INITIATED_EVENT";
-    private static final String REGISTER_VIEW_EVENT = "REGISTER_VIEW_EVENT";
-    private static final String SHARE_COMPLETED_EVENT = "SHARE_COMPLETED_EVENT";
-    private static final String SHARE_INITIATED_EVENT = "SHARE_INITIATED_EVENT";
 
     private static final String STANDARD_EVENT_ADD_TO_CART = "STANDARD_EVENT_ADD_TO_CART";
     private static final String STANDARD_EVENT_ADD_TO_WISHLIST = "STANDARD_EVENT_ADD_TO_WISHLIST";
@@ -261,16 +254,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         constants.put(INIT_SESSION_SUCCESS, RN_INIT_SESSION_SUCCESS_EVENT);
         constants.put(INIT_SESSION_ERROR, RN_INIT_SESSION_ERROR_EVENT);
         constants.put(INIT_SESSION_START, RN_INIT_SESSION_START_EVENT);
-
-        // Constants for use with userCompletedAction (deprecated)
-
-        // constants.put(ADD_TO_CART_EVENT, BranchEvent.ADD_TO_CART);
-        // constants.put(ADD_TO_WISHLIST_EVENT, BranchEvent.ADD_TO_WISH_LIST);
-        // constants.put(PURCHASED_EVENT, BranchEvent.PURCHASED);
-        // constants.put(PURCHASE_INITIATED_EVENT, BranchEvent.PURCHASE_STARTED);
-        // constants.put(REGISTER_VIEW_EVENT, BranchEvent.VIEW);
-        // constants.put(SHARE_COMPLETED_EVENT, BranchEvent.SHARE_COMPLETED);
-        // constants.put(SHARE_INITIATED_EVENT, BranchEvent.SHARE_STARTED);
 
         // constants for use with BranchEvent
 
