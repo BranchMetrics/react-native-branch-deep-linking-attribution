@@ -20,7 +20,7 @@ NSString * _Nonnull const RNBranchConfigAppleSearchAdsDebugModeOption = @"appleS
 NSString * _Nonnull const RNBranchConfigDeferInitializationForJSLoadOption = @"deferInitializationForJSLoad";
 NSString * _Nonnull const RNBranchConfigEnableFacebookLinkCheck = @"enableFacebookLinkCheck";
 
-NSString * const RNBNC_PLUGIN_VERSION = @"4.3.0";
+NSString * const RNBNC_PLUGIN_VERSION = RNBRANCH_VERSION;
 
 @interface RNBranchConfig()
 @property (nonatomic) NSDictionary *configuration;

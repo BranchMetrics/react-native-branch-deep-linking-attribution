@@ -76,7 +76,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js",
+    entryFile: "src/index.js",
     enableHermes: false,  // clean and rebuild if changing
 ]
 
@@ -208,4 +208,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle");
-applyNativeModulesAppBuildGradle(project, "../..")
+applyNativeModulesAppBuildGradle(project)

@@ -54,14 +54,11 @@
   return YES;
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-  if (![RNBranch.branch application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
-    // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
-  }
-  return YES;
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+  return [RNBranch application:application openURL:url options:options];
 }
 
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *restorableObjects))restorationHandler {
   return [RNBranch continueUserActivity:userActivity];
 }
 

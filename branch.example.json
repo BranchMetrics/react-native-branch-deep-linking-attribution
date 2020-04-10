@@ -4,5 +4,5 @@
     "testKey": "key_test_yyyy",
     "useTestInstance": true,
     "delayInitToCheckForSearchAds": true,
-    "appleSearchAdsDebugMode": true
+    "enableFacebookLinkCheck": true
 }
