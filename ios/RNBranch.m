@@ -103,15 +103,6 @@ RCT_EXPORT_MODULE();
              @"INIT_SESSION_SUCCESS": kRNBranchInitSessionSuccess,
              @"INIT_SESSION_ERROR": kRNBranchInitSessionError,
 
-             // constants for use with userCompletedAction
-             @"ADD_TO_CART_EVENT": BNCAddToCartEvent,
-             @"ADD_TO_WISHLIST_EVENT": BNCAddToWishlistEvent,
-             @"PURCHASED_EVENT": BNCPurchasedEvent,
-             @"PURCHASE_INITIATED_EVENT": BNCPurchaseInitiatedEvent,
-             @"REGISTER_VIEW_EVENT": BNCRegisterViewEvent,
-             @"SHARE_COMPLETED_EVENT": BNCShareCompletedEvent,
-             @"SHARE_INITIATED_EVENT": BNCShareInitiatedEvent,
-
              // constants for use with BranchEvent
 
              // Commerce events
