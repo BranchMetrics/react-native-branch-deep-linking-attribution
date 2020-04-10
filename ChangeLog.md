@@ -1,3 +1,97 @@
+2020-04-10 Version 5.0.0-beta.1
+  - For use with react-native >= 0.60
+  - This release includes Branch native SDKs Android 5.0.0 and iOS 0.32.0.
+  - The `branch.subscribe` callback now passes a third named parameter, `uri`,
+    which is the URI/URL that originally launched the app. In some cases this
+    may be `null` (e.g. deferred deep links). Consult the `~referring_link`,
+    `+url` or `+non_branch_link` parameter in those cases.
+  - You can now be notified when Branch is about to open a link using two
+    separate callbacks, `onOpenStart` and `onOpenComplete`. The
+    `onOpenComplete` callback is identical with the single callback passed to
+    `branch.subscribe`.
+
+    ```js
+    import branch from 'react-native-branch'
+
+    branch.subscribe({
+      onOpenStart: ({uri}) => {
+        console.log('Branch will open ' + uri)
+      },
+      onOpenComplete: ({error, params, uri}) => {
+        if (error) {
+          console.log('Error from Branch opening ' + uri + ': ' + error)
+          return
+        }
+
+        console.log('Branch opened ' + uri)
+        // handle params
+      },
+    })
+    ```
+
+  ### Updating from an earlier version:
+
+  #### iOS
+
+  In the AppDelegate, use the following methods:
+
+  ##### Obj-C
+
+    ```Obj-C
+    - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+      return [RNBranch application:application openURL:url options:options];
+    }
+
+    - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *restorableObjects))restorationHandler {
+      return [RNBranch continueUserActivity:userActivity];
+    }
+    ```
+
+  ##### Swift
+
+    ```Swift
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+      return RNBranch.application(app, open: url, options: options)
+    }
+
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+      return RNBranch.continue(userActivity)
+    }
+    ```
+
+2020-04-10 Version 3.2.1
+  - For use with react-native < 0.60
+  - This release includes Branch native SDKs Android 5.0.0 and iOS 0.32.0.
+
+2020-03-11 Version 4.4.0
+  - For use with react-native >= 0.60
+  - This release includes Branch native SDKs Android 4.3.2 and iOS 0.31.3.
+  - Introduced an enableFacebookLinkCheck Boolean parameter in branch.json.
+    This results in calling enableFacebookAppLinkCheck() on Android and
+    registerFacebookDeepLinkingClass: on iOS for use with react-native-fbsdk.
+    Advanced users: You can still call these methods in native code as before
+    if your use case dictates.
+
+2020-03-11 Version 3.2.0
+  - For use with react-native < 0.60
+  - This release includes Branch native SDKs Android 4.3.2 and iOS 0.31.3.
+  - Fixed a crash due to NPE on Android experienced by some users. Now an error should be properly reported.
+  - Introduced an enableFacebookLinkCheck Boolean parameter in branch.json.
+    This results in calling enableFacebookAppLinkCheck() on Android and
+    registerFacebookDeepLinkingClass: on iOS for use with react-native-fbsdk.
+    Advanced users: You can still call these methods in native code as before
+    if your use case dictates.
+
+2020-02-27 Version 3.1.2
+  - This release, for React Native < 0.60, updates native SDK support to Android 4.3.2 and iOS 0.31.3.
+
+2020-02-13 Version 4.3.0
+  - Requires RN >= 0.60
+  - Uses native Branch SDKs 4.3.2 (Android), 0.31.x (iOS).
+  - SDK-802 accept PR to expose setMetadata at the JS layer
+  - SDK-714 add plugin identifier
+  - Addresses several github issues.
+
 2019-09-30 Version 4.2.1
   - Missed version update in iOS RNBranch.m
 
