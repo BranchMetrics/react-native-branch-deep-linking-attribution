@@ -21,7 +21,7 @@
 - (void)testFieldMapping
 {
     NSDictionary<NSString *, RNBranchProperty *> *supportedProperties = BranchEvent.supportedProperties;
-    XCTAssertEqual(10, supportedProperties.count);
+    XCTAssertEqual(11, supportedProperties.count);
 
     XCTAssert([supportedProperties[@"transactionID"] isEqual:[RNBranchProperty propertyWithSetterSelector:@selector(setTransactionID:) type:NSString.class]]);
     XCTAssert([supportedProperties[@"currency"] isEqual:[RNBranchProperty propertyWithSetterSelector:@selector(setCurrency:) type:NSString.class]]);
@@ -33,6 +33,7 @@
     XCTAssert([supportedProperties[@"description"] isEqual:[RNBranchProperty propertyWithSetterSelector:@selector(setEventDescription:) type:NSString.class]]);
     XCTAssert([supportedProperties[@"searchQuery"] isEqual:[RNBranchProperty propertyWithSetterSelector:@selector(setSearchQuery:) type:NSString.class]]);
     XCTAssert([supportedProperties[@"customData"] isEqual:[RNBranchProperty propertyWithSetterSelector:@selector(setCustomData:) type:NSDictionary.class]]);
+    XCTAssert([supportedProperties[@"alias"] isEqual:[RNBranchProperty propertyWithSetterSelector:@selector(setAlias:) type:NSString.class]]);
 }
 
 - (void)testInitialization
@@ -48,7 +49,8 @@
                                                              @"affiliation": @"affiliation",
                                                              @"description": @"description",
                                                              @"searchQuery": @"searchQuery",
-                                                             @"customData": @{ @"key": @"value" }
+                                                             @"customData": @{ @"key": @"value" },
+                                                             @"alias": @"My Alias"
                                                             }];
 
     XCTAssertEqualObjects(@"transactionID", event.transactionID);
@@ -61,6 +63,7 @@
     XCTAssertEqualObjects(@"description", event.eventDescription);
     XCTAssertEqualObjects(@"searchQuery", event.searchQuery);
     XCTAssertEqualObjects(@{ @"key": @"value" }, event.customData);
+    XCTAssertEqualObjects(@"My Alias", event.alias);
 }
 
 @end

@@ -81,6 +81,12 @@ export default class BranchEvent {
   customData = null
 
   /**
+   * Optional alias for this event
+   * @type {?string}
+   */
+  alias = null
+
+  /**
    * Constructs a new BranchEvent from arguments
    *
    * @param {!string} name - The name of the event. May be a standard Branch event
@@ -118,6 +124,7 @@ export default class BranchEvent {
     if (params.description) this.description = params.description
     if (params.searchQuery) this.searchQuery = params.searchQuery
     if (params.customData) this.customData = params.customData
+    if (params.alias) this.alias = params.alias
   }
 
   /**
