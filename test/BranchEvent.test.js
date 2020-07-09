@@ -190,6 +190,15 @@ test('customData is correct', () => {
   expect(event.customData.key).toBe('value')
 })
 
+test('alias is null by default', () => {
+  expect(new BranchEvent(BranchEvent.ViewItem).alias).toBe(null)
+})
+
+test('alias is correct', () => {
+  const event = new BranchEvent(BranchEvent.ViewItem, null, { alias: 'My Alias' })
+  expect(event.alias).toBe('My Alias')
+})
+
 // --- _identFromMessage
 
 test('_identFromMessage parses a UUID from text', () => {
