@@ -173,7 +173,8 @@ class BranchMethods extends Component {
           customData: {
             "Custom_Event_Property_Key1": "Custom_Event_Property_val1",
             "Custom_Event_Property_Key2": "Custom_Event_Property_val2"
-          }
+          },
+          alias: 'ItemViewed'
         }
       )
       branchEvent.logEvent()
