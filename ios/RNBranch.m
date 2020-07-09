@@ -169,6 +169,13 @@ RCT_EXPORT_MODULE();
 
 + (void)initializeBranchSDK
 {
+    // Universal Links
+    NSUserActivity *coldLaunchUserActivity = savedLaunchOptions[UIApplicationLaunchOptionsUserActivityDictionaryKey][@"UIApplicationLaunchOptionsUserActivityKey"];
+    if (coldLaunchUserActivity.webpageURL) {
+        [self willOpenURL:coldLaunchUserActivity.webpageURL];
+    }
+
+    // URI schemes
     NSURL *coldLaunchURL = savedLaunchOptions[UIApplicationLaunchOptionsURLKey];
     if (coldLaunchURL) {
         [self willOpenURL:coldLaunchURL];
