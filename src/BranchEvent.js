@@ -191,6 +191,7 @@ export default class BranchEvent {
         // TODO: throw?
       }
     }
+    if (this.alias) params.alias = this.alias
 
     return params
   }
