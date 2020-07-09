@@ -1,8 +1,6 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - Branch (0.32.0):
-    - Branch/Core (= 0.32.0)
-  - Branch/Core (0.32.0)
+  - Branch (0.34.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.62.0)
   - FBReactNativeSpec (0.62.0):
@@ -187,7 +185,7 @@ PODS:
     - React-jsi (= 0.62.0)
   - React-jsinspector (0.62.0)
   - react-native-branch (5.0.0-beta.2):
-    - Branch (= 0.32.0)
+    - Branch (= 0.34.0)
     - React
   - React-RCTActionSheet (0.62.0):
     - React-Core/RCTActionSheetHeaders (= 0.62.0)
@@ -363,7 +361,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  Branch: 770a23c04d3f5410cf9231db099a444dd3060784
+  Branch: 446aeb832102f56f04edf5fa7cb0a752dc392ca7
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: 545eccf4f6ef2de8fd450fd8a1edb3f913c7371a
   FBReactNativeSpec: 85c7f8347f4a6e911742228e89e245187afa298e
@@ -379,7 +377,7 @@ SPEC CHECKSUMS:
   React-jsi: bc8166d6833cdcb0848c80710b26ce63fad2c099
   React-jsiexecutor: 8bf0b2707f05865113415088c398a7f98c0cf546
   React-jsinspector: 8e5913c4c6c54f0d3f9c9fc630c465a89cded65d
-  react-native-branch: 57aa8ed7eae8dc709f5cef033c5dad5bdbf99e72
+  react-native-branch: c3f12fbc43ea98a9e8732cec78dfa83d525b7caf
   React-RCTActionSheet: 674afbc8b9c76e0a83520e0a51da29a70802c03f
   React-RCTAnimation: f5f24330d09ee677fb49e0782f8321868f4df431
   React-RCTBlob: b773ce6138ab0d172ebd8a455fd4efd200a92549

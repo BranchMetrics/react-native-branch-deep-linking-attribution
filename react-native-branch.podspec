@@ -22,6 +22,6 @@ Pod::Spec.new do |s|
   s.source_files = [ "ios/*.h", "ios/*.m"]
   s.compiler_flags = %[-DRNBRANCH_VERSION=@\\"#{s.version}\\"]
   s.header_dir   = 'RNBranch' # also sets generated module name
-  s.dependency 'Branch', '0.32.0'
+  s.dependency 'Branch', '0.34.0'
   s.dependency 'React' # to ensure the correct build order
 end
