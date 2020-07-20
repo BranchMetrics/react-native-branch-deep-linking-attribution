@@ -243,6 +243,18 @@ BranchEvent.Purchase = RNBranch.STANDARD_EVENT_PURCHASE
  */
 BranchEvent.SpendCredits = RNBranch.STANDARD_EVENT_SPEND_CREDITS
 
+/**
+ * Standard View Ad event
+ * @type {string}
+ */
+BranchEvent.ViewAd = RNBranch.STANDARD_EVENT_VIEW_AD
+
+/**
+ * Standard Click Ad event
+ * @type {string}
+ */
+BranchEvent.ClickAd = RNBranch.STANDARD_EVENT_CLICK_AD
+
 // Content events
 
 /**
@@ -300,3 +312,33 @@ BranchEvent.AchieveLevel = RNBranch.STANDARD_EVENT_ACHIEVE_LEVEL
  * @type {string}
  */
 BranchEvent.UnlockAchievement = RNBranch.STANDARD_EVENT_UNLOCK_ACHIEVEMENT
+
+/**
+ * Standard Invite event
+ * @type {string}
+ */
+BranchEvent.Invite = RNBranch.STANDARD_EVENT_INVITE
+
+/**
+ * Standard Login event
+ * @type {string}
+ */
+BranchEvent.Login = RNBranch.STANDARD_EVENT_LOGIN
+
+/**
+ * Standard Reserve event
+ * @type {string}
+ */
+BranchEvent.Reserve = RNBranch.STANDARD_EVENT_RESERVE
+
+/**
+ * Standard Subscribe event
+ * @type {string}
+ */
+BranchEvent.Subscribe = RNBranch.STANDARD_EVENT_SUBSCRIBE
+
+/**
+ * Standard Start Trial event
+ * @type {string}
+ */
+BranchEvent.StartTrial = RNBranch.STANDARD_EVENT_START_TRIAL
