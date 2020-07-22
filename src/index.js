@@ -44,7 +44,7 @@ class Branch {
     const subscriber = new BranchSubscriber(options)
     subscriber.subscribe()
 
-    return subscriber.unsubscribe
+    return () => subscriber.unsubscribe()
   }
 
   skipCachedEvents() {
