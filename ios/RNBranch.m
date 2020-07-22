@@ -113,6 +113,8 @@ RCT_EXPORT_MODULE();
              @"STANDARD_EVENT_ADD_PAYMENT_INFO": BranchStandardEventAddPaymentInfo,
              @"STANDARD_EVENT_PURCHASE": BranchStandardEventPurchase,
              @"STANDARD_EVENT_SPEND_CREDITS": BranchStandardEventSpendCredits,
+             @"STANDARD_EVENT_VIEW_AD": BranchStandardEventViewAd,
+             @"STANDARD_EVENT_CLICK_AD": BranchStandardEventClickAd,
 
              // Content Events
              @"STANDARD_EVENT_SEARCH": BranchStandardEventSearch,
@@ -125,7 +127,12 @@ RCT_EXPORT_MODULE();
              @"STANDARD_EVENT_COMPLETE_REGISTRATION": BranchStandardEventCompleteRegistration,
              @"STANDARD_EVENT_COMPLETE_TUTORIAL": BranchStandardEventCompleteTutorial,
              @"STANDARD_EVENT_ACHIEVE_LEVEL": BranchStandardEventAchieveLevel,
-             @"STANDARD_EVENT_UNLOCK_ACHIEVEMENT": BranchStandardEventUnlockAchievement
+             @"STANDARD_EVENT_UNLOCK_ACHIEVEMENT": BranchStandardEventUnlockAchievement,
+             @"STANDARD_EVENT_INVITE": BranchStandardEventInvite,
+             @"STANDARD_EVENT_LOGIN": BranchStandardEventLogin,
+             @"STANDARD_EVENT_RESERVE": BranchStandardEventReserve,
+             @"STANDARD_EVENT_SUBSCRIBE": BranchStandardEventSubscribe,
+             @"STANDARD_EVENT_START_TRIAL": BranchStandardEventStartTrial
              };
 }
 

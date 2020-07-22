@@ -55,6 +55,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static final String STANDARD_EVENT_ADD_PAYMENT_INFO = "STANDARD_EVENT_ADD_PAYMENT_INFO";
     private static final String STANDARD_EVENT_PURCHASE = "STANDARD_EVENT_PURCHASE";
     private static final String STANDARD_EVENT_SPEND_CREDITS = "STANDARD_EVENT_SPEND_CREDITS";
+    private static final String STANDARD_EVENT_VIEW_AD = "STANDARD_EVENT_VIEW_AD";
+    private static final String STANDARD_EVENT_CLICK_AD = "STANDARD_EVENT_CLICK_AD";
 
     private static final String STANDARD_EVENT_SEARCH = "STANDARD_EVENT_SEARCH";
     private static final String STANDARD_EVENT_VIEW_ITEM = "STANDARD_EVENT_VIEW_ITEM";
@@ -66,6 +68,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static final String STANDARD_EVENT_COMPLETE_TUTORIAL = "STANDARD_EVENT_COMPLETE_TUTORIAL";
     private static final String STANDARD_EVENT_ACHIEVE_LEVEL = "STANDARD_EVENT_ACHIEVE_LEVEL";
     private static final String STANDARD_EVENT_UNLOCK_ACHIEVEMENT = "STANDARD_EVENT_UNLOCK_ACHIEVEMENT";
+    private static final String STANDARD_EVENT_INVITE = "STANDARD_EVENT_INVITE";
+    private static final String STANDARD_EVENT_LOGIN = "STANDARD_EVENT_LOGIN";
+    private static final String STANDARD_EVENT_RESERVE = "STANDARD_EVENT_RESERVE";
+    private static final String STANDARD_EVENT_SUBSCRIBE = "STANDARD_EVENT_SUBSCRIBE";
+    private static final String STANDARD_EVENT_START_TRIAL = "STANDARD_EVENT_START_TRIAL";
 
     private static final String IDENT_FIELD_NAME = "ident";
     public static final String UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE = "RNBranch::Error::BUONotFound";
@@ -266,6 +273,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         constants.put(STANDARD_EVENT_ADD_PAYMENT_INFO, BRANCH_STANDARD_EVENT.ADD_PAYMENT_INFO.getName());
         constants.put(STANDARD_EVENT_PURCHASE, BRANCH_STANDARD_EVENT.PURCHASE.getName());
         constants.put(STANDARD_EVENT_SPEND_CREDITS, BRANCH_STANDARD_EVENT.SPEND_CREDITS.getName());
+        constants.put(STANDARD_EVENT_VIEW_AD, BRANCH_STANDARD_EVENT.VIEW_AD.getName());
+        constants.put(STANDARD_EVENT_CLICK_AD, BRANCH_STANDARD_EVENT.CLICK_AD.getName());
 
         // Content Events
 
@@ -281,6 +290,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         constants.put(STANDARD_EVENT_COMPLETE_TUTORIAL , BRANCH_STANDARD_EVENT.COMPLETE_TUTORIAL.getName());
         constants.put(STANDARD_EVENT_ACHIEVE_LEVEL, BRANCH_STANDARD_EVENT.ACHIEVE_LEVEL.getName());
         constants.put(STANDARD_EVENT_UNLOCK_ACHIEVEMENT, BRANCH_STANDARD_EVENT.UNLOCK_ACHIEVEMENT.getName());
+        constants.put(STANDARD_EVENT_INVITE, BRANCH_STANDARD_EVENT.INVITE.getName());
+        constants.put(STANDARD_EVENT_LOGIN , BRANCH_STANDARD_EVENT.LOGIN.getName());
+        constants.put(STANDARD_EVENT_RESERVE, BRANCH_STANDARD_EVENT.RESERVE.getName());
+        constants.put(STANDARD_EVENT_SUBSCRIBE, BRANCH_STANDARD_EVENT.SUBSCRIBE.getName());
+        constants.put(STANDARD_EVENT_START_TRIAL, BRANCH_STANDARD_EVENT.START_TRIAL.getName());
 
         return constants;
     }

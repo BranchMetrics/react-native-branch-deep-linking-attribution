@@ -98,7 +98,7 @@
     ASSERT_CONSTANT(@"STANDARD_EVENT_RATE", BranchStandardEventRate);
 }
 
-- (void)testStandardRateEventShareConstant
+- (void)testStandardShareEventConstant
 {
     ASSERT_CONSTANT(@"STANDARD_EVENT_SHARE", BranchStandardEventShare);
 }
@@ -121,6 +121,41 @@
 - (void)testStandardUnlockAchievementEventConstant
 {
     ASSERT_CONSTANT(@"STANDARD_EVENT_UNLOCK_ACHIEVEMENT", BranchStandardEventUnlockAchievement);
+}
+
+- (void)testStandardViewAdEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_VIEW_AD", BranchStandardEventViewAd);
+}
+
+- (void)testStandardClickAdEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_CLICK_AD", BranchStandardEventClickAd);
+}
+
+- (void)testStandardInviteEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_INVITE", BranchStandardEventInvite);
+}
+
+- (void)testStandardLoginEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_LOGIN", BranchStandardEventLogin);
+}
+
+- (void)testStandardSubscribeEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_SUBSCRIBE", BranchStandardEventSubscribe);
+}
+
+- (void)testStandardStartTrialEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_START_TRIAL", BranchStandardEventStartTrial);
+}
+
+- (void)testStandardReserveEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_RESERVE", BranchStandardEventReserve);
 }
 
 @end
