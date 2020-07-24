@@ -1,3 +1,15 @@
+2020-07-23 Version 5.0.0-rc.1
+  - Requires react-native >= 0.60
+  - This release includes Branch native SDKs Android 5.0.1 and iOS 0.34.0.
+  - The `onOpenStart` function is now called for Universal Links on iOS when
+    launched from a link, and the `uri` parameter is populated in the
+    `onOpenComplete` callback in this case.
+  - The return value of `branch.subscribe()` did not work as an unsubscribe
+    function. This has been fixed.
+  - Add support for all standard v2 events.
+  - Add support for an `alias` property in Branch v2 events (also known as
+    Customer Event Alias).
+
 2020-04-10 Version 5.0.0-beta.1
   - For use with react-native >= 0.60
   - This release includes Branch native SDKs Android 5.0.0 and iOS 0.32.0.
