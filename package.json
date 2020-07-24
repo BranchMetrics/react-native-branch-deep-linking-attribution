@@ -40,7 +40,8 @@
     "url": "git+https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution.git"
   },
   "bugs": {
-    "url": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution/issues"
+    "url": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution/issues",
+    "email": "support@branch.io"
   },
   "homepage": "https://help.branch.io/developers-hub/docs/react-native",
   "peerDependencies": {
