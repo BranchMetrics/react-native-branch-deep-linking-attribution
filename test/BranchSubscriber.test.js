@@ -97,7 +97,7 @@ test('will return a cached event when appropriate', done => {
 
       // uri passed to onOpenStart
       expect(subscriber.options.onOpenStart.mock.calls.length).toBe(1)
-      expect(subscriber.options.onOpenStart.mock.calls[0][0]).toEqual({uri: null})
+      expect(subscriber.options.onOpenStart.mock.calls[0][0]).toEqual({uri: null, cachedInitialEvent: true})
 
       // full result passed to onOpenComplete with +rn_cached_initial_event: true
       expect(subscriber.options.onOpenComplete.mock.calls.length).toBe(1)
@@ -145,7 +145,7 @@ test('passes a non-null uri to onOpenStart when available', done => {
       // Expect onOpenStart to be called
       // uri passed to onOpenStart
       expect(subscriber.options.onOpenStart.mock.calls.length).toBe(1)
-      expect(subscriber.options.onOpenStart.mock.calls[0][0]).toEqual({uri: mockResult.uri})
+      expect(subscriber.options.onOpenStart.mock.calls[0][0]).toEqual({uri: mockResult.uri, cachedInitialEvent: true})
 
       done()
     } catch(error) {
