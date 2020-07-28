@@ -1,17 +1,9 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
+ * @format
  */
 
-import React, { Component } from 'react'
-import { AppRegistry } from 'react-native'
-import App from './src/App'
+import {AppRegistry} from 'react-native';
+import App from './src/App';
+import {name as appName} from './app.json';
 
-export default class webview_example extends Component {
-  render() {
-    return <App />
-  }
-}
-
-AppRegistry.registerComponent('webview_example', () => webview_example);
+AppRegistry.registerComponent(appName, () => App);

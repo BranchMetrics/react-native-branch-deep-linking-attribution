@@ -11,18 +11,15 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1B218B0BE338F4A6CBDFC36B /* libPods-webview_example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 581D929E54E44416DDD41A9B /* libPods-webview_example.a */; };
-		7B7A336A225EE2690025BDEE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7A333B225EE2690025BDEE /* JavaScriptCore.framework */; };
-		7BAA94CE1F57608000C57B54 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94CD1F57608000C57B54 /* CoreSpotlight.framework */; };
-		7BAA95031F57632800C57B54 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94ED1F5760F200C57B54 /* AdSupport.framework */; };
-		7BAA95041F57633100C57B54 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA94EF1F5760FA00C57B54 /* SafariServices.framework */; };
-		CF62BE31837B4C849939BB5E /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 88D071D07DBF4ED4A4BBE3A4 /* branch.json */; };
-		F25273A44CFA4797AC437917 /* branch.debug.json in Resources */ = {isa = PBXBuildFile; fileRef = 09ED726C7776427D9D08B45A /* branch.debug.json */; };
+		654ACE7024CBB19700860148 /* branch.debug.json in Resources */ = {isa = PBXBuildFile; fileRef = 654ACE6E24CBB19700860148 /* branch.debug.json */; };
+		654ACE7124CBB19700860148 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 654ACE6F24CBB19700860148 /* branch.json */; };
+		F0DBE8C127B55DC4B7E239FE /* libPods-webview_example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F247A5701256332AAA7C0AED /* libPods-webview_example.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		09ED726C7776427D9D08B45A /* branch.debug.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = branch.debug.json; path = ../branch.debug.json; sourceTree = "<group>"; };
+		00DE104CA7CD85976AEF5040 /* Pods-webview_example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example.debug.xcconfig"; path = "Target Support Files/Pods-webview_example/Pods-webview_example.debug.xcconfig"; sourceTree = "<group>"; };
+		0563ABDBF187227AD23F0DE0 /* Pods-webview_example-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-webview_example-tvOSTests/Pods-webview_example-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* webview_example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = webview_example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = webview_example/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = webview_example/AppDelegate.m; sourceTree = "<group>"; };
@@ -30,16 +27,21 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = webview_example/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = webview_example/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = webview_example/main.m; sourceTree = "<group>"; };
-		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		36B9074068D05929F3AB2B59 /* Pods-webview_example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example.release.xcconfig"; path = "Target Support Files/Pods-webview_example/Pods-webview_example.release.xcconfig"; sourceTree = "<group>"; };
-		581D929E54E44416DDD41A9B /* libPods-webview_example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-webview_example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B7A333B225EE2690025BDEE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		7BAA94CD1F57608000C57B54 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
-		7BAA94ED1F5760F200C57B54 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		7BAA94EF1F5760FA00C57B54 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
-		7BC69F431EA12D87000B04CE /* webview_example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = webview_example.entitlements; path = webview_example/webview_example.entitlements; sourceTree = "<group>"; };
-		88D071D07DBF4ED4A4BBE3A4 /* branch.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = branch.json; path = ../branch.json; sourceTree = "<group>"; };
-		D37305AA0212B49551DA0442 /* Pods-webview_example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example.debug.xcconfig"; path = "Target Support Files/Pods-webview_example/Pods-webview_example.debug.xcconfig"; sourceTree = "<group>"; };
+		4B4F7228EB457125A440775D /* Pods-webview_example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example.release.xcconfig"; path = "Target Support Files/Pods-webview_example/Pods-webview_example.release.xcconfig"; sourceTree = "<group>"; };
+		5BE066D2794295BF9DE3916C /* Pods-webview_example-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-webview_example-tvOSTests/Pods-webview_example-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		654ACE6E24CBB19700860148 /* branch.debug.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = branch.debug.json; path = ../branch.debug.json; sourceTree = "<group>"; };
+		654ACE6F24CBB19700860148 /* branch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = branch.json; path = ../branch.json; sourceTree = "<group>"; };
+		654ACE7224CBB5CA00860148 /* webview_example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = webview_example.entitlements; path = webview_example/webview_example.entitlements; sourceTree = "<group>"; };
+		6B5FFA141B686F1ADD1FC1EE /* libPods-webview_example-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-webview_example-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7710E66887EE76AD3F02D50B /* Pods-webview_example-webview_exampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example-webview_exampleTests.release.xcconfig"; path = "Target Support Files/Pods-webview_example-webview_exampleTests/Pods-webview_example-webview_exampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		869BFA4803E425D4999A9C8D /* libPods-webview_example-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-webview_example-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7B732E558F1AC995601663E /* Pods-webview_example-webview_exampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example-webview_exampleTests.debug.xcconfig"; path = "Target Support Files/Pods-webview_example-webview_exampleTests/Pods-webview_example-webview_exampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C64C06DC20EBB3B0802F0B73 /* Pods-webview_example-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-webview_example-tvOS/Pods-webview_example-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		E9755BBCEA439E9AF8CD01E7 /* libPods-webview_example-webview_exampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-webview_example-webview_exampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F247A5701256332AAA7C0AED /* libPods-webview_example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-webview_example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F439B9E008F3BB9AB133ACEE /* Pods-webview_example-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-webview_example-tvOS.release.xcconfig"; path = "Target Support Files/Pods-webview_example-tvOS/Pods-webview_example-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,11 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B7A336A225EE2690025BDEE /* JavaScriptCore.framework in Frameworks */,
-				7BAA95041F57633100C57B54 /* SafariServices.framework in Frameworks */,
-				7BAA95031F57632800C57B54 /* AdSupport.framework in Frameworks */,
-				7BAA94CE1F57608000C57B54 /* CoreSpotlight.framework in Frameworks */,
-				1B218B0BE338F4A6CBDFC36B /* libPods-webview_example.a in Frameworks */,
+				F0DBE8C127B55DC4B7E239FE /* libPods-webview_example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +59,9 @@
 		13B07FAE1A68108700A75B9A /* webview_example */ = {
 			isa = PBXGroup;
 			children = (
-				7BC69F431EA12D87000B04CE /* webview_example.entitlements */,
+				654ACE7224CBB5CA00860148 /* webview_example.entitlements */,
+				654ACE6E24CBB19700860148 /* branch.debug.json */,
+				654ACE6F24CBB19700860148 /* branch.json */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -69,8 +69,6 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				88D071D07DBF4ED4A4BBE3A4 /* branch.json */,
-				09ED726C7776427D9D08B45A /* branch.debug.json */,
 			);
 			name = webview_example;
 			sourceTree = "<group>";
@@ -78,31 +76,31 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7B7A333B225EE2690025BDEE /* JavaScriptCore.framework */,
-				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				581D929E54E44416DDD41A9B /* libPods-webview_example.a */,
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
+				F247A5701256332AAA7C0AED /* libPods-webview_example.a */,
+				6B5FFA141B686F1ADD1FC1EE /* libPods-webview_example-tvOS.a */,
+				869BFA4803E425D4999A9C8D /* libPods-webview_example-tvOSTests.a */,
+				E9755BBCEA439E9AF8CD01E7 /* libPods-webview_example-webview_exampleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7B6AD83621E3E0F500FA953B /* Recovered References */ = {
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				7BAA94EF1F5760FA00C57B54 /* SafariServices.framework */,
-				7BAA94ED1F5760F200C57B54 /* AdSupport.framework */,
-				7BAA94CD1F57608000C57B54 /* CoreSpotlight.framework */,
 			);
-			name = "Recovered References";
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
 				13B07FAE1A68108700A75B9A /* webview_example */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				7B6AD83621E3E0F500FA953B /* Recovered References */,
-				C02F7283576F7356849D9B2B /* Pods */,
+				BEF87AF0B6F074C837F4BE79 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -117,11 +115,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C02F7283576F7356849D9B2B /* Pods */ = {
+		BEF87AF0B6F074C837F4BE79 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D37305AA0212B49551DA0442 /* Pods-webview_example.debug.xcconfig */,
-				36B9074068D05929F3AB2B59 /* Pods-webview_example.release.xcconfig */,
+				00DE104CA7CD85976AEF5040 /* Pods-webview_example.debug.xcconfig */,
+				4B4F7228EB457125A440775D /* Pods-webview_example.release.xcconfig */,
+				C64C06DC20EBB3B0802F0B73 /* Pods-webview_example-tvOS.debug.xcconfig */,
+				F439B9E008F3BB9AB133ACEE /* Pods-webview_example-tvOS.release.xcconfig */,
+				0563ABDBF187227AD23F0DE0 /* Pods-webview_example-tvOSTests.debug.xcconfig */,
+				5BE066D2794295BF9DE3916C /* Pods-webview_example-tvOSTests.release.xcconfig */,
+				A7B732E558F1AC995601663E /* Pods-webview_example-webview_exampleTests.debug.xcconfig */,
+				7710E66887EE76AD3F02D50B /* Pods-webview_example-webview_exampleTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -133,8 +137,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "webview_example" */;
 			buildPhases = (
-				A3856C74D326389851D35DE6 /* [CP] Check Pods Manifest.lock */,
-				7B49D09C2282045A004FDBD3 /* Start Packager */,
+				5E88C483DA07C47CB786D359 /* [CP] Check Pods Manifest.lock */,
+				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -145,7 +149,7 @@
 			dependencies = (
 			);
 			name = webview_example;
-			productName = "Hello World";
+			productName = webview_example;
 			productReference = 13B07F961A680F5B00A75B9A /* webview_example.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -155,16 +159,11 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
-				ORGANIZATIONNAME = Facebook;
+				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = R63EM248DP;
-						SystemCapabilities = {
-							com.apple.SafariKeychain = {
-								enabled = 1;
-							};
-						};
+						LastSwiftMigration = 1120;
 					};
 				};
 			};
@@ -192,9 +191,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				654ACE7124CBB19700860148 /* branch.json in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				CF62BE31837B4C849939BB5E /* branch.json in Resources */,
-				F25273A44CFA4797AC437917 /* branch.debug.json in Resources */,
+				654ACE7024CBB19700860148 /* branch.debug.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,25 +214,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		7B49D09C2282045A004FDBD3 /* Start Packager */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Start Packager";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\nif nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\nif ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\necho \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running\ncorrectly\"\nexit 2\nfi\nelse\nopen \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\nfi\nfi\n";
-		};
-		A3856C74D326389851D35DE6 /* [CP] Check Pods Manifest.lock */ = {
+		5E88C483DA07C47CB786D359 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,6 +234,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD10A7F022414F080027D42C /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -284,17 +284,18 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D37305AA0212B49551DA0442 /* Pods-webview_example.debug.xcconfig */;
+			baseConfigurationReference = 00DE104CA7CD85976AEF5040 /* Pods-webview_example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = webview_example/webview_example.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = NO;
-				DEBUG_ACTIVITY_MODE = "";
-				"DEBUG_ACTIVITY_MODE[sdk=iphoneos*]" = disable;
-				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEVELOPMENT_TEAM = R63EM248DP;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FB_SONARKIT_ENABLED=1",
+				);
 				INFOPLIST_FILE = webview_example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -304,20 +305,21 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.webview-example";
 				PRODUCT_NAME = webview_example;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 36B9074068D05929F3AB2B59 /* Pods-webview_example.release.xcconfig */;
+			baseConfigurationReference = 4B4F7228EB457125A440775D /* Pods-webview_example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = webview_example/webview_example.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_ACTIVITY_MODE = "";
 				DEVELOPMENT_TEAM = R63EM248DP;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = webview_example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -327,6 +329,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.webview-example";
 				PRODUCT_NAME = webview_example;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -379,6 +382,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -426,6 +435,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
