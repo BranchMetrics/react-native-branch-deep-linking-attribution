@@ -1,17 +1,20 @@
 {
-	"name": "testbed_simple",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start"
-	},
-	"dependencies": {
-		"react": "16.8.6",
-		"react-native": "0.60.3",
-		"react-native-branch": "../.."
-	},
-	"devDependencies": {
-		"@babel/core": "^7.5.4",
-		"metro-react-native-babel-preset": "^0.55.0"
-	}
+  "name": "testbed_simple",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start"
+  },
+  "dependencies": {
+    "react": "16.11.0",
+    "react-native": "0.62.2",
+    "react-native-branch": "5.0.0-rc.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/runtime": "^7.10.5",
+    "metro-react-native-babel-preset": "^0.61.0"
+  }
 }

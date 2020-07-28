@@ -1,8 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.testbed_simple">
+    xmlns:tools="http://schemas.android.com/tools">
 
-   <application>
-       <meta-data android:name="io.branch.sdk.TestMode" android:value="true" /> <!-- Set to true to use Branch_Test_Key -->
-   </application>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
+    <application android:usesCleartextTraffic="true" tools:targetApi="28" tools:ignore="GoogleAppIndexingWarning" >
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="true" /> <!-- Set to true to use Branch_Test_Key -->
+    </application>
 </manifest>
