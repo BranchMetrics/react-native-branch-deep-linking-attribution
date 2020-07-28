@@ -73,9 +73,10 @@ export default class BranchSubscriber {
            * by caching the pending URI in the native layers.
            */
           if (this.options.onOpenStart && 'uri' in result) {
-            this.options.onOpenStart({uri: result.uri})
+            this.options.onOpenStart({uri: result.uri, cachedInitialEvent: true})
           }
           if (this.options.onOpenComplete) {
+            // result includes uri and +rn_cached_initial_event.
             this.options.onOpenComplete(result)
           }
         }
