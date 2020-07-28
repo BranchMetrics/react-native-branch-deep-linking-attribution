@@ -3,7 +3,7 @@ import { BranchSubscriber } from 'react-native-branch'
 console.info("Subscribing to Branch links")
 
 const subscriber = new BranchSubscriber({
-  onOpenStart: ({ uri }) => {
+  onOpenStart: ({ uri, cachedInitialEvent }) => {
     console.info('Branch opening ' + uri)
   },
   onOpenComplete: ({ error, params, uri }) => {
