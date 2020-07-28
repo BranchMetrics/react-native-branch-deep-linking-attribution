@@ -29,7 +29,7 @@ export default class ArticleList extends Component {
   componentDidMount() {
     this._unsubscribeFromBranch = branch.subscribe({
       onOpenStart: ({ uri, cachedInitialEvent }) => {
-        console.log(`Opening URI ${uri}`);
+        console.log(`Opening URI ${uri} ${cachedInitialEvent ? '[cached]' : ''}`);
       },
       onOpenComplete: ({ error, params, uri }) => {
         if (error) {
