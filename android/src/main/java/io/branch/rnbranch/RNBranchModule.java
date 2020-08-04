@@ -215,7 +215,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Branch.sessionBuilder(reactActivity).withCallback(referralInitListener).withData(uri).init();
     }
 
-    public static void setIntent(Intent intent, @Nonnull Activity activity) {
+    public static void onNewIntent(@Nonnull Intent intent, @Nonnull Activity activity) {
         activity.setIntent(intent);
         mNewIntent = true;
     }
