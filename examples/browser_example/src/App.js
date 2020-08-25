@@ -87,7 +87,7 @@ export default class App extends Component {
           style={styles.textInput}
           onChangeText={(text) => this.setState({text: text})}
           onEndEditing={this.editingEnded.bind(this)}
-					placeholder={'Enter Branch URL'}
+					placeholder={'Enter Branch or non-Branch URL'}
 					autoCapitalize={'none'}
 					autoCompleteType={'off'}
 					autoCorrect={false}
