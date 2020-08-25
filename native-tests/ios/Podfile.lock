@@ -1,6 +1,6 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - Branch (0.34.0)
+  - Branch (0.35.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.62.0)
   - FBReactNativeSpec (0.62.0):
@@ -20,7 +20,7 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - OCMock (3.6)
+  - OCMock (3.7.1)
   - RCTRequired (0.62.0)
   - RCTTypeSafety (0.62.0):
     - FBLazyVector (= 0.62.0)
@@ -185,7 +185,7 @@ PODS:
     - React-jsi (= 0.62.0)
   - React-jsinspector (0.62.0)
   - react-native-branch (5.0.0):
-    - Branch (= 0.34.0)
+    - Branch (= 0.35.0)
     - React
   - React-RCTActionSheet (0.62.0):
     - React-Core/RCTActionSheetHeaders (= 0.62.0)
@@ -361,13 +361,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  Branch: 446aeb832102f56f04edf5fa7cb0a752dc392ca7
+  Branch: 9a37f707974a128c37829033c49018b79c7e7a2d
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: 545eccf4f6ef2de8fd450fd8a1edb3f913c7371a
   FBReactNativeSpec: 85c7f8347f4a6e911742228e89e245187afa298e
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  OCMock: 5ea90566be239f179ba766fd9fbae5885040b992
+  OCMock: 75fbeaa46a9b11f8c182bbb1d1f7e9a35ccc9955
   RCTRequired: 0873f5bdb1762d2b9b1ae16a01c4f91d6ee3b6dd
   RCTTypeSafety: a605e0cc0e4220f6e65896bd9e675073c2978f35
   React: 8abf6bdd2b05538e9445f7bbda800df744068bfe
@@ -377,7 +377,7 @@ SPEC CHECKSUMS:
   React-jsi: bc8166d6833cdcb0848c80710b26ce63fad2c099
   React-jsiexecutor: 8bf0b2707f05865113415088c398a7f98c0cf546
   React-jsinspector: 8e5913c4c6c54f0d3f9c9fc630c465a89cded65d
-  react-native-branch: 68bd6521ee56e46dd0ffa358808928297835fa05
+  react-native-branch: 8bda99ca8dc5a16d32bd81c8a8d937cb3d2c5e0c
   React-RCTActionSheet: 674afbc8b9c76e0a83520e0a51da29a70802c03f
   React-RCTAnimation: f5f24330d09ee677fb49e0782f8321868f4df431
   React-RCTBlob: b773ce6138ab0d172ebd8a455fd4efd200a92549
