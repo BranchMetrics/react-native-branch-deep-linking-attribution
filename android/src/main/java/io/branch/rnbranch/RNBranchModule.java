@@ -624,7 +624,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        /*
+         * Using Intent.ACTION_VIEW here will open a browser for non-Branch links unless the
+         * domain is registered in an intent-filter in the manifest. Instead specify the host
+         * Activity.
+         */
+        Intent intent = new Intent(mActivity, mActivity.getClass());
+        intent.setData(Uri.parse(url));
         intent.putExtra("branch_force_new_session", true);
 
         mActivity.startActivity(intent);
