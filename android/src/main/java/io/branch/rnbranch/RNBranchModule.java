@@ -199,6 +199,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                     broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES, linkProperties);
                 }
 
+                /*
+                 * isNewIntent is a capture of the value of mNewIntent above, so does not change when
+                 * mNewIntent changes in onNewIntent.
+                 */
                 if (isNewIntent && uri != null) {
                     broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, uri.toString());
                 }
@@ -215,9 +219,19 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Branch.sessionBuilder(reactActivity).withCallback(referralInitListener).withData(uri).init();
     }
 
-    public static void onNewIntent(@Nonnull Intent intent, @Nonnull Activity activity) {
-        activity.setIntent(intent);
+    /**
+     * Call from Activity.onNewIntent:
+     *   @Override
+     *   public void onNewIntent(Intent intent) {
+     *     super.onNewIntent(intent);
+     *     RNBranchModule.onNewIntent(intent);
+     *   }
+     * @param intent the new Intent received via Activity.onNewIntent
+     */
+    public static void onNewIntent(@Nonnull Intent intent) {
+        mActivity.setIntent(intent);
         mNewIntent = true;
+        reInitSession(mActivity);
     }
 
     /**
@@ -227,6 +241,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
      * @param uri the URI to include in the notification or null
      */
     private static void notifyJSOfInitSessionStart(Context context, Uri uri) {
+        /*
+         * This check just ensures that we only generate one RNBranch.initSessionStart
+         * event per call to onNewIntent().
+         */
         if (!mNewIntent) return;
         mNewIntent = false;
 
