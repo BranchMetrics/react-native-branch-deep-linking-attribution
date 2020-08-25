@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native'
-import { WebView } from 'react-native-webview'
+import React, { Component } from 'react';
+import { StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { WebView } from 'react-native-webview';
 
-import branch, { BranchEvent } from 'react-native-branch'
+import branch, { BranchEvent } from 'react-native-branch';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,53 +29,53 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-})
+});
 
 export default class App extends Component {
-  _unsubscribeFromBranch = null
-  buo = null
+  _unsubscribeFromBranch = null;
+  buo = null;
 
   constructor(props) {
-    super(props)
-    this.state = { text: 'https://branch.io', url: 'https://branch.io' }
+    super(props);
+    this.state = { text: 'https://branch.io', url: 'https://branch.io' };
   }
 
   componentDidMount() {
     this._unsubscribeFromBranch = branch.subscribe(({ error, params }) => {
       if (error) {
-        console.error("Error from Branch: " + error)
-        return
+        console.error("Error from Branch: " + error);
+        return;
       }
 
-      console.log("Branch params: " + JSON.stringify(params))
+      console.log("Branch params: " + JSON.stringify(params));
 
       if (!params['+clicked_branch_link']) {
 				if (!!params['+non_branch_link']) {
-					this.setState({url: params['+non_branch_link'], title: params['+non_branch_link']})
+					this.setState({url: params['+non_branch_link'], title: params['+non_branch_link']});
 				}
-				return
+				return;
 			}
 
       // Get title and url for route
-      let title = params.$og_title
-      let url = params.$canonical_url
-      let image = params.$og_image_url
+      let title = params.$og_title;
+      let url = params.$canonical_url;
+      let image = params.$og_image_url;
 
       // Now reload the webview
-      this.setState({url: url, title: title, image: image})
+      this.setState({url: url, title: title, image: image});
     });
 		this.registerView();
   }
 
   componentWillUnmount() {
     if (this._unsubscribeFromBranch) {
-      this._unsubscribeFromBranch()
-      this._unsubscribeFromBranch = null
+      this._unsubscribeFromBranch();
+      this._unsubscribeFromBranch = null;
     }
 
     if (this.buo) {
-      this.buo.release()
-      this.buo = null
+      this.buo.release();
+      this.buo = null;
     }
   }
 
@@ -105,25 +105,24 @@ export default class App extends Component {
           </Text>
         </TouchableHighlight>
       </View>
-    )
+    );
   }
 
   editingEnded() {
-    // branch.openURL(this.state.text)
-    branch.openURL(this.state.text, {newActivity: true})
+    branch.openURL(this.state.text);
   }
 
   async registerView() {
-    if (this.buo) this.buo.release()
-    if (this.state.url === '') return
+    if (this.buo) this.buo.release();
+    if (this.state.url === '') return;
 
     this.buo = await branch.createBranchUniversalObject("url/" + this.state.url, {
       canonicalUrl: this.state.url,
       title: this.state.title,
-      contentImageUrl: this.state.image
-    })
-    this.buo.logEvent(BranchEvent.ViewItem)
-    console.log("Created Branch Universal Object and logged standard view item event.")
+      contentImageUrl: this.state.image,
+    });
+    this.buo.logEvent(BranchEvent.ViewItem);
+    console.log("Created Branch Universal Object and logged standard view item event.");
   }
 
   async onShare() {
