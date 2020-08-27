@@ -1,6 +1,24 @@
 2020-08-27  Version 5.0.0
   - Requires react-native >= 0.60
 	- This release includes Branch native SDKs Android 5.0.3 and iOS 0.35.0.
+	- Added RNBranchModule.onNewIntent for Android. This replaces calling
+	  `setIntent` and `RNBranchModule.reInitSession`.
+		```java
+		@Override
+		public void onNewIntent(Intent intent) {
+		  super.onNewIntent(intent);
+	    RNBranchModule.onNewIntent(intent);
+	  }
+		```
+	- Added `cachedInitialEvent` Boolean parameter to `onOpenStart` callback.
+	- Improved support of in-app linking via `branch.openURL()`. The `newActivity`
+	  option for Android was removed.
+	- There is a known issue with in-app linking on Android. When opening a link
+	  within an app via `branch.openURL()`, there is no `onOpenStart` callback
+		and no `uri` parameter in the `onOpenComplete` callback. This will be
+		addressed in the next release.
+	- Rebuilt `testbed_simple`, `webview_example` and `browser_example` with
+	  RN 0.62.2.
 
 2020-07-23  Version 5.0.0-rc.1
   - Requires react-native >= 0.60
