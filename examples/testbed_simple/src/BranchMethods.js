@@ -217,6 +217,17 @@ class BranchMethods extends Component {
     }
   }
 
+  openURL = async () => {
+    const url = 'https://zjef.test-app.link/n4efBZnSu8';
+    try {
+      await branch.openURL(url);
+      this.addResult('success', 'openURL', url);
+    }
+    catch (err) {
+      this.addResult('error', 'openURL', err.toString());
+    }
+  }
+
   addResult(type, slug, payload) {
     let result = { type, slug, payload }
     this.setState({
@@ -257,6 +268,7 @@ class BranchMethods extends Component {
           <Button onPress={this.getCreditHistory}>getCreditHistory</Button>
           <Button onPress={this.logStandardEvent}>BranchEvent.logEvent (Standard)</Button>
           <Button onPress={this.logCustomEvent}>BranchEvent.logEvent (Custom)</Button>
+          <Button onPress={this.openURL}>openURL</Button>
         </ScrollView>
       </View>
     )

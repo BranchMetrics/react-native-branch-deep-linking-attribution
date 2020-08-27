@@ -27,24 +27,29 @@ export default class ArticleList extends Component {
   }
 
   componentDidMount() {
-    this._unsubscribeFromBranch = branch.subscribe(({ error, params, uri }) => {
-      if (error) {
-        console.error(`Error from Branch opening URI ${uri}: ${error}`);
-        return;
-      }
+    this._unsubscribeFromBranch = branch.subscribe({
+      onOpenStart: ({ uri, cachedInitialEvent }) => {
+        console.log(`Opening URI ${uri} ${cachedInitialEvent ? '[cached]' : ''}`);
+      },
+      onOpenComplete: ({ error, params, uri }) => {
+        if (error) {
+          console.error(`Error from Branch opening URI ${uri}: ${error}`);
+          return;
+        }
 
-      console.log(`Branch params: ${JSON.stringify(params)}`);
+        console.log(`Branch params: ${JSON.stringify(params)}`);
 
-      if (!params['+clicked_branch_link']) return;
+        if (!params['+clicked_branch_link']) return;
 
-      // Get title and url for route
-      let title = params.$og_title;
-      let url = params.$canonical_url;
-      let image = params.$og_image_url;
+        // Get title and url for route
+        let title = params.$og_title;
+        let url = params.$canonical_url;
+        let image = params.$og_image_url;
 
-      // Now push the view for this URL
-      this.props.navigation.navigate('Article', { url: url, title: title, image: image });
-    })
+        // Now push the view for this URL
+        this.props.navigation.navigate('Article', { url: url, title: title, image: image });
+      },
+    });
   }
 
   componentWillUnmount() {

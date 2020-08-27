@@ -11,12 +11,13 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7BFD3777225EEBE300F923D2 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFD3748225EEBE200F923D2 /* JavaScriptCore.framework */; };
-		8190ADD335787C7D003F8390 /* libPods-browser_example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF8AE81498BE8DDE5169F0DD /* libPods-browser_example.a */; };
+		FBA9EC3CE3A024CA975DAA19 /* libPods-browser_example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACDA1DF7448F7B4EC9E3648 /* libPods-browser_example.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* browser_exampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = browser_exampleTests.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* browser_example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = browser_example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = browser_example/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = browser_example/AppDelegate.m; sourceTree = "<group>"; };
@@ -24,12 +25,12 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = browser_example/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = browser_example/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = browser_example/main.m; sourceTree = "<group>"; };
-		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		323027490639BDF84C051773 /* Pods-browser_example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-browser_example.debug.xcconfig"; path = "Target Support Files/Pods-browser_example/Pods-browser_example.debug.xcconfig"; sourceTree = "<group>"; };
-		5C600F1A852FDB8570BD8637 /* Pods-browser_example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-browser_example.release.xcconfig"; path = "Target Support Files/Pods-browser_example/Pods-browser_example.release.xcconfig"; sourceTree = "<group>"; };
-		7B05DFA51F6859AD00CFAB5E /* browser_example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = browser_example.entitlements; path = browser_example/browser_example.entitlements; sourceTree = "<group>"; };
-		7BFD3748225EEBE200F923D2 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		AF8AE81498BE8DDE5169F0DD /* libPods-browser_example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-browser_example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B70BE302051048674FAE024 /* Pods-browser_example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-browser_example.debug.xcconfig"; path = "Target Support Files/Pods-browser_example/Pods-browser_example.debug.xcconfig"; sourceTree = "<group>"; };
+		6501397724F477C20077186B /* browser_example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = browser_example.entitlements; path = browser_example/browser_example.entitlements; sourceTree = "<group>"; };
+		A2C59BF396FBBFEB7DFCA459 /* Pods-browser_example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-browser_example.release.xcconfig"; path = "Target Support Files/Pods-browser_example/Pods-browser_example.release.xcconfig"; sourceTree = "<group>"; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		FACDA1DF7448F7B4EC9E3648 /* libPods-browser_example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-browser_example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,18 +38,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BFD3777225EEBE300F923D2 /* JavaScriptCore.framework in Frameworks */,
-				8190ADD335787C7D003F8390 /* libPods-browser_example.a in Frameworks */,
+				FBA9EC3CE3A024CA975DAA19 /* libPods-browser_example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00E356EF1AD99517003FC87E /* browser_exampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F21AD99517003FC87E /* browser_exampleTests.m */,
+				00E356F01AD99517003FC87E /* Supporting Files */,
+			);
+			path = browser_exampleTests;
+			sourceTree = "<group>";
+		};
+		00E356F01AD99517003FC87E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F11AD99517003FC87E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* browser_example */ = {
 			isa = PBXGroup;
 			children = (
-				7B05DFA51F6859AD00CFAB5E /* browser_example.entitlements */,
+				6501397724F477C20077186B /* browser_example.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -63,28 +80,29 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7BFD3748225EEBE200F923D2 /* JavaScriptCore.framework */,
-				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				AF8AE81498BE8DDE5169F0DD /* libPods-browser_example.a */,
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
+				FACDA1DF7448F7B4EC9E3648 /* libPods-browser_example.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7B9E0CAC22558C2A00CFD43B /* Recovered References */ = {
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "Recovered References";
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
 				13B07FAE1A68108700A75B9A /* browser_example */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				00E356EF1AD99517003FC87E /* browser_exampleTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				C8AF67C427C423EE8BF65657 /* Pods */,
-				7B9E0CAC22558C2A00CFD43B /* Recovered References */,
+				92BD2E22358BF38501D2B73A /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -99,11 +117,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C8AF67C427C423EE8BF65657 /* Pods */ = {
+		92BD2E22358BF38501D2B73A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				323027490639BDF84C051773 /* Pods-browser_example.debug.xcconfig */,
-				5C600F1A852FDB8570BD8637 /* Pods-browser_example.release.xcconfig */,
+				2B70BE302051048674FAE024 /* Pods-browser_example.debug.xcconfig */,
+				A2C59BF396FBBFEB7DFCA459 /* Pods-browser_example.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -115,8 +133,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "browser_example" */;
 			buildPhases = (
-				6846691C540FC68EEC716440 /* [CP] Check Pods Manifest.lock */,
-				7BA4896E228208CE009AD409 /* Start Packager */,
+				934CF349E6888C3725F0200C /* [CP] Check Pods Manifest.lock */,
+				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -127,7 +145,7 @@
 			dependencies = (
 			);
 			name = browser_example;
-			productName = "Hello World";
+			productName = browser_example;
 			productReference = 13B07F961A680F5B00A75B9A /* browser_example.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -137,16 +155,11 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
-				ORGANIZATIONNAME = Facebook;
+				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = R63EM248DP;
-						SystemCapabilities = {
-							com.apple.SafariKeychain = {
-								enabled = 1;
-							};
-						};
+						LastSwiftMigration = 1120;
 					};
 				};
 			};
@@ -195,7 +208,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		6846691C540FC68EEC716440 /* [CP] Check Pods Manifest.lock */ = {
+		934CF349E6888C3725F0200C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -217,7 +230,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7BA4896E228208CE009AD409 /* Start Packager */ = {
+		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -233,7 +246,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\nif nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\nif ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\necho \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running\ncorrectly\"\nexit 2\nfi\nelse\nopen \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\nfi\nfi\n";
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -264,14 +278,18 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 323027490639BDF84C051773 /* Pods-browser_example.debug.xcconfig */;
+			baseConfigurationReference = 2B70BE302051048674FAE024 /* Pods-browser_example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = browser_example/browser_example.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = R63EM248DP;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FB_SONARKIT_ENABLED=1",
+				);
 				INFOPLIST_FILE = browser_example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -281,19 +299,21 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.browser-example";
 				PRODUCT_NAME = browser_example;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C600F1A852FDB8570BD8637 /* Pods-browser_example.release.xcconfig */;
+			baseConfigurationReference = A2C59BF396FBBFEB7DFCA459 /* Pods-browser_example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = browser_example/browser_example.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R63EM248DP;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = browser_example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -303,6 +323,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.branch.react.browser-example";
 				PRODUCT_NAME = browser_example;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -355,6 +376,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -402,6 +429,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

@@ -26,6 +26,8 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>
@@ -58,5 +60,9 @@
 		<key>test</key>
 		<string>key_test_bjBRbHrWF9hfo5KH5EEhEpogCwfv2UrZ</string>
 	</dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>rnbrowser</string>
+	</array>
 </dict>
 </plist>
