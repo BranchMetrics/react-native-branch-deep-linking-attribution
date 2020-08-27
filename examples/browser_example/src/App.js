@@ -41,13 +41,13 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this._unsubscribeFromBranch = branch.subscribe(({ error, params }) => {
+    this._unsubscribeFromBranch = branch.subscribe(({ error, params, uri }) => {
       if (error) {
-        console.error("Error from Branch: " + error);
+        console.error(`Error from Branch opening ${JSON.stringify(uri)}: ${error}`);
         return;
       }
 
-      console.log("Branch params: " + JSON.stringify(params));
+      console.log(`Branch params for ${JSON.stringify(uri)}: ${JSON.stringify(params)}`);
 
       if (!params['+clicked_branch_link']) {
 				if (!!params['+non_branch_link']) {
