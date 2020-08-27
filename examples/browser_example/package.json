@@ -10,7 +10,7 @@
   "dependencies": {
     "react": "16.11.0",
     "react-native": "0.62.2",
-    "react-native-branch": "../..",
+    "react-native-branch": "^5.0.0",
     "react-native-webview": "^10.7.0"
   },
   "devDependencies": {

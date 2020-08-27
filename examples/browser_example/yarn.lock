@@ -3380,8 +3380,10 @@ react-is@^16.12.0, react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-native-branch@../..:
+react-native-branch@^5.0.0:
   version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-5.0.0.tgz#9d2102abb3c9a577ce4327e434151ece2b4c7c78"
+  integrity sha512-6VInx3bvWOfEJ916zdA1yzJhcjB26N0oMUJInW3reFIijsk6KOjyM46UH3/MixdNUOV/nZn1JoRZM+wpLffDWQ==
 
 react-native-webview@^10.7.0:
   version "10.8.0"
