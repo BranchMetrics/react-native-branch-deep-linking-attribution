@@ -433,6 +433,21 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void lastAttributedTouchDataWithAttributionWindow(int window, final Promise promise) {
+        Branch branch = Branch.getInstance();
+        branch.getLastAttributedTouchData(new ServerRequestGetLATD.BranchLastAttributedTouchDataListener() {
+                @Override
+                public void onDataFetched(JSONObject jsonObject, BranchError error) {
+                    if (error != null) {
+                        promise.resolve(jsonObject);
+                    } else {
+                        promise.reject(GENERIC_ERROR, error.getMessage());
+                    }
+                }
+            }, window);
+    }
+
+    @ReactMethod
     public void setIdentity(String identity) {
         Branch branch = Branch.getInstance();
         branch.setIdentity(identity);
