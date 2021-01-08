@@ -232,8 +232,8 @@ class BranchMethods extends Component {
     const attributionWindow = 365
     try {
       let latd = await branch.lastAttributedTouchDataWithAttributionWindow(attributionWindow)
-        console.log('lastAttributedTouchDataWithAttributionWindow', latd)
-        this.addResult('success', 'lastAttributedTouchDataWithAttributionWindow', latd)
+      console.log('lastAttributedTouchDataWithAttributionWindow', latd)
+      this.addResult('success', 'lastAttributedTouchDataWithAttributionWindow', latd)
     } catch (err) {
       console.log('lastAttributedTouchDataWithAttributionWindow', err)
       this.addResult('error', 'lastAttributedTouchDataWithAttributionWindow', err.toString())
