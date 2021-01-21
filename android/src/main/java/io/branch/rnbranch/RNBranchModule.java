@@ -438,7 +438,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         branch.getLastAttributedTouchData(new ServerRequestGetLATD.BranchLastAttributedTouchDataListener() {
                 @Override
                 public void onDataFetched(JSONObject jsonObject, BranchError error) {
-                    if (error != null) {
+                    if (error == null) {
                         promise.resolve(jsonObject);
                     } else {
                         promise.reject(GENERIC_ERROR, error.getMessage());
