@@ -408,8 +408,12 @@ RCT_EXPORT_METHOD(
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejector:(__unused RCTPromiseRejectBlock)reject
                   ) {
-    [self.class.branch lastAttributedTouchDataWithAttributionWindow:window.integerValue completion:^(BranchLastAttributedTouchData *r){
-        resolve(r);
+    [self.class.branch lastAttributedTouchDataWithAttributionWindow:window.integerValue completion:^(BranchLastAttributedTouchData *r, NSError *error){
+        if (!error) {
+            resolve(r);
+        } else {
+            reject([NSString stringWithFormat: @"%lu", (long)error.code], error.localizedDescription, error);
+        }
     }];
 }
 
