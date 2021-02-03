@@ -402,6 +402,17 @@ RCT_EXPORT_METHOD(
     resolve([self.class.branch getFirstReferringParams]);
 }
 
+#pragma mark lastAttributedTouchDataWithAttributionWindow
+RCT_EXPORT_METHOD(
+                  lastAttributedTouchDataWithAttributionWindow:(NSNumber* __nonnull)window
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejector:(__unused RCTPromiseRejectBlock)reject
+                  ) {
+    [self.class.branch lastAttributedTouchDataWithAttributionWindow:window.integerValue completion:^(BranchLastAttributedTouchData *r){
+        resolve(r);
+    }];
+}
+
 #pragma mark setIdentity
 RCT_EXPORT_METHOD(
                   setIdentity:(NSString *)identity

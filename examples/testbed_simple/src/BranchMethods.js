@@ -228,6 +228,18 @@ class BranchMethods extends Component {
     }
   }
 
+  lastAttributedTouchDataWithAttributionWindow = async() => {
+    const attributionWindow = 365
+    try {
+      let latd = await branch.lastAttributedTouchDataWithAttributionWindow(attributionWindow)
+      console.log('lastAttributedTouchDataWithAttributionWindow', latd)
+      this.addResult('success', 'lastAttributedTouchDataWithAttributionWindow', latd)
+    } catch (err) {
+      console.log('lastAttributedTouchDataWithAttributionWindow', err)
+      this.addResult('error', 'lastAttributedTouchDataWithAttributionWindow', err.toString())
+    }
+  }
+
   addResult(type, slug, payload) {
     let result = { type, slug, payload }
     this.setState({
@@ -269,6 +281,7 @@ class BranchMethods extends Component {
           <Button onPress={this.logStandardEvent}>BranchEvent.logEvent (Standard)</Button>
           <Button onPress={this.logCustomEvent}>BranchEvent.logEvent (Custom)</Button>
           <Button onPress={this.openURL}>openURL</Button>
+          <Button onPress={this.lastAttributedTouchDataWithAttributionWindow}>lastAttributedTouchDataWithAttributionWindow</Button>
         </ScrollView>
       </View>
     )
