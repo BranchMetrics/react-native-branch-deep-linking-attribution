@@ -2,6 +2,7 @@
   - Requires react-native >= 0.60
   - Adds lastAttributedTouchData method.
     ```js
+    const attributionWindow = 365;
     branch.lastAttributedTouchData(attributionWindow, latData => {
       // latData is an Object
     });
