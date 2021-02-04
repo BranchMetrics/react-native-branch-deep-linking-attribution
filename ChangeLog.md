@@ -1,11 +1,13 @@
 2021-02-04  Version 5.0.1
   - Requires react-native >= 0.60
-  - Adds getLastAttributedTouchData method.
+  - Adds lastAttributedTouchData method.
     ```js
-    branch.getLastAttributedTouchData(latData => {
+    branch.lastAttributedTouchData(attributionWindow, latData => {
       // latData is an Object
     });
     ```
+    See https://help.branch.io/developers-hub/docs/retrieving-branchs-last-attributed-touch-data
+    for further details.
 
 2020-08-27  Version 5.0.0
   - Requires react-native >= 0.60

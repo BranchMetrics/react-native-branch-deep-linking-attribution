@@ -60,7 +60,7 @@ class Branch {
   setDebug = () => { throw 'setDebug() is not supported in the RN SDK. For other solutions, please see https://rnbranch.app.link/setDebug' }
   getLatestReferringParams = (synchronous = false) => RNBranch.getLatestReferringParams(synchronous)
   getFirstReferringParams = RNBranch.getFirstReferringParams
-  getLastAttributedTouchData =  (attributionWindow = {}) => RNBranch.getLastAttributedTouchData(attributionWindow)
+  lastAttributedTouchData =  (attributionWindow = {}) => RNBranch.lastAttributedTouchData(attributionWindow)
   setIdentity = (identity) => RNBranch.setIdentity(identity)
   setRequestMetadata = (key, value) => {
     console.info('[Branch] setRequestMetadata has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the metadata.')
