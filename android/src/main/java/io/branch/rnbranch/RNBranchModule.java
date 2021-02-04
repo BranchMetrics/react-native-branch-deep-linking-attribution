@@ -433,7 +433,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void lastAttributedTouchDataWithAttributionWindow(int window, final Promise promise) {
+    public void getLastAttributedTouchData(int window, final Promise promise) {
         Branch branch = Branch.getInstance();
         branch.getLastAttributedTouchData(new ServerRequestGetLATD.BranchLastAttributedTouchDataListener() {
                 @Override

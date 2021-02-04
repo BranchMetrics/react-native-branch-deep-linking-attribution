@@ -404,7 +404,7 @@ RCT_EXPORT_METHOD(
 
 #pragma mark lastAttributedTouchDataWithAttributionWindow
 RCT_EXPORT_METHOD(
-                  lastAttributedTouchDataWithAttributionWindow:(NSNumber* __nonnull)window
+                  getLastAttributedTouchData:(NSNumber* __nonnull)window
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejector:(__unused RCTPromiseRejectBlock)reject
                   ) {
