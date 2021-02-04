@@ -406,6 +406,7 @@ RCT_EXPORT_METHOD(
 RCT_EXPORT_METHOD(
                   lastAttributedTouchData:(NSNumber* __nonnull)window
                   resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
     [self.class.branch lastAttributedTouchDataWithAttributionWindow:window.integerValue completion:^(BranchLastAttributedTouchData *r){
         resolve(r);
