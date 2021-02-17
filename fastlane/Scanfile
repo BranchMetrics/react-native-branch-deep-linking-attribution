@@ -1,4 +1,4 @@
 workspace "native-tests/ios/NativeTests.xcworkspace"
 scheme "NativeTests"
-device "iPhone 11"
+device "iPhone 12"
 output_types "junit"

@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "cocoapods", [">= 1.7.1", "< 2.0.0"]
+gem "cocoapods", "~> 1.9"
 gem "fastlane", "~> 2.69"
 gem "travis"
 
