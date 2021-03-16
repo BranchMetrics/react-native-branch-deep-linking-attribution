@@ -22,5 +22,5 @@ for full details.
 - [Implement Features]
 - [Troubleshoot Issues]
 
-Please contact support@branch.io for feedback or assistance with integration or
+Please contact our [Support team](https://help.branch.io/using-branch/page/submit-a-ticket) for feedback or assistance with integration or
 troubleshooting.
