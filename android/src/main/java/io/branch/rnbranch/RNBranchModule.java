@@ -439,7 +439,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 @Override
                 public void onDataFetched(JSONObject jsonObject, BranchError error) {
                     if (error == null) {
-                        promise.resolve(jsonObject);
+                        promise.resolve(convertJsonToMap(jsonObject));
                     } else {
                         promise.reject(GENERIC_ERROR, error.getMessage());
                     }
