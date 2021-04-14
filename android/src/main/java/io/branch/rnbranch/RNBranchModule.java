@@ -98,26 +98,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static Branch.BranchReferralInitListener referralInitListener = null;
 
     public static void getAutoInstance(Context context) {
-        RNBranchConfig config = new RNBranchConfig(context);
-        String branchKey = config.getBranchKey();
-        String liveKey = config.getLiveKey();
-        String testKey = config.getTestKey();
-        boolean useTest = config.getUseTestInstance();
-
         Branch.registerPlugin(PLUGIN_NAME, io.branch.rnbranch.BuildConfig.RNBRANCH_VERSION);
-
-        if (branchKey != null) {
-            Branch.getAutoInstance(context, branchKey);
-        }
-        else if (useTest && testKey != null) {
-            Branch.getAutoInstance(context, testKey);
-        }
-        else if (!useTest && liveKey != null) {
-            Branch.getAutoInstance(context, liveKey);
-        }
-        else {
-            Branch.getAutoInstance(context);
-        }
+        Branch.getAutoInstance(context);
     }
 
     public static void reInitSession(Activity reactActivity) {
@@ -747,12 +729,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
         if (!mInitialized) {
             Log.i(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);
-
-            RNBranchConfig config = new RNBranchConfig(context);
-
-            if (mUseDebug || config.getDebugMode()) branch.setDebug();
-
-            if (config.getEnableFacebookLinkCheck()) branch.enableFacebookAppLinkCheck();
 
             if (mRequestMetadata != null) {
                 Iterator keys = mRequestMetadata.keys();

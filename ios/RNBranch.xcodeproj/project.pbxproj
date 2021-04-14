@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		7B03296A1FD9A76F0010D948 /* BranchContentMetadata+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0329681FD9A76E0010D948 /* BranchContentMetadata+RNBranch.m */; };
 		7B03296B1FD9A76F0010D948 /* BranchContentMetadata+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0329691FD9A76F0010D948 /* BranchContentMetadata+RNBranch.h */; };
-		7B1CBF301EE8B4C6002E5D0D /* RNBranchConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1CBF2E1EE8B4C6002E5D0D /* RNBranchConfig.h */; };
-		7B1CBF311EE8B4C6002E5D0D /* RNBranchConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1CBF2F1EE8B4C6002E5D0D /* RNBranchConfig.m */; };
 		7B1D33561E410DD200755B98 /* BranchLinkProperties+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1D334E1E410DD200755B98 /* BranchLinkProperties+RNBranch.h */; };
 		7B1D33571E410DD200755B98 /* BranchLinkProperties+RNBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D334F1E410DD200755B98 /* BranchLinkProperties+RNBranch.m */; };
 		7B1D33581E410DD200755B98 /* BranchUniversalObject+RNBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1D33501E410DD200755B98 /* BranchUniversalObject+RNBranch.h */; };
@@ -52,8 +50,6 @@
 		148030EE1CCDF9FA004ABEA4 /* RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranch.m; sourceTree = "<group>"; };
 		7B0329681FD9A76E0010D948 /* BranchContentMetadata+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BranchContentMetadata+RNBranch.m"; sourceTree = "<group>"; };
 		7B0329691FD9A76F0010D948 /* BranchContentMetadata+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchContentMetadata+RNBranch.h"; sourceTree = "<group>"; };
-		7B1CBF2E1EE8B4C6002E5D0D /* RNBranchConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBranchConfig.h; sourceTree = "<group>"; };
-		7B1CBF2F1EE8B4C6002E5D0D /* RNBranchConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBranchConfig.m; sourceTree = "<group>"; };
 		7B1D334E1E410DD200755B98 /* BranchLinkProperties+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchLinkProperties+RNBranch.h"; sourceTree = "<group>"; };
 		7B1D334F1E410DD200755B98 /* BranchLinkProperties+RNBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BranchLinkProperties+RNBranch.m"; sourceTree = "<group>"; };
 		7B1D33501E410DD200755B98 /* BranchUniversalObject+RNBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BranchUniversalObject+RNBranch.h"; sourceTree = "<group>"; };
@@ -120,8 +116,6 @@
 				7B3B27531E707CF5003ABDF4 /* RNBranchAgingDictionary.m */,
 				7B3B274E1E707CD7003ABDF4 /* RNBranchAgingItem.h */,
 				7B3B274F1E707CD7003ABDF4 /* RNBranchAgingItem.m */,
-				7B1CBF2E1EE8B4C6002E5D0D /* RNBranchConfig.h */,
-				7B1CBF2F1EE8B4C6002E5D0D /* RNBranchConfig.m */,
 				7B9654531E96E328009C3CEE /* RNBranchEventEmitter.h */,
 				7B9654541E96E328009C3CEE /* RNBranchEventEmitter.m */,
 				7B1D33541E410DD200755B98 /* RNBranchProperty.h */,
@@ -151,7 +145,6 @@
 				7B3FCB261E20626A008E38E2 /* RNBranch.h in Headers */,
 				7B1D33581E410DD200755B98 /* BranchUniversalObject+RNBranch.h in Headers */,
 				7B7D27401FCE3BD2008E3EDE /* BranchEvent+RNBranch.h in Headers */,
-				7B1CBF301EE8B4C6002E5D0D /* RNBranchConfig.h in Headers */,
 				7B1D335C1E410DD200755B98 /* RNBranchProperty.h in Headers */,
 				7B1D335A1E410DD200755B98 /* NSObject+RNBranch.h in Headers */,
 				7B9654551E96E328009C3CEE /* RNBranchEventEmitter.h in Headers */,
@@ -219,7 +212,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B1CBF311EE8B4C6002E5D0D /* RNBranchConfig.m in Sources */,
 				7B3B27551E707CF5003ABDF4 /* RNBranchAgingDictionary.m in Sources */,
 				7B1D33571E410DD200755B98 /* BranchLinkProperties+RNBranch.m in Sources */,
 				7B1D335D1E410DD300755B98 /* RNBranchProperty.m in Sources */,
