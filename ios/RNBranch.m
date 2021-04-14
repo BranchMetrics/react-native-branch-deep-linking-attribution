@@ -143,6 +143,11 @@ RCT_EXPORT_MODULE();
     [self.branch setDebug];
 }
 
++ (void)enableLogging
+{
+    [self.branch enableLogging];
+}
+
 + (void)delayInitToCheckForSearchAds
 {
     [self.branch delayInitToCheckForSearchAds];

@@ -28,6 +28,7 @@ extern NSString * _Nonnull const RNBranchLinkOpenedNotificationLinkPropertiesKey
 + (void)deferInitializationForJSLoad;
 
 + (void)setDebug;
++ (void)enableLogging;
 + (void)delayInitToCheckForSearchAds;
 + (void)setRequestMetadataKey:(NSString * _Nonnull)key value:(NSObject * _Nonnull)value;
 
