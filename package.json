@@ -3,6 +3,7 @@
   "version": "5.0.2",
   "description": "Branch Metrics React Native SDK",
   "main": "src/index.js",
+  "types": "src/index.d.ts",
   "files": [
     "android",
     "branch.example.json",
