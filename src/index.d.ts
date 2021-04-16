@@ -300,6 +300,8 @@ interface Branch {
   getFirstReferringParams: () => Promise<BranchParams>;
   setIdentity: (identity: string) => void;
   setRequestMetadata: (key: string, value: string) => void;
+  addFacebookPartnerParameter: (name: string, value: string) => void;
+  clearPartnerParameter: () => void;
   logout: () => void;
   openURL: (url: string, options?: { newActivity?: boolean }) => void;
   redeemRewards: (

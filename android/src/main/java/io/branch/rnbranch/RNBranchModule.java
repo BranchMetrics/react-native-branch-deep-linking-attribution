@@ -88,7 +88,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static Branch.BranchUniversalReferralInitListener initListener = null;
 
     private static Activity mActivity = null;
-    private static boolean mUseDebug = false;
     private static boolean mInitialized = false;
     private static volatile boolean mNewIntent = true;
     private static JSONObject mRequestMetadata = new JSONObject();
@@ -239,8 +238,15 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Log.d(REACT_CLASS, "Sent session start broadcast for " + uri);
     }
 
-    public static void setDebug() {
-        mUseDebug = true;
+    /**
+     * @deprecated setDebug is deprecated and all functionality has been disabled. If you wish to enable
+     * logging, please invoke enableLogging. If you wish to simulate installs, please Test Devices
+     * (https://help.branch.io/using-branch/docs/adding-test-devices)
+     */
+    public static void setDebug() { }
+
+    public static void enableLogging() {
+        Branch.enableLogging();
     }
 
     public static void setRequestMetadata(String key, String val) {
@@ -440,6 +446,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         // setRequestMetadata does not do what it appears to do.  Call directly to the native code.
         Branch branch = Branch.getInstance();
         branch.setRequestMetadata(key, value);
+    }
+
+    @ReactMethod
+    public void addFacebookPartnerParameter(String name, String value) {
+        Branch branch = Branch.getInstance();
+        branch.addFacebookPartnerParameter(name, value);
+    }
+
+    @ReactMethod
+    public void clearPartnerParameters() {
+
     }
 
     @ReactMethod

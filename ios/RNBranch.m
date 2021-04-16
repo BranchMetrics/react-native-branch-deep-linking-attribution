@@ -124,11 +124,6 @@ RCT_EXPORT_MODULE();
     [self.branch delayInitToCheckForSearchAds];
 }
 
-+ (void)setRequestMetadataKey:(NSString *)key value:(NSObject *)value
-{
-    [self.branch setRequestMetadataKey:key value:value];
-}
-
 + (void)useTestInstance {
     useTestInstance = YES;
 }
@@ -309,6 +304,22 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - Methods exported to React Native
 
+
+#pragma mark clearPartnerParameters
+RCT_EXPORT_METHOD(
+                  clearPartnerParameters
+                  ) {
+    [self.class.branch clearPartnerParameters];
+}
+
+#pragma mark addFacebookPartnerParameter
+RCT_EXPORT_METHOD(
+                  addFacebookPartnerParameter:(NSString *)name
+                  value:(NSString *)value
+                  ) {
+    [self.class.branch addFacebookPartnerParameterWithName:name value:value];
+}
+
 #pragma mark disableTracking
 RCT_EXPORT_METHOD(
                   disableTracking:(BOOL)disable
@@ -384,7 +395,8 @@ RCT_EXPORT_METHOD(
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
-    [self.class.branch lastAttributedTouchDataWithAttributionWindow:window.integerValue completion:^(BranchLastAttributedTouchData *r){
+    [self.class.branch lastAttributedTouchDataWithAttributionWindow:window.integerValue completion:^(BranchLastAttributedTouchData *r, NSError *e){
+        // TODO: pass back the error to JS
         resolve(r);
     }];
 }
