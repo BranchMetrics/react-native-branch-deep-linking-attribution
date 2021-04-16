@@ -5,7 +5,6 @@
 #import "BranchLinkProperties+RNBranch.h"
 #import "BranchUniversalObject+RNBranch.h"
 #import "RNBranchAgingDictionary.h"
-#import "RNBranchConfig.h"
 #import "RNBranchEventEmitter.h"
 
 NSString * const RNBranchLinkOpenedNotification = @"RNBranchLinkOpenedNotification";
@@ -51,22 +50,14 @@ RCT_EXPORT_MODULE();
         static Branch *instance;
         static dispatch_once_t once = 0;
         dispatch_once(&once, ^{
-            RNBranchConfig *config = RNBranchConfig.instance;
-
-            // YES if either [RNBranch useTestInstance] was called or useTestInstance: true is present in branch.json.
-            BOOL usingTestInstance = useTestInstance || config.useTestInstance;
-            NSString *key = branchKey ?: config.branchKey ?: usingTestInstance ? config.testKey : config.liveKey;
-
-            if (key) {
+            if (branchKey) {
                 // Override the Info.plist if these are present.
-                instance = [Branch getInstance: key];
+                instance = [Branch getInstance: branchKey];
             }
             else {
-                [Branch setUseTestBranchKey:usingTestInstance];
+                [Branch setUseTestBranchKey:useTestInstance];
                 instance = [Branch getInstance];
             }
-
-            [self setupBranchInstance:instance];
         });
         return instance;
     }
@@ -74,26 +65,6 @@ RCT_EXPORT_MODULE();
 
 + (BOOL)requiresMainQueueSetup {
     return YES;
-}
-
-+ (void)setupBranchInstance:(Branch *)instance
-{
-    RNBranchConfig *config = RNBranchConfig.instance;
-    if (config.debugMode) {
-        [instance setDebug];
-    }
-    if (config.delayInitToCheckForSearchAds) {
-        [instance delayInitToCheckForSearchAds];
-    }
-    if (config.enableFacebookLinkCheck) {
-        Class FBSDKAppLinkUtility = NSClassFromString(@"FBSDKAppLinkUtility");
-        if (FBSDKAppLinkUtility) {
-            [instance registerFacebookDeepLinkingClass:FBSDKAppLinkUtility];
-        }
-        else {
-            RCTLogWarn(@"FBSDKAppLinkUtility not found but enableFacebookLinkCheck set to true. Please be sure you have integrated the Facebook SDK.");
-        }
-    }
 }
 
 - (NSDictionary<NSString *, NSString *> *)constantsToExport {
@@ -143,14 +114,14 @@ RCT_EXPORT_MODULE();
     [self.branch setDebug];
 }
 
++ (void)enableLogging
+{
+    [self.branch enableLogging];
+}
+
 + (void)delayInitToCheckForSearchAds
 {
     [self.branch delayInitToCheckForSearchAds];
-}
-
-+ (void)setRequestMetadataKey:(NSString *)key value:(NSObject *)value
-{
-    [self.branch setRequestMetadataKey:key value:value];
 }
 
 + (void)useTestInstance {
@@ -167,10 +138,10 @@ RCT_EXPORT_MODULE();
     savedLaunchOptions = launchOptions;
     savedIsReferrable = isReferrable;
 
-    [self.branch registerPluginName:@"ReactNative" version:RNBNC_PLUGIN_VERSION];
+    [self.branch registerPluginName:@"ReactNative" version:RNBRANCH_VERSION];
 
     // Can't currently support this on Android.
-    // if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
+    // if (!deferInitializationForJSLoad && !BranchJsonConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
     [self initializeBranchSDK];
 }
 
@@ -333,6 +304,22 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - Methods exported to React Native
 
+
+#pragma mark clearPartnerParameters
+RCT_EXPORT_METHOD(
+                  clearPartnerParameters
+                  ) {
+    [self.class.branch clearPartnerParameters];
+}
+
+#pragma mark addFacebookPartnerParameter
+RCT_EXPORT_METHOD(
+                  addFacebookPartnerParameter:(NSString *)name
+                  value:(NSString *)value
+                  ) {
+    [self.class.branch addFacebookPartnerParameterWithName:name value:value];
+}
+
 #pragma mark disableTracking
 RCT_EXPORT_METHOD(
                   disableTracking:(BOOL)disable
@@ -360,7 +347,7 @@ RCT_EXPORT_METHOD(initializeBranch:(NSString *)key
     reject(@"RNBranch::Error::Unsupported", @"Initializing the Branch SDK from JS will be supported in a future release.", error);
 
     /*
-    if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) {
+    if (!deferInitializationForJSLoad && !BranchJsonConfig.instance.deferInitializationForJSLoad) {
         // This is a no-op from JS unless [RNBranch deferInitializationForJSLoad] is called.
         resolve(0);
         return;
@@ -408,7 +395,8 @@ RCT_EXPORT_METHOD(
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
-    [self.class.branch lastAttributedTouchDataWithAttributionWindow:window.integerValue completion:^(BranchLastAttributedTouchData *r){
+    [self.class.branch lastAttributedTouchDataWithAttributionWindow:window.integerValue completion:^(BranchLastAttributedTouchData *r, NSError *e){
+        // TODO: pass back the error to JS
         resolve(r);
     }];
 }

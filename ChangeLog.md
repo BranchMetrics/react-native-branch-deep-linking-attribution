@@ -1,3 +1,23 @@
+2021-04-16 Version 5.0.2
+  - Requires react-native >= 0.60
+
+  - Update iOS SDK to 1.39.2
+  - Update Android SDK to 5.0.7
+
+  - Adds addFacebookPartnerParameter method. See FB documentation on partner parameters for details.
+    ```js
+    branch.addFacebookPartnerParameter('em', '11234e56af071e9c79927651156bd7a10bca8ac34672aba121056e2698ee7088')
+    ```
+
+  - Adds clearPartnerParameter method
+    ```js
+    branch.clearPartnerParameters()
+    ```
+
+  - Adds typescript. Thanks runtrizapps!
+  - Adds enableLogging to the RNBranch class. Thanks jkadamczyk! 
+  - Fix issue with Android LATD. Thanks mauryakk15!
+
 2021-02-04  Version 5.0.1
   - Requires react-native >= 0.60
   - Adds lastAttributedTouchData method.

@@ -88,7 +88,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static Branch.BranchUniversalReferralInitListener initListener = null;
 
     private static Activity mActivity = null;
-    private static boolean mUseDebug = false;
     private static boolean mInitialized = false;
     private static volatile boolean mNewIntent = true;
     private static JSONObject mRequestMetadata = new JSONObject();
@@ -98,26 +97,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static Branch.BranchReferralInitListener referralInitListener = null;
 
     public static void getAutoInstance(Context context) {
-        RNBranchConfig config = new RNBranchConfig(context);
-        String branchKey = config.getBranchKey();
-        String liveKey = config.getLiveKey();
-        String testKey = config.getTestKey();
-        boolean useTest = config.getUseTestInstance();
-
         Branch.registerPlugin(PLUGIN_NAME, io.branch.rnbranch.BuildConfig.RNBRANCH_VERSION);
-
-        if (branchKey != null) {
-            Branch.getAutoInstance(context, branchKey);
-        }
-        else if (useTest && testKey != null) {
-            Branch.getAutoInstance(context, testKey);
-        }
-        else if (!useTest && liveKey != null) {
-            Branch.getAutoInstance(context, liveKey);
-        }
-        else {
-            Branch.getAutoInstance(context);
-        }
+        Branch.getAutoInstance(context);
     }
 
     public static void reInitSession(Activity reactActivity) {
@@ -257,8 +238,15 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Log.d(REACT_CLASS, "Sent session start broadcast for " + uri);
     }
 
-    public static void setDebug() {
-        mUseDebug = true;
+    /**
+     * @deprecated setDebug is deprecated and all functionality has been disabled. If you wish to enable
+     * logging, please invoke enableLogging. If you wish to simulate installs, please Test Devices
+     * (https://help.branch.io/using-branch/docs/adding-test-devices)
+     */
+    public static void setDebug() { }
+
+    public static void enableLogging() {
+        Branch.enableLogging();
     }
 
     public static void setRequestMetadata(String key, String val) {
@@ -439,7 +427,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 @Override
                 public void onDataFetched(JSONObject jsonObject, BranchError error) {
                     if (error == null) {
-                        promise.resolve(jsonObject);
+                        promise.resolve(convertJsonToMap(jsonObject));
                     } else {
                         promise.reject(GENERIC_ERROR, error.getMessage());
                     }
@@ -458,6 +446,18 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         // setRequestMetadata does not do what it appears to do.  Call directly to the native code.
         Branch branch = Branch.getInstance();
         branch.setRequestMetadata(key, value);
+    }
+
+    @ReactMethod
+    public void addFacebookPartnerParameter(String name, String value) {
+        Branch branch = Branch.getInstance();
+        branch.addFacebookPartnerParameterWithName(name, value);
+    }
+
+    @ReactMethod
+    public void clearPartnerParameters() {
+        Branch branch = Branch.getInstance();
+        branch.clearPartnerParameters();
     }
 
     @ReactMethod
@@ -747,12 +747,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
         if (!mInitialized) {
             Log.i(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);
-
-            RNBranchConfig config = new RNBranchConfig(context);
-
-            if (mUseDebug || config.getDebugMode()) branch.setDebug();
-
-            if (config.getEnableFacebookLinkCheck()) branch.enableFacebookAppLinkCheck();
 
             if (mRequestMetadata != null) {
                 Iterator keys = mRequestMetadata.keys();
