@@ -1,3 +1,6 @@
+2021-04-29 Version 5.0.3
+  - Update Android SDK to 5.0.8
+
 2021-04-16 Version 5.0.2
   - Requires react-native >= 0.60
 
