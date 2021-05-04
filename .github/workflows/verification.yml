@@ -1,0 +1,45 @@
+name: verification
+
+on: pull_request
+
+jobs:
+  ios:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            vendor
+            node_modules
+            native-tests/ios/Pods
+          key: ${{ runner.os }}-${{ hashFiles('Gemfile.lock','yarn.lock','native-tests/ios/Podfile.lock') }}
+
+      - name: Install Ruby dependencies
+        run: |
+          bundle config set --local path vendor
+          bundle check || bundle install
+
+      - name: Install NPM dependencies
+        run: yarn
+
+      - name: Install CocoaPods dependencies
+        run: cd native-tests/ios && bundle exec pod install
+
+      - name: Execute native unit tests
+        run: bundle exec fastlane ios test
+
+      - name: Run JS unit tests
+        run: yarn test
+
+      - name: JS Linter
+        run: yarn lint
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: fastlane/test_output
