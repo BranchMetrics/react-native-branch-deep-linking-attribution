@@ -9,15 +9,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Restore cache
+        uses: actions/cache@v2
+        path: |
+          vendor
+          node_modules
+          native-modules/ios/Pods
+        key: ${{ runner.os }}-${{ hashFiles('Gemfile.lock,yarn.lock','native-modules/ios/Podfile.lock') }}
+
       - name: Install Ruby dependencies
-        run: bundle check || bundle install
+        run: bundle check || bundle install --path=vendor
 
       - name: Install NPM dependencies
         run: yarn
 
       - name: Install CocoaPods dependencies
-        working-directory: ${{env.GITHUB_WORKSPACE}}/native-tests/ios
-        run: bundle exec pod install
+        run: cd native-tests/ios && bundle exec pod install
 
       - name: Execute native unit tests
         run: bundle exec fastlane ios test
