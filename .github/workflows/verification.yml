@@ -9,6 +9,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: bundle check || bundle install
+      - name: Install Ruby dependencies
+        run: bundle check || bundle install
 
-      - run: bundle exec fastlane ios test
+      - name; Install NPM dependencies
+        run: yarn
+
+      - name: Install CocoaPods dependencies
+        working-directory: ${{env.GITHUB_WORKSPACE}}/native-tests/ios
+        run: bundle exec pod install
+
+      - name: Execute native unit tests
+        run: bundle exec fastlane ios test
