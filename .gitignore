@@ -49,6 +49,3 @@ android/build
 .idea
 
 Pods
-
-# for now. not such a great idea. need to sort the bundler 1.x/2.x issue here.
-Gemfile.lock
