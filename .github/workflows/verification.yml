@@ -29,3 +29,9 @@ jobs:
 
       - name: Execute native unit tests
         run: bundle exec fastlane ios test
+
+      - name: Run JS unit tests
+        run: yarn test
+
+      - name; JS Linter
+        run: yarn lint
