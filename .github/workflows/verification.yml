@@ -12,7 +12,7 @@ jobs:
       - name: Install Ruby dependencies
         run: bundle check || bundle install
 
-      - name; Install NPM dependencies
+      - name: Install NPM dependencies
         run: yarn
 
       - name: Install CocoaPods dependencies
