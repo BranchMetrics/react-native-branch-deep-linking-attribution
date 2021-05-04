@@ -24,3 +24,5 @@ for full details.
 
 Please contact our [Support team](https://help.branch.io/using-branch/page/submit-a-ticket) for feedback or assistance with integration or
 troubleshooting.
+
+Not really submitting a PR.
