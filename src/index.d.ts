@@ -286,7 +286,7 @@ interface BranchUniversalObject {
   generateShortUrl: (
     linkProperties: BranchLinkProperties,
     controlParams: BranchLinkControlParams
-  ) => void;
+  ) => Promise<{ url: string }>;
   logEvent: (eventName: string, params?: BranchEventParams) => Promise<null>;
   release: () => void;
 }
