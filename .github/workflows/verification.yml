@@ -1,6 +1,6 @@
 name: verification
 
-on: push
+on: pull_request
 
 jobs:
   ios:
