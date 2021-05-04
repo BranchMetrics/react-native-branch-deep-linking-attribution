@@ -16,10 +16,12 @@ jobs:
             vendor
             node_modules
             native-modules/ios/Pods
-          key: ${{ runner.os }}-${{ hashFiles('Gemfile.lock','yarn.lock','native-modules/ios/Podfile.lock') }}
+          key: ${{ runner.os }}-rnios-${{ hashFiles('Gemfile.lock','yarn.lock','native-modules/ios/Podfile.lock') }}
 
       - name: Install Ruby dependencies
-        run: bundle check --path=vendor || bundle install --path=vendor
+        run: |
+          bundle config set --local path vendor
+          bundle check || bundle install
 
       - name: Install NPM dependencies
         run: yarn
