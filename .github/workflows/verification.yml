@@ -33,5 +33,5 @@ jobs:
       - name: Run JS unit tests
         run: yarn test
 
-      - name; JS Linter
+      - name: JS Linter
         run: yarn lint
