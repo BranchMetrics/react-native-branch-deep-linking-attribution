@@ -11,11 +11,12 @@ jobs:
 
       - name: Restore cache
         uses: actions/cache@v2
-        path: |
-          vendor
-          node_modules
-          native-modules/ios/Pods
-        key: ${{ runner.os }}-${{ hashFiles('Gemfile.lock,yarn.lock','native-modules/ios/Podfile.lock') }}
+        with:
+          path: |
+            vendor
+            node_modules
+            native-modules/ios/Pods
+          key: ${{ runner.os }}-${{ hashFiles('Gemfile.lock,yarn.lock','native-modules/ios/Podfile.lock') }}
 
       - name: Install Ruby dependencies
         run: bundle check || bundle install --path=vendor
