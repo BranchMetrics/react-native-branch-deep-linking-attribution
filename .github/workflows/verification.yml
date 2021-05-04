@@ -1,0 +1,14 @@
+name: verification
+
+on: push
+
+jobs:
+  ios:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: bundle check || bundle install
+
+      - run: bundle exec fastlane ios test
