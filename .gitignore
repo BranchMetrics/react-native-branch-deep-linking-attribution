@@ -49,3 +49,5 @@ android/build
 .idea
 
 Pods
+.bundle
+vendor
