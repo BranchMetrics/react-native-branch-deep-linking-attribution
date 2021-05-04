@@ -16,7 +16,7 @@ jobs:
             vendor
             node_modules
             native-modules/ios/Pods
-          key: ${{ runner.os }}-rnios-${{ hashFiles('Gemfile.lock','yarn.lock','native-modules/ios/Podfile.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('Gemfile.lock','yarn.lock','native-modules/ios/Podfile.lock') }}
 
       - name: Install Ruby dependencies
         run: |
