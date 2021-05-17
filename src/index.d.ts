@@ -293,6 +293,7 @@ interface BranchUniversalObject {
 
 interface Branch {
   subscribe: BranchSubscribe;
+  initSessionTtl?: number;
   skipCachedEvents: () => void;
   disableTracking: (disable: boolean) => void;
   isTrackingDisabled: boolean;
