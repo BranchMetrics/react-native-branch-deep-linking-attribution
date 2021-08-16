@@ -1,3 +1,9 @@
+2021-08-16 Version 5.0.4
+  - Update iOS SDK to 1.39.4
+  - Adds support to check the pasteboard for deferred deeplink data. Add `checkPasteboardOnInstall` to `branch.json`. The feature is optional and disabled by default.
+
+  - Update Android SDK to 5.0.10
+
 2021-04-29 Version 5.0.3
   - Update Android SDK to 5.0.8
 
