@@ -238,12 +238,6 @@ BranchEvent.AddPaymentInfo = RNBranch.STANDARD_EVENT_ADD_PAYMENT_INFO
 BranchEvent.Purchase = RNBranch.STANDARD_EVENT_PURCHASE
 
 /**
- * Standard Spend Credits event
- * @type {string}
- */
-BranchEvent.SpendCredits = RNBranch.STANDARD_EVENT_SPEND_CREDITS
-
-/**
  * Standard View Ad event
  * @type {string}
  */

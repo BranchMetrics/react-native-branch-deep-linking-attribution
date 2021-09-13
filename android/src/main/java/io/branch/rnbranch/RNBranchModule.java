@@ -56,7 +56,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static final String STANDARD_EVENT_INITIATE_PURCHASE = "STANDARD_EVENT_INITIATE_PURCHASE";
     private static final String STANDARD_EVENT_ADD_PAYMENT_INFO = "STANDARD_EVENT_ADD_PAYMENT_INFO";
     private static final String STANDARD_EVENT_PURCHASE = "STANDARD_EVENT_PURCHASE";
-    private static final String STANDARD_EVENT_SPEND_CREDITS = "STANDARD_EVENT_SPEND_CREDITS";
     private static final String STANDARD_EVENT_VIEW_AD = "STANDARD_EVENT_VIEW_AD";
     private static final String STANDARD_EVENT_CLICK_AD = "STANDARD_EVENT_CLICK_AD";
 
@@ -290,7 +289,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         constants.put(STANDARD_EVENT_INITIATE_PURCHASE, BRANCH_STANDARD_EVENT.INITIATE_PURCHASE.getName());
         constants.put(STANDARD_EVENT_ADD_PAYMENT_INFO, BRANCH_STANDARD_EVENT.ADD_PAYMENT_INFO.getName());
         constants.put(STANDARD_EVENT_PURCHASE, BRANCH_STANDARD_EVENT.PURCHASE.getName());
-        constants.put(STANDARD_EVENT_SPEND_CREDITS, BRANCH_STANDARD_EVENT.SPEND_CREDITS.getName());
         constants.put(STANDARD_EVENT_VIEW_AD, BRANCH_STANDARD_EVENT.VIEW_AD.getName());
         constants.put(STANDARD_EVENT_CLICK_AD, BRANCH_STANDARD_EVENT.CLICK_AD.getName());
 
@@ -974,108 +972,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }
         Log.w(REACT_CLASS, "Could not find product category " + stringValue);
         return null;
-    }
-
-    @ReactMethod
-    public void redeemRewards(int value, String bucket, Promise promise)
-    {
-        if (bucket == null) {
-            Branch.getInstance().redeemRewards(value, new RedeemRewardsListener(promise));
-        } else {
-            Branch.getInstance().redeemRewards(bucket, value, new RedeemRewardsListener(promise));
-        }
-    }
-
-    @ReactMethod
-    public void loadRewards(String bucket, Promise promise)
-    {
-        Branch.getInstance().loadRewards(new LoadRewardsListener(bucket, promise));
-    }
-
-    @ReactMethod
-    public void getCreditHistory(Promise promise)
-    {
-        Branch.getInstance().getCreditHistory(new CreditHistoryListener(promise));
-    }
-
-    protected class CreditHistoryListener implements Branch.BranchListResponseListener
-    {
-        private Promise _promise;
-
-        // Constructor that takes in a required callbackContext object
-        public CreditHistoryListener(Promise promise) {
-            this._promise = promise;
-        }
-
-        // Listener that implements BranchListResponseListener for getCreditHistory()
-        @Override
-        public void onReceivingResponse(JSONArray list, BranchError error) {
-            ArrayList<String> errors = new ArrayList<String>();
-            if (error == null) {
-                try {
-                    ReadableArray result = convertJsonToArray(list);
-                    this._promise.resolve(result);
-                } catch (JSONException err) {
-                    this._promise.reject(GENERIC_ERROR, err.getMessage());
-                }
-            } else {
-                String errorMessage = error.getMessage();
-                Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(GENERIC_ERROR, errorMessage);
-            }
-        }
-    }
-
-    protected class RedeemRewardsListener implements Branch.BranchReferralStateChangedListener
-    {
-        private Promise _promise;
-
-        public RedeemRewardsListener(Promise promise) {
-            this._promise = promise;
-        }
-
-        @Override
-        public void onStateChanged(boolean changed, BranchError error) {
-            if (error == null) {
-                WritableMap map = new WritableNativeMap();
-                map.putBoolean("changed", changed);
-                this._promise.resolve(map);
-            } else {
-                String errorMessage = error.getMessage();
-                Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(GENERIC_ERROR, errorMessage);
-            }
-        }
-    }
-
-    protected class LoadRewardsListener implements Branch.BranchReferralStateChangedListener
-    {
-        private String _bucket;
-        private Promise _promise;
-
-        public LoadRewardsListener(String bucket, Promise promise) {
-            this._bucket = bucket;
-            this._promise = promise;
-        }
-
-        @Override
-        public void onStateChanged(boolean changed, BranchError error) {
-            if (error == null) {
-                int credits = 0;
-                if (this._bucket == null) {
-                  credits = Branch.getInstance().getCredits();
-                } else {
-                  credits = Branch.getInstance().getCreditsForBucket(this._bucket);
-                }
-                WritableMap map = new WritableNativeMap();
-                map.putInt("credits", credits);
-                this._promise.resolve(map);
-            } else {
-                String errorMessage = error.getMessage();
-                Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(GENERIC_ERROR, errorMessage);
-            }
-        }
     }
 
     public void sendRNEvent(String eventName, @Nullable WritableMap params) {

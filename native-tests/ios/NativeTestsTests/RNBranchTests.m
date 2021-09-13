@@ -73,11 +73,6 @@
     ASSERT_CONSTANT(@"STANDARD_EVENT_PURCHASE", BranchStandardEventPurchase);
 }
 
-- (void)testStandardSpendCreditsEventConstant
-{
-    ASSERT_CONSTANT(@"STANDARD_EVENT_SPEND_CREDITS", BranchStandardEventSpendCredits);
-}
-
 - (void)testStandardSearchEventConstant
 {
     ASSERT_CONSTANT(@"STANDARD_EVENT_SEARCH", BranchStandardEventSearch);

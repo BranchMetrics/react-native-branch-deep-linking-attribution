@@ -71,39 +71,6 @@ class BranchMethods extends Component {
     }
   }
 
-  redeemRewards = async (bucket) => {
-    try {
-      let result = await branch.redeemRewards(5, bucket)
-      console.log('redeemRewards', result)
-      this.addResult('success', 'redeemRewards', result)
-    } catch (err) {
-      console.log('redeemRewards err', {...err}, err.message, err.toString())
-      this.addResult('error', 'redeemRewards', err.toString())
-    }
-  }
-
-  loadRewards = async() => {
-    try {
-      let result = await branch.loadRewards()
-      console.log('loadRewards', result)
-      this.addResult('success', 'loadRewards', result)
-    } catch (err) {
-      console.log('loadRewards err', err.toString())
-      this.addResult('error', 'loadRewards', err.toString())
-    }
-  }
-
-  getCreditHistory = async() => {
-    try {
-      let result = await branch.getCreditHistory()
-      console.log('getCreditHistory', result)
-      this.addResult('success', 'getCreditHistory', result)
-    } catch (err) {
-      console.log('getCreditHistory err', err.toString())
-      this.addResult('error', 'getCreditHistory', err.toString())
-    }
-  }
-
   userCompletedAction = async() => {
     if (!this.buo) await this.createBranchUniversalObject()
     try {
@@ -160,10 +127,6 @@ class BranchMethods extends Component {
           <Button onPress={this.generateShortUrl}>generateShortUrl</Button>
           <Button onPress={this.listOnSpotlight}>listOnSpotlight</Button>
           <Button onPress={this.showShareSheet}>showShareSheet</Button>
-          <Button onPress={this.redeemRewards.bind(this, '')}>redeemRewards</Button>
-          <Button onPress={this.redeemRewards.bind(this, 'testBucket')}>redeemRewards (with bucket)</Button>
-          <Button onPress={this.loadRewards}>loadRewards</Button>
-          <Button onPress={this.getCreditHistory}>getCreditHistory</Button>
         </ScrollView>
       </View>
     )

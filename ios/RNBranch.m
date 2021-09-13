@@ -83,7 +83,6 @@ RCT_EXPORT_MODULE();
              @"STANDARD_EVENT_INITIATE_PURCHASE": BranchStandardEventInitiatePurchase,
              @"STANDARD_EVENT_ADD_PAYMENT_INFO": BranchStandardEventAddPaymentInfo,
              @"STANDARD_EVENT_PURCHASE": BranchStandardEventPurchase,
-             @"STANDARD_EVENT_SPEND_CREDITS": BranchStandardEventSpendCredits,
              @"STANDARD_EVENT_VIEW_AD": BranchStandardEventViewAd,
              @"STANDARD_EVENT_CLICK_AD": BranchStandardEventClickAd,
 
@@ -643,71 +642,6 @@ RCT_EXPORT_METHOD(
                                   }
                                   resolve(url);
                               }];
-}
-
-#pragma mark loadRewards
-RCT_EXPORT_METHOD(
-                  loadRewards:(NSString *)bucket
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject
-                  ) {
-    [self.class.branch loadRewardsWithCallback:^(BOOL changed, NSError *error) {
-        if(!error) {
-            int credits = 0;
-            if (bucket) {
-                credits = (int)[self.class.branch getCreditsForBucket:bucket];
-            } else {
-                credits = (int)[self.class.branch getCredits];
-            }
-            resolve(@{@"credits": @(credits)});
-        } else {
-            RCTLogError(@"Load Rewards Error: %@", error.localizedDescription);
-            reject(@"RNBranch::Error::loadRewardsWithCallback", @"loadRewardsWithCallback", error);
-        }
-    }];
-}
-
-#pragma mark redeemRewards
-RCT_EXPORT_METHOD(
-                  redeemRewards:(NSInteger)amount
-                  inBucket:(NSString *)bucket
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject
-                  ) {
-    if (bucket) {
-        [self.class.branch redeemRewards:amount forBucket:bucket callback:^(BOOL changed, NSError *error) {
-            if (!error) {
-                resolve(@{@"changed": @(changed)});
-            } else {
-                RCTLogError(@"Redeem Rewards Error: %@", error.localizedDescription);
-                reject(@"RNBranch::Error::redeemRewards", error.localizedDescription, error);
-            }
-        }];
-    } else {
-        [self.class.branch redeemRewards:amount callback:^(BOOL changed, NSError *error) {
-            if (!error) {
-                resolve(@{@"changed": @(changed)});
-            } else {
-                RCTLogError(@"Redeem Rewards Error: %@", error.localizedDescription);
-                reject(@"RNBranch::Error::redeemRewards", error.localizedDescription, error);
-            }
-        }];
-    }
-}
-
-#pragma mark getCreditHistory
-RCT_EXPORT_METHOD(
-                  getCreditHistory:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject
-                  ) {
-    [self.class.branch getCreditHistoryWithCallback:^(NSArray *list, NSError *error) {
-        if (!error) {
-            resolve(list);
-        } else {
-            RCTLogError(@"Credit History Error: %@", error.localizedDescription);
-            reject(@"RNBranch::Error::getCreditHistory", error.localizedDescription, error);
-        }
-    }];
 }
 
 #pragma mark createUniversalObject
