@@ -294,6 +294,7 @@ interface Branch {
   isTrackingDisabled: boolean;
   getLatestReferringParams: (synchronous?: boolean) => Promise<BranchParams>;
   getFirstReferringParams: () => Promise<BranchParams>;
+  lastAttributedTouchData: (attributionWindow?: number) => Promise<BranchParams>;
   setIdentity: (identity: string) => void;
   setRequestMetadata: (key: string, value: string) => void;
   addFacebookPartnerParameter: (name: string, value: string) => void;
