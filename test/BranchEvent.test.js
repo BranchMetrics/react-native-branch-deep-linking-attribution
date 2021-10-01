@@ -28,10 +28,6 @@ test('Purchase is correct', () => {
   expect(BranchEvent.Purchase).toBe(RNBranch.STANDARD_EVENT_PURCHASE)
 })
 
-test('SpendCredits is correct', () => {
-  expect(BranchEvent.SpendCredits).toBe(RNBranch.STANDARD_EVENT_SPEND_CREDITS)
-})
-
 test('Search is correct', () => {
   expect(BranchEvent.Search).toBe(RNBranch.STANDARD_EVENT_SEARCH)
 })

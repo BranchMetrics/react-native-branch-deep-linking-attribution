@@ -85,11 +85,6 @@ class Branch {
     })()
   }
 
-  /*** Referral Methods ***/
-  redeemRewards = (amount, bucket) => RNBranch.redeemRewards(amount, bucket)
-  loadRewards = (bucket) => RNBranch.loadRewards(bucket)
-  getCreditHistory = RNBranch.getCreditHistory
-
   /*** BranchUniversalObject ***/
   createBranchUniversalObject = createBranchUniversalObject
 }

@@ -99,11 +99,6 @@ export class BranchEvent {
   static Purchase: string;
 
   /**
-   * Standard Spend Credits event
-   */
-  static SpendCredits: string;
-
-  /**
    * Standard View Ad event
    */
   static ViewAd: string;
@@ -299,18 +294,13 @@ interface Branch {
   isTrackingDisabled: boolean;
   getLatestReferringParams: (synchronous?: boolean) => Promise<BranchParams>;
   getFirstReferringParams: () => Promise<BranchParams>;
+  lastAttributedTouchData: (attributionWindow?: number) => Promise<BranchParams>;
   setIdentity: (identity: string) => void;
   setRequestMetadata: (key: string, value: string) => void;
   addFacebookPartnerParameter: (name: string, value: string) => void;
   clearPartnerParameter: () => void;
   logout: () => void;
   openURL: (url: string, options?: { newActivity?: boolean }) => void;
-  redeemRewards: (
-    amount: number,
-    bucket?: string
-  ) => Promise<{ changed: boolean }>;
-  loadRewards: (bucket?: string) => Promise<{ credits: number }>;
-  getCreditHistory: () => Promise<any>; // TODO
   createBranchUniversalObject: (
     identifier: string,
     options: BranchUniversalObjectOptions
