@@ -1,3 +1,7 @@
+2021-10-01 Version 5.1.0
+  - Update Androd SDK to 5.0.13
+  - Removes credit related APIs. Feature has been deprecated and the supporting services will be shutdown.
+
 2021-08-16 Version 5.0.4
   - Update iOS SDK to 1.39.4
   - Adds support to check the pasteboard for deferred deeplink data. Add `checkPasteboardOnInstall` to `branch.json`. The feature is optional and disabled by default.
