@@ -1,6 +1,6 @@
 {
   "name": "react-native-branch",
-  "version": "5.0.4",
+  "version": "5.1.0",
   "description": "Branch Metrics React Native SDK",
   "main": "src/index.js",
   "types": "src/index.d.ts",
