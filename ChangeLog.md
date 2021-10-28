@@ -1,3 +1,7 @@
+2021-10-27 Version 5.2.0
+  - Update iOS SDK to 1.40.1
+  - Update Android SDK to 5.0.14  
+
 2021-10-01 Version 5.1.0
   - Update Androd SDK to 5.0.13
   - Removes credit related APIs. Feature has been deprecated and the supporting services will be shutdown.
