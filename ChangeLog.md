@@ -1,3 +1,6 @@
+2021-10-29 Version 5.2.1
+  - Update iOS SDK to 1.40.2
+
 2021-10-27 Version 5.2.0
   - Update iOS SDK to 1.40.1
   - Update Android SDK to 5.0.14  
