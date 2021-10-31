@@ -42,6 +42,10 @@ export default class BranchSubscriber {
     if ('checkCachedEvents' in this.options) {
       this._checkCachedEvents = this.options.checkCachedEvents
     }
+
+    this.initSessionStart = null
+    this.initSessionSuccess = null
+    this.initSessionError = null
   }
 
   subscribe() {
@@ -96,12 +100,12 @@ export default class BranchSubscriber {
    */
   _subscribe() {
     if (this.options.onOpenStart) {
-      this._nativeEventEmitter.addListener(RNBranch.INIT_SESSION_START, this.options.onOpenStart)
+      this.initSessionStart = this._nativeEventEmitter.addListener(RNBranch.INIT_SESSION_START, this.options.onOpenStart)
     }
 
     if (this.options.onOpenComplete) {
-      this._nativeEventEmitter.addListener(RNBranch.INIT_SESSION_SUCCESS, this.options.onOpenComplete)
-      this._nativeEventEmitter.addListener(RNBranch.INIT_SESSION_ERROR, this.options.onOpenComplete)
+      this.initSessionSuccess = this._nativeEventEmitter.addListener(RNBranch.INIT_SESSION_SUCCESS, this.options.onOpenComplete)
+      this.initSessionError = this._nativeEventEmitter.addListener(RNBranch.INIT_SESSION_ERROR, this.options.onOpenComplete)
     }
   }
 
@@ -114,12 +118,12 @@ export default class BranchSubscriber {
     this._subscribed = false
 
     if (this.options.onOpenStart) {
-      this._nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_START, this.options.onOpenStart)
+      this.initSessionStart.remove()
     }
 
     if (this.options.onOpenComplete) {
-      this._nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_SUCCESS, this.options.onOpenComplete)
-      this._nativeEventEmitter.removeListener(RNBranch.INIT_SESSION_ERROR, this.options.onOpenComplete)
+      this.initSessionSuccess.remove()
+      this.initSessionError.remove()
     }
   }
 }
