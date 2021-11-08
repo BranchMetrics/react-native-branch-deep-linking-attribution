@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
 import android.net.Uri;
+
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
@@ -30,6 +31,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.annotation.Nonnull;
+
 @ReactModule(name = RNBranchModule.NAME)
 public class RNBranchModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "RNBranch";
@@ -40,17 +43,14 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS = "params";
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR = "error";
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_URI = "uri";
+    public static final String NATIVE_INIT_SESSION_STARTED_EVENT = "io.branch.rnbranch.RNBranchModule.onInitSessionStarted";
+    public static final String NATIVE_INIT_SESSION_STARTED_EVENT_URI = "uri";
     private static final String RN_INIT_SESSION_SUCCESS_EVENT = "RNBranch.initSessionSuccess";
     private static final String RN_INIT_SESSION_ERROR_EVENT = "RNBranch.initSessionError";
+    private static final String RN_INIT_SESSION_START_EVENT = "RNBranch.initSessionStart";
     private static final String INIT_SESSION_SUCCESS = "INIT_SESSION_SUCCESS";
     private static final String INIT_SESSION_ERROR = "INIT_SESSION_ERROR";
-    private static final String ADD_TO_CART_EVENT = "ADD_TO_CART_EVENT";
-    private static final String ADD_TO_WISHLIST_EVENT = "ADD_TO_WISHLIST_EVENT";
-    private static final String PURCHASED_EVENT = "PURCHASED_EVENT";
-    private static final String PURCHASE_INITIATED_EVENT = "PURCHASE_INITIATED_EVENT";
-    private static final String REGISTER_VIEW_EVENT = "REGISTER_VIEW_EVENT";
-    private static final String SHARE_COMPLETED_EVENT = "SHARE_COMPLETED_EVENT";
-    private static final String SHARE_INITIATED_EVENT = "SHARE_INITIATED_EVENT";
+    private static final String INIT_SESSION_START = "INIT_SESSION_START";
 
     private static final String STANDARD_EVENT_ADD_TO_CART = "STANDARD_EVENT_ADD_TO_CART";
     private static final String STANDARD_EVENT_ADD_TO_WISHLIST = "STANDARD_EVENT_ADD_TO_WISHLIST";
@@ -58,7 +58,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static final String STANDARD_EVENT_INITIATE_PURCHASE = "STANDARD_EVENT_INITIATE_PURCHASE";
     private static final String STANDARD_EVENT_ADD_PAYMENT_INFO = "STANDARD_EVENT_ADD_PAYMENT_INFO";
     private static final String STANDARD_EVENT_PURCHASE = "STANDARD_EVENT_PURCHASE";
-    private static final String STANDARD_EVENT_SPEND_CREDITS = "STANDARD_EVENT_SPEND_CREDITS";
+    private static final String STANDARD_EVENT_VIEW_AD = "STANDARD_EVENT_VIEW_AD";
+    private static final String STANDARD_EVENT_CLICK_AD = "STANDARD_EVENT_CLICK_AD";
 
     private static final String STANDARD_EVENT_SEARCH = "STANDARD_EVENT_SEARCH";
     private static final String STANDARD_EVENT_VIEW_ITEM = "STANDARD_EVENT_VIEW_ITEM";
@@ -70,41 +71,46 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     private static final String STANDARD_EVENT_COMPLETE_TUTORIAL = "STANDARD_EVENT_COMPLETE_TUTORIAL";
     private static final String STANDARD_EVENT_ACHIEVE_LEVEL = "STANDARD_EVENT_ACHIEVE_LEVEL";
     private static final String STANDARD_EVENT_UNLOCK_ACHIEVEMENT = "STANDARD_EVENT_UNLOCK_ACHIEVEMENT";
+    private static final String STANDARD_EVENT_INVITE = "STANDARD_EVENT_INVITE";
+    private static final String STANDARD_EVENT_LOGIN = "STANDARD_EVENT_LOGIN";
+    private static final String STANDARD_EVENT_RESERVE = "STANDARD_EVENT_RESERVE";
+    private static final String STANDARD_EVENT_SUBSCRIBE = "STANDARD_EVENT_SUBSCRIBE";
+    private static final String STANDARD_EVENT_START_TRIAL = "STANDARD_EVENT_START_TRIAL";
 
     private static final String IDENT_FIELD_NAME = "ident";
     public static final String UNIVERSAL_OBJECT_NOT_FOUND_ERROR_CODE = "RNBranch::Error::BUONotFound";
     public static final String GENERIC_ERROR = "RNBranch::Error";
     private static final long AGING_HASH_TTL = 3600000;
+    private static final String PLUGIN_NAME = "ReactNative";
 
     private static JSONObject initSessionResult = null;
-    private BroadcastReceiver mInitSessionEventReceiver = null;
+    private BroadcastReceiver mInitSessionFinishedEventReceiver = null;
+    private BroadcastReceiver mInitSessionStartedEventReceiver = null;
     private static Branch.BranchUniversalReferralInitListener initListener = null;
 
     private static Activity mActivity = null;
-    private static boolean mUseDebug = false;
     private static boolean mInitialized = false;
+    private static volatile boolean mNewIntent = true;
     private static JSONObject mRequestMetadata = new JSONObject();
 
     private AgingHash<String, BranchUniversalObject> mUniversalObjectMap = new AgingHash<>(AGING_HASH_TTL);
 
-    public static void getAutoInstance(Context context) {
-        RNBranchConfig config = new RNBranchConfig(context);
-        String branchKey = config.getBranchKey();
-        String liveKey = config.getLiveKey();
-        String testKey = config.getTestKey();
-        boolean useTest = config.getUseTestInstance();
+    private static Branch.BranchReferralInitListener referralInitListener = null;
 
-        if (branchKey != null) {
-            Branch.getAutoInstance(context, branchKey);
-        }
-        else if (useTest && testKey != null) {
-            Branch.getAutoInstance(context, testKey);
-        }
-        else if (!useTest && liveKey != null) {
-            Branch.getAutoInstance(context, liveKey);
-        }
-        else {
-            Branch.getAutoInstance(context);
+    public static void getAutoInstance(Context context) {
+        Branch.registerPlugin(PLUGIN_NAME, io.branch.rnbranch.BuildConfig.RNBRANCH_VERSION);
+        Branch.getAutoInstance(context);
+    }
+
+    public static void reInitSession(Activity reactActivity) {
+        Branch branch = Branch.getInstance();
+        Intent intent = reactActivity.getIntent();
+        if (intent != null) {
+            intent.putExtra("branch_force_new_session", true);
+            notifyJSOfInitSessionStart(reactActivity, intent.getData());
+            Branch.sessionBuilder(reactActivity).withCallback(referralInitListener).reInit();
+        } else {
+            Log.w(REACT_CLASS, "reInitSession was called but the Intent is null");
         }
     }
 
@@ -117,53 +123,28 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Branch branch = setupBranch(reactActivity.getApplicationContext());
 
         mActivity = reactActivity;
-        branch.initSession(new Branch.BranchReferralInitListener(){
+        final boolean isNewIntent = mNewIntent;
+        referralInitListener = new Branch.BranchReferralInitListener(){
 
             private Activity mmActivity = null;
 
             @Override
             public void onInitFinished(JSONObject referringParams, BranchError error) {
+                // react native currently expects this to never be null
+                if (referringParams == null) {
+                    referringParams = new JSONObject();
+                }
 
                 Log.d(REACT_CLASS, "onInitFinished");
                 JSONObject result = new JSONObject();
-                Uri referringUri = null;
-                try{
-                    boolean clickedBranchLink = false;
-                    // getXXX throws. It's OK for these to be missing.
-                    try {
-                        clickedBranchLink = referringParams.getBoolean("+clicked_branch_link");
-                    }
-                    catch (JSONException e) {
 
-                    }
-
-                    String referringLink = null;
-                    if (clickedBranchLink) {
-                        try {
-                            referringLink = referringParams.getString("~referring_link");
-                        }
-                        catch (JSONException e) {
-
-                        }
-                    }
-                    else {
-                        try {
-                            referringLink = referringParams.getString("+non_branch_link");
-                        }
-                        catch (JSONException e) {
-
-                        }
-                    }
-
-                    if (referringLink != null) referringUri = Uri.parse(referringLink);
-
+                try {
                     result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_PARAMS, referringParams);
                     result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR, error != null ? error.getMessage() : JSONObject.NULL);
-                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, referringLink != null ? referringLink : JSONObject.NULL);
-                } catch(JSONException ex) {
-                    try {
-                        result.put("error", "Failed to convert result to JSONObject: " + ex.getMessage());
-                    } catch(JSONException k) {}
+                    result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, isNewIntent && uri != null ? uri.toString() : JSONObject.NULL);
+                }
+                catch (JSONException e) {
+
                 }
                 initSessionResult = result;
 
@@ -173,7 +154,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 if (initListener != null) {
                     initListener.onInitFinished(branchUniversalObject, linkProperties, error);
                 }
-                generateLocalBroadcast(referringParams, referringUri, branchUniversalObject, linkProperties, error);
+                generateLocalBroadcast(referringParams, uri, branchUniversalObject, linkProperties, error);
             }
 
             private Branch.BranchReferralInitListener init(Activity activity) {
@@ -200,7 +181,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                     broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES, linkProperties);
                 }
 
-                if (uri != null) {
+                /*
+                 * isNewIntent is a capture of the value of mNewIntent above, so does not change when
+                 * mNewIntent changes in onNewIntent.
+                 */
+                if (isNewIntent && uri != null) {
                     broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, uri.toString());
                 }
 
@@ -210,11 +195,59 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
                 LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(broadcastIntent);
             }
-        }.init(reactActivity), uri, reactActivity);
+        }.init(reactActivity);
+
+        notifyJSOfInitSessionStart(reactActivity, uri);
+        Branch.sessionBuilder(reactActivity).withCallback(referralInitListener).withData(uri).init();
     }
 
-    public static void setDebug() {
-        mUseDebug = true;
+    /**
+     * Call from Activity.onNewIntent:
+     *   @Override
+     *   public void onNewIntent(Intent intent) {
+     *     super.onNewIntent(intent);
+     *     RNBranchModule.onNewIntent(intent);
+     *   }
+     * @param intent the new Intent received via Activity.onNewIntent
+     */
+    public static void onNewIntent(@Nonnull Intent intent) {
+        mActivity.setIntent(intent);
+        mNewIntent = true;
+        reInitSession(mActivity);
+    }
+
+    /**
+     * Notify JavaScript of init session start. This generates an RNBranch.initSessionStart
+     * event to JS via the RN native event emitter.
+     * @param context a Context for the LocalBroadcastManager
+     * @param uri the URI to include in the notification or null
+     */
+    private static void notifyJSOfInitSessionStart(Context context, Uri uri) {
+        /*
+         * This check just ensures that we only generate one RNBranch.initSessionStart
+         * event per call to onNewIntent().
+         */
+        if (!mNewIntent) return;
+        mNewIntent = false;
+
+        Intent broadcastIntent = new Intent(NATIVE_INIT_SESSION_STARTED_EVENT);
+        if (uri != null) {
+            broadcastIntent.putExtra(NATIVE_INIT_SESSION_STARTED_EVENT_URI, uri);
+        }
+
+        LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
+        Log.d(REACT_CLASS, "Sent session start broadcast for " + uri);
+    }
+
+    /**
+     * @deprecated setDebug is deprecated and all functionality has been disabled. If you wish to enable
+     * logging, please invoke enableLogging. If you wish to simulate installs, please Test Devices
+     * (https://help.branch.io/using-branch/docs/adding-test-devices)
+     */
+    public static void setDebug() { }
+
+    public static void enableLogging() {
+        Branch.enableLogging();
     }
 
     public static void setRequestMetadata(String key, String val) {
@@ -235,7 +268,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     public RNBranchModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        forwardInitSessionFinishedEventToReactNative(reactContext);
+        listenForInitSessionEventsToReactNative(reactContext);
     }
 
     @javax.annotation.Nullable
@@ -246,16 +279,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
         constants.put(INIT_SESSION_SUCCESS, RN_INIT_SESSION_SUCCESS_EVENT);
         constants.put(INIT_SESSION_ERROR, RN_INIT_SESSION_ERROR_EVENT);
-
-        // Constants for use with userCompletedAction (deprecated)
-
-        constants.put(ADD_TO_CART_EVENT, BranchEvent.ADD_TO_CART);
-        constants.put(ADD_TO_WISHLIST_EVENT, BranchEvent.ADD_TO_WISH_LIST);
-        constants.put(PURCHASED_EVENT, BranchEvent.PURCHASED);
-        constants.put(PURCHASE_INITIATED_EVENT, BranchEvent.PURCHASE_STARTED);
-        constants.put(REGISTER_VIEW_EVENT, BranchEvent.VIEW);
-        constants.put(SHARE_COMPLETED_EVENT, BranchEvent.SHARE_COMPLETED);
-        constants.put(SHARE_INITIATED_EVENT, BranchEvent.SHARE_STARTED);
+        constants.put(INIT_SESSION_START, RN_INIT_SESSION_START_EVENT);
 
         // constants for use with BranchEvent
 
@@ -267,7 +291,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         constants.put(STANDARD_EVENT_INITIATE_PURCHASE, BRANCH_STANDARD_EVENT.INITIATE_PURCHASE.getName());
         constants.put(STANDARD_EVENT_ADD_PAYMENT_INFO, BRANCH_STANDARD_EVENT.ADD_PAYMENT_INFO.getName());
         constants.put(STANDARD_EVENT_PURCHASE, BRANCH_STANDARD_EVENT.PURCHASE.getName());
-        constants.put(STANDARD_EVENT_SPEND_CREDITS, BRANCH_STANDARD_EVENT.SPEND_CREDITS.getName());
+        constants.put(STANDARD_EVENT_VIEW_AD, BRANCH_STANDARD_EVENT.VIEW_AD.getName());
+        constants.put(STANDARD_EVENT_CLICK_AD, BRANCH_STANDARD_EVENT.CLICK_AD.getName());
 
         // Content Events
 
@@ -283,12 +308,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         constants.put(STANDARD_EVENT_COMPLETE_TUTORIAL , BRANCH_STANDARD_EVENT.COMPLETE_TUTORIAL.getName());
         constants.put(STANDARD_EVENT_ACHIEVE_LEVEL, BRANCH_STANDARD_EVENT.ACHIEVE_LEVEL.getName());
         constants.put(STANDARD_EVENT_UNLOCK_ACHIEVEMENT, BRANCH_STANDARD_EVENT.UNLOCK_ACHIEVEMENT.getName());
+        constants.put(STANDARD_EVENT_INVITE, BRANCH_STANDARD_EVENT.INVITE.getName());
+        constants.put(STANDARD_EVENT_LOGIN , BRANCH_STANDARD_EVENT.LOGIN.getName());
+        constants.put(STANDARD_EVENT_RESERVE, BRANCH_STANDARD_EVENT.RESERVE.getName());
+        constants.put(STANDARD_EVENT_SUBSCRIBE, BRANCH_STANDARD_EVENT.SUBSCRIBE.getName());
+        constants.put(STANDARD_EVENT_START_TRIAL, BRANCH_STANDARD_EVENT.START_TRIAL.getName());
 
         return constants;
     }
 
-    private void forwardInitSessionFinishedEventToReactNative(ReactApplicationContext reactContext) {
-        mInitSessionEventReceiver = new BroadcastReceiver() {
+    private void listenForInitSessionEventsToReactNative(ReactApplicationContext reactContext) {
+        mInitSessionFinishedEventReceiver = new BroadcastReceiver() {
             RNBranchModule mBranchModule;
 
             @Override
@@ -304,12 +334,37 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             }
         }.init(this);
 
-        LocalBroadcastManager.getInstance(reactContext).registerReceiver(mInitSessionEventReceiver, new IntentFilter(NATIVE_INIT_SESSION_FINISHED_EVENT));
+        LocalBroadcastManager.getInstance(reactContext).registerReceiver(mInitSessionFinishedEventReceiver, new IntentFilter(NATIVE_INIT_SESSION_FINISHED_EVENT));
+
+        mInitSessionStartedEventReceiver = new BroadcastReceiver() {
+            RNBranchModule mBranchModule;
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Uri uri = intent.getParcelableExtra(NATIVE_INIT_SESSION_STARTED_EVENT_URI);
+                WritableMap payload = new WritableNativeMap();
+                if (uri != null) {
+                    payload.putString(NATIVE_INIT_SESSION_STARTED_EVENT_URI, uri.toString());
+                }
+                else {
+                    payload.putNull(NATIVE_INIT_SESSION_STARTED_EVENT_URI);
+                }
+                mBranchModule.sendRNEvent(RN_INIT_SESSION_START_EVENT, payload);
+            }
+
+            private BroadcastReceiver init(RNBranchModule branchModule) {
+                mBranchModule = branchModule;
+                return this;
+            }
+        }.init(this);
+
+        LocalBroadcastManager.getInstance(reactContext).registerReceiver(mInitSessionStartedEventReceiver, new IntentFilter(NATIVE_INIT_SESSION_STARTED_EVENT));
     }
 
     @Override
     public void onCatalystInstanceDestroy() {
-        LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionEventReceiver);
+        LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionFinishedEventReceiver);
+        LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionStartedEventReceiver);
     }
 
     @Override
@@ -366,9 +421,43 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void lastAttributedTouchData(int window, final Promise promise) {
+        Branch branch = Branch.getInstance();
+        branch.getLastAttributedTouchData(new ServerRequestGetLATD.BranchLastAttributedTouchDataListener() {
+                @Override
+                public void onDataFetched(JSONObject jsonObject, BranchError error) {
+                    if (error == null) {
+                        promise.resolve(convertJsonToMap(jsonObject));
+                    } else {
+                        promise.reject(GENERIC_ERROR, error.getMessage());
+                    }
+                }
+            }, window);
+    }
+
+    @ReactMethod
     public void setIdentity(String identity) {
         Branch branch = Branch.getInstance();
         branch.setIdentity(identity);
+    }
+
+    @ReactMethod
+    public void setRequestMetadataKey(String key, String value) {
+        // setRequestMetadata does not do what it appears to do.  Call directly to the native code.
+        Branch branch = Branch.getInstance();
+        branch.setRequestMetadata(key, value);
+    }
+
+    @ReactMethod
+    public void addFacebookPartnerParameter(String name, String value) {
+        Branch branch = Branch.getInstance();
+        branch.addFacebookPartnerParameterWithName(name, value);
+    }
+
+    @ReactMethod
+    public void clearPartnerParameters() {
+        Branch branch = Branch.getInstance();
+        branch.clearPartnerParameters();
     }
 
     @ReactMethod
@@ -568,11 +657,15 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             return;
         }
 
+        /*
+         * Using Intent.ACTION_VIEW here will open a browser for non-Branch links unless the
+         * domain is registered in an intent-filter in the manifest. Instead specify the host
+         * Activity.
+         */
         Intent intent = new Intent(mActivity, mActivity.getClass());
-        intent.putExtra("branch", url);
+        intent.setData(Uri.parse(url));
         intent.putExtra("branch_force_new_session", true);
 
-        if (options.hasKey("newActivity") && options.getBoolean("newActivity")) mActivity.finish();
         mActivity.startActivity(intent);
     }
 
@@ -607,6 +700,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         if (params.hasKey("affiliation")) event.setAffiliation(params.getString("affiliation"));
         if (params.hasKey("description")) event.setDescription(params.getString("description"));
         if (params.hasKey("searchQuery")) event.setSearchQuery(params.getString("searchQuery"));
+        if (params.hasKey("alias")) event.setCustomerEventAlias(params.getString("alias"));
 
         if (params.hasKey("customData")) {
             ReadableMap customData = params.getMap("customData");
@@ -653,10 +747,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
         if (!mInitialized) {
             Log.i(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);
-
-            RNBranchConfig config = new RNBranchConfig(context);
-
-            if (mUseDebug || config.getDebugMode()) branch.setDebug();
 
             if (mRequestMetadata != null) {
                 Iterator keys = mRequestMetadata.keys();
@@ -884,108 +974,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }
         Log.w(REACT_CLASS, "Could not find product category " + stringValue);
         return null;
-    }
-
-    @ReactMethod
-    public void redeemRewards(int value, String bucket, Promise promise)
-    {
-        if (bucket == null) {
-            Branch.getInstance().redeemRewards(value, new RedeemRewardsListener(promise));
-        } else {
-            Branch.getInstance().redeemRewards(bucket, value, new RedeemRewardsListener(promise));
-        }
-    }
-
-    @ReactMethod
-    public void loadRewards(String bucket, Promise promise)
-    {
-        Branch.getInstance().loadRewards(new LoadRewardsListener(bucket, promise));
-    }
-
-    @ReactMethod
-    public void getCreditHistory(Promise promise)
-    {
-        Branch.getInstance().getCreditHistory(new CreditHistoryListener(promise));
-    }
-
-    protected class CreditHistoryListener implements Branch.BranchListResponseListener
-    {
-        private Promise _promise;
-
-        // Constructor that takes in a required callbackContext object
-        public CreditHistoryListener(Promise promise) {
-            this._promise = promise;
-        }
-
-        // Listener that implements BranchListResponseListener for getCreditHistory()
-        @Override
-        public void onReceivingResponse(JSONArray list, BranchError error) {
-            ArrayList<String> errors = new ArrayList<String>();
-            if (error == null) {
-                try {
-                    ReadableArray result = convertJsonToArray(list);
-                    this._promise.resolve(result);
-                } catch (JSONException err) {
-                    this._promise.reject(GENERIC_ERROR, err.getMessage());
-                }
-            } else {
-                String errorMessage = error.getMessage();
-                Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(GENERIC_ERROR, errorMessage);
-            }
-        }
-    }
-
-    protected class RedeemRewardsListener implements Branch.BranchReferralStateChangedListener
-    {
-        private Promise _promise;
-
-        public RedeemRewardsListener(Promise promise) {
-            this._promise = promise;
-        }
-
-        @Override
-        public void onStateChanged(boolean changed, BranchError error) {
-            if (error == null) {
-                WritableMap map = new WritableNativeMap();
-                map.putBoolean("changed", changed);
-                this._promise.resolve(map);
-            } else {
-                String errorMessage = error.getMessage();
-                Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(GENERIC_ERROR, errorMessage);
-            }
-        }
-    }
-
-    protected class LoadRewardsListener implements Branch.BranchReferralStateChangedListener
-    {
-        private String _bucket;
-        private Promise _promise;
-
-        public LoadRewardsListener(String bucket, Promise promise) {
-            this._bucket = bucket;
-            this._promise = promise;
-        }
-
-        @Override
-        public void onStateChanged(boolean changed, BranchError error) {
-            if (error == null) {
-                int credits = 0;
-                if (this._bucket == null) {
-                  credits = Branch.getInstance().getCredits();
-                } else {
-                  credits = Branch.getInstance().getCreditsForBucket(this._bucket);
-                }
-                WritableMap map = new WritableNativeMap();
-                map.putInt("credits", credits);
-                this._promise.resolve(map);
-            } else {
-                String errorMessage = error.getMessage();
-                Log.d(REACT_CLASS, errorMessage);
-                this._promise.reject(GENERIC_ERROR, errorMessage);
-            }
-        }
     }
 
     public void sendRNEvent(String eventName, @Nullable WritableMap params) {

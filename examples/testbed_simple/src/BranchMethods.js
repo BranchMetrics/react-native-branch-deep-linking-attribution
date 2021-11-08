@@ -71,39 +71,6 @@ class BranchMethods extends Component {
     }
   }
 
-  redeemRewards = async (bucket) => {
-    try {
-      let result = await branch.redeemRewards(5, bucket)
-      console.log('redeemRewards', result)
-      this.addResult('success', 'redeemRewards', result)
-    } catch (err) {
-      console.log('redeemRewards err', {...err}, err.message, err.toString())
-      this.addResult('error', 'redeemRewards', err.toString())
-    }
-  }
-
-  loadRewards = async() => {
-    try {
-      let result = await branch.loadRewards()
-      console.log('loadRewards', result)
-      this.addResult('success', 'loadRewards', result)
-    } catch (err) {
-      console.log('loadRewards err', err.toString())
-      this.addResult('error', 'loadRewards', err.toString())
-    }
-  }
-
-  getCreditHistory = async() => {
-    try {
-      let result = await branch.getCreditHistory()
-      console.log('getCreditHistory', result)
-      this.addResult('success', 'getCreditHistory', result)
-    } catch (err) {
-      console.log('getCreditHistory err', err.toString())
-      this.addResult('error', 'getCreditHistory', err.toString())
-    }
-  }
-
   userCompletedAction = async() => {
     if (!this.buo) await this.createBranchUniversalObject()
     try {
@@ -173,7 +140,8 @@ class BranchMethods extends Component {
           customData: {
             "Custom_Event_Property_Key1": "Custom_Event_Property_val1",
             "Custom_Event_Property_Key2": "Custom_Event_Property_val2"
-          }
+          },
+          alias: 'ItemViewed'
         }
       )
       branchEvent.logEvent()
@@ -216,6 +184,29 @@ class BranchMethods extends Component {
     }
   }
 
+  openURL = async () => {
+    const url = 'https://zjef.test-app.link/n4efBZnSu8';
+    try {
+      await branch.openURL(url);
+      this.addResult('success', 'openURL', url);
+    }
+    catch (err) {
+      this.addResult('error', 'openURL', err.toString());
+    }
+  }
+
+  lastAttributedTouchData = async() => {
+    const attributionWindow = 365
+    try {
+      let latd = await branch.lastAttributedTouchData(attributionWindow)
+      console.log('lastAttributedTouchData', latd)
+      this.addResult('success', 'lastAttributedTouchData', latd)
+    } catch (err) {
+      console.log('lastAttributedTouchData', err)
+      this.addResult('error', 'lastAttributedTouchData', err.toString())
+    }
+  }
+
   addResult(type, slug, payload) {
     let result = { type, slug, payload }
     this.setState({
@@ -250,12 +241,10 @@ class BranchMethods extends Component {
           <Button onPress={this.generateShortUrl}>generateShortUrl</Button>
           <Button onPress={this.listOnSpotlight}>listOnSpotlight</Button>
           <Button onPress={this.showShareSheet}>showShareSheet</Button>
-          <Button onPress={this.redeemRewards.bind(this, '')}>redeemRewards</Button>
-          <Button onPress={this.redeemRewards.bind(this, 'testBucket')}>redeemRewards (with bucket)</Button>
-          <Button onPress={this.loadRewards}>loadRewards</Button>
-          <Button onPress={this.getCreditHistory}>getCreditHistory</Button>
           <Button onPress={this.logStandardEvent}>BranchEvent.logEvent (Standard)</Button>
           <Button onPress={this.logCustomEvent}>BranchEvent.logEvent (Custom)</Button>
+          <Button onPress={this.openURL}>openURL</Button>
+          <Button onPress={this.lastAttributedTouchData}>lastAttributedTouchData</Button>
         </ScrollView>
       </View>
     )

@@ -1,19 +1,15 @@
-import React, { Component } from 'react'
-import { Text, Image, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native'
+import React, { Component } from 'react';
+import { Text, Image, FlatList, StyleSheet, TouchableHighlight, View } from 'react-native';
 
-import branch from 'react-native-branch'
+import branch from 'react-native-branch';
 
-import Article from './Article'
+import Article from './Article';
 
-class ArticleList extends Component {
-  static navigationOptions = {
-    title: 'The Planets',
-  }
-
-  _unsubscribeFromBranch = null
+export default class ArticleList extends Component {
+  _unsubscribeFromBranch = null;
 
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       listData: props.listData || [
@@ -27,34 +23,39 @@ class ArticleList extends Component {
         { title: 'Neptune', url: 'https://en.wikipedia.org/wiki/Neptune', image: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg' },
         { title: 'Pluto', url: 'https://en.wikipedia.org/wiki/Pluto', image: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Nh-pluto-in-true-color_2x_JPEG-edit-frame.jpg' },
       ],
-    }
+    };
   }
 
   componentDidMount() {
-    this._unsubscribeFromBranch = branch.subscribe(({ error, params }) => {
-      if (error) {
-        console.error("Error from Branch: " + error)
-        return
-      }
+    this._unsubscribeFromBranch = branch.subscribe({
+      onOpenStart: ({ uri, cachedInitialEvent }) => {
+        console.log(`Opening URI ${uri} ${cachedInitialEvent ? '[cached]' : ''}`);
+      },
+      onOpenComplete: ({ error, params, uri }) => {
+        if (error) {
+          console.error(`Error from Branch opening URI ${uri}: ${error}`);
+          return;
+        }
 
-      console.log("Branch params: " + JSON.stringify(params))
+        console.log(`Branch params: ${JSON.stringify(params)}`);
 
-      if (!params['+clicked_branch_link']) return
+        if (!params['+clicked_branch_link']) return;
 
-      // Get title and url for route
-      let title = params.$og_title
-      let url = params.$canonical_url
-      let image = params.$og_image_url
+        // Get title and url for route
+        let title = params.$og_title;
+        let url = params.$canonical_url;
+        let image = params.$og_image_url;
 
-      // Now push the view for this URL
-      this.props.navigation.navigate('Article', { url: url, title: title, image: image })
-    })
+        // Now push the view for this URL
+        this.props.navigation.navigate('Article', { url: url, title: title, image: image });
+      },
+    });
   }
 
   componentWillUnmount() {
     if (this._unsubscribeFromBranch) {
-      this._unsubscribeFromBranch()
-      this._unsubscribeFromBranch = null
+      this._unsubscribeFromBranch();
+      this._unsubscribeFromBranch = null;
     }
   }
 
@@ -79,12 +80,12 @@ class ArticleList extends Component {
             </TouchableHighlight>}
         />
       </View>
-    )
+    );
   }
 
   _showArticle(data) {
-    console.log("Show article with URL " + data.url)
-    this.props.navigation.navigate('Article', data)
+    console.log("Show article with URL " + data.url);
+    this.props.navigation.navigate('Article', data);
   }
 }
 
@@ -110,6 +111,4 @@ const styles = StyleSheet.create({
     fontSize: 17,
     margin: 20,
   },
-})
-
-export default ArticleList
+});

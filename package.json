@@ -1,8 +1,9 @@
 {
   "name": "react-native-branch",
-  "version": "4.1.1",
+  "version": "5.2.1",
   "description": "Branch Metrics React Native SDK",
   "main": "src/index.js",
+  "types": "src/index.d.ts",
   "files": [
     "android",
     "branch.example.json",
@@ -14,12 +15,6 @@
   "scripts": {
     "lint": "eslint src test",
     "test": "jest"
-  },
-  "babel": {
-    "ignore": false,
-    "presets": [
-      "react-native"
-    ]
   },
   "keywords": [
     "react-native",
@@ -36,7 +31,9 @@
   "authors": [
     "Zack Story <zack@root-two.com> (https://github.com/rt2zz)",
     "Kevin Stumpf (https://github.com/kevinstumpf)",
-    "Jimmy Dee (https://github.com/jdee)"
+    "Jimmy Dee (https://github.com/jdee)",
+    "Ernest Cho (https://github.com/echo-branch)",
+    "Benas Klastaitis (https://github.com/bklastaitis-branch)"
   ],
   "license": "MIT",
   "repository": {
@@ -44,19 +41,20 @@
     "url": "git+https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution.git"
   },
   "bugs": {
-    "url": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution/issues"
+    "url": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution/issues",
+    "email": "support@branch.io"
   },
-  "homepage": "https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution",
+  "homepage": "https://help.branch.io/developers-hub/docs/react-native",
   "peerDependencies": {
-    "react-native": "^0.60.0"
+    "react-native": ">= 0.60"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
     "babel-eslint": "^7.0.0",
     "eslint": "^2.7.0",
     "eslint-config-rackt": "^1.1.1",
-    "jest": "^24.8.0",
-    "react": "16.8.6",
-    "react-native": "^0.60.3"
+    "jest": "^25.2.6",
+    "react": "16.11.0",
+    "react-native": "^0.62.0"
   }
 }

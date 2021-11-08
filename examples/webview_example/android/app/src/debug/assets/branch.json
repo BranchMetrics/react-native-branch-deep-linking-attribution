@@ -1,1 +1,5 @@
-../../../../../branch.debug.json
+{
+    "debugMode": true,
+    "delayInitToCheckForSearchAds": true,
+    "branchKey": "key_test_oaCHnPu3yWd42Pn2F4YfIgdlBAmPac1G"
+}

@@ -38,39 +38,9 @@
     ASSERT_CONSTANT(@"INIT_SESSION_ERROR", kRNBranchInitSessionError);
 }
 
-- (void)testAddToCartEventConstant
+- (void)testInitSessionStartConstant
 {
-    ASSERT_CONSTANT(@"ADD_TO_CART_EVENT", BNCAddToCartEvent);
-}
-
-- (void)testAddToWishlistEventConstant
-{
-    ASSERT_CONSTANT(@"ADD_TO_WISHLIST_EVENT", BNCAddToWishlistEvent);
-}
-
-- (void)testPurchasedEventConstant
-{
-    ASSERT_CONSTANT(@"PURCHASED_EVENT", BNCPurchasedEvent);
-}
-
-- (void)testPurchaseInitiatedEventConstant
-{
-    ASSERT_CONSTANT(@"PURCHASE_INITIATED_EVENT", BNCPurchaseInitiatedEvent);
-}
-
-- (void)testRegisterViewEventConstant
-{
-    ASSERT_CONSTANT(@"REGISTER_VIEW_EVENT", BNCRegisterViewEvent);
-}
-
-- (void)testShareCompletedEventConstant
-{
-    ASSERT_CONSTANT(@"SHARE_COMPLETED_EVENT", BNCShareCompletedEvent);
-}
-
-- (void)testShareInitiatedEventConstant
-{
-    ASSERT_CONSTANT(@"SHARE_INITIATED_EVENT", BNCShareInitiatedEvent);
+    ASSERT_CONSTANT(@"INIT_SESSION_START", kRNBranchInitSessionStart);
 }
 
 - (void)testStandardAddtoCartEventConstant
@@ -103,11 +73,6 @@
     ASSERT_CONSTANT(@"STANDARD_EVENT_PURCHASE", BranchStandardEventPurchase);
 }
 
-- (void)testStandardSpendCreditsEventConstant
-{
-    ASSERT_CONSTANT(@"STANDARD_EVENT_SPEND_CREDITS", BranchStandardEventSpendCredits);
-}
-
 - (void)testStandardSearchEventConstant
 {
     ASSERT_CONSTANT(@"STANDARD_EVENT_SEARCH", BranchStandardEventSearch);
@@ -128,7 +93,7 @@
     ASSERT_CONSTANT(@"STANDARD_EVENT_RATE", BranchStandardEventRate);
 }
 
-- (void)testStandardRateEventShareConstant
+- (void)testStandardShareEventConstant
 {
     ASSERT_CONSTANT(@"STANDARD_EVENT_SHARE", BranchStandardEventShare);
 }
@@ -151,6 +116,41 @@
 - (void)testStandardUnlockAchievementEventConstant
 {
     ASSERT_CONSTANT(@"STANDARD_EVENT_UNLOCK_ACHIEVEMENT", BranchStandardEventUnlockAchievement);
+}
+
+- (void)testStandardViewAdEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_VIEW_AD", BranchStandardEventViewAd);
+}
+
+- (void)testStandardClickAdEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_CLICK_AD", BranchStandardEventClickAd);
+}
+
+- (void)testStandardInviteEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_INVITE", BranchStandardEventInvite);
+}
+
+- (void)testStandardLoginEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_LOGIN", BranchStandardEventLogin);
+}
+
+- (void)testStandardSubscribeEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_SUBSCRIBE", BranchStandardEventSubscribe);
+}
+
+- (void)testStandardStartTrialEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_START_TRIAL", BranchStandardEventStartTrial);
+}
+
+- (void)testStandardReserveEventConstant
+{
+    ASSERT_CONSTANT(@"STANDARD_EVENT_RESERVE", BranchStandardEventReserve);
 }
 
 @end

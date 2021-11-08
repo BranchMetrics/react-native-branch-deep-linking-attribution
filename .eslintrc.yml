@@ -8,3 +8,6 @@ rules:
   object-curly-spacing: 0       # [loosen] override rackt
   no-console: 0                 # [loosen] override rackt
   no-unused-vars: [2, {vars: all, args: none}]
+
+env:
+  jest: true

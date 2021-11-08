@@ -5,7 +5,6 @@
 #import "BranchLinkProperties+RNBranch.h"
 #import "BranchUniversalObject+RNBranch.h"
 #import "RNBranchAgingDictionary.h"
-#import "RNBranchConfig.h"
 #import "RNBranchEventEmitter.h"
 
 NSString * const RNBranchLinkOpenedNotification = @"RNBranchLinkOpenedNotification";
@@ -22,6 +21,7 @@ static NSDictionary *savedLaunchOptions;
 static BOOL savedIsReferrable;
 static NSString *branchKey;
 static BOOL deferInitializationForJSLoad = NO;
+static NSURL *originalURL;
 
 static NSString * const IdentFieldName = @"ident";
 
@@ -29,13 +29,13 @@ static NSString * const IdentFieldName = @"ident";
 static NSString * const RNBranchErrorDomain = @"RNBranchErrorDomain";
 static NSInteger const RNBranchUniversalObjectNotFoundError = 1;
 
-static NSString * const REQUIRED_BRANCH_SDK = @"0.27.1";
-
 #pragma mark - Private RNBranch declarations
 
 @interface RNBranch()
 @property (nonatomic, readonly) UIViewController *currentViewController;
 @property (nonatomic) RNBranchAgingDictionary<NSString *, BranchUniversalObject *> *universalObjectMap;
+
++ (void)willOpenURL:(NSURL * _Nullable)url;
 @end
 
 #pragma mark - RNBranch implementation
@@ -50,22 +50,14 @@ RCT_EXPORT_MODULE();
         static Branch *instance;
         static dispatch_once_t once = 0;
         dispatch_once(&once, ^{
-            RNBranchConfig *config = RNBranchConfig.instance;
-
-            // YES if either [RNBranch useTestInstance] was called or useTestInstance: true is present in branch.json.
-            BOOL usingTestInstance = useTestInstance || config.useTestInstance;
-            NSString *key = branchKey ?: config.branchKey ?: usingTestInstance ? config.testKey : config.liveKey;
-
-            if (key) {
+            if (branchKey) {
                 // Override the Info.plist if these are present.
-                instance = [Branch getInstance: key];
+                instance = [Branch getInstance: branchKey];
             }
             else {
-                [Branch setUseTestBranchKey:usingTestInstance];
+                [Branch setUseTestBranchKey:useTestInstance];
                 instance = [Branch getInstance];
             }
-
-            [self setupBranchInstance:instance];
         });
         return instance;
     }
@@ -75,39 +67,12 @@ RCT_EXPORT_MODULE();
     return YES;
 }
 
-+ (void)setupBranchInstance:(Branch *)instance
-{
-    RCTLogInfo(@"Initializing Branch SDK v. %@", BNC_SDK_VERSION);
-    if (![BNC_SDK_VERSION isEqualToString:REQUIRED_BRANCH_SDK]) {
-        RCTLogError(@"Please use v. %@ of Branch. In your Podfile: pod 'Branch', '%@'. Then pod install.", REQUIRED_BRANCH_SDK, REQUIRED_BRANCH_SDK);
-    }
-
-    RNBranchConfig *config = RNBranchConfig.instance;
-    if (config.debugMode) {
-        [instance setDebug];
-    }
-    if (config.delayInitToCheckForSearchAds) {
-        [instance delayInitToCheckForSearchAds];
-    }
-    if (config.appleSearchAdsDebugMode) {
-        [instance setAppleSearchAdsDebugMode];
-    }
-}
-
 - (NSDictionary<NSString *, NSString *> *)constantsToExport {
     return @{
              // RN events transmitted to JS by event emitter
+             @"INIT_SESSION_START": kRNBranchInitSessionStart,
              @"INIT_SESSION_SUCCESS": kRNBranchInitSessionSuccess,
              @"INIT_SESSION_ERROR": kRNBranchInitSessionError,
-
-             // constants for use with userCompletedAction
-             @"ADD_TO_CART_EVENT": BNCAddToCartEvent,
-             @"ADD_TO_WISHLIST_EVENT": BNCAddToWishlistEvent,
-             @"PURCHASED_EVENT": BNCPurchasedEvent,
-             @"PURCHASE_INITIATED_EVENT": BNCPurchaseInitiatedEvent,
-             @"REGISTER_VIEW_EVENT": BNCRegisterViewEvent,
-             @"SHARE_COMPLETED_EVENT": BNCShareCompletedEvent,
-             @"SHARE_INITIATED_EVENT": BNCShareInitiatedEvent,
 
              // constants for use with BranchEvent
 
@@ -118,7 +83,8 @@ RCT_EXPORT_MODULE();
              @"STANDARD_EVENT_INITIATE_PURCHASE": BranchStandardEventInitiatePurchase,
              @"STANDARD_EVENT_ADD_PAYMENT_INFO": BranchStandardEventAddPaymentInfo,
              @"STANDARD_EVENT_PURCHASE": BranchStandardEventPurchase,
-             @"STANDARD_EVENT_SPEND_CREDITS": BranchStandardEventSpendCredits,
+             @"STANDARD_EVENT_VIEW_AD": BranchStandardEventViewAd,
+             @"STANDARD_EVENT_CLICK_AD": BranchStandardEventClickAd,
 
              // Content Events
              @"STANDARD_EVENT_SEARCH": BranchStandardEventSearch,
@@ -131,7 +97,12 @@ RCT_EXPORT_MODULE();
              @"STANDARD_EVENT_COMPLETE_REGISTRATION": BranchStandardEventCompleteRegistration,
              @"STANDARD_EVENT_COMPLETE_TUTORIAL": BranchStandardEventCompleteTutorial,
              @"STANDARD_EVENT_ACHIEVE_LEVEL": BranchStandardEventAchieveLevel,
-             @"STANDARD_EVENT_UNLOCK_ACHIEVEMENT": BranchStandardEventUnlockAchievement
+             @"STANDARD_EVENT_UNLOCK_ACHIEVEMENT": BranchStandardEventUnlockAchievement,
+             @"STANDARD_EVENT_INVITE": BranchStandardEventInvite,
+             @"STANDARD_EVENT_LOGIN": BranchStandardEventLogin,
+             @"STANDARD_EVENT_RESERVE": BranchStandardEventReserve,
+             @"STANDARD_EVENT_SUBSCRIBE": BranchStandardEventSubscribe,
+             @"STANDARD_EVENT_START_TRIAL": BranchStandardEventStartTrial
              };
 }
 
@@ -142,19 +113,14 @@ RCT_EXPORT_MODULE();
     [self.branch setDebug];
 }
 
++ (void)enableLogging
+{
+    [self.branch enableLogging];
+}
+
 + (void)delayInitToCheckForSearchAds
 {
     [self.branch delayInitToCheckForSearchAds];
-}
-
-+ (void)setAppleSearchAdsDebugMode
-{
-    [self.branch setAppleSearchAdsDebugMode];
-}
-
-+ (void)setRequestMetadataKey:(NSString *)key value:(NSObject *)value
-{
-    [self.branch setRequestMetadataKey:key value:value];
 }
 
 + (void)useTestInstance {
@@ -171,13 +137,27 @@ RCT_EXPORT_MODULE();
     savedLaunchOptions = launchOptions;
     savedIsReferrable = isReferrable;
 
+    [self.branch registerPluginName:@"ReactNative" version:RNBRANCH_VERSION];
+
     // Can't currently support this on Android.
-    // if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
+    // if (!deferInitializationForJSLoad && !BranchJsonConfig.instance.deferInitializationForJSLoad) [self initializeBranchSDK];
     [self initializeBranchSDK];
 }
 
 + (void)initializeBranchSDK
 {
+    // Universal Links
+    NSUserActivity *coldLaunchUserActivity = savedLaunchOptions[UIApplicationLaunchOptionsUserActivityDictionaryKey][@"UIApplicationLaunchOptionsUserActivityKey"];
+    if (coldLaunchUserActivity.webpageURL) {
+        [self willOpenURL:coldLaunchUserActivity.webpageURL];
+    }
+
+    // URI schemes
+    NSURL *coldLaunchURL = savedLaunchOptions[UIApplicationLaunchOptionsURLKey];
+    if (coldLaunchURL) {
+        [self willOpenURL:coldLaunchURL];
+    }
+
     [self.branch initSessionWithLaunchOptions:savedLaunchOptions isReferrable:savedIsReferrable andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         NSMutableDictionary *result = [NSMutableDictionary dictionary];
         if (error) result[RNBranchLinkOpenedNotificationErrorKey] = error;
@@ -191,32 +171,57 @@ RCT_EXPORT_MODULE();
 
                 BranchLinkProperties *linkProperties = [BranchLinkProperties getBranchLinkPropertiesFromDictionary:params];
                 if (linkProperties) result[RNBranchLinkOpenedNotificationLinkPropertiesKey] = linkProperties;
+            }
+        }
 
-                if (params[@"~referring_link"]) {
-                    result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"~referring_link"]];
-                }
-            }
-            else if (params[@"+non_branch_link"]) {
-                result[RNBranchLinkOpenedNotificationUriKey] = [NSURL URLWithString:params[@"+non_branch_link"]];
-            }
+        /*
+         * originalURL will be nil in case of deferred deep links, Spotlight items, etc.
+         * Note that deferred deep link checks will not trigger an onOpenStart call in JS
+         * (RNBranch.INIT_SESSION_START).
+         */
+        if (originalURL) {
+            result[RNBranchLinkOpenedNotificationUriKey] = originalURL;
+            originalURL = nil;
         }
 
         [[NSNotificationCenter defaultCenter] postNotificationName:RNBranchLinkOpenedNotification object:nil userInfo:result];
     }];
 }
 
-// TODO: Eliminate these now that sourceUrl is gone.
-+ (BOOL)handleDeepLink:(NSURL *)url {
-    BOOL handled = [self.branch handleDeepLink:url];
-    return handled;
++ (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+    [self willOpenURL:url];
+    return [self.branch application:application openURL:url options:options];
+}
+
++ (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    [self willOpenURL:url];
+    return [self.branch application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
 + (BOOL)continueUserActivity:(NSUserActivity *)userActivity {
+    [self willOpenURL:userActivity.webpageURL];
     return [self.branch continueUserActivity:userActivity];
 }
 #pragma clang diagnostic pop
+
++ (void)willOpenURL:(NSURL *)url
+{
+    /*
+     * This should be consistent with the behavior of the underlying SDK.
+     * If an open is pending, and a new open is received, the first open is
+     * dropped. No response is expected for the first open. JS will generate
+     * two calls to onOpenStart with potentially different URIs. Only the
+     * last one should be expected to get a response.
+     *
+     * Behavior on Android is probably different.
+     */
+    originalURL = url;
+    [RNBranchEventEmitter initSessionWillStartWithURI:url];
+}
 
 #pragma mark - Object lifecycle
 
@@ -298,6 +303,22 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - Methods exported to React Native
 
+
+#pragma mark clearPartnerParameters
+RCT_EXPORT_METHOD(
+                  clearPartnerParameters
+                  ) {
+    [self.class.branch clearPartnerParameters];
+}
+
+#pragma mark addFacebookPartnerParameter
+RCT_EXPORT_METHOD(
+                  addFacebookPartnerParameter:(NSString *)name
+                  value:(NSString *)value
+                  ) {
+    [self.class.branch addFacebookPartnerParameterWithName:name value:value];
+}
+
 #pragma mark disableTracking
 RCT_EXPORT_METHOD(
                   disableTracking:(BOOL)disable
@@ -325,7 +346,7 @@ RCT_EXPORT_METHOD(initializeBranch:(NSString *)key
     reject(@"RNBranch::Error::Unsupported", @"Initializing the Branch SDK from JS will be supported in a future release.", error);
 
     /*
-    if (!deferInitializationForJSLoad && !RNBranchConfig.instance.deferInitializationForJSLoad) {
+    if (!deferInitializationForJSLoad && !BranchJsonConfig.instance.deferInitializationForJSLoad) {
         // This is a no-op from JS unless [RNBranch deferInitializationForJSLoad] is called.
         resolve(0);
         return;
@@ -367,11 +388,31 @@ RCT_EXPORT_METHOD(
     resolve([self.class.branch getFirstReferringParams]);
 }
 
+#pragma mark lastAttributedTouchData
+RCT_EXPORT_METHOD(
+                  lastAttributedTouchData:(NSNumber* __nonnull)window
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject
+                  ) {
+    [self.class.branch lastAttributedTouchDataWithAttributionWindow:window.integerValue completion:^(BranchLastAttributedTouchData *r, NSError *e){
+        // TODO: pass back the error to JS
+        resolve(r);
+    }];
+}
+
 #pragma mark setIdentity
 RCT_EXPORT_METHOD(
                   setIdentity:(NSString *)identity
                   ) {
     [self.class.branch setIdentity:identity];
+}
+
+#pragma mark setRequestMetadataKey
+RCT_EXPORT_METHOD(
+                  setRequestMetadataKey:(NSString *)key
+                  value:(NSString *)value
+                  ) {
+    [self.class.branch setRequestMetadataKey:key value:value];
 }
 
 #pragma mark logout
@@ -397,7 +438,7 @@ RCT_EXPORT_METHOD(
                   ) {
     BNCCommerceEvent *commerceEvent = [BNCCommerceEvent new];
     commerceEvent.revenue = [NSDecimalNumber decimalNumberWithString:revenue];
-    [self.class.branch sendCommerceEvent:commerceEvent metadata:metadata withCompletion:nil];
+    [self.class.branch sendCommerceEvent:commerceEvent metadata:metadata withCompletion:^(NSDictionary *r, NSError *e){}];
     resolve(NSNull.null);
 }
 
@@ -504,7 +545,11 @@ RCT_EXPORT_METHOD(
                                                                          @"error" : [NSNull null]
                                                                          };
 
-                                                resolve(result);
+                                                // SDK-854 do not callback more than once.
+                                                // The native iOS code calls back with status even if the user just cancelled.
+                                                if (completed) {
+                                                    resolve(result);
+                                                }
                                             }];
     });
 }
@@ -597,71 +642,6 @@ RCT_EXPORT_METHOD(
                                   }
                                   resolve(url);
                               }];
-}
-
-#pragma mark loadRewards
-RCT_EXPORT_METHOD(
-                  loadRewards:(NSString *)bucket
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject
-                  ) {
-    [self.class.branch loadRewardsWithCallback:^(BOOL changed, NSError *error) {
-        if(!error) {
-            int credits = 0;
-            if (bucket) {
-                credits = (int)[self.class.branch getCreditsForBucket:bucket];
-            } else {
-                credits = (int)[self.class.branch getCredits];
-            }
-            resolve(@{@"credits": @(credits)});
-        } else {
-            RCTLogError(@"Load Rewards Error: %@", error.localizedDescription);
-            reject(@"RNBranch::Error::loadRewardsWithCallback", @"loadRewardsWithCallback", error);
-        }
-    }];
-}
-
-#pragma mark redeemRewards
-RCT_EXPORT_METHOD(
-                  redeemRewards:(NSInteger)amount
-                  inBucket:(NSString *)bucket
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject
-                  ) {
-    if (bucket) {
-        [self.class.branch redeemRewards:amount forBucket:bucket callback:^(BOOL changed, NSError *error) {
-            if (!error) {
-                resolve(@{@"changed": @(changed)});
-            } else {
-                RCTLogError(@"Redeem Rewards Error: %@", error.localizedDescription);
-                reject(@"RNBranch::Error::redeemRewards", error.localizedDescription, error);
-            }
-        }];
-    } else {
-        [self.class.branch redeemRewards:amount callback:^(BOOL changed, NSError *error) {
-            if (!error) {
-                resolve(@{@"changed": @(changed)});
-            } else {
-                RCTLogError(@"Redeem Rewards Error: %@", error.localizedDescription);
-                reject(@"RNBranch::Error::redeemRewards", error.localizedDescription, error);
-            }
-        }];
-    }
-}
-
-#pragma mark getCreditHistory
-RCT_EXPORT_METHOD(
-                  getCreditHistory:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject
-                  ) {
-    [self.class.branch getCreditHistoryWithCallback:^(NSArray *list, NSError *error) {
-        if (!error) {
-            resolve(list);
-        } else {
-            RCTLogError(@"Credit History Error: %@", error.localizedDescription);
-            reject(@"RNBranch::Error::getCreditHistory", error.localizedDescription, error);
-        }
-    }];
 }
 
 #pragma mark createUniversalObject

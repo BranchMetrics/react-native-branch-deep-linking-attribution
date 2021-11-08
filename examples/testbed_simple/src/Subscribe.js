@@ -1,14 +1,21 @@
-import branch from 'react-native-branch'
+import { BranchSubscriber } from 'react-native-branch';
 
-console.info("Subscribing to Branch links")
+console.info("Subscribing to Branch links");
 
-branch.subscribe(({ error, params }) => {
-  if (error) {
-    console.error("Error from Branch: " + error)
-    return
-  }
+const subscriber = new BranchSubscriber({
+  onOpenStart: ({ uri, cachedInitialEvent }) => {
+    console.log(`Branch opening URI ${uri} ${cachedInitialEvent ? '[cached]' : ''}`);
+  },
+  onOpenComplete: ({ error, params, uri }) => {
+    if (error) {
+      console.error(`Error from Branch opening URI ${uri}: ${error}`);
+      return;
+    }
 
-  console.info("Received link response from Branch")
+    console.info(`Received link response from Branch for ${uri}`);
 
-  console.log("params: " + JSON.stringify(params))
-})
+    console.log(`params: ${JSON.stringify(params)}`);
+  },
+});
+
+subscriber.subscribe();

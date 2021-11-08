@@ -1,3 +1,190 @@
+2021-10-29 Version 5.2.1
+  - Update iOS SDK to 1.40.2
+
+2021-10-27 Version 5.2.0
+  - Update iOS SDK to 1.40.1
+  - Update Android SDK to 5.0.14  
+
+2021-10-01 Version 5.1.0
+  - Update Androd SDK to 5.0.13
+  - Removes credit related APIs. Feature has been deprecated and the supporting services will be shutdown.
+
+2021-08-16 Version 5.0.4
+  - Update iOS SDK to 1.39.4
+  - Adds support to check the pasteboard for deferred deeplink data. Add `checkPasteboardOnInstall` to `branch.json`. The feature is optional and disabled by default.
+
+  - Update Android SDK to 5.0.9
+
+2021-04-29 Version 5.0.3
+  - Update Android SDK to 5.0.8
+
+2021-04-16 Version 5.0.2
+  - Requires react-native >= 0.60
+
+  - Update iOS SDK to 1.39.2
+  - Update Android SDK to 5.0.7
+
+  - Adds addFacebookPartnerParameter method. See FB documentation on partner parameters for details.
+    ```js
+    branch.addFacebookPartnerParameter('em', '11234e56af071e9c79927651156bd7a10bca8ac34672aba121056e2698ee7088')
+    ```
+
+  - Adds clearPartnerParameter method
+    ```js
+    branch.clearPartnerParameters()
+    ```
+
+  - Adds typescript. Thanks runtrizapps!
+  - Adds enableLogging to the RNBranch class. Thanks jkadamczyk! 
+  - Fix issue with Android LATD. Thanks mauryakk15!
+
+2021-02-04  Version 5.0.1
+  - Requires react-native >= 0.60
+  - Adds lastAttributedTouchData method.
+    ```js
+    const attributionWindow = 365;
+    branch.lastAttributedTouchData(attributionWindow, latData => {
+      // latData is an Object
+    });
+    ```
+    See https://help.branch.io/developers-hub/docs/retrieving-branchs-last-attributed-touch-data
+    for further details.
+
+2020-08-27  Version 5.0.0
+  - Requires react-native >= 0.60
+  - This release includes Branch native SDKs Android 5.0.3 and iOS 0.35.0.
+  - Added RNBranchModule.onNewIntent for Android. This replaces calling
+    `setIntent` and `RNBranchModule.reInitSession`.
+    ```java
+    @Override public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        RNBranchModule.onNewIntent(intent);
+    }
+    ```
+  - Added `cachedInitialEvent` Boolean parameter to `onOpenStart` callback.
+  - Improved support of in-app linking via `branch.openURL()`. The `newActivity`
+    option for Android was removed.
+  - There is a known issue with in-app linking on Android. When opening a link
+    within an app via `branch.openURL()`, there is no `onOpenStart` callback
+    and no `uri` parameter in the `onOpenComplete` callback. This will be
+    addressed in the next release.
+  - Rebuilt `testbed_simple`, `webview_example` and `browser_example` with
+    RN 0.62.2.
+
+2020-07-23  Version 5.0.0-rc.1
+  - Requires react-native >= 0.60
+  - This release includes Branch native SDKs Android 5.0.1 and iOS 0.34.0.
+  - The `onOpenStart` function is now called for Universal Links on iOS when
+    launched from a link, and the `uri` parameter is populated in the
+    `onOpenComplete` callback in this case.
+  - The return value of `branch.subscribe()` did not work as an unsubscribe
+    function. This has been fixed.
+  - Add support for all standard v2 events.
+  - Add support for an `alias` property in Branch v2 events (also known as
+    Customer Event Alias).
+
+2020-04-10  Version 5.0.0-beta.1
+  - For use with react-native >= 0.60
+  - This release includes Branch native SDKs Android 5.0.0 and iOS 0.32.0.
+  - The `branch.subscribe` callback now passes a third named parameter, `uri`,
+    which is the URI/URL that originally launched the app. In some cases this
+    may be `null` (e.g. deferred deep links). Consult the `~referring_link`,
+    `+url` or `+non_branch_link` parameter in those cases.
+  - You can now be notified when Branch is about to open a link using two
+    separate callbacks, `onOpenStart` and `onOpenComplete`. The
+    `onOpenComplete` callback is identical with the single callback passed to
+    `branch.subscribe`.
+
+    ```js
+    import branch from 'react-native-branch'
+
+    branch.subscribe({
+      onOpenStart: ({uri}) => {
+        console.log('Branch will open ' + uri)
+      },
+      onOpenComplete: ({error, params, uri}) => {
+        if (error) {
+          console.log('Error from Branch opening ' + uri + ': ' + error)
+          return
+        }
+
+        console.log('Branch opened ' + uri)
+        // handle params
+      },
+    })
+    ```
+
+  ### Updating from an earlier version:
+
+  #### iOS
+
+  In the AppDelegate, use the following methods:
+
+  ##### Obj-C
+
+    ```Obj-C
+    - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+      return [RNBranch application:application openURL:url options:options];
+    }
+
+    - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *restorableObjects))restorationHandler {
+      return [RNBranch continueUserActivity:userActivity];
+    }
+    ```
+
+  ##### Swift
+
+    ```Swift
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+      return RNBranch.application(app, open: url, options: options)
+    }
+
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+      return RNBranch.continue(userActivity)
+    }
+    ```
+
+2020-04-10  Version 3.2.1
+  - For use with react-native < 0.60
+  - This release includes Branch native SDKs Android 5.0.0 and iOS 0.32.0.
+
+2020-03-11  Version 4.4.0
+  - For use with react-native >= 0.60
+  - This release includes Branch native SDKs Android 4.3.2 and iOS 0.31.3.
+  - Introduced an enableFacebookLinkCheck Boolean parameter in branch.json.
+    This results in calling enableFacebookAppLinkCheck() on Android and
+    registerFacebookDeepLinkingClass: on iOS for use with react-native-fbsdk.
+    Advanced users: You can still call these methods in native code as before
+    if your use case dictates.
+
+2020-03-11  Version 3.2.0
+  - For use with react-native < 0.60
+  - This release includes Branch native SDKs Android 4.3.2 and iOS 0.31.3.
+  - Fixed a crash due to NPE on Android experienced by some users. Now an error should be properly reported.
+  - Introduced an enableFacebookLinkCheck Boolean parameter in branch.json.
+    This results in calling enableFacebookAppLinkCheck() on Android and
+    registerFacebookDeepLinkingClass: on iOS for use with react-native-fbsdk.
+    Advanced users: You can still call these methods in native code as before
+    if your use case dictates.
+
+2020-02-27  Version 3.1.2
+  - This release, for React Native < 0.60, updates native SDK support to Android 4.3.2 and iOS 0.31.3.
+
+2020-02-13  Version 4.3.0
+  - Requires RN >= 0.60
+  - Uses native Branch SDKs 4.3.2 (Android), 0.31.x (iOS).
+  - SDK-802 accept PR to expose setMetadata at the JS layer
+  - SDK-714 add plugin identifier
+  - Addresses several github issues.
+
+2019-09-30  Version 4.2.1
+  - Missed version update in iOS RNBranch.m
+
+2019-09-27  Version 4.2.0
+  - Update Android Branch SDK to 4.1.0
+  - Update iOS Branch SDK to 0.29.0
+  - Expose Android reInit session for foreground links
+
 2019-07-25  Version 3.1.1
   - Requires RN < 0.60
   - Fix a runtime iOS issue in 3.1.0

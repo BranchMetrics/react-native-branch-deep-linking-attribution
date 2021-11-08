@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native'
-import { WebView } from 'react-native-webview'
+import React, { Component } from 'react';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { WebView } from 'react-native-webview';
 
-import branch, { BranchEvent } from 'react-native-branch'
+import branch, { BranchEvent } from 'react-native-branch';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    marginTop: 0
+    marginTop: 0,
   },
   webView: {
   },
@@ -17,38 +17,34 @@ const styles = StyleSheet.create({
     borderColor: '#2266aa',
     borderTopWidth: 1,
     flex: 0.15,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   buttonText: {
     color: '#2266aa',
     fontSize: 23,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   }
-})
+});
 
 export default class Article extends Component {
-  static navigationOptions = ({navigation}) => ({
-    title: navigation.getParam('title', 'Article')
-  })
-
-  buo = null
+  buo = null;
 
   async componentDidMount() {
-    this.buo = await branch.createBranchUniversalObject("planet/" + this.props.navigation.state.params.title, {
+    this.buo = await branch.createBranchUniversalObject("planet/" + this.props.route.params.title, {
       locallyIndex: true,
-      canonicalUrl: this.props.navigation.state.params.url,
-      title: this.props.navigation.state.params.title,
-      contentImageUrl: this.props.navigation.state.params.image
-    })
-    this.buo.logEvent(BranchEvent.ViewItem)
-    console.log("Created Branch Universal Object and logged standard view item event.")
+      canonicalUrl: this.props.route.params.url,
+      title: this.props.route.params.title,
+      contentImageUrl: this.props.route.params.image,
+    });
+    this.buo.logEvent(BranchEvent.ViewItem);
+    console.log("Created Branch Universal Object and logged standard view item event.");
   }
 
   componentWillUnmount() {
-    if (!this.buo) return
-    this.buo.release()
-    this.buo = null
+    if (!this.buo) return;
+    this.buo.release();
+    this.buo = null;
   }
 
   render() {
@@ -57,7 +53,7 @@ export default class Article extends Component {
         style={styles.container} >
         <WebView
           style={styles.webView}
-          source={{uri: this.props.navigation.state.params.url}} />
+          source={{uri: this.props.route.params.url}} />
         <TouchableHighlight
           onPress={() => this.onShare()}
           style={styles.button} >
@@ -67,27 +63,27 @@ export default class Article extends Component {
           </Text>
         </TouchableHighlight>
       </View>
-    )
+    );
   }
 
   async onShare() {
     let { channel, completed, error } = await this.buo.showShareSheet({
-      emailSubject: "The Planet " + this.props.navigation.state.params.title,
-      messageBody: "Read about the planet " + this.props.navigation.state.params.title + ".",
-      messageHeader: "The Planet " + this.props.navigation.state.params.title
+      emailSubject: "The Planet " + this.props.route.params.title,
+      messageBody: "Read about the planet " + this.props.route.params.title + ".",
+      messageHeader: "The Planet " + this.props.route.params.title,
     }, {
       feature: "share",
-      channel: "RNApp"
+      channel: "RNApp",
     }, {
-      $desktop_url: this.props.navigation.state.params.url,
-      $ios_deepview: "branch_default"
-    })
+      $desktop_url: this.props.route.params.url,
+      $ios_deepview: "branch_default",
+    });
 
     if (error) {
-      console.error("Error sharing via Branch: " + error)
-      return
+      console.error("Error sharing via Branch: " + error);
+      return;
     }
 
-    console.log("Share to " + channel + " completed: " + completed)
+    console.log("Share to " + channel + " completed: " + completed);
   }
 }

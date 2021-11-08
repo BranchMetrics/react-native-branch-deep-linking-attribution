@@ -81,6 +81,12 @@ export default class BranchEvent {
   customData = null
 
   /**
+   * Optional alias for this event
+   * @type {?string}
+   */
+  alias = null
+
+  /**
    * Constructs a new BranchEvent from arguments
    *
    * @param {!string} name - The name of the event. May be a standard Branch event
@@ -118,6 +124,7 @@ export default class BranchEvent {
     if (params.description) this.description = params.description
     if (params.searchQuery) this.searchQuery = params.searchQuery
     if (params.customData) this.customData = params.customData
+    if (params.alias) this.alias = params.alias
   }
 
   /**
@@ -184,6 +191,7 @@ export default class BranchEvent {
         // TODO: throw?
       }
     }
+    if (this.alias) params.alias = this.alias
 
     return params
   }
@@ -230,10 +238,16 @@ BranchEvent.AddPaymentInfo = RNBranch.STANDARD_EVENT_ADD_PAYMENT_INFO
 BranchEvent.Purchase = RNBranch.STANDARD_EVENT_PURCHASE
 
 /**
- * Standard Spend Credits event
+ * Standard View Ad event
  * @type {string}
  */
-BranchEvent.SpendCredits = RNBranch.STANDARD_EVENT_SPEND_CREDITS
+BranchEvent.ViewAd = RNBranch.STANDARD_EVENT_VIEW_AD
+
+/**
+ * Standard Click Ad event
+ * @type {string}
+ */
+BranchEvent.ClickAd = RNBranch.STANDARD_EVENT_CLICK_AD
 
 // Content events
 
@@ -292,3 +306,33 @@ BranchEvent.AchieveLevel = RNBranch.STANDARD_EVENT_ACHIEVE_LEVEL
  * @type {string}
  */
 BranchEvent.UnlockAchievement = RNBranch.STANDARD_EVENT_UNLOCK_ACHIEVEMENT
+
+/**
+ * Standard Invite event
+ * @type {string}
+ */
+BranchEvent.Invite = RNBranch.STANDARD_EVENT_INVITE
+
+/**
+ * Standard Login event
+ * @type {string}
+ */
+BranchEvent.Login = RNBranch.STANDARD_EVENT_LOGIN
+
+/**
+ * Standard Reserve event
+ * @type {string}
+ */
+BranchEvent.Reserve = RNBranch.STANDARD_EVENT_RESERVE
+
+/**
+ * Standard Subscribe event
+ * @type {string}
+ */
+BranchEvent.Subscribe = RNBranch.STANDARD_EVENT_SUBSCRIBE
+
+/**
+ * Standard Start Trial event
+ * @type {string}
+ */
+BranchEvent.StartTrial = RNBranch.STANDARD_EVENT_START_TRIAL
