@@ -24,4 +24,9 @@ Pod::Spec.new do |s|
   s.header_dir   = 'RNBranch' # also sets generated module name
   s.dependency 'Branch', '1.40.2'
   s.dependency 'React' # to ensure the correct build order
+  
+  # Swift/Objective-C compatibility
+  s.pod_target_xcconfig = {
+    'DEFINES_MODULE' => 'YES'
+  }
 end
