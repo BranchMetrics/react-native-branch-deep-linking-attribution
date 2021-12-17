@@ -665,4 +665,11 @@ RCT_EXPORT_METHOD(
     [self.universalObjectMap removeObjectForKey:identifier];
 }
 
+#pragma mark handleATTAuthorizationStatus
+RCT_EXPORT_METHOD(
+                  handleATTAuthorizationStatus:(NSUInteger)authorizationStatus
+                  ) {
+    [self.class.branch handleATTAuthorizationStatus:authorizationStatus];
+}
+
 @end

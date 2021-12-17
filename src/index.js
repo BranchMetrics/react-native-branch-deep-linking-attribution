@@ -84,6 +84,23 @@ class Branch {
       ios: () => RNBranch.openURL(url)
     })()
   }
+  handleATTAuthorizationStatus = (ATTAuthorizationStatus) => {
+    if (Platform.OS != 'ios') return;
+    let normalizedAttAuthorizationStatus = -1
+    if (ATTAuthorizationStatus = 'notDetermined') {
+      normalizedAttAuthorizationStatus = 0;
+    } else if (ATTAuthorizationStatus = 'restricted') {
+      normalizedAttAuthorizationStatus = 1;
+    } else if (ATTAuthorizationStatus = 'denied') {
+      normalizedAttAuthorizationStatus = 2;
+    } else if (ATTAuthorizationStatus = 'authorized') {
+      normalizedAttAuthorizationStatus = 3;
+    } else {
+      throw new Error('[Branch] handleATTAuthorizationStatus expects an argument of "notDetermined", "restricted", "authorized" or "denied"' )
+    }
+
+    RNBranch.handleATTAuthorizationStatus(normalizedAttAuthorizationStatus)
+  }
 
   /*** BranchUniversalObject ***/
   createBranchUniversalObject = createBranchUniversalObject

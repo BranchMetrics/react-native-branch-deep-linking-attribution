@@ -46,6 +46,11 @@ type BranchEventParams = Pick<
   | "customData"
 >;
 
+type ATTAuthorizationStatus = ''
+  | ''
+  | ''
+  | ''
+
 export class BranchEvent {
   logEvent: () => Promise<null>;
   constructor(
@@ -305,6 +310,9 @@ interface Branch {
     identifier: string,
     options: BranchUniversalObjectOptions
   ) => BranchUniversalObject;
+  handleATTAuthorizationStatus: (
+    ATTAuthorizationStatus:ATTAuthorizationStatus
+  ) => void
 }
 declare const branch: Branch;
 export default branch;
