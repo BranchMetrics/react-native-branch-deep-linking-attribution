@@ -87,16 +87,30 @@ class Branch {
   handleATTAuthorizationStatus = (ATTAuthorizationStatus) => {
     if (Platform.OS != 'ios') return;
     let normalizedAttAuthorizationStatus = -1
-    if (ATTAuthorizationStatus = 'notDetermined') {
-      normalizedAttAuthorizationStatus = 0;
-    } else if (ATTAuthorizationStatus = 'restricted') {
-      normalizedAttAuthorizationStatus = 1;
-    } else if (ATTAuthorizationStatus = 'denied') {
-      normalizedAttAuthorizationStatus = 2;
-    } else if (ATTAuthorizationStatus = 'authorized') {
-      normalizedAttAuthorizationStatus = 3;
-    } else {
-      throw new Error('[Branch] handleATTAuthorizationStatus expects an argument of "notDetermined", "restricted", "authorized" or "denied"' )
+
+    switch(ATTAuthorizationStatus) {
+      case 'authorized':
+      case 'granted':
+        normalizedAttAuthorizationStatus = 3;
+        break;
+      case 'denied':
+        normalizedAttAuthorizationStatus = 2;
+        break;
+      case 'notDetermined':
+      case 'not-determined':
+      case 'undetermined':
+        normalizedAttAuthorizationStatus = 0;
+        break;
+      case 'restricted':
+      case 'unavailable':
+      case 'limited':
+        normalizedAttAuthorizationStatus = 1;
+        break;
+    }
+
+    if (normalizedAttAuthorizationStatus < 0) {
+      console.info('[Branch] handleATTAuthorizationStatus received an unrecognized value')
+      return;
     }
 
     RNBranch.handleATTAuthorizationStatus(normalizedAttAuthorizationStatus)

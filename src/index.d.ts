@@ -46,10 +46,21 @@ type BranchEventParams = Pick<
   | "customData"
 >;
 
+/**
+ * The following ATT responses status were gathered from the following libraries:
+ * - https://www.npmjs.com/package/react-native-tracking-transparency
+ * - https://docs.expo.dev/versions/latest/sdk/tracking-transparency
+ * - https://github.com/zoontek/react-native-permissions
+ */
 type ATTAuthorizationStatus = 'authorized'
+  | 'granted'
   | 'denied'
   | 'notDetermined'
+  | 'not-determined'
+  | 'undetermined'
   | 'restricted'
+  | 'limited'
+  | 'unavailable'
 
 export class BranchEvent {
   logEvent: () => Promise<null>;
