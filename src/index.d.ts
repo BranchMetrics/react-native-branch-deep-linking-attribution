@@ -46,10 +46,10 @@ type BranchEventParams = Pick<
   | "customData"
 >;
 
-type ATTAuthorizationStatus = ''
-  | ''
-  | ''
-  | ''
+type ATTAuthorizationStatus = 'authorized'
+  | 'denied'
+  | 'notDetermined'
+  | 'restricted'
 
 export class BranchEvent {
   logEvent: () => Promise<null>;
