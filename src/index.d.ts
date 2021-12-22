@@ -61,7 +61,8 @@ type ATTAuthorizationStatus = 'authorized'
   | 'restricted'
   | 'limited'
   | 'unavailable'
-
+  | 'blocked'
+  
 export class BranchEvent {
   logEvent: () => Promise<null>;
   constructor(

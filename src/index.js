@@ -94,6 +94,7 @@ class Branch {
         normalizedAttAuthorizationStatus = 3;
         break;
       case 'denied':
+      case 'blocked':
         normalizedAttAuthorizationStatus = 2;
         break;
       case 'notDetermined':
