@@ -90,27 +90,21 @@ class Branch {
 
     switch(ATTAuthorizationStatus) {
       case 'authorized':
-      case 'granted':
         normalizedAttAuthorizationStatus = 3;
         break;
       case 'denied':
-      case 'blocked':
         normalizedAttAuthorizationStatus = 2;
         break;
-      case 'notDetermined':
-      case 'not-determined':
       case 'undetermined':
         normalizedAttAuthorizationStatus = 0;
         break;
       case 'restricted':
-      case 'unavailable':
-      case 'limited':
         normalizedAttAuthorizationStatus = 1;
         break;
     }
 
     if (normalizedAttAuthorizationStatus < 0) {
-      console.info('[Branch] handleATTAuthorizationStatus received an unrecognized value')
+      console.info('[Branch] handleATTAuthorizationStatus received an unrecognized value. Value must be one of; authorized, denied, undetermined, or restricted')
       return;
     }
 
