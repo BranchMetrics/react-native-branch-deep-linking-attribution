@@ -84,6 +84,32 @@ class Branch {
       ios: () => RNBranch.openURL(url)
     })()
   }
+  handleATTAuthorizationStatus = (ATTAuthorizationStatus) => {
+    if (Platform.OS != 'ios') return;
+    let normalizedAttAuthorizationStatus = -1
+
+    switch(ATTAuthorizationStatus) {
+      case 'authorized':
+        normalizedAttAuthorizationStatus = 3;
+        break;
+      case 'denied':
+        normalizedAttAuthorizationStatus = 2;
+        break;
+      case 'undetermined':
+        normalizedAttAuthorizationStatus = 0;
+        break;
+      case 'restricted':
+        normalizedAttAuthorizationStatus = 1;
+        break;
+    }
+
+    if (normalizedAttAuthorizationStatus < 0) {
+      console.info('[Branch] handleATTAuthorizationStatus received an unrecognized value. Value must be one of; authorized, denied, undetermined, or restricted')
+      return;
+    }
+
+    RNBranch.handleATTAuthorizationStatus(normalizedAttAuthorizationStatus)
+  }
 
   /*** BranchUniversalObject ***/
   createBranchUniversalObject = createBranchUniversalObject
