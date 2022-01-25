@@ -9,7 +9,6 @@ def getNpmVersion() {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 def safeExtGet(prop, fallback) {
