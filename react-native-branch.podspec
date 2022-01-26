@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.compiler_flags = %[-DRNBRANCH_VERSION=@\\"#{s.version}\\"]
   s.header_dir   = 'RNBranch' # also sets generated module name
   s.dependency 'Branch', '1.40.2'
-  s.dependency 'React' # to ensure the correct build order
+  s.dependency 'React-Core' # to ensure the correct build order
   
   # Swift/Objective-C compatibility
   s.pod_target_xcconfig = {
