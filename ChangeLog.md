@@ -1,3 +1,9 @@
+2022-01-25 Version 5.3.0
+  - Swift support. Thanks giautm!
+  - Expose iOS method handleATTAuthorizationStatus. Thanks adkenyon!
+  - Remove jcenter repository. Thanks yash221b!
+  - Fix removeListener deprecate warning. Thanks addingama!
+
 2021-10-29 Version 5.2.1
   - Update iOS SDK to 1.40.2
 

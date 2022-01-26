@@ -46,7 +46,7 @@ type BranchEventParams = Pick<
   | "customData"
 >;
 
-type ATTAuthorizationStatus = 'authorized'
+export type ATTAuthorizationStatus = 'authorized'
   | 'denied'
   | 'undetermined'
   | 'restricted'
