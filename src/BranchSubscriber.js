@@ -118,12 +118,18 @@ export default class BranchSubscriber {
     this._subscribed = false
 
     if (this.options.onOpenStart) {
-      this.initSessionStart.remove()
+      if (this.initSessionStart) {
+        this.initSessionStart.remove()
+      };
     }
 
     if (this.options.onOpenComplete) {
-      this.initSessionSuccess.remove()
-      this.initSessionError.remove()
+      if (this.initSessionSuccess) {
+        this.initSessionSuccess.remove();
+      }
+      if (this.initSessionError) {
+        this.initSessionError.remove()
+      }
     }
   }
 }
