@@ -14,6 +14,7 @@ import android.os.Handler;
 
 import com.facebook.react.bridge.*;
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.*;
 import com.facebook.react.bridge.ReadableMap;
 
@@ -32,9 +33,10 @@ import java.util.*;
 
 import javax.annotation.Nonnull;
 
+@ReactModule(name = RNBranchModule.NAME)
 public class RNBranchModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "RNBranch";
-    public static final String REACT_MODULE_NAME = "RNBranch";
+    public static final String NAME = "RNBranch";
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT = "io.branch.rnbranch.RNBranchModule.onInitSessionFinished";
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_BRANCH_UNIVERSAL_OBJECT = "branch_universal_object";
     public static final String NATIVE_INIT_SESSION_FINISHED_EVENT_LINK_PROPERTIES = "link_properties";
@@ -367,7 +369,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return REACT_MODULE_NAME;
+        return NAME;
     }
 
     @ReactMethod
