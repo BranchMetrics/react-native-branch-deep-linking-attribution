@@ -1,3 +1,8 @@
+2022-01-31 Version 5.3.1
+  - Null checks for listeners. Thanks ilyagru!
+  - Depend on React-Core instead of React. Thanks radko93!
+  - Use @ReactModule annotation. Thanks janicduplessis!
+
 2022-01-25 Version 5.3.0
   - Swift support. Thanks giautm!
   - Expose iOS method handleATTAuthorizationStatus. Thanks adkenyon!
