@@ -309,7 +309,7 @@ interface Branch {
   createBranchUniversalObject: (
     identifier: string,
     options: BranchUniversalObjectOptions
-  ) => BranchUniversalObject;
+  ) => Promise<BranchUniversalObject>;
   handleATTAuthorizationStatus: (
     ATTAuthorizationStatus:ATTAuthorizationStatus
   ) => void
