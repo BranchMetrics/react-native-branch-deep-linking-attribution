@@ -1,6 +1,6 @@
 {
   "name": "react-native-branch",
-  "version": "5.3.1",
+  "version": "5.4.0",
   "description": "Branch Metrics React Native SDK",
   "main": "src/index.js",
   "types": "src/index.d.ts",
@@ -50,12 +50,12 @@
     "react-native": ">= 0.60"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.4",
+    "@babel/core": "^7.17.2",
     "babel-eslint": "^7.0.0",
-    "eslint": "^2.7.0",
+    "eslint": "^2.13.0",
     "eslint-config-rackt": "^1.1.1",
-    "jest": "^25.2.6",
-    "react": "16.11.0",
+    "jest": "^25.5.4",
+    "react": "16.14.0",
     "react-native": "^0.62.0"
   }
 }

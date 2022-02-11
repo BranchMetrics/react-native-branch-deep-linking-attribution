@@ -1,3 +1,9 @@
+2022-02-10 Version 5.4.0
+  - Fix type definition of createBranchUniversalObject (Thanks v-fernandez!)
+  - Update Android SDK to 5.1.0
+  - Update iOS SDK to 1.41.0
+  - Update other dependencies to latest non-breaking
+
 2022-01-31 Version 5.3.1
   - Null checks for listeners. Thanks ilyagru!
   - Depend on React-Core instead of React. Thanks radko93!
