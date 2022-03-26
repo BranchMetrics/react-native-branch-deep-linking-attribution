@@ -193,10 +193,10 @@ interface BranchSubscriptionEventBase {
   error: string | null | undefined;
   uri: string | undefined;
 }
-interface BranchSubscriptionEventError extends BranchSubscriptionEventBase {
+export interface BranchSubscriptionEventError extends BranchSubscriptionEventBase {
   error: string;
 }
-interface BranchSubscriptionEventSuccess extends BranchSubscriptionEventBase {
+export interface BranchSubscriptionEventSuccess extends BranchSubscriptionEventBase {
   error: null | undefined;
   params: BranchParams;
 }
