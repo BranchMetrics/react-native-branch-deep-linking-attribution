@@ -17,7 +17,7 @@ export interface BranchParams {
   "~tags"?: string[];
   "~campaign"?: string;
   "~stage"?: string;
-  "~creation_source"?: string;
+  "~creation_source"?: number;
   "~referring_link"?: string;
   "~id"?: string;
   "+match_guaranteed": boolean;
