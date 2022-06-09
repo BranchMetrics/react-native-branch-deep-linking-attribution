@@ -1,3 +1,7 @@
+2022-06-06 Version 5.4.1
+  - Update Android SDK to 5.1.5
+  - Update iOS SDK to 1.42.0
+
 2022-02-10 Version 5.4.0
   - Fix type definition of createBranchUniversalObject (Thanks v-fernandez!)
   - Update Android SDK to 5.1.0
