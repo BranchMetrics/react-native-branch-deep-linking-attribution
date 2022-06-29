@@ -113,6 +113,11 @@ class Branch {
 
   /*** BranchUniversalObject ***/
   createBranchUniversalObject = createBranchUniversalObject
+
+  /*** BranchQRCode ***/
+  getBranchQRCode = (settings = {}, branchUniversalObject = {}, linkProperties = {}) => {
+    return RNBranch.getBranchQRCode(settings, branchUniversalObject, linkProperties);
+  }
 }
 
 export { Branch, BranchEvent, BranchSubscriber }

@@ -669,6 +669,52 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         mActivity.startActivity(intent);
     }
 
+  @ReactMethod
+    public void getBranchQRCode(BranchUniversalObject branchUniversalObject, ReadableMap branchQRCodeSettingsMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, final Promise promise) {
+        LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
+        BranchQRCode qrCode = createBranchQRCode(branchQRCodeSettingsMap);
+
+        try {
+            qrCode.getQRCodeAsImage(getReactApplicationContext().getCurrentActivity(), branchUniversalObject, linkProperties, new BranchQRCode.BranchQRCodeImageHandler() {
+                @Override
+                public void onSuccess(Bitmap qrCodeImage) {
+                    promise.resolve(qrCodeImage);
+                }
+    
+                @Override
+                public void onFailure(Exception e) {
+                    Log.d("Fail in main activity", String.valueOf(e));
+                    promise.reject("Failed to get QR Code", String.valueOf(e));
+                }    
+                });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public BranchQRCode createBranchQRCode(ReadableMap branchQRCodeSettingsMap) {
+        BranchQRCode branchQRCode = new BranchQRCode();
+
+        if (branchQRCodeSettingsMap.hasKey("codeColor")) branchQRCode.setCodeColor(branchQRCodeSettingsMap.getString("codeColor"));
+        if (branchQRCodeSettingsMap.hasKey("backgroundColor")) branchQRCode.setBackgroundColor(branchQRCodeSettingsMap.getString("backgroundColor"));
+        if (branchQRCodeSettingsMap.hasKey("centerLogo")) branchQRCode.setCenterLogo(branchQRCodeSettingsMap.getString("centerLogo"));
+        if (branchQRCodeSettingsMap.hasKey("width")) branchQRCode.setWidth(branchQRCodeSettingsMap.getInt("width"));
+        if (branchQRCodeSettingsMap.hasKey("margin")) branchQRCode.setMargin(branchQRCodeSettingsMap.getInt("margin"));
+        
+        if (branchQRCodeSettingsMap.hasKey("imageFormat")) {
+            String imageFormat = branchQRCodeSettingsMap.getString("imageFormat");
+            if (imageFormat != null ) {
+                if (imageFormat.equals("JPEG")) {
+                    branchQRCode.setImageFormat(BranchQRCode.BranchImageFormat.JPEG);
+                } else {
+                    branchQRCode.setImageFormat(BranchQRCode.BranchImageFormat.PNG);
+                }
+            }
+        }
+        return branchQRCode;
+    }
+
     public static BranchEvent createBranchEvent(String eventName, ReadableMap params) {
         BranchEvent event;
         try {

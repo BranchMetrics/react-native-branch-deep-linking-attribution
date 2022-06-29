@@ -291,6 +291,15 @@ interface BranchUniversalObject {
   release: () => void;
 }
 
+interface BranchQRCodeSettings {
+  codeColor?: String;
+  backgroundColor?: String;
+  centerLogo?: String;
+  width?: Int;
+  margin?: Int;
+  imageFormat?: String;
+}
+
 interface Branch {
   subscribe: BranchSubscribe;
   initSessionTtl?: number;
@@ -313,6 +322,11 @@ interface Branch {
   handleATTAuthorizationStatus: (
     ATTAuthorizationStatus:ATTAuthorizationStatus
   ) => void
+  getQRCode: (
+    settings: BranchQRCodeSettings,
+    linkProperties: BranchLinkProperties,
+    brachUniversalObject: BranchUniversalObject
+  ) => Promise<ImageData>;
 }
 declare const branch: Branch;
 export default branch;
