@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import androidx.annotation.Nullable;
@@ -21,12 +22,14 @@ import com.facebook.react.bridge.ReadableMap;
 import io.branch.referral.*;
 import io.branch.referral.Branch.BranchLinkCreateListener;
 import io.branch.referral.BuildConfig;
+import io.branch.referral.QRCode.BranchQRCode;
 import io.branch.referral.util.*;
 import io.branch.referral.Branch;
 import io.branch.indexing.*;
 
 import org.json.*;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
