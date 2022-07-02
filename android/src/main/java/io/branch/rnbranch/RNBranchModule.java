@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Base64;
 
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -673,15 +674,18 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
   @ReactMethod
-    public void getBranchQRCode(BranchUniversalObject branchUniversalObject, ReadableMap branchQRCodeSettingsMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, final Promise promise) {
+    public void getBranchQRCode(ReadableMap branchQRCodeSettingsMap, ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, final Promise promise) {
+        
+        BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
         LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
         BranchQRCode qrCode = createBranchQRCode(branchQRCodeSettingsMap);
 
         try {
-            qrCode.getQRCodeAsImage(getReactApplicationContext().getCurrentActivity(), branchUniversalObject, linkProperties, new BranchQRCode.BranchQRCodeImageHandler() {
+            qrCode.getQRCodeAsData(getReactApplicationContext().getCurrentActivity(), branchUniversalObject, linkProperties, new BranchQRCode.BranchQRCodeDataHandler() {
                 @Override
-                public void onSuccess(Bitmap qrCodeImage) {
-                    promise.resolve(qrCodeImage);
+                public void onSuccess(byte[] qrCodeData) {
+                    String qrCodeString = Base64.encodeToString(qrCodeData, Base64.DEFAULT);
+                    promise.resolve(qrCodeString);
                 }
     
                 @Override
@@ -692,8 +696,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 });
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d("Fail in main activity", String.valueOf(e));
         }
-
     }
 
     public BranchQRCode createBranchQRCode(ReadableMap branchQRCodeSettingsMap) {

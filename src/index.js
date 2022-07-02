@@ -115,8 +115,8 @@ class Branch {
   createBranchUniversalObject = createBranchUniversalObject
 
   /*** BranchQRCode ***/
-  getBranchQRCode = (settings = {}, branchUniversalObject = {}, linkProperties = {}) => {
-    return RNBranch.getBranchQRCode(settings, branchUniversalObject, linkProperties);
+  getBranchQRCode = (qrCodeSettings = {}, branchUniversalObject = {}, linkProperties = {}, controlParams = {}) => {
+    RNBranch.getBranchQRCode(qrCodeSettings, branchUniversalObject, linkProperties, controlParams);
   }
 }
 

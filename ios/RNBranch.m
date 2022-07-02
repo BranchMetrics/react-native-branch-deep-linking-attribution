@@ -672,49 +672,18 @@ RCT_EXPORT_METHOD(
     [self.class.branch handleATTAuthorizationStatus:authorizationStatus];
 }
 
-//- (BranchQRCode *) createQRCode:(NSDictionary *)qrCodeSettingsMap
-//{
-//    BranchQRCode *qrCode = [BranchQRCode new];
-//
-//    if (qrCodeSettingsMap[@"codeColor"]) {
-//        qrCode.codeColor = qrCodeSettingsMap[@"codeColor"];
-//    }
-//    if (qrCodeSettingsMap[@"backgroundColor"]) {
-//        qrCode.backgroundColor = qrCodeSettingsMap[@"backgroundColor"];
-//    }
-//    if (qrCodeSettingsMap[@"centerLogo"]) {
-//        qrCode.centerLogo = qrCodeSettingsMap[@"centerLogo"];
-//    }
-//    if (qrCodeSettingsMap[@"width"]) {
-//        qrCode.width = qrCodeSettingsMap[@"width"];
-//    }
-//    if (qrCodeSettingsMap[@"margin"]) {
-//        qrCode.margin = qrCodeSettingsMap[@"margin"];
-//    }
-//    if (qrCodeSettingsMap[@"imageFormat"]) {
-//        if ([qrCodeSettingsMap[@"imageFormat"] isEqual:@"JPEG"]) {
-//            qrCode.imageFormat = BranchQRCodeImageFormatJPEG;
-//        } else {
-//            qrCode.imageFormat = BranchQRCodeImageFormatPNG;
-//        }
-//    }
-//
-//    return qrCode;
-//}
-
 #pragma mark getBranchQRCode
 RCT_EXPORT_METHOD(
                   getBranchQRCode:(NSDictionary *)qrCodeSettingsMap
-                  withUniversalObjectIdentifier:(NSString *)identifier
+                  withUniversalObject:(NSDictionary *)universalObjectProperties
                   withLinkProperties:(NSDictionary *)linkPropertiesMap
                   withControlParams:(NSDictionary *)controlParamsMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
                   ) {
-    
+
     BranchLinkProperties *linkProperties = [self createLinkProperties:linkPropertiesMap withControlParams:controlParamsMap];
-    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdent:identifier rejecter:reject];
-    if (!branchUniversalObject) return;
+    BranchUniversalObject *universalObject = [[BranchUniversalObject alloc] initWithMap:universalObjectProperties];
     
     BranchQRCode *qrCode = [BranchQRCode new];
     
@@ -741,9 +710,10 @@ RCT_EXPORT_METHOD(
         }
     }
     
-    [qrCode getQRCodeAsImage:branchUniversalObject linkProperties:linkProperties completion:^(UIImage * _Nonnull qrCodeImage, NSError * _Nonnull error) {
+    [qrCode getQRCodeAsData:universalObject linkProperties:linkProperties completion:^(NSData * _Nonnull qrCodeData, NSError * _Nonnull error) {
         if (!error) {
-            resolve(qrCodeImage);
+            NSString* imageString = [qrCodeData base64EncodedStringWithOptions:nil];
+            resolve(imageString);
         } else {
             reject(@"RNBranch::Error", error.localizedDescription, error);
         }

@@ -291,13 +291,13 @@ interface BranchUniversalObject {
   release: () => void;
 }
 
-interface BranchQRCodeSettings {
-  codeColor?: String;
-  backgroundColor?: String;
-  centerLogo?: String;
-  width?: Int;
-  margin?: Int;
-  imageFormat?: String;
+export interface BranchQRCodeSettings {
+  codeColor?: string;
+  backgroundColor?: string;
+  centerLogo?: string;
+  width?: number;
+  margin?: number;
+  imageFormat?: string;
 }
 
 interface Branch {
@@ -321,12 +321,13 @@ interface Branch {
   ) => Promise<BranchUniversalObject>;
   handleATTAuthorizationStatus: (
     ATTAuthorizationStatus:ATTAuthorizationStatus
-  ) => void
-  getQRCode: (
+  ) => void;
+  getBranchQRCode: (
     settings: BranchQRCodeSettings,
+    branchUniversalObject: BranchUniversalObject,
     linkProperties: BranchLinkProperties,
-    brachUniversalObject: BranchUniversalObject
-  ) => Promise<ImageData>;
+    controlParams: BranchLinkControlParams,
+  ) => Promise<string>;
 }
 declare const branch: Branch;
 export default branch;
