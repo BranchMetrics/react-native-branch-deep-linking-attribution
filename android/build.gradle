@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 import groovy.json.JsonSlurper
 
 def DEFAULT_COMPILE_SDK_VERSION = 29
-def DEFAULT_MIN_SDK_VERSION = 16
+def DEFAULT_MIN_SDK_VERSION = 21
 def DEFAULT_TARGET_SDK_VERSION = 29
 
 def getNpmVersion() {
