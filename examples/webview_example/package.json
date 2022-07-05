@@ -17,7 +17,7 @@
     "react-native-safe-area-context": "~3.0.7",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.7.0",
-    "@react-navigation/stack": "^5.7.0"
+    "@react-navigation/stack": "^5.14.9"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
