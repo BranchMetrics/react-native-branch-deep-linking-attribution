@@ -207,17 +207,6 @@ class BranchMethods extends Component {
     }
   }
 
-  getBranchQRCode = async() => {
-    try {
-      let qrCode = await branch.getBranchQRCode()
-      console.log('qrCodeData', qrCode)
-      this.addResult('success', 'getBranchQRCode', qrCode)
-    } catch (err) {
-      console.log('qrCodeData', err)
-      this.addResult('error', 'getBranchQRCode', err.toString())
-    }
-  }
-
   addResult(type, slug, payload) {
     let result = { type, slug, payload }
     this.setState({
@@ -256,7 +245,6 @@ class BranchMethods extends Component {
           <Button onPress={this.logCustomEvent}>BranchEvent.logEvent (Custom)</Button>
           <Button onPress={this.openURL}>openURL</Button>
           <Button onPress={this.lastAttributedTouchData}>lastAttributedTouchData</Button>
-          <Button onPress={this.getBranchQRCode}>getBranchQRCode</Button>
         </ScrollView>
       </View>
     )
