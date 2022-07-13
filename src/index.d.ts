@@ -324,7 +324,7 @@ interface Branch {
   ) => void;
   getBranchQRCode: (
     settings: BranchQRCodeSettings,
-    branchUniversalObject: BranchUniversalObject,
+    branchUniversalObject: BranchUniversalObjectOptions,
     linkProperties: BranchLinkProperties,
     controlParams: BranchLinkControlParams,
   ) => Promise<string>;
