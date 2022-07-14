@@ -1,4 +1,4 @@
- import React, { Component } from 'react'
+import React, { Component } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import Button from './Button'
