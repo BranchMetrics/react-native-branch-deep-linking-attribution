@@ -690,13 +690,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     
                 @Override
                 public void onFailure(Exception e) {
-                    Log.d("Fail in main activity", e.getMessage());
+                    Log.d("Failed to get QR Code", e.getMessage());
                     promise.reject("Failed to get QR Code", e.getMessage());
                 }    
                 });
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d("Fail in main activity", e.getMessage());
+            Log.d("Failed to get QR Code", e.getMessage());
             promise.reject("Failed to get QR Code", e.getMessage());
         }
     }
