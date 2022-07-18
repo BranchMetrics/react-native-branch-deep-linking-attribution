@@ -467,13 +467,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setPreinstallCampaign(String campaign) {
+    public static void setPreinstallCampaign(String campaign) {
         Branch branch = Branch.getInstance();
         branch.setPreinstallCampaign(campaign);
     }
 
     @ReactMethod
-    public void setPreinstallPartner(String partner) {
+    public static void setPreinstallPartner(String partner) {
         Branch branch = Branch.getInstance();
         branch.setPreinstallPartner(partner);
     }
