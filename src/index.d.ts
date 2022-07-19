@@ -291,7 +291,7 @@ interface BranchUniversalObject {
   release: () => void;
 }
 
-export interface BranchQRCodeSettings {
+interface BranchQRCodeSettings {
   codeColor?: string;
   backgroundColor?: string;
   centerLogo?: string;
