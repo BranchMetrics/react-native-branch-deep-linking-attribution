@@ -313,6 +313,8 @@ interface Branch {
   handleATTAuthorizationStatus: (
     ATTAuthorizationStatus:ATTAuthorizationStatus
   ) => void
+  setPreInstallCampaign: (campaign: string) => void;
+  setPreInstallPartner: (partner: string) => void;
 }
 declare const branch: Branch;
 export default branch;

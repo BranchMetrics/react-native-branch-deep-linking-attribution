@@ -113,6 +113,10 @@ class Branch {
 
   /*** BranchUniversalObject ***/
   createBranchUniversalObject = createBranchUniversalObject
+
+  /*** PreInstall Parameters ***/
+  setPreInstallCampaign = (campaign) => RNBranch.setPreinstallCampaign(campaign)
+  setPreInstallPartner = (partner) => RNBranch.setPreinstallPartner(partner)
 }
 
 export { Branch, BranchEvent, BranchSubscriber }

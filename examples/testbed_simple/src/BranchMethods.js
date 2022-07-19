@@ -214,6 +214,30 @@ class BranchMethods extends Component {
     })
   }
 
+  setPreInstallCampaign = async() => {
+    const campaignVal = "pre-install-campaign-value-rn"
+    try {
+      await branch.setPreInstallCampaign(campaignVal)
+      console.log('PreInstallCampaign', campaignVal)
+      this.addResult('success', 'PreInstallCampaign', campaignVal)
+    } catch(err) {
+      console.log('PreInstallCampaign', err)
+      this.addResult('error', 'PreInstallCampaign', err.toString()) 
+    }
+  }
+
+  setPreInstallPartner = async() => {
+    const adPartnerVal = "pre-install-adpartner-value-rn"
+    try {
+      await branch.setPreInstallPartner(adPartnerVal)
+      console.log('PreInstallAdPartner', adPartnerVal)
+      this.addResult('success', 'PreInstallAdPartner', adPartnerVal)
+    } catch(err) {
+      console.log('PreInstallAdPartner', err)
+      this.addResult('error', 'PreInstallAdPartner', err.toString()) 
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -245,6 +269,8 @@ class BranchMethods extends Component {
           <Button onPress={this.logCustomEvent}>BranchEvent.logEvent (Custom)</Button>
           <Button onPress={this.openURL}>openURL</Button>
           <Button onPress={this.lastAttributedTouchData}>lastAttributedTouchData</Button>
+          <Button onPress={this.setPreInstallCampaign}>setPreInstallCampaign</Button>
+          <Button onPress={this.setPreInstallPartner}>setPreInstallAdPartner</Button>
         </ScrollView>
       </View>
     )
