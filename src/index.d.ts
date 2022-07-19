@@ -328,6 +328,8 @@ interface Branch {
     linkProperties: BranchLinkProperties,
     controlParams: BranchLinkControlParams,
   ) => Promise<string>;
+  setPreInstallCampaign: (campaign: string) => void;
+  setPreInstallPartner: (partner: string) => void;
 }
 declare const branch: Branch;
 export default branch;

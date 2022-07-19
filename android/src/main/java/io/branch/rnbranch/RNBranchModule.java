@@ -471,6 +471,18 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public static void setPreinstallCampaign(String campaign) {
+        Branch branch = Branch.getInstance();
+        branch.setPreinstallCampaign(campaign);
+    }
+
+    @ReactMethod
+    public static void setPreinstallPartner(String partner) {
+        Branch branch = Branch.getInstance();
+        branch.setPreinstallPartner(partner);
+    }
+
+    @ReactMethod
     public void logEvent(ReadableArray contentItems, String eventName, ReadableMap params, Promise promise) {
         List<BranchUniversalObject> buos = new ArrayList<>();
         for (int i = 0; i < contentItems.size(); ++ i) {
