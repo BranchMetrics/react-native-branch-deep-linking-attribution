@@ -688,10 +688,10 @@ RCT_EXPORT_METHOD(
     BranchQRCode *qrCode = [BranchQRCode new];
     
     if (qrCodeSettingsMap[@"codeColor"]) {
-        qrCode.codeColor = [self colorWithHexString:qrCodeSettingsMap[@"codeColor"]];//qrCodeSettingsMap[@"codeColor"].colorWithHexString;
+        qrCode.codeColor = [self colorWithHexString:qrCodeSettingsMap[@"codeColor"]];
     }
     if (qrCodeSettingsMap[@"backgroundColor"]) {
-        qrCode.backgroundColor = [self colorWithHexString:qrCodeSettingsMap[@"backgroundColor"]];//qrCodeSettingsMap[@"backgroundColor"];
+        qrCode.backgroundColor = [self colorWithHexString:qrCodeSettingsMap[@"backgroundColor"]];
     }
     if (qrCodeSettingsMap[@"centerLogo"]) {
         qrCode.centerLogo = qrCodeSettingsMap[@"centerLogo"];
