@@ -5,14 +5,14 @@
     settings: BranchQRCodeSettings,
     branchUniversalObject: BranchUniversalObjectOptions,
     linkProperties: BranchLinkProperties,
-    controlParams: BranchLinkControlParams,
-  ) => Promise<string>;
-  ```
+    controlParams: BranchLinkControlParams, 
+    ) => Promise<string>;
+    ```
   - Support for preinstall analytics.
     ```js
     setPreInstallCampaign = (campaign) => RNBranch.setPreinstallCampaign(campaign)
     setPreInstallPartner = (partner) => RNBranch.setPreinstallPartner(partner)
-  ``` 
+    ``` 
   - Update react-native to 0.63.0
   - Update Android SDK to 5.2.0
   - Update iOS SDK to 1.43.1
