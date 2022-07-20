@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Base64;
 
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -21,12 +23,14 @@ import com.facebook.react.bridge.ReadableMap;
 import io.branch.referral.*;
 import io.branch.referral.Branch.BranchLinkCreateListener;
 import io.branch.referral.BuildConfig;
+import io.branch.referral.QRCode.BranchQRCode;
 import io.branch.referral.util.*;
 import io.branch.referral.Branch;
 import io.branch.indexing.*;
 
 import org.json.*;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -679,6 +683,56 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         intent.putExtra("branch_force_new_session", true);
 
         mActivity.startActivity(intent);
+    }
+
+  @ReactMethod
+    public void getBranchQRCode(ReadableMap branchQRCodeSettingsMap, ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, final Promise promise) {
+        
+        BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
+        LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
+        BranchQRCode qrCode = createBranchQRCode(branchQRCodeSettingsMap);
+
+        try {
+            qrCode.getQRCodeAsData(getReactApplicationContext().getCurrentActivity(), branchUniversalObject, linkProperties, new BranchQRCode.BranchQRCodeDataHandler() {
+                @Override
+                public void onSuccess(byte[] qrCodeData) {
+                    String qrCodeString = Base64.encodeToString(qrCodeData, Base64.DEFAULT);
+                    promise.resolve(qrCodeString);
+                }
+    
+                @Override
+                public void onFailure(Exception e) {
+                    Log.d("Failed to get QR Code", e.getMessage());
+                    promise.reject("Failed to get QR Code", e.getMessage());
+                }    
+                });
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("Failed to get QR Code", e.getMessage());
+            promise.reject("Failed to get QR Code", e.getMessage());
+        }
+    }
+
+    public BranchQRCode createBranchQRCode(ReadableMap branchQRCodeSettingsMap) {
+        BranchQRCode branchQRCode = new BranchQRCode();
+
+        if (branchQRCodeSettingsMap.hasKey("codeColor")) branchQRCode.setCodeColor(branchQRCodeSettingsMap.getString("codeColor"));
+        if (branchQRCodeSettingsMap.hasKey("backgroundColor")) branchQRCode.setBackgroundColor(branchQRCodeSettingsMap.getString("backgroundColor"));
+        if (branchQRCodeSettingsMap.hasKey("centerLogo")) branchQRCode.setCenterLogo(branchQRCodeSettingsMap.getString("centerLogo"));
+        if (branchQRCodeSettingsMap.hasKey("width")) branchQRCode.setWidth(branchQRCodeSettingsMap.getInt("width"));
+        if (branchQRCodeSettingsMap.hasKey("margin")) branchQRCode.setMargin(branchQRCodeSettingsMap.getInt("margin"));
+        
+        if (branchQRCodeSettingsMap.hasKey("imageFormat")) {
+            String imageFormat = branchQRCodeSettingsMap.getString("imageFormat");
+            if (imageFormat != null ) {
+                if (imageFormat.equals("JPEG")) {
+                    branchQRCode.setImageFormat(BranchQRCode.BranchImageFormat.JPEG);
+                } else {
+                    branchQRCode.setImageFormat(BranchQRCode.BranchImageFormat.PNG);
+                }
+            }
+        }
+        return branchQRCode;
     }
 
     public static BranchEvent createBranchEvent(String eventName, ReadableMap params) {

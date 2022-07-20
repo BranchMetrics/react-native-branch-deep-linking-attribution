@@ -291,6 +291,15 @@ interface BranchUniversalObject {
   release: () => void;
 }
 
+interface BranchQRCodeSettings {
+  codeColor?: string;
+  backgroundColor?: string;
+  centerLogo?: string;
+  width?: number;
+  margin?: number;
+  imageFormat?: string;
+}
+
 interface Branch {
   subscribe: BranchSubscribe;
   initSessionTtl?: number;
@@ -312,7 +321,13 @@ interface Branch {
   ) => Promise<BranchUniversalObject>;
   handleATTAuthorizationStatus: (
     ATTAuthorizationStatus:ATTAuthorizationStatus
-  ) => void
+  ) => void;
+  getBranchQRCode: (
+    settings: BranchQRCodeSettings,
+    branchUniversalObject: BranchUniversalObjectOptions,
+    linkProperties: BranchLinkProperties,
+    controlParams: BranchLinkControlParams,
+  ) => Promise<string>;
   setPreInstallCampaign: (campaign: string) => void;
   setPreInstallPartner: (partner: string) => void;
 }

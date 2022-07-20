@@ -114,9 +114,15 @@ class Branch {
   /*** BranchUniversalObject ***/
   createBranchUniversalObject = createBranchUniversalObject
 
+  /*** BranchQRCode ***/
+  getBranchQRCode = (qrCodeSettings = {}, branchUniversalObject = {}, linkProperties = {}, controlParams = {}) => {
+    return RNBranch.getBranchQRCode(qrCodeSettings, branchUniversalObject, linkProperties, controlParams);
+  }
+
   /*** PreInstall Parameters ***/
   setPreInstallCampaign = (campaign) => RNBranch.setPreinstallCampaign(campaign)
   setPreInstallPartner = (partner) => RNBranch.setPreinstallPartner(partner)
+
 }
 
 export { Branch, BranchEvent, BranchSubscriber }
