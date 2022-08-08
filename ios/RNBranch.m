@@ -403,8 +403,17 @@ RCT_EXPORT_METHOD(
 #pragma mark setIdentity
 RCT_EXPORT_METHOD(
                   setIdentity:(NSString *)identity
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
-    [self.class.branch setIdentity:identity];
+    [self.class.branch setIdentity: identity withCallback:^(NSDictionary *params, NSError *error) {
+        if (!error) {
+            resolve([self.class.branch getFirstReferringParams]);
+        } else {
+            reject(@"RNBranch::Error", error.localizedDescription, error);
+
+        }
+    }
 }
 
 #pragma mark setRequestMetadataKey
