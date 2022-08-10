@@ -440,9 +440,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setIdentity(String identity) {
+    public void setIdentity(String identity, Promise promise) {
         Branch branch = Branch.getInstance();
         branch.setIdentity(identity);
+        promise.resolve(convertJsonToMap(branch.getFirstReferringParams()));
     }
 
     @ReactMethod
