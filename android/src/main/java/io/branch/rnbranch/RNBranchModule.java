@@ -443,16 +443,16 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void setIdentity(String identity, Promise promise) {
         Branch branch = Branch.getInstance();
 
-          branch.setIdentity(identity, new BranchReferralInitListener() {
-                    @Override
-                    public void onInitFinished(JSONObject referringParams, BranchError error) {
-                        if (error != null) {
-                            promise.reject("RNBranch::Error::setIdentity failed", error.getMessage());
-                        } else {
-                            promise.resolve(convertJsonToMap(branch.getFirstReferringParams()));
-                        }
-                    }
-                });
+        branch.setIdentity(identity, new BranchReferralInitListener() {
+            @Override
+            public void onInitFinished(JSONObject referringParams, BranchError error) {
+                if (error != null) {
+                    promise.reject("RNBranch::Error::setIdentity failed", error.getMessage());
+                } else {
+                    promise.resolve(convertJsonToMap(convertJsonToMap(referringParams)));
+                }
+            }
+        });
     }
 
     @ReactMethod

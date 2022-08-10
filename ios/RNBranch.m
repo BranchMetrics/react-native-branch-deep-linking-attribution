@@ -410,8 +410,7 @@ RCT_EXPORT_METHOD(
         if (!error) {
             resolve([self.class.branch getFirstReferringParams]);
         } else {
-            reject(@"RNBranch::Error", error.localizedDescription, error);
-
+            reject(@"RNBranch::Error::setIdentity failed", error.localizedDescription, error);
         }
     }
 }
