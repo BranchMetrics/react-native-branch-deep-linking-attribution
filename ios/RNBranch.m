@@ -407,9 +407,9 @@ RCT_EXPORT_METHOD(
     [self.class.branch setIdentity:identity];
 }
 
-#pragma mark setIdentityWithPromise
+#pragma mark setIdentityAsync
 RCT_EXPORT_METHOD(
-                  setIdentityWithPromise:(NSString *)identity
+                  setIdentityAsync:(NSString *)identity
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
@@ -417,7 +417,7 @@ RCT_EXPORT_METHOD(
         if (!error) {
             resolve(params);
         } else {
-            reject(@"RNBranch::Error::setIdentityWithPromise failed", error.localizedDescription, error);
+            reject(@"RNBranch::Error::setIdentityAsync failed", error.localizedDescription, error);
         }
     }];
 }

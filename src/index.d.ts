@@ -310,7 +310,7 @@ interface Branch {
   getFirstReferringParams: () => Promise<BranchParams>;
   lastAttributedTouchData: (attributionWindow?: number) => Promise<BranchParams>;
   setIdentity: (identity: string) => void;
-  setIdentityWithPromise: (identity: string) => Promise<BranchParams>;
+  setIdentityAsync: (identity: string) => Promise<BranchParams>;
   setRequestMetadata: (key: string, value: string) => void;
   addFacebookPartnerParameter: (name: string, value: string) => void;
   clearPartnerParameter: () => void;

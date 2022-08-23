@@ -62,7 +62,7 @@ class Branch {
   getFirstReferringParams = RNBranch.getFirstReferringParams
   lastAttributedTouchData =  (attributionWindow = {}) => RNBranch.lastAttributedTouchData(attributionWindow)
   setIdentity = (identity) => RNBranch.setIdentity(identity)
-  setIdentityWithPromise = (identity) => RNBranch.setIdentityWithPromise(identity)
+  setIdentityAsync = (identity) => RNBranch.setIdentityAsync(identity)
   setRequestMetadata = (key, value) => {
     console.info('[Branch] setRequestMetadata has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the metadata.')
     return RNBranch.setRequestMetadataKey(key, value)

@@ -446,13 +446,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
    @ReactMethod
-    public void setIdentityWithPromise(String identity, Promise promise) {
+    public void setIdentityAsync(String identity, Promise promise) {
         Branch branch = Branch.getInstance();
         branch.setIdentity(identity, new BranchReferralInitListener() {
             @Override
             public void onInitFinished(JSONObject referringParams, BranchError error) {
                 if (error != null) {
-                    promise.reject("RNBranch::Error::setIdentityWithPromise failed", error.getMessage());
+                    promise.reject("RNBranch::Error::setIdentityAsync failed", error.getMessage());
                 } else {
                     promise.resolve(convertJsonToMap(referringParams));
                 }
