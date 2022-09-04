@@ -312,7 +312,7 @@ interface Branch {
   setIdentity: (identity: string) => void;
   setRequestMetadata: (key: string, value: string) => void;
   addFacebookPartnerParameter: (name: string, value: string) => void;
-  clearPartnerParameter: () => void;
+  clearPartnerParameters: () => void;
   logout: () => void;
   openURL: (url: string, options?: { newActivity?: boolean }) => void;
   createBranchUniversalObject: (
