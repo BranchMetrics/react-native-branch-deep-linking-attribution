@@ -445,6 +445,21 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         branch.setIdentity(identity);
     }
 
+   @ReactMethod
+    public void setIdentityAsync(String identity, Promise promise) {
+        Branch branch = Branch.getInstance();
+        branch.setIdentity(identity, new BranchReferralInitListener() {
+            @Override
+            public void onInitFinished(JSONObject referringParams, BranchError error) {
+                if (error != null) {
+                    promise.reject("RNBranch::Error::setIdentityAsync failed", error.getMessage());
+                } else {
+                    promise.resolve(convertJsonToMap(referringParams));
+                }
+            }
+        });
+    }
+
     @ReactMethod
     public void setRequestMetadataKey(String key, String value) {
         // setRequestMetadata does not do what it appears to do.  Call directly to the native code.
