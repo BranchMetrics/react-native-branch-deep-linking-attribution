@@ -276,13 +276,25 @@ interface BranchLinkControlParams {
   $samsung_url?: string;
 }
 
+interface BranchShareSuccess {
+  completed: true;
+  error: null;
+  channel: string;
+}
+
+interface BranchShareFailure {
+  completed: false;
+  error: null | string;
+  channel: null;
+}
+
 interface BranchUniversalObject {
   ident: string;
   showShareSheet: (
     shareOptions?: BranchShareSheetOptions,
     linkProperties?: BranchLinkProperties,
     controlParams?: BranchLinkControlParams
-  ) => void;
+  ) => Promise<BranchShareSuccess | BranchShareFailure>;
   generateShortUrl: (
     linkProperties: BranchLinkProperties,
     controlParams: BranchLinkControlParams
