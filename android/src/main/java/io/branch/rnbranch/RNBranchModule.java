@@ -788,7 +788,14 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             ReadableMapKeySetIterator it = customData.keySetIterator();
             while (it.hasNextKey()) {
                 String key = it.nextKey();
-                event.addCustomDataProperty(key, customData.getString(key));
+                
+                ReadableType readableType = customData.getType(key);
+                if(readableType == ReadableType.String) {
+                    event.addCustomDataProperty(key, customData.getString(key));
+                }
+                else{
+                    Log.w(REACT_CLASS, "customData values must be strings. Value for property " + key + " is not a string type.");
+                }
             }
         }
 

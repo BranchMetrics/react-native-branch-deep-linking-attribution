@@ -71,7 +71,7 @@ export class BranchEvent {
   description?: string;
   searchQuery?: string;
   alias?: string;
-  customData?: Record<string, AnyDataType>;
+  customData?: Record<string, string>;
 
   /**
    * Standard Add to Cart event
