@@ -1,3 +1,11 @@
+2022-09-30 Version 5.6.0
+  - Update Android SDK to 5.2.4
+  - Update iOS SDK to 1.43.2
+  - Fix BranchUniversalObject showShareSheet return type definition (thanks romanlitvin)
+  - Change customData type definition to String String dictionary (thanks vincent-paing!)
+  - Fixed clearPartnerParameters call (thanks danilobuerger!)
+  - Add callback to setIdentity in new function `setIdentityAsync`
+
 2022-07-20 Version 5.5.0
   - Branch QR code creation support added.
     ```js
