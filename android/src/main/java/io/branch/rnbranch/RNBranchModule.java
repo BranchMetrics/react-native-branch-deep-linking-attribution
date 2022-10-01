@@ -448,7 +448,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
    @ReactMethod
     public void setIdentityAsync(String identity, Promise promise) {
         Branch branch = Branch.getInstance();
-        branch.setIdentity(identity, new BranchReferralInitListener() {
+        branch.setIdentity(identity, new Branch.BranchReferralInitListener() {
             @Override
             public void onInitFinished(JSONObject referringParams, BranchError error) {
                 if (error != null) {
