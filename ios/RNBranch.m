@@ -407,6 +407,21 @@ RCT_EXPORT_METHOD(
     [self.class.branch setIdentity:identity];
 }
 
+#pragma mark setIdentityAsync
+RCT_EXPORT_METHOD(
+                  setIdentityAsync:(NSString *)identity
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject
+                  ) {
+    [self.class.branch setIdentity: identity withCallback:^(NSDictionary *params, NSError *error) {
+        if (!error) {
+            resolve(params);
+        } else {
+            reject(@"RNBranch::Error::setIdentityAsync failed", error.localizedDescription, error);
+        }
+    }];
+}
+
 #pragma mark setRequestMetadataKey
 RCT_EXPORT_METHOD(
                   setRequestMetadataKey:(NSString *)key

@@ -276,13 +276,25 @@ interface BranchLinkControlParams {
   $samsung_url?: string;
 }
 
+interface BranchShareSuccess {
+  completed: true;
+  error: null;
+  channel: string;
+}
+
+interface BranchShareFailure {
+  completed: false;
+  error: null | string;
+  channel: null;
+}
+
 interface BranchUniversalObject {
   ident: string;
   showShareSheet: (
     shareOptions?: BranchShareSheetOptions,
     linkProperties?: BranchLinkProperties,
     controlParams?: BranchLinkControlParams
-  ) => void;
+  ) => Promise<BranchShareSuccess | BranchShareFailure>;
   generateShortUrl: (
     linkProperties: BranchLinkProperties,
     controlParams: BranchLinkControlParams
@@ -310,9 +322,10 @@ interface Branch {
   getFirstReferringParams: () => Promise<BranchParams>;
   lastAttributedTouchData: (attributionWindow?: number) => Promise<BranchParams>;
   setIdentity: (identity: string) => void;
+  setIdentityAsync: (identity: string) => Promise<BranchParams>;
   setRequestMetadata: (key: string, value: string) => void;
   addFacebookPartnerParameter: (name: string, value: string) => void;
-  clearPartnerParameter: () => void;
+  clearPartnerParameters: () => void;
   logout: () => void;
   openURL: (url: string, options?: { newActivity?: boolean }) => void;
   createBranchUniversalObject: (
