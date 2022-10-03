@@ -1,3 +1,6 @@
+2022-10-03 Version 5.6.1
+  - Update Android SDK to 5.2.5
+
 2022-09-30 Version 5.6.0
   - Update Android SDK to 5.2.4
   - Update iOS SDK to 1.43.2
