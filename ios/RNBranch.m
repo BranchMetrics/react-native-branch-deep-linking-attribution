@@ -394,9 +394,13 @@ RCT_EXPORT_METHOD(
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(__unused RCTPromiseRejectBlock)reject
                   ) {
-    [self.class.branch lastAttributedTouchDataWithAttributionWindow:window.integerValue completion:^(BranchLastAttributedTouchData *r, NSError *e){
-        // TODO: pass back the error to JS
-        resolve(r);
+    [self.class.branch lastAttributedTouchDataWithAttributionWindow:window.integerValue completion:^(BranchLastAttributedTouchData *data, NSError *error){
+        if (!error) {
+            resolve(data.lastAttributedTouchJSON);
+        } else {
+            reject(@"RNBranch::Error::lastAttributedTouchData failed", error.localizedDescription, error);
+        }
+
     }];
 }
 
