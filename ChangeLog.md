@@ -1,3 +1,7 @@
+2022-10-03 Version 5.6.2
+  - Fixed bug with returning LATD on iOS
+  - Fixed bug with setIdentityAsync on Android
+
 2022-10-03 Version 5.6.1
   - Update Android SDK to 5.2.5
 
