@@ -296,8 +296,8 @@ interface BranchUniversalObject {
     controlParams?: BranchLinkControlParams
   ) => Promise<BranchShareSuccess | BranchShareFailure>;
   generateShortUrl: (
-    linkProperties: BranchLinkProperties,
-    controlParams: BranchLinkControlParams
+    linkProperties?: BranchLinkProperties,
+    controlParams?: BranchLinkControlParams
   ) => Promise<{ url: string }>;
   logEvent: (eventName: string, params?: BranchEventParams) => Promise<null>;
   release: () => void;
