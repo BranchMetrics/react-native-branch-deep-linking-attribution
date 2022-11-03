@@ -1,0 +1,18 @@
+#on: [push]
+on:
+ workflow_dispatch:
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.BRANCHLET_ACCESS_TOKEN_PUBLIC  }}
+        script: |
+          await github.rest.actions.createWorkflowDispatch({
+            owner: 'BranchMetrics',
+            repo: 'qentelli-saas-sdk-react-native-testing-automation',
+            workflow_id: 'BrowserStack_ReactNative_Tests.yml',
+            ref: 'master'
+          })
