@@ -31,7 +31,7 @@ export interface BranchParams {
   [data: string]: AnyDataType;
 }
 
-type BranchEventParams = Pick<
+export type BranchEventParams = Pick<
   BranchEvent,
   | "transactionID"
   | "currency"
@@ -46,11 +46,12 @@ type BranchEventParams = Pick<
   | "customData"
 >;
 
-export type ATTAuthorizationStatus = 'authorized'
-  | 'denied'
-  | 'undetermined'
-  | 'restricted'
-  
+export type ATTAuthorizationStatus =
+  | "authorized"
+  | "denied"
+  | "undetermined"
+  | "restricted";
+
 export class BranchEvent {
   logEvent: () => Promise<null>;
   constructor(
@@ -250,7 +251,7 @@ interface BranchUniversalObjectOptions {
   };
 }
 
-interface BranchShareSheetOptions {
+export interface BranchShareSheetOptions {
   messageHeader?: string;
   messageBody?: string;
   emailSubject?: string;
@@ -258,7 +259,7 @@ interface BranchShareSheetOptions {
   text?: string;
 }
 
-interface BranchLinkProperties {
+export interface BranchLinkProperties {
   alias?: string;
   campaign?: string;
   feature?: string;
@@ -267,7 +268,7 @@ interface BranchLinkProperties {
   tags?: string[];
 }
 
-interface BranchLinkControlParams {
+export interface BranchLinkControlParams {
   $fallback_url?: string;
   $desktop_url?: string;
   $ios_url?: string;
@@ -320,7 +321,9 @@ interface Branch {
   isTrackingDisabled: boolean;
   getLatestReferringParams: (synchronous?: boolean) => Promise<BranchParams>;
   getFirstReferringParams: () => Promise<BranchParams>;
-  lastAttributedTouchData: (attributionWindow?: number) => Promise<BranchParams>;
+  lastAttributedTouchData: (
+    attributionWindow?: number
+  ) => Promise<BranchParams>;
   setIdentity: (identity: string) => void;
   setIdentityAsync: (identity: string) => Promise<BranchParams>;
   setRequestMetadata: (key: string, value: string) => void;
@@ -333,13 +336,13 @@ interface Branch {
     options: BranchUniversalObjectOptions
   ) => Promise<BranchUniversalObject>;
   handleATTAuthorizationStatus: (
-    ATTAuthorizationStatus:ATTAuthorizationStatus
+    ATTAuthorizationStatus: ATTAuthorizationStatus
   ) => void;
   getBranchQRCode: (
     settings: BranchQRCodeSettings,
     branchUniversalObject: BranchUniversalObjectOptions,
     linkProperties: BranchLinkProperties,
-    controlParams: BranchLinkControlParams,
+    controlParams: BranchLinkControlParams
   ) => Promise<string>;
   setPreInstallCampaign: (campaign: string) => void;
   setPreInstallPartner: (partner: string) => void;
