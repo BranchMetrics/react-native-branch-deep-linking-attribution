@@ -1,0 +1,21 @@
+version: 2
+updates:
+
+  # Maintain dependencies for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Raise pull requests against the "master" branch
+    target-branch: "master"
+    # Allow up to 10 open pull requests
+    open-pull-requests-limit: 10
+    # Use custom labels on pull requests for Docker version updates
+    labels:
+      - "dependabot-PR"
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
