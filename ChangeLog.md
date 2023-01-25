@@ -1,3 +1,9 @@
+2023-01-23 Version 5.7.0
+  - Update Android SDK to 5.2.7
+  - Update iOS SDK to 1.45.2
+  - Fix ~creation_source type - Thanks @vincent-paing
+  - Add export for success and error event - Thanks @vincent-paing
+
 2022-10-13 Version 5.6.2
   - Fixed bug with returning LATD on iOS
   - Fixed bug with setIdentityAsync on Android
