@@ -107,8 +107,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     public static void reInitSession(Activity reactActivity) {
+        Log.i("BranchTest","reInitSession " + reactActivity);
         Branch branch = Branch.getInstance();
         Intent intent = reactActivity.getIntent();
+        Log.i("BranchTest","reInitSession intent " + intent);
         if (intent != null) {
             intent.putExtra("branch_force_new_session", true);
             notifyJSOfInitSessionStart(reactActivity, intent.getData());
@@ -119,11 +121,14 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
+        Log.i("BranchTest","initSession uri " + uri + " reactActivity " + reactActivity + " anInitListener" + anInitListener);
         initListener = anInitListener;
         initSession(uri, reactActivity);
     }
 
     public static void initSession(final Uri uri, Activity reactActivity) {
+        Log.i("BranchTest","initSession uri " + uri + " reactActivity " + reactActivity);
+
         Branch branch = setupBranch(reactActivity.getApplicationContext());
 
         mActivity = reactActivity;
@@ -134,6 +139,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onInitFinished(JSONObject referringParams, BranchError error) {
+                Log.i("BranchTest","onInitFinished referringParams " + referringParams);
+
                 // react native currently expects this to never be null
                 if (referringParams == null) {
                     referringParams = new JSONObject();
@@ -156,12 +163,17 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 LinkProperties linkProperties = LinkProperties.getReferredLinkProperties();
 
                 if (initListener != null) {
+                    Log.i("BranchTest","calling onInitFinished " + branchUniversalObject + " " + linkProperties +" " +error);
                     initListener.onInitFinished(branchUniversalObject, linkProperties, error);
                 }
                 generateLocalBroadcast(referringParams, uri, branchUniversalObject, linkProperties, error);
+
+                // post back, don't broadcast
             }
 
             private Branch.BranchReferralInitListener init(Activity activity) {
+                Log.i("BranchTest","init " + activity);
+
                 mmActivity = activity;
                 return this;
             }
@@ -171,6 +183,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                                                 BranchUniversalObject branchUniversalObject,
                                                 LinkProperties linkProperties,
                                                 BranchError error) {
+
+                Log.i("BranchTest","generateLocalBroadcast referringParams " + referringParams + " uri " + uri + " " + linkProperties + " error " + error);
+
                 Intent broadcastIntent = new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT);
 
                 if (referringParams != null) {
@@ -197,6 +212,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                     broadcastIntent.putExtra(NATIVE_INIT_SESSION_FINISHED_EVENT_ERROR, error.getMessage());
                 }
 
+                Log.i("BranchTest","sending broadcast " + broadcastIntent);
+
                 LocalBroadcastManager.getInstance(mmActivity).sendBroadcast(broadcastIntent);
             }
         }.init(reactActivity);
@@ -215,6 +232,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
      * @param intent the new Intent received via Activity.onNewIntent
      */
     public static void onNewIntent(@Nonnull Intent intent) {
+        Log.i("BranchTest","onNewIntent " + intent);
         mActivity.setIntent(intent);
         mNewIntent = true;
         reInitSession(mActivity);
@@ -227,6 +245,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
      * @param uri the URI to include in the notification or null
      */
     private static void notifyJSOfInitSessionStart(Context context, Uri uri) {
+        Log.i("BranchTest","notifyJSOfInitSessionStart  " + uri);
+
         /*
          * This check just ensures that we only generate one RNBranch.initSessionStart
          * event per call to onNewIntent().
@@ -239,6 +259,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             broadcastIntent.putExtra(NATIVE_INIT_SESSION_STARTED_EVENT_URI, uri);
         }
 
+        Log.i("BranchTest", "Broadcasting NATIVE_INIT_SESSION_STARTED_EVENT");
         LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
         Log.d(REACT_CLASS, "Sent session start broadcast for " + uri);
     }
@@ -248,6 +269,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
      * logging, please invoke enableLogging. If you wish to simulate installs, please Test Devices
      * (https://help.branch.io/using-branch/docs/adding-test-devices)
      */
+    @Deprecated
     public static void setDebug() { }
 
     public static void enableLogging() {
@@ -322,21 +344,30 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     private void listenForInitSessionEventsToReactNative(ReactApplicationContext reactContext) {
+        Log.i("BranchTest","listenForInitSessionEventsToReactNative  " + reactContext);
+
         mInitSessionFinishedEventReceiver = new BroadcastReceiver() {
             RNBranchModule mBranchModule;
 
             @Override
             public void onReceive(Context context, Intent intent) {
+                Log.i("BranchTest","onReceive  " + intent);
+
                 final boolean hasError = (initSessionResult.has("error") && !initSessionResult.isNull("error"));
                 final String eventName = hasError ? RN_INIT_SESSION_ERROR_EVENT : RN_INIT_SESSION_SUCCESS_EVENT;
+                Log.i("BranchTest","sendRNEvent   " + eventName);
                 mBranchModule.sendRNEvent(eventName, convertJsonToMap(initSessionResult));
             }
 
             private BroadcastReceiver init(RNBranchModule branchModule) {
+                Log.i("BranchTest","init  " + branchModule);
+
                 mBranchModule = branchModule;
                 return this;
             }
         }.init(this);
+
+        Log.i("BranchTest","registering receiver");
 
         LocalBroadcastManager.getInstance(reactContext).registerReceiver(mInitSessionFinishedEventReceiver, new IntentFilter(NATIVE_INIT_SESSION_FINISHED_EVENT));
 
@@ -345,6 +376,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onReceive(Context context, Intent intent) {
+                Log.i("BranchTest","mInitSessionStartedEventReceiver  " + context + " intent " + intent);
+
                 Uri uri = intent.getParcelableExtra(NATIVE_INIT_SESSION_STARTED_EVENT_URI);
                 WritableMap payload = new WritableNativeMap();
                 if (uri != null) {
@@ -357,6 +390,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             }
 
             private BroadcastReceiver init(RNBranchModule branchModule) {
+                Log.i("BranchTest","init  " + branchModule);
+
                 mBranchModule = branchModule;
                 return this;
             }
@@ -367,6 +402,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     @Override
     public void onCatalystInstanceDestroy() {
+        Log.i("BranchTest","onCatalystInstanceDestroy ");
+
         LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionFinishedEventReceiver);
         LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionStartedEventReceiver);
     }
@@ -374,6 +411,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     @Override
     public String getName() {
         return NAME;
+    }
+
+    @ReactMethod
+    public void notifyNativeToInit(){
+        Log.d(REACT_CLASS, "notifyNativeToInit");
+        Branch.notifyNativeToInit();
     }
 
     @ReactMethod
@@ -406,6 +449,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void redeemInitSessionResult(Promise promise) {
+        Log.i("BranchTest","redeemInitSessionResult " + promise + " initsessionresult " + initSessionResult);
+
         promise.resolve(convertJsonToMap(initSessionResult));
     }
 
@@ -831,7 +876,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     private static Branch setupBranch(Context context) {
-        Branch branch = Branch.getInstance(context);
+        Log.i("BranchTest", "setupBranch");
+        Branch branch = Branch.getAutoInstance(context);
 
         if (!mInitialized) {
             Log.i(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);
@@ -850,6 +896,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
             mInitialized = true;
         }
+
+        Log.i("BranchTest", "setupBranch is initialized " + mInitialized);
 
         return branch;
     }
