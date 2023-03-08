@@ -210,7 +210,7 @@ test('customData is null by default', () => {
 
 test('customData is correct', () => {
   const event = new BranchEvent(BranchEvent.ViewItem, null, { customData: { key: 'value' } })
-  expect(typeof(event.customData)).toBe('object')
+  expect(typeof event.customData).toBe('object')
   expect(event.customData.key).toBe('value')
 })
 
