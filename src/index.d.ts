@@ -318,7 +318,7 @@ interface Branch {
   initSessionTtl?: number;
   skipCachedEvents: () => void;
   disableTracking: (disable: boolean) => void;
-  isTrackingDisabled: boolean;
+  isTrackingDisabled: () => Promise<boolean>;
   getLatestReferringParams: (synchronous?: boolean) => Promise<BranchParams>;
   getFirstReferringParams: () => Promise<BranchParams>;
   lastAttributedTouchData: (
