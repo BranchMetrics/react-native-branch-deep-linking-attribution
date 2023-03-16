@@ -448,6 +448,13 @@ RCT_EXPORT_METHOD(
     [self.class.branch handleDeepLinkWithNewSession:[NSURL URLWithString:urlString]];
 }
 
+#pragma mark notifyNativeToInit
+RCT_EXPORT_METHOD(
+                  notifyNativeToInit
+                  ) {
+    [self.class.branch notifyNativeToInit];
+}
+
 #pragma mark sendCommerceEvent
 RCT_EXPORT_METHOD(
                   sendCommerceEvent:(NSString *)revenue
