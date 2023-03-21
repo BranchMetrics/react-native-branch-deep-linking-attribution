@@ -6,7 +6,7 @@
 //  Copyright © 2017 Branch Metrics. All rights reserved.
 //
 
-#import <Branch/Branch.h>
+#import <BranchSDK/Branch.h>
 
 /*
  * Utility class to represent dynamically all supported JS properties on BranchUniversalObject and BranchLinkProperties.

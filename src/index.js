@@ -45,8 +45,8 @@ class Branch {
     subscriber.subscribe()
 
     Platform.select({
-      android: () => RNBranch.notifyNativeToInit()
-      //ios: () => RNBranch.notifyNativeToInit() //TODO: implement iOS side
+      android: () => RNBranch.notifyNativeToInit(),
+      ios: () => RNBranch.notifyNativeToInit()
     })
 
     return () => subscriber.unsubscribe()

@@ -6,6 +6,7 @@
 #import "BranchUniversalObject+RNBranch.h"
 #import "RNBranchAgingDictionary.h"
 #import "RNBranchEventEmitter.h"
+#import <BranchSDK/NSError+Branch.h>
 
 NSString * const RNBranchLinkOpenedNotification = @"RNBranchLinkOpenedNotification";
 NSString * const RNBranchLinkOpenedNotificationErrorKey = @"error";
@@ -446,6 +447,13 @@ RCT_EXPORT_METHOD(
                   openURL:(NSString *)urlString
                   ) {
     [self.class.branch handleDeepLinkWithNewSession:[NSURL URLWithString:urlString]];
+}
+
+#pragma mark notifyNativeToInit
+RCT_EXPORT_METHOD(
+                  notifyNativeToInit
+                  ) {
+    [self.class.branch notifyNativeToInit];
 }
 
 #pragma mark sendCommerceEvent
