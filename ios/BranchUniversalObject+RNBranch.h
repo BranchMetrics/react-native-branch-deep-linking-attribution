@@ -6,8 +6,8 @@
 //  Copyright © 2017 Branch Metrics. All rights reserved.
 //
 
-#import <Branch/Branch.h>
-
+#import <BranchSDK/Branch.h>
+#import <BranchSDK/BranchUniversalObject.h>
 @class RNBranchProperty;
 
 @interface BranchUniversalObject(RNBranch)

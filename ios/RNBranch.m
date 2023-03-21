@@ -6,6 +6,7 @@
 #import "BranchUniversalObject+RNBranch.h"
 #import "RNBranchAgingDictionary.h"
 #import "RNBranchEventEmitter.h"
+#import <BranchSDK/NSError+Branch.h>
 
 NSString * const RNBranchLinkOpenedNotification = @"RNBranchLinkOpenedNotification";
 NSString * const RNBranchLinkOpenedNotificationErrorKey = @"error";
