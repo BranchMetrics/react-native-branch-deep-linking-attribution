@@ -1,3 +1,20 @@
+2023-03-29
+  - To address a race condition where apps don't receive Branch params on cold starts, an opt in fix will defer loading the native iOS/Android layer until signalled
+    by this plugin in `subscribe()`.
+    This can be enabled by creating a `branch.json` file with the contents:
+      ```js
+      {
+        "deferInitForPluginRuntime": true
+      }
+      ```
+    Android: Place this file in your src/main/assets folder
+    iOS: Add this file through Xcode, File -> Add Files to "YourProject.xcodeproj"
+    and add to Copy Bundle Resources for each target that inits the Branch SDK.
+  - Update Android SDK to 5.3.0
+  - Update iOS SDK 2.1.0
+      It may be necessary to clear out pod cache and reinstall
+  - Fixes the typing of `isTrackingDisabled` to return `Promise<boolean>`
+
 2023-01-23 Version 5.7.0
   - Update Android SDK to 5.2.7
   - Update iOS SDK to 1.45.2

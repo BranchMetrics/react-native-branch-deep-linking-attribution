@@ -44,11 +44,6 @@ class Branch {
     const subscriber = new BranchSubscriber(options)
     subscriber.subscribe()
 
-    Platform.select({
-      android: () => RNBranch.notifyNativeToInit(),
-      ios: () => RNBranch.notifyNativeToInit()
-    })
-
     return () => subscriber.unsubscribe()
   }
 

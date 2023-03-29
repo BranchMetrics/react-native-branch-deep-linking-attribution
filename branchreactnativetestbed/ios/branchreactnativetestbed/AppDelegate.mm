@@ -12,7 +12,6 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
-  [RNBranch enableLogging];
   [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];

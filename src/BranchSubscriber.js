@@ -67,7 +67,7 @@ export default class BranchSubscriber {
           }
 
           /*
-           * TODO: There can easily be a race here on cold launch from a link.
+           * There can easily be a race here on cold launch from a link.
            * An INIT_SESSION_START event can be emitted by the native layer
            * before the subscribe() method is called in JS. Then subscribe() is
            * called before a cached response is available, so here we get
@@ -75,6 +75,16 @@ export default class BranchSubscriber {
            * transmitted to JS, and onOpenComplete is called with a non-null
            * URI, but onOpenStart was never called. This can be addressed
            * by caching the pending URI in the native layers.
+           * 
+           * An opt in fix will defer loading the native iOS/Android layer until signalled
+           * by this plugin below.
+           * This can be enabled by creating a branch.json file with the contents:
+              {
+                "deferInitForPluginRuntime": true
+              }
+           * Android: Place this file in your src/main/assets folder
+           * iOS: Add this file through Xcode, File -> Add Files to "YourProject.xcodeproj"
+           * and add to Copy Bundle Resources for each target that inits the Branch SDK. 
            */
           if (this.options.onOpenStart && 'uri' in result) {
             this.options.onOpenStart({uri: result.uri, cachedInitialEvent: true})
@@ -91,6 +101,12 @@ export default class BranchSubscriber {
     else {
       this._subscribe()
     }
+
+    // The plugin will make the call to the native layer to check if the init needs to be released
+    Platform.select({
+      android: () => RNBranch.notifyNativeToInit(),
+      ios: () => RNBranch.notifyNativeToInit()
+    })()
   }
 
   /**
