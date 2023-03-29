@@ -12,45 +12,45 @@ interface AnyDataArray extends Array<AnyDataType> {}
 interface AnyDataObject extends Record<string, AnyDataType> {}
 
 export interface BranchParams {
-  "~channel"?: string;
-  "~feature"?: string;
-  "~tags"?: string[];
-  "~campaign"?: string;
-  "~stage"?: string;
-  "~creation_source"?: number;
-  "~referring_link"?: string;
-  "~id"?: string;
-  "+match_guaranteed": boolean;
-  "+referrer"?: string;
-  "+phone_number"?: string;
-  "+is_first_session": boolean;
-  "+clicked_branch_link": boolean;
-  "+click_timestamp"?: number;
-  "+url"?: string;
-  "+rn_cached_initial_event"?: boolean;
+  '~channel'?: string;
+  '~feature'?: string;
+  '~tags'?: string[];
+  '~campaign'?: string;
+  '~stage'?: string;
+  '~creation_source'?: number;
+  '~referring_link'?: string;
+  '~id'?: string;
+  '+match_guaranteed': boolean;
+  '+referrer'?: string;
+  '+phone_number'?: string;
+  '+is_first_session': boolean;
+  '+clicked_branch_link': boolean;
+  '+click_timestamp'?: number;
+  '+url'?: string;
+  '+rn_cached_initial_event'?: boolean;
   [data: string]: AnyDataType;
 }
 
 export type BranchEventParams = Pick<
   BranchEvent,
-  | "transactionID"
-  | "currency"
-  | "revenue"
-  | "shipping"
-  | "tax"
-  | "coupon"
-  | "affiliation"
-  | "description"
-  | "searchQuery"
-  | "alias"
-  | "customData"
+  | 'transactionID'
+  | 'currency'
+  | 'revenue'
+  | 'shipping'
+  | 'tax'
+  | 'coupon'
+  | 'affiliation'
+  | 'description'
+  | 'searchQuery'
+  | 'alias'
+  | 'customData'
 >;
 
 export type ATTAuthorizationStatus =
-  | "authorized"
-  | "denied"
-  | "undetermined"
-  | "restricted";
+  | 'authorized'
+  | 'denied'
+  | 'undetermined'
+  | 'restricted';
 
 export class BranchEvent {
   logEvent: () => Promise<null>;
@@ -318,7 +318,7 @@ interface Branch {
   initSessionTtl?: number;
   skipCachedEvents: () => void;
   disableTracking: (disable: boolean) => void;
-  isTrackingDisabled: boolean;
+  isTrackingDisabled: () => Promise<boolean>;
   getLatestReferringParams: (synchronous?: boolean) => Promise<BranchParams>;
   getFirstReferringParams: () => Promise<BranchParams>;
   lastAttributedTouchData: (
