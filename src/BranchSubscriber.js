@@ -76,7 +76,7 @@ export default class BranchSubscriber {
            * URI, but onOpenStart was never called. This can be addressed
            * by caching the pending URI in the native layers.
            * 
-           * An opt in fix will defer loading the native iOS/Android layer until signalled
+           * An opt in fix will defer loading the native iOS/Android layer until signaled
            * by this plugin below.
            * This can be enabled by creating a branch.json file with the contents:
               {

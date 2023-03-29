@@ -1,5 +1,5 @@
 2023-03-29
-  - To address a race condition where apps don't receive Branch params on cold starts, an opt in fix will defer loading the native iOS/Android layer until signalled
+  - To address a race condition where apps don't receive Branch params on cold starts, an opt in fix will defer loading the native iOS/Android layer until signaled
     by this plugin in `subscribe()`.
     This can be enabled by creating a `branch.json` file with the contents:
       ```js
