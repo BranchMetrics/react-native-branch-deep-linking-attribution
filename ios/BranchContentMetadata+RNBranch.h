@@ -5,7 +5,7 @@
 //  Created by Jimmy Dee on 12/6/17.
 //
 
-#import <Branch/Branch.h>
+#import <BranchSDK/Branch.h>
 
 @interface BranchContentMetadata(RNBranch)
 

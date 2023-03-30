@@ -1,4 +1,4 @@
-import {Alert, Modal} from 'react-native';
+import {Alert} from 'react-native';
 import branch, {BranchEvent} from 'react-native-branch';
 
 export default class BranchWrapper {

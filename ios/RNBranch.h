@@ -1,7 +1,9 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
 
-#import <Branch/Branch.h>
+#import <BranchSDK/Branch.h>
+#import <BranchSDK/BranchQRCode.h>
+#import <BranchSDK/BNCCommerceEvent.h>
 
 extern NSString * _Nonnull const RNBranchLinkOpenedNotification;
 extern NSString * _Nonnull const RNBranchLinkOpenedNotificationErrorKey;

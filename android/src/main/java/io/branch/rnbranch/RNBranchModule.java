@@ -109,6 +109,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public static void reInitSession(Activity reactActivity) {
         Branch branch = Branch.getInstance();
         Intent intent = reactActivity.getIntent();
+        Log.d(REACT_CLASS,"reInitSession intent " + intent);
         if (intent != null) {
             intent.putExtra("branch_force_new_session", true);
             notifyJSOfInitSessionStart(reactActivity, intent.getData());
@@ -119,11 +120,14 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     public static void initSession(final Uri uri, Activity reactActivity, Branch.BranchUniversalReferralInitListener anInitListener) {
+        Log.d(REACT_CLASS,"initSession uri " + uri + " reactActivity " + reactActivity + " anInitListener" + anInitListener);
         initListener = anInitListener;
         initSession(uri, reactActivity);
     }
 
     public static void initSession(final Uri uri, Activity reactActivity) {
+        Log.d(REACT_CLASS,"initSession uri " + uri + " reactActivity " + reactActivity);
+
         Branch branch = setupBranch(reactActivity.getApplicationContext());
 
         mActivity = reactActivity;
@@ -134,6 +138,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onInitFinished(JSONObject referringParams, BranchError error) {
+                Log.d(REACT_CLASS,"onInitFinished referringParams " + referringParams);
+
                 // react native currently expects this to never be null
                 if (referringParams == null) {
                     referringParams = new JSONObject();
@@ -148,7 +154,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                     result.put(NATIVE_INIT_SESSION_FINISHED_EVENT_URI, isNewIntent && uri != null ? uri.toString() : JSONObject.NULL);
                 }
                 catch (JSONException e) {
-
+                    Log.e(REACT_CLASS, e.getMessage());
                 }
                 initSessionResult = result;
 
@@ -156,6 +162,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                 LinkProperties linkProperties = LinkProperties.getReferredLinkProperties();
 
                 if (initListener != null) {
+                    Log.d(REACT_CLASS,"onInitFinished " + branchUniversalObject + " " + linkProperties + " error " +error);
                     initListener.onInitFinished(branchUniversalObject, linkProperties, error);
                 }
                 generateLocalBroadcast(referringParams, uri, branchUniversalObject, linkProperties, error);
@@ -171,6 +178,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                                                 BranchUniversalObject branchUniversalObject,
                                                 LinkProperties linkProperties,
                                                 BranchError error) {
+                
                 Intent broadcastIntent = new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT);
 
                 if (referringParams != null) {
@@ -202,7 +210,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }.init(reactActivity);
 
         notifyJSOfInitSessionStart(reactActivity, uri);
-        Branch.sessionBuilder(reactActivity).withCallback(referralInitListener).withData(uri).init();
+        
+        Branch.InitSessionBuilder initSessionBuilder = Branch.sessionBuilder(reactActivity).withCallback(referralInitListener).withData(uri);
+        Log.d(REACT_CLASS, "sessionBuilder " + initSessionBuilder);
+        initSessionBuilder.init();
     }
 
     /**
@@ -215,6 +226,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
      * @param intent the new Intent received via Activity.onNewIntent
      */
     public static void onNewIntent(@Nonnull Intent intent) {
+        Log.d(REACT_CLASS,"onNewIntent " + intent);
         mActivity.setIntent(intent);
         mNewIntent = true;
         reInitSession(mActivity);
@@ -227,6 +239,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
      * @param uri the URI to include in the notification or null
      */
     private static void notifyJSOfInitSessionStart(Context context, Uri uri) {
+        Log.d(REACT_CLASS,"notifyJSOfInitSessionStart  " + uri);
+
         /*
          * This check just ensures that we only generate one RNBranch.initSessionStart
          * event per call to onNewIntent().
@@ -239,8 +253,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             broadcastIntent.putExtra(NATIVE_INIT_SESSION_STARTED_EVENT_URI, uri);
         }
 
+        Log.d(REACT_CLASS, "Broadcasting NATIVE_INIT_SESSION_STARTED_EVENT");
         LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
-        Log.d(REACT_CLASS, "Sent session start broadcast for " + uri);
     }
 
     /**
@@ -248,6 +262,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
      * logging, please invoke enableLogging. If you wish to simulate installs, please Test Devices
      * (https://help.branch.io/using-branch/docs/adding-test-devices)
      */
+    @Deprecated
     public static void setDebug() { }
 
     public static void enableLogging() {
@@ -329,6 +344,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             public void onReceive(Context context, Intent intent) {
                 final boolean hasError = (initSessionResult.has("error") && !initSessionResult.isNull("error"));
                 final String eventName = hasError ? RN_INIT_SESSION_ERROR_EVENT : RN_INIT_SESSION_SUCCESS_EVENT;
+                
                 mBranchModule.sendRNEvent(eventName, convertJsonToMap(initSessionResult));
             }
 
@@ -367,6 +383,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     @Override
     public void onCatalystInstanceDestroy() {
+        Log.d(REACT_CLASS,"onCatalystInstanceDestroy ");
+
         LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionFinishedEventReceiver);
         LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionStartedEventReceiver);
     }
@@ -374,6 +392,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     @Override
     public String getName() {
         return NAME;
+    }
+
+    @ReactMethod
+    public void notifyNativeToInit(){
+        Log.d(REACT_CLASS, "notifyNativeToInit");
+        Branch.notifyNativeToInit();
     }
 
     @ReactMethod
@@ -681,6 +705,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void openURL(String url, ReadableMap options) {
+        Log.d(REACT_CLASS, "openURL url: " + url);
         if (mActivity == null) {
             // initSession is called before JS loads. This probably indicates failure to call initSession
             // in an activity.
@@ -831,7 +856,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     private static Branch setupBranch(Context context) {
-        Branch branch = Branch.getInstance(context);
+        Branch branch = Branch.getAutoInstance(context);
 
         if (!mInitialized) {
             Log.i(REACT_CLASS, "Initializing Branch SDK v. " + BuildConfig.VERSION_NAME);

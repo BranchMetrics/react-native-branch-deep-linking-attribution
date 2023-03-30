@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <RNBranch/RNBranch.h>
 #import <RNBranch/RNBranchEventEmitter.h>
-#import <Branch/Branch.h>
+#import <BranchSDK/Branch.h>
 
 #define ASSERT_CONSTANT(constantName, expectedValue) \
     NSString *constant = self.rnbranch.constantsToExport[constantName]; \
