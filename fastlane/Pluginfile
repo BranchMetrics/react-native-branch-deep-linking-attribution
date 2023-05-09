@@ -1,2 +1,0 @@
-gem 'fastlane-plugin-patch'
-gem 'fastlane-plugin-yarn'
