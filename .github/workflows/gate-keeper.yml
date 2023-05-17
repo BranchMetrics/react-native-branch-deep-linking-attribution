@@ -18,7 +18,7 @@ jobs:
       - name: Checkout ${{ github.ref_name }}
         uses: actions/checkout@v3
 
-      - name: Install Node ${{ env.NODE_VERSION }}
+      - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -37,7 +37,7 @@ jobs:
       - name: Checkout ${{ github.ref_name }}
         uses: actions/checkout@v3
 
-      - name: Install Node ${{ env.NODE_VERSION }}
+      - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -47,11 +47,13 @@ jobs:
         run: npm install
 
       - name: Run tests
-        id: runTests
         run: npm run test
 
       - name : upload codecov
         uses: codecov/codecov-action@v3
+        if: ${{ github.ref_name == 'main' && github.event.pull_request.merged == true }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
 
 
