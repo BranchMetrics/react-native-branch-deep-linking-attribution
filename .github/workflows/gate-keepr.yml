@@ -1,0 +1,57 @@
+name: Gate Keeper
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+    paths-ignore:
+      - docs/**
+      - README.md
+env:
+  NODE_VERSION: 16
+
+jobs:
+  test-lint:
+    name: Lint
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - name: Checkout ${{ github.ref_name }}
+        uses: actions/checkout@v3
+
+      - name: Install Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint tests
+        run: npm run lint
+
+  test-unit:
+    name: Unit tests
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - name: Checkout ${{ github.ref_name }}
+        uses: actions/checkout@v3
+
+      - name: Install Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        id: runTests
+        run: npm run test
+
+      - name : upload codecov
+        uses: codecov/codecov-action@v3
+
+
+
