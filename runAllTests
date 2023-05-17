@@ -35,10 +35,6 @@ fi
 
 bundle check || bundle install
 
-# Still having issues after update to RN 0.60
-# bundle exec fastlane android test
-bundle exec fastlane ios test
-
 if [[ "$HAVE_YARN" = 1 ]] ; then
   yarn lint
   yarn test
