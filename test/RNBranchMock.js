@@ -38,6 +38,8 @@ NativeModules.RNBranch = {
     error: null,
     uri: null,
   })),
+  notifyNativeToInit: jest.fn(() => Promise.resolve({
+  })),
 }
 
 NativeModules.RNBranchEventEmitter = {

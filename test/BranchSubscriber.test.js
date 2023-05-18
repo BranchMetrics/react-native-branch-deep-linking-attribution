@@ -1,5 +1,5 @@
 import { NativeModules } from 'react-native'
-//const { RNBranch } = NativeModules
+const { RNBranch } = NativeModules
 import { BranchSubscriber } from 'react-native-branch'
 
 test('default initializes with no options', () => {
@@ -21,7 +21,6 @@ test('will check cached events by default', () => {
   expect(subscriber._checkCachedEvents).toBe(true)
 })
 
-/*
 test('subscribes to init session start events', () => {
   const subscriber = new BranchSubscriber({
     checkCachedEvents: false,
@@ -191,6 +190,7 @@ test('does not return a cached result when none available', done => {
   subscriber.subscribe()
 })
 
+/*
 test('can unsubscribe after subscribe() is called', () => {
   // set up subscriber
   const subscriber = new BranchSubscriber({
