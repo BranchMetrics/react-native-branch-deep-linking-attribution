@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [opened,reopened,edited,synchronize]
     branches:
-      - main
+      - master
     paths-ignore:
       - docs/**
       - README.md
