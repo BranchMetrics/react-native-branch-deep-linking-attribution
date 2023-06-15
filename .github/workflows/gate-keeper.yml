@@ -1,9 +1,9 @@
 name: Gate Keeper
 on:
   pull_request:
-    types: [closed]
+    types: [opened,reopened,edited,synchronize]
     branches:
-      - main
+      - master
     paths-ignore:
       - docs/**
       - README.md
@@ -51,9 +51,6 @@ jobs:
 
       - name : upload codecov
         uses: codecov/codecov-action@v3
-        if: ${{ github.ref_name == 'main' && github.event.pull_request.merged == true }}
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
 
 
 

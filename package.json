@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "lint": "eslint src test",
-    "test": "jest --coverage"
+    "test": "jest --coverage --silent"
   },
   "keywords": [
     "react-native",
