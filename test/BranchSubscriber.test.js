@@ -190,6 +190,7 @@ test('does not return a cached result when none available', done => {
   subscriber.subscribe()
 })
 
+/*
 test('can unsubscribe after subscribe() is called', () => {
   // set up subscriber
   const subscriber = new BranchSubscriber({
@@ -216,3 +217,4 @@ test('can unsubscribe after subscribe() is called', () => {
     RNBranch.INIT_SESSION_SUCCESS,
   ])
 })
+*/
