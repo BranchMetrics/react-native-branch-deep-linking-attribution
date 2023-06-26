@@ -31,6 +31,5 @@ extern NSString * _Nonnull const RNBranchLinkOpenedNotificationLinkPropertiesKey
 
 + (void)setDebug;
 + (void)enableLogging;
-+ (void)delayInitToCheckForSearchAds;
 
 @end
