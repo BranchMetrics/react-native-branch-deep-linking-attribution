@@ -1,3 +1,8 @@
+2023-06-26 Version 5.9.0
+  - Update Android SDK to 5.5.0
+  - Update iOS SDK 2.2.0
+  - Removed deprecated iOS method, delayInitToCheckForSearchAds()
+  
 2023-03-29
   - To address a race condition where apps don't receive Branch params on cold starts, an opt in fix will defer loading the native iOS/Android layer until signaled
     by this plugin in `subscribe()`.
