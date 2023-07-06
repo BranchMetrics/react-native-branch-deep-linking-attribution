@@ -46,6 +46,8 @@ jobs:
           ls -la ./sdk/branch-sdk-automation-testbed/android/app/build/outputs/apk/debug/
           ls -la ./sdk/branch-sdk-automation-testbed/android/app/build/outputs/apk/debug/app-debug.apk
           response=$(curl -X POST https://api-cloud.browserstack.com/app-automate/upload -u "${{ secrets.BROWSER_STACK_USER }}:${{ secrets.BROWSER_STACK_KEY }}"  -F "file=@sdk/branch-sdk-automation-testbed/android/app/build/outputs/apk/debug/app-debug.apk")
+          echo $response
+          echo "Response is $response"
           parsed=$(echo $response | jq ".app_url")
           echo "::add-mask::$parsed"
           echo "APP_URL=$parsed" >> "$GITHUB_ENV"
