@@ -49,8 +49,9 @@ jobs:
           parsed=$(echo $response | jq ".app_url")
           echo "::add-mask::$parsed"
           echo "APP_URL=$parsed" >> "$GITHUB_ENV"
+          echo $APP_URL
+          echo $response
       - name: Execute automation
         run: |
           cd qa
-          mvn clean test -DsuiteXMLFile=testng.xml -e -DInputFormat="json" -DInputFilePath="TestSelection_BrowserStack_Android_RN.json" -DUploadNewBuild="Yes"
-                - name: Build testbed app for Android -DIS_RN_APP="true"
+          mvn clean test -DsuiteXMLFile=testng.xml -e -DInputFormat="json" -DInputFilePath="TestSelection_BrowserStack_Android_RN.json" -DUploadNewBuild="Yes" -DIS_RN_APP="true"
