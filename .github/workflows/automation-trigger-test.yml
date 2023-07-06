@@ -43,11 +43,7 @@ jobs:
       - name: Upload APK to BrowserStack
         run: |
           ls -la
-          cd ../
-          ls -la
-          echo "file=@sdk/Branch-SDK-Automation-TestBed/build/outputs/apk/debug/Branch-SDK-Automation-TestBed-debug.apk"
-          echo @sdk/Branch-SDK-Automation-TestBed/build/outputs/apk/debug/Branch-SDK-Automation-TestBed-debug.apk
-          response=$(curl -X POST https://api-cloud.browserstack.com/app-automate/upload -u "${{ secrets.BROWSER_STACK_USER }}:${{ secrets.BROWSER_STACK_KEY }}"  -F "file=@sdk/branch-sdk-automation-testbed/android/app/build/outputs/apk/debug/app-debug.apk")
+          response=$(curl -X POST https://api-cloud.browserstack.com/app-automate/upload -u "${{ secrets.BROWSER_STACK_USER }}:${{ secrets.BROWSER_STACK_KEY }}"  -F "file=./sdk/branch-sdk-automation-testbed/android/app/build/outputs/apk/debug/app-debug.apk")
           parsed=$(echo $response | jq ".app_url")
           echo "::add-mask::$parsed"
           echo "APP_URL=$parsed" >> "$GITHUB_ENV"
