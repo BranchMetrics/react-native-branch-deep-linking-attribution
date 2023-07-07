@@ -92,7 +92,9 @@ jobs:
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
       - name: Build testbed app for iOS
         run: |
-          cd sdk/branch-sdk-automation-testbed/iOS
+          cd sdk/branch-sdk-automation-testbed/
+          npm install
+          cd ./ios
           pod install
           xcodebuild -workspace branch_sdk_react_native_app.xcworkspace -scheme branch_sdk_react_native_app  -sdk iphoneos archive -archivePath ./IPA/branch_sdk_react_native_app.xcarchive
           xcodebuild -exportArchive -archivePath ./IPA/branch_sdk_react_native_app.xcarchive  -exportOptionsPlist IPA/Info.plist -exportPath IPA/
