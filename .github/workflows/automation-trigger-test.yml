@@ -35,7 +35,7 @@ jobs:
           java-version: '11'
       # to reduce complexity, testbed app uses sdk as a project reference
       - name: Build testbed app for Android
-        if: ${{ false }}
+        #if: ${{ false }}
         run: |
           cd sdk/branch-sdk-automation-testbed/
           npm install
@@ -43,21 +43,14 @@ jobs:
           ./gradlew assemble
           cd ../../
       - name: Upload APK to BrowserStack
-        if: ${{ false }}
+        #if: ${{ false }}
         run: |
-          ls -la
-          ls -la ./sdk/branch-sdk-automation-testbed/android/app/build/outputs/apk/debug/
-          ls -la ./sdk/branch-sdk-automation-testbed/android/app/build/outputs/apk/debug/app-debug.apk
           response=$(curl -X POST https://api-cloud.browserstack.com/app-automate/upload -u "${{ secrets.BROWSER_STACK_USER }}:${{ secrets.BROWSER_STACK_KEY }}"  -F "file=@sdk/branch-sdk-automation-testbed/android/app/build/outputs/apk/debug/app-debug.apk")
-          echo $response
-          echo "Response is $response"
           parsed=$(echo $response | jq ".app_url")
           echo "::add-mask::$parsed"
           echo "APP_URL=$parsed" >> "$GITHUB_ENV"
-          echo $APP_URL
-          echo $response
       - name: Execute automation
-        if: ${{ false }}
+        #if: ${{ false }}
         run: |
           cd qa
           echo "APP_URL=$parsed" >> "$GITHUB_ENV"
@@ -68,6 +61,7 @@ jobs:
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
           BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        if: ${{ false }}
         run: |
           # create variables
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
@@ -91,6 +85,7 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
       - name: Build testbed app for iOS
+        if: ${{ false }}
         run: |
           cd sdk/branch-sdk-automation-testbed/
           npm install
@@ -100,6 +95,7 @@ jobs:
           xcodebuild -workspace branch_sdk_react_native_app.xcworkspace -scheme branch_sdk_react_native_app -sdk iphoneos archive -archivePath ./IPA/branch_sdk_react_native_app.xcarchive
           xcodebuild -exportArchive -archivePath ./IPA/branch_sdk_react_native_app.xcarchive  -exportOptionsPlist IPA/Info.plist -exportPath IPA/
       - name: Upload IPA to BrowserStack
+        if: ${{ false }}
         run: |
           ls -la
           ls -la ./sdk/branch-sdk-automation-testbed/ios
@@ -113,6 +109,7 @@ jobs:
           echo $APP_URL
           echo $response
       - name: Execute automation for iOS RN app
+        if: ${{ false }}
         run: |
           cd qa
           echo "APP_URL=$parsed" >> "$GITHUB_ENV"
