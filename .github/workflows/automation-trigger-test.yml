@@ -104,7 +104,7 @@ jobs:
           ls -la
           ls -la ./sdk/branch-sdk-automation-testbed/ios
           ls -la ./sdk/branch-sdk-automation-testbed/ios/IPA/
-          response=$(curl -X POST https://api-cloud.browserstack.com/app-automate/upload -u "${{ secrets.BROWSER_STACK_USER }}:${{ secrets.BROWSER_STACK_KEY }}"  -F "file=@sdk/branch-sdk-automation-testbed/ios/IPA/")
+          response=$(curl -X POST https://api-cloud.browserstack.com/app-automate/upload -u "${{ secrets.BROWSER_STACK_USER }}:${{ secrets.BROWSER_STACK_KEY }}"  -F "file=@sdk/branch-sdk-automation-testbed/ios/IPA/branch_sdk_react_native_app.ipa")
           echo $response
           echo "Response is $response"
           parsed=$(echo $response | jq ".app_url")
