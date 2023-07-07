@@ -510,9 +510,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = branch_sdk_react_native_app/branch_sdk_react_native_app.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R63EM248DP;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R63EM248DP;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = branch_sdk_react_native_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -527,6 +529,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.branch.saas.sdk.testbed;
 				PRODUCT_NAME = branch_sdk_react_native_app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "iOS Saas SDK - Dev";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -541,9 +544,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = branch_sdk_react_native_app/branch_sdk_react_native_app.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R63EM248DP;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R63EM248DP;
 				INFOPLIST_FILE = branch_sdk_react_native_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -557,6 +562,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.branch.saas.sdk.testbed;
 				PRODUCT_NAME = branch_sdk_react_native_app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "iOS Saas SDK - Dev";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
