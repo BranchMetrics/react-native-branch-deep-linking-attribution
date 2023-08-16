@@ -66,7 +66,7 @@ export default async function createBranchUniversalObject(identifier, options = 
 
       return this._tryFunction(RNBranch.showShareSheet, shareOptions, linkProperties, controlParams)
     },
-    // deprecated in favor of userCompletedAction(RegisterViewEvent)
+    // deprecated in favor of BranchEvent
     registerView() {
       console.info('[Branch] registerView is deprecated. Please use logEvent(BranchEvent.ViewItem) instead.')
       return this._tryFunction(RNBranch.registerView)
@@ -78,13 +78,6 @@ export default async function createBranchUniversalObject(identifier, options = 
       console.info('[Branch] listOnSpotlight is deprecated. Please use locallyIndex instead.')
       if (Platform.OS !== 'ios') return Promise.resolve()
       return this._tryFunction(RNBranch.listOnSpotlight)
-    },
-    userCompletedAction(event, state = {}) {
-      console.info('[Branch] userCompletedAction is deprecated. Please use logEvent or the BranchEvent class instead.')
-      if (event == RNBranch.REGISTER_VIEW_EVENT) {
-        return this.logEvent(BranchEvent.ViewItem, { customData: state })
-      }
-      return this._tryFunction(RNBranch.userCompletedActionOnUniversalObject, event, state)
     },
     logEvent(eventName, params = {}) {
       return new BranchEvent(eventName, this, params).logEvent()
