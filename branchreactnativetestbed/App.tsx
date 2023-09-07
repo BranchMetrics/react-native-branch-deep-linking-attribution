@@ -20,7 +20,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {VERSION} from 'react-native-branch';
+import { VERSION } from 'react-native-branch';
 
 import BranchWrapper from './components/BranchWrapper';
 
@@ -133,8 +133,8 @@ class App extends React.Component<any, MyState> {
 
     this.events = [
       {
-        text: 'Send Commerce Event',
-        onPress: this.branchWrapper.sendCommerceEvent.bind(this),
+        text: 'Send Purchase Event',
+        onPress: this.branchWrapper.sendPurchaseEvent.bind(this),
         image: require('./images/attach_money_FILL1_wght400_GRAD0_opsz48.png'),
       },
       {
@@ -155,9 +155,9 @@ class App extends React.Component<any, MyState> {
     ];
 
     this.sections = [
-      {sectionName: 'Linking', branchButtons: this.linking},
-      {sectionName: 'Data', branchButtons: this.data},
-      {sectionName: 'Events', branchButtons: this.events},
+      { sectionName: 'Linking', branchButtons: this.linking },
+      { sectionName: 'Data', branchButtons: this.data },
+      { sectionName: 'Events', branchButtons: this.events },
     ];
   }
 
@@ -172,7 +172,7 @@ class App extends React.Component<any, MyState> {
   }
 
   render() {
-    const {modalVisible, qrCodeImage} = this.state;
+    const { modalVisible, qrCodeImage } = this.state;
 
     let modal = (
       <Modal
@@ -180,7 +180,7 @@ class App extends React.Component<any, MyState> {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          this.setState({modalVisible: false});
+          this.setState({ modalVisible: false });
         }}>
         <TouchableWithoutFeedback
           onPress={() => {

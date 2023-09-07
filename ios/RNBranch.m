@@ -451,55 +451,6 @@ RCT_EXPORT_METHOD(
     [self.class.branch notifyNativeToInit];
 }
 
-#pragma mark sendCommerceEvent
-RCT_EXPORT_METHOD(
-                  sendCommerceEvent:(NSString *)revenue
-                  metadata:(NSDictionary *)metadata
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(__unused RCTPromiseRejectBlock)reject
-                  ) {
-    BNCCommerceEvent *commerceEvent = [BNCCommerceEvent new];
-    commerceEvent.revenue = [NSDecimalNumber decimalNumberWithString:revenue];
-    [self.class.branch sendCommerceEvent:commerceEvent metadata:metadata withCompletion:^(NSDictionary *r, NSError *e){}];
-    resolve(NSNull.null);
-}
-
-#pragma mark userCompletedAction
-RCT_EXPORT_METHOD(
-                  userCompletedAction:(NSString *)event withState:(NSDictionary *)appState
-                  ) {
-    [self.class.branch userCompletedAction:event withState:appState];
-}
-
-#pragma mark userCompletedActionOnUniversalObject
-RCT_EXPORT_METHOD(
-                  userCompletedActionOnUniversalObject:(NSString *)identifier
-                  event:(NSString *)event
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject
-) {
-    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdent:identifier rejecter:reject];
-    if (!branchUniversalObject) return;
-
-    [branchUniversalObject userCompletedAction:event];
-    resolve(NSNull.null);
-}
-
-#pragma mark userCompletedActionOnUniversalObject
-RCT_EXPORT_METHOD(
-                  userCompletedActionOnUniversalObject:(NSString *)identifier
-                  event:(NSString *)event
-                  state:(NSDictionary *)state
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject
-                  ) {
-    BranchUniversalObject *branchUniversalObject = [self findUniversalObjectWithIdent:identifier rejecter:reject];
-    if (!branchUniversalObject) return;
-
-    [branchUniversalObject userCompletedAction:event withState:state];
-    resolve(NSNull.null);
-}
-
 #pragma mark logEvent
 RCT_EXPORT_METHOD(
                   logEvent:(NSArray *)identifiers
