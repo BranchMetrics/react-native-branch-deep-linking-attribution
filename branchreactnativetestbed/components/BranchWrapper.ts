@@ -216,7 +216,7 @@ export default class BranchWrapper {
     return Promise.resolve(!trackingDisabled);
   };
 
-  sendCommerceEvent = async () => {
+  sendPurchaseEvent = async () => {
     let params = {
       transaction_id: 'tras_Id_1232343434',
       currency: 'USD',
