@@ -1,3 +1,8 @@
+2023-10-02 Version 5.9.1
+  - Update Android SDK to 5.7.0
+  - Update iOS SDK 2.2.1
+  - Removed deprecated code related to v1/events.
+
 2023-06-26 Version 5.9.0
   - Update Android SDK to 5.5.0
   - Update iOS SDK 2.2.0
