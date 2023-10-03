@@ -1,3 +1,6 @@
+2023-10-03 Version 5.9.2
+  - Update Android SDK to 5.7.1 to include important bug fix.
+
 2023-10-02 Version 5.9.1
   - Update Android SDK to 5.7.0
   - Update iOS SDK 2.2.1
