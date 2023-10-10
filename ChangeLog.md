@@ -1,3 +1,8 @@
+2023-10-10 Version 6.0.0
+
+- Update Branch iOS SDK to 3.0.0
+- Update minimum iOS version to 12.0
+
 2023-10-03 Version 5.9.2
   - Update Android SDK to 5.7.1 to include gclid bug fix.
 
