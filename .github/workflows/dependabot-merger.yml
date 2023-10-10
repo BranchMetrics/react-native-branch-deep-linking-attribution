@@ -19,7 +19,7 @@ jobs:
           oncall=$(curl --request GET \
               --url "https://api.pagerduty.com/oncalls?since=$now&until=$end_time&schedule_ids[]=PQLHTOP" \
               --header 'Accept: application/vnd.pagerduty+json;version=2' \
-              --header "Authorization: Token token=u+Rx17kSFaAf8vDt-Lhg" \
+              --header "Authorization: Token token=${{ secrets.PAGERDUTY_TOKEN }}" \
               --header 'Content-Type: application/json' )
           
           engineer_name=$(echo "$oncall" | jq -r '.oncalls[0].user.summary')
