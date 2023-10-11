@@ -1,3 +1,21 @@
+2023-10-10 Version 6.0.0
+
+- Update Branch iOS SDK to 3.0.0 for iOS 17 support.
+  - Add a Privacy Manifest for the Branch SDK.
+  - Add support for a tracking domain. When Ads tracking is enabled, the SDK sends event calls to a tracking domain.
+  - SetIdentity and Logout are now handled device side
+  - Remove deprecated code and some data minimization
+    - Cross Platform ID
+    - Credits and Referrals
+    - Close requests
+    - Facebook App Links and related code.
+    - Pre-iOS 14 tracking status. This is always false on recent iOS versions.
+    - Tune data upgrade check
+    - v1 Branch Events, all events are now v2 Branch Events
+    - Pre-iOS 10 locale support
+    - Device carrier. This was used for fraud analysis, but is no longer available on new iOS versions.
+- Update minimum iOS version to 12.0
+
 2023-10-03 Version 5.9.2
   - Update Android SDK to 5.7.1 to include gclid bug fix.
 

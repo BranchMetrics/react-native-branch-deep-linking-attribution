@@ -3,7 +3,6 @@
 
 #import <BranchSDK/Branch.h>
 #import <BranchSDK/BranchQRCode.h>
-#import <BranchSDK/BNCCommerceEvent.h>
 
 extern NSString * _Nonnull const RNBranchLinkOpenedNotification;
 extern NSString * _Nonnull const RNBranchLinkOpenedNotificationErrorKey;

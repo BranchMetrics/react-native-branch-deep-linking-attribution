@@ -17,12 +17,12 @@ Pod::Spec.new do |s|
                    }
   s.license      = spec['license']
   s.homepage     = spec['homepage']
-  s.platform     = :ios, "11.0"
+  s.platform     = :ios, "12.0"
   s.source       = { spec['repository']['type'].to_sym => spec['repository']['url'].sub(/^[a-z]+\+/, '') }
   s.source_files = [ "ios/*.h", "ios/*.m"]
   s.compiler_flags = %[-DRNBRANCH_VERSION=@\\"#{s.version}\\"]
   s.header_dir   = 'RNBranch' # also sets generated module name
-  s.dependency 'BranchSDK', '2.2.1'
+  s.dependency 'BranchSDK', '3.0.0'
   s.dependency 'React-Core' # to ensure the correct build order
   
   # Swift/Objective-C compatibility
