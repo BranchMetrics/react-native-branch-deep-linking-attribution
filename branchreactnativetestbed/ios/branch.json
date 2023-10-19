@@ -1,4 +1,4 @@
 {
 	"enableLogging": true,
-	"deferInitForPluginRuntime": true
+	"deferInitForPluginRuntime": false
 }
