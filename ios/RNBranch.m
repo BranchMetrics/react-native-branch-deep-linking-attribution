@@ -119,11 +119,6 @@ RCT_EXPORT_MODULE();
     [self.branch enableLogging];
 }
 
-+ (void)delayInitToCheckForSearchAds
-{
-    [self.branch delayInitToCheckForSearchAds];
-}
-
 + (void)useTestInstance {
     useTestInstance = YES;
 }
