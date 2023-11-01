@@ -1,0 +1,67 @@
+name: Announce SDK Release on Slack
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Announce New Release in Slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          channel-id: "C063MQJMKJN" #sdk-releases
+          payload: |
+            {
+                "text": "New Release: Branch React Native SDK v${{ github.event.release.tag_name }}",
+                "blocks": [
+                    {
+                        "type": "header",
+                        "text": {
+                            "type": "plain_text",
+                            "text": ":rocket: New Release: Branch React Native SDK v${{ github.event.release.tag_name }}",                            
+                            "emoji": true
+                        }
+                    },
+                    {
+                        "type": "divider"
+                    },
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": ":star: *What's New*"
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": ${{ toJSON(github.event.release.body) }}
+                        }
+                	},
+                    {
+                        "type": "divider"
+                    },
+                    {
+                        "type": "actions",
+                        "elements": [
+                            {
+                                "type": "button",
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": ":git: GitHub Release",
+                                    "emoji": true
+                                },
+                                "value": "github",
+                                "action_id": "github",
+                                "url": "${{ github.event.release.html_url }}"
+                            }
+                        ]
+                    }
+                ]
+            }
+    env:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_SDK_BOT_TOKEN }}
