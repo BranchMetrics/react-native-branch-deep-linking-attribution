@@ -497,7 +497,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         branch.addFacebookPartnerParameterWithName(name, value);
     }
 
-        @ReactMethod
+    @ReactMethod
     public void addSnapPartnerParameter(String name, String value) {
         Branch branch = Branch.getInstance();
         branch.addSnapPartnerParameterWithName(name, value);
