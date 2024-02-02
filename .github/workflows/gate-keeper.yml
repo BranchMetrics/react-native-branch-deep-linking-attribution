@@ -1,12 +1,6 @@
 name: Gate Keeper
 on:
   pull_request:
-    types: [closed]
-    branches:
-      - master
-    paths-ignore:
-      - docs/**
-      - README.md
 env:
   NODE_VERSION: 16
 
