@@ -1,6 +1,9 @@
 name: Gate Keeper
 on:
   pull_request:
+  push:
+    branches:
+      - 'master'
 env:
   NODE_VERSION: 16
 
