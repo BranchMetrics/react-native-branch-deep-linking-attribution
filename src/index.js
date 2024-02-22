@@ -123,6 +123,11 @@ class Branch {
   setPreInstallCampaign = (campaign) => RNBranch.setPreinstallCampaign(campaign)
   setPreInstallPartner = (partner) => RNBranch.setPreinstallPartner(partner)
 
+  /*** DMA Consent Params ***/
+  setDMAParamsForEEA = (eeaRegion, adPersonalizationConsent, adUserDataUsageConsent) => {
+    RNBranch.setDMAParamsForEEA(eeaRegion, adPersonalizationConsent, adUserDataUsageConsent);
+  }
+
 }
 
 export { Branch, BranchEvent, BranchSubscriber }

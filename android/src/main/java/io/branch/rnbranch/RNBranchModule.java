@@ -1253,4 +1253,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }
         return array;
     }
+
+    @ReactMethod
+    public void setDMAParamsForEEA(boolean eeaRegion, boolean adPersonalizationConsent, boolean adUserDataUsageConsent) {
+        Branch branch = Branch.getInstance();
+        branch.setDMAParamsForEEA(eeaRegion, adPersonalizationConsent, adUserDataUsageConsent);
+    }
 }

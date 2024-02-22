@@ -744,4 +744,9 @@ RCT_EXPORT_METHOD(
     return hexComponent / 255.0;
 }
 
+#pragma mark setDMAParamsForEEA
+RCT_EXPORT_METHOD(setDMAParamsForEEA:(BOOL)eeaRegion AdPersonalizationConsent:(BOOL)adPersonalizationConsent AdUserDataUsageConsent:(BOOL)adUserDataUsageConsent) {
+    [Branch setDMAParamsForEEA:eeaRegion AdPersonalizationConsent:adPersonalizationConsent AdUserDataUsageConsent:adUserDataUsageConsent];
+}
+
 @end
