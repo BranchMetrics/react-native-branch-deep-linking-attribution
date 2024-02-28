@@ -109,11 +109,6 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - Class methods
 
-+ (void)setDebug
-{
-    [self.branch setDebug];
-}
-
 + (void)enableLogging
 {
     [self.branch enableLogging];
