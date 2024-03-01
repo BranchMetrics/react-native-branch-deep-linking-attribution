@@ -347,6 +347,7 @@ interface Branch {
   ) => Promise<string>;
   setPreInstallCampaign: (campaign: string) => void;
   setPreInstallPartner: (partner: string) => void;
+  setDMAParamsForEEA: (eeaRegion: boolean, adPersonalizationConsent: boolean, adUserDataUsageConsent: boolean) => void;
 }
 declare const branch: Branch;
 export default branch;

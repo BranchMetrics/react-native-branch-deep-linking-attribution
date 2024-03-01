@@ -109,11 +109,6 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - Class methods
 
-+ (void)setDebug
-{
-    [self.branch setDebug];
-}
-
 + (void)enableLogging
 {
     [self.branch enableLogging];
@@ -742,6 +737,11 @@ RCT_EXPORT_METHOD(
     unsigned hexComponent;
     [[NSScanner scannerWithString: fullHex] scanHexInt: &hexComponent];
     return hexComponent / 255.0;
+}
+
+#pragma mark setDMAParamsForEEA
+RCT_EXPORT_METHOD(setDMAParamsForEEA:(BOOL)eeaRegion AdPersonalizationConsent:(BOOL)adPersonalizationConsent AdUserDataUsageConsent:(BOOL)adUserDataUsageConsent) {
+    [Branch setDMAParamsForEEA:eeaRegion AdPersonalizationConsent:adPersonalizationConsent AdUserDataUsageConsent:adUserDataUsageConsent];
 }
 
 @end
