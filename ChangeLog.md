@@ -1,3 +1,11 @@
+2024-02-29 Version 6.1.0
+
+  - Update Android SDK to 5.9.0
+  - Update iOS SDK 3.2.0
+  - Added addSnapPartnerParameter() to support setting Snapchat partner parameters
+  - Added setDMAParamsForEEA() to support DMA compliance
+  - Removed deprecated setDebug() method
+
 2023-10-10 Version 6.0.0
 
 - Update Branch iOS SDK to 3.0.0 for iOS 17 support.
