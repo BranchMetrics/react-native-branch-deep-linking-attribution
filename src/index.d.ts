@@ -348,7 +348,7 @@ interface Branch {
   setPreInstallCampaign: (campaign: string) => void;
   setPreInstallPartner: (partner: string) => void;
   setDMAParamsForEEA: (eeaRegion: boolean, adPersonalizationConsent: boolean, adUserDataUsageConsent: boolean) => void;
-  setAPIURL: (url: string) => void;
+  setAPIUrl: (url: string) => void;
 }
 declare const branch: Branch;
 export default branch;

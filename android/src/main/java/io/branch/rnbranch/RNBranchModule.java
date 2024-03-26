@@ -1253,7 +1253,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setAPIURL(String apiURL) {
-        Branch.setAPIUrl(apiURL);
+    public void setAPIUrl(String apiUrl) {
+        Branch.setAPIUrl(apiUrl + "/");
     }
 }

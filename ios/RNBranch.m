@@ -744,9 +744,9 @@ RCT_EXPORT_METHOD(setDMAParamsForEEA:(BOOL)eeaRegion AdPersonalizationConsent:(B
     [Branch setDMAParamsForEEA:eeaRegion AdPersonalizationConsent:adPersonalizationConsent AdUserDataUsageConsent:adUserDataUsageConsent];
 }
 
-#pragma mark setAPIURL
-RCT_EXPORT_METHOD(setAPIURL:(NSString *)apiURL) {
-    [Branch setAPIURL:apiURL];
+#pragma mark setAPIUrl
+RCT_EXPORT_METHOD(setAPIUrl:(NSString *)apiUrl) {
+    [Branch setAPIUrl:apiUrl];
 }
 
 @end

@@ -165,15 +165,15 @@ class Branch {
     }
   };
 
-  /*** Set the Branch API's base URL ***/
-  setAPIURL = (apiUrl) => {
+  /*** Set the Branch API's base URL (eg. "https://api2.branch.io") ***/
+  setAPIUrl = (apiUrl) => {
     if (!apiUrl || typeof apiUrl !== "string" || !apiUrl.startsWith("http")) {
       console.warn(
-        "setAPIURL: Invalid URL. URL must be a non-empty string starting with 'http'."
+        "setAPIUrl: Invalid URL. URL must be a non-empty string starting with 'http'."
       );
       return;
     }
-    RNBranch.setAPIURL(apiUrl);
+    RNBranch.setAPIUrl(apiUrl);
   };
 }
 
