@@ -164,6 +164,17 @@ class Branch {
       console.warn("setDMAParamsForEEA: Unable to set DMA params.");
     }
   };
+
+  /*** Set the Branch API's base URL ***/
+  setAPIURL = (apiUrl) => {
+    if (!apiUrl || typeof apiUrl !== "string" || !apiUrl.startsWith("http")) {
+      console.warn(
+        "setAPIURL: Invalid URL. URL must be a non-empty string starting with 'http'."
+      );
+      return;
+    }
+    RNBranch.setAPIURL(apiUrl);
+  };
 }
 
 const validateParam = (param, paramName) => {
