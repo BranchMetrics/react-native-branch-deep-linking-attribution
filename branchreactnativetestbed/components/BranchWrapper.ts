@@ -11,7 +11,8 @@ export default class BranchWrapper {
 
   componentDidMount() {
     console.log('BranchWrapper componentDidMount');
-
+    branch.setAPIUrl('https://api3.branch.io');
+    
     this._unsubscribeFromBranch = branch.subscribe({
       onOpenStart: ({uri, cachedInitialEvent}) => {
         console.log(

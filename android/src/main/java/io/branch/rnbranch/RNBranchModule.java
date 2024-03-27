@@ -1251,4 +1251,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Branch branch = Branch.getInstance();
         branch.setDMAParamsForEEA(eeaRegion, adPersonalizationConsent, adUserDataUsageConsent);
     }
+
+    @ReactMethod
+    public void setAPIUrl(String apiUrl) {
+        Branch.setAPIUrl(apiUrl + "/");
+    }
 }
