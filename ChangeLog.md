@@ -1,3 +1,9 @@
+2024-04-01 Version 6.2.0
+
+  - Update Android SDK to 5.11.0
+  - Update iOS SDK 3.4.0
+  - Added support for changing the Branch base API URL through the `branch.json` file
+
 2024-02-29 Version 6.1.0
 
   - Update Android SDK to 5.9.0
