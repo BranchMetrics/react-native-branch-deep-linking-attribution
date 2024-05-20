@@ -315,6 +315,14 @@ RCT_EXPORT_METHOD(
     [self.class.branch addFacebookPartnerParameterWithName:name value:value];
 }
 
+#pragma mark addSnapPartnerParameter
+RCT_EXPORT_METHOD(
+                  addSnapPartnerParameter:(NSString *)name
+                  value:(NSString *)value
+                  ) {
+    [self.class.branch addSnapPartnerParameterWithName:name value:value];
+}
+
 #pragma mark disableTracking
 RCT_EXPORT_METHOD(
                   disableTracking:(BOOL)disable
