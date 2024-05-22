@@ -132,11 +132,21 @@ export default class BranchWrapper {
           controlParams,
           );
     } else {
-       let {channel, completed, error} = await branch.share(
+      let buoOptions = {
+        title: 'A Test Title',
+        contentDescription: 'A test content desc',
+        contentMetadata: {
+          price: '200',
+          productName: 'QR Code Scanner',
+          customMetadata: {someKey: 'someValue', anotherKey: 'anotherValue'},
+         },
+        };
+
+      let {channel, completed, error} = await branch.share(
                                                       buoOptions,
-                                                      lp,
+                                                      linkProperties,
                                                       controlParams,
-                                                      "Sharing ..."
+                                                      "Sharing ...",
                                                       "Sharing using native android api");
     }
 
