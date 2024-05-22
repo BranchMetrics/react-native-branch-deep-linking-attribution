@@ -1251,4 +1251,53 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         Branch branch = Branch.getInstance();
         branch.setDMAParamsForEEA(eeaRegion, adPersonalizationConsent, adUserDataUsageConsent);
     }
+
+    @ReactMethod
+    public void share(ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, String title, String subject, final Promise promise) {
+
+        BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
+        LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
+        Branch branch = Branch.getInstance();
+
+        Branch.getInstance().share(getReactApplicationContext().getCurrentActivity(), branchUniversalObject, linkProperties,
+                new Branch.BranchNativeLinkShareListener() {
+                    private Promise mPromise = null;
+
+                    @Override
+                    public void onLinkShareResponse(String sharedLink, BranchError error) {
+                        if (mPromise == null) {
+                            return;
+                        }
+                        Log.d("Native Share Sheet:", "Link Shared: " + sharedLink);
+                        WritableMap map = new WritableNativeMap();
+                        map.putString("channel", null);
+                        map.putBoolean("completed", false);
+                        map.putString("error", error.getMessage());
+                        mPromise.resolve(map);
+                        mPromise = null;
+                        Log.d("Branch", "Inside func .... 4 onLinkShareResponse");
+                    }
+
+                    @Override
+                    public void onChannelSelected(String channelName) {
+                        if (mPromise == null) {
+                            return;
+                        }
+                        Log.d("Native Share Sheet:", "Channel Selected: " + channelName);
+                        WritableMap map = new WritableNativeMap();
+                        map.putString("channel", channelName);
+                        map.putBoolean("completed", true);
+                        map.putString("error", null);
+                        mPromise.resolve(map);
+                        mPromise = null;
+                        Log.d("Branch", "Inside func .... 4 onChannelSelected");
+                    }
+
+                    private Branch.BranchNativeLinkShareListener init(Promise promise) {
+                        mPromise = promise;
+                        return this;
+                    }
+                }.init(promise), title, subject);
+
+    }
 }

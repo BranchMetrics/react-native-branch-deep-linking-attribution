@@ -109,10 +109,6 @@ export default class BranchWrapper {
   };
 
   shareBranchLink = async () => {
-    let shareOptions = {
-      messageHeader: 'Check this out',
-      messageBody: 'No really, check this out!',
-    };
 
     let linkProperties = {
       feature: 'sharing',
@@ -124,11 +120,25 @@ export default class BranchWrapper {
       $ios_url: 'http://example.com/ios',
     };
 
-    let {channel, completed, error} = await this.buo.showShareSheet(
-      shareOptions,
-      linkProperties,
-      controlParams,
-    );
+    if (Platform.OS === 'ios') {
+      let shareOptions = {
+          messageHeader: 'Check this out',
+          messageBody: 'No really, check this out!',
+      };
+
+      let {channel, completed, error} = await this.buo.showShareSheet(
+          shareOptions,
+          linkProperties,
+          controlParams,
+          );
+    } else {
+       let {channel, completed, error} = await branch.share(
+                                                      buoOptions,
+                                                      lp,
+                                                      controlParams,
+                                                      "Sharing ..."
+                                                      "Sharing using native android api");
+    }
 
     console.log(
       'channel ' + channel + ' completed ' + completed + ' error ' + error,

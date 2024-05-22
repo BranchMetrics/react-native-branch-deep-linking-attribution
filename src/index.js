@@ -164,6 +164,33 @@ class Branch {
       console.warn("setDMAParamsForEEA: Unable to set DMA params.");
     }
   };
+
+  /*** Android Native Share Sheet ***/
+  share = (
+      branchUniversalObject = {},
+      linkProperties = {},
+      controlParams = {},
+      title,
+      subject
+  ) => {
+
+   if (Platform.OS !== 'android') return Promise.resolve()
+
+    linkProperties = {
+      feature: 'share',
+      channel: 'RNApp',
+      ...linkProperties,
+    }
+
+    return RNBranch.share(
+        branchUniversalObject,
+        linkProperties,
+        controlParams,
+        title,
+        subject
+    );
+  };
+
 }
 
 const validateParam = (param, paramName) => {

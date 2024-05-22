@@ -348,6 +348,13 @@ interface Branch {
   setPreInstallCampaign: (campaign: string) => void;
   setPreInstallPartner: (partner: string) => void;
   setDMAParamsForEEA: (eeaRegion: boolean, adPersonalizationConsent: boolean, adUserDataUsageConsent: boolean) => void;
+  share: (
+      branchUniversalObject: BranchUniversalObjectOptions,
+      linkProperties: BranchLinkProperties,
+      controlParams: BranchLinkControlParams,
+      title: string,
+      subject: string
+    ) => Promise<BranchShareSuccess | BranchShareFailure>;;
 }
 declare const branch: Branch;
 export default branch;
