@@ -328,6 +328,7 @@ interface Branch {
   setIdentityAsync: (identity: string) => Promise<BranchParams>;
   setRequestMetadata: (key: string, value: string) => void;
   addFacebookPartnerParameter: (name: string, value: string) => void;
+  addSnapPartnerParameter: (name: string, value: string) => void;
   clearPartnerParameters: () => void;
   logout: () => void;
   openURL: (url: string, options?: { newActivity?: boolean }) => void;

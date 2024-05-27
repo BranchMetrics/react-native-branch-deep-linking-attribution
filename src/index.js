@@ -71,6 +71,10 @@ class Branch {
     console.info('[Branch] addFacebookPartnerParameter has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the partner parameters.')
     return RNBranch.addFacebookPartnerParameter(name, value)
   }
+  addSnapPartnerParameter = (name, value) => {
+    console.info('[Branch] addSnapPartnerParameter has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the partner parameters.')
+    return RNBranch.addSnapPartnerParameter(name, value)
+  }
   clearPartnerParameters = RNBranch.clearPartnerParameters
   logout = RNBranch.logout
   getShortUrl = RNBranch.getShortUrl
