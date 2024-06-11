@@ -1,3 +1,7 @@
+2024-06-11 Version 6.2.2
+  - Update iOS SDK to 3.4.4
+  - Update Android SDK to 5.12.1
+
 2024-04-03 Version 6.2.1
   - Fix issue with deeplinks getting lost on iOS when the App is closed and deferInitForPluginRuntime is enabled
   - Update iOS SDK 3.4.1
