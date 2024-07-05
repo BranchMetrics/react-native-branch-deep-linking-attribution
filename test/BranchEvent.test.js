@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native'
 const { RNBranch } = NativeModules
-import { BranchEvent } from 'react-native-branch'
+import BranchEvent  from '../src/BranchEvent'
 
 // --- Constant mapping ---
 
