@@ -1,6 +1,6 @@
-import { NativeModules, Platform } from "react-native";
+import { Platform } from "react-native";
 
-const { RNBranch } = NativeModules;
+import RNBranch from './RNBranch';
 
 import createBranchUniversalObject from "./branchUniversalObject";
 import BranchEvent from "./BranchEvent";
