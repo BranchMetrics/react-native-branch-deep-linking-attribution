@@ -1,12 +1,12 @@
-import { Platform } from "react-native";
+import { Platform } from 'react-native';
 
 import RNBranch from './RNBranch';
 
-import createBranchUniversalObject from "./branchUniversalObject";
-import BranchEvent from "./BranchEvent";
-import BranchSubscriber from "./BranchSubscriber";
+import createBranchUniversalObject from './branchUniversalObject';
+import BranchEvent from './BranchEvent';
+import BranchSubscriber from './BranchSubscriber';
 
-const packageFile = require("./../package.json");
+const packageFile = require('./../package.json');
 export const VERSION = packageFile.version;
 
 class Branch {
@@ -17,11 +17,11 @@ class Branch {
   constructor(options = {}) {
     if (options.debug) this._debug = true;
 
-    console.info("Initializing react-native-branch v. " + VERSION);
+    console.info('Initializing react-native-branch v. ' + VERSION);
   }
 
   subscribe(options) {
-    if (typeof options === "function") {
+    if (typeof options === 'function') {
       /*
        * Support for legacy API, passing a single callback function:
        * branch.subscribe(({params, error, uri}) => { ... }). This is
@@ -36,7 +36,7 @@ class Branch {
      * You can specify checkCachedEvents in the subscribe options to control
      * this per subscriber.
      */
-    if (!("checkCachedEvents" in options)) {
+    if (!('checkCachedEvents' in options)) {
       options.checkCachedEvents = this._checkCachedEvents;
     }
     this._checkCachedEvents = false;
@@ -66,19 +66,19 @@ class Branch {
   setIdentityAsync = (identity) => RNBranch.setIdentityAsync(identity);
   setRequestMetadata = (key, value) => {
     console.info(
-      "[Branch] setRequestMetadata has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the metadata."
+      '[Branch] setRequestMetadata has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the metadata.'
     );
     return RNBranch.setRequestMetadataKey(key, value);
   };
   addFacebookPartnerParameter = (name, value) => {
     console.info(
-      "[Branch] addFacebookPartnerParameter has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the partner parameters."
+      '[Branch] addFacebookPartnerParameter has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the partner parameters.'
     );
     return RNBranch.addFacebookPartnerParameter(name, value);
   };
   addSnapPartnerParameter = (name, value) => {
     console.info(
-      "[Branch] addSnapPartnerParameter has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the partner parameters."
+      '[Branch] addSnapPartnerParameter has limitations when called from JS.  Some network calls are made prior to the JS layer being available, those calls will not have the partner parameters.'
     );
     return RNBranch.addSnapPartnerParameter(name, value);
   };
@@ -92,27 +92,27 @@ class Branch {
     })();
   };
   handleATTAuthorizationStatus = (ATTAuthorizationStatus) => {
-    if (Platform.OS != "ios") return;
+    if (Platform.OS != 'ios') return;
     let normalizedAttAuthorizationStatus = -1;
 
     switch (ATTAuthorizationStatus) {
-      case "authorized":
+      case 'authorized':
         normalizedAttAuthorizationStatus = 3;
         break;
-      case "denied":
+      case 'denied':
         normalizedAttAuthorizationStatus = 2;
         break;
-      case "undetermined":
+      case 'undetermined':
         normalizedAttAuthorizationStatus = 0;
         break;
-      case "restricted":
+      case 'restricted':
         normalizedAttAuthorizationStatus = 1;
         break;
     }
 
     if (normalizedAttAuthorizationStatus < 0) {
       console.info(
-        "[Branch] handleATTAuthorizationStatus received an unrecognized value. Value must be one of; authorized, denied, undetermined, or restricted"
+        '[Branch] handleATTAuthorizationStatus received an unrecognized value. Value must be one of; authorized, denied, undetermined, or restricted'
       );
       return;
     }
@@ -150,9 +150,9 @@ class Branch {
     adUserDataUsageConsent
   ) => {
     const isValid =
-      validateParam(eeaRegion, "eeaRegion") &&
-      validateParam(adPersonalizationConsent, "adPersonalizationConsent") &&
-      validateParam(adUserDataUsageConsent, "adUserDataUsageConsent");
+      validateParam(eeaRegion, 'eeaRegion') &&
+      validateParam(adPersonalizationConsent, 'adPersonalizationConsent') &&
+      validateParam(adUserDataUsageConsent, 'adUserDataUsageConsent');
 
     if (isValid) {
       RNBranch.setDMAParamsForEEA(
@@ -161,7 +161,7 @@ class Branch {
         adUserDataUsageConsent
       );
     } else {
-      console.warn("setDMAParamsForEEA: Unable to set DMA params.");
+      console.warn('setDMAParamsForEEA: Unable to set DMA params.');
     }
   };
 }
