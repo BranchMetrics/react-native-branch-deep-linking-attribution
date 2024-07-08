@@ -257,14 +257,6 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
     }
 
-    /**
-     * @deprecated setDebug is deprecated and all functionality has been disabled. If you wish to enable
-     * logging, please invoke enableLogging. If you wish to simulate installs, please Test Devices
-     * (https://help.branch.io/using-branch/docs/adding-test-devices)
-     */
-    @Deprecated
-    public static void setDebug() { }
-
     public static void enableLogging() {
         Branch.enableLogging();
     }
@@ -495,6 +487,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void addFacebookPartnerParameter(String name, String value) {
         Branch branch = Branch.getInstance();
         branch.addFacebookPartnerParameterWithName(name, value);
+    }
+
+    @ReactMethod
+    public void addSnapPartnerParameter(String name, String value) {
+        Branch branch = Branch.getInstance();
+        branch.addSnapPartnerParameterWithName(name, value);
     }
 
     @ReactMethod
@@ -1246,5 +1244,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             }
         }
         return array;
+    }
+
+    @ReactMethod
+    public void setDMAParamsForEEA(boolean eeaRegion, boolean adPersonalizationConsent, boolean adUserDataUsageConsent) {
+        Branch branch = Branch.getInstance();
+        branch.setDMAParamsForEEA(eeaRegion, adPersonalizationConsent, adUserDataUsageConsent);
     }
 }
