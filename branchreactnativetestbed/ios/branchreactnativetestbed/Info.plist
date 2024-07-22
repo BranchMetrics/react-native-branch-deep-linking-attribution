@@ -2,6 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+		<key>branch_universal_link_domains</key>
+		<array>
+			<string>bnctestbed.app.link</string>
+			<string>bnctestbed-alternate.app.link</string>
+			<string>bnctestbed.test.app.link</string>
+			<string>bnctestbed-alternate.test.app.link</string>
+		</array>
+	<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>branchtest</string>
+				</array>
+				<key>CFBundleURLName</key>
+				<string>org.reactjs.native.example.branchreactnativetestbed</string>
+			</dict>
+		</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -20,6 +40,17 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>branchtest</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -54,9 +85,9 @@
 	<key>branch_key</key>
 	<dict>
 		<key>live</key>
-		<string>key_live_feebgAAhbH9Tv85H5wLQhpdaefiZv5Dv</string>
+		<string>key_live_hcnegAumkH7Kv18M8AOHhfgiohpXq5tB</string>
 		<key>test</key>
-		<string>key_test_oiBNmHw3FQWznLFSe2rQxaogutkr3ymN</string>
+		<string>key_test_hdcBLUy1xZ1JD0tKg7qrLcgirFmPPVJc</string>
 	</dict>
 </dict>
 </plist>
