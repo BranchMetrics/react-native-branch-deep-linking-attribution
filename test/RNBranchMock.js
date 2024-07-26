@@ -43,6 +43,6 @@ NativeModules.RNBranch = {
 }
 
 NativeModules.RNBranchEventEmitter = {
-  addListener: jest.fn(eventType => {}),
-  removeListener: jest.fn(count => {}),
+  addListener: jest.fn(() => {}),
+  removeListener: jest.fn(() => {}),
 }
