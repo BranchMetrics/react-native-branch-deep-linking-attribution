@@ -25,6 +25,9 @@ jobs:
           path: qa
           repository: BranchMetrics/qentelli-saas-sdk-testing-automation
           token: ${{ secrets.BRANCHLET_ACCESS_TOKEN_PUBLIC }}
+          ref: b4042d0281b94c539afa835c0b590901d16446fb
+          # ref -> Updating APP_URL of BrowserStack for Android and iOS SDK automation
+
         # repo's gradle is configured to run on java 11
       - name: Setup java 11 for gradle
         uses: actions/setup-java@v3
