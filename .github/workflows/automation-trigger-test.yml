@@ -25,6 +25,7 @@ jobs:
           path: qa
           repository: BranchMetrics/qentelli-saas-sdk-testing-automation
           token: ${{ secrets.BRANCHLET_ACCESS_TOKEN_PUBLIC }}
+          ref: b4042d0281b94c539afa835c0b590901d16446fb
         # repo's gradle is configured to run on java 11
       - name: Setup java 11 for gradle
         uses: actions/setup-java@v3
@@ -46,6 +47,8 @@ jobs:
           echo "::add-mask::$parsed"
           echo "APP_URL=$parsed" >> "$GITHUB_ENV"
       - name: Execute automation tests for Android RN app
+        env:
+          IS_RN_APP: true
         run: |
           cd qa
           echo "APP_URL=$parsed" >> "$GITHUB_ENV"
