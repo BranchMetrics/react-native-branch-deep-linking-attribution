@@ -30,6 +30,21 @@ target 'branch_sdk_react_native_app' do
   use_flipper!()
 
  
+def __xcode_15_workaround(installer)
+  xcode_version_output = `xcodebuild -version`
+  xcode_version_match = xcode_version_output.match(/Xcode (\d+(\.\d+)?)/)
+
+  if xcode_version_match
+    xcode_version = Gem::Version.new(xcode_version_match[1])
+    if xcode_version >= Gem::Version.new('15.0')
+      installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+        end
+      end
+    end
+  end
+end
 
   post_install do |installer|
     react_native_post_install(installer)
@@ -42,5 +57,7 @@ target 'branch_sdk_react_native_app' do
         end
       end
     end
+     __xcode_15_workaround(installer)
   end
+
 end
