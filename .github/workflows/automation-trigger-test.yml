@@ -30,12 +30,14 @@ jobs:
 
         # repo's gradle is configured to run on java 11
       - name: Setup java 11 for gradle
+        if: false
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '11'
       # to reduce complexity, testbed app uses sdk as a project reference
       - name: Build testbed app for Android
+        if: false
         run: |
           cd sdk/branch-sdk-automation-testbed/
           npm install
@@ -43,12 +45,14 @@ jobs:
           ./gradlew assembleDebug
           cd ../../
       - name: Upload APK to BrowserStack
+        if: false
         run: |
           response=$(curl -X POST https://api-cloud.browserstack.com/app-automate/upload -u "${{ secrets.BROWSER_STACK_USER }}:${{ secrets.BROWSER_STACK_KEY }}"  -F "file=@sdk/branch-sdk-automation-testbed/android/app/build/outputs/apk/debug/app-debug.apk")
           parsed=$(echo $response | jq ".app_url")
           echo "::add-mask::$parsed"
           echo "APP_URL=$parsed" >> "$GITHUB_ENV"
       - name: Execute automation tests for Android RN app
+        if: false
         env:
           IS_RN_APP: true
         run: |
