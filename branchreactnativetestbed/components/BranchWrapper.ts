@@ -185,6 +185,15 @@ export default class BranchWrapper {
     branch.logout();
   };
 
+  validateSDKIntegration = async () => {
+    const packageJson = require('../package.json');
+    const sdkVersion = packageJson.dependencies['react-native-branch'];
+
+    Alert.alert('Branch Integration Validator', 
+                'Branch SDK Version: ' + sdkVersion, 
+                [{text: 'OK', onPress: () => console.log('OK Pressed')},]);
+  };
+
   viewFirstReferringParams = async () => {
     let params = await branch.getFirstReferringParams();
     this.createAlert('Install referring params', JSON.stringify(params));
