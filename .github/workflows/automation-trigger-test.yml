@@ -27,7 +27,7 @@ jobs:
           token: ${{ secrets.BRANCHLET_ACCESS_TOKEN_PUBLIC }}
         # repo's gradle is configured to run on java 11
       - name: Setup java 11 for gradle
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '11'
