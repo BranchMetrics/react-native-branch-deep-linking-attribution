@@ -1,5 +1,6 @@
 import {Alert} from 'react-native';
 import branch, {BranchEvent} from 'react-native-branch';
+import IntegrationValidator from './IntegrationValidator';
 
 export default class BranchWrapper {
   buo: any;
@@ -186,12 +187,7 @@ export default class BranchWrapper {
   };
 
   validateSDKIntegration = async () => {
-    const packageJson = require('../package.json');
-    const sdkVersion = packageJson.dependencies['react-native-branch'];
-
-    Alert.alert('Branch Integration Validator', 
-                'Branch SDK Version: ' + sdkVersion, 
-                [{text: 'OK', onPress: () => console.log('OK Pressed')},]);
+    IntegrationValidator.validate();
   };
 
   viewFirstReferringParams = async () => {
