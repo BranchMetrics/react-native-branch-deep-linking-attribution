@@ -9,7 +9,7 @@ export default class IntegrationValidator {
             console.warn('react-native-branch dependency not found in package.json');
             return 'Version not found';
         }
-        
+
         return sdkVersion
     }
 
@@ -17,5 +17,9 @@ export default class IntegrationValidator {
         Alert.alert('Branch Integration Validator', 
             'Branch SDK Version: ' + IntegrationValidator.getBranchSDKVersion(), 
             [{text: 'OK', onPress: () => console.log('OK Pressed')},]);
+    }
+
+    static exportLogs() {
+        //export both the JS and Native layer logs, filtered by Branch
     }
 }
