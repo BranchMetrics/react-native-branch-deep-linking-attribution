@@ -187,7 +187,7 @@ export default class BranchWrapper {
   };
 
   validateSDKIntegration = async () => {
-    IntegrationValidator.validate();
+    branch.validateSDKIntegration();
   };
 
   viewFirstReferringParams = async () => {

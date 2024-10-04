@@ -138,7 +138,9 @@ class Branch {
     );
   };
 
-  validateSDKIntegration = () => {};
+  validateSDKIntegration = () => {
+    RNBranch.validateSDKIntegration();
+  };
 
   /*** PreInstall Parameters ***/
   setPreInstallCampaign = (campaign) =>

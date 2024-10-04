@@ -24,6 +24,7 @@ import io.branch.referral.*;
 import io.branch.referral.Branch.BranchLinkCreateListener;
 import io.branch.referral.BuildConfig;
 import io.branch.referral.QRCode.BranchQRCode;
+import io.branch.referral.validators.IntegrationValidator;
 import io.branch.referral.util.*;
 import io.branch.referral.Branch;
 import io.branch.indexing.*;
@@ -1250,5 +1251,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void setDMAParamsForEEA(boolean eeaRegion, boolean adPersonalizationConsent, boolean adUserDataUsageConsent) {
         Branch branch = Branch.getInstance();
         branch.setDMAParamsForEEA(eeaRegion, adPersonalizationConsent, adUserDataUsageConsent);
+    }
+
+    @ReactMethod
+    public void validateSDKIntegration() {
+        Log.d(REACT_CLASS,"Integration Validator Code Called");
+        IntegrationValidator.validate(mActivity);
     }
 }
