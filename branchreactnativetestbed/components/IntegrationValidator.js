@@ -1,4 +1,5 @@
 import { Alert } from 'react-native';
+import AndroidValidator from './AndroidValidator';
 
 export default class IntegrationValidator {
     static getBranchSDKVersion() {
@@ -15,7 +16,9 @@ export default class IntegrationValidator {
 
     static validate() {
         Alert.alert('Branch Integration Validator', 
-            'Branch SDK Version: ' + IntegrationValidator.getBranchSDKVersion(), 
+            'Branch SDK Version: ' + IntegrationValidator.getBranchSDKVersion() + "\n\n" + 
+            'Android:\n' +
+            '\t\t• Package Name: ' + AndroidValidator.getPackageName(), 
             [{text: 'OK', onPress: () => console.log('OK Pressed')},]);
     }
 

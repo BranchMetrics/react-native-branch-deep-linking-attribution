@@ -12,7 +12,8 @@
   "dependencies": {
     "react": "18.2.0",
     "react-native": "0.72.5",
-    "react-native-branch": "6.3.0"
+    "react-native-branch": "6.3.0",
+    "react-native-version-check": "^3.4.7"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

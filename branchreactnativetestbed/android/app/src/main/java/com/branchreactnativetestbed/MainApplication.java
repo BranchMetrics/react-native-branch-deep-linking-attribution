@@ -11,7 +11,6 @@ import com.facebook.soloader.SoLoader;
 import java.util.List;
 import io.branch.rnbranch.RNBranchModule;
 
-
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =

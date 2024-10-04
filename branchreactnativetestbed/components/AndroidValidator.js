@@ -1,3 +1,6 @@
+
+import VersionCheck from 'react-native-version-check';
+
 export default class AndroidValidator {
     static checkAndroidInitialization() {
         //check that the native layer components initialized successfully for Android
@@ -7,8 +10,8 @@ export default class AndroidValidator {
         //check that the Branch keys are present in the AndroidManifest file
     }
 
-    static checkPackageName() {
-        //check if the package name of the app matches the one from the dashboard
+    static getPackageName() {
+        return VersionCheck.getPackageName()
     }
 
     static checkURIScheme() {
