@@ -9,9 +9,9 @@ export default class AndroidValidator {
     }
 
     static getBranchKeys = async() => {
-        let key = await this.getManifestValue('io.branch.sdk.BranchKey')
-        console.log(key)
-        return key
+        let liveKey = await this.getManifestValue('io.branch.sdk.BranchKey')
+        let testKey = await this.getManifestValue('io.branch.sdk.BranchKey.test')
+        return [liveKey, testKey]
     }
 
     static getPackageName() {
