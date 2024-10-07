@@ -140,7 +140,12 @@ class Branch {
 
   validateSDKIntegration = () => {
     RNBranch.validateSDKIntegration();
+    this.readLogs();
   };
+
+  readLogs = () => {
+      return RNBranch.readLogs();
+  }
 
   /*** PreInstall Parameters ***/
   setPreInstallCampaign = (campaign) =>

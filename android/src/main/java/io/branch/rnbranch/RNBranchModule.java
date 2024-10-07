@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 import javax.annotation.Nonnull;
 
@@ -1257,5 +1259,24 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void validateSDKIntegration() {
         Log.d(REACT_CLASS,"Integration Validator Code Called");
         IntegrationValidator.validate(mActivity);
+    }
+
+    @ReactMethod
+    public void readLogs(Promise promise) {
+        try {
+            Process process = Runtime.getRuntime().exec("logcat -d BranchSDK_Doctor:V *:S");
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()));
+
+            StringBuilder log = new StringBuilder();
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                log.append(line + "\n");
+            }
+            String logs = new String(log);
+            promise.resolve(logs);
+        } catch (Exception e) {
+            promise.reject("Error reading logs", e);
+        }
     }
 }

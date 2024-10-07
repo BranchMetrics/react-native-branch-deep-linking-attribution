@@ -188,6 +188,10 @@ export default class BranchWrapper {
 
   validateSDKIntegration = async () => {
     branch.validateSDKIntegration();
+
+    await branch.readLogs().then( val => {
+      console.log(val);
+    });
   };
 
   viewFirstReferringParams = async () => {
