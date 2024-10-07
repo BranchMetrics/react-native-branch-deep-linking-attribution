@@ -165,6 +165,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    implementation("com.google.android.gms:play-services-base:18.5.0")
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
