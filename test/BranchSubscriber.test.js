@@ -1,6 +1,5 @@
-import { NativeModules } from 'react-native'
-const { RNBranch } = NativeModules
-import { BranchSubscriber } from 'react-native-branch'
+import RNBranch from '../src/RNBranch'
+import BranchSubscriber from '../src/BranchSubscriber'
 
 test('default initializes with no options', () => {
   const subscriber = new BranchSubscriber(null)
