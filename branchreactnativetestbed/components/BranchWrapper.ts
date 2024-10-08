@@ -297,4 +297,8 @@ export default class BranchWrapper {
           'This alert was dismissed by tapping outside of the alert dialog.',
         ),
     });
+
+    validateSDKIntegration = () => {
+      branch.validateSDKIntegration();
+    };
 }
