@@ -14,6 +14,12 @@ export default class IntegrationValidator {
         return sdkVersion
     }
 
+    static showBranchSDKVersionMessage() {
+        var branchSDKVersion = 'Branch React Native SDK Version: ' + this.getBranchSDKVersion();
+        Alert.alert(branchSDKVersion);
+        console.log(branchSDKVersion);
+    }
+
     static validate() {
         let packageName = AndroidValidator.getPackageName()
         AndroidValidator.getBranchKeys().then( keys => {

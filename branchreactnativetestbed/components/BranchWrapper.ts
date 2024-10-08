@@ -192,6 +192,8 @@ export default class BranchWrapper {
     await branch.readLogs().then( val => {
       console.log(val);
     });
+
+    IntegrationValidator.showBranchSDKVersionMessage();
   };
 
   viewFirstReferringParams = async () => {
