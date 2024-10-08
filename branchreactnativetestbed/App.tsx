@@ -47,6 +47,7 @@ class App extends React.Component<any, MyState> {
   data: BranchButton[];
   events: BranchButton[];
   sections: BranchSection[];
+  testing: BranchButton[];
 
   constructor(props: any) {
     super(props);
@@ -154,10 +155,19 @@ class App extends React.Component<any, MyState> {
       },
     ];
 
+    this.testing = [
+      {
+        text: 'Validate SDK Integration',
+        onPress: this.branchWrapper.validateSDKIntegration.bind(this),
+        image: require('./images/attach_money_FILL1_wght400_GRAD0_opsz48.png'),
+      }
+    ];
+
     this.sections = [
       { sectionName: 'Linking', branchButtons: this.linking },
       { sectionName: 'Data', branchButtons: this.data },
       { sectionName: 'Events', branchButtons: this.events },
+      { sectionName: 'Testing', branchButtons: this.testing }
     ];
   }
 

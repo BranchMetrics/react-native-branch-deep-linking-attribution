@@ -7,6 +7,7 @@
 #import "RNBranchAgingDictionary.h"
 #import "RNBranchEventEmitter.h"
 #import <BranchSDK/NSError+Branch.h>
+#import "Branch+Validator.h"
 
 NSString * const RNBranchLinkOpenedNotification = @"RNBranchLinkOpenedNotification";
 NSString * const RNBranchLinkOpenedNotificationErrorKey = @"error";
@@ -742,6 +743,11 @@ RCT_EXPORT_METHOD(
 #pragma mark setDMAParamsForEEA
 RCT_EXPORT_METHOD(setDMAParamsForEEA:(BOOL)eeaRegion AdPersonalizationConsent:(BOOL)adPersonalizationConsent AdUserDataUsageConsent:(BOOL)adUserDataUsageConsent) {
     [Branch setDMAParamsForEEA:eeaRegion AdPersonalizationConsent:adPersonalizationConsent AdUserDataUsageConsent:adUserDataUsageConsent];
+}
+
+#pragma mark validateSDKIntegration
+RCT_EXPORT_METHOD(validateSDKIntegration) {
+    [[Branch getInstance] validateSDKIntegration];
 }
 
 @end
