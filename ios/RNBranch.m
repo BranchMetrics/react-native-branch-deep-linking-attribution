@@ -750,4 +750,12 @@ RCT_EXPORT_METHOD(validateSDKIntegration) {
     [[Branch getInstance] validateSDKIntegration];
 }
 
+#pragma mark readLogs
+RCT_EXPORT_METHOD(readLogs:(RCTPromiseResolveBlock)resolve
+                  rejecter:(__unused RCTPromiseRejectBlock)reject) {
+    NSString* logs = @"Hello World!";
+    // NSLog(@"Hello World!");
+    resolve(logs);
+}
+
 @end
