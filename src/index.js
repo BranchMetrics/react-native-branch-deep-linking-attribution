@@ -164,6 +164,10 @@ class Branch {
       console.warn('setDMAParamsForEEA: Unable to set DMA params.');
     }
   };
+
+  validateSDKIntegration = () => {
+    RNBranch.validateSDKIntegration();
+  };  
 }
 
 const validateParam = (param, paramName) => {
