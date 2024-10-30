@@ -55,3 +55,4 @@ Gemfile.lock
 
 # yarn lock file, use `yarn import` to generate from package-lock.json 
 yarn.lock
+branchreactnativetestbed/ios/.ruby-version
