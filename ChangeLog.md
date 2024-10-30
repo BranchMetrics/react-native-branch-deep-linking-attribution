@@ -1,3 +1,7 @@
+2024-10-29 Version 6.4.0
+  - Update iOS SDK to 3.6.5
+  - Update Android SDK to 5.13.0
+
 2024-09-26 Version 6.3.0
   - Update iOS SDK to 3.6.3
   - Update Android SDK to 5.12.4
