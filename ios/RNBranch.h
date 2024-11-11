@@ -28,7 +28,6 @@ extern NSString * _Nonnull const RNBranchLinkOpenedNotificationLinkPropertiesKey
 + (void)useTestInstance;
 + (void)deferInitializationForJSLoad;
 
-+ (void)setDebug;
 + (void)enableLogging;
 
 @end
