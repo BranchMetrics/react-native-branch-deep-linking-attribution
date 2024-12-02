@@ -24,15 +24,15 @@
           <action android:name="android.intent.action.VIEW"/>
           <category android:name="android.intent.category.DEFAULT"/>
           <category android:name="android.intent.category.BROWSABLE"/>
-          <data android:scheme="rntestbed" android:host="open"/>
-          <data android:scheme="https" android:host="5vwu.app.link"/>
-          <data android:scheme="https" android:host="5vwu-alternate.app.link"/>
-          <data android:scheme="https" android:host="5vwu.test-app.link"/>
-          <data android:scheme="https" android:host="5vwu-alternate.test-app.link"/>
+          <data android:scheme="branchtest" android:host="open"/>
+          <data android:scheme="https" android:host="bnctestbed.app.link"/>
+          <data android:scheme="https" android:host="bnctestbed-alternate.app.link"/>
+          <data android:scheme="https" android:host="bnctestbed.test-app.link"/>
+          <data android:scheme="https" android:host="bnctestbed-alternate.test-app.link"/>
         </intent-filter>
       </activity>
 
-      <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_fnEOjLBXxU7teRvUn1xvpbbbryex8vcB"/>
-      <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_oiBNmHw3FQWznLFSe2rQxaogutkr3ymN"/>
+      <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_hcnegAumkH7Kv18M8AOHhfgiohpXq5tB"/>
+      <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_hdcBLUy1xZ1JD0tKg7qrLcgirFmPPVJc"/>
     </application>
 </manifest>
