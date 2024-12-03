@@ -23,9 +23,9 @@ test('will check cached events by default', () => {
 test('subscribes to init session start events', () => {
   const subscriber = new BranchSubscriber({
     checkCachedEvents: false,
-    onOpenStart: ({uri}) => {},
+    onOpenStart: () => {},
   })
-  subscriber._nativeEventEmitter.addListener = jest.fn((eventType, listener) => {})
+  subscriber._nativeEventEmitter.addListener = jest.fn(() => {})
   subscriber.subscribe()
 
   expect(subscriber._nativeEventEmitter.addListener.mock.calls.length).toBe(1)
@@ -36,9 +36,9 @@ test('subscribes to init session start events', () => {
 test('subscribes to init session success & error events', () => {
   const subscriber = new BranchSubscriber({
     checkCachedEvents: false,
-    onOpenComplete: ({params, error, uri}) => {},
+    onOpenComplete: () => {},
   })
-  subscriber._nativeEventEmitter.addListener = jest.fn((eventType, listener) => {})
+  subscriber._nativeEventEmitter.addListener = jest.fn(() => {})
   subscriber.subscribe()
 
   expect(subscriber._nativeEventEmitter.addListener.mock.calls.length).toBe(2)
@@ -80,13 +80,13 @@ test('will return a cached event when appropriate', done => {
   // Set up subscriber, mocking the callbacks
   const subscriber = new BranchSubscriber({
     checkCachedEvents: true,
-    onOpenStart: jest.fn(({uri}) => {}),
-    onOpenComplete: jest.fn(({params, error, uri}) => {}),
+    onOpenStart: jest.fn(() => {}),
+    onOpenComplete: jest.fn(() => {}),
   })
 
   // mock subscriber._nativeEventEmitter.addListener. Expect this to be called three times.
   let addListenerCount = 0
-  subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
+  subscriber._nativeEventEmitter.addListener = () => {
     if (++addListenerCount < 3) return
 
     // --- Check results ---
@@ -133,11 +133,11 @@ test('passes a non-null uri to onOpenStart when available', done => {
   // Set up subscriber, mocking the callbacks
   const subscriber = new BranchSubscriber({
     checkCachedEvents: true,
-    onOpenStart: jest.fn(({uri}) => {}),
+    onOpenStart: jest.fn(() => {}),
   })
 
   // mock subscriber._nativeEventEmitter.addListener.
-  subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
+  subscriber._nativeEventEmitter.addListener = () => {
     // --- Check results ---
 
     try {
@@ -163,13 +163,13 @@ test('does not return a cached result when none available', done => {
   // Set up subscriber, mocking the callbacks
   const subscriber = new BranchSubscriber({
     checkCachedEvents: true,
-    onOpenStart: jest.fn(({uri}) => {}),
-    onOpenComplete: jest.fn(({params, error, uri}) => {}),
+    onOpenStart: jest.fn(() => {}),
+    onOpenComplete: jest.fn(() => {}),
   })
 
   // mock subscriber._nativeEventEmitter.addListener. Expect this to be called three times.
   let addListenerCount = 0
-  subscriber._nativeEventEmitter.addListener = (eventType, listener) => {
+  subscriber._nativeEventEmitter.addListener = () => {
     if (++addListenerCount < 3) return
 
     // --- Check results ---
