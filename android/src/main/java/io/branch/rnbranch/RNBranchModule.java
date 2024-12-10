@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Base64;
 
@@ -178,7 +177,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                                                 BranchUniversalObject branchUniversalObject,
                                                 LinkProperties linkProperties,
                                                 BranchError error) {
-                
+
                 Intent broadcastIntent = new Intent(NATIVE_INIT_SESSION_FINISHED_EVENT);
 
                 if (referringParams != null) {
@@ -210,7 +209,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         }.init(reactActivity);
 
         notifyJSOfInitSessionStart(reactActivity, uri);
-        
+
         Branch.InitSessionBuilder initSessionBuilder = Branch.sessionBuilder(reactActivity).withCallback(referralInitListener).withData(uri);
         Log.d(REACT_CLASS, "sessionBuilder " + initSessionBuilder);
         initSessionBuilder.init();
@@ -259,6 +258,10 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
 
     public static void enableLogging() {
         Branch.enableLogging();
+    }
+
+    public static void enableLogging(BranchLogger.BranchLogLevel logLevel) {
+        Branch.enableLogging(logLevel);
     }
 
     public static void setRequestMetadata(String key, String val) {
@@ -336,7 +339,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             public void onReceive(Context context, Intent intent) {
                 final boolean hasError = (initSessionResult.has("error") && !initSessionResult.isNull("error"));
                 final String eventName = hasError ? RN_INIT_SESSION_ERROR_EVENT : RN_INIT_SESSION_SUCCESS_EVENT;
-                
+
                 mBranchModule.sendRNEvent(eventName, convertJsonToMap(initSessionResult));
             }
 
@@ -374,8 +377,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @Override
-    public void onCatalystInstanceDestroy() {
-        Log.d(REACT_CLASS,"onCatalystInstanceDestroy ");
+    public void invalidate() {
+        Log.d(REACT_CLASS,"React instance invalidate()");
 
         LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionFinishedEventReceiver);
         LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionStartedEventReceiver);
@@ -444,15 +447,15 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void lastAttributedTouchData(int window, final Promise promise) {
         Branch branch = Branch.getInstance();
         branch.getLastAttributedTouchData(new ServerRequestGetLATD.BranchLastAttributedTouchDataListener() {
-                @Override
-                public void onDataFetched(JSONObject jsonObject, BranchError error) {
-                    if (error == null) {
-                        promise.resolve(convertJsonToMap(jsonObject));
-                    } else {
-                        promise.reject(GENERIC_ERROR, error.getMessage());
-                    }
+            @Override
+            public void onDataFetched(JSONObject jsonObject, BranchError error) {
+                if (error == null) {
+                    promise.resolve(convertJsonToMap(jsonObject));
+                } else {
+                    promise.reject(GENERIC_ERROR, error.getMessage());
                 }
-            }, window);
+            }
+        }, window);
     }
 
     @ReactMethod
@@ -461,7 +464,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         branch.setIdentity(identity);
     }
 
-   @ReactMethod
+    @ReactMethod
     public void setIdentityAsync(String identity, final Promise promise) {
         Branch branch = Branch.getInstance();
         branch.setIdentity(identity, new Branch.BranchReferralInitListener() {
@@ -633,7 +636,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void registerView(String ident, Promise promise) {
         BranchUniversalObject branchUniversalObject = findUniversalObjectOrReject(ident, promise);
         if (branchUniversalObject == null) {
-             return;
+            return;
         }
 
         branchUniversalObject.registerView();
@@ -692,9 +695,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         mActivity.startActivity(intent);
     }
 
-  @ReactMethod
+    @ReactMethod
     public void getBranchQRCode(ReadableMap branchQRCodeSettingsMap, ReadableMap branchUniversalObjectMap, ReadableMap linkPropertiesMap, ReadableMap controlParamsMap, final Promise promise) {
-        
+
         BranchUniversalObject branchUniversalObject = createBranchUniversalObject(branchUniversalObjectMap);
         LinkProperties linkProperties = createLinkProperties(linkPropertiesMap, controlParamsMap);
         BranchQRCode qrCode = createBranchQRCode(branchQRCodeSettingsMap);
@@ -706,13 +709,13 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                     String qrCodeString = Base64.encodeToString(qrCodeData, Base64.DEFAULT);
                     promise.resolve(qrCodeString);
                 }
-    
+
                 @Override
                 public void onFailure(Exception e) {
                     Log.d("Failed to get QR Code", e.getMessage());
                     promise.reject("Failed to get QR Code", e.getMessage());
-                }    
-                });
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
             Log.d("Failed to get QR Code", e.getMessage());
@@ -728,7 +731,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
         if (branchQRCodeSettingsMap.hasKey("centerLogo")) branchQRCode.setCenterLogo(branchQRCodeSettingsMap.getString("centerLogo"));
         if (branchQRCodeSettingsMap.hasKey("width")) branchQRCode.setWidth(branchQRCodeSettingsMap.getInt("width"));
         if (branchQRCodeSettingsMap.hasKey("margin")) branchQRCode.setMargin(branchQRCodeSettingsMap.getInt("margin"));
-        
+
         if (branchQRCodeSettingsMap.hasKey("imageFormat")) {
             String imageFormat = branchQRCodeSettingsMap.getString("imageFormat");
             if (imageFormat != null ) {
@@ -780,7 +783,7 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             ReadableMapKeySetIterator it = customData.keySetIterator();
             while (it.hasNextKey()) {
                 String key = it.nextKey();
-                
+
                 ReadableType readableType = customData.getType(key);
                 if(readableType == ReadableType.String) {
                     event.addCustomDataProperty(key, customData.getString(key));
@@ -1085,9 +1088,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 try {
-                    Log.d(REACT_CLASS, "Catalyst instance poller try " + Integer.toString(tries));
-                    if (mContext.hasActiveCatalystInstance()) {
-                        Log.d(REACT_CLASS, "Catalyst instance active");
+                    Log.d(REACT_CLASS, "React instance poller try " + Integer.toString(tries));
+                    if (mContext.hasActiveReactInstance()) {
+                        Log.d(REACT_CLASS, "Has React instance");
                         mContext
                                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                                 .emit(mEventName, mParams);
@@ -1096,12 +1099,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                         if (tries <= maxTries) {
                             mMainHandler.postDelayed(this, pollDelayInMs);
                         } else {
-                            Log.e(REACT_CLASS, "Could not get Catalyst instance");
+                            Log.e(REACT_CLASS, "Could not get React instance");
                         }
                     }
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
+                    Log.e(REACT_CLASS, Objects.requireNonNull(e.getMessage()));
                 }
             }
         }.init(context, mainHandler, eventName, params);
