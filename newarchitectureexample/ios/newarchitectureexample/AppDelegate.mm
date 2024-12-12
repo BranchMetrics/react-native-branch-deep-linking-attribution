@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import <RNBranch/RNBranch.h>
 
 @implementation AppDelegate
 
@@ -11,6 +12,8 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
   
+  [RNBranch enableLogging];
+  [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
@@ -27,6 +30,16 @@
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    [RNBranch application:app openURL:url options:options];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+   [RNBranch continueUserActivity:userActivity];
+   return YES;
 }
 
 @end
