@@ -14,6 +14,7 @@
 		35F0F027C316F91C23CB7CE9 /* libPods-branchreactnativetestbed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF49690E2DE41ADBA0D501EE /* libPods-branchreactnativetestbed.a */; };
 		4DB3623629D43C3700D29789 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3623529D43C3600D29789 /* branch.json */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8EBB0D6B8AEF41DAB27E6436 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = DEEE229B544D572CE737AF99 /* PrivacyInfo.xcprivacy */; };
 		EE27CDFF4536405DD3E861BE /* libPods-branchreactnativetestbed-branchreactnativetestbedTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF1CF6698C96757BCB73723A /* libPods-branchreactnativetestbed-branchreactnativetestbedTests.a */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		97234E4EFD341F2BEB1055B8 /* Pods-branchreactnativetestbed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-branchreactnativetestbed.release.xcconfig"; path = "Target Support Files/Pods-branchreactnativetestbed/Pods-branchreactnativetestbed.release.xcconfig"; sourceTree = "<group>"; };
 		CF49690E2DE41ADBA0D501EE /* libPods-branchreactnativetestbed.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-branchreactnativetestbed.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85B1EE45650E2D123BEFD82 /* Pods-branchreactnativetestbed-branchreactnativetestbedTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-branchreactnativetestbed-branchreactnativetestbedTests.debug.xcconfig"; path = "Target Support Files/Pods-branchreactnativetestbed-branchreactnativetestbedTests/Pods-branchreactnativetestbed-branchreactnativetestbedTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DEEE229B544D572CE737AF99 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = branchreactnativetestbed/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FF1CF6698C96757BCB73723A /* libPods-branchreactnativetestbed-branchreactnativetestbedTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-branchreactnativetestbed-branchreactnativetestbedTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -97,6 +99,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				DEEE229B544D572CE737AF99 /* PrivacyInfo.xcprivacy */,
 			);
 			name = branchreactnativetestbed;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				4DB3623629D43C3700D29789 /* branch.json in Resources */,
+				8EBB0D6B8AEF41DAB27E6436 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,13 +614,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-Wl",
-					"-ld_classic",
-					" ",
-					"-Wl -ld_classic ",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
@@ -686,13 +684,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-Wl",
-					"-ld_classic",
-					" ",
-					"-Wl -ld_classic ",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
