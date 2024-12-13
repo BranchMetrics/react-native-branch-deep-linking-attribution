@@ -1,9 +1,9 @@
 apply plugin: 'com.android.library'
 import groovy.json.JsonSlurper
 
-def DEFAULT_COMPILE_SDK_VERSION = 29
+def DEFAULT_COMPILE_SDK_VERSION = 34
 def DEFAULT_MIN_SDK_VERSION = 16
-def DEFAULT_TARGET_SDK_VERSION = 29
+def DEFAULT_TARGET_SDK_VERSION = 34
 
 def getNpmVersion() {
     def packageJsonFile = file('../package.json')
@@ -47,5 +47,5 @@ def safeExtGet(prop, fallback) {
 dependencies {
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     implementation 'com.facebook.react:react-native:+' // From node_modules
-    api 'io.branch.sdk.android:library:5.12.4'
+    api 'io.branch.sdk.android:library:5.14.0'
 }
