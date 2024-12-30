@@ -349,6 +349,7 @@ interface Branch {
   setPreInstallPartner: (partner: string) => void;
   setDMAParamsForEEA: (eeaRegion: boolean, adPersonalizationConsent: boolean, adUserDataUsageConsent: boolean) => void;
   validateSDKIntegration: () => void;
+  setFBAppID: (fbAppID: string) => void;
 }
 declare const branch: Branch;
 export default branch;

@@ -1257,4 +1257,11 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     public void validateSDKIntegration() {
         IntegrationValidator.validate(mActivity);
     }
+
+    @ReactMethod
+    public void setFBAppID(String fbAppID) {
+        Branch branch = Branch.getInstance();
+        branch.setFBAppID(fbAppID);
+    }
+
 }

@@ -167,7 +167,9 @@ class Branch {
 
   validateSDKIntegration = () => {
     RNBranch.validateSDKIntegration();
-  };  
+  };
+
+  setFBAppID = (fbAppID) => RNBranch.setFBAppID(fbAppID);
 }
 
 const validateParam = (param, paramName) => {
