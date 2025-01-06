@@ -1,12 +1,6 @@
 name: Gate Keeper
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - master
-    paths-ignore:
-      - docs/**
-      - README.md
+  push:
 env:
   NODE_VERSION: 16
 
@@ -51,8 +45,4 @@ jobs:
 
       - name : upload codecov
         uses: codecov/codecov-action@v3
-        if: ${{ github.ref_name == 'master' && github.event.pull_request.merged == true }}
-
-
-
-
+        
