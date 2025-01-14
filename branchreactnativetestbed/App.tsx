@@ -98,6 +98,11 @@ class App extends React.Component<any, MyState> {
         image: require('./images/download_FILL1_wght400_GRAD0_opsz48.png'),
       },
       {
+        text: 'Set Attribution Level',
+        onPress: () => this.branchWrapper.setConsumerProtectionAttributionLevel('REDUCED'),
+        image: require('./images/person_FILL1_wght400_GRAD0_opsz48.png'),
+      },
+      {
         text: 'View Latest Params',
         onPress: this.branchWrapper.viewLatestReferringParams.bind(this),
         image: require('./images/bolt_FILL0_wght400_GRAD0_opsz48.png'),
