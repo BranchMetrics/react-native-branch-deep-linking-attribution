@@ -1,3 +1,8 @@
+2025-02-07 Version 6.5.0
+  - Update iOS SDK to 3.9.0
+  - Update Android SDK to 5.15.1
+  - Exposed new method `setConsumerProtectionAttributionLevel` to set CPP level 
+
 2024-10-29 Version 6.4.0
   - Update iOS SDK to 3.6.5
   - Update Android SDK to 5.13.0

@@ -745,6 +745,25 @@ RCT_EXPORT_METHOD(setDMAParamsForEEA:(BOOL)eeaRegion AdPersonalizationConsent:(B
     [Branch setDMAParamsForEEA:eeaRegion AdPersonalizationConsent:adPersonalizationConsent AdUserDataUsageConsent:adUserDataUsageConsent];
 }
 
+#pragma mark setConsumerProtectionAttributionLevel
+RCT_EXPORT_METHOD(setConsumerProtectionAttributionLevel:(NSString *)level) {
+    BranchAttributionLevel attributionLevel;
+    if ([level isEqualToString:@"FULL"]) {
+        attributionLevel = BranchAttributionLevelFull;
+    } else if ([level isEqualToString:@"REDUCED"]) {
+        attributionLevel = BranchAttributionLevelReduced;
+    } else if ([level isEqualToString:@"MINIMAL"]) {
+        attributionLevel = BranchAttributionLevelMinimal;
+    } else if ([level isEqualToString:@"NONE"]) {
+        attributionLevel = BranchAttributionLevelNone;
+    } else {
+        RCTLogError(@"RNBranch::Error: Invalid attribution level: %@", level);
+        return;
+    }
+
+    [self.class.branch setConsumerProtectionAttributionLevel:attributionLevel];
+}
+
 #pragma mark validateSDKIntegration
 RCT_EXPORT_METHOD(validateSDKIntegration) {
     [[Branch getInstance] validateSDKIntegration];
