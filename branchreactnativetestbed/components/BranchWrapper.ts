@@ -209,6 +209,12 @@ export default class BranchWrapper {
       });
   };
 
+  setConsumerProtectionAttributionLevel = (level: 'FULL' | 'REDUCED' | 'MINIMAL' | 'NONE') => {
+    console.log('BranchWrapper setConsumerProtectionAttributionLevel ' + level);
+    branch.setConsumerProtectionAttributionLevel(level);
+    this.createAlert('Attribution Level Set', `Level set to: ${level}`);
+  };
+
   toggleTracking = async () => {
     let trackingDisabled = await branch.isTrackingDisabled();
 

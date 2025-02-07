@@ -165,6 +165,20 @@ class Branch {
     }
   };
 
+  /*** Consumer Protection Attribution Level ***/
+  setConsumerProtectionAttributionLevel = (level) => {
+    const validLevels = ["FULL", "REDUCED", "MINIMAL", "NONE"];
+    if (!validLevels.includes(level)) {
+      console.warn(
+        `[Branch] setConsumerProtectionAttributionLevel: level must be one of ${validLevels.join(
+          ", "
+        )}, but got ${level}`
+      );
+      return;
+    }
+    return RNBranch.setConsumerProtectionAttributionLevel(level);
+  };
+  
   validateSDKIntegration = () => {
     RNBranch.validateSDKIntegration();
   };  

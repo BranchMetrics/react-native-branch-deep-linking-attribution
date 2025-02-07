@@ -52,6 +52,8 @@ export type ATTAuthorizationStatus =
   | 'undetermined'
   | 'restricted';
 
+export type BranchAttributionLevel = 'FULL' | 'REDUCED' | 'MINIMAL' | 'NONE';
+
 export class BranchEvent {
   logEvent: () => Promise<null>;
   constructor(
@@ -348,6 +350,7 @@ interface Branch {
   setPreInstallCampaign: (campaign: string) => void;
   setPreInstallPartner: (partner: string) => void;
   setDMAParamsForEEA: (eeaRegion: boolean, adPersonalizationConsent: boolean, adUserDataUsageConsent: boolean) => void;
+  setConsumerProtectionAttributionLevel: (level: BranchAttributionLevel) => void;
   validateSDKIntegration: () => void;
 }
 declare const branch: Branch;
