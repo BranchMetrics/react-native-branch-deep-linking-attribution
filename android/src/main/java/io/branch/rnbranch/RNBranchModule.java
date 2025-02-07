@@ -1256,20 +1256,20 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setConsumerProtectionAttributionLevel(String level) {
         Branch branch = Branch.getInstance();
-        BranchAttributionLevel attributionLevel;
+        Defines.BranchAttributionLevel attributionLevel;
 
         switch (level) {
             case "FULL":
-                attributionLevel = BranchAttributionLevel.FULL;
+                attributionLevel = Defines.BranchAttributionLevel.FULL;
                 break;
             case "REDUCED":
-                attributionLevel = BranchAttributionLevel.REDUCED;
+                attributionLevel = Defines.BranchAttributionLevel.REDUCED;
                 break;
             case "MINIMAL":
-                attributionLevel = BranchAttributionLevel.MINIMAL;
+                attributionLevel = Defines.BranchAttributionLevel.MINIMAL;
                 break;
             case "NONE":
-                attributionLevel = BranchAttributionLevel.NONE;
+                attributionLevel = Defines.BranchAttributionLevel.NONE;
                 break;
             default:
                 Log.w(REACT_CLASS, "Invalid attribution level: " + level);
