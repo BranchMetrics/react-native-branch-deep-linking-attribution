@@ -769,4 +769,10 @@ RCT_EXPORT_METHOD(validateSDKIntegration) {
     [[Branch getInstance] validateSDKIntegration];
 }
 
+#pragma mark setIdentity
+RCT_EXPORT_METHOD(
+                  setFBAppID:(NSString *)fbAppID
+                  ) {
+}
+
 @end
