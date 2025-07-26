@@ -1,3 +1,7 @@
+2025-07-22 Version 6.8.0
+  - Update iOS SDK to 3.12.2
+  - Update Android SDK to 5.19.0
+
 2025-05-28 Version 6.7.1
   - Update Android SDK to 5.18.1
 
