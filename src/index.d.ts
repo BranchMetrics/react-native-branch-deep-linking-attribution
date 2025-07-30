@@ -352,6 +352,7 @@ interface Branch {
   setDMAParamsForEEA: (eeaRegion: boolean, adPersonalizationConsent: boolean, adUserDataUsageConsent: boolean) => void;
   setConsumerProtectionAttributionLevel: (level: BranchAttributionLevel) => void;
   validateSDKIntegration: () => void;
+  setFBAppID: (fbAppID: string) => void;
 }
 declare const branch: Branch;
 export default branch;
