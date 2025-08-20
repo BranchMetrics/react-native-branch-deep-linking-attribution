@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-native": "0.72.9",
+    "react-native": "0.73.0",
     "react-native-branch": "6.8.0-beta.0"
   },
   "devDependencies": {
