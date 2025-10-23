@@ -769,4 +769,48 @@ RCT_EXPORT_METHOD(validateSDKIntegration) {
     [[Branch getInstance] validateSDKIntegration];
 }
 
+#pragma mark setSDKWaitTimeForThirdPartyAPIs
+RCT_EXPORT_METHOD(setSDKWaitTimeForThirdPartyAPIs:(double)waitTime) {
+    if (waitTime <= 0.0) {
+        RCTLogError(@"RNBranch::Error: Invalid waitTime value (%f). It must be greater than 0. Using default value.", waitTime);
+        return;
+    }
+
+    if (waitTime > 10.0) {
+        RCTLogError(@"RNBranch::Error: Invalid waitTime value (%f). It must not exceed 10 seconds. Using default value.", waitTime);
+        return;
+    }
+    [self.class.branch setSDKWaitTimeForThirdPartyAPIs: waitTime];
+}
+
+#pragma mark setAnonID
+RCT_EXPORT_METHOD(setAnonID:(NSString *)anonID) {
+    if (anonID && [anonID isKindOfClass:[NSString class]]) {
+        [self.class.branch setAnonID: anonID];
+    } else {
+        RCTLogError(@"RNBranch::Error: Invalid anonID provided. Must be a non-nil NSString.");
+        return
+    }
+}
+
+// #pragma mark setAnonID
+// RCT_EXPORT_METHOD(setAnonID:(NSString *)anonID) {
+//     // React Native ensures 'anonID' is either an NSString* or nil.
+//     // The native method handles the validation and logging.
+//     [self.class.branch setAnonID:anonID];
+// }
+
+#pragma mark setODMInfo
+RCT_EXPORT_METHOD(setODMInfo:(NSString *)odmInfo) {
+
+    if (!odmInfo || ![odmInfo isKindOfClass:[NSString class]]) {
+
+        RCTLogError(@"RNBranch::Error: Invalid odmInfo provided. Must be a non-nil NSString.");
+        return;
+    }
+
+    NSDate *currentTimestamp = [NSDate date];
+    [self.class.branch setODMInfo:odmInfo andFirstOpenTimestamp:currentTimestamp];
+}
+
 @end

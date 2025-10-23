@@ -181,7 +181,37 @@ class Branch {
   
   validateSDKIntegration = () => {
     RNBranch.validateSDKIntegration();
-  };  
+  }; 
+
+  setSDKWaitTimeForThirdPartyAPIs = (waitTime) => {
+    if (waitTime <= 0.0 || waitTime > 10.0) {
+      console.error(
+        '[Branch] setSDKWaitTimeForThirdPartyAPIs: waitTime must be greater than 0.0 and less than 10.0.'
+      );
+      return;
+    }
+    return RNBranch.setSDKWaitTimeForThirdPartyAPIs(waitTime);
+  };
+
+  setAnonID = (anonID) => {
+    if (!anonID || typeof anonID !== 'string') {
+      console.error(
+        '[Branch] setAnonID: anonID must be a string.'
+      );
+      return;
+    }
+    return RNBranch.setAnonID(anonID);
+  };
+
+  setODMInfo = (odmInfo) => {
+    if (!odmInfo || typeof odmInfo !== 'string') {
+      console.error(
+        '[Branch] setODMInfo: odmInfo must be a string.'
+      );
+      return;
+    }
+    return RNBranch.setODMInfo(odmInfo);
+  };
 }
 
 const validateParam = (param, paramName) => {
