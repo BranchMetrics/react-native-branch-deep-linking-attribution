@@ -354,7 +354,7 @@ interface Branch {
   validateSDKIntegration: () => void;
   setSDKWaitTimeForThirdPartyAPIs: (waitTime: number) => void;
   setAnonID: (anonID: string) => void;
-  setODMInfo: (odmInfo: string) => void;
+  setODMInfo: (odmInfo: string, firstOpenTimestamp: number) => void;
 }
 declare const branch: Branch;
 export default branch;
