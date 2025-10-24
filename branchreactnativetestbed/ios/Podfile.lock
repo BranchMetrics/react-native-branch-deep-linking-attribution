@@ -376,7 +376,7 @@ PODS:
   - React-jsinspector (0.72.9)
   - React-logger (0.72.9):
     - glog
-  - react-native-branch (6.8.0-beta.0):
+  - react-native-branch (6.9.0-alpha.0):
     - BranchSDK (= 3.12.2)
     - React-Core
   - React-NativeModulesApple (0.72.9):
@@ -695,7 +695,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 5a169b1dd1abad06bed40ab7e1aca883c657d865
   React-jsinspector: 54205b269da20c51417e0fc02c4cde9f29a4bf1a
   React-logger: f42d2f2bc4cbb5d19d7c0ce84b8741b1e54e88c8
-  react-native-branch: c05119a6a5b35068bc491623581e1e77ae8947d3
+  react-native-branch: 5ad83cec5616ca5e3b835b1b342f296daa860c46
   React-NativeModulesApple: 9f72feb8a04020b32417f768a7e1e40eec91fef4
   React-perflogger: cb433f318c6667060fc1f62e26eb58d6eb30a627
   React-RCTActionSheet: 0af3f8ac067e8a1dde902810b7ad169d0a0ec31e
