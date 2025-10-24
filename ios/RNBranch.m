@@ -781,7 +781,7 @@ RCT_EXPORT_METHOD(setAnonID:(NSString *)anonID) {
 
 #pragma mark setODMInfo
 RCT_EXPORT_METHOD(setODMInfo:(NSString *)odmInfo 
-                  andFirstOpenTimestamp:(NSNumber *)firstOpenTimestamp) {
+                  andFirstOpenTimestamp:(NSNumber * __nonnull)firstOpenTimestamp) {
 
     NSDate *firstOpenDate = nil;
 
