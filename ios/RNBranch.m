@@ -771,12 +771,12 @@ RCT_EXPORT_METHOD(validateSDKIntegration) {
 
 #pragma mark setSDKWaitTimeForThirdPartyAPIs
 RCT_EXPORT_METHOD(setSDKWaitTimeForThirdPartyAPIs:(double)waitTime) {
-    [self.class setSDKWaitTimeForThirdPartyAPIs: waitTime];
+    [Branch setSDKWaitTimeForThirdPartyAPIs: waitTime];
 }
 
 #pragma mark setAnonID
 RCT_EXPORT_METHOD(setAnonID:(NSString *)anonID) {
-    [self.class setAnonID: anonID];
+    [Branch setAnonID: anonID];
 }
 
 #pragma mark setODMInfo
@@ -792,7 +792,7 @@ RCT_EXPORT_METHOD(setODMInfo:(NSString *)odmInfo
         firstOpenDate = [NSDate dateWithTimeIntervalSince1970:timeInSeconds];
     }
     
-    [self.class setODMInfo:odmInfo andFirstOpenTimestamp:firstOpenDate];
+    [Branch setODMInfo:odmInfo andFirstOpenTimestamp:firstOpenDate];
 }
 
 @end
