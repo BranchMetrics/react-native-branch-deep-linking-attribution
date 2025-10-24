@@ -1,5 +1,8 @@
 2025-10-20 Version 6.9.0
   - Update iOS SDK to 3.13.3
+  - Exposed new method `setAnonID` to set Meta anonymous ID
+  - Exposed new method `setODMInfo` to set ODM info
+  - Exposed new method `setSDKWaitTimeForThirdPartyAPIs` to setSDKWaitTimeforThirdPartyAPIs
 
 2025-07-22 Version 6.8.0
   - Update iOS SDK to 3.12.2
