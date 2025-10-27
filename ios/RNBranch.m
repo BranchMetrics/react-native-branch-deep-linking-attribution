@@ -769,4 +769,30 @@ RCT_EXPORT_METHOD(validateSDKIntegration) {
     [[Branch getInstance] validateSDKIntegration];
 }
 
+#pragma mark setSDKWaitTimeForThirdPartyAPIs
+RCT_EXPORT_METHOD(setSDKWaitTimeForThirdPartyAPIs:(double)waitTime) {
+    [Branch setSDKWaitTimeForThirdPartyAPIs: waitTime];
+}
+
+#pragma mark setAnonID
+RCT_EXPORT_METHOD(setAnonID:(NSString *)anonID) {
+    [Branch setAnonID: anonID];
+}
+
+#pragma mark setODMInfo
+RCT_EXPORT_METHOD(setODMInfo:(NSString *)odmInfo 
+                  andFirstOpenTimestamp:(NSNumber * __nonnull)firstOpenTimestamp) {
+
+    NSDate *firstOpenDate = nil;
+
+    // CRASH GUARD: This is mandatory. We only convert the timestamp if the NSNumber object is valid.
+    if (firstOpenTimestamp) {
+        // NSTimeInterval is a double in seconds, so we divide the incoming milliseconds by 1000.0
+        NSTimeInterval timeInSeconds = [firstOpenTimestamp doubleValue] / 1000.0;
+        firstOpenDate = [NSDate dateWithTimeIntervalSince1970:timeInSeconds];
+    }
+    
+    [Branch setODMInfo:odmInfo andFirstOpenTimestamp:firstOpenDate];
+}
+
 @end

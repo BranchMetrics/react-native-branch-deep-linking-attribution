@@ -181,7 +181,43 @@ class Branch {
   
   validateSDKIntegration = () => {
     RNBranch.validateSDKIntegration();
-  };  
+  }; 
+
+  setSDKWaitTimeForThirdPartyAPIs = (waitTime) => {
+    if (Platform.OS != 'ios') {
+      console.warn('[Branch] setSDKWaitTimeForThirdPartyAPIs is iOS-only');
+      return;
+    }
+    if (typeof waitTime !== 'number' || !Number.isFinite(waitTime)) {
+      throw new TypeError('setSDKWaitTimeForThirdPartyAPIs: waitTime must be a number.');
+    }
+    return RNBranch.setSDKWaitTimeForThirdPartyAPIs(waitTime);
+  };
+
+  setAnonID = (anonID) => {
+    if (Platform.OS != 'ios') {
+      console.warn('[Branch] setAnonID is iOS-only');
+      return;
+    }
+    if (typeof anonID !== 'string') {
+      throw new TypeError('setAnonID: anonID value must be a string.');
+    }
+    return RNBranch.setAnonID(anonID);
+  };
+
+  setODMInfo = (odmInfo, firstOpenTimestamp) => {
+    if (Platform.OS != 'ios') {
+      console.warn('[Branch] setODMInfo is iOS-only');
+      return;
+    }
+    if (typeof odmInfo !== 'string') {
+      throw new TypeError('setODMInfo: odmInfo value must be a string.');
+    }
+    if (typeof firstOpenTimestamp !== 'number' || !Number.isFinite(firstOpenTimestamp)) {
+      throw new TypeError('setODMInfo: firstOpenTimestamp must be a number.');
+    }
+    return RNBranch.setODMInfo(odmInfo, firstOpenTimestamp);
+  };
 }
 
 const validateParam = (param, paramName) => {

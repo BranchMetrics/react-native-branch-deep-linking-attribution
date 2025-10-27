@@ -352,6 +352,9 @@ interface Branch {
   setDMAParamsForEEA: (eeaRegion: boolean, adPersonalizationConsent: boolean, adUserDataUsageConsent: boolean) => void;
   setConsumerProtectionAttributionLevel: (level: BranchAttributionLevel) => void;
   validateSDKIntegration: () => void;
+  setSDKWaitTimeForThirdPartyAPIs: (waitTime: number) => void;
+  setAnonID: (anonID: string) => void;
+  setODMInfo: (odmInfo: string, firstOpenTimestamp: number) => void;
 }
 declare const branch: Branch;
 export default branch;

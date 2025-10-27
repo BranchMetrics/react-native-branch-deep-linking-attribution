@@ -1,6 +1,6 @@
 PODS:
   - boost (1.76.0)
-  - BranchSDK (3.9.0)
+  - BranchSDK (3.12.2)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.72.9)
@@ -376,8 +376,8 @@ PODS:
   - React-jsinspector (0.72.9)
   - React-logger (0.72.9):
     - glog
-  - react-native-branch (6.5.0-alpha.3):
-    - BranchSDK (= 3.9.0)
+  - react-native-branch (6.9.0-alpha.0):
+    - BranchSDK (= 3.12.2)
     - React-Core
   - React-NativeModulesApple (0.72.9):
     - hermes-engine
@@ -662,7 +662,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: 7dcd2de282d72e344012f7d6564d024930a6a440
-  BranchSDK: caa0aad74d39bcd08573661d13ae0821feecdada
+  BranchSDK: db2c2ffa5b85ad3e202f73393ca794878afd3c52
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: dc178b8748748c036ef9493a5d59d6d1f91a36ce
@@ -695,7 +695,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 5a169b1dd1abad06bed40ab7e1aca883c657d865
   React-jsinspector: 54205b269da20c51417e0fc02c4cde9f29a4bf1a
   React-logger: f42d2f2bc4cbb5d19d7c0ce84b8741b1e54e88c8
-  react-native-branch: fa9884e4e783d2e65ae951aa6d756da2dc5060b9
+  react-native-branch: 5ad83cec5616ca5e3b835b1b342f296daa860c46
   React-NativeModulesApple: 9f72feb8a04020b32417f768a7e1e40eec91fef4
   React-perflogger: cb433f318c6667060fc1f62e26eb58d6eb30a627
   React-RCTActionSheet: 0af3f8ac067e8a1dde902810b7ad169d0a0ec31e
@@ -719,4 +719,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c898504490632400eb01d1b1cd6fd39bceabca1f
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.11.3
