@@ -184,6 +184,10 @@ class Branch {
   }; 
 
   setSDKWaitTimeForThirdPartyAPIs = (waitTime) => {
+    if (Platform.OS != 'ios') {
+      console.warn('[Branch] setSDKWaitTimeForThirdPartyAPIs is iOS-only');
+      return;
+    }
     if (typeof waitTime !== 'number' || !Number.isFinite(waitTime)) {
       throw new TypeError('setSDKWaitTimeForThirdPartyAPIs: waitTime must be a number.');
     }
@@ -191,6 +195,10 @@ class Branch {
   };
 
   setAnonID = (anonID) => {
+    if (Platform.OS != 'ios') {
+      console.warn('[Branch] setAnonID is iOS-only');
+      return;
+    }
     if (typeof anonID !== 'string') {
       throw new TypeError('setAnonID: anonID value must be a string.');
     }
@@ -198,6 +206,10 @@ class Branch {
   };
 
   setODMInfo = (odmInfo, firstOpenTimestamp) => {
+    if (Platform.OS != 'ios') {
+      console.warn('[Branch] setODMInfo is iOS-only');
+      return;
+    }
     if (typeof odmInfo !== 'string') {
       throw new TypeError('setODMInfo: odmInfo value must be a string.');
     }
