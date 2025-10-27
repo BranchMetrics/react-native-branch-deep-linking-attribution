@@ -376,7 +376,7 @@ PODS:
   - React-jsinspector (0.72.9)
   - React-logger (0.72.9):
     - glog
-  - react-native-branch (6.9.0-alpha.0):
+  - react-native-branch (6.9.0):
     - BranchSDK (= 3.12.2)
     - React-Core
   - React-NativeModulesApple (0.72.9):
