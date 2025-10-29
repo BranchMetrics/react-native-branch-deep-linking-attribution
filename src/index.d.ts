@@ -270,14 +270,14 @@ export interface BranchLinkProperties {
   tags?: string[];
 }
 
-export interface BranchLinkControlParams {
+export type BranchLinkControlParams = {
   $fallback_url?: string;
   $desktop_url?: string;
   $ios_url?: string;
   $ipad_url?: string;
   $android_url?: string;
   $samsung_url?: string;
-}
+} & Record<string, string>;
 
 interface BranchShareSuccess {
   completed: true;
