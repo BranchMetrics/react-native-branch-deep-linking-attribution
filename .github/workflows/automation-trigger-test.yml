@@ -15,12 +15,12 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout SDK repo with testbed app
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: sdk
       # point to automation master branch by default
       - name: Checkout qa automation
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: qa
           repository: BranchMetrics/qentelli-saas-sdk-testing-automation
