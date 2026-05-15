@@ -1,3 +1,7 @@
+2026-5-15 Version 6.10.0
+  - Update iOS SDK to 3.14.0
+  - Update Android SDK to 5.21.1
+  
 2025-10-20 Version 6.9.0
   - Update iOS SDK to 3.13.3
   - Exposed new method `setAnonID` to set Meta anonymous ID
