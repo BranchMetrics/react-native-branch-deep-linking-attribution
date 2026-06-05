@@ -375,8 +375,8 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
     }
 
     @Override
-    public void onCatalystInstanceDestroy() {
-        Log.d(REACT_CLASS,"onCatalystInstanceDestroy ");
+    public void invalidate() {
+        Log.d(REACT_CLASS,"React instance invalidate()");
 
         LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionFinishedEventReceiver);
         LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(mInitSessionStartedEventReceiver);
@@ -1086,9 +1086,9 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 try {
-                    Log.d(REACT_CLASS, "Catalyst instance poller try " + Integer.toString(tries));
-                    if (mContext.hasActiveCatalystInstance()) {
-                        Log.d(REACT_CLASS, "Catalyst instance active");
+                    Log.d(REACT_CLASS, "React instance poller try " + Integer.toString(tries));
+                    if (mContext.hasActiveReactInstance()) {
+                        Log.d(REACT_CLASS, "Has React instance");
                         mContext
                                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                                 .emit(mEventName, mParams);
@@ -1097,12 +1097,12 @@ public class RNBranchModule extends ReactContextBaseJavaModule {
                         if (tries <= maxTries) {
                             mMainHandler.postDelayed(this, pollDelayInMs);
                         } else {
-                            Log.e(REACT_CLASS, "Could not get Catalyst instance");
+                            Log.e(REACT_CLASS, "Could not get React instance");
                         }
                     }
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
+                    Log.e(REACT_CLASS, "Failed to emit event: " + e.getMessage());
                 }
             }
         }.init(context, mainHandler, eventName, params);
