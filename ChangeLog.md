@@ -1,3 +1,6 @@
+2026-8-21 Version 7.0.0
+  - Add support for React Native New Architecture (>=0.73.0) via the Interop Layer.
+
 2026-5-15 Version 6.10.0
   - Update iOS SDK to 3.14.0
   - Update Android SDK to 5.21.1
